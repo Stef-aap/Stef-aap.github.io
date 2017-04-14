@@ -1,0 +1,269 @@
+<HTML><HEAD><TITLE>export</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MID-TestOrganizer</P>
+<P><A class=RVTS4 href="../midorg.html">Startpagina</A></P>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P class=RVPS2><A class=RVTS4 href="#omschrijving">Omschrijving</A></P>
+<P class=RVPS2><A class=RVTS4 href="#bijzonderheden">Bijzonderheden</A></P>
+<P class=RVPS2><A class=RVTS4 href="#instelform">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Export</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="export manieren"></A>
+Export Manieren&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>De export van data kan op een aantal verschillende manieren worden gestart:&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Tijdens het bekijken met de knop EXPORT, export van het gehele tijdsvenster, eventueel conditioneel&nbsp;</LI>
+<LI>Tijdens het bekijken met de MEETCURSOR (export van alle data in het tijdsvenster van de meetcursor, zeer snel dus). Bovendien kan bij deze manier, in het geval van BeatFast format, automatisch BeatFast en PrintRes worden gestart.&nbsp;</LI>
+<LI>In de TestOrganizer database-schil via een POLYEXPORT protocol (meerdere databestanden in 1 keer)&nbsp;</LI>
+</UL>
+<P>&nbsp;</P>
+<P><A name="export formats"></A>
+Export Formats&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="export via de meetcursor"></A>
+Export via de meetcursor&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze manier is vooral bedoeld om tijdens het bekijken van een gemaakte opnam, snel kleine stukken uit een opname te exporteren naar een ander programma (via bestand of clipboard).&nbsp;</P>
+<P>Daarom is er zelfs een mogelijkheid ingebouwd om deze kleine stukken te exporteren, zonder expliciet de export instellingen te behoeven in te stellen. Door namelijk in de TestOrganizer een configuratie (of analyse) bestand op te geven, met daarin de juiste export settings, worden alle exports via de meetcursor uitgevoerd volgens het opgegeven configuratie bestand, ongeacht de export settings in het betreffende patient bestand. Uiteraard gaat dit alleen goed als er identieke opnamen worden bekeken.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="export naar beatfast"></A>
+Export naar BeatFast&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>BeatFast is een programma voor het berekenen van hemodynamische parameters uit een continue bloeddruk signaal. Zowel de DOS versie van beatfast alsook de windows-versie Beatscope worden ondersteund.&nbsp;</P>
+<P>Als voor het export formaat BeatFast wordt geselecteerd, wordt niet alleen een speciaal binair output formaat gegenereerd met 100 Hz sampling, maar wordt ook de mogelijkheid geboden direct BeatFast, eventueel gevolgd door PrintRes, te starten en de resultaten direct te bekijken in een memo of zelfs Excel..&nbsp;</P>
+<P>Voor een nauwkeurige werking van het programma BeatFast is het nodig geslacht, gewicht en lengte van de patient te kennen. Als deze gegevens netjes in de TestOrganizer zijn ingevoerd, worden ze ook overgeheveld naar BeatFast (waarbij bovendien de sexe wordt vertaald van Nederlands naar Engels).&nbsp;</P>
+<P>Hieronder is het speciale export instelvenster voor BeatFast afgebeeld.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=417 height=462 src="export_beatfast.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>BeatFast Directory</P>
+<P>Uiteraard moet Midac weten waar het programma BeatFast zich bevindt, vandaar dat de directory moet worden opgegeven. Tevens zullen de uitvoer bestanden in deze directory worden geplaatst, omdat BeatFast geen lange paden accepteert.&nbsp;</P>
+<P>Ook de windows versie is in feite een user-wrapper rondom een dos-programma en dus korte bestandsnamen !!&nbsp;</P>
+<P>Vaste Filenames</P>
+<P>Door vaste bestandsnamen te gebruiken, wordt voorkomen dat de beatfast directory volloopt met allerlei tussen bestanden, nadeel is dat deze tussenbestanden niet meer beschikbaar zijn.&nbsp;</P>
+<P>Als geen vaste bestandsnamen worden gebruikt, wordt de naamgeving van de bestanden op de bekende Midac manier uitgevoerd (naam=patientnummer,&nbsp; extensie=letter+volgnummer), hetgeen resulteert dit in de volgende bestanden&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; *.B*&nbsp;&nbsp;&nbsp; export file van Midac in BeatFast formaat&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; *.F*&nbsp;&nbsp;&nbsp; het output bestand van BeatFast&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; *.XLX&nbsp;&nbsp;&nbsp; het output bestand van PrintRes&nbsp;</P>
+<P>&nbsp;Als vaste bestandsnamen worden gebruikt, resulteert dit in de volgende bestanden&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; MIDAC_BF.DAT&nbsp;&nbsp;&nbsp; export file van Midac in BeatFast formaat&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; BEATOUTP.DAT&nbsp;&nbsp;&nbsp; het output bestand van BeatFast&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; PRINTRES.DAT&nbsp;&nbsp;&nbsp; het output bestand van PrintRes&nbsp;</P>
+<P>Als de Midac bestandsnamen niet voldoen aan de oude Dos voorwaarden (naam.extensie = 8.3), worden eveneens de vaste bestandsnamen toegepast.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Beatfast Aankruisvakje bepaalt of na het genereren van de exportfile, het programma BeatFast automatisch moet worden gestart.&nbsp;</P>
+<P>Sexe, lengte en gewicht worden (mits ingevuld) automatisch doorgegegeven.&nbsp;</P>
+<P>BeatFast wordt opdracht gegeven de berekening volgens de modelflow methode te doen.&nbsp;</P>
+<P>Afhankelijk of na het runnen van BeatFast gewacht moet worden, wordt voor de snelheid high of very opgegeven.&nbsp;</P>
+<P>Afhankelijk van het aankruisvak "Vaste Filenames" worden de juiste bestandsnamen opgegeven.&nbsp;</P>
+<P>Dit resulteert uiteindelijk in de volgende opdrachtregel (in dit geval vrouw, 47 jaar, lengte 158 cm, gewicht 58 kg, niet wachten)&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; beatfast.exe f47 h186 w58 mf100 very &lt;inputfile&gt; ch1 fin1 mrk0 &lt;outputfile&gt; Wait Aankruisvakje Als aangekruist, dan wordt BeatFast in de high-speedmode gerunt, zodat de gegevens in BeatFast kunnen worden bekeken. LET OP, als BeatFast alle data heeft ingelezen, wordt BeatFast na enkele seconden automatisch afgebroken, tenzij men op een toets (bijv. pijl naar links) drukt. Dit is een eigenschap van BeatFast en kan niet door Midac ondervangen worden.&nbsp;</P>
+<P>Als dit vakje niet aangekruist is, wordt BeatFast in de veryhigh-speed gerund (er worden geen signalen getoond).&nbsp;</P>
+<P>&nbsp;</P>
+<P>Printres Aankruisvakje bepaalt of na het runnen van Beatfast ook nog PrintRes moet worden gerund. (Het vakje heeft geen betekenis als er geen Beatfast is gerund).&nbsp;</P>
+<P>Ook heir worden sexe, lengte en gewicht doorgegeven, hetgeen resulteert in de volgende opdrachtregel:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; printres.exe f47 h186 w58 [&lt;inputfile&gt; beat ab1 tsr ]&lt;outputfile&gt; Wait Aankruisvakje Als dit vakje is aangekruist (hetgeen uiteraard alleen betekenis heeft als ook Printres is aangekruist), dan wordt de data uit Printres getoond in een venster van Midac.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Midac transporteert een beatfast bestand altijd naar de beatfast directory,&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; &lt;beatfast-directory&gt;\...&nbsp;</P>
+<P>als de filenaam niet aan de oude dos-voorwaarde voldoet, wordt de volgende standaard filename gebruikt:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; &lt;beatfast-directory&gt;\midac_bf.dat&nbsp;</P>
+<P>Beatfast exporteert zijn resultaat altijd naar het volgende bestand&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; &lt;beatfast-directory&gt;\beatoutp.dat&nbsp;</P>
+<P>BeatFast directory, de directory waar het programma BeatFast staat.&nbsp;</P>
+<P>Alle exportbestanden worden ook naar deze directory geschreven&nbsp;</P>
+<P>(vereist door BeatFast).&nbsp;</P>
+<P>Vast Filenames, als aangevinkt, worden vaste bestandsnamen gebruikt,&nbsp;</P>
+<P>dit voorkomt het overlopen van de directory.&nbsp;</P>
+<P>Als niet aangevinkt, dan de bekende bestandsnamen,&nbsp; met de extensies&nbsp;</P>
+<P>zoals hieronderd aangegeven tussen haakjes&nbsp;</P>
+<P>&nbsp;&nbsp; midac_bf.dat&nbsp;&nbsp;&nbsp; [*.b*]&nbsp;&nbsp; ;output van midac&nbsp;</P>
+<P>&nbsp;&nbsp; beatoutp.dat&nbsp;&nbsp;&nbsp; [*.f*]&nbsp;&nbsp;&nbsp;&nbsp; ;output van beatfast&nbsp;</P>
+<P>&nbsp;&nbsp; printres.dat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [*.p*]&nbsp;&nbsp;&nbsp; ;output van printres&nbsp;</P>
+<P>Met behulp van het script kan worden aangegeven welke bewerkingen&nbsp;</P>
+<P>op het signaal moeten worden uitgevoerd.&nbsp;</P>
+<P>Wait na beatfast vereist nog wel een toetsaktie als beatfast klaar is,&nbsp;</P>
+<P>anders stopt hij vanzelf.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>========&nbsp;</P>
+<P>Data Exporteren&nbsp;</P>
+<P>1. Inleiding&nbsp;</P>
+<P>2. Maken van een export protocol&nbsp;</P>
+<P>3. Export Instellingen&nbsp;</P>
+<P>4. Numerieke export van een individuele opname&nbsp;</P>
+<P>5. Numerieke export van een gehele groep patiënten&nbsp;</P>
+<P>6. Numerieke gegevens naar een patiëntverslag&nbsp;</P>
+<P>7. Grafische plaatjes exporteren&nbsp;</P>
+<P>8. Protocol-instellingen en rekenformules exporteren&nbsp;</P>
+<P>9. MIDAC interne bestandsopbouw&nbsp;</P>
+<P>10. Voorbeelden&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>1. Inleiding&nbsp;</P>
+<P>De volgende informatie kan worden geëxporteerd naar printer, klembord of bestand.&nbsp;</P>
+<P>? Grafische Plaatjes&nbsp;</P>
+<P>? Numerieke Data&nbsp;</P>
+<P>? Systeem Instellingen&nbsp;</P>
+<P>Zowel de opgenomen signalen alsook berekende signalen/waarden kunnen worden geëxporteerd.&nbsp;</P>
+<P>Data kan per individuele opname alsook per patiënten-groep worden geëxporteerd.&nbsp;</P>
+<P>Het export bestand kan een ASCII-bestand danwel een binair bestand zijn.&nbsp;</P>
+<P>Het ASCII-bestand is een tab-delimited bestand. Deze bestandsvorm kan door alle moderne programma’s worden gelezen. In het ASCII bestand kunnen de kolommen automatisch voorzien worden van een titel. Er kunnen extra kolommen worden toegevoegd, regelnummer, sample-nummer, tijd in msec. Bij een export van een patientengroep naar een gezamenlijk bestand worden automatisch kolommen met bestandsnaam, bestandsextensie en bestandsdatum toegevoegd.&nbsp;</P>
+<P>Het binaire bestand is de meest eenvoudige vorm, zonder header, onder andere geschikte voor directe invoer in FAST BEAT.&nbsp;</P>
+<P>Bij kanalen met gereduceerde samplefrekwenties, worden de ontbrekende waarden opgevuld met herhalingen van het laatste samplepunt.&nbsp;</P>
+<P>Indien regelmatig ruwe data wordt bewerkt met andere programma’s, is het aan te bevelen een invoerprogramma te maken dat direkt de binaire bestanden van MIDAC kan lezen. Hierdoor wordt tijd en diskruimte gespaard.&nbsp;</P>
+<P>Belangrijk om te weten; ook de instellingen van de exportgegevens worden bewaard in het configuratie bestand. Sommige export funkties werken vanuit het hoofdprogramma, de MID-TestOrganizer.&nbsp;</P>
+<P>2. Maken van een export protocol&nbsp;</P>
+<P>Een export-protocol is in principe niet verschillend van een opname-protocol. De export settings worden namelijk in het zelfde protocol-bestand opgeslagen als de schermopbouw e.d.. In het algemeen zal men bij het maken van een opname-protocol echter nog niet de exportparameters expliciet hebben gedefiniëerd. Bovendien zijn er vaak redenen om een export-protocol te laten afwijken van een opname-protocol, bijvoorbeeld omdat men slechts een beperkt tijdsdeel van de opname wil exporteren of omdat men extra rekenfunkties wil laten uitvoeren.&nbsp;</P>
+<P>? maak eerst een opname-protocol&nbsp;</P>
+<P>? maak een reële opname met dit opname-protocol&nbsp;</P>
+<P>? bekijk de opname, kontroleer met name de calibratie van de signalen&nbsp;</P>
+<P>? als het opname-protocol gecorrigeerd is, kopiëer het dan terug naar het protocol model&nbsp;</P>
+<P>&nbsp; b.v.&nbsp;&nbsp; copy&nbsp;&nbsp;&nbsp; …\mid-data\polygraf\plethys\0001.c1&nbsp;&nbsp;&nbsp;&nbsp; ….\protocol\polygraf\plethys.ini&nbsp;</P>
+<P>? bekijk nu de opname opnieuw, en maak het nu gereed voor export&nbsp;</P>
+<P>&nbsp; wijzig zonodig de schermopbouw&nbsp;</P>
+<P>&nbsp; wijzig zonodig de rekenkanalen&nbsp;</P>
+<P>&nbsp; leg de export gegevens expliciet vast&nbsp;</P>
+<P>? start export en kontroleer de resultaten (zonodig met handmetingen)&nbsp;</P>
+<P>? kopiëer het protocol nu naar het protocol model&nbsp;</P>
+<P>&nbsp; b.v.&nbsp;&nbsp; copy&nbsp;&nbsp;&nbsp; …\mid-data\polygraf\plethys\0001.c1&nbsp;&nbsp;&nbsp;&nbsp; ….\protocol\polyscan\plethys.ana&nbsp;</P>
+<P>Er zijn diverse manieren om een export-protocol te maken. Beginnende gebruikers kunnen het volgende kookboek gebruiken.&nbsp;</P>
+<P>Een eenmaal gemaakt export protocol kan nu eenvoudig bij iedere opname worden gebruikt (zie paragraaf Numerieke Export van individuele opnamen).&nbsp;</P>
+<P>In de volgende paragraaf wordt het instelscherm behandeld waarin de exportgegevens worden ingesteld.&nbsp;</P>
+<P>&nbsp;3. Export Instellingen&nbsp;</P>
+<P>4. Numerieke export van een individuele opname&nbsp;</P>
+<P>Individuele opnamen kunnen als ASCII of binair bestand worden geëxporteerd.&nbsp;</P>
+<P>Met behulp van de normale rekenfunkties kunnen delen van de informatie numeriek worden geëxporteerd (zie voorbeelden). De geëxporteerde data kan worden gecomprimeerd door resampling of mean-berekening.&nbsp;</P>
+<P>Er van uitgaand dat er een export protocol beschikbaar is, kan de volgende werkwijze worden gehanteerd:&nbsp;</P>
+<P>? MID-TestOrganizer, selekteer gemaakte opname om te bekijken&nbsp;</P>
+<P>? MIDAC, druk op de config-knop om het export-protocol te selecteren&nbsp;</P>
+<P>? Zet nu de exportinstellingen goed&nbsp;</P>
+<P>? Start de export&nbsp;</P>
+<P>5. Numerieke export van een gehele patientengroep&nbsp;</P>
+<P>Een gehele groep opnamen kan in één keer worden geëxporteerd. Hierbij kan men naar keuze, van iedere opname een afzonderlijk export bestand laten maken, danwel één totaal export-bestand waarin alle geselecteerde opnamen tezamen zijn opgenomen.&nbsp;</P>
+<P>In dit laatste geval, worden de data van alle patienten naar één bestand geschreven, één regel per patient. Aan deze regel worden automatisch bestandsnaam, bestandsextensie en bestandsdatum toegevoegd. Deze methode leent zich uitstekend als voorbereiding op statistisch onderzoek, waarbij de geëxporteerde data slechts uit enkele parameters bestaat. In plaats van de individuele configuratie bestanden behorend bij ieder individueel databestand, wordt hier voor alle patiënten een expliciet op te geven configuratie bestand uit POLYSCAN gebruikt. Dit garandeert dat alle patiënten op dezelfde wijze worden verwerkt. Bedenk wel dat het exporteren van een bestand van 100Hz / 10 min al gauw enkele minuten kan vergen (afhankelijk van de hoeveelheid rekenwerk).&nbsp;</P>
+<P>Ook als men een alternatief rekenalgoritme op een grotere groep opnamen wil testen, is dit de manier om de computer aan het werk te zetten. De analyse van de Autonome Neuropathie Test en Perifere Flow vormen een goed voorbeeld.&nbsp;</P>
+<P>? MID-TestOrganizer, selecteer een protocol uit de PolyExport module&nbsp;</P>
+<P>? MID-TestOrganizer, druk op knop Export&nbsp;</P>
+<P>? geef een masker voor de gewenste opname bestandsnamen&nbsp;</P>
+<P>? Geef aan of individueel uitvoerbestand of gezamenlijk uitvoerbestand&nbsp;</P>
+<P>? In het laatste geval wordt de gewenste export bestandsnaam opgevraagd&nbsp;</P>
+<P>? Start de export&nbsp;</P>
+<P>6. Numerieke gegevens naar een patiënten-verslag&nbsp;</P>
+<P>In een patiëntverslag kunnen resultaten van allerlei testen worden opgenomen, zo ook de resultaten van een polygrafie resultaat.&nbsp;</P>
+<P>Dit wordt nog verder uitgewerkt.&nbsp;</P>
+<P>? MID-TestOrganizer, selecteer gewenste patient&nbsp;</P>
+<P>? MID-TestOrganizer, druk op knop Export&nbsp;</P>
+<P>? nog verder uit te werken&nbsp;</P>
+<P>7. Grafische plaatjes exporteren&nbsp;</P>
+<P>Grafische plaatjes kunnen enkel per individuele opname worden uitgevoerd. De uitvoer kan naar de printer of het klembord geschieden. Ruwweg zijn er de volgende mogelijkheden:&nbsp;</P>
+<P>? export van het actuele scherm (inclusief meetcursor en bijbehorende meetresultaten)&nbsp;</P>
+<P>? export van 1 of meerdere actuele vensters&nbsp;</P>
+<P>? export van 1 of meer vensters over de gehele opname (alleen naar printer)&nbsp;</P>
+<P>Het Exporteren van grafische plaatjes gaat op de volgende manier:&nbsp;</P>
+<P>? MID-TestOrganizer, kies gewenste opname&nbsp;</P>
+<P>? MID-TestOrganizer, druk op knop Bekijken&nbsp;</P>
+<P>? MIDAC, kies zonodig een meer geschikter configuratie bestand (Config Knop)&nbsp;</P>
+<P>? MIDAC, Export knop&nbsp;</P>
+<P>? MIDAC, Grafisch&nbsp;</P>
+<P>? MIDAC, Instellen tijdsvenster&nbsp;</P>
+<P>? MIDAC, Instellen te exporteren vensters&nbsp;</P>
+<P>? MIDAC,Instellen bestemming&nbsp;</P>
+<P>8. Protocol-instellingen en rekenformules exporteren&nbsp;</P>
+<P>Alle protocol instellingen zijn opgeborgen in een normaal Windows ini-bestand. Dit bestand is dus een normaal ASCII bestand dat kan worden afgedrukt. Wijzig dit bestand niet, daar dan de goede werking van het programma niet meer kan worden gegarandeerd.&nbsp;</P>
+<P>Een compleet overzicht van alle gebruikte rekenformules en de daarbij ingestelde signalen en parameters kan op de volgende manier worden verkregen&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>? MIDAC, knop signalen&nbsp;</LI>
+<LI>? selecteer tabblad rekenkanalen&nbsp;</LI>
+<LI>? druk op print of klembord&nbsp;</LI>
+</UL>
+<P>9. MIDAC interne bestandsopbouw&nbsp;</P>
+<P>Nog uit te werken.&nbsp;</P>
+<P>10. Voorbeelden&nbsp;</P>
+<P>Onderstaand voorbeeld is een analyse rapport van een autonome neuropathie test.&nbsp;</P>
+<P>&nbsp;<IMG width=426 height=261 src="export_tabel.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>3. Export Instellingen&nbsp;</P>
+<P>Signalen aan/uit zetten:&nbsp;</P>
+<P>&nbsp;dubbelklik op het signaal&nbsp;</P>
+<P>Signaal Volgorde wijzigen&nbsp;</P>
+<P>&nbsp;selecteer signaal, verplaats met op/neer toetsen&nbsp;</P>
+<P>Signaal deeltal wijzigen&nbsp;</P>
+<P>&nbsp;selekteer signaal, klik op gewenst deeltal&nbsp;</P>
+<P>Voorwaarde&nbsp;</P>
+<P>Met behulp van de voorwaarde kan het aantal uitvoerregels worden gereduceerd.&nbsp;</P>
+<P>Wil men alle samples uitvoeren, dan dient de volgende instelling gebruikt te worden&nbsp;</P>
+<P>&nbsp;&lt;willekeurig AD-signaal&gt;&nbsp; &gt;=&nbsp; 0&nbsp;</P>
+<P>Bij testen van de voorwaarde wordt het opgegeven signaal (AD-kanaal of rekenkanaal) op basis van de interne waarde vergeleken. Wil men in Volt vergelijken, dan kan een voorgeprogrammeerde waarde uit de combobox worden geselekteerd.&nbsp;</P>
+<P>&nbsp;<IMG width=518 height=290 src="export_instellingen.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Met</P>
+<P><A name="omschrijving"></A>
+Omschrijving<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze functie blablabla....</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="bijzonderheden"></A>
+Bijzonderheden<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze functie blablabla....</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="instelform"></A>
+Instellingenvenster<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze functie blablabla....</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<A name="startpunten"></A>
+Data-Acquisitie<IMG width=12 height=12 src="redarrow.gif"><A class=RVTS4 href="midac2.html">Flexibele display</A>&nbsp;opbouw<IMG width=12 height=12 src="redarrow.gif">Intelligente SampleReductie</P>
+<P>&nbsp;<IMG width=12 height=12 src="redarrow.gif">Protocol gestuurde opnam</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst</P>
+<P>SM/GvV, 20-3-1998</P>
+</BODY></HTML>

@@ -1,0 +1,410 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Rapport Scripttaal</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="255" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>september, 2005</span></p>
+<p><span class=rvts1>Rapport, Scripttaal</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts2>Inleiding Script-taal</span></p>
+<p>In onderstaande beschrijvinging worden de volgende notaties gebruikt:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>driehoekige haken "&lt;omschrijving&gt;", de gehele tekst, inclusief driehoekige haken, moet worden vervangen door een geldige naam </li>
+<li>rechthoekige haken "[,&lt;testnr&gt;]", de gehele tekst, inclusief rechthoekige haken, mag worden weggelaten. In welk geval er een logische default waarde zal worden ingevuld. </li>
+<li>een ";" inclusief alle tekst er na, is commentaar (dit mag ook in het daadwerkelijke script worden toegepast!) </li>
+</ul>
+<p>Commandos zijn tekstregels, opgemaakt in tekststijl 12 ("uni"). Alle commandos zijn case-ongevoelig, d.w.z. dat het niet uitmaakt of er hoofdletters danwel kleine letters worden gebruikt.</p>
+<p>Voorlopig moet ieder commando op 1 unieke regel staan.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Titel</span></p>
+<p>Ieder rapport document heeft een titel, die niet alleen boven iedere pagina (uitgezonderd de eerste pagina)&nbsp; staat, maar die ook in de moderne web-browsers zichtbaar is (dit ter voorbereiding op web-based EPD). De titel bestaat uit het patiënt-nummer gevolgd door de titel van het rapport-protocol. In PuntHoofd kan de titel worden gewijzigd door er op te klikken.</p>
+<p>Op de printer, staat linksonder aan de pagina ook nog eens het patientnummer vermeld. Rechtsonder een geprinte pagina staat "page x of y". Helaas is deze tekst in het Engels en lastig te veranderen, omdat het ingebakken zit in een aangekochte component.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Variabelen</span></p>
+<p>In het rapport kunnen variabelen worden gedefinieerd, zodat de betreffende grootheden op een verkorte wijze beschikbaar zijn en dus op eenvoudigere wijze en/of meerdere malen gebruikt kunnen worden.</p>
+<p>In het algemeen geldt dat de naam van een variabele case-insensitive is, d.w.z. er wordt door de script generator geen onderscheid gemaakt tussen hoofdletters en kleine letters. Een naam moet altijd beginnen met een letter, en mag daarna ook cijfers bevatten. Gebruik nooit speciale tekens in de naam van een variabele.</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Numerieke Variabelen</span></p>
+<p>De definitie van een numerieke variabele begint altijd met een hekje "#".</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; #Variabele_test&nbsp; = 10</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; #Andere_Variabele = 2 * log10 ( Variabele_Test)&nbsp; + 11</span></p>
+<p>&nbsp; </p>
+<p><span class=rvts3>String Variabelen</span></p>
+<p>De definitie van een string variabele begint altijd met een hekje "$".</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; $Variabele_string1&nbsp; = met vriendelijke groet,</span></p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Test Verwijzingen</span></p>
+<p>In feite zijn dit stringvariabelen (en beginnen dus ook met een "$"), om op verkorte wijze naar een test te verwijzen. De naam van deze bijzondere variabele moet worden opgebouwd uit de letter "T" gevolgd door een uniek nummer kleiner dan 50.</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; $T1 = v,SIP,1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;de eerst afgenomen SIP test</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; $T2 = v,SIP,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;de laatst afgenomen SIP test</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; $T3 = P,CRCN1,0&nbsp; ;de laatst afgenomen Polygrafie-opname, volgens protocol CRCN1</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; $T35 = Excel,C:\temp\test2.xls,overzichtdata,R7&nbsp; ;EXCEL import van C:\temp\test2.xls, werkblad "overzichtdata", rij=7</span></p>
+<p><br></p>
+<p>Deze verkorte notatie kan men vervolgens gebruiken om afzonderlijke elementen uit een test te duiden:</p>
+<p><span class=rvts11>&nbsp;&nbsp; #Antwoord_SIP_op_vraag1&nbsp; =&nbsp; T1, I~1</span></p>
+<p><br></p>
+<p>Waarna deze variabele in een formule, grafiek kan worden gebruikt, of simpelweg kan worden afgedrukt:</p>
+<p><span class=rvts11>&nbsp;&nbsp; Antwoord_SIP_op_vraag1</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Test Selectie</span></p>
+<p>Het aanwijzen van de gewenste test, bestaat altijd uit 3 elementen</p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp;&nbsp; &lt;testtype&gt; , &lt;testnaam&gt; [ , &lt;testnr&gt;]</span></p>
+<p>De parameters hebben de volgende betekenis</p>
+<p><span class=rvts3>&lt;testtype&gt;&nbsp; </span></p>
+<p class=rvps1>Het type test, hier mag altijd de volledige naam en vaak ook de afkorting worden gebruikt van het type test (V of Vragenlijst, SODA (afkorting niet toegestaan))</p>
+<p><span class=rvts3>&lt;testnaam&gt;&nbsp; </span></p>
+<p class=rvps1>De naam van de test, zoals SCL90, SODA_test</p>
+<p><span class=rvts3>&lt;testnr&gt;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p class=rvps1>Het volgnummer van de afgenomen test. Als de waarde groter is dan 0, wordt gerefereerd aan het absolute volgnummer, bv "3" is de derde afgenomen test van het opgegeven type en de opgegeven naam. Als de waarde 0 is, wordt de laatst afgenomen test met opgegeven type en naam gerefereerd. Bij een negatieve waarde, wordt achteruit geteld, dus&nbsp; 0=laatste, -1=een-na-laatste, etc. Als geen waarde wordt opgegeven, wordt de waarde 0 verondersteld en wordt dus de laatst afgenomen test gebruikt.</p>
+<p>Enkele voorbeelden:</p>
+<div><table width="100%" border=0 cellpadding=5 cellspacing=0>
+<tr valign=top>
+<td width=155 valign=top>
+<p><span class=rvts3>V,SCL90</span></p>
+<p><span class=rvts3>Vragenlijst,SCL90,0</span></p>
+<p><span class=rvts3>SODA,SODA_test</span></p>
+<p><span class=rvts3>SODA,SODA_test,-1</span></p>
+</td>
+<td width=488 valign=top>
+<p>;laatst afgenomen vragenlijst SCL90</p>
+<p>;laatst afgenomen vragenlijst SCL90</p>
+<p>;laatst afgenomen SODA test</p>
+<p>;een-na-laatst afgenomen SODA test</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>EXCEL Import</span></p>
+<p>De gegevens uit bestaande Excel tabellen, kunnen als normale variabelen binnen de rapport generator worden gebruikt. Het Excel bestand dient wel aan bepaalde voorwaarden te voldoen:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Er mogen geen macros binnen de Excel file aktief zijn (misschien is deze eis overbodig) </li>
+<li>Op het werkblad, waarvan gegevens worden gehaald, mogen geen formules staan, die fouten genereren (zoals delen door 0) </li>
+</ul>
+<p><br></p>
+<p>Er zijn 3 mogelijkheden serie gegevens van een werkblad te halen:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Een kolom, aanduiding "C&lt;nr&gt;" </li>
+<li>Een rij, aanduiding "R&lt;nr&gt;" </li>
+<li>Een rij, waarbij gezocht wordt naar een rij, waarvan de eerste kolom gelijk is aan het patient-nummer, aangeduid met "P" </li>
+</ul>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=518 height=311 alt="" src="testorganizer_report_script_taal_img2.png"></p>
+<p><br></p>
+<p><span class=rvts2>Selectie van een element uit een test</span></p>
+<p>Afzonderlijke elementen (antwoorden, subschalen, normscores) uit testen kunnen o.a. worden gebruikt voor het maken van grafieken.</p>
+<p>Het eerste dat gedaan moet worden is, een verwijzing naar een test maken, middels een korte verwijzing:</p>
+<p>&nbsp;&nbsp;&nbsp; <span class=rvts11>$T2 = v,SIP,1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;vanaf nu wordt "T2" geinterpreteerd als de eerst afgenomen SIP-test</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; $T3 = P,CRCN1,0&nbsp;&nbsp; ;de laatst afgenomen Polygrafie-opname, volgens protocol CRCN1</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; </span></p>
+<p>&nbsp; </p>
+<p>Vervolgens kan men over het antwoord op een vraag, de subschaal of de norm-score beschikken:</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; T2,I~2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;het antwoord op vraag2 (van de eerst afgenomen SIP test)</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; T2,S~MOE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;de score op de subschaal "MOE"</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; T2,N~SWLS~score_CSI&nbsp; ;de genormeerde score op "SWLS" binnen de normgroep "score-CSI"</span></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; T3,M84,1,20,I~9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;Polygrafie Marker van funktie 84, met als eerste kolommen 1,20, en vervolgens het 9=de element</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; T3,Plaatje&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;Het plaatje (indien aanwezig) van polygrafie opname T3</span></p>
+<p>&nbsp; </p>
+<p>Deze afzonderlijke elementen kunnen eerst worden toegekend aan tijdelijke variabelen en dan worden gebruikt in bijvoorbeeld een grafiek</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; #VAR_MOE_SIP = (T2,s~MOE-8)*100/48 </span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_Curve1&nbsp; Line_dot&nbsp; |&nbsp; Kleur1 |&nbsp;&nbsp;&nbsp; VAR_MOE_SIP |&nbsp; </span>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Of ze kunnen rechtstreeks worden gebruikt in bijvoorbeeld een grafiek</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_Curve1&nbsp; Line_dot&nbsp; |&nbsp; Kleur1 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (T2,s~MOE-8)*100/48&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; </span></p>
+<p><br></p>
+<p>Of gewoon worden afgdrukt</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; #aapje = T2,M84,1,20,I~9 +13</span></p>
+<p>&nbsp;&nbsp;&nbsp; <span class=rvts3>FFF</span><span class=rvts11>aapje&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;de variabele "aapje" afdrukken in de textstyle gegeven door "FFF"</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Commando Overzicht</span></p>
+<p>#VAR_temp = 77&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;definitie van een numerieke variabele</p>
+<p>$STRING_temp = met vriendelijke groeten&nbsp; ;definitie van een string variabele</p>
+<p>$T2 = V,SIP,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;definitie van een test</p>
+<p>Afgenomen_Testen</p>
+<p>Patient_Gegevens</p>
+<p>Nieuwe_Pagina</p>
+<p>Print&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;print de resultaten van een test op de klassieke wijze</p>
+<p>Print_Grafiek&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;dit commando heeft een aantal voorbereidende commandos nodig</p>
+<p>Print_Legenda_TestData&nbsp;&nbsp; ;print grafiek legenda, volgens test-afname-data</p>
+<p>Legenda&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;print de algemene legenda (betekenis van lijn/punt type) van grafieken</p>
+<p>Paper_Portrait&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;druk gehele rapport geforceerd af in portrait orientatie</p>
+<p>Paper_Landscape&nbsp; ;druk gehele rapport geforceerd af in landscape orientatie</p>
+<p>PrintGonioGrafiek</p>
+<p><span class=rvts11>Extra_TestGegevens = 1</span>&nbsp; ;0=geen afdruk van extra testgegevens, andere waarde is wel afdrukken</p>
+<p><span class=rvts11>Report_Errors&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp; ;als er fouten zijn opgetreden, blijft fouten lijstje staan en kan geprint worden</p>
+<p>&nbsp; </p>
+<p>De volgende commandos zijn alleen bedoeld voor testdoeleinden</p>
+<p>$Commandos, zie Test-commandos</p>
+<p>Debug_Print_Vars</p>
+<p>Debug_Print_Graph</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Funkties</span></p>
+<p>Er zijn een aantal voorgedefinieerde funkties beschikbaar, welke gebruikt kunnen worden op nagenoeg iedere plaats waar een getal of waarde moet worden ingevuld.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>RGB </li>
+</ul>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #Kleur1 = RGB(255&nbsp;&nbsp; 0&nbsp;&nbsp; 0)&nbsp;&nbsp;&nbsp; ;Definiëer kleur1 als fel rood</span></p>
+<p>Hiermee kan een kleur worden gedefiniëerd, door de waarden voor de afzonderlijke kleuren R=Rood, G=Groen en B=Blauw op te geven. De waarde voor iedere kleur moet liggen tussen de 0 en 255. In nagenoeg iedere willekeurige kleuren-dialoog (van ieder willekeurig programma), worden deze getallen weergegeven. Deze funktie is met name handig op de juiste kleur van grafieken te definiëren.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Commando AFGENOMEN_TESTEN</span></p>
+<p>Met dit commando wordt een overzicht van de afgenomen testen bij deze patient opgenomen in het rapport.</p>
+<p>De algemene vorm van het commando is</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class=rvts3>AFGENOMEN_TESTEN&nbsp;&nbsp; [,&lt;aantal&gt;]</span></p>
+<p>De parameter &lt;aantal&gt; mag worden weggelaten in welk geval alle afgenomen testen worden weergegeven.</p>
+<p><span class=rvts3>&lt;aantal&gt;</span></p>
+<p class=rvps1>geeft het maximaal aantal testen dat moet worden opgenomen in het overzicht. Uiteraard worden altijd de laatste &lt;aantal&gt; testen weergegeven.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Commando PATIENT_GEGEVENS</span></p>
+<p>Met dit commando worden de vaste patientgegevens opgenomen in het rapport. Deze gegevens worden vooralsnog in een vast formaat weergegeven. Wel kan worden aangegeven of een afdruk van de patient-foto gewenst is of niet.</p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens&nbsp;&nbsp;&nbsp; ;patientgegevens zonder foto en extra patientgegevens</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,0&nbsp; ;zonder extra testgegevens, zonder foto</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,1&nbsp; ;zonder extra testgegevens, met foto</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,2&nbsp; ;met extra testgegevens, zonder foto</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,3&nbsp; ;met extra testgegevens, met foto</span></p>
+<p><span class=rvts3>&nbsp; X X X X_X 2 1 0</span></p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | | |__ als 1 dan foto afdrukken</span></p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |____ als 1 dan extra patientparameters</span></p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |______ als 1 dan extra patient text</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,0&nbsp; ; -patientparameters, -foto, -extra patient tekst</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,1&nbsp; ; -patientparameters, +foto, -extra patient tekst</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,2&nbsp; ; +patientparameters, -foto, -extra patient tekst</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,3&nbsp; ; +patientparameters, +foto, -extra patient tekst</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,4&nbsp; ; -patientparameters, -foto, +extra patient tekst</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,5&nbsp; ; -patientparameters, +foto, +extra patient tekst</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,6&nbsp; ; +patientparameters, -foto, +extra patient tekst</span></p>
+<p><span class=rvts3>&nbsp; Patient_Gegevens,7&nbsp; ; +patientparameters, +foto, +extra patient tekst</span></p>
+<p><span class=rvts3><br></span></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Commando PRINT</span></p>
+<p>Met het commando PRINT, kan een deel-rapport van iedere module (oftewel een testuitkomst rapporteren op de klassieke wijze) worden aangemaakt.</p>
+<p>De algemene vorm van het PRINT commando is:</p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PRINT&nbsp; [,&lt;rapportlevel&gt;]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;testtype&gt; , &lt;testnaam&gt; [, &lt;testnr&gt;]</span></p>
+<p>De parameters &lt;rapportlevel&gt; en &lt;testnr&gt; mogen worden weggelaten.</p>
+<p><span class=rvts3>&lt;rapportlevel&gt; </span></p>
+<p class=rvps1>geeft het detailnivo aan, waarop het deelrapport wordt aangemaakt. De waarde moet liggen in het bereik 1..6, waarbij geldt dat 1=samenvatting, 2=antwoorden, 3=vragen+antwoorden, .... Als geen waarde is gespecificeerd, wordt rapportlevel=1 verondersteld.</p>
+<p><span class=rvts3>&lt;testnr&gt; </span></p>
+<p class=rvps1>geeft het volgnummer van de test aan. Default = 0 is de laatst afgenomen test, een postieve waarde geeft de "zoveelste" test aan, een negatief getal geeft "zoveelste" geteld vanaf het einde (dus -1 = de een-na-laatste test).</p>
+<p class=rvps1><br></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Commando PRINT_LEGENDA_TESTDATA </span></p>
+<p>Dit kommando, print volledig automatisch de legenda van de grafieken, gebaseerd op de data van de test-afnamen.</p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Print_Legenda_TestData</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=227 height=78 alt="" src="testorganizer_report_script_taal_img3.gif"></p>
+<p>&nbsp; </p>
+<p>In bovenstaand voorbeeld, hebben er dus op 3 data testafname plaatsgevonden, en wordt de omschrijving van de eerste test op een beaaplde datum toegevoegd aan de legenda.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Commando PRINT_GRAFIEK</span></p>
+<p>Met dit commando kan een grafiek worden geprint. De grafiek kan worden gedefinieerd door constanten, antwoorden op vragen, subschaal-waarden, genormeerde scores, of zelfs allerlei ingewikkelde formules gebasseerd op deze variabelen.</p>
+<p>Voor het maken van een grafiek worden eerst alle gegevens, zoals kop- en voet-titels, teksten bij de assen en natuurlijk de af te drukken gegevens opgegeven, waarna door het commando <span class=rvts3>Print_Grafiek</span> de grafiek daadwerkelijk in het rapport wordt opgenomen.</p>
+<p>Eerst een kompleet voorbeeld, waarna zal worden ingegaan op de afzonderlijke commandos. </p>
+<p><span class=rvts10>&nbsp;&nbsp; =====================================================================</span></p>
+<p><span class=rvts10>&nbsp;&nbsp;&nbsp;&nbsp; BEPERKINGEN GRAFIEK</span></p>
+<p><span class=rvts10>&nbsp;&nbsp;&nbsp; =====================================================================</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; #Grafiek_Schaal = 1.2</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_Titel_Boven&nbsp; Beperkingen</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_Titel_Onder&nbsp; geen tekst</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_X_As&nbsp;&nbsp;&nbsp; | thuis | lopen</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_Y_As&nbsp;&nbsp; 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_Curve4&nbsp; SolidBottom&nbsp; |&nbsp; kleur5&nbsp; |&nbsp; 55 | 45</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_Curve5&nbsp; SolidTop&nbsp; |&nbsp; kleur4&nbsp; |&nbsp; 55 | 45</span></p>
+<p><span class=rvts11>&nbsp; </span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_Curve1&nbsp; Line_dot&nbsp; |&nbsp; Kleur1 | T3,s~THUIS&nbsp; |&nbsp; T3,s~LOPEN</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_Curve2&nbsp; Line_dash&nbsp; |&nbsp; Kleur2&nbsp; |&nbsp;&nbsp; T13,s~THUIS&nbsp; |&nbsp; T13,s~LOPEN&nbsp;&nbsp; </span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_Curve3&nbsp; Line_solid | Kleur3&nbsp; |&nbsp; T23,s~THUIS&nbsp; |&nbsp; T23,s~LOPEN </span></p>
+<p><span class=rvts11>&nbsp; </span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Print_Grafiek&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p><span class=rvts10>&nbsp;&nbsp;&nbsp; =====================================================================</span>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Normaal gesproken is de schaling van de grafiek 1.0, hetgeen betekent dat hetzelfde font in de grafiek wordt gebruikt als het hoofdfont in het document. Men kan echter de grafieken groter of kleiner afdrukken, door de schaling op te geven. Dit hoeft slechts eenmalig te gebeuren en geldt dan voor alle volgende grafieken.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class=rvts3>#Grafiek_Schaling = 1.0&nbsp;&nbsp; ;standaard grootte</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class=rvts3>#Grafiek_Schaling = 1.5&nbsp;&nbsp; ;grafiek 50% groter afdrukken</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class=rvts3>#Grafiek_Schaling = 0.8&nbsp;&nbsp; ;grafiek 20% kleiner afdrukken</span></p>
+<p><span class=rvts3>&nbsp; </span></p>
+<p>Zowel onder als boven de grafiek kan een tekst worden geplaatst. Indien de titels niet worden opgegeven, worden er ook geen titels geplaatst. </p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp; Grafiek_Titel_Boven&nbsp; &lt;tekst&gt;</span></p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp; Grafiek_Titel_Onder&nbsp; &lt;tekst&gt;</span></p>
+<p>&nbsp; </p>
+<p>Het definieren van de as labels gaat als volgt. De as-labels worden gescheiden door vertikale streepjes. Indien tussen 2 vertikale streepjes geen tekst staat, wordt er hier dus ook geen as-label neergeschreven. In onderstaand voorbeeld ontbreekt dus ook het eerste label van de X-as, dit is namelijk onzinnig, omdat dit de positie van de Y-as is. In de Y-as ontbreekt in onderstaand voorbeeld het tweede label. Ieder afzonderlijk as-label kan uit meerdere regels bestaan, door op de plaast waar een regelscheiding moet komen een "\n" te plaatsen.</p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp; Grafiek_X_As&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &lt;tekst&gt; | &lt;tekst&gt;</span></p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp; Grafiek_Y_As&nbsp;&nbsp; &lt;tekst&gt; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &lt;tekst&gt; |</span></p>
+<p><span class=rvts11>&nbsp; </span></p>
+<p>Het definieren van de feitelijke curven (er kunnen maximaal 10 curven in 1 grafiek worden afgebeeld). Het lijntype en de kleuren kunnen het beste vooraan in het programma als variabele worden gedefinieerd.</p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp; Grafiek_Curve1&nbsp; &lt;line-type&gt;&nbsp; | &lt;Kleur&gt; | &lt;waarde1&gt; |&nbsp; &lt;waarde2&gt;</span></p>
+<p>&nbsp; </p>
+<p>Er zijn enkele bijzondere lijntypes, waarmee de achtergrond kleur van (een deel) van de grafiek kan worden ingekleurd. Dit gebeurt door als lijntype "SolidBottom" of "SolidTop" te kiezen. Hier een voorbeeld van een resultaat</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=142 height=197 alt="" src="testorganizer_report_script_taal_img1.gif"></p>
+<p>&nbsp; </p>
+<p>De curve SolidBottom vult een vlak vanaf de bodem tot aan de opgegeven waarden. Men kan zelfs meerdere kleurvlakken over elkaar heen positioneren, maar men moet dan goed op de volgorde letten. Stel we willen in bovenstaand voorbeeld het gebied moe,0..20 en het gebied benauwd,0..30 groen kleuren dan kan dat gerealiseerd worden door een grafiek met solidbottom erover heen te tekenen (hiertoe moet de groen grafiek een hoger nummer hebben dan de blauwe grafiek:</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Grafiek_Curve6&nbsp; SolidBottom&nbsp; |&nbsp; $00FF00&nbsp; |&nbsp; 20 | 30</span></p>
+<p>&nbsp; </p>
+<p>En het resultaat ziet er dan als volgt uit</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=142 height=193 alt="" src="testorganizer_report_script_taal_img2.gif"></p>
+<p>&nbsp; </p>
+<p>Het feitelijk afdrukken van de grafiek gebeurt ten slotte met het commando print_grafiek:</p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp; Print_Grafiek&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p>&nbsp; </p>
+<p>Grafieken worden zoveel mogelijk aaneengesloten geprint, om een scheiding tussen grafieken te realiseren, kan een aantal spaties (of tekst) worden geplaatst tussen de 2 vertikale streepjes van het Print_Grafiek commando.</p>
+<p>Wil men de volgende grafiek op een nieuwe regel plaatsen, dan moet men in één van de gewonde tekststijlen een (lege) regel invoegen.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Commando PRINTGONIOGRAFIEK</span></p>
+<p>Met dit commando, kan een goniometer meting grafisch worden opgenomen in het rapport. De gegevens kunnen zowel absoluut (dus alleen de meting zelf), danwel relatief (vergelijking tussen 2 metingen) worden weergegeven.</p>
+<p>De algemene vorm van het commando is:</p>
+<p><span class=rvts3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PrintGonioGrafiek&nbsp; [,&lt;meting-1&gt;&nbsp; [,&lt;meting-2&gt;] ]</span></p>
+<p>De parameters &lt;meting-1&gt; en &lt;meting-2&gt; mogen worden weggelaten.</p>
+<p>Als &lt;meting-2&gt; ontbreekt, wordt een meting absoluut weergegeven.</p>
+<p>Als &lt;meting-2&gt; aanwezig is, wordt de verbetering van &lt;meting-1&gt; t.o.v. &lt;meting-2&gt; weergegeven.</p>
+<p>Als &lt;meting-1&gt; ontbreekt, wordt de defaultwaarde 0 veronderstelt en dus een absolute weergave van de laatste meting.</p>
+<p>&nbsp; </p>
+<p>Enkele voorbeelden (absolute weergave):</p>
+<div><table width="100%" border=0 cellpadding=5 cellspacing=0>
+<tr valign=top>
+<td width=156 valign=top>
+<p><span class=rvts3>PrintGonioGrafiek</span></p>
+<p><span class=rvts3>PrintGonioGrafiek,0</span></p>
+<p><span class=rvts3>PrintGonioGrafiek,-1</span></p>
+<p><span class=rvts3>PrintGonioGrafiek,3</span></p>
+</td>
+<td width=493 valign=top>
+<p>;grafische weergave laatst afgenomen goniometer meting</p>
+<p>;grafische weergave laatst afgenomen goniometer meting</p>
+<p>;grafische weergave een-na-laatste afgenomen goniometer meting</p>
+<p>;grafische weergave derde afgenomen goniometer meting</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Enkele voorbeelden (relatieve weergave):</p>
+<div><table width="100%" border=0 cellpadding=5 cellspacing=0>
+<tr valign=top>
+<td width=156 valign=top>
+<p><span class=rvts3>PrintGonioGrafiek,0,-1</span></p>
+<p><span class=rvts3>PrintGonioGrafiek,0,-2</span></p>
+<p><span class=rvts3>PrintGonioGrafiek,-1,-2</span></p>
+<p><span class=rvts3>PrintGonioGrafiek,3,4</span></p>
+</td>
+<td width=493 valign=top>
+<p>;grafische weergave, verbetering laatste goniometing t.o.v. een-na-laatste</p>
+<p>;grafische weergave, verbetering laatste goniometing t.o.v. twee-na-laatste </p>
+<p>;verbetering een-na-laatste goniometing t.o.v. twee-na-laatste </p>
+<p>;grafische weergave, verbetering derde goniometing t.o.v. vierde</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Diskussie:</p>
+<p>In bovenstaande voorbeelden zijn de hoeken in graden, waarbij gestrekt 0 graden is.</p>
+<p>Gaarne alle commentaar die je maar kunt verzinnen.</p>
+<p>De volgende punten, heb ik nog vraagtekens bij</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>moet de weergave per kootje (zoals in de bovenstaande voorbeelden), je krijgt dan per hand 3 groepjes van 5, of is een weergave per vinger logischer (je krijgt dan 5 groepjes van 3) ? </li>
+<li>waar laten we de polsmetingen, want dat zijn er ook nog eens 6 per hand, en die krijg ik er in de breedte van de grafiek niet meer bij. Suggestie, tweede grafiek eronder voor de pols ? Andere suggestie, linkerhand en rechterhand in een aparte grafiek onder elkaar, waarbij per hand, zowel de kootjes als de pols hoeken worden weergegeven ? </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>PuntHoofd Test-commandos</span></p>
+<p>Om een rapport-template (in PuntHoofd) te kunnen testen (met een vaste set gegevens), zijn een aantal commando's toegevoegd, zodat parameters gedefininiëerd kunnen worden, die normaal gesproken in de TestOrganizer reeds bekend zijn (zoals patientnummer). Deze parameter definities beginnen allemaal met een "$"-teken, waardoor ze gewoon in het template kunnen blijven staan, omdat de normale rapport-generator de regels die beginnen met een "$" zal negeren.</p>
+<p><span class=rvts3>Hieronder zijn alle test-commando's weergegeven als een voorbeeld (de betekenis van de verschillende commandos wordt als vanzelf sprekend verondersteld):</span></p>
+<p><span class=rvts11>$TestOrganizer_ProgPath = D:\data_TO_exe\ ;</span></p>
+<p><span class=rvts11>$TestOrganizer_ProtocolPath = D:\d_midorg\protocol\ ;</span></p>
+<p><span class=rvts11>$patient = D:\d_midorg\mid-data\patient\0000002.pat;</span></p>
+<p><span class=rvts11>&nbsp; </span></p>
+<p><span class=rvts11>&nbsp; </span></p>
+<p><span class=rvts2>Wijzigingen 14-oktober-2006</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Print commando, default testnummer = 0, werkte niet goed </li>
+<li>Inlezen en gebruik van Midac markers-11 </li>
+<li>Losse variabelen worden nu gewoon afgedrukt (konden voorheen uitsluitend in formules worden gebruikt) </li>
+<li>In tabellen kunnen nu ook script commando's worden gebruikt </li>
+<li>commando hoeft niet meer op de eerste positie van een regel te staan, en kan zelfs met normale tekst op 1 regel voorkomen </li>
+<li>Per Midac opname kan 1 plaatje worden ingelijfd </li>
+<li>Commando's kunnen nu van een fontstyle worden voorzien, middels voorgaande "FFF" </li>
+<li>bug in preview font set </li>
+</ul>
+<p><span class=rvts11>&nbsp; </span></p>
+<p><span class=rvts2>Wijzigingen 31-oktober-2005</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>extra patient_gegevens kunnen worden onderdrukt </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Verbeteringen 22-september-2005</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>rapport is nu editable </li>
+<li>extra patientgegevens worden afgedrukt </li>
+<li>extra testgegevens geven nu geen foutmelding meer </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Verbeteringen 16-september-2005</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>SQRT functie toegevoegd </li>
+<li>negatieve getallen in formules werden niet goed behandeld. Gewijzigd, en negatieve getallen in formules moeten van haakjes worden voorzien. Voorbeeld #N3 = (-3) * N3 </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Verbeteringen 6-september-2005</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>er zat een bug in het verkijgen van de absolute en relatieve norm. Ook kon alleen de absolute score bereikt worden. </li>
+</ul>
+<p><span class=rvts11>in de tekst nog te wijzigen</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; T2,S~MOE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;de score op de subschaal "MOE"</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; T2,S~MOE%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;de relatieve score op de subschaal "MOE"</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; T2,N~SWLS~score_CSI&nbsp;&nbsp;&nbsp;&nbsp; ;de genormeerde score op "SWLS" binnen de normgroep "score-CSI"</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; T2,N~SWLS%~score_CSI&nbsp; ;de genormeerde relatieve score op "SWLS" binnen de normgroep "score-CSI"</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Commando's Paper_Portrait / Paper_LandScape toegevoegd </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Verbeteringen 5-juli-2005</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>opnemen van patient-foto in rapport </li>
+<li>speciale legenda generatie, op basis van test-afname-data </li>
+<li>kleuren kunnen gedefinieerd worden door de functie RGB </li>
+<li>grafieken kunnen geschaald worden </li>
+<li>mogelijk een probleem met LOG10-functie </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Verbeteringen juni 2005</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>toevoeging van grafieken </li>
+<li>toevoeging van het maken van berekeningen en de resultaten toekennen aan nieuwe variabelen </li>
+<li>toevoeging ALS ... DAN ... ANDERS ... </li>
+<li>toevoeging van stijl 11 als commentaar stijl </li>
+<li>commando regels behoeven niet meer afgesloten te worden met een puntkomma ";' </li>
+</ul>
+<p>&nbsp; </p>
+
+</body></html>

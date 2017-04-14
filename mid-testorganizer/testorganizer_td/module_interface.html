@@ -1,0 +1,323 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.51 [en] (Win95; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>MidOrg T&amp;D Module Interface</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00"><font size=+1>MIDORG
+Design &amp; Test</font></font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>&nbsp;</font></font></font></b></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF"><font size=+1>Module
+Interface</font></font></font></b></td>
+</tr>
+</table>
+
+<p><a name="midorg en zijn modules"></a><b><font face="Arial,Helvetica"><font color="#000099">MIDORG
+en zijn modules&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">MIDORG vormt de gebruikersinterface, waarin
+patienten en testen kunnen worden afgenomen, beheerd en geanalyseerd. De
+verschillende testsoorten zijn ondergebracht in modules (geheel zelfstandige
+programma's) welke alle activiteiten rondom een bepaalde test uitvoeren.
+De communicatie tussen MIDORG en de modulen vindt plaats middels een transport
+bestand.</font>
+<p><font face="Arial,Helvetica">Alle modules moeten aan enkele minimale
+eisen voldoen, zodat bij een eventuele toekomstige wijziging van de communicatie-structuur
+tussen MIDORG en de modules, de modules op zich niet behoeven te worden
+gewijzigd. Voldoet een module aan deze standaard eisen, dan kan ook gebruik
+gemaakt worden van de gemeenschappelijke units.</font>
+<br>&nbsp;
+<table BORDER COLS=3 WIDTH="100%" >
+<tr>
+<td></td>
+
+<td>
+<center><font face="Arial,Helvetica">MIDORG</font></center>
+</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td>
+<center><font face="Arial,Helvetica">Transport Bestand</font></center>
+<font face="Arial,Helvetica"><font size=-2>Dient om te communiceren tussen
+MIDORG en de modulen</font></font></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>
+<center><font face="Arial,Helvetica">Module 1</font></center>
+<font face="Arial,Helvetica"><font size=-2>Het hoofdform van een module
+is altijd FORM_MAIN en moet in STARTPRG.PAS zitten</font></font></td>
+
+<td VALIGN=TOP>
+<center><font face="Arial,Helvetica">Module 2</font></center>
+</td>
+
+<td VALIGN=TOP>
+<center><font face="Arial,Helvetica">... Module N</font></center>
+</td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td>
+<center><font face="Arial,Helvetica">Gemeenschappelijke Units</font></center>
+<font face="Arial,Helvetica"><font size=-2>STARTGLB.PAS</font></font>
+<br><font face="Arial,Helvetica"><font size=-2>STARTINI.PAS</font></font></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td>
+<center>Overige gemeenschappelijke units</center>
+<font size=-1>htm_help.pas</font>
+<br><font size=-1>mid_bieb.pas</font>
+<br><font size=-1>midlogo1.pas</font>
+<br><font size=-1>dlg_form.pas</font></td>
+
+<td></td>
+</tr>
+</table>
+
+<p><font face="Arial,Helvetica">Zowel de database-schil MidOrg alsook alle
+onderliggende modulen gebruiken dezelfde set globals <b>startglb.pas</b>
+. Deze set globals bevat type-definitions, constanten, variabelen en een
+aantal functies om directories en bestandsnamen te genereren.</font>
+<br><font face="Arial,Helvetica">In <b>MidOrg</b> worden de globals in
+<b>startglb.pas</b>
+gevuld vanuit een programma initialisatie file door de unit <b>Mid_ini.pas</b>
+, waarin ook een gebruikers-interface aanwezig is om de instellingen te
+wijzigen.</font>
+<br><font face="Arial,Helvetica">In de onderliggenden / uitvoerende <b>modules</b>
+worden de globals gevuld door <b>startini.pas</b>, welke de gegevens afleidt
+uit de transportfile.</font>
+<p><font face="Arial,Helvetica">Door deze constructie worden de volgende
+zaken bereikt:</font>
+<ul>
+<li>
+<font face="Arial,Helvetica">de transportfile kan worden gewijzigd zonder
+dat de modulen behoeven te worden gewijzigd</font></li>
+
+<li>
+<font face="Arial,Helvetica">het directory beheer (essenti&euml;el onderdeel
+van de database) kan uniek door MidOrg geschieden</font></li>
+</ul>
+<font face="Arial,Helvetica">Startglb.pas, startini.pas en mid_ini.pas
+bevinden zich allen in de source directory van midorg:</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; <b>c:\data\d3_morg\...</b></font>
+<br>&nbsp;
+<p><a name="standaarden"></a><b><font color="#000099">Standaarden</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>- alle modules worden <a href="#module starten">gestart</a> door de
+database-schil MidOrg
+<br>- de modules moeten adequaat reageren op de opgedragen <a href="#modulen activiteiten">activiteiten</a>
+<br>- <a href="#gebruikers help">gebruikers-help</a> moet via html-bestanden
+worden verzorgd
+<br>- communicatie tussen MidOrg en een module vindt plaats middels het
+meegegeven transportbestand
+<br>&nbsp; (modules moeten niet zelf het <a href="transport bestand.html">transportbestand</a>
+lezen, maar gebruik maken van <a href="#startini.pas">startini.pas</a>
+en <a href="#startglb.pas">startglb.pas</a>)
+<br>- modules bergen hun bestanden op in de <a href="#directories + files">directories
+</a>opgegegeven
+in het transportbestand
+<br>- er moet gestreefd worden naar zoveel mogelijk <a href="#overige standaard units">gebruikers-uniformiteit</a>
+over de verschillende modulen
+<br>- om een module onzichtbaar te laten opstarten (bijv. bij export) moet
+een standaard <a href="#standaard autocreate">autocreate volgorde</a> worden
+gebruikt
+<br>&nbsp;
+<p><a name="module starten"></a><b><font face="Arial,Helvetica"><font color="#000099">Module
+Starten&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Vanuit de database schil MIDORG worden
+de afzonderlijke modules gelanceerd. Bij de lancering wordt als command-line
+parameter het transport-bestand (inclusief volledig path) opgegeven. Voorbeeld
+voor het opstarten van de vragenlijst module:</font>
+<blockquote><b><font face="Arial,Helvetica">vrlst.exe&nbsp;&nbsp; c:\data\midorg\transprt.txt&nbsp;&nbsp;&nbsp;
+&lt;eventuele extra parameters></font></b></blockquote>
+<font face="Arial,Helvetica">Indien geen transport bestand wordt opgegeven,
+dan start de module niet op.</font>
+<br><font face="Arial,Helvetica">Het transport bestand bevat alle noodzakelijke
+gegevens voor de opgestartte module. De noodzakelijke parameters zijn in
+principe universeel voor alle onderliggende modules. Op dit moment zijn
+er nog enkele oude modulen die om een specifieke benadering vragen. Voor
+alle nieuwe modulen dient niet meer rechtstreeks de transportfile gebruikt
+te worden, maar dient gebruik te worden gemaakt van <a href="#startini.pas">startini.pas</a>
+en <a href="#startglb.pas">startglb.pas</a>.</font>
+<p><font face="Arial,Helvetica">Het transport bestand wordt ook gebruikt
+voor het terugmelden van eventuele resultaten.</font>
+<p><font face="Arial,Helvetica">Voor debug doeleinden zijn een aantal toegangscodes
+beschikbaar die inwendige informatie over de modules geven. Deze toegangscodes
+moeten reeds als afzonderlijke command-line parameter aan MIDORG worden
+meegegeven en worden eveneens als afzonderlijke command-line parameters
+doorgegeven aan de onderliggende modules.</font>
+<p><font face="Arial,Helvetica">Er is gekozen om parameters door te geven
+via een bestand (in INI-vorm), dit heeft de volgende voordelen, het is
+erg eenvoudig, het is leesbaar en modules kunnen tijdens het uittesten
+gecontroleerd gestart worden zonder gebruik te maken van de database schil.
+De traagheid van het manipuleren van bestanden speelt heden ten dage geen
+rol meer.</font>
+<br>&nbsp;
+<p><a name="modulen activiteiten"></a><b><font color="#000099">Modulen
+activiteiten</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Tot op heden zijn de volgende activiteiten gedefinieerd:
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="module acties.html#actie edit">Edit</a>
+Test Protocol (of aanmaken van een nieuwe test)</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="module acties.html#actie opnemen">Opnemen</a>
+/ Afnemen van een test</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="module acties.html#actie bekijken">Bekijken</a>
+van een gemaakte opname / afgenomen test</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="module acties.html#actie rapport">Rapport</a>
+maken van een gemaakte opname / afgenomen test</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="module acties.html#actie import">Import</a>
+van test-protocollen? / gemaakte opnamen? door een ander testprogramma</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="module acties.html#actie convert">Converteren</a>
+van oude testprotocollen</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="module acties.html#actie export">Exporteren</a>
+van de gemaakte opnamen naar een ander programma</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="module acties.html#acttie instellingen">Instellen</a>
+van de specifieke parameters van het programma</font>
+<br>Indien een module een activiteit niet ondersteund, moet de module niet
+opstarten en dit via het transport bestand terugmelden.
+<br>&nbsp;
+<p><a name="gebruikers help"></a><b><font color="#000099">Gebruikers Help</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Gebruikers Help moet gerealiseerd worden via html-documenten.
+<br>....&nbsp;<img src="redarrow.gif" height=13 width=13>er zij standaard
+faciliteiten voor gebruikers om zelf help documenten toe te voegen
+<br>Voor het gebruik van html-bestanden in een module kan gebruik gemaakt
+worden van&nbsp;<img src="redarrow.gif" height=13 width=13>htm_help.pas
+<br>De (html-) helpbestanden van alle modules zijn momenteel ondergebracht
+in 1 directory. Dit is heel onhandig maar de huidige html-viewer van Delphi-3
+kent geen relatieve adressering, tenzij binnen 1 directory wordt gebleven.
+In verband met plaatsing op het www, wordt verder geadviseerd enkel kleine
+letters te gebruiken voor de bestandsnamen en verwijzingen er naar (Unix
+systemen maken onderscheid tussen kleine en grote letters).
+<blockquote><b>&lt;extractfilepath(application.exename)>help\*.htm</b></blockquote>
+voorbeeld
+<blockquote><b>c:\data\midorg\help\*.htm</b></blockquote>
+
+<p><br><a name="startini.pas"></a><b><font color="#000099">StartIni.pas&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">- defini&euml;ert windows eigenschappen
+(dateseperator, decimal-separator, etc)</font>
+<br><font face="Arial,Helvetica">- leest en interpreteert de transportfile,
+welke als communicatie tussen MIDORG en deze module dient.</font>
+<br>- test licentie-rechten
+<br>- toont zonodig zichzelf als in debug mode, normaal blijft het form
+hidden
+<br>- afhankelijk van de mode wordt nu het functionele deel (verschillende
+forms) gestart
+<br>- uiteindelijk breekt deze routine het programma af.
+<p>Als laatste wordt het form form_start_nep (startnep.pas) ge-auto-create,
+de oncreate method start de methode form_start_parameters.start_program
+(startini.pas).
+<br><font face="Arial,Helvetica">Het form_start_nep is gemaakt om de volgende
+reden, afhankelijk van de toepassing wil men opstarten met bepaalde forms,
+zelfs wil men nagenoeg onzichtbaar opstarten (export en scanning bv). Dat
+betekent dat het eerste zichtbare form klein en eenvoudig moet zijn, zodat
+het maar heel even zichtbaar is. Helaas moet form_main het hoofdform zijn,
+teneinde hier gegarandeerde gebruikers-besturing te realiseren (m.n. bij
+mdi-parents).</font>
+<p>Voor de normale acties zoals Edit, Record, View, ... wordt nu altijd
+de volgende routine gestart
+<br>form_main.start_program_action(startprg.pas) (iedere module moet dit
+dus als main form hebben)
+<br>&nbsp;
+<p><a name="startglb.pas"></a><b><font color="#000099">StartGlb.pas&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">De <b><font color="#FF0000">interface
+sectie van startglb.pas</font></b> bevat een beschrijving van alle globale
+elementen (inclusief de gegevens uit het transportbestand), die gebruikt
+kunnen/moeten worden door de modulen. Deze beschrijving geldt tevens als
+de enige (juiste) documentatie.</font>
+<br>&nbsp;
+<p><a name="directories + files"></a><b><font color="#000099">Directories
++ Files&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>De directories zijn exact beschreven in <b><font face="Arial,Helvetica"><font color="#FF0000">interface
+sectie van startglb.pas</font></font></b>.
+<br>Een aantal bestanden heeft een vooraf gedefinieerde extensie, deze
+extensie wordt per module eenmalig vastgelegd in MidOrg.
+<br>Het betreft de volgende bestanden:
+<br>- instellingsbestand van de module (zo kan MidOrg de gebruiker een
+keuze laten maken uit verschillende settings)
+<br>- protocol-bestanden
+<br>- analyse-bestanden
+<br>Databestanden dienen aan een van de standaard naamgevingen te voldoen
+en te worden opgeborgen in de opgegeven directory, met als extra subpath
+de naam van het opname protocol.
+<br>&nbsp;
+<p><a name="standaard autocreate"></a><b><font color="#000099">Standaard
+Autocreate&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>De opbouw van het programma is wat vreemd, dit teneinde met verschillende
+opstartschermen te kunnen starten (ook als het mainform een mdi-parent
+is).
+<br>Voor de autocreate lijst van een module geldt het volgende:
+<blockquote><b><font face="Arial,Helvetica"><font color="#FF0000">form_main
+(startprg.pas) (iedere module moet dit dus als main form hebben)</font></font></b>
+<br><font face="Arial,Helvetica">form_start_parameters (startini.pas)</font>
+<br><font face="Arial,Helvetica">form_module_settings (mod_set.pas)</font>
+<br><font face="Arial,Helvetica">..... overige autocreate forms (creeer
+geen forms die dynamisch gecreeerd kunnen worden)</font>
+<br><font face="Arial,Helvetica">form_start_nep (startnep.pas)</font></blockquote>
+
+<p><br><a name="overige standaard units"></a><b><font color="#000099">Overige
+standaard units&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>in LIBEXTRA
+<br>-<img src="redarrow.gif" height=13 width=13> htm_help, sinds Delphi3,
+form om context afhankelijke help bestanden in html formaat te tonen
+<br>-<img src="redarrow.gif" height=13 width=13> mid_bieb, oud uit Delphi1,
+bevat eigen (verbeterde) routines, moet nog een keer critisch bekeken worden
+<br>-<img src="redarrow.gif" height=13 width=13> midlogo1, uit Delphi1,
+logo + license check
+<br>-<img src="redarrow.gif" height=13 width=13> dlg_form, uit Delphi1,
+om eigen dialoogforms, met eigen teksten te kunnen maken
+<br>&nbsp;
+<p>
+<hr size=2><font size=-1>&copy; Copyright Instrumentele Dienst</font>
+<br><font size=-2>SM/GvV, 14-04-1998</font>
+</body>
+</html>

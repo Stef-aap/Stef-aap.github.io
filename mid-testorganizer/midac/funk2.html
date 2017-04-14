@@ -1,0 +1,116 @@
+<HTML><HEAD><TITLE>MIDAC, rf2, Onset Systolische Bloeddruk</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Omschrijving</SPAN></P>
+<P>Deze rekenroutine bepaalt de onset van de systolische bloeddruk. Tezamen met een R-top detector (zie bijv.&nbsp;<A class=RVTS4 href="funk1.html">rekenfunktie 1</A>) kan zodoende het tijdsverschil tussen R-top van het ECG en de onset van de systolische bloeddruk te bepalen.</P>
+<P><TABLE width=100% bgcolor=#E2E2E2 border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Inputs</P></TD>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Parameters</P></TD>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Outputs</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Bloeddruk</P></TD>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>WegingHysteresisTopfractieDelay</P></TD>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Mode signaalRegressie bepaling + bepaalde regressieVertraagde bloeddruk, synchroon met regressielijnGefilterde bloeddrukSystoleDiastole</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="algoritme"></A>
+<SPAN class=RVTS2>Algoritme</SPAN></P>
+<P>Bij de bepaling van de bloeddruk onset zijn de volgende signaal-technische problemen aanwezig:</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">het signaal bevat vaak veel ruis</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">het signaal voor de opgaande flank is erg variant</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">de onset wordt gevormd door een S-flank, dus langzame aanzet</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">de totale amplitude van het signaal varieert</P>
+<P>&nbsp;&nbsp;</P>
+<P>Om ondanks deze moeilijkheden toch een goede onset te bepalen wordt het volgende principe gebruikt:</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">bepaal een lineaire regressie over het rechte stuk van de opgaande flank (op deze wijze wordt een optimale signaal-ruis verhouding verkregen)</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">bepaal de diastolische bloeddruk, zijnde het minumum van het (zwaar) gefilterde signaal. Hier heeft een (lineaire) regressie berekening geen zin, omdat de curve voorafgaand aan de opgaande flank zeer variant is (van stijgend tot dalend).Trek door de diastolische waarde een horizontale lijn.</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">Het snijpunt van de aldus bepaald regressielijn en de horizontale diastolische lijn wordt nu gedefinieerd als de onset.&nbsp;</P>
+<P>Mits de opgaande flanksteilheid redelijk constant is, wordt slechts een constante fout gemaakt ten opzichte van de echte onset.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>De betekenis van de variabele MODE:&nbsp;</SPAN></P>
+<P><TABLE width=633 border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=10% valign=top>
+<P>mode=0</P></TD>
+<TD width=90% valign=top>
+<P>zoeken naar een opgaande flank er wordt een opgaande flank gedetekteerd als het huidige sample veel groter is dan het gefilterde signaal (het verschil moet minimaal gelijk zijn aan HYSTERESIS.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=10% valign=top>
+<P>mode=1</P></TD>
+<TD width=90% valign=top>
+<P>bezig met opgaande flank bepaal nu de lineaire regressie, net zolang totdat bijna het vorige maximum is bereikt. TOPFRACTIE geeft de percentuele afstand tot de (vorige) top, waarop de regressie wordt beeindigd. De regressie wordt eveneens beeindigd zodra het sample onder het gefilterde signaal komt, immers dan moet er een daling zijn ingetreden.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=10% valign=top>
+<P>mode=2</P></TD>
+<TD width=90% valign=top>
+<P>Wacht een vaste tijd totdat de berekende regressie coefficienten ook als lijn kunnen worden getekend. Dit heeft puur een controle funktie, immers door nu het vertraagde signaal en de regressie lijn over elkaar te tekenen, kan de regressie worden gecontroleerd. Als de regressie over te weinig punten is berekend, dan wordt niet naar mode=3 gegaan, maar wordt teruggekeerd naar mode=0.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=10% valign=top>
+<P>mode=3</P></TD>
+<TD width=90% valign=top>
+<P>Teken 100 punten van de berekende regressielijn</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="bijzonderheden"></A>
+<SPAN class=RVTS2>Bijzonderheden</SPAN></P>
+<P>Voor het testen van de juiste instelling kan het volgende stramien worden gebruikt:</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Ruwe controle van de onset detectie:</SPAN></P>
+<P>zet de volgende signalen in 1 venster (allen in compressie=peak):</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">bloeddruk</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">output 4, gefilterde bloeddruk</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">output 1, mode signaal</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">output 7, ECG detector</P>
+<P>Bekijk nu 1 a 2 bloeddruk perioden, nu moet het volgende gelden:</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">Mode=1 moet gedurende een groot deel (het lineaire stuk) van de opgaande flank geldig zijn</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">Indien mode 1 tekort aanwezig is, verlaag dan de HYSTERESIS van 50 naar bijvoorbeeld 30.</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">De topfractie is percentueel en zal zelden behoeven te worden aangepast.</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">De filtering is vrij zwaar en zal in het algemeen ook niet behoeven te worden aangepast.</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">De omschakeling van mode 2 naar mode 3 moet plaatsvinden voor de R-top detectie.&nbsp;</P>
+<P>Indien dit niet het geval is, kan de delay worden verlaagd. Indien mode 2 niet zichtbaar is, moet de delay worden vergroot.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Nauwkeurige controle van de onset detectie:</SPAN></P>
+<P>Zet de volgende signalen in 1 venster (identieke versterking):</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">output 3 = vertraagde bloeddruk</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">output 2 = regressie gemeten en berekend</P>
+<P>De regressielijn door de opgaande flank van het vertraagde bloeddruk signaal is een rechte lijn !. Het snijpunt met de voorgaande horizontale lijn (diastole) is het bloeddruk Onset punt.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Instellingen venster</SPAN></P>
+<P>&nbsp;<IMG width=423 height=313 src="funk2f.gif"></P>
+</BODY></HTML>

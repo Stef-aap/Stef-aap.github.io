@@ -1,0 +1,508 @@
+<HTML><HEAD><TITLE>functie 45, pompfunctie analyse Test & Design</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD rowspan=2 width=25% valign=middle>&nbsp;
+</TD>
+<TD width=50% height=40 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 45</P></TD>
+<TD rowspan=2 valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD height=40 bgcolor=#FFFF00 valign=middle>
+<P class=RVPS2>Veneuze Pompfunctie</P>
+<P class=RVPS2>Test&nbsp; &amp;&nbsp; Design</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="overzicht van alle documenten"></A>
+Overzicht van alle documenten</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>td_f45_pompfunctie_analyse.htm</P></TD>
+<TD valign=middle>
+<P>dit document</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P><A class=RVTS4 href="funk45.html">funk45.htm</A></P></TD>
+<TD valign=middle>
+<P>de gebruikers documentatie</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+</TABLE>
+</P>
+<P>Met de Veneuze Pomfunctie test wordt de functionaliteit van de bloed-pompfunctie in de benen gemeten, zie verder achtergrond.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Deze functie maakt van een aantal speciale features in Midac gebruik:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Eigen popup voor de besturing tijdens opname (besturings panel van Midac wordt uitgezet in de protocol file)</LI>
+<LI>Besturings popup verzorgt het starten en stoppen van de opname, zodat enkel de noodzakelijke stukken worden opgeslagen in het opname bestand. Ook worden automatisch markers toegevoegd zodat het analysedeel geheel automatisch kan werken.</LI>
+<LI>De grafische x-t vensters worden gecleard en starten links op het scherm bij de start van ieder nieuw meetpunt</LI>
+<LI>Het besturings popup bevat ook alle relevante extra testgegevens</LI>
+<LI>De file met extra testgegevens wordt ook gebruikt voor het opbergen van de (gewijzigde) analyse gegevens.</LI>
+<LI>Focus wordt zoveel mogelijk gehouden op de Start-knop in het popup</LI>
+<LI>Ook tijdens de analyse, wordt midac geheel "weggedrukt" door een eigen popup scherm.</LI>
+<LI>De functie heeft een interne rapport generator</LI>
+<LI>De functie werkt geheel verschillend in opname en achteraf bekijken</LI>
+</UL>
+<P>&nbsp;</P>
+<P><A name="beveiliging"></A>
+Beveiliging&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>De parameters, welke naar de Phytec controler worden gestuurd, worden begrensd op een maximum. Zodoende, gaat er ook bij een foute calibratie van het druksignaal niets ernstigs mis.</P>
+<P>De onderstaande maxima zijn ingesteld:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>druk max = 1640 ADC = 200 mmHg</LI>
+<LI>groffijn max = 200 ADC = 30 mmHg</LI>
+<LI>drukok max = 50 ADC = 7 mmHg</LI>
+</UL>
+<P>&nbsp;</P>
+<P><A name="opname maken"></A>
+Opname maken</P>
+<P>Belangrijk element hierin vormt het eigen besturings form: funk45pu.pas.</P>
+<P>Dit popup form neemt de gehele besturing over. Zelf doet het form niet veel meer dan een aantal booleans zetten, welke door de execute method van de funktie funk45.pas worden omgezet in acties. Wel verzorgt het popup form het inlezen en wegschrijven van de (gewijzigde) extra testgegevens.</P>
+<P>De execute method bestaat grotendeels uit 2 ineengevlochten state-machines, welke op basis van de booleans gezet door het bedienen van de toetsen in het popup form worden gestuurd.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>state machine voor het verwerken van een noodstop (states &gt; 100)</LI>
+<LI>state machine voor de besturing tijdens een geldig meetpunt (states &lt; 100)</LI>
+</UL>
+<P>Er zijn slechts 2 routines die commando's via de seriële poort naar de meet- en regel-electronika sturen:</P>
+<P>&nbsp;&nbsp;&nbsp; plet_balanceer</P>
+<P>&nbsp;&nbsp;&nbsp; plet_set_druk</P>
+<P>State machine tijdens het maken van een opname</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>state</P></TD>
+<TD valign=middle>
+<P>activiteits</P>
+<P>venster</P></TD>
+<TD valign=middle>
+<P>toestands beschrijving</P>
+<P>de state-teller wordt in de programma-code voorgesteld door de variabele stuw_mode.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>101</P></TD>
+<TD bgcolor=#FF99FF valign=middle>
+<P>NoodStop</P></TD>
+<TD valign=middle>
+<P>Bepalen of opname loopt.</P>
+<P>Even wachten om er zeker van te zijn dat bepaald kan worden of de opname loopt of niet.</P>
+<P>Vervolgens als de opname niet loopt naar state=102</P>
+<P>anders naar state=103</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>102</P></TD>
+<TD bgcolor=#FF99FF valign=middle>
+<P>NoodStop</P></TD>
+<TD valign=middle>
+<P>Opname starten en</P>
+<P>naar state=103</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>103</P></TD>
+<TD bgcolor=#FF99FF valign=middle>
+<P>NoodStop</P></TD>
+<TD valign=middle>
+<P>Marker F6 zetten.</P>
+<P>Wacht tot opname mode daadwerkelijk actief,</P>
+<P>dan marker F6 genereren en</P>
+<P>naar state=104</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>104</P></TD>
+<TD bgcolor=#FF99FF valign=middle>
+<P>NoodStop</P></TD>
+<TD valign=middle>
+<P>Opname stoppen.</P>
+<P>Wacht even, dan</P>
+<P>opname stoppen en</P>
+<P>naar state=105</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>105</P></TD>
+<TD bgcolor=#FF99FF valign=middle>
+<P>NoodStop</P></TD>
+<TD valign=middle>
+<P>Noodstop afgerond.</P>
+<P>Zet alles weer in de wachtstand en</P>
+<P>als bezig met drukreeks, naar state=4</P>
+<P>anders naar state=5</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>0</P></TD>
+<TD bgcolor=#33FF33 valign=middle>
+<P>Selecteer</P></TD>
+<TD valign=middle>
+<P>Wacht tot drukreeks geselecteerd en op start gedrukt, dan</P>
+<P>(De volgende keren in deze toestand wordt een enkelvoudige druk overgehaald.)</P>
+<P>dan drukreeks overhalen naar lijst en</P>
+<P>naar state=1</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>1</P></TD>
+<TD bgcolor=#33FF33 valign=middle>&nbsp;
+</TD>
+<TD valign=middle>
+<P>Tijdelijke tussenstand,</P>
+<P>bepaalt of er nog drukken in de lijst staan,</P>
+<P>zoniet dan naar state=0</P>
+<P>zoja dan start het vullen en naar state=2</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>2</P></TD>
+<TD bgcolor=#FF0000 valign=middle>
+<P>Vullen</P></TD>
+<TD valign=middle>
+<P>Wacht totdat starttoets ingedrukt en dan</P>
+<P>opname starten met marker F1</P>
+<P>en naar state=21 (als druk-volume meetpunt) of</P>
+<P>naar state=71 (als pomp meetpunt)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>71</P></TD>
+<TD bgcolor=#FF9900 valign=middle>
+<P>Aanloop</P></TD>
+<TD valign=middle>
+<P>Aanloop voor de pompbeweging&nbsp;</P>
+<P>Opnemen van een kort stukje voor start pomp-beweging,&nbsp;</P>
+<P>De grote seconde teller start op -2 en begint te lopen, er is nog geen seconde piep&nbsp;</P>
+<P>Als 2 seconde is verstreken,&nbsp;</P>
+<P>dan naar state=72</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>72</P></TD>
+<TD bgcolor=#FFFF00 valign=middle>
+<P>Pompen</P></TD>
+<TD valign=middle>
+<P>Het pompen,&nbsp;</P>
+<P>seconden teller begint hier op 0 en loopt tot 20, iedere seconde een piep,&nbsp;</P>
+<P>als klaar naar state=73</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>73</P></TD>
+<TD bgcolor=#FF9900 valign=middle>
+<P>Einddruk</P></TD>
+<TD valign=middle>
+<P>Nog 2 seconde opnemen (druk en volume na het pompen),&nbsp;</P>
+<P>dan opname stoppen en naar state=74</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>74</P></TD>
+<TD bgcolor=#66FFFF valign=middle>&nbsp;
+</TD>
+<TD valign=middle>
+<P>Afsluiten van 1 meetpunt. (tijdelijke tussenstand)</P>
+<P>meetpunt afvinken in de tabel,</P>
+<P>als bezig met drukreeks, naar state=4</P>
+<P>anders naar state=5,</P>
+<P>tenzij maximaal aantal meetpunten overschreden, dan naar state=6</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>21</P></TD>
+<TD bgcolor=#66FFFF valign=middle>
+<P>Legen</P></TD>
+<TD valign=middle>
+<P>Opnemen van een kort stukje voor het openen van de cuffs.</P>
+<P>Als tijd time_pre verstreken, dan</P>
+<P>marker F2 zetten</P>
+<P>en druk van de cuffs halen</P>
+<P>en naar state=3</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>3</P></TD>
+<TD bgcolor=#66FFFF valign=middle>
+<P>Legen</P></TD>
+<TD valign=middle>
+<P>Opnemen van het VER stukje.</P>
+<P>Wacht totdat opname lang genoeg, dan</P>
+<P>opname stoppen</P>
+<P>en naar state=31</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>31</P></TD>
+<TD bgcolor=#66FFFF valign=middle>
+<P>Legen</P></TD>
+<TD valign=middle>
+<P>Wacht voor opnemen nul-volume</P>
+<P>Als starttoets (nadat de opname daadwerkelijk is gestopt door state=3), dan</P>
+<P>opname starten met marker F3</P>
+<P>en naar state=32</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>32</P></TD>
+<TD bgcolor=#66FFFF valign=middle>
+<P>Nul-Volume</P></TD>
+<TD valign=middle>
+<P>Afsluiten van 1 meetpunt.</P>
+<P>Wacht tot voldoende meetpunten voor het nul-volume en dan</P>
+<P>opgemeten druk afvinken in de tabel,</P>
+<P>opname stoppen en</P>
+<P>als bezig met drukreeks, naar state=4</P>
+<P>anders naar state=5</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>4</P></TD>
+<TD bgcolor=#33FF33 valign=middle>
+<P>Volgende</P></TD>
+<TD valign=middle>
+<P>Wacht op indrukken starttoets voor het opnemen van de volgende (nog niet afgenomen) druk in de lijst</P>
+<P>als starttoets, dan</P>
+<P>naar state=1</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>5</P></TD>
+<TD bgcolor=#33FF33 valign=middle>
+<P>Volgende</P></TD>
+<TD valign=middle>
+<P>Wacht op het selecteren van een enkelvoudige druk.</P>
+<P>als starttoets, dan</P>
+<P>enkelvoudige druk overhalen naar lijst en</P>
+<P>naar state=1</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>6</P></TD>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>
+<P>Niet bestaande toestand,</P>
+<P>hier wordt de state machine naar toe gestuurd als het maximaal aantal drukken is opgenomen</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=400 height=148 src="f45_analyse_pomp_schema2.gif"></P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=305 height=155 src="f45_analyse_pomp1.gif"></P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Schematische weergave van een volledige pomp-manouvre</P></TD>
+<TD valign=middle>
+<P>Meting: het relatieve volume tijdens de pompbeweging</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=772 height=364 src="f45_analyse_total4.gif"></P>
+<P>In bovenstaande figuur worden beide benen gelijktijdig gemeten. Er zijn 6 pomp-manouvres te zien, respectievelijk bij een cuf-druk van 50, 50, 60, 60, 70, 70 mmHg.</P>
+<P>In de onderste signaal is te zien dat bij de eerste pompbeweging, het volume stijgt, dit is te wijten aan het verschuiven van het "kwiktouwtje". Aan het eind van de meetsessie is namelijk te zien dat het volume niet meer op de oorspronkelijke waarde terugkomt.</P>
+<P>Dus het is belangrijk om tijdens de metingen te kunnen constateren dat het "kwiktouwtje" niet verschuift. De beste manier om dit te constateren is de druk van de cuf te nemen en het nul-volume te meten. Waarschijnlijk wordt dit niet gedaan om de meting dan te lang zou duren. Wel wordt aan het eind van de meetcyclus gemeten wat het relatieve nul-druk volume is.</P>
+<P>Dus er moet een andere manier gevonden worden om de validiteit van de meting te controleren.</P>
+<P>Zoals onderstaand voorbeeld aangeeft, is de huidige methode niet juist.</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=96% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>De relatieve volume-verandering van een laatste pompslag is weergegeven in de onderste curve. Het resulterende meetpunt in de druk-volume relatie wordt aangegeven door het open vierkantje.&nbsp;</P>
+<P>Kijkend naar de onderste curve, is men geneigd te denken dat de rode lijn (welke het relatieve eindvolume aangeeft) te hoog is geplaatst. Dit zou kunnen verklaren waarom het open vierkantje boven de druk-volume vurve komt te liggen, waardoor een schijnbaar negatief volume wordt weggepompt. Verschuift men de rode lijn, (enkel kijkend naar de onderste curve), dan zal het open vierkantje onder de druk-volume curve terecht komen en dus een "normaal" positief weggepompt volume tonen.&nbsp;</P>
+<P>Dit is echter complete nonsense, het betreft immers een verschoven "kwiktouwtje", hetgeen alleen in de totale opname zichtbaar is.&nbsp;</P>
+<P>Dus bij de beoordeling van de pompfunctie moet meer worden weergegeven. Gedacht wordt aan</P>
+<P>&nbsp;- het relatieve begin volume (gemiddeld over een aantal samples)</P>
+<P>&nbsp;- de gehele pompbeweging laag gesampeld of minstens de toppen</P>
+<P>&nbsp;- de laatste pompslag (zoals nu ook wordt weergegeven)&nbsp;</P></TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+</TABLE>
+</P>
+<P>Hoe komt men in hemelsnaam aan die (7) meetpunten van de druk-volume relatie ??</P>
+<P>&nbsp;&nbsp;</P>
+<P>Zo ziet het analysescherm van de pompfunctie er nu uit</P>
+<P>&nbsp;</P>
+<P>Rechtsboven zitten aankruisvakjes waarmee de vertikale as van de grafiek kan worden ingesteld.</P>
+<P>De meetpunten van de druk-volume relatie zijn de ronde bolletjes. De geaccepteerde meetpunten zijn rood ingekleurd (zwart op de printer), niet geaccepteerde punten zijn open. De rode lijn geeft de druk-volume relatie weer, en is berekend door een fit volgens de Levenberg-Marquadt benadering.</P>
+<P>Het aan-/uitzetten van specifieke meetpunten kan op 2 manieren gebeuren, door op het desbetreffende meetpunt in de grafiek te klikken met de muis, door op het corresponderende punt in de meettabel te klikken.</P>
+<P>De meetpunten van het pompvolume worden aangegeven door de vierkantjes. Geaccepteerde meetpunten zijn groen ingekleurd, niet geaccepteerde meetpunten zijn open. Het aan- en uitzetten van deze meetpunten gaat eveneens door klikken op het meetpunt, danwel op de corresponderende waarde in de tabel.</P>
+<P>Nu komen de vraagtekens bij mij opzetten !!!</P>
+<P>Eerste probleem</P>
+<P>Volgens pagina 13 van het verslag van Ties, is men niet geïnteresseerd in het weggepompte volume maar in de weggewerkte druk.</P>
+<P>Als dat zo is, verwacht geen vertikaal wit lijntje maar een horizontaal wit lijntje !!!</P>
+<P>Tweede probleem</P>
+<P>De veneuze druk is lager dan de cuf-druk. Afhankelijk van de beenomvang en van de samenstelling van de weefsels (beoordeling op grond van ervaring), moet een correctie-factor kleiner dan 1 worden ingevoerd. Indien beide benen niet gelijk zijn, kan daarom een verschillende correctie factor voor links en rechts worden ingevoerd. Hardstikke leuk, maar de tabellen vermelden slechts 1 drukwaarde, voor zowel links als rechts. !!! ???</P>
+<P>Derde probleem</P>
+<P>In de drukverval tabel wordt de gecorrigeerde druk vermeld, in de totaal tabel wordt de ongecorrigeerde druk vermeld, terwijl het een middeling over twee pomp-meetpunten betreft. Zeer verwarrend dus, en dat brengt me bij het vierde probleem:</P>
+<P>Vierde probleem</P>
+<P>Waarom wordt de druk in de druk-volume relatie niet gecorrigeerd, daar geldt toch ook veneuze druk is lager dan manchet-druk ??</P>
+<P>Vijfde probleem</P>
+<P>Bij de laatste meetpunten stemmen de tabel-waarde en de grafiek niet overeen, dat is mijn probleem</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Zoektermen internet</P>
+<P>calf muscle pump , phlebology , strain gauge plethysmography , CMP , SVPT</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst, 1999</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="mailto:id.postbus@ids.kun.nl"><IMG width=29 height=18 src="mail.gif"></A>&nbsp; SM, last updated 28-08-1999&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+</BODY></HTML>

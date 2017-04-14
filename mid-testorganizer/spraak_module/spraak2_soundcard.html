@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Soundcard Instellingen</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="3" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>maart 2008</span></p>
+<p><span class=rvts1>SoundCard Instellingen</span></p>
+<p><br></p>
+<p>Het instellen van de soundcard gebeurt in het algemeen geheel automatisch. Echter in sommige gevallen loopt dit fout en moet éénmalig handmatig de soundcard worden ingesteld.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Windows Vista</span></p>
+<p>De ondersteuning van de soundcard in Windows Vista is dermate slecht (en afhankelijk welke updates wel of niet zijn uitgevoerd), dat voorlopig is besloten om heen ondersteuning binnen het programma van de volume regelaars te implementeren. Onder Vista moet daarom éénmalig een handmatige instelling worden verricht buiten het programma om, die vervolgens gebruikt zal worden.</p>
+<p><br></p>
+<p><span class=rvts10>Afspelen van geluiden</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Start een taak in het spraak programma</li>
+<li>Ga via Alt-Tab naar de taakbalk, en klik rechts op het luidspreker ikoon</li>
+<li>Selekteer Volume Mixer openen (bovenste item)</li>
+<li>Je ziet nu een aantal volume regelaars voor het afspelen, de meest linkse is de hoofd volume regelaar, en er is er een genaamd "TO Spraak Analyse", stel deze beide regelaars éénmalig goed in. Let er ook op dat de betreffende luidspreker symbooltjes niet van een stopbord zijn voorzien.</li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>Opnemen van geluiden</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Start een taak in het spraak programma</li>
+<li>Ga via Alt-Tab naar de taakbalk, en klik rechts op het luidspreker ikoon</li>
+<li>Selekteer "Opnamen apparaten"</li>
+<li>Dubbelklik op microfoon</li>
+<li>Ga naar het tabblad "niveaus"</li>
+<li>Stel de regelaar éénmalig goed in (100% is meestal goed). Let er ook op dat de betreffende luidspreker symbooltje niet van een stopbord zijn voorzien.</li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Automatische Detectie</span></p>
+<p>Het wordt geadviseerd om eerst deze instellings methode te proberen.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Verwijder het bestand "spraak.ini" uit de root waar de TestOrganizer is geïnstalleerd. (Na de eerste installatie zal er nog geen bestand "spraak.ini" aanwezig zijn.) </li>
+<li>Start de TestOrganizer </li>
+<li>Start een spraaktest </li>
+<li>Druk nu op / of ?, zodat de volume regelaars in beeld komen. Als de volume regelaars zichtbaar zijn, is de soundcard waarschijnlijk goed gedetecteerd. </li>
+<li>Spreek nu de woorden in, en corrigeer zonodig het volume voor afspelen en opnemen </li>
+<li>Sluit de test af </li>
+<li>Beluister het opgenomen geluid, als dit goed is, hoeft u verder niets te doen en zal het programma de volgende keer automatisch de juiste instellingen kiezen. </li>
+</ul>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=133 height=167 alt="" src="spraak2_soundcard_img2.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Handmatig aanwijzen van de soundcard</span></p>
+<p>Als de automatische instelling niet is gelukt.</p>
+<p>Start dan het programma "Sound_Check.exe". Dit programma geeft een overzicht van alle automatisch te detecteren geluidskaarten. Het beeld kan er als volgt uitzien (meestal is de situatie eenvoudiger):</p>
+<p><br></p>
+<p><img width=624 height=339 alt="" src="spraak2_soundcard_img3.png"></p>
+<p><br></p>
+<p>Nu moet allereerst de soundcard gevonden worden, die wordt gebruikt voor het afspelen van de geluiden. Dit is altijd een signaal met de naam "WAVE", echter zoals hierboven ook getoond, er kunnen meerdere kanalen zijn met de naam Wave. Speel in het programma spraak een geluid af en zoek die regelaar waarbij het volume met de bijbehorende volume regelaar ook daadwerkelijk geregeld kan worden.</p>
+<p>Noteer de 2 getallen die in de titelbalk van de betreffende volumeregelaar staan, in het plaatje hierboven is dat dus voor de wave volume regelaar A: "0/0".</p>
+<p>Vervolgens moet de juiste microfoon ingang worden opgespoord. Bekijk in Spraak welke volumeregelaar invloed heeft op het opname volume, dit zal in altijd in ingang genaamd "microfoon" zijn, zoniet dan is de verkeerde soundcard driver geïnstalleerd. En noteer wederom de twee getallen in de titelbalk. </p>
+<p>Nu moet het bestand "spraak.ini" worden aangepast:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=514 height=165 alt="" src="spraak2_soundcard_img4.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Soundcard niet besturen vanuit TestOrganizer</span></p>
+<p>Pas het betsandje "spraak.ini" als volgt aan:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=111 height=38 alt="" src="spraak2_soundcard_img5.png"></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

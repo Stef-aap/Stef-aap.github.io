@@ -1,0 +1,213 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>Spraak-Analyse,  Wiskundige Interpretatie</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><font face="Arial,Helvetica"><a href="spraak_index.html">Overzicht
+Spraak</a></font>
+<br><font face="Arial,Helvetica"><a href="spraak_analyse_ontwerp.html">Analyse
+Ontwerpen</a></font>
+<br><font face="Arial,Helvetica"><a href="spraak_analyse_syntax.html">Syntax</a></font>
+<br><font face="Arial,Helvetica"><a href="spraak_lipp_bestand.html">Kenmerken
+en Font</a></font></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">MID TestOrganizer</font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#FFFF00">SpraakAnalyse</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><font face="Arial,Helvetica"><font color="#000000"><a href="#inleiding">Inleiding</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#lipp-getal">LIPP-getal</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#kenmerk-gelijkheid">Kenmerk-Gelijkheid</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#operatoren">Operatoren</a></font></font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Analyse,&nbsp;
+Wiskundige Interpretatie</font></font></b></td>
+</tr>
+</table>
+
+<p><a name="inleiding"></a><b><font face="Arial,Helvetica"><font color="#000099">Inleiding&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Doel van de analyse is om de fout uitgesproken
+woorden nader te analyseren en met name na te gaan welk soort fouten er
+zijn gemaakt.</font>
+<br><font face="Arial,Helvetica">Daarvoor worden eerst alle fout uitgesproken
+woorden opgezocht, ten tweede wordt bekeken of het fout uitgesproken woord
+wel de juiste lengte heeft (anders kan geen goede vergelijking worden gemaakt).
+Vervolgens worden alle fout uitgesproken woorden (van de juiste lengte)
+achter elkaar gezet, met tussen ieder woord een uitroepteken (!), waardoor
+1 lange string van de uitspraak onstaat (actual-string). De bijbehorende
+doelwoorden worden op dezelfde manier achter elkaar geplakt (target-string).
+Voorbeeld:</font>
+<blockquote><tt>bAnK ! xl c !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{actual-string: de uitgesproken tekst}</tt>
+<br><tt>bank ! glas !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{target-string: de doelwoorden}</tt></blockquote>
+<font face="Arial,Helvetica">Iedere klank, aangeduid met een letter uit
+het fonetisch alfabet, heeft daartoe een aantal kenmerk-waarden op de 16
+kenmerken (A,B,..P). Deze kenmerken zijn gedefinieerd in het bestand <a href="spraak_lipp_bestand.html#kenmerken bestand lipp_ascii.ini">lipp_ascii.ini</a>.</font>
+<br><font face="Arial,Helvetica">Voorbeeld, de fonetische klank met de
+ascii-waarde van A, heeft de kenmerk-waarde-A=18, kenmerk-waarde-B=16,
+kenmerk-waarde-D=1 en nul op alle overige kenmerk-waarden.</font>
+<blockquote><tt>[kenmerk&nbsp; A&nbsp; B&nbsp; C&nbsp; D&nbsp; E&nbsp;
+F&nbsp; G&nbsp; G&nbsp; I&nbsp; J&nbsp; K&nbsp; L&nbsp; M&nbsp; N&nbsp;
+O&nbsp; P]</tt>
+<br><tt>A&nbsp;&nbsp;&nbsp; 65= 18,16,00,01,00,00,00,00,00,00,00,00,00,00,00,00</tt>
+<br><tt>F&nbsp;&nbsp;&nbsp; 70= 09,03,00,01,00,00,00,00,00,00,00,00,00,00,00,00</tt></blockquote>
+<font face="Arial,Helvetica">In eerste instantie worden fonetisch logische
+deelverzamelingen van kenmerken gemaakt.</font>
+<br><font face="Arial,Helvetica">Voorbeeld, een True Vowel (TV) wordt gedefinieerd
+als een kenmerk-waarde-B van 11 t/m 16, terwijl de overige kenmerk-waarden
+niet van belang zijn.</font>
+<blockquote><font face="Arial,Helvetica">TV = B [11-16]</font></blockquote>
+<font face="Arial,Helvetica">Door nu zowel de target-string als de actual-string
+te toetsen op de voorwaarden True Vowel, ontstaat de variabele TV. Met
+behulp van formules kunnen variabelen worden gecombineerd en vergeleken.
+De uitkomst van een formule geeft aan hoe vaak aan de gevraagde kriteria
+is voldaan.</font>
+<br>&nbsp;
+<p><a name="lipp-getal"></a><b><font face="Arial,Helvetica"><font color="#000099">LIPP-getal&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Intern wordt gerekend met zogenaamde LIPP-getallen.</font>
+<br><font face="Arial,Helvetica">Een LIPP-getal bestaat uit twee serie
+booleans, gepresenteerd als 2 strings, waarbij 0=false, 1=true en !=woordscheidingsteken
+(de spaties in het voorbeeld dienen enkel ter verduidelijking).</font>
+<br><font face="Arial,Helvetica">Voorbeeld van een LIPP-getal:</font>
+<blockquote><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1101 ! 11001 ! 110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{evaluatie van de uitgesproken tekst, Actual-string, A}</font>
+<br><font face="Arial,Helvetica">TV&nbsp; =&nbsp; ---------------------------</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1011 ! 10100 ! 001&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{evaluatie van de target tekst, target-string, T}</font></blockquote>
+<font face="Arial,Helvetica">Alleen uitgesproken woorden die een gelijke
+lengte als het doelwoord hebben, worden ge&euml;valueerd, derhalve staan
+de woordscheidingstekens in beide strings altijd op dezelfde plaats.</font>
+<br><font face="Arial,Helvetica">Een LIPP-getal wordt gecre&euml;erd door
+de definitie van een variabele of door een rechtstreekse kenmerk-vergelijking.</font>
+<p><font face="Arial,Helvetica">De posities van de enen (1) in de Actual-string,
+geeft de posities van de gevraagde variabele in de uitgesproken woorden
+aan.</font>
+<br><font face="Arial,Helvetica">Door het aantal enen (1) te tellen, wordt
+het aantal "occurences" van een bepaalde variabele verkregen.</font>
+<br><font face="Arial,Helvetica">De samenvatting wordt verkregen door het
+aantal enen in beide strings te tellen, hetgeen een compressed LIPP-getal
+oplevert als 2/5,</font>
+<br><font face="Arial,Helvetica">Hetgeen te interpreteren is als "de getoetste
+uitspraak voldoet in 2 van de 5 mogelijke gevallen".</font>
+<br>&nbsp;
+<p><a name="kenmerk-gelijkheid"></a><b><font face="Arial,Helvetica"><font color="#000099">Kenmerk-gelijkheid&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">De kenmerk-gelijkheid is in feite in gewone
+(voorgedefini&euml;erde) variabele, welke altijd aanwezig is.</font>
+<br><font face="Arial,Helvetica">De kenmerk-gelijkheid toetst &eacute;&eacute;n
+specifiek kenmerk (A,B,..P) op zowel targetstring als actualstring en vergelijkt
+vervolgens beide resultaten. Deze bits-gewijze vergelijking levert enkel
+TRUE op als zowel actualstring als targetstring true zijn.</font>
+<br><font face="Arial,Helvetica">Met andere woorden er treedt een true
+op als op het gevraagde kenmerk een exacte gelijkheid van de kenmerk-waarde
+aanwezig is.</font>
+<br><font face="Arial,Helvetica">In onderstaand voorbeeld (kenmerk-gelijkheid-C)
+zijn A1 en T1 dus ook altijd gelijk.</font>
+<blockquote><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+A1</font>
+<br><font face="Arial,Helvetica">[C]&nbsp; = ------</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+T1</font></blockquote>
+
+<p><br><a name="operatoren"></a><b><font face="Arial,Helvetica"><font color="#000099">Operatoren&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Formules worden gemaakt door LIPP-getallen
+te combineren met operatoren. De uitkomst van een formule is altijd weer
+een LIPP-getal. De volgende operatoren worden ondersteund:</font>
+<blockquote><font face="Arial,Helvetica">unary logische operatoren:&nbsp;
+NOT</font>
+<br><font face="Arial,Helvetica">binairy logische operatoren: AND&nbsp;
+OR&nbsp; &lt;&nbsp; &lt;=&nbsp; =&nbsp; >&nbsp; >=</font>
+<br><font face="Arial,Helvetica">sequency operator:&nbsp; &amp;</font>
+<br><font face="Arial,Helvetica">transcriptie operator: -></font></blockquote>
+<font face="Arial,Helvetica">Alle operatoren worden bitsgewijs op de variabelen
+toegepast.</font>
+<br>&nbsp;
+<p><b><font face="Arial,Helvetica"><font color="#000099">Unary operator:
+NOT&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Dit is een bits-gewijze NOT-operator,
+op zowel de targetstring alsook op de actualstring.</font>
+<blockquote><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NOT
+( A1)</font>
+<br><font face="Arial,Helvetica">NOT&nbsp; ----------&nbsp;&nbsp; =&nbsp;
+-----------------</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NOT&nbsp;
+(A2)</font></blockquote>
+
+<p><br><b><font face="Arial,Helvetica"><font color="#000099">Binairy operatoren
+:&nbsp; AND&nbsp; OR&nbsp; &lt;&nbsp; &lt;=&nbsp; =&nbsp; >&nbsp; >=&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Dit is een bits-gewijze binairy operator,
+op zowel de targetstring alsook op de actualstring.</font>
+<br>&nbsp;
+<blockquote><font face="Arial,Helvetica">&nbsp;A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+A2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A1&nbsp; AND&nbsp; A2</font>
+<br><font face="Arial,Helvetica">------&nbsp;&nbsp; AND&nbsp;&nbsp; ------&nbsp;&nbsp;
+=&nbsp;&nbsp; -------------------</font>
+<br><font face="Arial,Helvetica">&nbsp;T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+T2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T1&nbsp; AND&nbsp;
+T2</font></blockquote>
+
+<p><br><b><font face="Arial,Helvetica"><font color="#000099">Sequency operator:
+&amp;&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Een sequentie is een reeks opeenvolgende
+klanken, waarbij iedere klank wordt getoetst op zijn eigen (gelijk of verschillend)
+kriteria.</font>
+<blockquote><font face="Arial,Helvetica">SEQ_Vooorbeeld = ( TC &amp; TV)</font></blockquote>
+<font face="Arial,Helvetica">Een sequentie moet omgeven zijn door ronde
+haken, daar de evaluatie van deze operator van achter naar voren moet plaatsvinden
+(zie onderstaand voorbeeld van een sequentie van 3 LIPP-getallen).</font>
+<blockquote><font face="Arial,Helvetica">&nbsp;A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+A2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A1&nbsp; AND&nbsp; SHL
+( A2 )</font>
+<br><font face="Arial,Helvetica">------&nbsp;&nbsp; &amp;&nbsp; ------&nbsp;&nbsp;
+=&nbsp;&nbsp; -------------------------------</font>
+<br><font face="Arial,Helvetica">&nbsp;T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+T2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T1&nbsp; AND&nbsp;
+SHL ( T2 )</font></blockquote>
+
+<blockquote><font face="Arial,Helvetica">&nbsp;A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+A2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+A1&nbsp; AND SHL ( A2&nbsp; AND&nbsp; SHL ( A3 ) )</font>
+<br><font face="Arial,Helvetica">------&nbsp;&nbsp; &amp;&nbsp; ------&nbsp;
+&amp;&nbsp; -----&nbsp;&nbsp; =&nbsp; ---------------------------------------------------------</font>
+<br><font face="Arial,Helvetica">&nbsp;T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+T2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+T1&nbsp; AND&nbsp; SHL ( T2&nbsp;&nbsp; AND&nbsp; SHL ( T3 ) )</font></blockquote>
+
+<p><br><b><font face="Arial,Helvetica"><font color="#000099">Transcriptie
+operator:&nbsp; ->&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Zoekt naar overgangen van kriteria in
+de targetstring naar (andere of gelijke) kriteria in actualstring.</font>
+<br><font face="Arial,Helvetica">De posities die aan de kriteria voldoen
+in de targetstring zijn T1 en de kriteria voor de actualstring zijn A2.
+Omdat het om een transcriptie gaat zijn A1 en T2 niet van belang.</font>
+<br><font face="Arial,Helvetica">Dus de mogelijkheden die voldoen op basis
+van de targetstring zijn T1.</font>
+<br><font face="Arial,Helvetica">De echte overgangen die voldoen aan beide
+kriteria worden dus gevormd door T1 AND A2.</font>
+<blockquote><font face="Arial,Helvetica">&nbsp;A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+A2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T1&nbsp; AND&nbsp; A2</font>
+<br><font face="Arial,Helvetica">------&nbsp;&nbsp; ->&nbsp; ------&nbsp;&nbsp;
+=&nbsp;&nbsp; -------------------</font>
+<br><font face="Arial,Helvetica">&nbsp;T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+T2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+T1</font></blockquote>
+
+<hr WIDTH="100%"><font size=-2>&copy; Copyright Instrumentele Dienst, 1999</font>
+<br><a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height=18 width=29></a><font size=-2>&nbsp;
+SM, last updated 29-12-1999&nbsp;</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+</body>
+</html>

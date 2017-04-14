@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffff;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="4" /></head>
+<body>
+
+<p>hallo Arnod,</p>
+<p><br></p>
+<p>Naar aanleiding van het prettige onderhoud van heden ochtend,</p>
+<p>en in de hoop dat we snel spijkers met koppen kunnen slaan,</p>
+<p>hier alvast wat informatie.</p>
+<p><br></p>
+<p>Ik heb hieronder de signalen bij elkaar gezet,</p>
+<p>die volgens ons gemeten moeten kunnen worden,</p>
+<p>en die wij ook met ons huidige ontwerp kunnen meten.</p>
+<p>In het prototype, door middels een ID-weerstandje in de connector,</p>
+<p>de ingangstrap te configureren. Maar zoals vanmorgen besproken, zitten we nu meer op de weg van 1-malig instellen met jumpertjes&gt;.</p>
+<p><br></p>
+<p>Nog enkele opmerkingen over signalen hieronder beschreven:</p>
+<p><br></p>
+<p>Signaal 5, alleen de snelle component zou voldoende zijn.</p>
+<p><br></p>
+<p>Signaal 6, omdat dit een relatieve meting is, moet of het quotient kunnen worden berekend,</p>
+<p>hardware-matig danwel software-matig. Dit is dan ook typisch een van die voorbeelden, die (volgens miij) moeilijk in labview te doen zijn, maar heel gemakkelijk in Midac kunnen ;-)</p>
+<p><br></p>
+<p>Alleen signaal 9 is niet geimplementeerd, maar heb ik er bij gezet, omdat het vaak gewenst is,</p>
+<p>hoewel daar ook andere methoden voor zijn (gewoon een rekband b.v.)</p>
+<p><br></p>
+<p>Ik zal het document ook als pdf toevoegen.</p>
+<p><br></p>
+<p>met vriendelijke groet,</p>
+<p>Stef Mientki</p>
+<p><br></p>
+<p><span class=rvts2>Patient signals to be measured with FysioFlex-5</span></p>
+<p><br></p>
+<p>For all signals below yields:</p>
+<p>- a good CMRR is necessary (realizing the the patient is connected through relative high (and different) impedance electrodes and the patient body is a perfect antenna for all kind of signals)</p>
+<p>- medical safety, IEC60: leakage currents in single fault condition, 4kV double isolation.</p>
+<p><br></p>
+<p>The most common measured physiological signals,</p>
+<p>measured with electrical electrodes are:</p>
+<p><br></p>
+<p><span class=rvts10>1.&nbsp; ECG = Electro Cardiogram</span></p>
+<p>amplitude 1 mV, bandwidth DC-200 Hz, resolution 1%</p>
+<p><br></p>
+<p><span class=rvts10>2.&nbsp; EEG = Electro Encephalogram</span></p>
+<p>amplitude 100 uV, bandwidth 1-200 Hz, resolution 1%</p>
+<p><br></p>
+<p><span class=rvts10>3.&nbsp; EMG = Electro Myogram</span></p>
+<p>amplitude 1mV, bandwidth 10-1000 Hz, resolution 1%</p>
+<p><br></p>
+<p><span class=rvts10>4.&nbsp; EOG = Electro Ocularogram</span></p>
+<p>amplitude 1V, bandwidth DC-10Hz, resolution 1%</p>
+<p><br></p>
+<p>There are a lot more signals that can be measured with electrodes,</p>
+<p>but technical speaking they are a subset of the above signals,</p>
+<p>or require special pre processing.</p>
+<p><br></p>
+<p><span class=rvts10>5.&nbsp; Skin Conductance</span></p>
+<p>Place 0.5 Volt across 2 patient electrodes and measure the conductance.</p>
+<p>Most of the time we're only interested in the fast component: </p>
+<p>amplitude 5 mV, bandwidth 1-20 Hz, resolution 1%</p>
+<p>Sometimes also interested in slow component:</p>
+<p>amplitude 500 mV, bandwidth DC-2 Hz, resolution 1%</p>
+<p>So this either needs a 20 bit AD converter or a split channel design with different amplifications.</p>
+<p><br></p>
+<p><span class=rvts10>6.&nbsp; Mercury Plethysmograph</span></p>
+<p>A silicon tube filled with mercury, has a resistance of a few Ohms, with this you measure volume changes of about 1% by measuring the relative change. This requires special a high accurate measurement device or a normal, say 1% bridge amplifier with some calculations in the software.</p>
+<p><br></p>
+<p><span class=rvts10>7.&nbsp; Normal grounded signal, e.g. from a signal generator</span></p>
+<p>Amplitude 1V, bandwidth DC-1kHz, resolution 0.1%</p>
+<p><br></p>
+<p><span class=rvts10>8.&nbsp; (Full) Bridges,</span></p>
+<p>Exitation max 3V, Impedance 300 ... 1000 Ohm, generated signal 1 mV, </p>
+<p>bandwidth DC-100Hz, resolution 1%</p>
+<p><br></p>
+<p><span class=rvts10>(9.&nbsp; Breathing)</span></p>
+<p>By measuring the thoracic impedance, with the same electrodes used to measure the ECG, injecting a 50 kHz 1uA signal.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

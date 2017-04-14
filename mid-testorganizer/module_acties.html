@@ -1,0 +1,132 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.51 [en] (Win95; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>Module Acties</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00"><font size=+1>MIDORG&nbsp;
+Design &amp; Test</font></font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><b><font face="Arial,Helvetica"><font color="#000099">&nbsp;</font></font></b></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF"><font size=+1>Module
+Acties</font></font></font></b></td>
+</tr>
+</table>
+
+<p><a name="vragenlijst acties"></a><b><font face="Arial,Helvetica"><font color="#000099">Module
+Acties&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="#actie edit">Edit</a>
+Test Protocol wijzigen (of aanmaken van een nieuwe)</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="#actie opnemen">Opnemen</a>
+/ Afnemen van een test</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="#actie bekijken">Bekijken</a>
+van een gemaakte opname / afgenomen test</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="#actie rapport">Rapport</a>
+maken van een gemaakte opname / afgenomen test</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="#actie import">Import</a>
+van test-protocollen? / gemaakte opnamen? door een ander testprogramma</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="#actie convert">Converteren</a>
+van oude testprotocollen</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="#actie export">Exporteren</a>
+van de gemaakte opnamen naar een ander programma</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; - <a href="#acttie instellingen">Instellen</a>
+van de specifieke parameters van het programma</font>
+<br>&nbsp;
+<p><a name="actie edit"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Edit&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Test Protocol wijzigen (of aanmaken van
+een nieuwe)</font>
+<br><font face="Arial,Helvetica">De volgende standaarden zijn gedefinieerd:</font>
+<br><font face="Arial,Helvetica">- wysiwyg editor</font>
+<br><font face="Arial,Helvetica">- edit actie vindt plaats in een kopie
+van het opgegeven bestand</font>
+<br><font face="Arial,Helvetica">- bij het sluiten van het form wordt een
+(zo goed mogelijk ingevulde) savedialog gebruikt voor het al dan niet opslaan
+van de wijzigingen.</font>
+<br><font face="Arial,Helvetica">- indien geen testprotocol wordt opgegeven,
+wordt een nieuw testprotocol aangemaakt</font>
+<br>&nbsp;
+<p><a name="actie opnemen"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Opnemen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>- als er een databestand is aangemaakt, terugmelding via parameters
+(result, filedate, filetime) in transport bestand
+<br>- als lock_windows true, moet de module de task-switching van windows
+geheel blokkeren
+<br>&nbsp;
+<p><a name="actie bekijken"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Bekijken&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Hiermee kan een reeds gemaakte opname
+worden bekeken, in exact dezelfde vorm als tijdens opname.</font>
+<br><font face="Arial,Helvetica">In het algemeen wordt het niet toegestaan
+om eenmaal gemaakte opnamen te wijzigen, een module kan hierop een uitzondering
+maken.</font>
+<br>&nbsp;
+<p><a name="actie rapport"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Rapport&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Schrijft de resultaten van de gewenste
+opname in het opgegeven bestand (report file). Als report file geen expliciet
+path bevat, wordt het programmapath gebruikt. Als uberhaupt geen filenaam
+is opgegeven, wordt rapport.txt gebruikt.</font>
+<br><font face="Arial,Helvetica">Als extra parameter wordt hier het gewenste
+rapport-nivo opgegeven.</font>
+<br><font face="Arial,Helvetica">Teruggegeven wordt de vorm waarin het
+rapport is gegenereerd (voorlopig type 1).</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; 0 = geen rapport</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; 1 = plain ASCII</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; 2 = coded ASCII</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; 3 = quick report ..</font>
+<br>MIDORG zorgt voor het samenvoegen van de rapporten van de individuele
+testen tot een totaal patienten rapport.
+<br>&nbsp;
+<p><a name="actie import"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Import&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Het importeren van databestanden gemaakt
+met andere programma's.</font>
+<br>&nbsp;
+<p><a name="actie convert"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Convert&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Indien van een bepaalde module een dermate
+grote wijziging ondergaat zodat het noodzakelijk is om een apart vertaalprogramma
+te gebruiken, teneinde niet alle balst in de nieuwe module mee te nemen,
+moet een nieuwe bestands-extensie worden aangemaakt.</font>
+<br><font face="Arial,Helvetica">Indien het programma MidOrg oude bestanden
+aantreft zal het de actie Converteren aanroepen, waardoor de module zorgt
+draagt dat alle oude bestanden worden vertaald.</font>
+<br>&nbsp;
+<p><a name="actie export"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Export&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">SPSS uitvoer, nog te definieren</font>
+<br>De uitvoer is in ieder geval een tab-delimted file, waarbij de eerste
+kolommen vast gedefinieerd zijn, zodat het hoofdprogramma in de toekomst
+export-bestanden van meerdere testprotocollen kan samenvoegen.
+<br>&nbsp;
+<p><a name="acttie instellingen"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Instellingen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Wijzigen van het opgegeven module instellingen
+bestand. Uiteraard bestaat de mogelijkheid bij het afsluiten de instellingen
+onder een andere naam op te bergen.</font>
+<br><font face="Arial,Helvetica">Als de bestandsnaam leeg is, danwel niet
+bestaat, wordt het standaard module-instellingen bestand <b>&lt;path-van-applicatie>\&lt;application-name>.ini</b>
+gebruikt.</font>
+<br>&nbsp;
+<p>
+<hr size=2><font face="Arial,Helvetica"><font size=-2>&copy; Copyright
+Stef Mientki, 18-1-1999</font></font>
+<br><font face="Arial,Helvetica"><font size=-2><a href="mailto:s.mientki@ids.kun.nl">s.mientki@ids.kun.nl</a>
+last updated: 14-04-1999</font></font>
+<br>&nbsp;
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffff;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="2" /></head>
+<body>
+
+<p>(ff2) <span class=rvts1>Onset exper (f2) (F84)</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="ad-index.html">MIDAC Index</a></p>
+<p class=rvps1><a class=rvts4 href="funk0.html">Overzicht Rekenfuncties</a></p>
+<p class=rvps1><a class=rvts4 href="../mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Deze funktie vormt de vervanging voor funktie 2 ???.</span></p>
+<p><br></p>
+<p class=rvps2><span class=rvts2>Bepaling&nbsp; Bloeddruk Onset</span></p>
+<p class=rvps2><span class=rvts9>(MID-Poly Applicatie)</span></p>
+<p><br></p>
+<p><span class=rvts2>Achtergrond</span></p>
+<p>Bij patienten met een dwarslaesie werken bepaalde terugkoppel-elementen in de regeling van de bloeddruk niet goed of onvoldoende. Om deze regelmechanismen beter te doorgronden is de afdeling Fysiologie geïnteresseerd in de aansturing van de eigenschappen van het arteriële vaatbed. Een van de parameters die iets zegt over de status van het arteriële vaatbed is de latentietijd tussen de R-top in het ECG en de onset van de bloeddruk in de periferie. Het bepalen van de R-top levert geen probleem. Het volautomatisch bepalen van de bloeddruk </p>
+<p>onset is echter een lastiger probleem.</p>
+<p><img width=417 height=225 alt="" hspace=1 vspace=1 src="funk95_img11.png"></p>
+<p><br></p>
+<p><span class=rvts2>Probleem</span></p>
+<p>De vol-automatische bepaling van de bloeddruk onset wordt gekenmerkt door de volgende specifieke problemen:</p>
+<p>grote laagfrekwent component</p>
+<p>aanzienlijke hoeveelheid ruis</p>
+<p>fenomeen is asymetrisch</p>
+<p>bepalen nulde afgeleide is storingsgevoelig</p>
+<p>wavelet vóór de onset is sterk variant</p>
+<p>artefacten (b.v. bij beweging)</p>
+<p><br></p>
+<p><img width=369 height=227 alt="" hspace=1 vspace=1 src="funk95_img13.png">  <img width=382 height=219 alt="" hspace=1 vspace=1 src="funk95_img14.png"></p>
+<p><br></p>
+<p><span class=rvts2>Principe Oplossing</span></p>
+<p>Duidelijk is dat de opgaande helling van het bloeddruk signaal wel goed te bepalen is.</p>
+<p>Omdat deze helling behoorlijk steil is, kan de onset nauwkeurig bepaald worden door de bepaling van het snijpunt van deze helling met een goed gekozen horizontale lijn ter hoogte van de diastolische druk. Weliswaar zal de echte onset iets eerder optreden doch de geïntroduceerde fout geeft slechts een constante afwijking.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Praktische Uitwerking</span></p>
+<p>De helling wordt bepaald door het berekenen van een lineaire regressie, welke wordt gestart op 15% van het begin en welke door loopt tot 85% van de top. Dit bereik garandeert enerzijds dat de curve voldoende lineair is en anderzijds wordt de maximale hoeveelheid informatie benut waardoor een optimale ruisonderdrukking wordt bereikt. De diastolische druk wordt bepaald door het lokale minimum te bepalen van het gefilterde druksignaal in de periode voorafgaand aan de helling. Daarnaast worden een aantal JBF algoritmen gebruikt om resterende artefacten te onderdrukken.</p>
+<p><br></p>
+<p><span class=rvts2>Resultaat</span></p>
+<p>Het algoritme, uitgevoerd in MID-Poly, werkt volautomatisch. De latentietijd wordt met een nauwkeurigheid beter dan 5 msec en in de meeste gevallen zelfs beter dan 2 msec berekend.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><img width=634 height=251 alt="" src="funk95_img7.png"></p>
+<p>&nbsp; </p>
+<p><img width=526 height=206 alt="" src="funk95_img5.png"></p>
+<p><img width=544 height=201 alt="" src="funk95_img6.png">&nbsp; </p>
+<p><br></p>
+<p>&nbsp; </p>
+<p><a name="omschrijving"></a>
+<span class=rvts2>Omschrijving</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts12>&nbsp; //store new sample</span></p>
+<p><span class=rvts12>&nbsp; ap:=(ap+1) mod 1000;</span></p>
+<p><span class=rvts12>&nbsp; sample_array[ap]:=input[1];</span></p>
+<p><span class=rvts12>&nbsp; mean:=mean+sample_array[ap];</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; if not(initialized) then</span></p>
+<p><span class=rvts12>&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; inc(meanN);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; initialized:=meanN&gt;=Ntijd_constante;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; if initialized then</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max:=sample_array[ap];</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min:=sample_array[ap];</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i:=1 to Ntijd_constante-1 do</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ii:=(ap -i + 1000) mod 1000;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if sample_array[ii]&gt;max then max:=sample_array[ii];</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if sample_array[ii]&lt;min then min:=sample_array[ii];</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; end</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; else exit;</span></p>
+<p><span class=rvts12>&nbsp; end;</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; //verwijder het "eerste sample" van de reeks over tijdconstante</span></p>
+<p><span class=rvts12>&nbsp; ii:=(ap - Ntijd_constante + 1000) mod 1000;</span></p>
+<p><span class=rvts12>&nbsp; mean:=mean-sample_array[ii];</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; output[1]:=max;</span></p>
+<p><span class=rvts12>&nbsp; if sample_array[ap]&gt;max then</span></p>
+<p><span class=rvts12>&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; max:=sample_array[ap];</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; max_follow:=true;</span></p>
+<p><span class=rvts12>&nbsp; end</span></p>
+<p><span class=rvts12>&nbsp; else</span></p>
+<p><span class=rvts12>&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; //als bezig was maximum te volgen,</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; //en nu het signaal weer dalende,</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; //dan was dit dus een lokaal maximum</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; //en dus plaatsen we een marker in het maximum signaal</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; //en we resetten tevens het minimum</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; if max_follow then</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output[1]:=mean / Ntijd_constante;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max_follow:=false;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min:=mean / Ntijd_constante;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; end;</span></p>
+<p><span class=rvts12>&nbsp; end;</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; output[2]:=min;</span></p>
+<p><span class=rvts12>&nbsp; if sample_array[ap]&lt;min then</span></p>
+<p><span class=rvts12>&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; min:=sample_array[ap];</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; min_follow:=true;</span></p>
+<p><span class=rvts12>&nbsp; end</span></p>
+<p><span class=rvts12>&nbsp; else</span></p>
+<p><span class=rvts12>&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; if min_follow then</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output[2]:=max;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min_follow:=false;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; end;</span></p>
+<p><span class=rvts12>&nbsp; end;</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; output[3]:=mean / Ntijd_constante;</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; delta:=(max-sample_array[ap])/(2*Ntijd_constante);</span></p>
+<p><span class=rvts12>&nbsp; max:=max-delta;</span></p>
+<p><span class=rvts12>&nbsp; delta:=(sample_array[ap]-min)/(2*Ntijd_constante);</span></p>
+<p><span class=rvts12>&nbsp; min:=min+delta;</span></p>
+<p><span class=rvts12>end;</span></p>
+<p><span class=rvts12><br></span></p>
+<p><img width=528 height=275 alt="" src="funk95_img1.png"></p>
+<p><br></p>
+<p>Uit bovenstaande figuur, blijkt </p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>goede systole detectie, met zowel goede tijd als amplitude resolutie </li>
+<li>diastole goede detectie, amplitude goed, maar slecht tijdstip </li>
+</ul>
+<p><br></p>
+<p><img width=237 height=278 alt="" src="funk95_img2.png"></p>
+<p>Als we het plaatje uitvergroten, dan zien we dat we het eerste stuk van de helling moeten hebben voor een betrouwbare bepaling.</p>
+<p>Dus bv een lineaire regressie over de positieve helling, van 20% tot 50% van de amplitude.</p>
+<p>Aangezien deze helling nog geheel in het buffer zit, is dit vrij eenvoudig op te sporen.</p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

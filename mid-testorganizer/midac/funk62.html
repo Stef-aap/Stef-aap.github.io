@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>MIDAC, rekenfunktie 62, micro-neurografie</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #dddddd;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="55" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p>(FF2) <span class=rvts1>MicroNeuroGrafie MSNA (F62)</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="ad-index.html">MIDAC Index</a></p>
+<p class=rvps1><a class=rvts4 href="funk0.html">Overzicht Rekenfuncties</a></p>
+<p class=rvps1><a class=rvts4 href="../mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Wijzigingen jan 2005</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>aanpassingen voor grotere signalen van FF2 </li>
+</ul>
+<p>&nbsp; </p>
+<p>Wijzigingen 1-juli-2001</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>er bleek het een en ander fout te zijn, hetgeen nu structureel beter is opgelost, hetgeen wel to 2 seconden extra tijdsvertraging heeft geleid </li>
+<li>HR100 en HR1min doen het waarschijnlijk niet goed, is niet naar gekeken na de verbeteringen </li>
+<li>Bij de eerste prescan wordt nu gezocht naar MSNA-burst die liggen tussen de 1.0 en 1.6 seconden, in het algemeen zal dit een lagere SD van de timedelay opleveren dan voorheen </li>
+</ul>
+<p>Wijzigingen 9-juni-2001</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>diastole(3), systole(4), RR(10), MSNA(11), MSNA-time(12), MAP(13) zodanig verschoven dat ze de juiste onderlinge tijdsrelatie in de export hebben. DWZ: bij een R-top hoort het eerst volgende RR-interval, de eerstvolgende Systolische waarde en de eerstvolgende Diastolische waarde en de MSNA die het gevolg hiervan is (dus op pakweg 1.5 seconde, wordt anders gedetecteerd) </li>
+<li>MSNA-time is nu de echte tijd t.o.v. de R-top waar hij bijhoort </li>
+</ul>
+<p>Wijzigingen 29-mei-2001</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>uitgangssignalen 10 t/m 13 zijn gewijzigd voor export, de oude signalen (tussenresultaten) kunnen via design-mode worden verkregen </li>
+<li>extra ingangssignaal toegevoegd t.b.v. vertraagde MAP </li>
+</ul>
+<p>Wijzigingen 6-april-2001</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>verbeterde detectie, waardoor mean time-delay niet meer overschat wordt </li>
+<li>uit het hoogfrequente ruis van het signaal wordt de SD bepaald, welke vervolgens (handmatig) als amplitude drempel gebruikt kan worden. </li>
+<li>Over de 80 bijna grootste wordt ook de SD van de delay bepaald, en na de eerste scan wordt 2* deze waarde gebruikt als drempel </li>
+<li>de mogelijkheid om i.p.v. een relatieve amplitude drempel ook een absolute amplitude drempel in te voeren. </li>
+<li>wissen via een marker op extra ingangskanaal (moet in het orginele neurogram net voor de piek worden geplaatst) </li>
+<li>extra uitgangssignaal wissen </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="inleiding"></a>
+<span class=rvts2>Inleiding </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Deze rekenfunktie detecteert in een (gelijkgericht) neurogram de sympathetic outflow.</p>
+<p>Het opsporen van de sympathische activiteit gebeurt door het neurogram te correleren met een driehoek signaal. De maxima in de correlatie functie worden vervolgens getoetst op een minimale amplitude en op een constante tijdsrelatie met het QRS-complex uit het ECG. De drempel en de maximale tijd-afwijking kunnen worden ingesteld.</p>
+<p>De geldige burst worden als een tijd-signaal weergegeven, waarin zowel de amplitude als het tijdstip goed zijn te herkennen. De afgekeurde bursts worden in een apart tijdssignaal weergegeven, waarin de reden van afkeur is te herkennen.</p>
+<p>Over de geldige sympathetic outflow bursts wordt een lopend gemiddelde over 1 minuut en over 100 hartslagen bepaald.</p>
+<p>Alle uitgangssignalen worden zodanig in de tijd verschoven dat ze in een amplitude-tijd diagram direct onderling vergeleken kunnen worden, bovendien zijn 2 extra ingangen aanwezig om signalen naar keuze eveneens in de tijd te verschuiven.</p>
+<p>Verder zijn een aantal tussenresultaten van de berekeningen als amplitude-tijdssignaal beschikbaar.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="ingangs signalen"></a>
+<span class=rvts2>Ingangs Signalen </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>1 = het gelijkgericht Neurogram</p>
+<p>2 = R-top (afkomstig uit een QRS-detector)</p>
+<p>3 = extra signaal1, dat vertraagd wordt uitgegeven</p>
+<p>4 = extra signaal2, dat vertraagd wordt uitgegeven</p>
+<p>5 = marker, welke wordt gebruikt om (onterecht) gedetecteerde MSNA bursts te verwijderen</p>
+<p>6 = extra signaal3, dat vertraagd wordt uitgegeven</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="uitgangs signalen"></a>
+<span class=rvts2>Uitgangs Signalen </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>1 = tijd-gecorrigeerde neurogram</p>
+<p>2 = tijd-gecorrigeerde R-top</p>
+<p>3 = tijd-gecorrigeerde extra signaal1</p>
+<p>4 = tijd-gecorrigeerde extra signaal2</p>
+<p>5 = tijd-gecorrigeerde Sympathetic Amplitude</p>
+<p>6 = tijd-gecorrigeerde discarded bursts</p>
+<p>7 = tijd-gecorrigeerde Mean Sympathetic Outflow over 1 minute</p>
+<p>8 = tijd-gecorrigeerde Mean Sympathetic Outflow over 100 hartbeats</p>
+<p>9 = tijd-gecorrigeerde reconstructie</p>
+<p>10 = RR-interval in msec</p>
+<p>11 = MSNA synchroon met R-top t.b.v. export (zelfde signaal als 5, tijdsverschoven)</p>
+<p>12 = MSNA tijdsverschil met R-top (t.b.v. export), negatief is voor R-top, positief is na R-top</p>
+<p>13 = tijd-gecorrigeerde extra signaal3</p>
+<p>In de design mode, worden de signalen 10 t/m 13 gebruikt voor tussen resultaten</p>
+<p>10 = tijd-gecorrigeerde A</p>
+<p>11 = tijd-gecorrigeerde B</p>
+<p>12 = tijd-gecorrigeerde error</p>
+<p>13 = tijd-gecorrigeerde wismarkering (door marker)</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="detector uitgangen"></a>
+<span class=rvts2>Detector Uitgangen </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Hieronder een voorbeeld van een gelijkgericht neurogram (zwart) , met de detectie signalen.</p>
+<p>Het blauwe signaal is het R-top signaal uit de QRS-detector.</p>
+<p>Het gele signaal geeft de gedetecteerde geldige sympathische bursts weer, de hoogte van de pieken is evenredig met de gedetecteerde amplitude.</p>
+<p>LET OP: een gedetecteerde burst geeft slechts 1 sample de amplitude weer (geeft een simpele export mogelijkheid), dit betekent echter dat het display (dat meestal in de tijd gecomprimeerd zal zijn) in de "stripchart-mode" zal moeten staan om alle pieken in de juiste hoogte te kunnen zien.</p>
+<p>Het rode signaal geeft de afgekeurde bursts weer. Naar beneden gerichtte spikes zijn in ieder geval afgekeurd omdat ze buiten het opgegeven tijds-interval vallen (en mogelijk ook niet voldoen aan het amplitude criterium). De naar boven gerichtte spikes vallen wel binnen het tijdsinterval maar hebben een te lage amplitude.</p>
+<p>VRAAG: is amplitude wel een goede maat of moet dit energie (= amplitude^2) zijn ?</p>
+<p><img width=812 height=223 alt="" src="funk62d1.jpg"></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="instel parameters"></a>
+<span class=rvts2>Instel Parameters </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td width=589 valign=middle>
+<p>In de eerste pre-scan van het signaal worden de grootste bursts gezocht. Over deze grootste bursts worden de gemiddelde ampltude en de gemiddelde delay tijd bepaald. Deze 2 waarnemingen staan vermeld in het meetvenster rechts onder ("Max Amplitude" en "Mean Delay").</p>
+<p>Spike detectie: met name spikes als gevolg van statische electriciteit kunnen hiermee worden verwijderd, werkt zowel in pre-scan als in de normale scan.</p>
+<p>NCC, de breedte van de halve driehoek, waarmee wordt gecorreleerd om bursts te vinden, wekrt zowel in pres-scan als normale scan.</p>
+<p>Min Ampl (%): het amplitude detectie criterium, een burst moet groter zijn dan Min Ampl % van het gemiddelde maximum gevonden in de pre-scan.</p>
+<p>Min Ampl absoluut: idem maar dan in absolute waarde (1 van beide mag worden ingevuld, de andere wordt vervolgens automatisch aangepast)</p>
+<p>Max Delta T: het tijds detectie criterium, de delay van R-top naar burst mag maximaal Max Delta msec afwijken t.o.v. het gemiddelde gevonden in de pre-scan.</p>
+<p>De edit velden worden pas geactiveerd na het indrukken van de ENTER toets.</p>
+<p>Indien de instelling van spike-detectie of NCC wordt gewijzigd, wordt automatisch een nieuwe pre-scan uitgevoerd.</p>
+</td>
+<td width=217 valign=middle>
+<p class=rvps3><a href="funk62i1.gif"><img width=210 height=237 alt="" src="funk62i1.gif"></a></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=589 valign=middle>
+<p>Tijdens een normale scan, staan de gemiddelde burst activiteit van het laatst gedisplayede moment in het venster rechts.</p>
+<p>Het vraagteken toont dit help-bestand.</p>
+</td>
+<td width=217 valign=middle>
+<p class=rvps3><img width=209 height=232 alt="" src="funk62i2.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="ad kanalen"></a>
+<span class=rvts2>&nbsp; AD kanalen </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=472 height=210 alt="" src="funk62ad.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="rekenkanalen"></a>
+<span class=rvts2>Rekenkanalen </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>(let op de biezondere ijking van MSNA-time)</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=480 height=346 alt="" src="funk62rk.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td width=618 valign=top>
+<p><a name="instelling bloeddruk"></a>
+<span class=rvts2>Instelling Bloeddruk functie</span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>&nbsp; </p>
+<p>Laagdoorlaat filter moet groter dan 8 Hz staan, anders wordt de systole (zichtbaar) te laag geschat.</p>
+<p>Vervolgens moet de differentielengte groot genoeg worden ingesteld om geen al te veel last van storingen en met name Finapres kalibraties te hebben.</p>
+</td>
+<td width=188 valign=middle>
+<p><img width=187 height=228 alt="" src="funk62bp.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="export instellingen"></a>
+<span class=rvts2>Export Instellingen </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=586 height=458 alt="" src="funk62ex.gif"></p>
+<p><span class=rvts2>&nbsp; </span></p>
+<p>&nbsp; </p>
+<p><a name="export tabel in excel"></a>
+<span class=rvts2>Export tabel in Excel </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=480 height=477 alt="" src="funk62excel.gif"></p>
+<p><span class=rvts2>&nbsp; </span></p>
+<p>&nbsp; </p>
+<p><a name="longtime means"></a>
+<span class=rvts2>Longtime Means </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Hieronder de lange termijn gemiddelde.</p>
+<p>Rood = Sympathetic Outflow over the last 100 hartbeats.</p>
+<p>Blue = Sympathetic Outflow over the last minute.</p>
+<p>Green = tijd-gecorrigeerde diastolische druk</p>
+<p>Geel = ademhaling</p>
+<p>&nbsp; </p>
+<p><img width=810 height=224 alt="" src="funk62d2.jpg"></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="reken algoritme"></a>
+<span class=rvts2>Reken Algoritme </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>In de pre-scan worden 2 parameters bepaald, welke in de normale scan worden gebruikt als detectie criterium.</p>
+<p>Pre-scan:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>spikes verwijderen (indien de spike detector is ingeschakeld </li>
+<li>Zoek de 100 grootste bursts. Het zoeken gebeurt curve fitting (op basis van de kleinste kwadraten methode) met een driehoek welke 2*NCC breed is. Curve fitting is basaal gelijk aan kruiscorrelatie, met als voordeel dat een DC component geen invloed heeft. </li>
+<li>Verwijder de 20 allergrootste uit de verzameling van 100 (om te vookomen dat eventuele uitschieters de drempel beïnvloeden) </li>
+<li>Bepaal over de resterende 80 "grootste" burst de gemiddelde amplitude en de gemiddelde delay t.o.v. de R-top </li>
+</ul>
+<p>Normale Scan</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>spikes verwijderen (indien spike detector ingeschakeld) </li>
+<li>zoeken naar bursts middels curve fitting met de opgegeven driehoek </li>
+<li>test of het tijdstip van de burst valt binnen de opgegeven grenzen </li>
+<li>test of de amplitude van de burst valt binnen de opgegeven grenzen </li>
+</ul>
+<p>Omdat curve fitting wordt toegepast is filtering in het geheel niet nodig.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="tussen resultaten"></a>
+<span class=rvts2>Tussen Resultaten </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Rood het oorspronkelijke neurogram.</p>
+<p>Blauw de reconstructie volgens x(i) =SOM ( A(i) * m(i-ii) + B(i) + error(i) )</p>
+<p>Geel = A(i) , de maxima geven de amplitude van de bursts</p>
+<p>Groen = error(i)</p>
+<p>&nbsp; </p>
+<p><img width=811 height=223 alt="" src="funk62d3.jpg"></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="achtergrond"></a>
+<span class=rvts2>Achtergrond </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Sympathetic Outflow,</p>
+<p>Geen vals positieve bursts meenemen, dus liever een onderschatting</p>
+<p>Handmatige correctie gewenst</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="signaal eigenschappen"></a>
+<span class=rvts2>Signaal eigenschappen </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Door de materie deskundige worden de volgende eigenschappen omschreven</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>De sympathische activiteit ontstaat een vaste tijd (individu afhankelijk) na de R-top in het ECG. In feite is de lage diastolische bloeddruk waarde de initiërende factor. </li>
+<li>De vorm van een sympathische activiteit is symmetrisch </li>
+<li>De grote spikes, die ook in het algemeen met een steile flank beginnen, zijn vermoedelijk storingen als gevolg van statische ontladingen. </li>
+<li>Er treden af en toe hinderlijke DC shifts op. Een deel van deze shifts is kunstmatig gecreëerd door de baseline tijdens de metingen handmatig te corrigeren. </li>
+</ul>
+<p>Het signaal op een technische manier bekijkend:</p>
+<p>Ad 2: omdat gekeken wordt naar een aantal neuronen in een bepaald gebied, zal het signaal bestaan uit de som van alle signalen uit de buurt. Bij verhoging van sympathetische activiteit zal zowel de vuurfrequentie alsook het aantal actieve neuronen toenemen, hetgeen resulteert in een Gauss-shape. Deze vorm impliceert ook dat bij een toename van de sympathische activiteit zowel de hoogte als de breedte van de waargenomen puls toe zal nemen.</p>
+<p>Ad 4: de vraag is of het verstandig is om de baseline te corrigeren, immers zo kan niet onderscheiden worden of een DC-shift het gevolg is van een verplaatsing van de electrode danwel van de versterker instelling.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Het signaal bevat een "hoogfrequente" ruis, die mogelijk wel tot de sympathische activiteit behoort, maar bagenoeg continue aanwezig is en dus als een storende bias moet worden gekwantificeerd. </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="signaal analyse"></a>
+<span class=rvts2>Signaal Analyse </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Gebaseerd op de geconstateerde signaal eigenschappen (op basis van 1 proefpersoon), komen we voorlopig tot de onderstaande analyse methode. Het is vanzelfsprekend dat er eerst spike detectie/removal wordt uitgevoerd, immers filtering zal spikes maskeren. Bepaling van de standaard deviatie kan pas plaatsvinden nadat de DC-variaties zijn verwijderd, anders wordt de SD teveel gebiased. Een mogelijk alternatief is, geen DC-filtering, maar een segmented analyse te doen. Wordt nog bekeken. Omdat de vorm zowel op theoretische gronden als op visuele gronden als een Gauss mag worden gekarakteriseerd, lijkt template correlatie voor de hand te liggen. De laatste stap (handmatige verwerping) is toegevoegd, omdat de voorkeur geeft aan een onderschatting van de sympathische activiteit.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><a class=rvts4 href="#spike detectie">Spike detectie</a> (steile flanken en/of hoge amplituden) </li>
+<li><a class=rvts4 href="#spike removal">Spike removal</a></li>
+<li> Verwijderen van de hoge frequenties </li>
+<li>Verwijderen van de lage frequenties </li>
+<li>Bepaling van de standaard deviatie, waaruit een drempel voor de bepaling signaal/ruis kan worden bepaald. </li>
+<li>Crosscorrelatie met een template leidend tot een burst-detectie </li>
+<li>Verwerping van gevonden bursts op basis van verkeerde timing </li>
+<li>Handmatige verwerping van gevonden bursts </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="spike detectie"></a>
+<span class=rvts2>Spike detectie</span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Door de materie deskundige worden pulsen met een (te) steile opgaande flank als stoor-spikes geïdentificeerd. Het ligt dus voor de hand om de afgeleide van het signaal te gebruiken als spike detectie. Er zijn 2 methodes van afgeleide bepaling met elkaar vergeleken, de average sloop methode over 6 punten (zou theoretisch de beste resultaten leveren) en een simpele 2-punts methode (is rekentechnisch het meest eenvoudig). Beide methoden doen het even goed (zie onderstaande plaatjes) en dus wordt vanuit rekentechnische overwegingen gekozen voor de 2-punts methode. Voor de average sloop methode zou een drempel van 100...120 moeten worden genomen en voor de 2-punts afgeleide een drempel van 300.</p>
+<p>&nbsp; </p>
+<p><img width=812 height=311 alt="" src="funk62b.jpg"></p>
+<p>&nbsp; <img width=814 height=310 alt="" src="funk62a.jpg"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="spike removal"></a>
+<span class=rvts2>Spike Removal </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Zodra een spike wordt gedetecteerd (dit zal altijd te laat zijn), wordt het neurogram gedurende 500 msec constant gehouden. Deze constante waarde wordt betrokken uit en gestart op 100 msec voor het detectiepunt. Na deze constante waarde over 500 msec, wordt het signaal gedurende de volgende 500 msec gefilterd met een laagdoorlaat filter teneinde weer een soepele aansluiting met het gemeten neurogram te krijgen. De gebruikte afsnijfrequentie is .... de filterfunktie is Y(i+1) = alfa * Y(i) + (1-alfa) * X(i) , met alfa =0.9 ...</p>
+<p>In onderstaande figuur is het effect van spike removal duidelijk te zien, de rode curve is het ruwe neurogram, de blauwe curve is het "gefilterde neurogram, op de momenten A t/m D is de spike detectie/removal actief.</p>
+<p>&nbsp; </p>
+<p><img width=811 height=310 alt="" src="funk62c.jpg"></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="tijdsrelatie"></a>
+<span class=rvts2>Tijdsrelatie </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>zo maar een leuk plaatje, alle signalen zodanig in tijd verschoven dat ze direct correleren.</p>
+<p>Geel is bloeddruk, Zwart is R-top detectoe, Blauw is gefilterde neurogram.</p>
+<p>De rode curve is het ruwe neurogram, deze ligt geheel onder de blauwe curve, behalve op de momenten dat een spike wordt gedetecteerd.</p>
+<p>&nbsp; </p>
+<p><img width=810 height=308 alt="" src="funk62d.jpg"></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="template matching"></a>
+<span class=rvts2>Template matching </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>De geregistreerde neurogram is gelijkgericht (en mogelijk gefilterd). De sympathetic outflow bursts worden daarom gezien als positieve pieken, welke optreden een vaste tijd na de R-top in het ECG. Door de gelijkrichting is het frequentie-spectrum vervormd (niet-lineair) en derhalve verdienen bewerkingen in het frequentie-domein niet de voorkeur. Detectie kan op het eerste gezicht dus het best geschieden via een&nbsp; of andere vorm van template matching.</p>
+<p>De vorm van een gelijkgerichtte burst zou op grond van de theorie een Gauss-vorm moeten hebben. Als de registratie bekeken wordt, (hetgeen lastig is door de sterke ruis, maar filtering tast mogelijk de vorm aan), kan soms de Gauss vorm herkend worden, maar een "driehoek" voldoet zeker zo goed. Rekentechnisch gezien, is een driehoek uiterst interessant, de rekentijd is minimaal.</p>
+<p>Bij deze eerste patient, bestaat de driehoek uit een positiev flank van 400 msec en een identieke negatieve flank.</p>
+<p>Cross-correlation levert op zich een goed beeld, echter de cross-correlation is sterk vervuild met de DC-shift.</p>
+<p>Een (in wezen) identieke methode wordt verkregen via directe template matching, waarbij de fout wordt geminimaliseerd middels de kleinste kwadraten methode. Deze methode heeft geen last van DC-shifts, omdat deze als aparte parameter uit de formule komt rollen. Bovendien is continue de gesommeerde fout beschikbaar welke mogelijk een extra detectie criterium oplevert.</p>
+<p>&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td valign=top>
+<p>Het signaal x is een lineaire translatie van het model m, met een fout e (1)</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Kwadratische fout over het gehele template (2) wordt geminimaliseerd, door</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>afgeleide naar A nul te stellen (3)</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>en de afgeleide naar B nul stellen (4)</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>(4) levert uitdrukking voor B (5)</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>(5) substitueren in (3) levert de correlatie (6)</p>
+</td>
+<td valign=middle>
+<p><img width=528 height=524 alt="" src="funk62_formule.jpg"></p>
+</td>
+</tr>
+</table>
+</div>
+<p> De variabele A levert rechtstreeks de "energie" van de gevonden puls.</p>
+<p>Als template wordt gebruik gemaakt van de reeks 1, 2, 3,...n/2, n/2, ...3, 2, 1. Hierbij komt n/2 samples overeen met 400 msec. De reden om deze reeks te nemen (en niet een genormaliseerde reeks met energie=1 en mean=0) heeft te maken met de minimalisatie van de rekentijd, immers nu behoeven slechts enkele optellingen/aftrekkingen per meetpunt te worden uitgevoerd (zie programma-code).</p>
+<p>Om toch te normeren, wordt niet A, maar A/n als uitgangssignaal genomen. Op deze manier wordt de uitkomst ook anafhankelijk van de breedte van het template.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td valign=top>
+<p>(7) geeft de DC component</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>De resterende kwadratische fout wordt beschreven door (8)/(8b)</p>
+<p>&nbsp; </p>
+<p>(8b) is rekentechnisch iets eleganter.</p>
+</td>
+<td valign=middle>
+<p><img width=662 height=222 alt="" src="funk62_formule2.jpg"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+
+</body></html>

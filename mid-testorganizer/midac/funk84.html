@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Midac Function 84, perifere flow meting</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #efefef;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="165" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p>(ff2) <span class=rvts1>Perifere Flow m.b.v. Plethysmografie (F84)</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="ad-index.html">MIDAC Index</a></p>
+<p class=rvps1><a class=rvts4 href="funk0.html">Overzicht Rekenfuncties</a></p>
+<p class=rvps1><a class=rvts4 href="../mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Deze funktie vormt de vervanging voor funktie 4.</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><a name="omschrijving"></a>
+<span class=rvts2>Omschrijving</span></p>
+<p>Deze funktie berekent de perifere bloedflow op basis van een plethysmograaf signaal.</p>
+<p>Hoewel de berekening identiek is gebleven aan funktie 4, is met name het praktisch gebruik door de interactieve grafische interface sterk verbeterd. Daarnaast is extra aandacht besteed aan GLP, dwz men kan altijd zien of een waarde met de hand gecorrigeerd is, doordat de automatisch berekende computerwaarden er altijd naast blijven staan.</p>
+<p>Het plethysmograaf signaal wordt verkregen uit meting aan een extremiteit, welke met een cuff (al dan niet ECG getriggerd, zie ook <a class=rvts4 href="funk61.html">rekenfunktie 61 voorheen rekenfunktie 1</a>) net onder de systolische bloeddruk wordt afgesloten. De toename van de omvang van de extremiteit, gemeten met een plethysmograaf, is een maat voor de toename van het bloedvolume in de extremiteit. De afgeleide van dit plethysmograaf signaal is een maat voor de bloedflow. De afgeleide wordt bepaald m.b.v. een lineaire regressie op basis van de kleinste kwadraten fout.</p>
+<p>&nbsp; </p>
+<p>Deze funktie kan het beset gebruikt worden in combinatie met funktie 61 (QRS-detector) en eventueel funktie 54 (Bloeddruk analyse), zoals in onderstaande figuur is aangegeven.</p>
+<p><img width=629 height=412 alt="" src="funk84_img19.gif">&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>De funktie berekent simultaan de helingshoek van linker en rechter arm, en bij iedere arm over 4 (door de gebruiker in te stellen) perioden. Alleen de berekning over de eerste periode wordt grafisch weergegeven, zoals hier onder getoond.</p>
+<p>We zien in de bovenste grafiek het plet signaal van de linker arm (blauwe curve) en in de onderste grafiek het plet signaal van de rechter arm (blauwe signaal). De kleuren zijn uiteraard door de gebuiker in te stellen.</p>
+<p>In de bovenste grafiek zien we ook het klepsignaal (groene signaal), waaruit is te zien dat de analyse start 1 seconde na het opblazen van de&nbsp; cuffs.</p>
+<p>In beide grafieken is een basislijn getekend (zwarte lijn). Deze basislijn staat altijd op een vaste waarde en de plet-signalen altijd zodanig in verticale richting verschoven dat het gemiddelde van het plet signaal, in de periode 1 seconde voor het opblazen van de cuffs, op de basislijn staat.</p>
+<p>De paarse lijn geeft de door de computer berekende helling weer. Ook het beginpunt en het eindpunt komen overeen met de opgegeven meet-periode. De paarse lijn is voorzien van kleine dipjes naar beneden, die als seconde indicator dienen. De schuine paarse lijn is iets naar beneden geschoven getekend (maar wel evenwijdig), teneinde de rode lijn goed zichtbaar te maken.</p>
+<p>De rode lijn is in eerste instantie gelijk aan de paarse lijn, oftewel de door de computer berekende lijn. De rode lijn is echter voorzien van anker punten aan het begin, midden en einde, die dienen om de lijn met de muis in gewenste richting te verplaaten (zie hieronder handcorrectie).</p>
+<p>Tenslotte, onder de grafieken staat nog een commentaar regel, die bij iedere trial afzonderlijk wordt bewaard. </p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=537 height=605 alt="" src="funk84_img8.gif"></p>
+<p>&nbsp; </p>
+<p>Onderaan het plaatje staan alle trial-nummers vermeld.</p>
+<p>Het actieve trialnummer is gehighlight, in dit geval 34.</p>
+<p>Trials die verworpen zijn, zijn rood gekleurd, zoals 3 in bovenstaande figuur.</p>
+<p>De trials die handmatig gecorrigeerd zijn, zijn groen geleurd, zoals 19.</p>
+<p>&nbsp; </p>
+<div><table width=708 border=1 cellpadding=5 cellspacing=0 style="border-color: #000000; border-style: solid;">
+<tr valign=top>
+<td width=43 valign=top style="border-color: #000000; border-style: solid; background-color: #fdfeda;">
+<p><img width=61 height=129 alt="" src="funk84_img9.gif"></p>
+</td>
+<td width=639 valign=top style="border-color: #000000; border-style: solid; background-color: #fdfeda;">
+<p>Aan de linkerkant zien we de berekende waarden van de helling over de 4 perioden. </p>
+<p>&nbsp; </p>
+<p>Het label boven de meetwaarde geeft de periode aan. </p>
+<p>Dus bijvoorbeeld de bovenste waarde in het linker plaatje is berekend </p>
+<p>startend 1 seconde na het openen van de klep en gedurende 6 seconden.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=43 valign=top style="border-color: #000000; border-style: solid; background-color: #fdfeda;">
+<p><img width=64 height=166 alt="" src="funk84_img10.gif"></p>
+</td>
+<td width=639 valign=top style="border-color: #000000; border-style: solid; background-color: #fdfeda;">
+<p>Tevens zien we hier de 4 extra signalen. </p>
+<p>De namen van de labels zijn in te stellen op het instellingen blad. </p>
+<p>&nbsp; </p>
+<p>Deze getallen zijn het gemiddelde van het betreffende signaal, berekend over dezelfde period als waarover de eerste helling is berekend.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width=708 border=1 cellpadding=5 cellspacing=0 style="border-color: #000000; border-style: solid;">
+<tr valign=top>
+<td width=641 valign=top style="border-color: #000000; border-style: solid; background-color: #fdfeda;">
+<p>Rechts bovenaan, vinden we de versterkersknoppen. </p>
+<p>Hiermee kan worden ingezoomd op de signalen. </p>
+<p>&nbsp; </p>
+<p>Daarnaast kan ook de verhouding tussen de grafiek van de linker en de rechter arm worden ingesteld, door het verslepen van de blauwe horizontale lijn.</p>
+</td>
+<td width=41 valign=top style="border-color: #000000; border-style: solid; background-color: #fdfeda;">
+<p class=rvps3><img width=79 height=156 alt="" src="funk84_img11.gif"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=641 valign=top style="border-color: #000000; border-style: solid; background-color: #fdfeda;">
+<p>Met het klembord knopje, wordt het gehele functie venster als grafische afbeelding naar het cilpboard gekopieerd en kan vervolgens via plakken in ieder willekeurig document worden geplaatst. </p>
+<p>&nbsp; </p>
+<p>Met het vraagteken, wordt het help bestand van deze funktie geopend in de default browser. </p>
+<p>De knop export, exporteert alle resultaten naar een tab-delimited ASCII-file (zie hierna). </p>
+<p>Het slotje en het groene mannetje dienen voor de handcorrectie, zie hierna. </p>
+<p>&nbsp; </p>
+<p>Met de rode pijlen kan naar de vorige / volgende trial worden gesprongen. Zolang het funktie venster focus heeft, kan hiervoor ook PgUp en PgDn worden gebruikt. Daarnaast kan men op de trial-nummers klikken om een gewenste trial te tonen. </p>
+<p>&nbsp; </p>
+<p>Helemaal onderaan staat nog een reject hokje, door dit aan te vinken wordt de actuele trial verworpen.</p>
+</td>
+<td width=41 valign=top style="border-color: #000000; border-style: solid; background-color: #fdfeda;">
+<p class=rvps3><img width=72 height=151 alt="" src="funk84_img12.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Handcorrectie</span></p>
+<p>In onderstaand voorbeeld is de eerste analyse door de computer uitgevoerd over de periode 1..7 seconden na het opblazen van de cuffs.</p>
+<p>Kijkend naar de rechter arm (onderste signaal) is te zien dat er een fors bewegings artefact is geweest, waarna bovendien het kwiktouwtje verschoven is. De door de computer berekende lijn (paarse lijn met spikes) is duidelijk de fout ingegaan als gevolg van het bewegings artefact.</p>
+<p>De lijn kan nu eenvoudig visueel worden aangepast, door hem op de juiste plaats te slepen (rode lijn).</p>
+<p>Standaard is het slotje rechtsonder gesloten, zodat niet per ongeluk lijnen kunnen worden verplaatst.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Klik op het slotje, zodat het verplaatsen van de lijn wordt toegestaan </li>
+<li>Nu kunnen de eindpunten van de rode lijn volkomen vrij worden verplaatst, door ze te klikken en terwijl de linkermuis wordt vastgehouden de muis te verplaatsen. </li>
+<li>De lijn kan ook evenwijdig worden verplaatst, door het middelpunt van de lijn te slepen </li>
+<li>De berekende waarden links in beeld worden aangepast zodra de linker muistoets wordt losgelaten. </li>
+<li>Als men tevreden is over het resultaat, kan wederom op het slotje geklikt worden, om de zaak te vergrendelen. (Indien men naar een andere trial springt, wordt het slotje automatisch gesloten). </li>
+<li>Komt men toch tot de conclusie dat men er zelf niets beter van kan maken, kan men voor deze ene trial de berekening door de computer over laten doen, door op het groene mannetje te klikken (werkt alleen terwijl het slot open is). </li>
+<li>Tenslotte bestaat de mogelijkheid om een trial te onderdrukken, door het hokje "reject" aan te kruisen, het betreffende trial nummer wordt dan rood, zoals in trial 3 is te zien. </li>
+<li>Een trial die met de hand is gewijzigd, is te herkennen aan een groen trial nummer (zoals hier in de actieve trial 19 te zien had moeten zijn) </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=538 height=603 alt="" src="funk84_img2.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts2>Export</span></p>
+<p>De export kan via het hoofmenu worden gestart, maar ook direct door in het funktie-venster op de export knop te drukken. Daarna verschijnt het standaard export venster, dat normaal gesproken goed zal zijn ingesteld. Vervolgens drukt men op Start en de export file wordt klaargemaakt.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=596 height=472 alt="" src="funk84_img4.gif"></p>
+<p>&nbsp; </p>
+<p>Het beeld tijdens de export:</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=569 height=452 alt="" src="funk84_img7.gif"></p>
+<p>&nbsp; </p>
+<p>Als de export file klaar is wordt gevraagd of men de export file direct in een extern programma wil bekijken.</p>
+<p>Drukt men op JA, dan wordt de exportfile direct in het externe programma geopend (bv Excel).</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=416 height=143 alt="" src="funk84_img5.gif"></p>
+<p>&nbsp; </p>
+<p>De exportfile in Excel:</p>
+<p>Om de file te openen, zoekt de TestOrganizer naar het programma dat door windos aan deze fileextensie is gekoppeld. In windows kan dit het gemakkelijkst worden ingesteld door dit type file éénmalig te openen vanuit de verkenner met de gewenste toepassing.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=690 height=514 alt="" src="funk84_img6.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Instellingen Venster</span></p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #000000; border-style: solid;">
+<tr valign=top>
+<td width=508 valign=top style="border-color: #000000; border-style: solid; background-color: #fdfeda;">
+<p>Bovenaan staan de instellingen voor de 4 analyses. De eerste analyse is ook de analyse die grafisch wordt weergegeven. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Links onder kunnen de kleuren van de signalen en achtergrond worden ingesteld. Gewoon klikken en een kleur kiezen. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Rechtsonder kunnen de namen voor de extra signalen (ingangs kanalen 5..8) worden ingevoerd. Indien geen naam wordt ingevuld, wordt het signaal ook niet berekend. Belangrijk is te weten dat het ingangssignaal 5 niet automatisch wordt geschaald (dit is bedoeld voor de hartrate) en de overige signalen wel automatisch worden geschaald, op basis van hun ingangssignaal. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Ten slotte midden onder een extra noodmaatregel als er om welke reden dan ook geen klepsignaal beschikbaar is. Men kan dan het opblazen van de cuffs handmatig aangeven door op de juiste plaats markers van het opgegeven type te zetten.</p>
+</td>
+<td width=283 valign=top style="border-color: #000000; border-style: solid; background-color: #fdfeda;">
+<p class=rvps3><img width=295 height=497 alt="" src="funk84_img18.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p><span class=rvts2>Ingangs Signalen</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=407 height=126 alt="" src="funk84_img15.gif">&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=288 height=87 alt="" src="funk84_img14.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=596 height=259 alt="" src="funk84_img21.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+
+</body></html>

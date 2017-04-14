@@ -1,0 +1,73 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunctie 9</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 9</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A>&nbsp;|&nbsp;<A class=RVTS4 href="#algoritme">Algoritme</A></P>
+<P>Bijzonderheden |&nbsp;<A class=RVTS4 href="#toepassing">Toepassing</A></P>
+<P><A class=RVTS4 href="funk9f.html">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Event Counter</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+OmschrijvingFlank-getriggerde Event counter met nivo-getriggerde reset ingang.</P>
+<P><TABLE width=495 bgcolor=#FFEEDD border=0 cellpadding=5 bordercolor=#000000 cellspacing=2>
+<TR valign=top>
+<TD width=27% valign=top>
+<P>Inputs</P></TD>
+<TD width=40% valign=top>
+<P>Parameters</P></TD>
+<TD width=33% valign=top>
+<P>Outputs</P></TD>
+</TR>
+<TR valign=top>
+<TD width=27% valign=top>
+<P>Event signaalReset signaal</P></TD>
+<TD width=40% valign=top>
+<P>event conditie (&lt;&gt;=)event drempelevent hysteresisreset conditie (&lt;&gt;=)reset drempel</P></TD>
+<TD width=33% valign=top>
+<P>Counter waarde</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="algoritme"></A>
+AlgoritmeAls een geldig event optreedt, wordt de counter met 1 opgehoogd.Een geldig event wordt gedefiniëerd door de drempelwaarde en de conditie (groter dan / kleiner dan / gelijk aan). Het hertriggeren kan pas plaatsvinden als het event signaal meer dan de hysteresis is teruggegaan t.o.v. de drempel.De counter kan worden gereset door het tweede ingangssignaal. Voor het reset signaal geldt geen hysteresis en is overschrijding van de drempel in de opgegeven richting voldoende.Als de counter de maximale integer waarde bereikt, wordt de counter gereset.<A name="toepassing"></A>
+Toepassings-voorbeeldEr is een opname gemaakt, waarbij 1 van de ingangssignalen een marker-achtige funktie uitoefent.Men wenst een deel van de opname (van derde tot en met vijfde event) te exporteren naar een ander analyse programma.Dit kan als volgt gerealiseerd worden:Maak een rekenkanaal op basis van deze event-counter met als ingangssignaal het event en als reset ingang de systeem variabele first_sample (reset conditie: &gt;0).Geef in de export dialoog dit rekenkanaal op als voorwaarde signaal met als grenzen &gt;=3 en &lt;=5.Start de export.</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

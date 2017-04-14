@@ -1,0 +1,194 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunktie 1</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E8E8E8;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P>(FF2)<SPAN class=RVTS1>&nbsp;R-top detector (f1)</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Deze functie is vervangen door F61</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="omschrijving"></A>
+<SPAN class=RVTS2>Omschrijving</SPAN></P>
+<P>Bepaling van de R-top in het ECG of andere positieve piek in een signaal.Voor ECG-getriggerde aansturing van een rapid cuff inflator wordt verwezen naar funktie 61.Er zijn diverse uitgangen beschikbaar, zoals HR [Bpm], RR-interval [msec] en het moment van de R-top.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Inputs</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=637 border=0 cellpadding=4 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=5% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=24% valign=top>
+<P>ECG</P></TD>
+<TD width=71% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Parameters</SPAN>&nbsp;&nbsp;</P>
+<P><TABLE width=633 border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>Weegfactor</P></TD>
+<TD width=71% valign=top>
+<P>Filtercoëfficiënt voor bepaling mean (default=0.03)</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>Hysteresis</P></TD>
+<TD width=71% valign=top>
+<P>minimaal vereiste daling voor geldig R-top (default=50)</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>QRS-pre</P></TD>
+<TD width=71% valign=top>
+<P>VERVALLEN</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>QRS-meet</P></TD>
+<TD width=71% valign=top>
+<P>VERVALLEN</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>QRS-wait</P></TD>
+<TD width=71% valign=top>
+<P>VERVALLEN</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>Startkey</P></TD>
+<TD width=71% valign=top>
+<P>VERVALLEN</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>Plethysmograaf Enabled</P></TD>
+<TD width=71% valign=top>
+<P>VERVALLEN</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>QRS / seconde trigger</P></TD>
+<TD width=71% valign=top>
+<P>VERVALLEN</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>HR-min</P></TD>
+<TD width=71% valign=top>
+<P>ondergrens voor de hartrate</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>HR-max</P></TD>
+<TD width=71% valign=top>
+<P>bovengrens voor de hartrate</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Outputs</SPAN></P>
+<P><TABLE width=633 border=0 cellpadding=4 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>R-top</P></TD>
+<TD width=71% valign=top>
+<P>geeft een signaal van 1Volt equivalent op het moment van de R-top</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>Zaagtand</P></TD>
+<TD width=71% valign=top>
+<P>een signaal , wordt bij iedere R-top op nul gezet en loopt met de samplefrekwentie op (hiermee kan bijvoorbeeld de afstand R-top en Bloeddruk onset worden bepaald)</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>RR-interval [msec]</P></TD>
+<TD width=71% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% height=16 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% height=16 valign=top>
+<P>Toggle</P></TD>
+<TD width=71% height=16 valign=top>
+<P>schakelt bij iedere hartslag om tussen 0Volt en 1 Volt</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>HartRate [Bpm]</P></TD>
+<TD width=71% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=4% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=top>
+<P>Plethysmograaf</P></TD>
+<TD width=71% valign=top>
+<P>VERVALLEN</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="algoritme"></A>
+&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Algoritme</SPAN></P>
+<P>QRS-detectorHet algoritme zoekt naar lokale maxima en minima in het ECG signaal. Met name de lokale maxima worden nauwkeuriger onderzocht om hieruit de R-top af te leiden. Om als R-top aangemerkt te worden, moet voldaan zijn aan de volgende voorwaarden:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>top moet groter zijn dan de helft van de vorige top (beide gerekend t.o.v. het gemiddelde)&nbsp;</LI>
+<LI>de resulterende hartrate moet binnen de ingestelde grenzen vallen&nbsp;</LI>
+<LI>het ECG moet inmiddels minstens Hysteresis gedaald zijn.Er worden dus 2 hulpvariabelen gebruikt, het gemiddelde en de vorige topwaarde. Het gemiddelde wordt bepaald door een eerste orde laagdoorlaat-filter, waarvan de afsnijfrekwentie is:weegfactor*samplefrequentie/(2*pi)(0.03 bij 100 Hz samplefrekwentie geeft een afsnijfrekwentie van 0.25 Hz)De vorige topwaarde wordt met 10% (t.o.v. het gemiddelde) verlaagd als aan 1 van de volgende voorwaarden is voldaan:&nbsp;</LI>
+<LI>de hartrate is kleiner dan het ingestelde minimum&nbsp;</LI>
+<LI>er wordt een top gevonden die kleiner is dan de helft van de vorige top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+
+</BODY></HTML>

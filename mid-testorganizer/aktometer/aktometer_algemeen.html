@@ -1,0 +1,390 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="796" />
+<meta name="spellcheck" content="66579" /></head>
+<body>
+
+<p><span class=rvts1>Aktometer (type 3)&nbsp; </span><span class=rvts8>( April 2009 )</span></p>
+<p><br></p>
+<p><span class=rvts2>Algemeen</span></p>
+<p><br></p>
+<p>In onderstaand plaatje zijn de hoofd elementen van de grafische weergave aangegeven.</p>
+<p>Geheel links-boven de <span class=rvts10>sneltoetsen</span> voor:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>openen van een aktometer bestand </li>
+<li>uitlezen van een aktometer </li>
+<li>printen van de huidige pagina </li>
+<li>printen van alle geldige dagen ( 1 pagina per dag, er wordt om een bevestiging gevraagd ) </li>
+<li>aanvullende help informatie </li>
+<li>sluiten van het programma </li>
+</ul>
+<p><br></p>
+<p>Aan de linkerkant de <span class=rvts10>kernwaarden</span>, bepaald over de geldige dagen. De waarden kunnen worden weergegeven in de volgende eenheden: Akto (vergelijkbaar met de oude aktometer), Mets&nbsp; ( Metabolic Equivalent of Task, <a class=rvts4 href="http://en.wikipedia.org/wiki/Metabolic_equivalent">wikipedia</a> ) of kCal.</p>
+<p><br></p>
+<p>Onderin een overzicht van de <span class=rvts10>gehele opname</span>, welke op 15 of 30 dagen (knopje links van de grafiek) kan worden ingesteld. De weekend dagen zijn groen gearceerd. De rode lijn onder de grafiek geeft de geldige dagen weer. Het <span class=rvts10>aan uit schakelen</span> van een dag kan gebeuren door in de grafiek op de betreffende dag met de <span class=rvts10>middel muis of rechter muistoets</span> te klikken. De rode lijn boven de grafiek geeft de dag die wordt weergegeven in detail. De blauwe arcering geeft het waak gemiddelde per dag aan (deze waarde is uitvergroot weergegeven, factor 3).</p>
+<p><br></p>
+<p>Onder de grafiek is een <span class=rvts10>tabel</span>, waarin de <span class=rvts10>waak / slaaptijden</span> kunnen worden afgelezen en ingesteld. De onderste regel geeft het <span class=rvts10>waak-gemiddelde</span> over de betreffende dag.</p>
+<p><br></p>
+<p>Rechts in het midden de <span class=rvts10>detail grafiek van één enkele dag</span> (ongefilterd). De rode lijn geeft het gemiddelde over de hele geldige periode. Deze rode lijn maakt een sprongetje na het opstaan en bij het naar bed gaan. Tijdens het waken wordt met de rode lijn het waakgemiddelde weergegeven, tijdens het slapen wordt met de rode lijn het etmaal-gemiddelde weergegeven. De blauwe arcering geeft het gemiddelde over deze dag ( weer net als de rode lijn gescheiden in etmaal gemiddelde en waak gemiddelde). Als de blauwe arcering dus boven de rode lijn uitkomt, is de aktiviteit op deze dag hoger dan gemiddeld en omgekeerd.</p>
+<p><br></p>
+<p>Rechts bovenin bevindt zich de <span class=rvts10>grijswaarde grafiek</span>. Hierin wordt de geselecteerde dag weer aangegeven met een rode lijn ( de rode lijn staat er net onder). De opsta en naar bed tijden zijn aangegeven met een witte stip. Als we naar het opstaan patroon in onderstaande grafiek kijken, zien we deze persoon door de week nagenoeg op iedere dag op hetzelfde tijdstip opstaat, en veel later in het weekend. In het naar bed gaan zit duidelijk wat meer variatie. De gevoeligheid van de grijswaarde curve kan met de schuif aan de rechterkant worden ingesteld.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=678 height=485 alt="" src="aktometer_algemeen_img1.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Eenheden kCal / Mets</span></p>
+<p>Voor het berekenen van deze waarden dient allereerst de Basal metabolic rate (BMR)&nbsp; bepaald te worden. Hiervoor zijn afhankelijk van de gebruikte methode het leeftijd, geslacht, gewicht en lengte van de patiënt nodig. De patiënt gegevens zijn daarom uitgebreid met gewicht en lengte. De berekening wordt alleen uitgevoerd als alle genoemde gegevens bekend zijn. Momenteel wordt voor de berekening van de BMR, de WHO 1985 gebruikt.</p>
+<p><br></p>
+<p class=rvps2><img width=801 height=762 alt="" src="aktometer_algemeen_img16.png"></p>
+<p><br></p>
+<p>Iedere keer bij het inlezen van een nieuwe patiënt, wordt de instelling van eenheid / mean uit de ini-file gelezen. Als er niets in de ini-file staat gespecificeerd, wordt standaard Akto / waken geselecteerd.</p>
+<p><br></p>
+<p><span class=rvts1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=174 height=54 alt="" src="aktometer_algemeen_img17.png"></p>
+<p>Voor de Eenheid geldt hierbij: ontbreekt of 0 = Akto,&nbsp; 1 = Mets,&nbsp; 2 = kCal.</p>
+<p>Voor mean geldt: ontbreekt of 0 = waken, 1 = 24-uur</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Uitlezen aktometer</span></p>
+<p>Plaats de aktometer in de uitlees-houder en druk op de uitleesknop ...</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=345 height=66 alt="" src="aktometer_algemeen_img3.png"></p>
+<p><br></p>
+<p>... het programma opent vanzelf het tweede tabblad (met opname gegevens en communicatie verloop) en start het uitlezen van de aktometer. </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=397 height=640 alt="" src="aktometer_algemeen_img5.png"></p>
+<p><br></p>
+<p>Zodra de aktometer geheel is uitgelezen (duurt ongeveer 10 seconden), wordt de bestands-opslag dialoog getoond.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=563 height=419 alt="" src="aktometer_algemeen_img4.png"></p>
+<p><br></p>
+<p>De filenaam is al ingevuld, op grond van het uitgelezen patient nummer en je hoeft dus enkel op bewaren te drukken. Als het bestand is opgeslagen, wordt automatisch teruggesprongen naar het eerste tabblad, waar de uitgelezen gegevens grafisch worden weergegeven.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>AktoMeter Starten</span></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Opnametijd Instellen</span></p>
+<p>De aktometer kan met verschillende tijd resoluties worden gebruikt. Uiteraard is het zo dat bij een hogere tijdsresolutie het geheugen eerder vol is en is dus de opnametijd beperkt. Standaard staat de aktometer ingesteld op een tijd resolutie van 5 minuten, hetgeen betekent dat eens per 5 minuten de gemiddelde aktiviteit wordt opgeslagen in het geheugen en de opnametijd bedraagt dan 30 dagen. In onderstaande tabel zijn de keuzemogelijkheden weergegeven.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #ece9d8 #aca899 #aca899 #ece9d8; border-style: solid;">
+<tr valign=top>
+<td width=111 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Tijd Resolutie</span></p>
+</td>
+<td width=147 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Max Opname Duur</span></p>
+</td>
+<td width=150 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Ini-Default</span></p>
+</td>
+<td width=384 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>DataFile</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="background-color: #ffffd4;">
+<p>30 sec</p>
+</td>
+<td width=147 valign=top style="background-color: #ffffd4;">
+<p>3 dagen</p>
+</td>
+<td width=150 valign=top style="background-color: #ffffd4;">
+<p>Sample Period = 0</p>
+</td>
+<td width=384 valign=top style="background-color: #ffffd4;">
+<p>system:~1</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="background-color: #ffffd4;">
+<p>1 min</p>
+</td>
+<td width=147 valign=top style="background-color: #ffffd4;">
+<p>6 dagen</p>
+</td>
+<td width=150 valign=top style="background-color: #ffffd4;">
+<p>Sample Period = 1</p>
+</td>
+<td width=384 valign=top style="background-color: #ffffd4;">
+<p>system:~2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="background-color: #ffffd4;">
+<p>2 min</p>
+</td>
+<td width=147 valign=top style="background-color: #ffffd4;">
+<p>12 dagen</p>
+</td>
+<td width=150 valign=top style="background-color: #ffffd4;">
+<p>Sample Period = 2</p>
+</td>
+<td width=384 valign=top style="background-color: #ffffd4;">
+<p>system:~4</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="background-color: #ffffd4;">
+<p>2.5 min</p>
+</td>
+<td width=147 valign=top style="background-color: #ffffd4;">
+<p>15 dagen</p>
+</td>
+<td width=150 valign=top style="background-color: #ffffd4;">
+<p>Sample Period = 3</p>
+</td>
+<td width=384 valign=top style="background-color: #ffffd4;">
+<p>system:~5</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="background-color: #ffffd4;">
+<p>5 min</p>
+</td>
+<td width=147 valign=top style="background-color: #ffffd4;">
+<p>30 dagen</p>
+</td>
+<td width=150 valign=top style="background-color: #ffffd4;">
+<p>Sample Period = 4</p>
+</td>
+<td width=384 valign=top style="background-color: #ffffd4;">
+<p>system:~10</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Wil men permanent een andere tijd resolutie dan 5 minuten, dan dient in de ini-file Akto.ini een regel te worden opgenomen, zie voor de gewenste waarde de kolom "Ini-Default" in de bovenstaande tabel.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=177 height=135 alt="" src="aktometer_algemeen_img10.png"></p>
+<p><br></p>
+<p>In geval een andere tijd resolutie dan 5 minuten wordt toegepast, is dit in data file herkenbaar aan de extra regel "system~2", zie voor de betekenis de kolom DataFile in bovenstaande tabel.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=331 height=255 alt="" src="aktometer_algemeen_img11.png"></p>
+<p><br></p>
+<p>Voor het tijdlelijk instellen van een andere tijd resolutie, kan gebruik worden gemaakt van het standaard instelvenster (er wordt wel om een extra bevestiging gevraagd). Deze instelling blijft vervolgens gehandhaafd, totdat het aktometer programma wordt afgesloten.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=369 height=195 alt="" src="aktometer_algemeen_img12.png"></p>
+<p><br></p>
+<p><span class=rvts2>Kernwaarden</span></p>
+<p>Aan de linkerkant de <span class=rvts10>kernwaarden</span>, bepaald over de geldige dagen. De volgorde van de kernwaarden ligt vast. </p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #ece9d8 #aca899 #aca899 #ece9d8; border-style: solid;">
+<tr valign=top>
+<td width=101 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Kernwaarde</span></p>
+</td>
+<td width=740 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Uitleg</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=101 valign=top style="background-color: #ffffd4;">
+<p>Mean Etmaal</p>
+</td>
+<td width=740 valign=top style="background-color: #ffffd4;">
+<p>Gemiddelde over 24 uur per dag, over de geselecteerde dagen.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=101 valign=top style="background-color: #ffffd4;">
+<p>Mean Waken</p>
+</td>
+<td width=740 valign=top style="background-color: #ffffd4;">
+<p>Gemiddelde over de aktieve periode per dag, over de geselecteerde dagen.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=101 valign=top style="background-color: #ffffd4;">
+<p>Mean ZatZon</p>
+</td>
+<td width=740 valign=top style="background-color: #ffffd4;">
+<p>Mean Waken, enkel over het weekend.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=101 valign=top style="background-color: #ffffd4;">
+<p>Mean Week</p>
+</td>
+<td width=740 valign=top style="background-color: #ffffd4;">
+<p>Mean Waken, enkel over door de weekse dagen.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=101 valign=top style="background-color: #ffffd4;">
+<p>Daglengte</p>
+</td>
+<td width=740 valign=top style="background-color: #ffffd4;">
+<p>De gemiddelde daglengte in uren, over de geselecteerde dagen.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=101 valign=top style="background-color: #ffffd4;">
+<p>DagLen Var</p>
+</td>
+<td width=740 valign=top style="background-color: #ffffd4;">
+<p>De variantie van de daglengte. Als deze waarde groter is dan een zelf te bepalen maximum (bv 1.5) dan is het belagrijk de opsta en naar bed tijden te controleren.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=101 valign=top style="background-color: #ffffd4;">
+<p>Typologie</p>
+</td>
+<td width=740 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Via de inifile kan worden aangegeven welke kernwaarden zichtbaar worden gemaakt. Als in de inifile geen specificatie van de kernwaarden is gegeven, worden alle kernwaarden, behalve Mets en kCal weergegeven. In de inifile betekent een "1" dat de kernwaarde wordt weergegeven, anders wordt deze niet getoond.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=408 height=156 alt="" src="aktometer_algemeen_img13.png"></p>
+<p><br></p>
+<p>Vanaf versie 3.0, worden slechts 7 parameters weergegeven, derhalve moet in bovenstaand plaatje "Kern Getallen = 1111111" zijn.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Dag-Nacht detectie</span></p>
+<p>Hoewel de dag-nacht detectie door een geavanceerd algoritme wordt bepaald, is zelfs dit algoritme niet in staat altijd en bij iedere patient het naar bed gaan en opstaan goed te detecteren. Het is dus raadzaam om de dag-nacht detectie altijd te controleren, indicaties voor een foutieve dag-nacht detectie zijn een verhoogde daglengte variatie (&gt; 2), en het niet op 1 lijn liggen van de witte puntjes in de grijswaarde grafiek.Bij iemand met een onregelmatig leefpatroon zullen deze waarden overigens niet zeggen.</p>
+<p><br></p>
+<p>Het gedetecteerde moment van opstaan is op 3 plaatsen&nbsp; te zien (zie onderstaande figuur):</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>in de tabel onder aan de pagina </li>
+<li>in de weergegeven dag, de opgaande lijn van het gemiddelde = rode lijn en de opgaande lijn van het daggemiddelde = blauwe arcering </li>
+<li>in de grijswaarde grafiek, het linkse witte bolletje net boven de rode lijn </li>
+</ul>
+<p><br></p>
+<p>Het instellen of <span class=rvts10>aanpassen van het moment van opstaan</span> kan op verschillende wijze gebeuren. Tijdens het instellen zal altijd de paarse lijn in beeld komen.</p>
+<p>De eerste manier is om de tijd gewoon als geldige tijdsaanduiding direct in de tabel in te vullen.</p>
+<p>De tweede manier is om de paarse cursor te positioneren, door deze naar de juiste plaats te slepen.</p>
+<p>De paarse lijn voor het opstaan kan op de volgende manier in beeld worden gebracht: het klikken inde tabel op de opstaan tijd, dan wel in de dag-weergave de <span class=rvts10>middel-muis</span> knop in te drukken. </p>
+<p><br></p>
+<p>Bij het bepalen van het juiste moment van opstaan (en naar bed gaan) kan zowel de zelfobservatie (maar ook daar moet je altijd afvragen of deze juist is ingevuld)&nbsp; als ook de groene lijn (onder de daggrafiek) die het staan aangeeft behulpzaam zijn. In de 30 patienten die ik nu heb gezien (zonder op de hoogte te zijn van de zelfobservatie) zijn de volgende waarnemingen gedaan die van belang kunnen zijn bij een juiste bepaling van dag / nacht:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>een aantal mensen zit s'avonds met hun benen omhoog, waardoor er geen staan wordt gedetecteerd </li>
+<li>een aantal mensen vertoont tot een uur voor het opstaan een grote mate van activiteit, welke veroorzaakt wordt door het ontwaken </li>
+<li>een aantal mensen vertoont tot een uur na het naar bed gaan een grote mate van aktivitet, veroorzaakt door het in slaap vallen </li>
+</ul>
+<p><br></p>
+<p><img width=799 height=655 alt="" src="aktometer_algemeen_img8.png"></p>
+<p><br></p>
+<p><br></p>
+<p>Het <span class=rvts10>instellen van het naar bed gaan</span>, gaat in principe op dezelfde manier. De bijbehorende paarse cursor kan in beeld worden gebracht met de <span class=rvts10>rechter muistoets</span> dan wel het aanklikken van het tijdstip in de tabel. Als het naar bed gaan na 24:00 uur ligt, is de paarse cursor niet zichtbaar, het instellen moet dan gebeuren door in de tabel de waarde in te tikken. Hierbij moet de tijd worden aangegeven t.o.v. 24:00 uur en voorzien zijn van een plusje. Bijvoorbeeld als iemand om 10 voor een s'nachts naar bed is gegaan, ziet de tabel er als volgt uit:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=62 height=96 alt="" src="aktometer_algemeen_img9.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Rapportage in TestOrganizer</span></p>
+<p>De volgende items worden geëxporteerd t.b.v. de rapportage in de Testorganizer.</p>
+<p>1 = serienummer van de aktometer</p>
+<p>2 = WaakGemiddelde over de geselecteerde dagen</p>
+<p>3 = Het aantal geselecteerde dagen</p>
+<p>4 = WaakGemiddelde over de geselecteerde weekse-dagen</p>
+<p>5 = Het aantal geselecteerde weekse-dagen</p>
+<p>6 = WaakGemiddelde over&nbsp; de geselecteerde weekend-dagen</p>
+<p>7 = Het aantal geselecteerde weekend-dagen</p>
+<p>8 = testgetal 684</p>
+<p>9 = testgetal 684</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>=== 6uurs en dag-statistiek ===</span></p>
+<p>12 = gemiddelde over dagperiode 1 van de geselecteerde dagen</p>
+<p>13 = gemiddelde over dagperiode 1 van de geselecteerde dagen</p>
+<p>14 = gemiddelde over dagperiode 1 van de geselecteerde dagen</p>
+<p>15 = gemiddelde over dagperiode 1 van de geselecteerde dagen</p>
+<p><br></p>
+<p><span class=rvts10>=== eerste geselecteerde dag ===</span></p>
+<p>20 = Dagnummer van de eerste geselecteerde dag</p>
+<p>21 = WaakGemiddelde over deze dag</p>
+<p>22 = gemiddelde over dagperiode 1 van deze dag</p>
+<p>23 = gemiddelde over dagperiode 2 van deze dag</p>
+<p>24 = gemiddelde over dagperiode 3 van deze dag</p>
+<p>25 = gemiddelde over dagperiode 4 van deze dag</p>
+<p><br></p>
+<p><span class=rvts10>=== tweede geselecteerde dag ===</span></p>
+<p>30 = Dagnummer van deze dag</p>
+<p>31 = WaakGemiddelde over deze dag</p>
+<p>32 = gemiddelde over dagperiode 1 van deze dag</p>
+<p>33 = gemiddelde over dagperiode 2 van deze dag</p>
+<p>34 = gemiddelde over dagperiode 3 van deze dag</p>
+<p>35 = gemiddelde over dagperiode 4 van deze dag</p>
+<p>.....</p>
+<p><span class=rvts10>===laatste (30-ste) dag ===</span></p>
+<p>de niet geselecteerde dagen bevatten allemaal nullen</p>
+<p>310 = Dagnummer van deze dag</p>
+<p>311 = WaakGemiddelde over deze dag</p>
+<p>312 = gemiddelde over dagperiode 1 van deze dag</p>
+<p>313 = gemiddelde over dagperiode 2 van deze dag</p>
+<p>314 = gemiddelde over dagperiode 3 van deze dag</p>
+<p>315 = gemiddelde over dagperiode 4 van deze dag</p>
+<p><br></p>
+<p><span class=rvts2>6-uurs statistiek</span></p>
+<p>In plaats van de standaard verdeling van een dag in periode van 6 uur, kunnen ook andere tijden worden gebruikt.</p>
+<p>In dat geval dient handmatig in de ini-file de volgende gegevens te worden toegevoegd:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6uurs statistiek]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eind_blok_1_in_uren = 8</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eind_blok_2_in_uren = 12</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eind_blok_3_in_uren = 18</p>
+<p>De begin en eindtijd van een dag zijn altijd vast ingesteld op 0 en 24 uur.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Research Parameters </span><img width=14 height=14 alt="" src="top_page.gif"></p>
+<p>Algemene gegevens berekend over de relevante dagen</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>D0DLM</span> = gemiddelde daglengte </li>
+<li><span class=rvts10>D0DLSD</span> = standaard deviatie daglengte </li>
+<li><span class=rvts10>D0M</span> = gemiddelde amplitude over waakperioden </li>
+<li><span class=rvts10>D0SD</span> = standaard deviatie over waakperioden </li>
+<li><span class=rvts10>D1M</span> = idem D0M echter over de eerste geldige dag </li>
+<li><span class=rvts10>D1SD</span> = idem D0SD echter over de eerste geldige dag </li>
+</ul>
+<p><br></p>
+<p>Nadat het signaal via een smitt-trigger met drempel Treshold is gegaan, worden over alle perioden de volgende parameters berekend:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>HN0</span> = aantal gevonden perioden </li>
+<li><span class=rvts10>HMM0</span> = gemiddelde van de pieken </li>
+<li><span class=rvts10>LMM0</span> = gemiddelde van de dalen </li>
+<li><span class=rvts10>HLMM0</span> = HMM0-LMM0 </li>
+</ul>
+<p><br></p>
+<p>Vervolgens wordt gezocht naar de 5 grootste pieken, op grond van de totale energie in een piek. </p>
+<p>Over deze pieken worden de volgende parameters berekend:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>Q0PM</span> = gemiddelde amplitude van de 5 hoogste pieken </li>
+<li><span class=rvts10>Q0PE</span> = gemiddelde energie van de 5 hoogste pieken </li>
+<li><span class=rvts10>Q0PB</span> = gemiddelde breedte van de 5 hoogste pieken </li>
+</ul>
+<p><br></p>
+<p>De statistiek van de bijbehorende laagperioden (dat is de laag periode volgend opeen van de 5 gevonden hoogperioden)</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>Q0DM</span> = gemiddelde amplitude laagperiode </li>
+<li><span class=rvts10>Q0DE</span> = gemiddelde oppervlakte tussen dal en NULLIJN tijdens de laagperiode </li>
+<li><span class=rvts10>Q0DB</span> = gemiddelde breedte laagperiode </li>
+<li><span class=rvts10>Q0D1M</span> =gemiddelde amplitude over 1 uur, na het einde van de piek </li>
+<li><span class=rvts10>Q0HLM</span> =Q0PM-Q0DM </li>
+<li><span class=rvts10>Q0HL1M</span> =Q0PM-Q0D1M </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Raw Export</span></p>
+<p>De data van individuele opnamen kan als ruwe data (alle afzonderlijke data samples ) worden geëxporteerd als een tab-delimited file, zodat ze in andere programma's verder kunnen worden geanalyseerd. Momenteel wordt iedere keer als een datafile wordt ingelezen of weggeschreven de gewenste ruwe databestanden aangemaakt. Het inschakelen van deze export gebeurt momenteel door het wijzigen van de ini-file (geef alleen de gewenste regels in):</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=82 height=68 alt="" src="aktometer_algemeen_img18.png"> </p>
+<p><br></p>
+<p>Er worden dan in dezelfde directory als waarin het normale databestand staat, bestanden aangenaakt met de extensie "raw", "Mets" en/of "kCal", het Mets bestand ziet er bijvoorbeeld als volgt uit (in Excel) :</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=413 height=284 alt="" src="aktometer_algemeen_img19.png"></p>
+<p><br></p>
+
+</body></html>

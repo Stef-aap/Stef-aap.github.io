@@ -1,0 +1,134 @@
+<HTML><HEAD><TITLE>mid-testorganizer_backup</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E8E8E8;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Netwerk support</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="inleiding"></A>
+<SPAN class=RVTS2>Inleiding&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>De MID-TestOrganizer ondersteunt netwerk faciliteiten, ten behoeve van de volgende doelstellingen:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Veiligstellen van data (BackUp)&nbsp;</LI>
+<LI>Data-synchronisatie tussen meerdere PC's&nbsp;</LI>
+</UL>
+<P>Door een uitgekiend uitwisselings-protocol tussen PC's en netwerk, is het ook mogelijk de netwerk-faciliteiten te benutten tijdens opnamen, zelfs als de netwerk-communicatie niet altijd even betrouwbaar is.</P>
+<P>De enige essentiële eis is dat alle PC's die meedoen een juiste datum en tijd-instelling hebben (binnen enkele minuten gelijk). Daarom oppassen met niet-legale software, sommige (gekraakte) illegale software pakketten passen datum en tijd (tijdelijk) aan.</P>
+<P>Test-protocollen worden niet via het netwerk bijgehouden, omdat het enerzijds semi-statische informatie betreft en anderzijds omdat hier teveel risico's aan verbonden zijn.&nbsp;</P>
+<P><A name="datagebruik op meerdere pc's"></A>
+Data-synchronisatie tussen meerdere PC's&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Iedere PC die meedoet in het netwerk moet worden ingesteld op de specifieke taken die deze PC moet uitvoeren. Met name de schrijfbevoegdheid en de momenten waarop netwerk-uitwisseling moeten plaatsvinden, moeten correct worden ingesteld.</P>
+<P>Het data-gebruik op meerdere PC's kan het beste worden uitgelegd aan de hand van een concreet voorbeeld.</P>
+<P>Een typische opstelling zou er als volgt uit kunnen zien:</P>
+<P>&nbsp;&nbsp;&nbsp; A =&nbsp; 1 PC&nbsp; voor voorbereiding ( analyse / rapportage )</P>
+<P>&nbsp;&nbsp;&nbsp; B =&nbsp; 3 PC's&nbsp; voor het maken van de feitelijke patiëntopnamen</P>
+<P>&nbsp;&nbsp;&nbsp; C =&nbsp; 2 PC's&nbsp; voor bekijken / analyse / rapportage</P>
+<P>&nbsp;&nbsp;</P>
+<P>A = PC&nbsp; voor voorbereiding ( analyse / rapportage )</P>
+<P>Deze PC is als volgt ingesteld: schrijfbevoegdheid en het updaten van gewijzigde data naar het netwerk zo snel mogelijk.</P>
+<P>Verder wordt op deze computer geen data bewaard (mag wel).</P>
+<P>&nbsp;<IMG width=592 height=431 src="backup_voorbereiding_pc.jpg"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>B = PC&nbsp; voor het maken van de feitelijke patiëntopnamen</P>
+<P>Deze PC is als volgt ingesteld: schrijfbevoegdheid en het updaten van gewijzigde data naar het netwerk zo snel mogelijk.</P>
+<P>Verder wordt op deze computer geen data bewaard (mag wel).</P>
+<P>&nbsp;<IMG width=591 height=430 src="backup_opname_pc.jpg"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>C =&nbsp; PC&nbsp; voor bekijken / analyse / rapportage</P>
+<P>Deze PC is als volgt ingesteld: GEEN schrijfbevoegdheid en een beperkte update faciliteit aan het begin en eind van het programma.</P>
+<P>Verder wordt op deze computer geen data bewaard (mag wel).</P>
+<P>&nbsp;<IMG width=595 height=426 src="backup_bekijk_pc.jpg"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="netwerk instellingen"></A>
+<SPAN class=RVTS2>Netwerk Instellingen&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#E8E8E8 border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Parameter</P></TD>
+<TD width=100 valign=middle>
+<P>Omschrijving, advies</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>BackUp bij Opstarten</P></TD>
+<TD width=100 valign=middle>
+<P>Geeft aan wat er uitgewisseld moet worden tussen deze PC en het aangesloten netwerk, op het moment dat de MID-TestOrganizer wordt opgestart.&nbsp;</P>
+<P>Er kan gekozen worden uit de volgende mogelijkheden&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; niets&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; alleen patientbestanden (dus niet de grote databestanden)&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; alle data (inclusief de patientbestanden)&nbsp;</P>
+<P>In het algemeen kan hier voor "alleen PatientBestanden" worden gekozen.&nbsp;</P>
+<P>Wil men snel opstarten, dan kan voor "niets" worden gekozen.&nbsp;</P>
+<P>Wil men continue over alle data op de locale PC beschikken (bijvoorbeeld om vervolgens de PC van het netwerk los te koppelen dan kan men "alle data" kiezen. Het is echter beter om dit dan bij het afsluiten te doen.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>BackUp tijdens Programma</P></TD>
+<TD width=100 valign=middle>
+<P>Geeft aan wat er uitgewisseld moet worden tussen deze PC en het aangesloten netwerk, tijdens het programma. Het belangrijkste moment waarop updating plaatsvindt is het selecteren van een andere patient.&nbsp;</P>
+<P>In het algemeen kan hier voor alle dat worden gekozen, omdat slechts 1 patient gelijktijdig wordt geupdate.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>BackUp bij het afsluiten</P></TD>
+<TD width=100 valign=middle>
+<P>Geeft aan wat er uitgewisseld moet worden tussen deze PC en het aangesloten netwerk, op het moment dat de MID-TestOrganizer wordt afgesloten.&nbsp;</P>
+<P>In het algemeen is het hier verstandig&nbsp; voor "alle data"&nbsp; te kiezen, ook bij ReadOnly Systemen. Bij Read-Only systemen wordt namelijk gezorgd dat de data-bestanden evenyueel gewist worden. Als bij ReadOnly systemen alle data reeds in het begin wordt geupdate, mag hier ook niets worden geselecteerd.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Netwerk Pad</P></TD>
+<TD width=100 valign=middle>
+<P>Het volledige basispath van het netwerk (met of zonder laatste backslash).&nbsp;</P>
+<P>Als het path niet bestaat, wordt het zonodig aangemaakt,&nbsp;</P>
+<P>als dit om welke reden niet kan (b.v. geen schrijfbevoegdheid op de netwerk drive), worden geen backup acties uitgevoerd.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Naam van deze Computer</P></TD>
+<TD width=100 valign=middle>
+<P>Dit moet een unieke naam zijn, zodat op het netwerk bijgehouden kan worden welke PC wat aan het doen is.&nbsp;</P>
+<P>In het algemeen wordt geadviseerd hier zelf niets in te vullen, de MID-TestOrganizer zoekt als default-waarde namelijk het nummer van de eerste harde schijf (en dat is uniek).&nbsp;</P>
+<P>Soms is dit nummer echter niet te achterhalen, dan handmatig een unieke tekstregel invoeren.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Mag enkel data bekijken</P></TD>
+<TD width=100 valign=middle>
+<P>Als deze schakelaar aan staat, is het een zogenaamde readonly-PC.&nbsp;</P>
+<P>Wat er ook gewijzigd wordt op deze PC, er wordt niets naar het netwerk getransporteerd.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Bevat opname bestanden</P></TD>
+<TD width=100 valign=middle>
+<P>Als deze schakelaar aan staat, worden de opname bestanden bij het afsluiten verwijderd, tenminste als backup bij sluiten niet op "niets" staat.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Verwijderde bestanden&nbsp;</P>
+<P>bewaren in prullenbak</P></TD>
+<TD width=100 valign=middle>
+<P>Als een Master-PC geen opnamen-bestanden moet bevatten, dan worden bij het afsluiten van de MID-TestOrganizer (als backup bij sluiten niet op "niets" staat) alle databestanden van deze PC verwijderd (uiteraard na een eventuele update naar het netwerk).&nbsp;</P>
+<P>Meestal moet deze schakelaar uitgezet worden, daar anders de windows-prullenbak snel vol zal geraken. Alleen als het MID-TestOrganizer net is ingesteld, is het raadzaam om deze schakelaar tijdelijk aan te zetten.&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+</BODY></HTML>

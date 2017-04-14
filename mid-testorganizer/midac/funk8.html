@@ -1,0 +1,140 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunctie 8</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E8E8E8;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 8</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A>&nbsp;|Algoritme</P>
+<P><A class=RVTS4 href="#bijzonderheden">Bijzonderheden</A>&nbsp;| Toepassing</P>
+<P><A class=RVTS4 href="funk8f.html">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Multi Timer</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+OmschrijvingMet deze funktie kan een tijd of een serie tijden worden afgeteld, in eenheden van 1 seconde.Nadat de eerste teller is afgelopen, start de tweede teller etc. Alleen de eerste teller moet een waarde ongelijk nul hebben. De aktieve teller wordt aangegeven in het uitgangssignaal mode, zodat dit zichtbaar gemaakt kan worden. De teller kan up of down teller, geenabled worden, freerunning zijn en gereset worden, zie paragraaf ‘Gebruik’ voor enkele voorbeelden.Inputs</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=489 border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=5% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=10% valign=top>
+<P>Enable</P></TD>
+<TD width=85% valign=top>
+<P>als niet in freerun mode, wordt hiermee start/stop van de teller geregeld</P></TD>
+</TR>
+<TR valign=top>
+<TD width=5% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=10% valign=top>
+<P>Reset</P></TD>
+<TD width=85% valign=top>
+<P>reset in teller naar de begin-toestand, werkt alleen als teller gestopt</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Outputs</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=545 border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=5% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=10% valign=top>
+<P>Counter</P></TD>
+<TD width=85% valign=top>
+<P>teller uitgang</P></TD>
+</TR>
+<TR valign=top>
+<TD width=5% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=10% valign=top>
+<P>Mode</P></TD>
+<TD width=85% valign=top>
+<P>de mode 0=stopped en reset, (1=puls bij nuldoorgang) 2=timer1, 3=timer2, etc</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Parameters</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=432 border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=6% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=26% valign=top>
+<P>Enable/freerun</P></TD>
+<TD width=68% valign=top>
+<P>true=enable ingang functioneel, false=freerunning</P></TD>
+</TR>
+<TR valign=top>
+<TD width=6% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=26% valign=top>
+<P>Down/up counting</P></TD>
+<TD width=68% valign=top>
+<P>true=down counting</P></TD>
+</TR>
+<TR valign=top>
+<TD width=6% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=26% valign=top>
+<P>Timer 1</P></TD>
+<TD width=68% valign=top>
+<P>preset waarde van timer 1</P></TD>
+</TR>
+<TR valign=top>
+<TD width=6% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=26% valign=top>
+<P>Timer 2</P></TD>
+<TD width=68% valign=top>
+<P>preset waarde van timer 2</P></TD>
+</TR>
+<TR valign=top>
+<TD width=6% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=26% valign=top>
+<P>Timer 3</P></TD>
+<TD width=68% valign=top>
+<P>preset waarde van timer 3</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="gebruik"></A>
+GebruikFreerunning: er is verder geen enkele dynamische besturing mogelijk, de ingestelde timers lopen continue de ingestelde cyclus af.Enabled, not(reset) :identiek aan freerunning, echetr kan gestopt worden door enable false te maken. Omdat reset false is, wordt bij een pauze de teller niet gereset.Enabled, reset: idem, echter bij een pauze wordt de timer gereset.<A name="bijzonderheden"></A>
+&nbsp;Bijzonderheden<IMG width=15 height=15 src="greenbal.gif">3 in serie geschakelde timers (eenvoudig uitbreidbaar in de toekomst)<IMG width=15 height=15 src="greenbal.gif">up of down counting<IMG width=15 height=15 src="greenbal.gif">free-run or start/stopToekomstige uitbreidingen<IMG width=15 height=15 src="greenbal.gif">indien behoefte: een groter aantal aaneengeschakelde timers</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

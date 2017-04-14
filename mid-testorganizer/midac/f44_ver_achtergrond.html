@@ -1,0 +1,106 @@
+<HTML><HEAD><TITLE>functie 44, veneuze weerstandsmeting Achtergrond Informatie</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD rowspan=2 width=25% valign=middle>
+<P class=RVPS2>MIDAC</P>
+<P class=RVPS2><A class=RVTS4 href="midac1.html">Startpagina</A>&nbsp;|&nbsp;<A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P class=RVPS2>REKENFUNCTIES</P>
+<P class=RVPS2><A class=RVTS4 href="funk0.html">Overzicht</A></P></TD>
+<TD width=50% height=40 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 44</P></TD>
+<TD rowspan=2 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD height=40 bgcolor=#FFFF00 valign=middle>
+<P class=RVPS2>Veneuze Weerstandsmeting</P>
+<P class=RVPS2>Achtergrond Informatie</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Met de Veneuze Weerstandsmeting wordt de weerstand bepaald die het bloed ondervindt in het veneuze systeem in één van de extremiteiten.</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>De patient wordt in liggende positie gebracht, een cuf wordt om het bovenbeen geplaatst en een "kwiktouwtje" wordt net onder de knie aangebracht.</P>
+<P>(N.B. uit milieu oogpunt bevat het "kwiktouwtje" tegenwoordig geen kwik meer.</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=422 height=254 src="f45_analyse_been1.gif"></P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>De cuf wordt snel opgeblazen tot een gedefiniëerde constante druk (hoger dan veneus, maar lager dan diastole).</P>
+<P>Het volume van het been zal nu langzaam toenemen, omdat bij iedere systole extra bloed in het been gepompt wordt dat niet meer terug kan stromen.</P>
+<P>Na enige minuten zal er een evenwicht ontstaan, het volume zal immers niet verder toenemen zodra de veneuze druk gelijk is aan de cuf-druk.</P>
+<P>Na het bereiken van het evenwicht, wordt de cuff snel geopend, en wordt gemeten hoe snel de extra hoeveelheid bloed in de venen wordt weggewerkt (de patient moet hierbij zo stil mogelijk blijven liggen en mag hierbij zeker niet de pompfunctie in de benen activeren).</P>
+<P>Een halve seconde na het openen van de cuff (dit om eventuele artefacten als gevolg van het openen van de cuff te omzeilen), wordt de helling van de plethysmograaf curve bepaald. Deze parameter heet de Venous Emptying Rate (VER) en wordt uitgedrukt in [%/minuut].</P>
+<P>Onderstaande figuur geeft een voorbeeld van een meting van de Venous Emptying Rate, bij 1 druk.</P>
+<P>&nbsp;<IMG width=576 height=213 src="f44_venous_emptying_rate.gif"></P>
+<P>Per meting worden de volgende parameters bepaald en opgeslagen:&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>de druk vlak voor het openen van de cuff's&nbsp;</LI>
+<LI>het volume vlak voor het openen van de cuff's, hiervan worden minstens 10 samplepunten opgeslagen in een buffer&nbsp;</LI>
+<LI>het volume gedurende de eerste seconde na het openen van de cuff's wordt geheel in een buffer bewaard&nbsp;</LI>
+<LI>het volume na het openen van de cuff's bij een druk van 0, dus als het extra bloed is weggewerkt en er weer een evenwichts-situatie is ontstaan.&nbsp;</LI>
+</UL>
+<P>Bij iedere druk wordt een meetpunt voor de druk-volume relatie bepaald:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; Volumeverandering = volume vlak voor het openen van de cuffs - volume aan het einde van het leeglopen&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; Druk = druk vlak voor het openen van de cuffs * druk correctie factor&nbsp;</P>
+<P>De druk correctie factor is noodzakelijk omdat de druk in de cuff altijd hoger is dan de druk in het veneuze systeem. Deze correctie factor is afhankelijk van de geometrie en samenstelling van het been en kan door een deskundige laborante worden ingeschat (default waarde = 0.8).&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD height=227 valign=middle>
+<P>De druk-volume relatie wordt gefit middels de volgende formule&nbsp;</P>
+<P>&nbsp;<IMG width=247 height=49 src="f44_druk_volume_formule.gif"></P>
+<P>dV/V = gemeten volume verandering&nbsp;</P>
+<P>k = a-lineariteit&nbsp;</P>
+<P>C0 = helling (welke ?)&nbsp;</P>
+<P>Pv = Berekende Druk bij het volume op t=0.5&nbsp;</P>
+<P>P0 = Veneuze rustdruk</P></TD>
+<TD height=227 valign=middle>
+<P>&nbsp;<IMG width=306 height=225 src="f44_druk_volume_curve.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Tijdens het snel leeglopen van de cuffs, kan de druk niet meer betrouwbaar worden gemeten met de drukopnemer. Vandaar dat het volume wordt gemeten en vervolgens wordt de druk bepaald uit de berkende druk-volume curve. Daarom lege alle meetpunten voor de VER bij een iets lagere druk dan de druk-volume punten.&nbsp;</P>
+<P>Door bij een aantal drukken de VER te bepalen, wordt een relatie tussen VER en druk verkregen. De helling van deze grafiek is de Veneuze Weerstand.&nbsp;</P>
+<P>Onderstaande curve wordt meestal voor beide benen tegelijkertijd bepaald en er wordt meestal uitgegaan van een vaste drukreeks (bijv. 15, 20, 25, 30, 35, 40 mmHg).&nbsp;</P>
+<P>&nbsp;<IMG width=346 height=227 src="f44_ver_p.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst, 1999<A href="mailto:id.postbus@ids.kun.nl"><IMG width=29 height=18 src="mail.gif"></A>&nbsp; SM, last updated 13-10-1999&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;</P>
+</BODY></HTML>

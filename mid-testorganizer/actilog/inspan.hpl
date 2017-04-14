@@ -1,0 +1,52 @@
+Per 4-12-97 is voor het inspanningsprotocol ook de mogelijkheid geboden om per uur op de dag van inspanning te rekenen.
+
+Op 12-12-1996 is het inspannings protocol gewijzigd,
+er wordt nu per dag gerekend,
+hieronder is aan de hand van de parameter MEAN weergegeven wat de kolommen beteken
+  PD0M	=mean over totale periode
+  PD1M	=mean 5 dagen voor de inspanning
+  PD2M	=mean 4 dagen voor de inspanning
+  PD3M	=mean 3 dagen voor de inspanning
+  PD4M	=mean 2 dagen voor de inspanning
+  PD5M	=mean 1 dagen voor de inspanning
+  PD6M	=mean op DAG INSPANNING, startend na de inspanning
+  PD7M	=mean 1 dagen na de inspanning
+  PD12M	=mean 6 dagen na de inspanning
+  PD13M	=mean op DAG INSPANNING, gehele dag
+
+Als per uur wordt gerekend geldt de volgende betekenis:
+  PD0M	=mean over totale periode
+  PD1M	=mean 5 uren voor de inspanning
+  PD2M	=mean 4 uren voor de inspanning
+  PD3M	=mean 3 uren voor de inspanning
+  PD4M	=mean 2 uren voor de inspanning
+  PD5M	=mean 1 uur voor de inspanning
+  PD6M	=mean op het uur van INSPANNING, startend op het begin van de inspanning
+  PD7M	=mean 1 uur na de inspanning
+  PD12M	=mean 6 uren na de inspanning
+  PD13M	=mean 7 uren na de inspanning
+Als een dag niet berekend kan worden, worden er nullen neergezet.
+Standaard deviatie idem PSD0, PSD1, etc.
+
+Voor het maken van een inspannings SPSS bestand, moet een ASCII tekstbestand worden aangemaakt, waarin de eindtijdstippen van de inspanningen staan. Dit bestand moet de naam INSPAN.TXT hebben en zich bevinden in de data-directory.
+De opbouw van dit bestand is als volgt:
+<bestandsnaam>  <datum van inspanning> <tijdstip einde inspanning>
+bijvoorbeeld:
+4004.a22 20-11-92 12:00
+4001.A28 17-10-92 12:00
+4003.A26 15-11-92 10:00
+
+Als van een bepaald bestand geen inspanningsmoment wordt gevonden, wordt dit opgevraagd aan de gebruiker.
+
+
+============= hieronder oud =============================================
+Speciaal voor het inspanningsonderzoek kunnen de globale parameters berekend worden in realtie tot de inspanning. Aan de hand van het gemiddelde D0M wordt hier aangegeven hoe deze perioden berekend zijn:
+  D0M	=mean over totale periode
+  D1M	=mean over de dag voor de inspanning
+  D2M	=mean op de dag van inspanning, na de inspanning
+  D3M	=mean eerste dag na de inspanning
+  D4M	=mean tweede dag na de inspanning
+  D5M	=mean over eerste 5 dagen na de inspanning
+  D6M	=mean over derde en volgende dagen na de inspanning
+Voor de overige parameters geldt hetzelfde.
+

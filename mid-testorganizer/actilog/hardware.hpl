@@ -1,0 +1,5 @@
+Met de knop SYSTEEM INSTELLINGEN kan de gewenste Comm-Port worden ingesteld.
+
+Mocht dit onverhoopt niet goed lukken, dan kan ook met een gewone ASCII tekstverwerker het bestand AKTO.INI worden aangepast.
+Onder de hoofdstuk COMMUNICATION staat het onderwerp
+	COMM PORT =...

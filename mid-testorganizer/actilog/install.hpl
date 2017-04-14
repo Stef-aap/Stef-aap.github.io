@@ -1,0 +1,15 @@
+Maak een directory waarin de programma bestanden worden gezet:
+	C:\ACTILOG\AKTOPROJ.EXE
+	AKTO.INI            (wordt zonodig automatisch aangemaakt)
+	*.HPL
+
+In de windows system directory moeten de volgende bestanden staan:
+	C:\WINDOWS\SYSTEM\BIVBX11.DLL
+	C:\WINDOWS\SYSTEM\MSCOMM.VBX
+
+Opstarten:
+	C:\ACTILOG\AKTOPROJ.EXE
+	werkdirectory C:\ACTILOG
+
+
+

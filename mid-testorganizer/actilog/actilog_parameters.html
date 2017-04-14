@@ -1,0 +1,184 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>actilog_parameters</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><font face="Arial,Helvetica"><a href="../mid-testorganizer_index.html">Overzicht
+MidOrg</a></font><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica"><a href="actilog_index.html">Overzicht Actilog</a></font></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">MID TestOrganizer</font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#FFFF00">ActiLog</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><font face="Arial,Helvetica"><font color="#000000"><a href="#parameters">Parameters</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#zeer aktief">Zeer
+Aktief</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#inspannings onderzoek">Inspannings
+Onderzoek</a></font></font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Analyse
+en Parameters</font></font></b></td>
+</tr>
+</table>
+<font face="Arial,Helvetica"></font>
+<p><a name="parameters"></a><b><font face="Arial,Helvetica"><font color="#000099">Parameters&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Algemene gegevens berekend over de relevante
+dagen</font>
+<br><font face="Arial,Helvetica">D0DLM = gemiddelde daglengte</font>
+<br><font face="Arial,Helvetica">D0DLSD = standaard deviatie daglengte</font>
+<br><font face="Arial,Helvetica">D0M = gemiddelde amplitude over waakperioden</font>
+<br><font face="Arial,Helvetica">D0SD = standaard deviatie over waakperioden</font>
+<br><font face="Arial,Helvetica">D1M = idem D0M echter over de eerste geldige
+dag</font>
+<br><font face="Arial,Helvetica">D1SD = idem D0SD echter over de eerste
+geldige dag</font><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica">Nadat het signaal via een smitt-trigger
+met drempel Treshold is gegaan, worden over alle perioden de volgende parameters
+berekend:</font>
+<br><font face="Arial,Helvetica">HN0 = aantal gevonden perioden</font>
+<br><font face="Arial,Helvetica">HMM0 = gemiddelde van de pieken</font>
+<br><font face="Arial,Helvetica">LMM0 = gemiddelde van de dalen</font>
+<br><font face="Arial,Helvetica">HLMM0 = HMM0-LMM0</font><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica">Vervolgens wordt gezocht naar de 5 grootste
+pieken, op grond van de totale energie in een piek. Over deze pieken worden
+de volgende parameters berekend:</font>
+<br><font face="Arial,Helvetica">NPEAK = 5, controle van het aantal gevonden
+pieken</font>
+<br><font face="Arial,Helvetica">Q0PM = gemiddelde amplitude van de 5 hoogste
+pieken</font>
+<br><font face="Arial,Helvetica">Q0PE = gemiddelde energie van de 5 hoogste
+pieken</font>
+<br><font face="Arial,Helvetica">Q0PB = gemiddelde breedte van de 5 hoogste
+pieken</font>
+<br><font face="Arial,Helvetica">De statistiek van de bijbehorende laagperioden
+(dat is de laag periode volgend opeen van de 5 gevonden hoogperioden)</font>
+<br><font face="Arial,Helvetica">Q0DM = gemiddelde amplitude laagperiode</font>
+<br><font face="Arial,Helvetica">Q0DE = gemiddelde oppervlakte tussen dal
+en NULLIJN tijdens de laagperiode</font>
+<br><font face="Arial,Helvetica">Q0DB = gemiddelde breedte laagperiode</font><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica">Q0D1M =gemiddelde amplitude over 1 uur,
+na het einde van de piek</font>
+<br><font face="Arial,Helvetica">Q0HLM =Q0PM-Q0DM</font>
+<br><font face="Arial,Helvetica">Q0HL1M =Q0PM-Q0D1M</font><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica">Daarnaast worden nog de volgende algemene
+paramters opgeslagen:</font>
+<br><font face="Arial,Helvetica">FILNAM =bestandsnaam zonder extensie</font>
+<br><font face="Arial,Helvetica">FILEXT =bestands extensie</font>
+<br><font face="Arial,Helvetica">TRESH =treshold nivo voor de smitt-trigger,</font>
+<br><font face="Arial,Helvetica">&nbsp;positief wil zeggen een absolute
+drempel,</font>
+<br><font face="Arial,Helvetica">&nbsp;negatief, relatief t.o.v. het eigen
+gemiddelde</font>
+<br><font face="Arial,Helvetica">&nbsp; (bijv. -150 wil zeggen 150% eigen
+genmiddelde)</font>
+<br><font face="Arial,Helvetica">Indien gewenst om het aantal zeer actieve
+en zeer inactieve perioden per dag te tellen, worden ook de onderstaande
+parameters weergegegeven (zie verder ZeerINactief)</font>
+<br><font face="Arial,Helvetica">FPLEN, FPLOW, FPHIGH = de ingestelde grenzen</font>
+<br><font face="Arial,Helvetica">FP1DL = de waaklengte op dag 1&nbsp; (eenheid
+5 min)</font>
+<br><font face="Arial,Helvetica">FP1L = de totale periode 'zeer-actief'
+op dag 1</font>
+<br><font face="Arial,Helvetica">FP1H = de totale periode 'zeer-inactief'
+op dag 1</font>
+<br><font face="Arial,Helvetica"></font>&nbsp;<font face="Arial,Helvetica"></font>
+<p><a name="zeer aktief"></a><b><font face="Arial,Helvetica"><font color="#000099">Zeer
+Aktief&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Per dag meten van 'lange' perioden van
+'zeer' lage en 'zeer' hoge activiteit</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp; Periode&nbsp; = de minimaal
+vereiste periodeduur</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp; Inactief Niveau = onder dit
+niveau wordt aangemerkt als zeer laag</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp; Actief Niveau = boven dit
+niveau wordt aangemerkt als zeer hoog</font>
+<br><font face="Arial,Helvetica">Als periode=0, worden voor deze variabelen
+geen kolommen in het</font>
+<br><font face="Arial,Helvetica">uitvoer bestand aangemaakt. Als periode&lt;>0
+dan worden ook de</font>
+<br><font face="Arial,Helvetica">waarden van de ingestelde periode en beide
+niveaus opgenomen in het</font>
+<br><font face="Arial,Helvetica">uitvoer bestand.</font>
+<br><font face="Arial,Helvetica">FPLEN, FPLOW, FPHIGH = de ingestelde grenzen</font>
+<br><font face="Arial,Helvetica">FP1DL = de waaklengte op dag 1</font>
+<br><font face="Arial,Helvetica">FP1L = de totale periode 'zeer-actief'
+op dag 1</font>
+<br><font face="Arial,Helvetica">FP1H = de totale periode 'zeer-inactief'
+op dag 1</font>
+<br><font face="Arial,Helvetica">Alle periode worden uitgedrukt in eenheden
+van 5 minuten.</font>
+<br><font face="Arial,Helvetica">BIJVOORBEELD: bij een minimaal vereiste
+periode van 15 minuten, zal een</font>
+<br><font face="Arial,Helvetica">aaneengesloten zeer-actieve periode van
+35 minuten dus worden geteld</font>
+<br><font face="Arial,Helvetica">als 6. namelijk in 35 minuten zit 2 maal
+15 minuten en iedere periode van 5</font>
+<br><font face="Arial,Helvetica">minuten telt als 3 maal 5 minuten.</font>
+<br><font face="Arial,Helvetica"></font>&nbsp;<font face="Arial,Helvetica"></font>
+<p><a name="inspannings onderzoek"></a><b><font face="Arial,Helvetica"><font color="#000099">Inspannings
+Onderzoek&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Per 4-12-97 is voor het inspanningsprotocol
+ook de mogelijkheid geboden om per uur op de dag van inspanning te rekenen.</font><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica">Op 12-12-1996 is het inspannings protocol
+gewijzigd,</font>
+<br><font face="Arial,Helvetica">er wordt nu per dag gerekend,</font>
+<br><font face="Arial,Helvetica">hieronder is aan de hand van de parameter
+MEAN weergegeven wat de kolommen beteken</font>
+<br><font face="Arial,Helvetica">&nbsp; PD0M =mean over totale periode</font>
+<br><font face="Arial,Helvetica">&nbsp; PD1M =mean 5 dagen voor de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD2M =mean 4 dagen voor de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD3M =mean 3 dagen voor de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD4M =mean 2 dagen voor de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD5M =mean 1 dagen voor de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD6M =mean op DAG INSPANNING, startend
+na de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD7M =mean 1 dagen na de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD12M =mean 6 dagen na de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD13M =mean op DAG INSPANNING,
+gehele dag</font><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica">Als per uur wordt gerekend geldt de volgende
+betekenis:</font>
+<br><font face="Arial,Helvetica">&nbsp; PD0M =mean over totale periode</font>
+<br><font face="Arial,Helvetica">&nbsp; PD1M =mean 5 uren voor de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD2M =mean 4 uren voor de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD3M =mean 3 uren voor de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD4M =mean 2 uren voor de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD5M =mean 1 uur voor de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD6M =mean op het uur van INSPANNING,
+startend op het begin van de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD7M =mean 1 uur na de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD12M =mean 6 uren na de inspanning</font>
+<br><font face="Arial,Helvetica">&nbsp; PD13M =mean 7 uren na de inspanning</font>
+<br><font face="Arial,Helvetica">Als een dag niet berekend kan worden,
+worden er nullen neergezet.</font>
+<br><font face="Arial,Helvetica">Standaard deviatie idem PSD0, PSD1, etc.</font><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica">Voor het maken van een inspannings SPSS
+bestand, moet een ASCII tekstbestand worden aangemaakt, waarin de eindtijdstippen
+van de inspanningen staan. Dit bestand moet de naam INSPAN.TXT hebben en
+zich bevinden in de data-directory.</font>
+<br><font face="Arial,Helvetica">De opbouw van dit bestand is als volgt:</font>
+<br><font face="Arial,Helvetica">&lt;bestandsnaam>&nbsp; &lt;datum van
+inspanning> &lt;tijdstip einde inspanning></font>
+<br><font face="Arial,Helvetica">bijvoorbeeld:</font>
+<br><font face="Arial,Helvetica">4004.a22 20-11-92 12:00</font>
+<br><font face="Arial,Helvetica">4001.A28 17-10-92 12:00</font>
+<br><font face="Arial,Helvetica">4003.A26 15-11-92 10:00</font><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica">Als van een bepaald bestand geen inspanningsmoment
+wordt gevonden, wordt dit opgevraagd aan de gebruiker.</font><font face="Arial,Helvetica"></font>
+<p>
+<hr WIDTH="100%"><font size=-2>&copy; Copyright Instrumentele Dienst, 1999</font>
+<br><a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height=18 width=29></a><font size=-2>&nbsp;
+SM, last updated 20-08-2000&nbsp;</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+</body>
+</html>

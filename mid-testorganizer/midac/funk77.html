@@ -1,0 +1,154 @@
+<HTML><HEAD><TITLE>Midac, rekenfunctie 71, Positive Puls Analyzer</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Inline Matlab Bewerkingen (Midac,77)</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Vooraf</SPAN></P>
+<P>Deze documentatie heeft een voorlopige status.</P>
+<P>Afhankelijk van de toekomstige ervaringen, kunnen de specificaties worden gewijzigd.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Inleiding</SPAN></P>
+<P>Met deze functies kunnen door MatLab bewerkingen op signalen worden uitgevoerd. Na bewerking door MatLab, kunnen de bewerkte signalen als normale Midac-rekenkanalen worden behandeld.</P>
+<P>De bewerkingen kunnen zowel tijdens de opnamen alsook tijdens het terugkijken worden uitgevoerd.</P>
+<P>Uiteraard zijn er grenzen aan de mogelijkheden van de bewerkingen tijdens een opname, omdat hierbij de snelheid van MatLab en het transport van en naar MatLab een rol spelen. Om deze grenzen zover mogelijk op te rekken, kan de gebruiker zowel het aantal kanalen als ook de bloklengte zo instellen dat voor iedere situatie een optimale snelheids prestatie wordt behaald.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Beschrijving</SPAN></P>
+<P>De funktie heeft 4 ingangs-kanalen en 4 uitgangs-kanalen.</P>
+<P>Hoewel de funktie zelf op een sample by sample base wordt aangeroepen, wordt MatLab slechts aangeroepen aangeroepen als het einde van het buffer bereikt is. De bufferlengte is instelbaar. Op deze wijze wordt een aanzienlijke snelheidswinst geboekt. De traagheid wordt enerzijds veroorzaakt door het aanroepen van MatLab en de daarmee samenhangende data-uitwisseling en anderzijds door het feit dat MatLab geoptimaliseerd is voor vector berekeningen.</P>
+<P>Het nadeel van het gebruik van een buffer, is dat de door MatLab berekende signalen altijd de bufferlengte in tijd achterlopen.</P>
+<P>Om een verdere optimalisatie te bewerkstelligen, is ook het aantal kanalen (en daarmee de hoeveelheid data die tussen Midac en MatLab moeten worden overgedragen) instelbaar gemaakt.</P>
+<P>In principe zou dit in de bekijken-mode kunnen worden gecompenseerd ???</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=419 bgcolor=#FFFFFF valign=top>
+<P>De funktie toont standaard een venster, waarin de MatLab commandos kunnen worden ingevoerd. De inhoud van dit memo wordt opgeslagen in een M-file en de naam van de M-file wordt in het Midac protocol opgeslagen.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Momenteel wordt hetzelfde array gebruikt voor invoer van en uitvoer naar MatLab. Het data-array dat met MatLab wordt uitgewisseld, is in Matlab beschikbaar als&nbsp;</P>
+<P>&nbsp; A [ 1..nchan, 1..buflen]&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Het overdragen van commentaar naar MatLab is niet toegestaan ??&nbsp;</P>
+<P>Daarom is gekozen om alles als commentaar te beschouwen, vanaf (en inclusief) een regel die begint met een sterretje "*". Hier kunnen dus ook (zoals in het voorbeeld hiernaast) alternatieve formules staan voor toekomstig gebruik.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Als het memo wordt gewijzigd, verschijnt er een label. Door op dit label te klikken worden de wijzigingen geactiveerd.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Het klembord knopje heeft momenteel geen funktie.</P></TD>
+<TD width=259 bgcolor=#FFFFFF valign=top>
+<P>&nbsp;<IMG width=257 height=289 src="funk77_img2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=419 bgcolor=#FFFFFF valign=top>
+<P><SPAN class=RVTS2>Instellingen</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Met het aantal kanalen, wordt zowel het aantal ingangskanalen, alsook het aantal uitgangskanalen ingesteld.&nbsp;</P>
+<P>Wil men b.v. op 1 signaal een aantal bewerkingen uitvoeren, die resulteren in 3 uitgangssignalen, dan moet het aantal kanalen op 3 worden ingesteld.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>De bufferlengte is de lengte (in samples) van 1 kanaal.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>Een gewijzigde instelling van het aantal kanalen en/of de bufferlengte wordt (vooralsnog) pas aktief na het opnieuw starten van Midac.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Met het aankruisvakje "Ook tijdens opname aktief", wordt bepaald of MatLab alleen wordt aangeroepen tijdens terugkijken of ook tijdens opname.&nbsp;</P></TD>
+<TD width=259 bgcolor=#FFFFFF valign=top>
+<P>&nbsp;<IMG width=256 height=289 src="funk77_img3.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Technische aantekeningen (niet bestemd voor de gebruiker)</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P>&nbsp;<IMG width=256 height=288 src="funk77_img4.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>Voor het transport van en naar Matlab, kan alleen van een character-array of een complex array gebruik worden gemaakt.</P>
+<P>&nbsp;<IMG width=448 height=275 src="funk77_img1.gif"></P>
+<P><SPAN class=RVTS1>&nbsp;&nbsp;</SPAN></P>
+<P>Mogelijke koppelingen tussen Matlab en Midac&nbsp;<A href="funk77.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Matlab importeert een opgenomen Midac file&nbsp;</LI>
+<LI>Midac exporteert de (gehele) opname in Matlab format&nbsp;</LI>
+<LI>Midac exporteert het geselecteerde gedeelte direct naar Matlab&nbsp;</LI>
+<LI>Midac runt een gecompileerd Matlab programma&nbsp;</LI>
+<LI>Midac gebruikt tijdens opname Matlab om bewerkingen uit te voeren&nbsp;</LI>
+<LI>Midac gebruikt tijdens review mode, Matlab om bewerkingen uit te voeren&nbsp;</LI>
+<LI>Rekenfuncties uit Midac in Matlab gebruiken&nbsp;</LI>
+<LI>Rekenfuncties in een standaard vorm opbergen (DLL?), zodat ze bruikbaar zijn in zowel Matlab als Midac&nbsp;</LI>
+<LI>Embedding van Matlab objects in Midac&nbsp;</LI>
+</UL>
+<P>ad 1. Matlab importeert een opgenomen Midac file in&nbsp;<A href="funk77.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Jan heeft dit al gerealiseerd, zowel in Matlab code alsook in C-code (veel sneller).</P>
+<P>Momenteel werkt dit voor Midac datafile versie 4 (en vermoedelijk ook 5), versie 6 heeft nog een klein probleempje.</P>
+<P>Voor de markerfiles werkt het voor beide bestaande versies.</P>
+<P>ad 2. Midac exporteert de (gehele) opname in Matlab format&nbsp;<A href="funk77.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Er is weliswaar een voorbeeld Delphi programma beschikbaar (van Delphi 3000), maar de noodzaak is vrij gering als 1) goed werkt. Het vergt nu een investering om het voorbeeld te implementeren en te debuggen, maar bovendien vergt het onvoorziene investeringen in de toekomst. Derhalve niet doen.</P>
+<P>ad 3. Midac exporteert het geselecteerde gedeelte direct naar Matlab&nbsp;<A href="funk77.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Middels OLE is dit eenvoudig te realiseren.</P>
+<P>Dit is met name handig als men een (klein) stukje signaal wil analyseren, c.q. een fraai plaatje wil maken.</P>
+<P>Doen dus.</P>
+<P>ad 4. Midac runt een gecompileerd Matlab programma&nbsp;<A href="funk77.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Nut : complexe Matlab functies kunnen zowel tijdens opname als review in Midac gebruikt worden.</P>
+<P>Inspanning ?????</P>
+<P>ad 5. Midac gebruikt tijdens opname Matlab om bewerkingen uit te voeren&nbsp;<A href="funk77.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Omdat niet voorspeld kan worden hoeveel tijd het OLE proces krijgt / verbuikt, is dit een onverantwoorde actie tijdens opnamen. Niet doen dus.</P>
+<P>ad 6. Midac gebruikt tijdens review mode Matlab, om bewerkingen uit te voeren&nbsp;<A href="funk77.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Dit is eenvoudig te realiseren en biedt de mogelijkheid aan gebruikers om iedere bewerking uit te voeren die in Matlab mogelijk is.</P>
+<P>Doen dus.</P>
+<P>ad 7. Rekenfuncties uit Midac in Matlab gebruiken&nbsp;<A href="funk77.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Gezien de wezenlijk verschillende benadering van Matlab (vector-based) en Midac (sample-based) lijkt dit niet echt handig.</P>
+<P>Bovendien is de toegevoegde waarde beperkt.</P>
+<P>Voorlopig niet doen dus.</P>
+<P>ad 8. Rekenfuncties in een standaard vorm opbergen (DLL?), zodat ze bruikbaar zijn in zowel Matlab als Midac&nbsp;<A href="funk77.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Net als bij 7, speelt de verschillende benadering hierbij een remmende rol.</P>
+<P>Bovendien zijn vele Midac functies visueel interactief , hetgeen moeilijk relaliseerbaar lijkt in Matlab.</P>
+<P>Niet doen.</P>
+<P>ad 9. Embedding van Matlab objects in Midac&nbsp;<A href="funk77.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Lijkt heel leuk, met name om ingewikkelde berekeningen en mooie plaatjes in Midac te tonen.</P>
+<P>De meerwaarde is echter beperkt, omdat via 1. nagenoeg hetzelfde bereikt kan worden.</P>
+<P>Leuke stage-opdracht.</P>
+<HR noshade size=1>
+<P>Eigen aantekeningen:</P>
+<P>Rijvector:&nbsp;&nbsp; v = [ 2,3,5]</P>
+<P>Columnvector&nbsp; u = [3;4;5]</P>
+<P>Een vector mag gewoon uitgebreid / ingekort / getransposed worden&nbsp;&nbsp;&nbsp;&nbsp; v = [2;4]</P>
+<P>Filter designer levert structure, met de relevante elementen in een rijvector.</P>
+<P>&nbsp;&nbsp;&nbsp; teller van het filter:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; filter_name.tf.num</P>
+<P>&nbsp;&nbsp;&nbsp; noemer van het filter (bij FIR = 1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; filter_name.tf.den</P>
+<P>Ry * Kol = inprodukt (getal)</P>
+<P>Kol * Ry = uitprodukt (matrix)</P>
+<P>Dus convolutie on sample-by-sample base kan als volgt worden gedefinieerd</P>
+<P>&nbsp;&nbsp;&nbsp; Signal = [signal(2:end); new_sample]</P>
+<P>&nbsp;&nbsp;&nbsp; new_result = Filter * Signal</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>SM/GvV&nbsp; 05-02-2000</P>
+</BODY></HTML>

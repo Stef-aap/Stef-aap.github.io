@@ -1,0 +1,80 @@
+<HTML><HEAD><TITLE>Display Instellingen</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #DDDDDD;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Kalibratie</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><A name="inleiding"></A>
+<SPAN class=RVTS2>Inleiding&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Voorheen werd voor de term afregeling onterecht de term kalibratie gebruikt.</P>
+<P>De afregeling van een signaal geeft binnen Midac, door middel van 2 punten een relatie tussen de echte wereld-waarde en de spanning aan de ingang van de AD-converter (c.q. de AD-waarde). Kalibratie is het verifiëren van de afregeling met behulp van zeer nauwkeurig gekalibreerde meetapparatuur, waarbij het kalibratie pad van het gebruikte meetapparaat traceerbaar moet zijn tot op de bron.</P>
+<P>Tegenwoordig zijn de meeste sensoren zo stabiel, dat slechts een éénmalige afregeling noodzakelijk is (meestal wordt deze al uitgevoerd door de Instrumentele Dienst bij aflevering). Enkele sensoren hebben wel een goed gedefiniëerde versterking maar een slecht gedefiniëerd (en variërend) nulpunt (bv. disposable druksensoren).</P>
+<P>Daarnaast kunnen rekenfuncties in principe zelf hun afregeling bepalen aan de hand van de afregeling van de ingangssignalen.</P>
+<P>Midac speelt op deze tendensen in, door te streven naar:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>ingebouwde afregel-gegevens van bekende sensoren&nbsp;</LI>
+<LI>direct bereikbare nulknoppen&nbsp;</LI>
+<LI>rekenfuncties die zichzelf afregelen&nbsp;</LI>
+</UL>
+<P>Kortom, afregeling zal steeds eenvoudiger worden en in de toekomst zeker niet meer via de ingewikkelde signalen-tabel verlopen.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Voorbeeld&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Met functie 54 kan een arteriële bloeddruk-golf worden geanalyseerd, de functie berekent diastolische druk, systolische druk, MAP, HR en nog enkele meer technische signalen. De functie haalt de afregeling voor de diverse drukken uit de afregeling van het ingangssignaal. Dus verandert de afregeling van de bloeddrukgolf, dan reageren de uitgangen van functie 54 op de juiste wijze mee.</P>
+<P>Tevens toont functie 54 een venster, waarin de druk-waarden numeriek worden weergegeven, maar waar bovendien een knopje opzit om de bloeddruk-sensor te nullen. Door op dit nulknopje te drukken wordt het ingangssignaal (de bloeddruk-golf) genuld en alle daarvan afgeleide signalen worden eveneens van de gewijzigde afregeling voorzien.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="tabkal"></A>
+<SPAN class=RVTS2>Tabel met kalibratiegegevens&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Druk op het bedieningspaneel van MIDAC op de knop Signalen (&nbsp;<IMG width=77 height=22 src="mac-ksig.jpg">).</P>
+<P>Het venster "Signalen Editor" komt dan op het scherm, bestaande uit meerdere tabbladen. Op tabblad AD-kanalen worden alle gegevens van de ingestelde AD-kanalen in een tabel weergegeven, inclusief de kalibratieparameters. Die zijn in onderstaand voorbeeld van de Signalen Editor rood omkaderd. De kalibratieparameters staan in 4 kolommen met van links naar rechts de headers Yk1, V1, Yk2, V2.</P>
+<P>Yk1: in deze kolom staat de wereldwaarde (in de gekozen eenheid) van het lage kalibratiesignaal.</P>
+<P>V1: hier staat de meetspanning (op het betreffende AD-kanaal in Volt) die overeenkomt met wereldwaarde Yk1.</P>
+<P>Yk2: in deze kolom staat de wereldwaarde (in de gekozen eenheid) van het hoge kalibratiesignaal.</P>
+<P>V2: hier staat de meetspanning (op het betreffende AD-kanaal in Volt) die overeenkomt met wereldwaarde Yk2.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Wanneer de kalibratiegegevens voor AD-kanalen bekend zijn, dan kunnen ze direct in de tabel ingevoerd worden.</P>
+<P>In de onderstaande tabel kan bijvoorbeeld bij AD-kanaal AD3 (met signaalnaam Diastole en eenheid mmHg) worden afgelezen dat een meetspanning van 0 Volt op het AD-kanaal overeenkomt met 0 mmHg en dat een meetspanning van +5 Volt op het AD-kanaal overeenkomt met 200 mmHg.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=608 height=406 src="sigeditk.jpg"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="kalvenster"></A>
+<SPAN class=RVTS2>Kalibratievenster&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Er kan ook gebruik gemaakt worden van het Kalibratievenster.</P>
+<P>Druk hiervoor op de knop Kalibratie op het venster Signalen Editor. Die knop is in bovenstaande figuur rood omkaderd. Het venster voor de kalibratie van AD-kanalen verschijnt op het scherm.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=650 height=600 src="kal1.jpg"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="kalproc"></A>
+<SPAN class=RVTS2>Kalibratieprocedure&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>1) Selecteer in het linker vak "AD-kanalen" het analoge kanaal dat gekalibreerd moet worden.</P>
+<P>&nbsp;&nbsp;</P>
+<P>2) Het analoge kanaal wordt nu voortdurend bemonsterd. In het vak "Actuele meetwaarde" staat de actuele meetwaarde van het geselecteerde AD-kanaal als ADC-waarde (in het vakje "ADC") en als spanningswaarde (in het vakje "Volt").</P>
+<P>Ook staat hier de berekende werkelijke waarde (de wereldwaarde) van het AD-kanaal, dus in de gekozen eenheid. Hierbij wordt gebruik gemaakt van de inhoud van de vakjes "Wereldwaarde" in de vakken "Hoge kalibratie" en "Lage kalibratie".</P>
+<P>&nbsp;&nbsp;</P>
+<P>3) Bied een hoog signaal aan op de versterkermodule die het geselecteerde AD-kanaal als uitgangskanaal heeft. Bijvoorbeeld: biedt op een temperatuur-versterkermodule, waarvan het AD-kanaal gekalibreerd moet worden, een temperatuur aan van 40 graden Celcius door de temperatuuropnemer in een waterbad met die temperatuur te leggen (controleer dat met een betrouwbare meetthermometer). Wacht totdat de weergegeven getallen in het vak "Actuele meetwaarde" een stabiele waarde hebben bereikt en druk dan op de knop met de pijl omhoog om de actuele meetwaarde over te zetten in het vak "Hoge kalibratie". Vul in dat vak onder "Wereldwaarde" de werkelijke waarde in van het gemeten AD-kanaal. Dus in genoemd voorbeeld: 40 (de waarde die de meetthermometer aangeeft).</P>
+<P>&nbsp;&nbsp;</P>
+<P>4) Bied een laag signaal aan op de versterkermodule die het geselecteerde AD-kanaal als uitgangskanaal heeft. Om bij het voorbeeld van punt 3 te blijven: leg de temperatuuropnemer in een waterbad met smeltend ijs (temperatuur nagenoeg 0 graden Celcius) en wacht ook nu totdat de weergegeven getallen in het vak "Actuele meetwaarde" een stabiele waarde hebben bereikt. Druk dan op de knop met de pijl omlaag om de actuele meetwaarde over te zetten in het vak "Lage kalibratie". Vul in dat vak onder "Wereldwaarde" de werkelijke waarde in van het gemeten AD-kanaal. Dus in genoemd voorbeeld: 0 (de werkelijke gemeten temperatuur).</P>
+<P>OPMERKING 1: De spanningswaarde van het meetpunt voor de de hoge kalibratie en de lage kalibratie moet minimaal 0,5 Volt verschillen. Er verschijnt een scherm met een foutboodschap wanneer dat niet het geval is.</P>
+<P>OPMERKING 2: Wanneer de spanning van de meetwaarde voor de hoge kalibratie en/of de lage kalibratie bekend zijn, kunnen ze ook direct ingetoetst worden in de vakjes 'Volt'. Ook dan geldt dat de spanningswaarde van het meetpunt voor de de hoge kalibratie en de lage kalibratie minimaal 0,5 Volt moet verschillen.</P>
+<P>&nbsp;&nbsp;</P>
+<P>5) De kalibratie van het geselecteerde AD-kanaal is hiermee voltooid.</P>
+<P>Herhaal bovenstaande punten voor alle andere AD-kanalen die gekalibreerd moeten worden.</P>
+<P>&nbsp;&nbsp;</P>
+<P>6) Druk tenslotte op de knop "Einde" om de nieuwe kalibratiegegevens op te slaan en te gebruiken. Het kalibratievenster verdwijnt en de nieuwe kalibratieparameters staan in de tabel op de Signalen Editor.</P>
+<P>OPMERKING: Druk op de knop "Annuleren" wanneer de oorspronkelijke kalibratiegegevens bewaard moeten blijven. LET OP ! De nieuwe kalibratiegegevens gaan dan verloren !</P>
+</BODY></HTML>

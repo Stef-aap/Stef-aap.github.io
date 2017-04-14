@@ -1,0 +1,76 @@
+<HTML><HEAD><TITLE>opname_maken</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>TO Grafische rapport uitbreiding</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Design</SPAN></P>
+<P>Definities van Testen, die gebruikt worden in nieuwe variabelen en grafieken</P>
+<P><SPAN class=RVTS11>$T1 = V,SIP?DWD,0</SPAN></P>
+<P>Dit commando wordt in een vroeg stadium geparsed, en vervolgens wordt aan de betreffende module gevraagd om alle antwoorden en subschalen te retourneren. Dit bebeurt door "run_rapport_module_special".</P>
+<P>In de vragenlijst module is een extra actie toegevoegd (action_report_export), welke middels "export_vraaglst_for_report" de resultaten exporteert naar een ini-bestand.</P>
+<P>Tijdelijk worden alle resultaten bewaard in itemlist en schalenlist. MOET ANDERS, bovendien niet sorteren !!</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</P>
+<P><SPAN class=RVTS3>ok:=compile_TO_line(line,&nbsp; action_list,&nbsp; errormsg);</SPAN></P>
+<P>&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;</P>
+<HR noshade size=1>
+<P>allereerst worden hier de variabele definities geparsed</P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;&nbsp; '#','$': set_punthoofd_parameters(line);</SPAN></P>
+<P>vervolgens wordt ingeval regel begint met "#' de waarde achter het =-teken uitgerekend&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;&nbsp; ok:=compile_line_new(line, value);</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>Deze regel wordt geparsed en geinterpreteerd</P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;&nbsp; while not(ready) and parse_string(line,subline,' ') do</SPAN></P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;&nbsp; begin</SPAN></P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; token_kind:=token_interpretation(subline,value,par1,eval,testname);</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>TestOrganizer</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>foto bij patientgegevens (is al eens wat voorbereiding aan gedaan), moet vermoedelijk ook in rapport kunnen worden opgenomen.&nbsp;</LI>
+<LI>Patientgegevens van alle patienten naar een SPSS bestand schrijven&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Vragenlijst module</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Relatieve subschaal alleen berekenen als een voldoende aantal vragen ook daadwerkelijk zijn beantwoord&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>PuntHoofd</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Rapport Scripting</SPAN></P>
+<P><SPAN class=RVTS11>Test&nbsp; V,SCL90,0&nbsp; ;definieer de laatste SCL90 als van belang zijnde voor grafieken en variabelen</SPAN></P>
+<P>Reeds aanwezige scriptings</P>
+<P><SPAN class=RVTS11>Afgenomen Testen,13&nbsp;&nbsp;&nbsp; ;print een overzicht van de laatste 13 afgenomen testen</SPAN></P>
+<P><SPAN class=RVTS11>Patient_Gegevens&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;print de patient gegevens</SPAN></P>
+<P><SPAN class=RVTS11>Nieuwe_Pagina&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;Ga naar een nieuwe pagina</SPAN></P>
+<P><SPAN class=RVTS11>Print,3&nbsp; V,SCL90,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;Print het resultaat van de laatst afgenomen SCL90 op printlevel=3</SPAN></P>
+<P><SPAN class=RVTS11>(PrintGonioGrafiek&nbsp; 0,-1&nbsp; ;Print een Goniografiek, waarin de laatste opname wordt vergeleken met de voorgaande)</SPAN></P>
+<P><SPAN class=RVTS11>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN></P>
+<P>testcommandos:</P>
+<P><SPAN class=RVTS11>$TestOrganizer_ProgPath = D:\data_TO_exe\ ;</SPAN></P>
+<P><SPAN class=RVTS11>$TestOrganizer_ProtocolPath = D:\d_midorg\protocol\ ;</SPAN></P>
+<P><SPAN class=RVTS11>$patient = D:\d_midorg\mid-data\patient\0000002.pat;</SPAN></P>
+<P><SPAN class=RVTS11>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS11>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>PH_HV.pas, punthoofd mainprogramma, bevat print opdracht met gedeeltelijke parsing</P>
+<P>PH_SCRIPT.pas bevat scripting parser</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>werkPC</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>thuisPC</P>
+</BODY></HTML>

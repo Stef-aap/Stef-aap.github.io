@@ -1,0 +1,768 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>oude_doc</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00"><font size=+1>MIDORG</font></font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><b><font face="Arial,Helvetica"><font color="#000099">&nbsp;</font></font></b></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF"><font size=+1>Oude
+Documentatie</font></font></font></b></td>
+</tr>
+</table>
+<a href="#inhoud">Inhoud</a>&nbsp;&nbsp;&nbsp; <a href="#nieuw">nieuw</a>&nbsp;&nbsp;&nbsp;
+<a href="#lijsten">lijsten</a>&nbsp;&nbsp;&nbsp; <a href="#patgeg">patgeg</a>&nbsp;&nbsp;&nbsp;
+<a href="#bedienen">bedienen</a>&nbsp;&nbsp;&nbsp;&nbsp; modulen&nbsp;&nbsp;&nbsp;
+battery&nbsp;&nbsp;&nbsp; normen&nbsp;&nbsp;&nbsp; diversen&nbsp;&nbsp;&nbsp;
+<a href="#starten">starten</a>&nbsp;&nbsp;&nbsp; <a href="#dirpaths">dirpaths</a>&nbsp;&nbsp;&nbsp;
+<a href="#tabel">tabel</a>&nbsp;&nbsp;&nbsp; <a href="#knoppen">knoppen</a>&nbsp;&nbsp;&nbsp;
+<a href="#k-instel">k-instel</a>&nbsp;&nbsp;&nbsp; <a href="#k-divers">k-divers</a>&nbsp;&nbsp;&nbsp;
+install&nbsp;&nbsp;&nbsp; opnamen&nbsp;&nbsp;&nbsp; <a href="#pattest">pattest</a>&nbsp;&nbsp;&nbsp;
+<a href="#tabel_ed">tabel-ed&nbsp;</a>&nbsp;&nbsp; <a href="#import">&igrave;mport</a>&nbsp;&nbsp;&nbsp;
+<a href="#q-tested">q-tested</a>&nbsp;&nbsp;&nbsp; <a href="#q-battery">q-battery</a>&nbsp;&nbsp;&nbsp;
+<a href="#q-new">q-new</a>&nbsp;&nbsp;&nbsp; <a href="#q-poly">q-poly</a>&nbsp;&nbsp;&nbsp;
+<a href="#q-tabel">q-tabel</a>
+<br>&nbsp;
+<p><a name="inhoud"></a><b><font face="Arial,Helvetica"><font color="#000099">Inhoud&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">NIEUW&nbsp; programma wijzigingen, met
+datum en versie, laatste wijziging bovenaan</font>
+<br><font face="Arial,Helvetica">LIJSTEN&nbsp; instelmogelijkheden,&nbsp;
+vormgeving en bediening van de lijsten</font>
+<br><font face="Arial,Helvetica">PATGEG&nbsp; instelmogelijkheden en bijzonderheden
+over de patient gegevens</font>
+<br><font face="Arial,Helvetica">TESTEN</font>
+<br><font face="Arial,Helvetica">BEDIENEN algemene beschrijving van de
+bediening van het programma</font>
+<br><font face="Arial,Helvetica">DIVERSEN</font>
+<br><font face="Arial,Helvetica">MODULEN</font>
+<br><font face="Arial,Helvetica">DIRPATHS</font>
+<br><font face="Arial,Helvetica">STARTEN</font>
+<br><font face="Arial,Helvetica">TABEL</font>
+<p><a name="nieuw"></a><b><font face="Arial,Helvetica"><font color="#000099">Nieuw&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica"><font color="#000000">16-6-98 ============</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ lege directories
+worden niet meer zomaar aangemaakt bij het kopieren</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">31-5-98 ============</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ polyscan omschrijving
+testnaam in lijst</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">7-5-98&nbsp; =============</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ verzamelgroep
+vragen vergroot van 20 naar 40</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">23-4-98 =============</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+MIDAC rekent een
+stuk (tot 4*) sneller, andere lanceer-installatie</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ Bij vragenlijsten
+kan het lettertype worden ingesteld (instellingen / Sys2)</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">26-3-98 =============</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ fout bij gebruik
+van drive als basispad verholpen</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">19-03-98 =============</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ edit battery,
+kan nu inserten</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ opgenomen databestanden
+kunnen nu vanaf het hoofdscherm worden verwijderd,</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">&nbsp;&nbsp; in
+het instellingen form moet dit eerst wel worden toegestaan</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ start selectie,
+gaf een fout bij de&nbsp; test_omschijving</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">4-3-98 ==============VERSIE
+08/K</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ foutje in clear
+kassa</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ extended textbestanden
+worden ook altijd mee gekopieerd</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ waarschuwing als
+overschrijven dreigt bij copy</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">14-01-98 =============
+VERSIE 08//i</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ bij het kopieren
+van afzonderlijke databestanden, wordt ook altijd de algemene patientfile
+gekopieerd</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ bij het kopieren
+wordt nu onthouden wat de bestemmingsdrive was, zodat deze de volgende
+keer gebruikt kan worden</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ excel instelling
+geblokkerd als betreffende pagina geblokkeerd</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ problemen met
+software licentie vragenlijst opgelost</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ patienten password
+onzichtbaar als niet gewijzigd kan worden</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ vragenlijst normen
+werkte niet meet goed, opgelost</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">15-11-97 =============
+VERSIE 08//h</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+X-vraag werd niet
+goed afgevinkt als tenminste 1 antwoord gegeven, opgelost</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+Import polygrafie
+toegevoegd</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">10-10-97 =============
+VERSIE 08//g</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+score bij laatste
+vraag T-vraag wordt nu ook meegenomen</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+vertaling oude
+bestanden gaf spatie in filenaam, opgelost</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+vragen met meer
+antwoorden mogelijk, nu alleen als beantwoord aangemerkt indien minstens
+1 antwoord</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">6-10-97&nbsp; =============&nbsp;
+VERSIE 08//f</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ problemen met
+oude patientbestanden in combinatie met netwerk drives, hopelijk opgelost</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ Excel als module
+toegevoegd</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ Bij directory
+paden konden problemen ontstaan als gevolg wel/niet laatste backslash,
+opgelost</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ aangeven wel/niet
+protocol-omschrijving bij instellingen verplaatst naar pagina "Modulen"</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">25-9-97 =============&nbsp;
+VERSIE 08//e</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ protocolnaam kan&nbsp;
+nu ook bij polygrafie worden ingevoerd.</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ polygrafie, verlies
+van sessienaam opgeheven</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ dongle en bijbehorende
+licentierechten toegevoegd</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">16-9-97 =============&nbsp;
+VERSIE 08//d</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ export SPSS, laatste
+tab op een regel verwijderd (voorkomt foutmelding in SPSS)</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">12-9-97 =============&nbsp;
+VERSIE 08//c</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ export SPSS ontbrekende
+laatste antwoord bij M-vragen opgelost</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ plat gaan programma
+bij edit battery opgelost</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ battery bestand
+overschrijven, waarschuwing toegevoegd</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">23-4-97 =============&nbsp;
+VERSIE 08//a ============</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ export SPSS van
+datums in 5 kolommen (dd-mm-jj, dd, mm, jjjj, &lt;dagen sinds 1-1-1900)</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ export SPSS van
+T,U (dubbelblok vragen) via 2 kolommen ..a,b</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ export SPSS van
+M (meerkeuze, meerantwoorden) via evenzoveel kolommen a,b,c,...</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ subversies met
+gelijke licentie te draaien</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">16-4-97 =============&nbsp;
+VERSIE 08&nbsp; =============</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ sessienaam kan
+ook bij batterijen worden opgegeven</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">+ diverse verbeteringen
+in polygrafie module, zie aldaar</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">15-02-97&nbsp; *****************&nbsp;
+VERSIE 07&nbsp; *******************</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">- wijzigen van patientnummer
+mogelijk via COPY knop</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">- dubbel invoeren
+van patientnummer uitschakelbaar</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">- controle op geldige
+geboortedatum, geslacht is uitschakelbaar</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">- bij het verwijderen
+van bestanden worden de bestanden hernoemd door de extensie 1 letter te
+roteren</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">- uitgebreide tekstgegevens
+bij iedere patient op te slaan via de knop EXTEND</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">- voorbereid op
+diverse soorten testen anders dan vragenlijsten</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">- battery bestand
+en edit faciliteit gewijzigd</font></font>
+<p><font face="Arial,Helvetica"><font color="#000000">31-12-96 ***************&nbsp;
+VERSIE 06&nbsp; *********************</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">Hieronder staan
+in omgekeerde tijdsvolgorde de laatste nieuwtjes</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">TESTOMSCHRIJVING</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">INSTELLINGEN</font></font>
+<p><a name="lijsten"></a><b><font face="Arial,Helvetica"><font color="#000099">Lijsten&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Op het scherm globale besturing zijn de
+volgende lijsten aanwezig:</font>
+<br><font face="Arial,Helvetica">&nbsp; - namenlijst (gesorteerd)</font>
+<br><font face="Arial,Helvetica">&nbsp; - Patienten Testlijst</font>
+<br><font face="Arial,Helvetica">&nbsp; - Testen lijst</font>
+<br><font face="Arial,Helvetica">&nbsp; - Modulen lijst</font>
+<p><font face="Arial,Helvetica">De lijsten zijn geheel naar eigen inzicht
+op te bouwen. De volgende onderwerpen zijn instelbaar via de knop INSTEL:</font>
+<br><font face="Arial,Helvetica">&nbsp; - welke gegevens wel/niet worden
+getoond</font>
+<br><font face="Arial,Helvetica">&nbsp; - de volgorde van de gegevens (kolommen)</font>
+<br><font face="Arial,Helvetica">&nbsp; - de breedte van de kolommen</font>
+<br><font face="Arial,Helvetica">&nbsp; - of de breedte al dan niet dynamisch
+mag worden gewijzigd</font>
+<br><font face="Arial,Helvetica">In het instel formulier staat hoe bovenstaande
+instellingen tot stand moeten worden gebracht.</font>
+<p><font face="Arial,Helvetica">Het (dynamisch) instellen van de breedte
+van de kolommen gebeurt door de scheiding in de titel van de kolommen te
+pakken met de linker muistoets en vervolgens te slepen met de muis. De
+breedte van de kolommen wordt alleen opgeslagen bij het verlaten van het
+instelformulier. Op deze wijze wordt voorkomen dat bij een dynamische instelling
+de default instelling verloren gaat. Wil men een bepaalde kolombreedte
+als defaultwaarde instellen, dan moet nadat de juiste instelling is verkregen
+even naar het instel formulier worden gestapt.</font>
+<p><font face="Arial,Helvetica">Voor het selekteren in de lijsten gelden
+de volgende regels:</font>
+<br><font face="Arial,Helvetica">&nbsp; KLIK&nbsp; markeer gewenste item</font>
+<br><font face="Arial,Helvetica">&nbsp; CTRL KLIK markeer gewenste item,
+maar onthoud tevens alle vorig gemarkeerde items</font>
+<br><font face="Arial,Helvetica">&nbsp; SHIFT KLIK markeer alles vanaf
+eerst gemarkeerde item t/m huidig gemarkeerde item</font>
+<br><font face="Arial,Helvetica">&nbsp; DUBBEL KLIK markeer en voer de
+meest voor de hand liggende aktie uit,</font>
+<br><font face="Arial,Helvetica">&nbsp; voorbeelden van 'de meest voor
+de hand liggende aktie':</font>
+<br><font face="Arial,Helvetica">&nbsp; patienten-testlijst, geplande test
+= start test, uitgevoerde test = bekijk test</font>
+<br><font face="Arial,Helvetica">&nbsp; testen-lijst, transporteer naar
+patienten-testlijst</font>
+<p><a name="patgeg"></a><b><font face="Arial,Helvetica"><font color="#000099">Patgeg&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">De patientgegevens bestaan uit de PERSOONS-GEGEVENS
+(bovenste tabel), de TEST-GEGEVENS (tabel eronder) en uit het UITGEBREID
+TEKSTBESTAND (bereikbaar via knop EXTEND).</font>
+<p><font face="Arial,Helvetica">PERSOONS-GEGEVENS:</font>
+<br><font face="Arial,Helvetica">Patientnummer maximaal 7 karakters (niet
+noodzakelijkerwijs cijfers),</font>
+<br><font face="Arial,Helvetica">&nbsp; moet uniek zijn, want wordt intern
+gebruikt voor bestandsnamen</font>
+<br><font face="Arial,Helvetica">&nbsp; wordt tevens getest of reeds aanwezig,
+kan eventueel worden gewijzigd via de knop COPY</font>
+<br><font face="Arial,Helvetica">Naam&nbsp; goede gewoonte om te beginnen
+met de achternaam, gevolgd door voornaam of voorletters,</font>
+<br><font face="Arial,Helvetica">&nbsp; wordt gebruikt in de namenlijst</font>
+<br><font face="Arial,Helvetica">Geboortedatum datum zijn volgens het masker
+DD-MM-JJ</font>
+<br><font face="Arial,Helvetica">Geslacht&nbsp; M,m of V,v, wordt gebruikt
+om de juiste normen te selekteren</font>
+<br><font face="Arial,Helvetica">Opmerkingen vrije tekst van 255 karakters,
+niet handig, gebruik bij voorkeur het uitgebreide tekstbestand</font>
+<br><font face="Arial,Helvetica">Via instellingen kunnen de volgende invoer-beveiligingen,
+-controles al dan niet worden ingeschakeld:</font>
+<br><font face="Arial,Helvetica">&nbsp; - dubbel invoeren van patientnummer
+(moeten identiek zijn)</font>
+<br><font face="Arial,Helvetica">&nbsp; - controle geboortedatum op geldig
+formaat DD-MM-JJ</font>
+<br><font face="Arial,Helvetica">&nbsp; - controle op geslacht</font>
+<p><font face="Arial,Helvetica">TEST-GEGEVENS</font>
+<br><font face="Arial,Helvetica">Deze lijst is vrij instelbaar, zie tabblad
+LIJSTEN</font>
+<p><font face="Arial,Helvetica">UITGEBREID TEKSTBESTAND</font>
+<br><font face="Arial,Helvetica">Dit is een gewoon tekstbestand. De maximale
+omvang is zo'n 10 a 15 vellen A4.</font>
+<br><font face="Arial,Helvetica">De normale Windows Edit funkties copy/cut/paste
+(^C/^X/^V) zijn beschikbaar.</font>
+<br><font face="Arial,Helvetica">Met behulp van de toets DATUM/TYD, wodrt
+de actuele datum en tijd op de plaats van de kursor tussengevoegd.</font>
+<p><a name="bedienen"></a><b><font color="#000099">Bedienen</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Patient testen voorbereiden
+<br>Uitvoeren van testen
+<br>Bekijken van testen
+<br>Rapport uitdraaien
+<br>Statistische gegevens genereren
+<br>Testen aanmaken / bewerken
+<p><a name="starten"></a><b><font color="#000099">Starten</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font color="#000000">Voor het opstarten van het programma gelden de
+volgende richtlijnen:</font>
+<br><font color="#000000">De presentatie van het programma kan in ruime
+mate beinvloedt worden door de instellingen in het INI-bestand.</font>
+<p><font color="#000000">SIMPEL:</font>
+<br><font color="#000000">programma naam : vraaglst.exe</font>
+<br><font color="#000000">startdirectory de directory waar vraaglst.exe
+staat</font>
+<p><font color="#000000">VOLLEDIG:</font>
+<br><font color="#000000">Programma naam</font>
+<br><font color="#000000">&nbsp;&nbsp; vraaglst.exe</font>
+<p><font color="#000000">Opstart Directory</font>
+<br><font color="#000000">&nbsp; &lt;directory waar programma vraaglst.exe
+zich bevindt></font>
+<p><font color="#000000">Opstart parameters:</font>
+<br><font color="#000000">&nbsp;&nbsp;&nbsp; [&lt;ini-bestand> [ &lt;paramater
+2> [ &lt;parameter 3>]]]</font>
+<p><font color="#000000">&lt;ini-bestand> Hierin staan de specifieke instellingen
+van het programma,</font>
+<br><font color="#000000">&nbsp; Indien geen ini-bestand opgegeven of een
+streepje, dan &lt;opstart dir>\vraaglst.ini</font>
+<br><font color="#000000">&nbsp; Als geen ini-bestand bestaat, wordt dit
+automatisch aangemaakt</font>
+<p><font color="#000000">&lt;parameter 2> geen betekenis, plaats zonodig
+een streepje</font>
+<br><font color="#000000">&nbsp; voor de toekomst gereserveerd als demo/instruktie
+mode</font>
+<p><font color="#000000">&lt;parameter 3> normaal afwezig,</font>
+<br><font color="#000000">&nbsp; indien "SYSTEM" zijn er meer mogelijkheden
+om instellingen te beinvloeden</font>
+<br><font color="#000000">&nbsp; de leverancier kan hier biezondere codewoorden
+gebruiken</font>
+<p><a name="dirpaths"></a><b><font color="#000099">Dirpaths</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Bij normaal gebruik is het niet nodig exact te weten waar de bestanden
+zich bevinden.
+<br>Zelfs het transport van patientdata naar een andere computer, via een
+tussenmedium, wordt geheel door het programma ondersteund,
+<br>zelfs als het hoofdpath op beide computers niet gelijk is.
+<p>Het hoofdpath van alle patient data (&lt;patienten directory>) is gelijk
+en kan op de volgende manier worden ingesteld:
+<br>&nbsp;&nbsp; knop INSTEL
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pagina DIRECTORIES
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; item PATIENT DIRECTORY
+<p>In onderstaand overzicht is zijn de paden en bestanden gegeven aan de
+hand van de patient met patient nummer 1234567
+<br>&lt;patienten directory>
+<br>&nbsp;\ PATIENT&nbsp; \ 1234567.PAT&nbsp; de patient gegevens (inclusief
+verwijzing naar alle testen)
+<br>&nbsp;&nbsp; \1234.PAT&nbsp; idem, van een andere patient
+<p>&nbsp;\VRAAGLST \REBIF \1234567A.DAT antwoorden (behalve open vragen)
+eerste keer REBIF
+<br>&nbsp;&nbsp; \REBIF \1234567A.22 antwoord op open vraag 22 van bovengenoemde
+REBIF
+<p>&nbsp;&nbsp; \REBIF \1234567B.DAT antwoorden op tweede keer REBIF
+<br>&nbsp;&nbsp; \REBIF \1234567B.22
+<p>&nbsp;&nbsp; \SCL \1234567A.DAT antwoorden op SCL
+<p>&nbsp;\POLYGRAF \DEMO1 \1234567.D1 gesampelde data, gestart volgens
+template DEMO1
+<br>&nbsp;&nbsp;&nbsp; \1234567.R1 remark bestand
+<br>&nbsp;&nbsp;&nbsp; \1234567.C1 copy van DEMO1.INI (test instellingen)
+<p>&nbsp;&nbsp;&nbsp; \1234567.D2
+<br>&nbsp;&nbsp;&nbsp; \1234567.R2
+<br>&nbsp;&nbsp;&nbsp; \1234567.C2
+<p>&nbsp;\POLYGRAF \BASIS1 \1234567.D1
+<br>&nbsp;&nbsp;&nbsp; \1234567.R1
+<br>&nbsp;&nbsp;&nbsp; \1234567.C1
+<p>&nbsp;\TABEL&nbsp; \TABEL1 \1234567.T1
+<br>&nbsp;&nbsp;&nbsp; \1234567.T2
+<p>Voor iedere test (behalve voor de vragenlijsten) geldt dat er maximaal
+100 identieke testen per patient kunnen worden afgenomen.
+<br>Voor vragenlijsten bedraagt dit maximum 24 (letters van het alfabet)
+identieke testen per patient.
+<p><a name="tabel"></a><b><font color="#000099">Tabel</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Biezonderheden
+<br>=============
+<br>Omdat er van uit wordt gegaan, dat de tabel minder belangrijke gegevens
+bevat, wordt in de mode BEKIJKEN het wijzigen van de gegevens ook toegestaan.
+<p><a name="knoppen"></a><b><font color="#000099">Knoppen</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>persoons gegevens
+<br>&nbsp; NIEUW
+<br>&nbsp; DELETE
+<br>&nbsp; EXTEND
+<br>&nbsp; DATUM/TYD
+<br>&nbsp; COPY
+<p>patient test-gegevens
+<br>&nbsp; BEKIJKEN
+<br>&nbsp; PRINT
+<br>&nbsp; STARTEN
+<br>&nbsp; START SELEKTIE
+<br>&nbsp; DELETE
+<p>rechts van testlijst
+<br>&nbsp; HELP
+<br>&nbsp; DIVERSEN minder frequent gebruikte opties, zie pagina K-DIVERS
+<br>&nbsp; SPSS
+<br>&nbsp; INSTEL&nbsp; instellingen van het programma wijzigen, zie pagina
+K-INSTEL
+<br>&nbsp; EINDE
+<p>onder testlijst
+<br>&nbsp; NIEUW
+<br>&nbsp; EDIT
+<br>&nbsp; DELETE
+<p><a name="k-instel"></a><b><font color="#000099">K-instel</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>knop INSTEL
+<br>==========
+<br>Hiermee kan de instelling van het programma naar eigen behoeften worden
+ingesteld.
+<br>De instellingen worden bewaard in het ini-bestand (bestandsnaam staat
+in de titel van het instellingen boek).
+<br>Bij het opstarten van het programma wordt in het algemeen opgegeven
+welk ini-bestand moet worden gebruikt, zodat op deze wijze verschillende
+instellingen kunnen worden gemaakt voor de diversen toepassingen c.q. omgevingen.
+<p>Op de instellingen pagina DESIGN1 is aangegeven welke pagina's door
+de gebruiker mogen worden gewijzigd.
+<br>Om de pagina DESIGN1 zelf te wijzigen, moet op een speciale wijze worden
+opgestart of moet op deze pagina het juiste password worden ingevoerd.
+<br>Zodra het password zichtbaar is op de pagina DESIGN1, kan het password
+ook worden gewijzigd.
+<p>Met behulp van het tabboek instellingen, kunnen de volgende zaken worden
+ingesteld:
+<br>&nbsp; - plaats van de bestanden (programma, patient, modulen)
+<br>&nbsp; - welke knoppen en lijsten zichtbaar zijn
+<br>&nbsp; - of patientenlijst een naamlijst danwel een nummerlijst is
+en of de gebruiker hiertussen mag omschakelen
+<br>&nbsp; - welke modulen beschikbaar zijn
+<br>&nbsp; - per module, of er al dan niet een test-omschrijving kan worden
+ingevoerd
+<br>&nbsp; - welke testbatterij automatisch gebruikt moet worden (handig
+voor een klinische mode, met zeer weinig knoppen en lijsten)
+<br>&nbsp; - titels welke boven de rapporten worden geplaatst
+<br>&nbsp; - password voor het patientendeel
+<p>Bij vragenlijsten kan via SYS2 het lettertype worden gewijzigd
+<br>Afhankelijk van de windows display instelling moet deze instelling
+zonodig worden aangepast.
+<br>Bij small fonts werkt ARIAL, 13, VET goed
+<br>Bij Large fonts werkt ARIAL, 10, VET goed
+<p><a name="k-divers"></a><b><font color="#000099">K-divers</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>knop DIVERSEN
+<br>Hieronder staan een aantal minder frequent gebruikte opties, dit zijn:
+<br>&nbsp; - Vertalen oude SWETS resultaat bestanden
+<br>&nbsp; - KASSA, registratie van het aantal gebruikte vragenlijsten
+<p><a name="pattest"></a><b><font color="#000099">pattest</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Het veld met de individule patienttesten is als volgt opgebouwd:
+<p>&lt;datum> &lt;starttijd> &lt;omschrijving>\&lt;testteller>\&lt;test
+omschrijving>\&lt;bestandsnaam>\&lt;testsoort>
+<p>Als een test nog niet is afgenomen, zijn &lt;datum> &lt;starttijd> vervangen
+door "gepland"
+<p>&lt;omschrijving> omschrijving die wordt ingevoerd bij het plannen van
+de test
+<br>&lt;test omschrijving> de algemene omschrijving van de test
+<br>&nbsp;(bij vragenlijsten is dit de titel van de vragenlijst)
+<br>&lt;testteller> deze telt de identiek testen A=1, B=2, etc
+<br>&lt;testsoort> het soort test (bijv 1=vragenlijst, 4=polygrafie)
+<br>&nbsp;
+<p><a name="tabel_ed"></a><b><font color="#000099">tabel_ed</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Edit de struktuur van een tabel
+<br>========================
+<br>Met dit programma onderdeel kan de struktuur van een tabel worden gewijzigd.
+<br>Omdat bij het verlaten van dit programma onderdeel gevraagd wordt naar
+een bestandsnaam, kan gerust een reeds bestaande tabel als model worden
+gebruikt.
+<br>Als bij een bepaalde grootheid minimum en maximum worden ingevuld,
+wordt tijdens het editten van de strukttur van de tabel gecontroleerd of
+het maximum groter is dan het minimum.
+<br>Als minimum en maximum (juist) aanwezig zijn, wordt bij het invullen
+van de patientgegevens een numerieke waarde getest.
+<p>Titel van de tabel
+<br>=============
+<br>Deze wordt gebruikt om de tabel op gebruikers-nivo te identificeren.
+<p>Kolommen in de tabel
+<br>=================
+<br>Omschrijving omschrijving van het gegeven, verschijnt in rapport
+<br>Kolom-afk&nbsp; afkorting t.b.v. veldnaam in export bestand
+<br>minumum&nbsp; minimum toegestane waarde, indien gegeven numeriek is
+<br>maximum&nbsp; maximum toegestane waarde, indien gegeven numeriek is
+<br>Eenheid&nbsp; eenheid bij numerieke gegevens, t.b.v. rapport funktie
+<br>Meetwaarde in te vullen meetgegeven
+<p>Programma Beeindigen
+<br>==================
+<br>Bij het stoppen van het programma, worden eerst de numeriek waarden
+gecontroleerd, bij onjuiste gegevens wordt gewaarschuwd en kan gecorrigeerd
+worden. Vrevolgens wordt gevraagd het (gewijzigde) bestand op te slaan.
+Als het bestand moet worden opgeborgen, kan een andere bestandsnaam worden
+opgegeven.
+<p><a name="import"></a><b><font color="#000099">Import</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Importeert willekeurige databestanden door deze te vertalen naar MID-TestOrganizer
+formaten.
+<br>Momenteel worden alleen het formaat voor de MIDACen VRAGENLIJST modulen
+ondersteunt.
+<br>Voor Swets Testmanager databestanden is een aparte vertaal module beschikbaar
+onder de knop "Diversen".
+<p>Na het openen van een bestand wordt de eerste regel gelezen en weergegeven
+in het gelijknamige venster. Op grond van deze eerste regel worden een
+aantal import bestanden automatisch herkend. Als u vaker een bepaalde bestandsvorm
+wilt importeren, kunt u door de ID een standaard profiel laten implementeren.
+<p>Bij import bestanden die automatisch worden herkend, worden de instellingen
+in de linkerhelft automatisch goed ingesteld.
+<br>Bij onbekende import bestanden dienen de instellingen in de linker
+helft op de juiste manier te worden ingesteld. Of de juiste instellingen
+zijn gemaakt, kan worden gekontroleerd door de knop "Kopregels" in te drukken.
+Hierdoor leest en interpreteert het programma de kopregels en de eerste
+10 data regels van het import bestand. De juistheid van deze informatie
+kan worden gekontroleerd in de gelijknamige vensters.
+<p>Nu kan de "Testomschrijving" (default is import bestandsnaam) nog worden
+gewijzigd.
+<p>Zijn de instellingen correct, dan kan de vertaling worden gestart door
+de knop "Importeer" in te drukken.
+<br>Tijdens de vertaling wordt de vordering aangegeven in de bargrafiek,
+terwijl het aantal fouten in een venster worden bijgehouden.
+<p>Er behoeft geen bestandsnaam voor de uitvoer te worden opgegegeven,
+deze wordt door het programma automatisch bepaald volgens de geldende database
+manangement regels.
+<p>SNEL-MENU
+<br>&nbsp;1 druk op knop OPEN
+<br>&nbsp;2 kontroleer de kopregels en de eerste 10 dataregels, als goed
+ga naar stap 6
+<br>&nbsp;3 als fout, wijzig instellingen
+<br>&nbsp;4 druk op knop KOPREGELS
+<br>&nbsp;5 ga naar stap 2
+<br>&nbsp;6 druk op knop IMPORTEER
+<p>ACTILOG bestanden:
+<br>&nbsp;&nbsp;&nbsp; deze worden automatisch herkend
+<br>WBREATH ASCII bestanden met vaste opbouw
+<br>&nbsp;&nbsp;&nbsp; deze bevatten real-waarden, welke zonder verlies
+van resolutie worden vertaald naar passende integer waarde
+<br>R-top P-arterieel Onset
+<br>&nbsp;&nbsp;&nbsp; er verschijnt een extra instelscherm om de volgorde
+van de signalen te kunnen wisselen
+<br>IRS Poly-4 bestanden
+<br>&nbsp;&nbsp; speciale header en dataopbouw wordt automatisch verwerkt
+<p>Toekomst
+<br>- de signaalnamen doorgeven aan MIDAC
+<br>- batch processing van een aantal te importeren bestanden
+<br>- beperking in de door te geven sample frekwentie opheffen
+<br>- selectie van te importeren kanalen
+<br>- schaal factoren per kanaal in te stellen
+<p><a name="q-tested"></a><b><font color="#000099">Q-tested</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>12-12-96 mid_to kompleet vernieuwd (+=tested, -=not-tested)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Algemeen
+<br>&nbsp;+++ LET OP PATIENTEN_TESTEN_REGEL verplaatst van form_signaal
+naar FORM_INI
+<br>&nbsp;- index van de volgende identiek test wordt nu bepaald aan hand
+van bestandsnaam,
+<br>&nbsp; echter eerst testen op testkind, dan pas op testnaam (in de
+toekomst zullen identiek testnamen voor verschillende testsoorten
+<br>&nbsp;&nbsp; gebruikt gaan worden.
+<br>&nbsp;- opvragen testnaam bij nieuwe / gewijzigde poly configuratie
+<br>&nbsp;+ splash scherm met ECG (niet geweldig)
+<br>&nbsp;- sneltoetsen
+<br>&nbsp;+ tab volgorde van componenten
+<br>&nbsp;+ starten als gehele patienten lijst leeg geeft geen probelemen
+meer
+<br>&nbsp;- print
+<br>&nbsp;+ battery toevoegen gaat fout
+<br>&nbsp;+ multiselect in testlijst moet ook meerdere testen overhalen
+<br>&nbsp;+ pijlen in vragenlijst
+<br>&nbsp;- snelheid van vragenlijst
+<br>&nbsp;- beveiliging en licenties
+<br>&nbsp;- eerste keer kan er niet op de patientenlijst geklikt worden
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; namenlijst
+<br>&nbsp;+ instelling, kolombreedte instellen/bolkkeren, kolommen samenstellen
+<br>&nbsp;+ instelling, als niets geselekteerd, dan op zijn minst naam
+in de lijst
+<br>&nbsp;+ dubbelklik of Enter = edit
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Patientknoppen
+<br>&nbsp;+ new, show/hide, funktie
+<br>&nbsp;+ edit, show/hide, funktie
+<br>&nbsp;+ delete, show/hide, annuleer, delete=rename
+<br>&nbsp;+ extend, show/hide, toggle funktie, componenten disablen
+<br>&nbsp;+ copy toets (in later stadium uitbreiden met andere testen)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Patient bestand
+<br>&nbsp;+ autoconversie van oude bestanden
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Patient Gegevens
+<br>&nbsp;+ show/hide
+<br>&nbsp;+ kontroles instellen, dubbel-nr, datum, geslacht
+<br>&nbsp;+ kontroles uitvoeren, dubbel-nr, datum, geslacht
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Patient Testen
+<br>&nbsp;+ instelling, kolombreedte instellen/bolkkeren, kolommen samenstellen
+<br>&nbsp;+ instelling, als niets geselekteerd, dan op zijn minst datum
+in de lijst
+<br>&nbsp;+ dubbelklik of Enter = bekijk of start-selektie afhankelijk
+of reeds gedaan
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Patient test knoppen: functie,
+test op gepland, test op selektie, test op directory
+<br>&nbsp;+ bekijken
+<br>&nbsp;+ print
+<br>&nbsp;+ start
+<br>&nbsp;+ start selektie
+<br>&nbsp;+ delete
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Testenlijst
+<br>&nbsp;+ dubbelklik of Enter = add
+<br>&nbsp;+ show/hide, inclusief hoger gelegen hierarchien (bv edit-test)
+<br>&nbsp;+ kolombreedte instellen/bolkkeren
+<br>&nbsp;+ multiselect overhalen
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Knoppen testen
+<br>&nbsp;+ add
+<br>&nbsp;+ new
+<br>&nbsp;+ edit, multi-select blokkering, zie verder hieronder
+<br>&nbsp;+ delete, annuleer, doorgaan=rename, multiselect niet toegestaan
+(waarschuwing)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Module list
+<br>&nbsp;+ instellingen show/hide, startindex
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Overige knoppen
+<br>&nbsp;+ help
+<br>&nbsp;+ diversen
+<br>&nbsp;- spss
+<br>&nbsp;+ einde
+<br>&nbsp;+ instel
+<p>&nbsp;&nbsp; batt vraag acti neuro poly poly+ spraak tabel
+<br>Opbouw module list&nbsp; + + - - + - - +
+<br>Edit test&nbsp;&nbsp; + + - - + - - +
+<br>New Test&nbsp;&nbsp; + + - - + - - +
+<br>Add Test&nbsp;&nbsp; + + - - + - - +
+<p>29-10-96 MID_INI gedokumenteerd en 'netjes' gemaakt, nog een paar kleine
+dingen te doen
+<p>18-10-96 patientknoppen NIEUW/DELETE/EXTENDED
+<br>&nbsp;patienten naam/file lists
+<br>&nbsp;patientgegevens invoeren
+<br>&nbsp;helpknop
+<br>&nbsp;eindknop
+<p><a name="q-battery"></a><b><font color="#000099">Q-battery</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Er zijn meerdere bestandsopbouwen van de batterij bestanden in omloop.
+<br>Zodra een battery file wordt gelezen die niet de bestandsopbouw van
+de laatste versie heeft, wordt deze eerst vertaald naar de laatste verie.
+<br>Vanwege de automatische vertaling van oude bestanden, is het niet toegestaan
+deze bestanden met een gewone tekstverwerker te bewerken, want dan kan
+geen garantie gegeven worden dat de vertaling goed verloopt.
+<br>&nbsp;
+<p>De laatste versie van het battery bestand ziet er als volgt uit:
+<br>&nbsp; Battery file version 2
+<br>&nbsp; &lt;protocol-omschrijving>&nbsp;&nbsp; &lt;char(9)>&nbsp;&nbsp;
+&lt;protocol-file>&nbsp;&nbsp; &lt;char(1)>&nbsp;&nbsp; &lt;module-type>
+<br>&nbsp; &lt;protocol-omschrijving>&nbsp;&nbsp; &lt;char(9)>&nbsp;&nbsp;
+&lt;protocol-file>&nbsp;&nbsp; &lt;char(1)>&nbsp;&nbsp; &lt;module-type>
+<p>De vorige versie, bevatte alleen vragenlijsten er zag er als volgt uit:
+<br>&nbsp; test_all.txt
+<br>&nbsp; cis20.txt
+<p><a name="q-new"></a><b><font color="#000099">Q-new</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>- review-mode, via rechter muistoets nieuwe markers toevoegen (insert
+routines zijn voorbereid)
+<br>- dongle
+<br>- password om ongewenst opstarten MIDAC te voorkomen (als bij vragenlijst
+generator)
+<br>- screenraster dynamisch aan passen
+<br>- hele hoop documentatie
+<br>&nbsp;
+<p>nodig voor INTERNE
+<br>===============
+<br>&nbsp; + GERT: Rapid cuff inflator signaal
+<br>&nbsp; +(GERT): (digitale ingang, mag nu ook analoog in) Terugmelding
+rapid cuff inflator
+<br>&nbsp; - GERT: Markeren voor inactief stellen
+<br>&nbsp; + GERT: Exporteren van resultaten naar ASCII file
+<br>&nbsp; - GERT: Markeren en over gemarkeerde deel aantl basale berekeningen
+doen
+<br>&nbsp; + STEF: markers goed latyen werken
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(functioneert goed, en toegevoegd uitschakelen van vrije tekst en gewijzigde
+standaard markers na 6 sec)
+<br>&nbsp; + STEF: plet uitschakelen in review mode
+<br>&nbsp; - STEF: hartrate begrenzen op [30..200], zaagtand functioneert
+niet goed
+<br>&nbsp; + STEF: mogelijk ander startpunt bij pletsturing (moet direkt
+beginnen)
+<br>&nbsp; - STEF: kassa, test registraties tellen
+<br>&nbsp; + STEF: na stop opname, ook de RCI netjes stoppen
+<br>&nbsp; - dongle
+<br>&nbsp; - GERT + STEF: dokumentatie
+<p>nodig voor PATRICK WEERWIND
+<br>==========================
+<br>&nbsp; + GERT: partiele fileopslag
+<br>&nbsp; + GERT: compressed sampling
+<br>&nbsp; + STEF: YS400 temp module + hardware aanpassing
+<br>&nbsp; + STEF: specifieke rekenformules
+<br>&nbsp; + STEF: rekenformule in menselijke eenheden
+<br>&nbsp; + GERT: calibreren / ykwaarden instellen
+<p>nodig voor SYBRAND HOUTMAN
+<br>==========================
+<br>&nbsp; + gescheiden sample frekwenties (mogelijk al deels opgelost
+bij compressed sampling)
+<p>nodig voor FARMACOLOGIE
+<br>=======================
+<br>&nbsp; - Alarm mode's
+<br>&nbsp; - Timer (eventueel hard koppelen aan timer 3)
+<br>&nbsp; + GERT: Numeriek Venster
+<p>nodig voor .... de TOEKOMST dus
+<br>===========================
+<br>&nbsp; + edit markers in review mode (als eerste het toevoegen van
+markers)
+<br>&nbsp; - fast sampling, met display dat niet alles weergeft, maar het
+zo goeg mogelijk probeert
+<br>&nbsp; - copy files: grootte bestanden aangeven, kontroleren op benodigde/beschikbare
+diskruimte
+<br>&nbsp; - RS232 ingangen
+<br>&nbsp; + print van enkelvoudige vensters en van gehele scherm
+<br>&nbsp; - clipboard van enkelvoudige vensters en van gehele scherm
+<br>&nbsp; - sampelen in DMA mode
+<br>&nbsp; - funkties uit een DLL oproepen (nu kan iedereen funkties maken)
+<br>&nbsp; + peak/mean/etc bij compressie tijdens opname
+<br>&nbsp; - vensters naar object ipv mdichild
+<br>&nbsp; - hints bij objecten
+<br>&nbsp; - XY display
+<br>&nbsp; - color B-mode display
+<br>&nbsp; - diverse rekenroutines (FFT, wavelet,...)
+<br>&nbsp; - berekende uitgangssignalen zonder delay
+<br>&nbsp; + calibratie met 0 en bijv 1% puls, markeren ==> berekene
+<br>&nbsp; + Volts i.p.v. AD-waarden als referentie voor ijking
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p>==========
+<br>+ venster naar clipboard werkt nu
+<br>+ print venster werkt nog niet
+<p>16-4-96 =============
+<br>+ directory voor scan-rapport gedefinieerd
+<br>+ importeren kan worden afgebroken
+<br>+ default aantal signalen voor bloeddruk onset import =2
+<br>+ problemen met rr3.hlp opgelost
+<br>+ mode bij bloeddruk onset vergroot, zodat signaal eenvoudiger kan
+worden geschaald
+<br>+ default waarden voor bloeddruk onset detectie gewijzigd
+<br>+ processmessages tijndes import
+<br>+ print scherm
+<br>+ print venster
+<br>+ venster naar clipboard (werkt nog niet goed)
+<p>31-12-96&nbsp; ********************
+<br>+ NIEUW DATABESTANDS FORMAAT, samplefrekwentie wordt nu ook opgeslagen
+<br>+ compressie/expansie per venster en totaal worden opgeslagen in ini-bestand
+<br>+ review mode, maakt gebruik van copy testbestand dat met de antwoorden
+is bewaard
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gewijzigde settings worden
+na reviewing bewaard (in het copy natuurlijk)&nbsp; !!
+<br>&nbsp;
+<p>PROBLEMEN:
+<br>- naamgeving databestand in poly is niet goed, fout vanaf 10(J)
+<br>+ DAKAART mag niet meerdere keren gestopt worden, MOET MOGELIJK ZIJN
+<br>- als problemen, stop alle timers en interrupts alvorens naar IDE te
+gaan
+<br>- lezen van een configuratie bestand van een opname moet nog gebeuren
+<br>&nbsp;
+<p>2-11-96 ***********************
+<br>- bij een opname wordt naast databestand en markerbestand nu ook configuratie
+bestand weggeschreven
+<br>- extra helppagina's in de design mode (beginnend met "Q-")
+<br>- poly file opgesplitst, en overige bestanden hernoemd
+<br>- simulatie toegevoegd aan DAKAART
+<br>- PAS OP, unit DAKAART bevat herhaalde definitie van globals
+<p><a name="q-poly"></a><b><font color="#000099">Q-poly</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Poly bestaat uit de onderstaande bestanden.
+<br>De enige hierarchie hierin wordt gevormd doordat POLYMAIN het hoofdprogramma
+is en de communicatie met de applicatie shell verzorgt.
+<br>Omdat vanuit de meeste units rechtstreeks moeten worden ingegrepen
+op de componenten in POLYMAIN, zijn er veel circulaire referenties.
+<br>Een belangrijk gevolg is dat het wijzigen van de instance-name van
+het hoofdform ZEER VERREGAANDE GEVOLGEN HEEFT.
+<br>POLYMAIN
+<br>hoofdprogramma
+<br>POLYDRAW
+<br>bevat de meeste routines voor de indeling van het scherm en het tekenen
+van de signalen
+<br>POLY_INI
+<br>bevat het lezen/schrijven van het instellingen bestand
+<br>POLYCALC
+<br>bevat de realtime reken routines
+<br>POLYDATA
+<br>bevat de routines om databestanden (samples+markers) te lezen en te
+schrijven
+<br>DAKAART
+<br>bevat start/stop en interrupt routines voor alle AD-kaarten, inclusief
+de simulatie mode
+<br>POLYGLOB
+<br>bevat de belangrijkste globals
+<br>&nbsp;
+<p><a name="q-tabel"></a><b><font color="#000099">Q-tabel</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>NOG TE DOEN
+<br>===========
+<br>Tabel resultaat in rapport opnemen
+<p>Biezonderheden
+<br>=============
+<br>Er is bewust gekozen alleen da tabel van een tabstop te voorzien. Op
+deze wijze kan ook met de tab goed binnen de tabel worden gemanouvreerd.
+Speciale aktie is ondernomen om zowel Enter, Tab als Shift-Tab niet rond
+te laten lopen in de tabel, maar aan begin en einde te begrenzen.
+<p>Mogelijke Verbeteringen
+<br>===================
+<br>- autocreateform
+<p>
+<hr size=2><font face="Arial,Helvetica"><font size=-2>&copy; Copyright
+Stef Mientki, 18-1-1999</font></font>
+<br><font face="Arial,Helvetica"><font size=-2><a href="mailto:s.mientki@ids.kun.nl">s.mientki@ids.kun.nl</a>
+last updated: 18-1-1999</font></font>
+<br>&nbsp;
+</body>
+</html>

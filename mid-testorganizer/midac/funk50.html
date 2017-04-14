@@ -1,0 +1,154 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunktie 50, HeartRate Analysis , M, SD, SDSD, NN50, with Poincaré plot</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E8E8E8;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>ff2, Heart Rate Analysis</SPAN></P>
+<P><SPAN class=RVTS2>M, SD, SDSD, NN50, Poincaré-plot</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="uitgebreide omschrijving"></A>
+Omschrijving&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze funktie berekent een aantal parameters welke een maat zijn voor de heart rate variability.</P>
+<P>Tevens wordt desgewenst een Poincaré plot getoond.</P>
+<P>De berekende parameters en de Poincaré plot kunnen als een rapport worden afgedrukt.</P>
+<P>Deze functie zelf bevat geen heart rate detector, zodat afhankelijk van het ingangssignaal de meest optimale heart rate detector kan worden toegepast.</P>
+<P>Deze functie is zowel geschikt voor een handmatige analyse van stukjes data, zoals in onderstaande figuren is weergegeven, alsook is deze functie geschikt voor automatische analyse, omdat de "ShortTime" parameters continue als uitgangssignaal beschikbaar zijn.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Poincaré plot, hierin zijn 3 gebieden te onderscheiden:</P>
+<P>&nbsp; 1. ShortTime, hier de laatste 15 seconden (hier rood)</P>
+<P>&nbsp; 2. LongTime, hier de laatste 45 seconden (hier groen)</P>
+<P>&nbsp; 3. Alle historie (hier grijs)</P>
+<P>Wil men de historie niet zien, dat kan men deze onzichtbaar maken door deze de kleur van de achtergrong te geven.</P>
+<P>De gehele grafiek is vrij schaalbaar en verplaatsbaar.</P>
+<P>Middels de snelknop print kan een rapport worden afgedrukt, waarin patientgegevens, Poincaré plot en bijbehorende numerieke gegevens worden afgedrukt.</P>
+<P>Na een print-preview is de Poincaré plot ook als een bestand op de PC aanwezig.<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=354 height=297 src="funk50a.gif"></P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=349 height=292 src="funk50b.gif"></P></TD>
+<TD valign=middle>
+<P>Voor de berekening van de heart rate varaiability parameters worden enkel de shorttime en de longtime tijdsegementen gebruikt.&nbsp;</P>
+<P>In dit geval bestrijkt het longtime segment de laatste 45 seconden en het shorttime segment de laatste 15 seconden.&nbsp;</P>
+<P>De laatste 15 seconden doen dus mee in zowel de shorttime periode als in de longtime periode.&nbsp;</P>
+<P>Is dit goed ??</P>
+<P>Middels de snelknop print kan een rapport worden afgedrukt, waarin patientgegevens, Poincaré plot en bijbehorende numerieke gegevens worden afgedrukt.<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Middels dit scherm kunnen de eigenschappen van de grafiek en de meetperioden worden ingesteld.</P>
+<P>De instellingen worden bij het meetprotocol bewaard.</P>
+<P>Als het vakje "Clear on Review Start" is aangekruist, wordt in de review mode bij iedere nieuwe start van het display de grafiek gewist, op deze manier vertegenwoordigen de grijze punten in de grafiek precies dat deel dat ook in de signalen zichtbaar is.</P>
+<P>Door op een label kleur te klikken, kan de kleur van de bijbehorende punten worden ingesteld.<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=348 height=289 src="funk50c.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="de gemeten parameters"></A>
+De gemeten parameters&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Time</P>
+<P>De daadwerkelijke tijd (in sec) waarover de parameters zijn bepaald.</P>
+<P>N</P>
+<P>Het aantal (geldige) hartslagen in de opgegegeven periode.</P>
+<P>HR</P>
+<P>De gemiddelde hartslag in beats per minute (bpm).</P>
+<P>Mean</P>
+<P>De gemiddelde lengte van het RR-interval in msec.</P>
+<P>SD</P>
+<P>De standaard deviatie van de RR-intervallen in msec.</P>
+<P>SDSD</P>
+<P>De standaard deviatie van de verschillen tussen opeenvolgende RR-intervallen (SD of delta RR) in msec.</P>
+<P>NN50</P>
+<P>Het aantal paren van opeenvolgende RR-intervallen, in de opgegeven periode, welke meer dan 50 msec van elkaar verschillen. Het kriterium van 50 msec kan ook op een andere waarde worden ingesteld, via het tabblad "Instelling".</P>
+<P>Met deze parameter kunnen grote verschillen tussen opeenvolgende hartslagen worden herkend.</P>
+<P>T</P>
+<P>De gewenste meettijd (in sec) voor de opgegeven periode. (Indien onvoldoende hartslagen beschikbaar zal de parameter "Time" korter zijn.)</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="handmatige analyse"></A>
+Handmatige analyse<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Zet "Clear on Review Start" aan.&nbsp;</P>
+<P>Stel de gewenste ShortTime en LongTime in.&nbsp;</P>
+<P>Het langstdurende tijdsvenster vormt de referentie van de berekeningen, d.w.z. de laatste 15 seconden (de waarde van de shorttime in bovenstaand voorbeeld, kan worden ingesteld) zijn gerekend vanaf het einde van het langste tijdvenster. Idem voor de "longtime".&nbsp;</P>
+<P>Zorg nu dat het gewenste stuk data goed zichtbaar is in het langste tijdvenster. Hiervoor kan handig gebruik worden gemaakt van het rechter-muis-menu "Start Here" en "Finish Here".&nbsp;</P>
+<P>Zodra het juiste signaal goed zichtbaar is, geven de Poincaré plot de tabel de juiste waarden over het gewenste gebied.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="inputs:"></A>
+Inputs:&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=80 valign=middle>
+<P>1 = RR</P></TD>
+<TD width=80% valign=middle>
+<P>RR-interval in msec</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>2 = RR-valid</P></TD>
+<TD valign=middle>
+<P>1 als er een nieuw (geldig) RR-interval beschikbaar is, anders 0</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="outputs:"></A>
+Outputs:&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=130 valign=middle>
+<P>1 = Mean RR [msec]</P></TD>
+<TD width=80% valign=middle>
+<P>Gemiddelde RR-interval over de ShortTime</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>2 = SD [msec]</P></TD>
+<TD valign=middle>
+<P>Standard Deviation van de RR-intervallen over de ShortTime</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>3 = NN50</P></TD>
+<TD valign=middle>
+<P>Het aantal paren van opeenvolgende RR-intervallen, in de opgegeven periode, welke meer dan 50 msec van elkaar verschillen. Het kriterium van 50 msec kan ook op een andere waarde worden ingesteld, via het tabblad "Instelling".</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>4 = SDSD [msec]</P></TD>
+<TD valign=middle>
+<P>De standaard deviatie van de verschillen tussen opeenvolgende RR-intervallen (SD of delta RR) in msec, over de ShortTime</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="parameters:"></A>
+Parameters:&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="voorbeeld"></A>
+Voorbeeld&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="achtergrond gegevens"></A>
+Achtergrond Gegevens&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Nadat een preview van het rapport is getoond, is de Poincaré plot ook beschikbaar als bitmap:</P>
+<P>&nbsp;&nbsp;&nbsp; &lt;directory mid_org.exe&gt;&nbsp; F50_P1.bmp</P>
+<P>...&nbsp; literatuur vermeldingen en andere documenten</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst 1999</P>
+<P>SM/GvV, last updated 22-09-1999</P>
+<P>&nbsp;</P>
+</BODY></HTML>

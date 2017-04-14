@@ -1,0 +1,162 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="generator"
+ content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+  <meta name="author" content="Stef Mientki">
+  <title>model_td</title>
+</head>
+<body style="color: rgb(0, 0, 0); background-color: rgb(143, 214, 243);"
+ link="#003399" vlink="#003399" alink="#cccccc">
+<br style="font-family: arial;">
+<a name="top" style="font-family: arial;"></a>
+<table border="1" width="100%" style="font-family: arial;">
+  <tbody>
+    <tr>
+      <td align="center" valign="CENTER" rowspan="2" width="25%"><a
+ href="../mid-testorganizer_index.html">Overzicht MidOrg</a></td>
+      <td align="center" valign="CENTER" width="50%" height="40"
+ bgcolor="#3333ff">
+      <center><b><font color="#ffff00">Integratie Longfie metingen
+021503<br>
+      </font></b></center>
+      </td>
+      <td align="center" valign="CENTER" rowspan="2"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="CENTER" height="40" bgcolor="#ffff00"><b><font
+ color="#3333ff">Inhoud</font></b></td>
+    </tr>
+  </tbody>
+</table>
+<br style="font-family: arial;">
+<br style="font-family: arial;">
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%; font-family: arial;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Edit</span><br>
+      </td>
+      <td style="vertical-align: top;">werkt nagenoeg geheel, nog te
+doen<br>
+- full screen<br>
++ nog wat opschonen<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Auto
+import</span><br>
+      </td>
+      <td style="vertical-align: top;">werkt nagenoeg geheel, nog te
+doen:<br>
+- auto import blokkeren bij user actions<br>
+- als patient niet bestaat, aanmaken<br>
+- netwerk blokkeren tijdens auto import<br>
+- netwerk updaten na auto import<br>
++als de actuele patient is gewizjigd, scherm updaten<br>
++ eerste tab verwijderd<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Opname
+blokkeer</span><br>
+      </td>
+      <td style="vertical-align: top;">Ok<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Bekijken</span><br>
+      </td>
+      <td style="vertical-align: top;">Ok<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">Export<br>
+      </td>
+      <td style="vertical-align: top;">NOG TE DOEN<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Print</span><br>
+      </td>
+      <td style="vertical-align: top;">Ok<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br style="font-family: arial;">
+<br style="font-family: arial;">
+<br style="font-family: arial;">
+<span style="font-weight: bold; font-family: arial;"> TestOrganizer:
+opsporen van databestanden</span><br
+ style="font-weight: bold; font-family: arial;">
+<span style="font-family: arial;">De TestOrganizer scant op regelmatige
+tijdstippen een of meerdere directories af op bepaalde filetypen.</span><br
+ style="font-family: arial;">
+<span style="font-family: arial;">Worden een of meerdere bestanden
+gevonden, dan worden deze verplaatst naar een tijdelijke directory.</span><br
+ style="font-family: arial;">
+<span style="font-family: arial;">Daarna wordt door de TestOganizer
+gezorgd dat de bestanden geinterpreteerd en opgenomen worden in de
+betreffende patientenlijsten.</span><br style="font-family: arial;">
+<span style="font-family: arial;">Het is duidelijk dat slechts
+&eacute;&eacute;n PC in het gehele netwerk, deze aktiviteit mag
+uitvoeren. De andere PC's krijgen de nieuwe gegevens gewoon via de
+normale netwerk updating.<br>
+<br>
+<br>
+</span>
+<div style="margin-left: 40px; font-family: arial;"><span
+ style="font-weight: bold; font-family: arial;">Technische realisering,
+opsporen databestanden</span><br
+ style="font-weight: bold; font-family: arial;">
+<span style="font-family: arial;"> Bij het opstarten van de
+TestOrganizer wordt eerst gekeken of er importtabellen (als protocol)
+aanwezig zijn.</span><br style="font-family: arial;">
+<span style="font-family: arial;"> Vervolgens wordt gekeken of het
+scannen is geenabled.</span><br style="font-family: arial;">
+<span style="font-family: arial;"> Dan worden alle protocollen
+doorlopen, want daarin staat gedefinieerd welke directories moeten
+worden doorzocht en naar welke bestandstypen moet worden gezocht. Op
+deze manier wordt dus een lijst opgebouwd waarin de filemasks zijn
+opgenomen. Tevens wordt een lijst met protocollen bijgehouden, waarbij
+ieder item in de lijst verwijst naar een filemask. Dit is nodig
+omdat&nbsp; 1 filemask gekoppeld kan zijn aan meerdere protocollen. Het
+omgekeerde, 1 protocol gekoppeld aan meerdere filemasks wordt bewust
+uitgesloten.</span><br style="font-family: arial;">
+<span style="font-family: arial;"> Als aan al deze voorwaarden is
+voldaan, wordt een timer gestart die zorgt voor een regelmatig scannen
+van de gewenste directories.</span><br style="font-family: arial;">
+<br style="font-family: arial;">
+<br style="font-family: arial;">
+<div style="margin-left: 40px;"><span
+ style="font-weight: bold; font-family: arial;">Instellingen</span><br
+ style="font-weight: bold; font-family: arial;">
+<span style="font-family: arial;"> In het instellingen tabblad "Systeem"
+kan de werking van importtabellen worden geactiveerd.</span><br
+ style="font-family: arial;">
+<span style="font-family: arial;"> Om deze instelling te wijzigen, is
+wel het systeem password nodig.</span><br style="font-family: arial;">
+<span style="font-family: arial;"> Tevens kan hier de gewenste
+scanperiode (in minuten) worden ingesteld.</span><br
+ style="font-family: arial;">
+<br>
+</div>
+</div>
+<br style="font-family: arial;">
+<br style="font-family: arial;">
+<br style="font-family: arial;">
+<br style="font-family: arial;">
+<br style="font-family: arial;">
+<span style="font-family: arial;"> &nbsp; </span>
+<p style="font-family: arial;"> </p>
+<hr width="100%" style="font-family: helvetica,arial,sans-serif;"><font
+ size="-2">&COPY; Copyright Instrumentele Dienst, 1999</font> <br>
+<a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height="18"
+ width="29"></a><font size="-2">&nbsp; SM, last updated 16-01-2001&nbsp;</font><a
+ href="#top"><img src="top_page.gif" height="14" width="14"></a>
+</body>
+</html>

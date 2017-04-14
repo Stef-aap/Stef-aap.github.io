@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>MIDAC, rekenfunctie 15</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #e2e2e2;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="412" />
+<meta name="spellcheck" content="-1" /></head>
+<body>
+
+<p><span class=rvts1>RF 2, Onset Systolische Bloeddruk</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="ad-index.html">MIDAC Index</a></p>
+<p class=rvps1><a class=rvts4 href="funk0.html">Overzicht Rekenfuncties</a></p>
+<p class=rvps1><a class=rvts4 href="../mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=0 cellspacing=0 style="{border-color: #eae6dd #a28d68 #a28d68 #eae6dd; border-style: solid;}">
+<tr valign=top>
+<td valign=middle>
+<div><table width="100%" border=0 cellpadding=7 cellspacing=0 style="{border-color: #eae6dd #a28d68 #a28d68 #eae6dd; border-style: solid;}">
+<tr valign=top>
+<td rowspan=2 width="25%" height=40 valign=middle style="{background-color: #fffff8;}">
+<p>MIDAC</p>
+<p><a class=rvts4 href="midac1.html">Startpagina</a></p>
+<p><a class=rvts4 href="ad-index.html">Inhoudsopgave</a></p>
+<p><a class=rvts4 href="funk0.html">Rekenfuncties</a></p>
+</td>
+<td width="50%" height=20 valign=middle style="{background-color: #3333ff;}">
+<p class=rvps2>MIDAC, rekenfunctie 92</p>
+</td>
+<td rowspan=2 width="25%" height=40 valign=middle style="{background-color: #fffff8;}">
+<p>DEZE REKENFUNCTIE</p>
+<p><a class=rvts4 href="#omschrijving">Omschrijving</a> | Algoritme</p>
+<p>Bijzonderheden | <a class=rvts4 href="#toepassing">Toepassing</a></p>
+<p><a class=rvts4 href="funk15f.html">Instellingen venster</a></p>
+</td>
+</tr>
+<tr valign=top>
+<td width="50%" height=20 valign=middle style="{background-color: #99ffcc;}">
+<p class=rvps2>Autonome Neuropathie Analyse (v2)</p>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<p><a name="omschrijving"></a>
+<br></p>
+<p><span class=rvts2>Omschrijving:</span></p>
+<p>Autonome Neuropathie Analyse, een indicatie voor het functioneren van het hart op basis van vier onafhankelijke metingen.</p>
+<p><br></p>
+<p><span class=rvts2>Bijzonderheden:</span></p>
+<p>Deze funktie is ontwikkeld voor een specifiek doel. Gebruik deze funktie nooit zonder voorafgaand overleg met de Instrumentele Dienst. De funktie kan gewijzigd worden zonder compatibiliteit te garanderen.</p>
+<p><br></p>
+<p><span class=rvts2>Toelichting:</span></p>
+<p>Een typische configuratie voor deze functie is in samenhang met functie 54, bloeddruk.</p>
+<div><table width=633 border=0 cellpadding=4 cellspacing=0 style="{border-color: #eae6dd #a28d68 #a28d68 #eae6dd; border-style: solid;}">
+<tr valign=top>
+<td width="10%" valign=top>
+<p>&nbsp; </p>
+</td>
+<td width="90%" valign=top>
+<p><img width=410 height=133 alt="" src="func92a.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Noot: Merk op dat funktie 54 de hartslag met een factor 20 heeft vermenigvuldigd.</p>
+<p><br></p>
+<p>Een dergelijke configuratie heeft twee regels nodig in de rekenkanalen editor, aangevuld met regels voor de uitgangssignalen. De afbeelding hieronder toont de instellingen voor een Finapress bloeddrukmeter, de bloeddruk module op regel 1, Autonome Neuropathie Analyse op regel 2, uitgangssignalen van Autonome Neuropathie Analyse op regels 3 t/m 9 en enkele controle signalen. Merk op dat LastSample, regel 13, noodzakelijk is om de resultaten te kunnen exporteren.</p>
+<div><table width=633 border=0 cellpadding=4 cellspacing=0 style="{border-color: #eae6dd #a28d68 #a28d68 #eae6dd; border-style: solid;}">
+<tr valign=top>
+<td width="10%" valign=top>
+<p>&nbsp; </p>
+</td>
+<td width="90%" valign=top>
+<p><img width=582 height=471 alt="" src="func92b.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Meer gedetailleerde informatie vindt u onder de 'edit functie' mogelijkheden van de rekenkanalen editor waarvan hieronder een voorbeeld.</p>
+<div><table width=633 border=0 cellpadding=4 cellspacing=0 style="{border-color: #eae6dd #a28d68 #a28d68 #eae6dd; border-style: solid;}">
+<tr valign=top>
+<td width="10%" valign=top>
+<p>&nbsp; </p>
+</td>
+<td width="90%" valign=top>
+<p><img width=699 height=507 alt="" src="func92c.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts2>Inputs:</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>1: Bloeddruk </li>
+<li>2: Diastole </li>
+<li>3: Systole </li>
+<li>4: Hartslag </li>
+</ul>
+<p><br></p>
+<p>Input 1 wordt niet gebruikt voor de berekeningen. Op het moment de de funktie de andere inputs gebruikt voor het berekenen van resultaten wordt input 1 doorgekoppeld naar output 1.</p>
+<p><br></p>
+<p>De default schaling voor input 4 houdt rekening met een factor 20 voor de hartslag. Funktie 54 gebruikt deze factor als (niet configureerbare) standaard uitgangsschaling.</p>
+<p><br></p>
+<p><span class=rvts2>Outputs:</span></p>
+<p>De outputs van deze funktie zijn na het doorlopen van het gehele bestand gelijk aan:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>1: (geldig resultaat.) </li>
+<li>2: 10*IEdiff, Forced Breathing: I-E difference [10*Bpm] </li>
+<li>3: 10*BPsys, Standing Up: delta(BP-systole) [10*mmHg] </li>
+<li>4: 10*BPdia, Standing Up: delta(BP-diastole) [10*mmHg] </li>
+<li>5: 10*HRdelta, Standing Up: delta(HR)max [10*Bpm] </li>
+<li>6: 1000*T/B, Standing Up: T/B ratio [1000*bpm/bpm] </li>
+<li>7: 1000*Valsalva, Valsalva 1,2,3: Highest Valsalva Ratio [1000*bpm/bpm] </li>
+<li>8: 10*SHdia, Sustained Handgrip: delta(BP-diastole) [10*mmHg] </li>
+</ul>
+<p><br></p>
+<p>Output 1 geeft aan wanneer de funktie aan het rekenen is. Op dat moment wordt het signaal van input 1 doorgegeven, op andere momenten wordt output 1 op nul gehouden. Hiervan kan gebruik worden gemaakt om b.v. het bloeddruk signaal via input kanaal 1 op te knippen in relevante en niet relevante delen. Hieronder treft u een voorbeeld aan van de output tijdens een meting. </p>
+<p><br></p>
+<p><br></p>
+<div><table width=633 border=0 cellpadding=4 cellspacing=0 style="{border-color: #eae6dd #a28d68 #a28d68 #eae6dd; border-style: solid;}">
+<tr valign=top>
+<td width="10%" valign=top>
+<p>&nbsp; </p>
+</td>
+<td width="90%" valign=top>
+<p><img width=1018 height=144 alt="" src="func92f.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>Het is uiteraard ook mogelijk om andere signalen op input 1 te plaatsen, b.v. een constante 1. Daarmee zal output 1 nul zijn op momenten dat er niet gerekend wordt en 1 op momenten dat er wel gerekend wordt.</p>
+<p><br></p>
+<p>De waarde van outputs 2 t/m 8 zijn allen vermenigvuldigd met een individuele factor om voldoende nauwkerigheid te verkrijgen.Tijdens de berekeningen zijn de outputs anders gedefiniëerd, teneinde het rekenalgoritme te kunnen controleren. (Zie de toelichting voor verschillende metingen hieronder)</p>
+<p><br></p>
+<p><span class=rvts2>Parameters:</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>1: Input schalings factoren. (2*4 stuks) </li>
+<li>2: Output schalings factoren. (2*7 stuks) </li>
+<li>3: Time outs van diverse meting onderdelen. (2*4 + 2*5 stuks) </li>
+</ul>
+<p><br></p>
+<p>De Input- en Output factoren kunnen aangepast worden met de rekenkanalen editor. Hieronder staan de formulieren afgebeeld met de default constanten.</p>
+<div><table width=633 border=0 cellpadding=4 cellspacing=0 style="{border-color: #eae6dd #a28d68 #a28d68 #eae6dd; border-style: solid;}">
+<tr valign=top>
+<td width="10%" valign=top>
+<p>&nbsp; </p>
+</td>
+<td width="90%" valign=top>
+<p><img width=450 height=361 alt="" src="func92d.gif"></p>
+<p><br></p>
+<p><img width=450 height=361 alt="" src="func92e.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Metingen:</span></p>
+<p>De functie bevat vier metingen</p>
+<ol style="text-indent: 0px; margin-left: 20px; list-style-position: outside;"><ol type=a style="text-indent: 0px; margin-left: 20px; list-style-position: outside;">
+<li value=1>Forced Breathing. (F1) </li>
+<li value=2>Standing Up. (F2) </li>
+<li value=3>Valsalva. (F3) </li>
+<li value=4>Sustained Handgrip. (F4) </li>
+</ol></ol>
+<p><br></p>
+<p>Een meting bestaat uit een rust/basis meting en een functionele meting. De meting wordt gestart met een functie toets die daaraan gekoppeld is. Het is mogelijk om een meting deel voortijdig af te breken met funktie toets F6. Het functionele deel van de meting start met functie toets F7. Het functionele deel van de meting&nbsp; (her)start onmiddelijk na een F7, zelfs indien de meting zich nog in het rust deel bevindt of indien het al eerder is gestart.</p>
+<p><br></p>
+<p>De metingen worden hieronder weergegeven als een tijdslijn. Boven de lijn wordt aangegeven in welke fase de meting verkeert (R = rust, B = basis meting, O = overgangsfase, A1..A3 = funktionele meting deel 1..3, niet elke funktionele meting heeft drie onderdelen). Onder de lijn wordt aangegeven welke funktie toetsen gebruikt kunnen worden.</p>
+<p><br></p>
+<p>Voorbeeld:</p>
+<p><br></p>
+<p class=rvps4><span class=rvts12>| R&nbsp; | B&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; | O | A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p class=rvps4><span class=rvts12>|----+------|...|---+--------------|</span></p>
+<p class=rvps4><span class=rvts12>|F1&nbsp;&nbsp;&nbsp;&nbsp; (F6)&nbsp;&nbsp;&nbsp;&nbsp; F7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (F6)|</span></p>
+<p><br></p>
+<p>Deze meting wordt gestart met funktie toets F1, het functionele deel wordt gestart met F7 (nadat F1 gezien is). De meting kan op elk willekeurig moment onderbroken worden met F6 en opnieuw gestart worden met F7 (vanaf het functionele deel) of F1 (voor de totale meting). Elk onderdeel R, B, O en A1 kennen een timeout van een aantal seconden. In alle gevallen gaat de meting dan verder met het volgend onderdeel met uitzondering voor de basismeting B. Op dit punt stopt de meting en wordt slechts hervat na een F7. Het onderdeel O is een overgangsperiode om artefacten op te vangen (met een timeout van gebruikelijk 1 seconde).</p>
+<p><br></p>
+<p>Tijdens het basis deel van elke meting zijn de uitgangssignalen als volgt gedefinieerd.</p>
+<p class=rvps4>1. = ingangssignaal 1.</p>
+<p class=rvps4>2. Diastole Mean.</p>
+<p class=rvps4>3. Systole Mean.</p>
+<p class=rvps4>4. Heart rate Max.</p>
+<p class=rvps4>5. Heart rate Mean.</p>
+<p class=rvps4>6. Heart rate Min.</p>
+<p class=rvps4>8. Controle signaal voor het functioneren van de meting, geen medische betekenis.</p>
+<p><br></p>
+<p>Tenzij anders genoemd is de waarde van een uitgangssignaal 0.</p>
+<p><br></p>
+<p>Elke meting wordt hieronder verder toegelicht.</p>
+<p><br></p>
+<p><span class=rvts2>Forced Breathing:</span></p>
+<p>De gehele test duurt 6 minuten en wordt liggend uitgevoerd. Eerst 5 minuten rust, daarna gedurende 1 minuut geforceerd in-/uitademen (6 keer).De berekening wordt geinitiëerd door marker F1.De ademhaling wordt afgeleid uit het impedantie signaal, stijging=inspiratie en daling=expiratie. Voor de hartrate wordt gebruik gemaakt van het RR-interval.Tijdens de inpiratie wordt de maximale hartfrequentie bepaald en gedurende de expiratie de minimale hartfrequentie. Per respiratie wordt het verschil tussen maximale en minimale hartfrequentie (I-E-difference) bepaald. De uiteindelijke waarde wordt verkregen door de I-E-difference over de 6 respiraties te middelen.Omdat de gehele test liggend wordt uitgevoerd, zullen er weinig bewegings-artefacten zijn, daarom wordt slechts 1 seconde aan begin en einde van de werkelijke rekenperiode verwijderd.</p>
+<p><br></p>
+<p class=rvps4><span class=rvts12>| R&nbsp; | B&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; | O | A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p class=rvps4><span class=rvts12>|----+------|...|---+--------------|</span></p>
+<p class=rvps4><span class=rvts12>|F1&nbsp;&nbsp;&nbsp;&nbsp; (F6)&nbsp;&nbsp;&nbsp;&nbsp; F7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (F6)|</span></p>
+<p><br></p>
+<p><br></p>
+<p>De volgende parameters worden berekend:</p>
+<p class=rvps4>1. IEdiff = Heart rate Max(A1, per ademhaling) - Heart rate Min (A1, per ademhaling)</p>
+<p class=rvps4><br></p>
+<p>Tijdens het functionele deel van elke meting zijn de uitgangssignalen als volgt gedefinieerd.</p>
+<p class=rvps4>1. = ingangssignaal 1.</p>
+<p class=rvps4>4. Heart rate Max.</p>
+<p class=rvps4>5. Heart rate Mean.</p>
+<p class=rvps4>6. Heart rate Min.</p>
+<p class=rvps4>7. Controle signaal, bij iedere detectie van inspiratie\expiratie of expiratie\inspiratie overgang wordt dit signaal een stap opgehoogd.</p>
+<p class=rvps4>8. Controle signaal voor het functioneren van de meting, geen medische betekenis.</p>
+<p><br></p>
+<p><span class=rvts2>Standing Up:</span></p>
+<p>De gehele test duurt 7 minuten. Na 5 minuten liggende rust, binnen 3 seconde tot staan komen en gedurende 2 minuten staan. De eerste 4.5 minuten van de test wordt niet opgeslagen.De berekening wordt geinitiëerd door marker F2.Voor de bloeddruk wordt gebruik gemaakt van diastolische en systolische bloeddruk.Voor de hartrate wordt gebruik gemaakt van het RR-interval.</p>
+<p><br></p>
+<p class=rvps4><span class=rvts12>| R&nbsp; | B&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; | O | A1 | A2 | A3 |</span></p>
+<p class=rvps4><span class=rvts12>|----+------|...|---+----+----+----|</span></p>
+<p class=rvps4><span class=rvts12>|F2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (F6)&nbsp;&nbsp;&nbsp; F7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (F6)|</span></p>
+<p><br></p>
+<p>De volgende parameters worden berekend:</p>
+<p class=rvps4>3. BPdia = Gemiddelde Diastole(B) - gemiddelde Diastole(A3)</p>
+<p class=rvps4>4. BPsys = Gemiddelde Systole(B) - gemiddelde systole(A3)</p>
+<p class=rvps4>5. HRdelta = HRmax(A1,2,3) - HR(B)</p>
+<p class=rvps4>6. T/B ratio = HRmax(A1,2,3) / HRmin(A1,2,3)</p>
+<p class=rvps4><br></p>
+<p>Tijdens het rust deel van elke meting zijn de uitgangssignalen als volgt gedefinieerd.</p>
+<p class=rvps4>1. = ingangssignaal 1.</p>
+<p class=rvps4>2. Diastole Mean. (A1 en A3)</p>
+<p class=rvps4>3. Systole Mean. (A1 en A3)</p>
+<p class=rvps4>4. Heart rate Max. (A1, A2 en A3)</p>
+<p class=rvps4>5. Heart rate Mean.&nbsp; (A1, A2 en A3)</p>
+<p class=rvps4>6. Heart rate Min.&nbsp; (A1, A2 en A3)</p>
+<p class=rvps4>8. Controle signaal voor het functioneren van de meting, geen medische betekenis.</p>
+<p><br></p>
+<p><span class=rvts2>Valsalva:</span></p>
+<p>Deze test wordt in drievoud uitgevoerd. Door middel van de markers F3, F4 en F5 worden de verschillende Valsalva-tests uit elkaar gehouden. Iedere Valsalva test duurt 75 seconde. Het opgenomen deel is wat korter gehouden dan de testduur. Tijdens de test wordt alleen gekeken naar de hartrate, afgeleid uit RR-interval.</p>
+<p><br></p>
+<p class=rvps4><span class=rvts12>| R&nbsp; | B&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; | O | A1 | A2 | A3 |</span></p>
+<p class=rvps4><span class=rvts12>|----+------|...|---+----+----+----|...</span></p>
+<p class=rvps4><span class=rvts12>|F3&nbsp;&nbsp;&nbsp;&nbsp; (F6)&nbsp;&nbsp;&nbsp;&nbsp; F7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (F6)</span></p>
+<p class=rvps4><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |---+----+----+----|...</span></p>
+<p class=rvps4><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (F6)</span></p>
+<p class=rvps4><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |---+----+----+----|</span></p>
+<p class=rvps4><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (F6)|</span></p>
+<p class=rvps4><br></p>
+<p>Anders dan bij de andere metingen zal een F7 toets niet de functionele meting opnieuw starten maar de volgende Valsalva meting starten. Er kunnen ten hoogste drie Valsalva metingen op deze wijze gestart worden. Indien het nodig is om de Valsalva in zijn geheel opnieuw uit te voeren dan kan dit allen met behulp van functietoets F3.</p>
+<p><br></p>
+<p>De volgende parameters worden berekend:</p>
+<p class=rvps4>7. Van iedere Valsalva manoeuvre wordt de verhouding HRmax(A1) / HRmin(A3) berekend. Van de 3 Valsalva metingen wordt de hoogste Valsava Ratio geëxporteerd.</p>
+<p><br></p>
+<p>Tijdens het rust deel van elke meting zijn de uitgangssignalen als volgt gedefinieerd.</p>
+<p class=rvps4>1. = ingangssignaal 1.</p>
+<p class=rvps4>4. Heart rate Max. (A1 en A3)</p>
+<p class=rvps4>5. Heart rate Mean.&nbsp; (A1 en A3)</p>
+<p class=rvps4>6. Heart rate Min.&nbsp; (A1 en A3)</p>
+<p class=rvps4>8. Controle signaal voor het functioneren van de meting, geen medische betekenis.</p>
+<p><br></p>
+<p><span class=rvts2>Sustained Handgrip:</span></p>
+<p>Deze test duurt in totaal 5 minuten. Gedurende 2 minuten rust, daarna gedurende 3 minuten op 30% maximale kracht knijpen.</p>
+<p><br></p>
+<p class=rvps4><span class=rvts12>| R&nbsp; | B&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; | O | A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p class=rvps4><span class=rvts12>|----+------|...|---+-------------|</span></p>
+<p class=rvps4><span class=rvts12>|F4&nbsp;&nbsp;&nbsp;&nbsp; (F6)&nbsp;&nbsp;&nbsp;&nbsp; F7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (F6)</span></p>
+<p class=rvps4><br></p>
+<p>Berekend wordt het verschil tussen maximale diastolische bloeddruk tijdens knijpen en de gemiddelde diastolische bloeddruk tijdens de periode B van de rust. Voor de bepaling van de maximaal diastolische bloeddruk wordt het signaal over 5 seconden gemiddeld. </p>
+<p><br></p>
+<p>De volgende parameters worden berekend:</p>
+<p class=rvps4>8. SHdia = MaxDiastole(A1) - gemiddelde Diastole(B)</p>
+<p><br></p>
+<p>Tijdens het rust deel van elke meting zijn de uitgangssignalen als volgt gedefinieerd.</p>
+<p class=rvps4>1. = ingangssignaal 1.</p>
+<p class=rvps4>2. Diastole Max van lopend gemiddelde over 5 sec. (A1)</p>
+<p class=rvps4>8. Controle signaal voor het functioneren van de meting, geen medische betekenis.</p>
+<p><span class=rvts2><br></span></p>
+<p><a name="toepassing"></a>
+<br></p>
+<p><span class=rvts2>Resultaten:</span></p>
+<p>Door middel van de menu optie [protocol], [export] is het mogelijk om de resultaten in een appart bestand te plaatsen. Dit resultaat bestaat uit leesbare tekst (ASCII) en kan geopende worden door o.a. Excell.</p>
+<p><br></p>
+<p>Om de gevens te exporteren kiest u voor&nbsp; Tabel output, optioneel met of zonder markers. Daarna kiest u voor de gewenste signalen. (Zie formulier hieronder). Door te kiezen voor markers krijgt u geen gedetailleerde lijst van tussenresultaten waarmee u de eindresultaten kunt controleren.</p>
+<div><table width=552 border=0 cellpadding=4 cellspacing=0 style="{border-color: #eae6dd #a28d68 #a28d68 #eae6dd; border-style: solid;}">
+<tr valign=top>
+<td width="9%" valign=top>
+<p>&nbsp; </p>
+</td>
+<td width="91%" valign=top>
+<p><img width=601 height=477 alt="" src="func92g.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Hieronder treft u het resultaat aan van een voorbeeld, inclusief markers en tussentijdse berekeningen. (Zonder markers bevat het bestand alleen de eerste drie regels.)</p>
+<p><img width=853 height=559 alt="" src="func92h.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<hr noshade size=1 >
+<p>© Instrumentele Dienst. Bijgewerkt op 25-6-2006. </p>
+
+</body></html>

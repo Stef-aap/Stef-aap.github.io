@@ -1,0 +1,140 @@
+<HTML><HEAD><TITLE>Perifere Flow, m.b.v. Plethysmografie (f4)</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #DDDDDD;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Perifere Flow m.b.v. Plethysmografie (f4)</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Deze funktie is vervangen door Funktie 84 !</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="omschrijving"></A>
+<SPAN class=RVTS2>Omschrijving</SPAN></P>
+<P>Deze funktie berekent de perifere bloedflow op basis van een plethysmograaf signaal. Het plethysmograaf signaal wordt verkregen uit meting aan een extremiteit, welke met een cuff (al dan niet ECG getriggerd, zie ook&nbsp;<A class=RVTS4 href="funk61.html">rekenfunktie 61 voorheen rekenfunktie 1</A>) net onder de systolische bloeddruk wordt afgesloten. De toename van de omvang van de extremiteit, gemeten met een plethysmograaf, is een maat voor de toename van het bloedvolume in de extremiteit. De afgeleide van dit plethysmograaf signaal is een maat voor de bloedflow. De afgeleide wordt bepaald m.b.v. een lineaire regressie op basis van de kleinste kwadraten fout.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=601 bgcolor=#E8E8E8 border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Inputs</P></TD>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Parameters</P></TD>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Outputs</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Pethysmograaf&nbsp;</P>
+<P>Cuff-inflatorR-top ECG</P></TD>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Wait-period&nbsp;</P>
+<P>Measure-period&nbsp;</P>
+<P>IJkfactor&nbsp;</P>
+<P>QRS-triggered&nbsp;</P>
+<P>Fixed Delay</P></TD>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Flow&nbsp;</P>
+<P>Regressielijn&nbsp;</P>
+<P>Delayed Plethysmograaf&nbsp;</P>
+<P>New Flow Available</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="algoritme"></A>
+<SPAN class=RVTS2>Algoritme</SPAN></P>
+<P>De start van de meting en daarmee de aansturing van de cuffs gebeurt door&nbsp;<A class=RVTS4 href="funk61.html">rekenfunktie 61</A>&nbsp;en kan zowel QRS getriggerd als seconde-getriggerd plaatsvinden.Deze routine gebruikt het signaal afkomstig van de rapid cuff-inflator voor het starten van een cyclus. Eenmaal gestart, wordt de resterende analyse (afhankelijk van de parameter QRS-TRIGGERED) 'QRS- getriggerd' danwel 'seconde-getriggerd' uitgevoerd. Bij QRS-getriggerd worden hartslagen geteld, in het andere geval worden seconden geteld.Nadat de cuffs zijn opgeblazen, wordt eerst een periode WAIT gewacht, daarna wordt gedurende de periode MEASURE de lineaire regressie bepaald. Met behulp van de parameter IJKFACTOR kan het resultaat de juiste resolutie en wereldwaarde worden gegeven (de schaling t.g.v. de samplefrekwentie wordt automatisch in het resultaat verwerkt). Het vertraagde plethysmograaf signaal en de identiek vertraagde regressielijn kunnen via de parameter FIXED-DELAYED van een vaste (minimale) vertraging worden voorzien. Op deze wijze kunnen diverse regressie berekeningen direkt visueel met elkaar worden vergeleken.<A name="bijzonderheden"></A>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Bijzonderheden, Instelling van alfa</SPAN></P>
+<P>In kamer 134 heeft ijking van de plethysmograven de onderstaande waarden opgeleverd:</P>
+<P>Let op de interpretatie van de Hokason: als de schakelaar op 5% staat betekent dit dat de volle schaalwaarde 5% bedraagt, de getallen -5 en +5 op de schaalverdeling hebben hier dus niets mee te maken. (men zou namelijk geneigd kunnen zijn om te veronderstellen dat de schaal van -5% naar 5% loopt, nee dus.)</P>
+<P><TABLE width=515 bgcolor=#FFEEDD border=1 cellpadding=4 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=1>
+<TR valign=top>
+<TD width=12% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=11% valign=top>
+<P>0%</P></TD>
+<TD width=11% valign=top>
+<P>5%</P></TD>
+<TD width=33% valign=top>
+<P>Delta = 5%</P></TD>
+<TD width=33% valign=top>
+<P>Delta [AD]</P></TD>
+</TR>
+<TR valign=top>
+<TD width=12% valign=top>
+<P>Links</P></TD>
+<TD width=11% valign=top>
+<P>-1.96 V</P></TD>
+<TD width=11% valign=top>
+<P>2.03 V</P></TD>
+<TD width=33% valign=top>
+<P>2.03 + 1.96 = 3.99 V</P></TD>
+<TD width=33% valign=top>
+<P>(3.99/10)*4095=1634</P></TD>
+</TR>
+<TR valign=top>
+<TD width=12% valign=top>
+<P>Rechts</P></TD>
+<TD width=11% valign=top>
+<P>-1.99 V</P></TD>
+<TD width=11% valign=top>
+<P>1.98 V</P></TD>
+<TD width=33% valign=top>
+<P>1.98 + 1.99 = 3.97 V</P></TD>
+<TD width=33% valign=top>
+<P>(3.97/10)*4095=1626</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>DUS: 1% Plethysmograaf signaal komt overeen met 1630/5=326 AD-eenheden</P>
+<P>&nbsp; De uitgangswaarde van deze rekenfunktie bedraagt:</P>
+<P><TABLE width=515 border=0 cellpadding=4 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=12% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=88% valign=top>
+<P>X = alfa * delta-AD .[AD/ sec]</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Bij alfa=100 moet de volgende formule gebruikt worden om de helling in %/min te verkrijgen:</P>
+<P><TABLE width=515 border=0 cellpadding=4 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=12% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=88% valign=top>
+<P>60 * (X / alfa) / 326 = X / 543 [%/min]</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Op zich is het prettiger om door een 'mooi getal' te delen.Om de uitgangswaarde door 1000 te kunnen delen om de echte uitkomst te verkrijgen, geldt voor alfa:</P>
+<P><TABLE width=515 border=0 cellpadding=4 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=12% valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=88% valign=top>
+<P>alfa = (60 * 1000) / 326 = 184 []</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Instellingen Venster</SPAN></P>
+<P>&nbsp;<IMG width=473 height=361 src="funk4f.gif"></P>
+</BODY></HTML>

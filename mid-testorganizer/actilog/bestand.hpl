@@ -1,0 +1,11 @@
+De opbouw van een databestand is als volgt:
+<actometertype>		bijv:ActiLog V3.0
+<einddatum>
+<eindtijd>
+<startdatum>
+<starttijd>
+<integratietijd in minuten>  SKIP <skipcode>
+<tekstregel, meestal bevattend de patientnaam e.d.>  <ActiLog nummer>
+<data1>
+<data2>
+.....

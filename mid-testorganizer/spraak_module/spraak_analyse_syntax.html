@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>spraak_analyse_syntax</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<div><a name="top"></a>
+<table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td rowspan=2 width="25%" valign=middle>
+<p class=rvps2><a class=rvts4 href="spraak_index.html">Overzicht Spraak</a></p>
+<p class=rvps2><a class=rvts4 href="spraak_analyse_ontwerp.html"> Analyse Ontwerpen</a></p>
+<p class=rvps2><a class=rvts4 href="spraak_analyse_wiskunde.html"> Wiskundige Interpretatie</a></p>
+<p class=rvps2><a class=rvts4 href="spraak_lipp_bestand.html"> Kenmerken en Font</a></p>
+</td>
+<td width="50%" height=40 valign=middle style="background-color: #3333ff;">
+<p class=rvps2><span class=rvts14>MID TestOrganizer</span></p>
+<p class=rvps2><span class=rvts14> SpraakAnalyse</span></p>
+</td>
+<td rowspan=2 valign=middle>
+<p class=rvps2><a class=rvts4 href="#inleiding">Inleiding</a></p>
+<p class=rvps2><a class=rvts4 href="#algemeen"> Algemene Syntax</a></p>
+<p class=rvps2><a class=rvts4 href="#geïmplementeerde lipp-syntax"> Syntax</a></p>
+<p class=rvps2><a class=rvts4 href="#specifieke voorbeelden"> Specifieke Voorbeelden</a></p>
+</td>
+</tr>
+<tr valign=top>
+<td height=40 valign=middle style="background-color: #ffff00;">
+<p class=rvps2><span class=rvts15>Analyse Syntax</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p><span class=rvts16><br></span></p>
+<p><span class=rvts16><br></span></p>
+<p><span class=rvts16>Inleiding </span></p>
+<p>Bij het ontwerp van de syntax is getracht zoveel mogelijk aan te sluiten bij de syntax van LIPP.</p>
+<p> Overbodige en/of irrelevante definities zijn weggelaten.</p>
+<p> Hier en daar is de wiskundige basis consistenter gemaakt, waardoor als bijkomend voordeel het gebruik van buffers is vereenvoudigd.</p>
+<p> Toegevoegd zijn:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; - Commando's voor een leesbare omschrijving van de variabelen / rules</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; - Definities van normen</p>
+<p>&nbsp;&nbsp; </p>
+<p><a name="algemeen"></a>
+<span class=rvts16>Algemeen </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Formules worden geschreven in normale presentatie (dus geen RPN).</p>
+<p> Een statement mag over meerdere regels worden uitgeschreven.</p>
+<p> Het einde van een statement wordt gemarkeerd door een punt-komma (:).</p>
+<p> Statements worden in volgorde van binnenkomst verwerkt.</p>
+<p> Recursie is niet toegestaan.</p>
+<p> In het rapport worden bij de omschrijvingen, de leading en trailing spaces en %-tekens verwijderd.</p>
+<p>&nbsp;&nbsp; </p>
+<p><a name="geïmplementeerde lipp-syntax"></a>
+<span class=rvts16>Geïmplementeerde Syntax </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Definitie van een variabele, enkel bestaande uit kenmerken</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; VAR&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; {xxx} ;&nbsp; &lt;omschrijving&gt;</p>
+<p> Definitie van een (tussen-) variabele, samengesteld uit een combinatie van andere variabelen en operators,</p>
+<p> deze variabele wordt niet opgenomen in het gebruikers rapport</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (&lt;formule&gt;) ;&nbsp; &lt;omschrijving&gt;</p>
+<p> Idem, echter resultaat wordt vermeld in het gebruikers rapport</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; EXEC&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (&lt;formule&gt;)&nbsp; ; &lt;omschrijving&gt;</p>
+<p> Definitie van een kenmerk-gelijkheid (voor gebruik in variabelen)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; [C]</p>
+<p> Definitie van een norm voor een variabele (heeft alleen zin voor DEF EXEC RULE)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; NORM "&lt;naam&gt;" =&nbsp; 32% ; &lt;omschrijving&gt;</p>
+<hr noshade size=1>
+<p><br></p>
+<p><span class=rvts13> DEF VAR&nbsp; "&lt;naam&gt;"&nbsp; = {xxx} ; &lt;omschrijving&gt; </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Definiëert een set van kenmerken, welke wordt getest op elke afzonderlijke klank in de doeltekst en de uitgesproken tekst.</p>
+<p><span class=rvts13> &lt;naam&gt;</span> is de gewenste naam voor de variabele</p>
+<p><span class=rvts13> xxx</span> geeft de vereiste waarden (0 ... 16) op de verschillende kenmerken (A ... P).</p>
+<p><span class=rvts13> &lt;omschrijving&gt;</span> is enkel bedoeld om de LAL-file in een later stadium beter leesbaar te maken.</p>
+<p> Indien een variabele-naam meer dan 1 keer wordt gedefiniëerd, wordt een foutmelding gegenereerd.</p>
+<p> Verschillende waarden voor 1 kenmerk kunnen op de volgende wijze verkort worden genoteerd</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; B[1-3] = B[1]&nbsp; B[2]&nbsp; B[3]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; voor dit kenmerk wordt een klank getest op een waarde van 1,2 of 3</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; B[1,2,5] = B[1]&nbsp; B[2]&nbsp; B[5]&nbsp;&nbsp;&nbsp;&nbsp; voor dit kenmerk wordt een klank getest op een waarde van 1,2 of 5</p>
+<p> Als van een kenmerk (A ... P) geen waarden zijn opgegeven, dan wordt dit kenmerk niet getest !!!</p>
+<p> Voorbeeld 1:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; VAR&nbsp; "PLOS"&nbsp; =&nbsp; {&nbsp; B[1]&nbsp; } ;</p>
+<p> De variabele PLOS is waar, als voor het kenmerk B een waarde van 1 geldt, de waarden van de overige kenmerken zijn niet van belang.</p>
+<p> Voorbeeld 2:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; VAR&nbsp; "AAP"&nbsp; =&nbsp; {&nbsp; B[1]&nbsp; C[0] } ;</p>
+<p> De variabele AAP is waar, als voor het kenmerk B een waarde van 1 geldt én voor het kenmerk C een waarde van 0 geldt, terwijl de waarden van de overige kenmerken niet van belang zijn.</p>
+<hr noshade size=1>
+<p><br></p>
+<p><span class=rvts13> DEF&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; = (&nbsp; (vvv1)&nbsp; -&gt;&nbsp; (vvv2)&nbsp; ) ;&nbsp; &lt;omschrijving&gt; </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p><span class=rvts13>DEF&nbsp; EXEC&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (&nbsp; (vvv1)&nbsp; -&gt;&nbsp; (vvv2)&nbsp; ) ;&nbsp; &lt;omschrijving&gt;</span></p>
+<p><span class=rvts13> DEF&nbsp; EXEC&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (logische combinatie van variabelen) ; &lt;omschrijving&gt;</span></p>
+<p><span class=rvts13> DEF&nbsp; EXEC&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (sequentie van variabelen) ; &lt;omschrijving&gt;</span></p>
+<p><span class=rvts13> DEF&nbsp; EXEC&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (transcriptie) ; &lt;omschrijving&gt;</span></p>
+<p><span class=rvts13> IEDERE COMBINATIE VAN BOVENSTAANDE</span></p>
+<p> Definiëert een transcriptie van een set kenmerken in het doelwoord (vvv1) naar een set kenmerken in de uitgesproken tekst (vvv2).</p>
+<p> De toevoeging EXEC, betekent dat de uitkomst in het resultaat-rapport wordt vermeld, verder zijn de statements geheel identiek.</p>
+<p><span class=rvts13> &lt;naam&gt;</span> is de gewenste naam van de transcriptie.</p>
+<p><span class=rvts13> vvv1 </span>en <span class=rvts13>vvv2</span> zijn sequenties van variabelen (of enkelvoudige variabelen). Beide sequenties mogen een ongelijke lengte hebben. De variabelen moeten reeds gedefiniëerd zijn.</p>
+<p> In plaats van een transcriptie, mag een regel ook worden gedefiniëerd als een logische functie van eerder gedefiniëerde transcripties.</p>
+<p><span class=rvts13> &lt;omschrijving&gt;</span> een omschrijving van de variabele, welke bij EXEC ook in het rapport wordt vermeld</p>
+<p> Het resultaat van een transcriptie bestaat altijd uit 2 getallen, het aantal keren dat de kenmerken vvv1 in het doelwoord voorkomen (ook wel "noemer" genoemd) en het aantal keren dat op dezelfde positie de kenmerken vvv2 in de uitgesproken tekst gelden (de gezochte transcriptie optreedt) (ook wel "teller" genoemd).</p>
+<p> Dus 2 / 5 betekent, in de doelwoorden is 5 maal de set kenmerken vvv1 voorgekomen, in twee van deze gevallen is een transcriptie naar de kenmerken vvv2 opgetreden.</p>
+<p> Voorbeeld 1:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF EXEC RULE&nbsp; "FR2PL"&nbsp; =&nbsp; ( ( Fric )&nbsp; -&gt;&nbsp; ( Plos) ) ;</p>
+<p> Voorbeeld 2:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF RULE&nbsp; "OmECSylF1"&nbsp; = ( ( VGpX&nbsp; TC&nbsp; A# )&nbsp; -&gt; ( VGpX&nbsp; A# ) ) ;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF RULE&nbsp; "OmECSylF2"&nbsp; = ( ( VGpX&nbsp; TC&nbsp; NilX&nbsp; A# )&nbsp; -&gt; ( VGpX&nbsp; A# ) ) ;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF EXEC RULE "OmECSylF"&nbsp; =&nbsp; ( OmECSylF1&nbsp;&nbsp; OR&nbsp; OmECSylF2 ) ;</p>
+<p> Voorbeeld 3 (wiskundig identiek aan voorbeeld 2)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF EXEC RULE "OmECSylF"&nbsp; =&nbsp; ( ( ( VGpX&nbsp; TC&nbsp; A# )&nbsp; -&gt; ( VGpX&nbsp; A# ) )&nbsp; OR</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( ( VGpX&nbsp; TC&nbsp; NilX&nbsp; A# )&nbsp; -&gt; ( VGpX&nbsp; A# ) ) ) ;</p>
+<hr noshade size=1>
+<p><br></p>
+<p><span class=rvts13> Kenmerk-gelijkheid [A]&nbsp; [B]&nbsp; ...&nbsp; [P]</span></p>
+<p> De kenmerk-gelijkheid is in feite in gewone (voorgedefiniëerde) variabele, welke altijd aanwezig is.</p>
+<p> De kenmerk-gelijkheid toetst één specifiek kenmerk (A,B,..P) op zowel targetstring als actualstring en vergelijkt vervolgens beide</p>
+<p> resultaten. Deze bits-gewijze vergelijking levert enkel TRUE op als zowel actualstring als targetstring true zijn.</p>
+<p> Met andere woorden de toetsing op bijvoorbeeld [A] levert alleen dan een TRUE op, als op de desbetreffende positie de kenmerk-waarde-A in targetstring en actualstring identiek zijn.</p>
+<p> Het gebruik van buffers in LIPP is vreemd en wiskundig niet consistent. Door een gewijzigde syntax kan hetzelfde worden bereikt, wel wiskundig consistent, waardoor de implementatie eenvoudiger wordt.</p>
+<p> Aan de hand van een voorbeeld zal dit duidelijk gemaakt worden.</p>
+<p> De oorspronkelijke LIPP rule: DEF VAR&nbsp; "TC" = { B[1-8] } ;</p>
+<p> DEF EXEC RULE&nbsp;&nbsp; "AAP" = ( ( TC&nbsp; AND&nbsp; (&nbsp; [ B1:=A , B2:=B ] ) )&nbsp;&nbsp; -&gt;&nbsp; ( TC&nbsp; AND&nbsp; (&nbsp; NOT&nbsp; [ B1=A , B2=B ] ) ) ) ; De betekenis hiervan is:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; bepaal het aantal overgangen TC -&gt; TC , waarbij tevens de waarden van de kenmerken A en/of B verschillen.</p>
+<p> Het vreemde aan bovenstaande regel is dat de eerste AND operator een fake operator is. Bij de evaluatie van deze formule moet derhalve een speciale constructie gemaakt worden.</p>
+<p> Dezelfde regel kan ook als volgt worden geschreven<span class=rvts13> DEF EXEC RULE&nbsp;&nbsp; "AAP" = ( TC -&gt;&nbsp; ( TC&nbsp; AND ( NOT ( [ A ] )&nbsp; OR&nbsp; NOT( [ B ] )&nbsp; ) ) );</span> Deze regel bevat geen fake operatoren, is wiskundig geheel correct, daarom eenvoudig te evalueren en bovendien, de menselijke interpretatie is direct af te lezen !!!</p>
+<hr noshade size=1>
+<p><br></p>
+<p><span class=rvts13> Normen </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Normen worden vermeld in het gebruikers-rapport.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; NORM "&lt;naam&gt;" =&nbsp; 32% ; &lt;omschrijving&gt;</p>
+<p> Over de interpretatie bestaat nog diskussie.</p>
+<p>&nbsp;&nbsp; </p>
+<p><a name="specifieke voorbeelden"></a>
+<span class=rvts16>Specifieke Voorbeelden </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Hieronder zijn een aantal specifieke voorbeelden verzameld.</p>
+<p> Tevens een aantal regels uit oude LIPP-bestanden (o.a. Analog.lal), die naar mijn mening (wiskundig) fout zijn, omdat ze redundante condities bevatten.</p>
+<hr noshade size=1>
+<p><br></p>
+<p> Sequentie, vervanging LIPP-buffer<span class=rvts13> DEF EXEC RULE&nbsp; "Aap" =&nbsp; ( TC &amp; TV ) ;&nbsp;&nbsp; Dit is dus een variabele die vermeld wordt in het gebruikers rapport</span></p>
+<p><span class=rvts13> DEF EXEC RULE "Beer" = ( NOT [C] ) ;&nbsp;&nbsp;&nbsp;&nbsp; Vermeld alle posities waarop kenmerk C een ongelijke waarde heeft</span></p>
+<hr noshade size=1>
+<p> Foute syntax: DEF&nbsp; GLOB&nbsp; "SylOnset" = ( ( A#&nbsp; CGpX )&nbsp; OR&nbsp; A# ); Correcte syntax (maar direct in de nieuwe notatie)<span class=rvts13> DEF&nbsp; RULE&nbsp; "SylOnset" = (&nbsp; A#&nbsp; );</span></p>
+<hr noshade size=1>
+<p> Foute syntax: DEF EXEC RULE "SubPlace" = ( ( TC&nbsp; AND&nbsp; ( [B1:=A, B2:=B, B3:=C, B4:=D] ) ) -&gt; ( TC&nbsp; AND&nbsp; ( NOT&nbsp; [B1=A] ) ) ) ; Correcte syntax (maar direct in de nieuwe notatie)<span class=rvts13> DEF EXEC RULE "SubPlace" = ( TC&nbsp; -&gt; ( TC&nbsp; AND&nbsp; NOT ( [A] ) ) ) ;</span></p>
+<hr noshade size=1>
+<p><span class=rvts17> © Copyright Instrumentele Dienst, 1999</span></p>
+<p><a href="mailto:id.postbus@ids.kun.nl"><img width=29 height=18 alt="" src="mail.gif"></a><span class=rvts17>&nbsp;&nbsp; SM, last updated 29-12-1999 </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+
+</body></html>

@@ -1,0 +1,428 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>MIDAC, Fysio Flex System, rekenfunktie 51, Hemodynamic Parameters from arterial or finger pressure wave</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p><span class=rvts1>RF 2, Onset Systolische Bloeddruk</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="ad-index.html">MIDAC Index</a></p>
+<p class=rvps1><a class=rvts4 href="funk0.html">Overzicht Rekenfuncties</a></p>
+<p class=rvps1><a class=rvts4 href="../mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=0 cellspacing=0>
+<tr valign=top>
+<td valign=middle>
+<div><table width="100%" border=0 cellpadding=7 cellspacing=0>
+<tr valign=top>
+<td rowspan=2 width="25%" height=40 valign=middle style="background-color: #fffff8;">
+<p>MIDAC</p>
+<p><a class=rvts4 href="midac1.html">Startpagina</a> | <a class=rvts4 href="ad-index.html">Inhoudsopgave</a></p>
+<p>REKENFUNCTIES</p>
+<p><a class=rvts4 href="funk0.html">Overzicht</a></p>
+</td>
+<td width="50%" height=20 valign=middle style="background-color: #3333ff;">
+<p class=rvps2>MIDAC, rekenfunctie 51</p>
+<p class=rvps2>Fysio Flex System</p>
+</td>
+<td rowspan=2 width="25%" height=40 valign=middle style="background-color: #fffff8;">
+<p>DEZE REKENFUNCTIE</p>
+<p><a class=rvts4 href="#omschrijving">Omschrijving</a></p>
+<p><a class=rvts4 href="#inputs:">Ingangen</a></p>
+<p><a class=rvts4 href="#outputs:">Uitgangen</a></p>
+</td>
+</tr>
+<tr valign=top>
+<td width="50%" height=20 valign=middle style="background-color: #99ffcc;">
+<p class=rvps2>Hemo Dynamics</p>
+<p class=rvps2>arterial or finger pressurewave</p>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<p><a name="introduction"></a>
+Introduction <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<hr noshade size=1>
+<p>This functions calculates human hemodynamic parameters from arterial bloodpressure curve or from finger bloodpressure curve, the latter measured with a Finapres or Portapres system.</p>
+<p>The gender and age of the person are required to perform the calculations of all the parameters. Length and weight of the person can improve the accuracy of the calculated parameters.</p>
+<p>The following parameters are calculated:</p>
+<p>&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td valign=middle>
+<p class=rvps2>Standard Parameters</p>
+<p class=rvps2>(beat to beat)</p>
+</td>
+<td valign=middle>
+<p class=rvps2>Extended Parameters</p>
+<p class=rvps2>(beat to beat)</p>
+</td>
+<td valign=middle>
+<p class=rvps2>Extended Parameters</p>
+<p class=rvps2>(continuously)</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Diastolic Pressure </p>
+<p>Mean Arterial Pressure </p>
+<p>Systolic Pressure </p>
+<p>Heart Rate</p>
+</td>
+<td valign=middle>
+<p>Stroke Volume </p>
+<p>Cardiac Output </p>
+<p>Left Ventricular Ejection Time </p>
+<p>Total Pheripheral Resistance</p>
+</td>
+<td valign=middle>
+<p>Aortic Pressure (filtered) </p>
+<p>Aortic Flow </p>
+<p>Aortic Characteristic Impedance </p>
+<p>Aortic Windkessel Compliance</p>
+</td>
+</tr>
+</table>
+</div>
+<p>The beat to beat parameters are all available at every end-diastolic moment. At that moment also a so-called "valid" signal is true for just one sample, enabling other functions (i.e. averaging) to correctly interpretate the results.</p>
+<p>This function in Midac can only be used after permission of ID-Spon.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td colspan=2 valign=middle>
+<p><a name="the hemodynamic model of the aorta"></a>
+The hemodynamic model of the aorta <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Z0 = characteristic impedance of the aorta,</p>
+<p>symbolized by a transmission line, representing the inertia of the moving blood in the aorta and the compliance, both per unit of length</p>
+<p>Cw = windkessel compliance,</p>
+<p>representing the elastic properties of the aorta</p>
+<p>Rp = total pheripheral resistance,</p>
+<p>representing all the vasculair drainage beds</p>
+</td>
+<td valign=middle>
+<p><img width=382 height=192 alt="" src="modelflow.gif"></p>
+</td>
+</tr>
+<tr valign=top>
+<td colspan=2 valign=middle>
+<p>On the lefthand side of this schematic the pressure at the aortic valve (p(t)) as a driving force is shown.</p>
+<p>This model is nonlinear, because both Z0 and Cw depends on the pressure in the windkessel pw(t).</p>
+<p>Langewouters et al. [1] showed that the pressure-volume relation of the aorta follows an arctangent law, for which the parameters statistically depends on age, gender, length and weight of the person. From the pressure-volume relation it's possible to calculate the nonlinear Z0 and Cw as a function of the pressure.</p>
+<p>Because pheripheral resistance is assummed to be constant over one heart beat and only varies slowly in time, pheripheral resistance can be calculated from the stroke volume (SV) in the above model. Because systolic flow is not strong dependant on pheripheral resistance, an initial estimate of the pheripheral resistance will lead to a fast convergence.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p><a name="algoritme"></a>
+Algoritm <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>The algoritm consists of the following parts</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>filtering the bloodpressure curve to suppress spurious noise and high frequencies </li>
+<li>in the case of finger pressure, back transformation to an aortic pressure wave </li>
+<li>detection of the so-called "physiocal" periods (Finapres/Portapres calibration periods) </li>
+<li>determining the end-diastolic and end-systolic moments </li>
+<li>applying the equations of the model to the filtered bloodpressure curve on a beat to beat basis </li>
+<li>each end-diastolic moment a new estimate of the total pheripheral resistance is made </li>
+</ul>
+<p>Filtering <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<hr noshade size=1>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>Backtranformation to aortic pressure <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<hr noshade size=1>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>Detection of physiocal periods <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<hr noshade size=1>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>Determining end-diastole and end-systole<a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<hr noshade size=1>
+<p>A fuzzy logic algoritm is used to determine the diastolic and systolic periods. Not only the raw pressure waveform is used, but also the results of the model-equations are used to check and/or correct the end-diastolic and end-systolic moments.</p>
+<p>This algoritm is often used on pressure signals estimated by a PortaPres or FinaPres system. These measurement devices have to calibrate themselfs at regular time intervals (physiocal periods), leading to a missing bloodpressure signal. There is a special physiocal detector build in, which stops the calculations, stabilizing the current available values and waits until calibration is passed.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>The equations of the model <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<hr noshade size=1>
+<p>The model above is totally described by the next set of differential equations, which can easily be solved by a computer.</p>
+<p>The flow through the aortic valve is determined by pressure difference (p-pw) over the characteristic impedance (Z0), divided by Z0 (whereby Z0 is dependant on the windkessel pressure pw).q(t) = (p(t) - pw(t)) / Z0(pw(t))The outflow from the aorta is determined by the windkessel pressure (pw) divided by the total pheripheral resistance (Rp).qR(t) = pw(t) / RpFor the change in windkessel volume (dVw / dt) yieldsdVw / dt = q(t) - pw(t) / RpFor the windkessel compliance yields (with Al=aortic length, p0 and p1 constants based on gender, age, length and weight, from Langewouters [1])&nbsp; Cw(t) = (Al * Am * p1 / pi) / (sqr(p1) + sqr(pw(t) - p0));So for the actual characteristic impedance Z0 yields (with rho=density of blood, Al=aortic length)Z0(t) = Al * (sqrt(rho / Vw(t) * Cw(t)))In (semi-) steady state situations, the end-diastolic pressure equals both p(t) en pw(t).</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Estimate of the total pheripheral resistance Rp <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<hr noshade size=1>
+<p>Stroke volume (SV) is calculated by integrating the aortic flow (q(t)) during systole.</p>
+<p>The pheripheral resistance is calculated by dividing the mean arterial pressure (MAP) by the total ejected volume per unit of time or the cardaic output (CO), which equals the stroke volume (SV) multiplied by the heart rate (HR)Rp = MAP / CO = MAP / (SV * HR)<a name="comparison of midac with beatfast"></a>
+ Comparing Midac with Beatfast <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>The same Valsalva manouvre is evaluated with both Midac and Beatfast.</p>
+<p>The results are shown below. Beatfast is not able to display the vraiations of aortic flow, characteristic impedance and windkessel compliance during one heart beat, so here only the Midac results are shown.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td colspan=2 valign=middle>
+<p>One beat, Aortic Flow <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Midac</p>
+</td>
+<td valign=middle>
+<p>Beatfast</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p><img width=366 height=286 alt="" src="funk51_midac_q.gif"></p>
+</td>
+<td valign=middle>
+<p class=rvps2>not possible to view</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td colspan=2 valign=middle>
+<p>One beat, Aortic Characteristic Impedance and Compliance <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Midac</p>
+</td>
+<td valign=middle>
+<p>Beatfast</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p><img width=360 height=290 alt="" src="funk51_midac_z0.gif"></p>
+</td>
+<td valign=middle>
+<p class=rvps2>not possible to view</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td colspan=2 valign=middle>
+<p>Stroke Volume, Cardiac Output, Left Ventricular Ejection Fraction <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Midac</p>
+</td>
+<td valign=middle>
+<p>Beatfast</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p><a href="funk51_midac_sv.gif"><img width=371 height=279 alt="" src="funk51_midac_sv.gif"></a></p>
+</td>
+<td valign=middle>
+<p><a href="funk51_beatfast_sv.gif"><img width=362 height=285 alt="" src="funk51_beatfast_sv.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="99%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td colspan=2 valign=middle>
+<p>Systolic, Mean, Diastolic pressure and Heart Rate <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Midac</p>
+</td>
+<td valign=middle>
+<p>Beatfast</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p><a href="funk51_midac_hr.gif"><img width=365 height=247 alt="" src="funk51_midac_hr.gif"></a></p>
+</td>
+<td valign=middle>
+<p><a href="funk51_beatfast_hr.gif"><img width=372 height=244 alt="" src="funk51_beatfast_hr.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="references"></a>
+References <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>1) Langewouters GJ, Wesseling KH, Goedhard WJA,</p>
+<p>The static elastic properties of 45 human thoracic and 20 abdominal aortas in vitro and the parameters of a new model.</p>
+<p>J. Biomech 1984; 17:425-435</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="inleiding"></a>
+Inleiding <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Voor de eerste simulaties wordt gebruik gemaakt van de opname</p>
+<p>&nbsp;&nbsp;&nbsp; c:\d_midorg\mid-data\polygraf\autoneur\1011meh.?1</p>
+<p>&nbsp;&nbsp;&nbsp; autonome neuropatie test, opgenomen op 2-10-1997 (staat bij Stef onder patient 001)</p>
+<p>in de praktijk is een copy gemaakt onder 1011meh.4</p>
+<p>De volgende tussen bestanden zijn aanwezig in de matlab en beatfast directory</p>
+<p>&nbsp; 001.b5&nbsp; beatfast export, ruwe bloeddruk</p>
+<p>&nbsp; 001.t5&nbsp;&nbsp; ASCII export, ruwe bloeddruk</p>
+<p>&nbsp; 001.rtf5 export file van beatfast in rtf format (op basis van ruwe bloeddruk)</p>
+<p>&nbsp; 001.b6&nbsp; beatfast export, back-filtered bloeddruk</p>
+<p>&nbsp; 001.t6&nbsp;&nbsp; ASCII export, back-filtered bloeddruk</p>
+<p>&nbsp; 001.rtf6 export file van beatfast in rtf format (op basis van back-filtered bloeddruk)</p>
+<p>Deze bestanden bevatten een stukje bloeddruk opname, dat begint op ongeveer 20 seconden naa de aanvang van de opname en ongeveer 80 seconden duurt.</p>
+<p>Back-filtering is gedaan met de formule uit patent US 5.400.793</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; yn = 0.077*xn + 1.484*yn-1 - 0.561*yn-1</p>
+<p>In eerste instantie zijn de analyses in beatfast met de volgende instellingen gedaan </p>
+<p>&nbsp;&nbsp;&nbsp; beatfast m50 h0 w0 mf100 very c:\beatfast\001.b5 ch1 fin1 mrk0 001.d5 </p>
+<p>&nbsp;&nbsp;&nbsp; printres&nbsp; m50 h0 w0 [001.d5 beat ab1 tsr ] 001.bf5 </p>
+<p>Allereerst maar eens die vreemde eenheid Mu opsporen (of staat dit voor measurement unit ?) </p>
+<p>&nbsp;&nbsp;&nbsp; Rp = 0.06 * MAP / CO = 60 * MAP / (HR * vol) = [mmHg.sec/ml] = [Mu] </p>
+<p>De factor 60 komt van het omzetten van minuten naar seconden, zie verder het bestand 001bf6.xls. </p>
+<p>Uit dit bestand blijkt tevens dat Rp een laagdoorlaat filtering heeft ondergaan !! </p>
+<p>Da0=23.6 mm volgens beatfast </p>
+<p>Diameter=1.61*1000*SQRT((4/PI())/(Z0*Z0*Cw)) </p>
+<p>met Cw/60=C'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Diameter=208*SQRT((4/PI())/(Z0*Z0*Cw/60)) </p>
+<p>&nbsp;&nbsp;&nbsp; 1 dyne = 10-5 N </p>
+<p>&nbsp;&nbsp;&nbsp; 760 mmHg = 1.0 * 105 N/m2&nbsp;&nbsp; (of&nbsp; 1.013 * 105 N/m2 ) </p>
+<p>&nbsp;&nbsp;&nbsp; 1 mmHg = 132 N/m2&nbsp; =&nbsp; 1316&nbsp; dyne/ cm2 </p>
+<p>Rp </p>
+<p>Pogingen Rp de volgende slag weer te gebruiken, neigen naar oscillaties </p>
+<p>&nbsp; </p>
+<p>Z0 </p>
+<p>waarschijnlijk wordt niet Z0 maar Z0*dt uitgegeven. </p>
+<p>dan varieert mijn waarde tussen 32 en 35 mMu en Beatfast rond de 64 mMu </p>
+<p>factor 2 veschil dus </p>
+<p>De door beatfast opgegeven waarde invullen in de formule, geeft een eind-diastolische druk van 153 mmHg, wat een onzin dus. </p>
+<p>Cw </p>
+<p>Cw varieert gedurende 1 slag van 0.305 tot 1.058 (laatste waarde is eind-diastole), dit zou 1.5 moeten zijn volgens beatfast De waarde van beatfast invullen in de formule, geeft een eind-disatolische waarde van 66 mmHg, i.p.v. de gemeten 80 mmHg) </p>
+<p>Over een aantal hartslagen gekeken, lijkt de vorm van in ieder geval Z0 en Cw akkelig goed overeen te komen tussen beatfast en mijn programma. </p>
+<p>onderstaande zijn middels printres omgezet in *.txt en samengevat in trends_beatfast.xls </p>
+<p>m20 h0 w0 mf100 high 001.bf8 ch1 fin1 m20h0w0.dat&nbsp;&nbsp;&nbsp; (Da0=19.3) </p>
+<p>m40 h0 w0 mf100 high 001.bf8 ch1 fin1 m40h0w0.dat&nbsp;&nbsp;&nbsp; (Da0=21.7) </p>
+<p>m60 h0 w0 mf100 high 001.bf8 ch1 fin1 m60h0w0.dat&nbsp;&nbsp;&nbsp; (Da0=24.1) </p>
+<p>m80 h0 w0 mf100 high 001.bf8 ch1 fin1 m80h0w0.dat&nbsp;&nbsp;&nbsp; (Da0=26.3) </p>
+<p>f20 h0 w0 mf100 high 001.bf8 ch1 fin1 f20h0w0.dat&nbsp;&nbsp;&nbsp; (Da0=16.2) </p>
+<p>f40 h0 w0 mf100 high 001.bf8 ch1 fin1 f40h0w0.dat&nbsp;&nbsp;&nbsp; (Da0=18.6) </p>
+<p>f60 h0 w0 mf100 high 001.bf8 ch1 fin1 f60h0w0.dat&nbsp;&nbsp;&nbsp; (Da0=20.9) </p>
+<p>f80 h0 w0 mf100 high 001.bf8 ch1 fin1 f80h0w0.dat&nbsp;&nbsp;&nbsp; (Da0=23.0) </p>
+<p>m40 h0&nbsp;&nbsp;&nbsp; w0&nbsp;&nbsp; mf100 high 001.bf8 ch1 fin1 m40h0w0.dat&nbsp;&nbsp;&nbsp; (Da0=21.7) </p>
+<p>m40 h170 w70 mf100 high 001.bf8 ch1 fin1 m40h3w1.dat&nbsp;&nbsp;&nbsp; (Da0=21.9) </p>
+<p>m40 h180 w70 mf100 high 001.bf8 ch1 fin1 m40h1w1.dat&nbsp;&nbsp;&nbsp; (Da0=23.0) </p>
+<p>m40 h190 w70 mf100 high 001.bf8 ch1 fin1 m40h2w1.dat&nbsp;&nbsp;&nbsp; (Da0=23.3) </p>
+<p>m40 h0&nbsp;&nbsp;&nbsp; w0&nbsp;&nbsp; mf100 high 001.bf8 ch1 fin1 m40h0w0.dat&nbsp;&nbsp;&nbsp; (Da0=21.7) </p>
+<p>m40 h180 w60 mf100 high 001.bf8 ch1 fin1 m40h1w3.dat&nbsp;&nbsp;&nbsp; (Da0=22.2) </p>
+<p>m40 h180 w70 mf100 high 001.bf8 ch1 fin1 m40h1w1.dat&nbsp;&nbsp;&nbsp; (Da0=22.6) </p>
+<p>m40 h180 w80 mf100 high 001.bf8 ch1 fin1 m40h1w2.dat&nbsp;&nbsp;&nbsp; (Da0=23.0) </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a class=rvts4 href="http://www.collmed.psu.edu/artorg/bioe519-7/index.htm">cursus</a></p>
+<p><a class=rvts4 href="http://www.icaen.uiowa.edu/~bme155/">uitgebreide cursus iowa</a></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td valign=middle>
+<p>WindKessel / ModelFlow</p>
+<p>Doorsnede van de aorta A(p)</p>
+<p>niet nodig A(p)=Am*[0.5+(1/pi)*arctg((p-p0)/p1)]</p>
+<p>Am is the maximum diameter at very high pressure</p>
+<p>Am(female)=4.12&nbsp;&nbsp;&nbsp; Am(male)=5.62</p>
+<p>p0(female)=72-0.89*age</p>
+<p>p0(male)=76-0.89*age</p>
+<p>p1=57-0.44*age</p>
+<p>C(p) =Am*p1 / (pi*( sqr(p1) + sqr(p-p0) ))</p>
+<p>Cw(p) = L*C(p)</p>
+<p>L = 60 cm (adults)</p>
+<p>Z0 = sqrt( rho / (A(p)*C(p)))</p>
+<p>rho = denstity of blood = 1.06 kg/dm3</p>
+<p>Rp bepalen en gebruiken in volgende slag</p>
+<p>Rp=MAP/CO=MAP/(HR*SV)</p>
+</td>
+<td valign=middle>
+<p><img width=484 height=254 alt="" src="windkessel_model.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; <a href="cardiac_cycle.jpg"><img width=605 height=435 alt="" src="cardiac_cycle.jpg"></a></p>
+<p>&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td valign=middle>
+<p>&nbsp; </p>
+</td>
+<td valign=middle>
+<p>&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>ModelFlow</p>
+<p>Gesampelde FinaPres Bloeddruk</p>
+<p>De data dient juist geschaald, gesampeld op 100 Hz en in het juiste formaat weggeschreven te worden voor analyse met BeatFast. </p>
+<p>Remove / Interprete FinaPres Calibration</p>
+<p>Zogenaamde Physiocal faze, lit: </p>
+<p>1) Wesseling KH, de Wit B, van der Hoeven GMA, van Goudoever J, Settels JJ. Physiocal, calibrating finger vascular physiology for Finapres. Homeostasis 1995;36:76-82. </p>
+<p>2) Wesseling KH, Finger arterial pressure measurement with Finapres, Z.Kardiol 85: suppl3: 38-44 (1996), Steinkopff Verlag, </p>
+<p>hierin wordt het volgende gezegd, het physiocal signaal doet een aantal stappen op en/of een aantal stappen neer, het signaal mag als betrouwbaar worden gekwalificeerd als er maximaal 2 stappen naar boven worden gedaan vanuit de uitgangs-situatie. </p>
+<p>Volgens de handleiding van beatfast: it detects flat periods in the pressure signal, beginning at a level near mid-pressure, half way between systolic and diastolic pressure. Each flat level is counted as a beat and stored as an result. </p>
+<p>&nbsp; </p>
+<p>Non Invasive Finger Arterial Pressure</p>
+<p>Vergeleken met de aorta puls is deze golf vervormd.</p>
+<p>According patent 5,400,793, Wesseling: "narrow band nature and its low-frequency resonance". A filter which corrects the mean resonance precisely up to a frequency of 8 Hz is necessairy (with a second or third-order filter). The following (second-order) IIR filter can be used:</p>
+<p>&nbsp;&nbsp;&nbsp; yn = 0.077*xn + 1.484*yn-1 - 0.561*yn-1</p>
+<p>Een ander stuk literatuur hierover, om de vingerdruk terug te vertalen naar de arm-druk, met voorbeelden, </p>
+<p>Bos et al. Reconstruction of Brachial Artery Pressure from noninvasive finger pressure measurements, American Heart Associations, 1996 </p>
+<p>Aorta Pressure</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Patent <a class=rvts4 href="http://www.patents.ibm.com/cgi-bin/viewpat.cmd/US05400793__">US 5,400,793</a>&nbsp; Wesseling, 1995,&nbsp; (<a class=rvts4 href="patent_us5400793/patent_us5400793.html">from disk</a>)</p>
+<p>Method of determining the stroke volume and the cardiac output of the human heart</p>
+<p>Basic calculation of stroke volume from FinaPres en PortaPres, both on arterial bloodpressure and finger bloodpressure, contains corrections for sex and age, no corrections of length and weight, finger pressure correction very summier.</p>
+<p><a class=rvts4 href="http://www.patents.ibm.com/cgi-bin/viewpat.cmd/US05469859__">patent US 546.859 ,1995</a></p>
+<p>Hemodynamics by bio-impedance measurement of total body, with only 2 or 4 electrodes</p>
+<hr noshade size=1>
+<p>© Copyright Instrumentele Dienst, 1999</p>
+<p><a href="mailto:id.postbus@ids.kun.nl"><img width=29 height=18 alt="" src="mail.gif"></a>SM, last updated 29-10-1999 <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+
+</body></html>

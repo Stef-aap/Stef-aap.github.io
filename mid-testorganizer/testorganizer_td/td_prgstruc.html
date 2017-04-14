@@ -1,0 +1,204 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+
+<html>
+
+<head>
+
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+   <meta name="generator" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+
+   <meta name="author" content="Stef Mientki">
+
+   <title>Programma structuur</title>
+
+</head>
+
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+
+<a name="top"></a>
+
+<table BORDER WIDTH="100%" >
+
+<tr>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><b><font face="Arial,Helvetica"><font color="#000099"><a href="midorg.html#top">MID
+
+TestOrganizer</a></font></font></b>
+
+<br><b><font face="Arial,Helvetica"><font color="#000099"><a href="vrg_indx.html#top">Vragenlijst
+
+Module</a></font></font></b>
+
+<br><b><font face="Arial,Helvetica"><font color="#000099"><a href="vrg_all.html#top">VragenOverzicht</a></font></font></b></td>
+
+
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">MIDORG&nbsp;
+
+Design &amp; Test</font></font></b></center>
+
+</td>
+
+
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><b><font face="Arial,Helvetica"><font color="#000099">&nbsp;</font></font></b></td>
+
+</tr>
+
+
+
+<tr>
+
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Algemene
+
+Module Structuur</font></font></b></td>
+
+</tr>
+
+</table>
+
+<font face="Arial,Helvetica"></font>
+
+<br><font face="Arial,Helvetica"></font>&nbsp;<font face="Arial,Helvetica"></font>
+
+<p><a name="globale opstart structuur"></a><b><font face="Arial,Helvetica"><font color="#000099">Globale
+
+Opstart Structuur&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+
+<br><font face="Arial,Helvetica">De opbouw van het programma is wat vreemd,
+
+dit teneinde met verschillende opstartschermen te kunnen starten.</font>
+
+<br><font face="Arial,Helvetica">De globale opstart structuur is als volgt:</font>
+
+<br><font face="Arial,Helvetica"></font>&nbsp;<font face="Arial,Helvetica"></font>
+
+<p><img src="projman1.gif" height=215 width=379><font face="Arial,Helvetica"></font>
+
+<p><b><font face="Arial,Helvetica">Globals.pas</font></b>
+
+<br><font face="Arial,Helvetica">Deze unit bevat alle onvermijdelijke globals;
+
+type definities, classes, vars en constants.</font>
+
+<br><font face="Arial,Helvetica">In de initialisatie part van deze unit
+
+kunnen eventueel class variabelen ook daadwerkelijk worden aangemaakt.</font><font face="Arial,Helvetica"></font>
+
+<p><b><font face="Arial,Helvetica">Initialisatie procedure in form_start_parameters
+
+(startini.pas)</font></b>
+
+<br><font face="Arial,Helvetica">- defini&euml;ert windows eigenschappen
+
+(dateseperator, decimal-separator, etc)</font>
+
+<br><font face="Arial,Helvetica">- leest en interpreteert de transportfile,
+
+welke als communicatie tussen MIDORG en deze module dient.</font><font face="Arial,Helvetica"></font>
+
+<p><font face="Arial,Helvetica"><b>Autocreate van de forms</b>, let op
+
+volgorde is van essenti&euml;el belang</font>
+
+<br><font face="Arial,Helvetica">form_main (startprg.pas)</font>
+
+<br><font face="Arial,Helvetica">form_start_parameters (startini.pas)</font>
+
+<br><font face="Arial,Helvetica">form_module_settings (mod_set.pas)</font>
+
+<br><font face="Arial,Helvetica">form_test_settings (test_set.pas)</font>
+
+<br><font face="Arial,Helvetica">..... overige autocreate forms (creeer
+
+geen forms die dynamisch gecreeerd kunnen worden)</font>
+
+<br><font face="Arial,Helvetica">form_start_nep (startnep.pas)</font><font face="Arial,Helvetica"></font>
+
+<p><font face="Arial,Helvetica"><b>Start feitelijke activiteit door form_start_nep</b>
+
+(startnep.pas)</font>
+
+<br><font face="Arial,Helvetica">welke niets anders doet dan doorschakelen
+
+naar form_start_parameters.start_program.</font>
+
+<br><font face="Arial,Helvetica">Deze constructie is gemaakt om de volgende
+
+reden, afhankelijk van de toepassing wil men opstarten met bepaalde forms,
+
+zelfs wil men nagenoeg onzichtbaar opstarten (export en scanning bv). Dat
+
+betekent dat het eerste zichtbare form klein en eenvoudig moet zijn, zodat
+
+het maar heel even zichtbaar is. Helaas moet form_main het hoofdform zijn,
+
+teneinde hier gegarandeerde gebruikers-besturing te realiseren.</font><font face="Arial,Helvetica"></font>
+
+<p><font face="Arial,Helvetica"><b>form_start_parameters.start_program</b>
+
+(startini.pas)</font>
+
+<br><font face="Arial,Helvetica">- test licentie-rechten</font>
+
+<br><font face="Arial,Helvetica">- leest de transport file, zodat alle
+
+geinterpreteerde gegevens kunnen worden getoond</font>
+
+<br><font face="Arial,Helvetica">- toont zonodig zichzelf als in debug
+
+mode, normaal blijft het form hidden</font>
+
+<br><font face="Arial,Helvetica">- afhankelijk van de mode wordt nu het
+
+functionele deel (verschillende forms) gestart</font>
+
+<br><font face="Arial,Helvetica">- uiteindelijk breekt deze routine het
+
+programma af.</font><font face="Arial,Helvetica"></font>
+
+<p><font face="Arial,Helvetica">Voor de normale acties zoals Edit, Record,
+
+View, ... wordt nu altijd de volgende routine gestart</font>
+
+<br><font face="Arial,Helvetica"><b>form_main.start_program_action</b>(startprg.pas)</font><font face="Arial,Helvetica"></font>
+
+<p><a name="impliciet gebruikte bestanden"></a><b><font face="Arial,Helvetica"><font color="#000099">Impliciet
+
+gebruikte bestanden&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+
+<br><font face="Arial,Helvetica">in LIBEXTRA</font>
+
+<br><font face="Arial,Helvetica">- htm_help, sinds Delphi3, form om context
+
+afhankelijke help bestanden in html formaat te tonen</font>
+
+<br><font face="Arial,Helvetica">- mid_bieb, oud uit Delphi1, bevat eigen
+
+(verbeterde) routines, moet nog een keer critisch bekeken worden</font>
+
+<br><font face="Arial,Helvetica">- midlogo1, uit Delphi1, logo + license
+
+check</font>
+
+<br><font face="Arial,Helvetica">- dlg_form, uit Delphi1, om eigen dialoogforms,
+
+met eigen teksten te kunnen maken</font>
+
+<br><font face="Arial,Helvetica"></font>&nbsp;<font face="Arial,Helvetica"></font>
+
+<p>
+
+<hr size=2>
+
+<br><font size=-1>&copy; Copyright Instrumentele Dienst, 20-10-1998</font>
+
+<br><font size=-2>mailto:....last updated: 16-1-1999</font>
+
+</body>
+
+</html>
+

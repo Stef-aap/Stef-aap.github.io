@@ -1,0 +1,123 @@
+<HTML><HEAD><TITLE>sm-model</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><A name="top"></A>
+<TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P class=RVPS2><A class=RVTS4 href="#omschrijving">Algemeen</A></P>
+<P class=RVPS2><A class=RVTS4 href="#kookboek algemeen">Kookboek</A></P>
+<P class=RVPS2><A class=RVTS4 href="#nirs import">NIRS</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Import</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Midac Import, algemeen&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Indien er meer dan 1 bestand moet worden geïmporteerd, is het verstandig een aantal voorbereidingen te treffen.&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Zorg dat te importeren bestanden allen in 1 directory staan (de import functie onthoud deze namelijk)&nbsp;</LI>
+<LI>Maak een testprotocol, waarin zoveel mogelijk van de gewenste functionaliteiten aanwezig zijn (signaalnamen, display opbouw en rekenfuncties)&nbsp;</LI>
+</UL>
+<P>&nbsp;</P>
+<P><A name="kookboek algemeen"></A>
+Kookboek Algemeen&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Start de TestOrganizer&nbsp;</LI>
+<LI>Selekteer in de patientenlijst de patient, waaraan het geïmporteerde bestand moet worden toegevoegd&nbsp;</LI>
+<LI>Selekteer in de testenlijst (van Polygrafie) een test. Deze test wordt voor een deel gebruikt als template voor signaalnamen, calibraties, display opbouw rekenfuncties en export functies. Bij import van bekende bestands-vormen (b.v. NIRS), wordt een deel van de ingestelde parameters overschreven op basis van de gegevens in de geïmporteerde data.&nbsp;</LI>
+<LI>Druk op de knop IMPORT&nbsp;</LI>
+<LI>Er kan nu van alles worden ingesteld, maar misschien herkent Midac het bestand en worden alle gegevens automatisch ingevuld, open dus eerst het te-importeren bestand&nbsp;</LI>
+<LI>Stel nu zonodig de gegevens anders in, en let daarbij op de controle vensters van headers en signalen&nbsp;</LI>
+<LI>Druk op importeer&nbsp;</LI>
+<LI>Druk op stop of display&nbsp;</LI>
+<LI>Als alles goed is gegaan is nu het geïmporteerde bestand toegevoegd aan de geselecteerde patient en kunt u de data bekijken.&nbsp;</LI>
+</UL>
+<P>&nbsp;</P>
+<P><A name="nirs import"></A>
+NIRS import&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>NIRS bestanden (*.oxy) worden automatisch herkend en kunnen inclusief de events direct (dus zonder verdere instellingen) worden geïmporteerd.&nbsp;</P>
+<P>Bij het importeren worden de OD-waarden door 2 gedeeld, de AD-kanalen blijven ongeschaald.&nbsp;</P>
+<P>Er worden de volgende signaalnamen toegekend, voor OD waarden&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; OD-s,r</P>
+<P>waarbij s=sender nummer en r=receiver.nummer.&nbsp;</P>
+<P>Voor de AD-kanalen wordt de volgende benaming gebruikt:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; AD-x</P>
+<P>Waarbij x=AD-kanaal nummer.&nbsp;</P>
+<P>Systeem events van NIRS worden in Midac verplaatst naar F1 events en user events naar F8.&nbsp;</P>
+<P>Het maximaal te importeren events is begrensd op 100 (omdat het einde van Nirs bestanden soms vernaggeld is)&nbsp;</P>
+<P>De maximale opnameduur is begrensd op 24 uur, om diezelfde reden.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>OUD, nog eens te herzien&nbsp;</P>
+<HR noshade size=1>
+<P>&nbsp;</P>
+<P>Algemeen&nbsp;</P>
+<P>Importeert willekeurige databestanden door deze te vertalen naar MID-TestOrganizer formaten.</P>
+<P>Momenteel worden alleen het formaat voor de MIDACen VRAGENLIJST modulen ondersteunt.</P>
+<P>Voor Swets Testmanager databestanden is een aparte vertaal module beschikbaar onder de knop "Diversen".</P>
+<P>Na het openen van een bestand wordt de eerste regel gelezen en weergegeven in het gelijknamige venster. Op grond van deze eerste regel worden een aantal import bestanden automatisch herkend. Als u vaker een bepaalde bestandsvorm wilt importeren, kunt u door de ID een standaard profiel laten implementeren.</P>
+<P>Bij import bestanden die automatisch worden herkend, worden de instellingen in de linkerhelft automatisch goed ingesteld.</P>
+<P>Bij onbekende import bestanden dienen de instellingen in de linker helft op de juiste manier te worden ingesteld. Of de juiste instellingen zijn gemaakt, kan worden gekontroleerd door de knop "Kopregels" in te drukken. Hierdoor leest en interpreteert het programma de kopregels en de eerste 10 data regels van het import bestand. De juistheid van deze informatie kan worden gekontroleerd in de gelijknamige vensters.</P>
+<P>Nu kan de "Testomschrijving" (default is import bestandsnaam) nog worden gewijzigd.</P>
+<P>Zijn de instellingen correct, dan kan de vertaling worden gestart door de knop "Importeer" in te drukken.</P>
+<P>Tijdens de vertaling wordt de vordering aangegeven in de bargrafiek, terwijl het aantal fouten in een venster worden bijgehouden.</P>
+<P>Er behoeft geen bestandsnaam voor de uitvoer te worden opgegegeven, deze wordt door het programma automatisch bepaald volgens de geldende database manangement regels.</P>
+<P>SNEL-MENU</P>
+<P>&nbsp;1 druk op knop OPEN</P>
+<P>&nbsp;2 kontroleer de kopregels en de eerste 10 dataregels, als goed ga naar stap 6</P>
+<P>&nbsp;3 als fout, wijzig instellingen</P>
+<P>&nbsp;4 druk op knop KOPREGELS</P>
+<P>&nbsp;5 ga naar stap 2</P>
+<P>&nbsp;6 druk op knop IMPORTEER</P>
+<P>ACTILOG bestanden:</P>
+<P>&nbsp;&nbsp;&nbsp; deze worden automatisch herkend</P>
+<P>WBREATH ASCII bestanden met vaste opbouw</P>
+<P>&nbsp;&nbsp;&nbsp; deze bevatten real-waarden, welke zonder verlies van resolutie worden vertaald naar passende integer waarde</P>
+<P>R-top P-arterieel Onset</P>
+<P>&nbsp;&nbsp;&nbsp; er verschijnt een extra instelscherm om de volgorde van de signalen te kunnen wisselen</P>
+<P>IRS Poly-4 bestanden</P>
+<P>&nbsp;&nbsp; speciale header en dataopbouw wordt automatisch verwerkt</P>
+<P>Toekomst</P>
+<P>- de signaalnamen doorgeven aan MIDAC</P>
+<P>- batch processing van een aantal te importeren bestanden</P>
+<P>- beperking in de door te geven sample frekwentie opheffen</P>
+<P>- selectie van te importeren kanalen</P>
+<P>- schaal factoren per kanaal in te stellen</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst,1996</P>
+<P>SM/GvV, last updated</P>
+</BODY></HTML>

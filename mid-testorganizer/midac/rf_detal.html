@@ -1,0 +1,130 @@
+<HTML><HEAD><TITLE>RekenFunctie Methods en Properties</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MID-TestOrganizer</P>
+<P>MIDAC</P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, programmeren</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P><A class=RVTS4 href="#create">Create</A>&nbsp;&nbsp;<A class=RVTS4 href="#parameter">Parameter</A>&nbsp;&nbsp;<A class=RVTS4 href="#reset">Reset</A>&nbsp;&nbsp;<A class=RVTS4 href="#calibrate">Calibrate</A>&nbsp;&nbsp;<A class=RVTS4 href="#execute">Execute</A>&nbsp;&nbsp;<A class=RVTS4 href="#destroy">Destroy</A>&nbsp;&nbsp;<A class=RVTS4 href="#pre_scan">Pre_Scan</A>&nbsp;&nbsp;<A class=RVTS4 href="#overige">Overigen</A>&nbsp;&nbsp;<A class=RVTS4 href="#edit_parameters">Edit_Pars</A>&nbsp;&nbsp;<A class=RVTS4 href="#properties">Properties</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Rekenfunctie Methods en Properties</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Inleiding</P>
+<P>De Create, Parameter, Reset en Calibrate methods worden aangeroepen door het lezen van het configuratiebestand, hetgeen gebeurt op de volgende momenten:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>De start van het programma</LI>
+<LI>Het verlaten van het signalen-edit-grid</LI>
+<LI>Het uitvoeren van een scanning export</LI>
+</UL>
+<P>De execute method wordt ieder sample aangeroepen.</P>
+<P>De overige methods, daar waar nodig.</P>
+<P><A name="create"></A>
+Create method</P>
+<P>&nbsp;&nbsp;&nbsp; constructor create;</P>
+<P>Creeert de functie-instance, initialiseert de public properties, initialiseert de interne variabelen (meestal door een aanroep van de Reset-methode) en geeft de parameters een default waarde. Deze method moet de volgende properties zetten: fnr, fnparameters, finput, fnoutput</P>
+<P><A name="parameter"></A>
+Parameter methods</P>
+<P>&nbsp;&nbsp;&nbsp; function parameter_description(kanaal:integer):string;</P>
+<P>&nbsp;&nbsp;&nbsp; function parameter_value(kanaal:integer):string;</P>
+<P>&nbsp;&nbsp;&nbsp; procedure set_parameter_value(kanaal:integer;parameter:string);</P>
+<P>Geeft de dynamische functie-parameters een waarde. Dus ook een popup form moet hier worden aangemaakt, waarbij wel gecontroleerd moet worden of dit niet reeds gebeurd is. Van groot belang is dat de parameter_description van iedere parameter uniek is, anders wordt deze niet juist opgeborgen in het configuratie-bestand.</P>
+<P><A name="reset"></A>
+Reset method</P>
+<P>&nbsp;&nbsp;&nbsp; procedure initialiseer;</P>
+<P>Reset de interne variabelen. Bijvoorbeeld bij een integrator functie moet de startwaarde worden gezet (meestal 0).</P>
+<P>Er is overigens een alternatieve manier om hetzelfde te bereiken, namelijk in de execute-methode te testen op systeem signalen zoals sys.restart_opname. Deze laatste methode heeft als voordeel dat de reset ook plaatsvindt bij een herstart van de opname, nadeel is dat de execute methode (die erg vaak wordt uitgevoerd) trager wordt.</P>
+<P><A name="calibrate"></A>
+Calibrate method</P>
+<P>&nbsp;&nbsp;&nbsp; procedure scale_input(kanaal:integer; a,b:tmidreal);</P>
+<P>Met deze methode worden de calibratie-waarden van alle relevante ingangssignalen doorgegeven. De functie-instance kan deze calibratie-waarden locaal opslaan en vervolgens gebruiken in de feitelijke berekening om te kunnen rekenen in wereldwaarden. Eerst wordt deze method aangeroepen voor alle individuele ingangssignalen, vervolgens wordt deze method aangeroepen voor het (niet-bestaande) ingangssignaal 0. Dit laatste geeft de functie-instance de mogelijkheid de reeds ontvangen calibratie-waarden te hergroeperen, zodanig dat het meest efficiente rekenalgoritme kan worden geimplementeerd.</P>
+<P>Kanaal=ingangssignaal, Wereldwaarde= A * ingangssignaal + B</P>
+<P><A name="execute"></A>
+Execute method</P>
+<P>&nbsp;&nbsp;&nbsp; procedure execute;</P>
+<P>De feitelijke functie uitvoer.</P>
+<P>Ook hier kan op basis van bijvoorbeeld systeem signalen de reset method worden aangeroepen.</P>
+<P>Deze method kan ook besturingstaken uitvoeren, bijvoorbeeld het aansturen van bepaalde hardware, het (her-)starten / stoppen van een opname.</P>
+<P><A name="destroy"></A>
+Destroy method</P>
+<P>&nbsp;&nbsp;&nbsp; destructor destroy;</P>
+<P>Deze methode moet zorgdragen voor de vernietiging van zelf gecreeerde popup-forms.</P>
+<P><A name="pre_scan"></A>
+Pre_scans</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp; function required_pre_scans;</P>
+<P>Voor sommige functies is het noodzakelijk dat eerst de gehele data (meerdere malen) wordt doorlopen, alvorens zinvolle berekeningen op de individuele samples kunnen worden uitgevoerd (bijvoorbeeld een trend-removal). Deze method geeft het aantal noodzakelijke pre-scans terug. De execute method moet voor de juiste verwerking van de pre-scans zorgen.</P>
+<P><A name="overige"></A>
+Beschrijvende methods</P>
+<P>&nbsp;&nbsp;&nbsp; function description(kanaal:integer):string;</P>
+<P>&nbsp;&nbsp;&nbsp; function input_description(number:integer):string;</P>
+<P>Deze methods zijn van ondergeschikt belang en dienen om de gebruiker te leiden bij het editen van reken-signalen.</P>
+<P>Description geeft afhankelijk van kanaal: -1:afkorting functienaam, 0:functienaam, 1..:naam van het uitgangssignaal.</P>
+<P>Input_description geeft de naam van het ingangssignaal.</P>
+<P><A name="edit_parameters"></A>
+Parameter Instelling</P>
+<P>&nbsp;&nbsp;&nbsp; procedure edit_parameters;</P>
+<P>Deze methode laat de gebruiker de functieparameters wijzigen. Deze routine bestaat in het algemeen uit het dynamisch creeeren van een form, het tonen van dit form in modal vorm. De functie-parameters kunnen op dit form worden geedit, waarbij desgewenst de validiteit gecontroleerd kan worden. Bij het verlaten van het form worden de gewijzigde parameters overgenomen in de locale variabelen en wordt het edit-form vervolgens vernietigd.</P>
+<P><A name="properties"></A>
+Properties</P>
+<P>De onderstaande properties zijn essentieel en dienen in de create method eenmalig te worden gedefinieerd.</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=20% valign=middle>
+<P>FNR</P></TD>
+<TD valign=middle>
+<P>Het unieke functienummer</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>FNINPUTS</P></TD>
+<TD valign=middle>
+<P>Het aantal ingangssignalen</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>FNOUTPUTS</P></TD>
+<TD valign=middle>
+<P>Het aantal uitgangssignalen</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>FNPARAMETERS</P></TD>
+<TD valign=middle>
+<P>Het aantal functieparameters</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst</P>
+<P>SM/GvV, 21-7-1998</P>
+</BODY></HTML>

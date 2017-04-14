@@ -1,0 +1,188 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.51 [en] (Win95; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>Transport Bestand</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><font face="Arial,Helvetica"></font></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00"><font size=+1>MIDORG
+Design &amp; Test</font></font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><font face="Arial,Helvetica"><font color="#000000"></font></font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Transport
+Bestand</font></font></b></td>
+</tr>
+</table>
+
+<p><a name="transport bestand"></a><b><font face="Arial,Helvetica"><font color="#000099">Transport
+Bestand&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Het transport bevat alle gegevens, noodzakelijk
+voor het opstarten van een test, de te ondernemen <a href="#action">actie</a>,
+de naam van de gewenste <b>test</b>, de naam van het <b>module-instellingen
+bestand</b>, het <a href="#patient number">patientnummer</a> en de gebruikte
+<a href="#tranport bestand directories">directories</a>.</font>
+<br><font face="Arial,Helvetica">Daarnaast wordt het transport bestand
+gebruikt voor het terugmelden van de afsluitende <b>resultaten</b> van
+de meetsessie.</font>
+<p><font face="Arial,Helvetica">Er is gestreefd naar een uniforme opbouw
+van het transportbestand. Op deze wijze kan iedere module gebruik maken
+van 1 en dezelfde unit, welke het lezen en schrijven van het transport-bestand
+ondersteunt.</font>
+<br><font face="Arial,Helvetica">Voor enkele oude modulen worden specifieke
+settings gebruikt, zie:</font>
+<br>&nbsp;
+<p><a name="tranport bestand directories"></a><b><font face="Arial,Helvetica"><font color="#000099">Tranport
+Bestand Directories&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Hier worden de volgende paths opgegeven,
+inclusief de laatste backslash (als vereist). Voorbeeld</font>
+<blockquote><b><font face="Arial,Helvetica">[Directories]</font></b>
+<br><b><font face="Arial,Helvetica">Patient Path=c:\data\~midorg\mid-data\patient\</font></b>
+<br><b><font face="Arial,Helvetica">Protocol Path=c:\data\~midorg\protocol\vraaglst\</font></b>
+<br><b><font face="Arial,Helvetica">Data Path=c:\data\~midorg\mid-data\vraaglst\</font></b>
+<br><b><font face="Arial,Helvetica">Help Path=c:\data\~midorg\d3_morg\htm-help\</font></b></blockquote>
+
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td WIDTH="100"><font face="Arial,Helvetica">Patient Path</font></td>
+
+<td><font face="Arial,Helvetica">het path waar de relevante patient-bestanden
+(*.pat) staan</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">Protocol Path</font></td>
+
+<td><font face="Arial,Helvetica">hier staan alle beschikbare protocollen
+voor de opgestartte module</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">Data Path</font></td>
+
+<td><font face="Arial,Helvetica">datapath, speciaal bestemd voor de opgestartte
+module,</font>
+<br><font face="Arial,Helvetica">LET OP: het laatste subpath (i.h.a. de
+naam van het testprotocol) ontbreekt, hiervoor moet de opgestartte programma
+module zelf zorgen</font></td>
+</tr>
+
+<tr>
+<td>Help Path</td>
+
+<td>het path waar de relevante helpbestanden voor de specifieke module
+staan
+<br>(voorlopig allemaal indentiek, dus gebruik geen voor de hand liggende
+namen als index.htm)</td>
+</tr>
+</table>
+
+<p><a name="start parameters"></a><b><font color="#000099">Start Parameters&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font color="#000000">Hier staan de belangrijkste besturingscommando's
+voor de op te starten module. Voorbeeld:</font>
+<blockquote><b>[Start Parameters]</b>
+<br><b>Patient Number=684</b>
+<br><b>Module=Neuro Psycho</b>
+<br><b>Action=Edit</b>
+<br><b>Settings File=vrlst.vli</b>
+<br><b>Protocol=test_all.txt</b>
+<br><b>Suffix=0</b></blockquote>
+<a name="patient number"></a><b>Patient Number</b>
+<br>Dit bevat de unieke patient-code, waarmee alle andere patientgegevens
+zijn op te halen. Hierdoor is ook het hoofdstuk Patient Gegevens geheel
+vervallen.
+<p><b>Module</b>
+<br>Dit is slechts een tekstveld, waarmee de opgestartte module niets wezenlijks
+mag doen.
+<p><a name="action"></a><b>Action</b>
+<br>De actie die een opgestartte module moet uitvoeren, mogelijkheden:
+<blockquote><b><a href="#actie edit">Edit</a>&nbsp;&nbsp;&nbsp; <a href="#actie opnemen">Record</a>
+<a href="#actie bekijken">View</a>&nbsp;&nbsp;&nbsp; <a href="#actie rapport">Rapport</a>
+<a href="#actie export">Export</a>&nbsp;&nbsp;&nbsp; <a href="#actie import">Import</a>
+<a href="#acttie instellingen">Settings</a></b></blockquote>
+
+<p><br><b><font face="Arial,Helvetica"><font color="#000000">Settings File</font></font></b>
+<br><font face="Arial,Helvetica">De bestandsnaam (inclusief volledig path,
+i.v.m. flexibiliteit) van het ini-bestand waarin alle globale instellingen
+van de module staan (bijvoorbeeld het default font voor de module). De
+inhoud van het module-instellingen bestand is geheel "eigendom" van de
+specifieke module en wordt hier daarom niet besproken.</font>
+<br><font face="Arial,Helvetica">De extensie van het module-instellingen
+bestand wordt vastgelegd per module, dat geeft iedere module de mogelijkheid
+een selectie te presenteren van alle beschikbare instellings-bestanden.
+Deze wordt voor de volledigheid echter wel meegegeven.</font>
+<p><b>Protocol</b>
+<br>Naam (inclusief extensie, exclusief path) van het gewenste protocol.
+Het opnemen van de extensie is bewust gedaan, om bij het upgraden van de
+programma's te kunnen overgaan naar een nieuwe extensie (tijdelijk zullen
+er dan 2 extensies bestaan).
+<p><b>Suffix</b>
+<br>Het volgnummer van dit protocol bij deze patient (1..).
+<br>&nbsp;
+<p><a name="programma gegevens"></a><b><font color="#000099">Programma
+Gegevens&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font color="#000000">Hier staan wat algemene (onbelangrijke) gebruikers
+gegevens. Voorbeeld</font>
+<blockquote><b><font color="#000000">[Programma Gegevens]</font></b>
+<br><b><font color="#000000">Titel 1=Academisch Ziekenhuis Nijmegen</font></b>
+<br><b><font color="#000000">Titel 2=afd. Algemeen Interne Geneeskunde</font></b></blockquote>
+<a name="patientgegevens"></a><b><font face="Arial,Helvetica"><font color="#000099">Patientgegevens&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Patientgegevens worden niet meer opgenomen,
+omdat de opgestartte module deze gemakkelijk zelf uit het patientbestand
+kan halen. Hierdoor wordt een grotere flexibiliteit naar de toekomst gegarandeerd.</font>
+<p><a name="actie edit"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Edit&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Het opgegeven testprotocol wijzigen, of
+een nieuw testprotocol (als lege bestandsnaam) aanmaken.</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; Uniformiteit:</font>
+<br><font face="Arial,Helvetica">Voor zover zinvol en mogelijk WYSIWYG
+editing.</font>
+<br><font face="Arial,Helvetica">Aan het eind van de edit-sessie opslaan
+via de standaard save-dialoog (welke zo volledig mogelijk is ingevuld).</font>
+<p><a name="actie opnemen"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Opnemen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Hiermee wordt de afname van de test gestart.
+Nadat de test is afgenomen, worden datum en time-stamp via het transport-bestand
+teruggegeven, zodat MIDORG de test kan afvinken.</font>
+<p><a name="actie bekijken"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Bekijken&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Hiermee kan een reeds gemaakte opname
+worden bekeken.</font>
+<p><a name="actie export"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Export&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">nog te definieren</font>
+<p><a name="actie import"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Import&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">nog te definieren</font>
+<p><a name="actie rapport"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Rapport&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Voegt de resultaten van de gewenste opname
+toe aan ....</font>
+<br><font face="Arial,Helvetica">Als extra parameter wordt hier het gewenste
+rapport-nivo opgegeven.</font>
+<p><a name="actie instellingen"></a><b><font face="Arial,Helvetica"><font color="#000099">Actie
+Instellingen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Wijzigen van het opgegeven module instellingen
+bestand. Uiteraard bestaat de mogelijkheid bij het afsluiten het bestand
+onder een andere naam op te bergen.</font>
+<br><font face="Arial,Helvetica">Als de bestandsnaam leeg is, danwel niet
+bestaat, wordt het standaard module-instellingen bestand <b>&lt;application-naam>.ini</b>
+gebruikt.</font>
+<br>&nbsp;
+<p>
+<hr WIDTH="100%"><font size=-2>&copy; Copyright Instrumentele Dienst 1998</font>
+<br><font size=-2><a href="mailto:s.mientki@ids.kun.nl">s.mientki@ids.kun.nl</a>,
+last updated 13-2-1999</font>
+</body>
+</html>

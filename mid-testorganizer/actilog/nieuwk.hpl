@@ -1,0 +1,10 @@
+Met de knop NIEUW PATIENT wordt het opnieuw starten van de ActiLog begonnen. 
+Allereerst wordt de status van de ActiLog uitgelezen, teneinde het serienummer te kunnen vaststellen. Vervolgens worden de patientgegevens gewist en de gebruiker kan beginnen met het invoeren van de nieuwe gegevens.
+
+Tijdens het editten van deze gegevens, kunnen de volgende toetsen als stuurtoets worden gebruikt: ENTER, UPARROW, DOWNARROW.
+
+Nadat de juiste gegevens zijn ingevuld kan op de START toets worden gedrukt, waardoor de feitelijke programmering van de ActILog wordt gestart. Omdat met deze aktie alle oude gegevens uit de ActiLog worden gewist, wordt om een extra bevestiging gevraagd.
+LET OP: na het drukken op de starttoets, is de ActiLog gedurende 10 minuten niet aanspreekbaar, hij mag wel worden losgekoppeld !!
+Als er nog geen serienummer in de ActiLog aanwezig is, wordt eenmalig om het serienummer gevraagd.
+
+Met de knop HERSTEL kan het programmeren van de ActiLog worden gestopt.

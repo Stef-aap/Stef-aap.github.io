@@ -1,0 +1,127 @@
+<HTML><HEAD><TITLE>MIDAC Systeem signalen</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>&nbsp;&nbsp;</P>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Systeem signalen</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Systeemsignalen reflecteren de inwendige toestanden van het programma, toetsen e.d. en kunnen gebruikt worden als ingangssignalen van rekenfuncties. Systeem signalen hebben in de verschillende modi van het programma (edit/record/review/export) soms een verschillend gedrag.</P>
+<P>Systeem signalen zijn booleans, maar kunnen evengoed als ‘gewone’ ingangssignalen van rekenfunkties worden gebruikt. Bij gebruik in formules van de systeemsignalen geldt: TRUE=1, FALSE=0.</P>
+<P>Systeemsignalen geven biezonder krachtige programmeer-mogelijkheden. Het is wel noodzakelijk dat men exact het gedrag van deze signalen kent, vandaar dat een aantal omschrijvingen soms nodeloos detailistisch lijkt.</P>
+<P>Overzicht huidige systeem signalen</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI><A class=RVTS4 href="#boolean">Boolean_true</A></LI>
+<LI><A class=RVTS4 href="#boolean">Boolean_false</A></LI>
+<LI><A class=RVTS4 href="#record_mode">record_mode</A></LI>
+<LI><A class=RVTS4 href="#opname_gestart">Opname gestart</A></LI>
+<LI><A class=RVTS4 href="#sampling_gestart">sampling_gestart</A></LI>
+<LI><A class=RVTS4 href="#timer_trigger">timer_trigger_knop</A></LI>
+<LI><A class=RVTS4 href="#timer_trigger">timer_enable_knop</A></LI>
+<LI><A class=RVTS4 href="#timer_trigger">timer_reset_knop</A></LI>
+<LI><A class=RVTS4 href="#markers">marker_1</A></LI>
+<LI><A class=RVTS4 href="#markers">marker_2</A></LI>
+<LI><A class=RVTS4 href="#markers">marker_3</A></LI>
+<LI><A class=RVTS4 href="#markers">marker_4</A></LI>
+<LI><A class=RVTS4 href="#markers">marker_5</A></LI>
+<LI><A class=RVTS4 href="#markers">marker_6</A></LI>
+<LI><A class=RVTS4 href="#markers">marker_7</A></LI>
+<LI><A class=RVTS4 href="#markers">marker_8</A></LI>
+<LI><A class=RVTS4 href="#last_sample">last_sample</A></LI>
+<LI><A class=RVTS4 href="#first_sample">first_sample</A></LI>
+<LI><A class=RVTS4 href="#her_start">(her-)start</A></LI>
+<LI><A class=RVTS4 href="#20 some_windows_freezed">some_windows_freezed</A></LI>
+<LI><A class=RVTS4 href="#21 clear_displays">clear_displays</A></LI>
+</UL>
+<P>Details</P>
+<P><A name="boolean"></A>
+1/2 Boolean_true / Boolean_false<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Variabelen voor het testen van rekenfunkties, danwel gebruik als dummy parameter.</P>
+<P><A name="record_mode"></A>
+3 Record_mode<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>True als het programma bezig is met opnemen.</P>
+<P><A name="opname_gestart"></A>
+4 Opname_gestart<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>True als opname minstens éénmaal is gestart.</P>
+<P><A name="sampling_gestart"></A>
+5 Sampling_gestart<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>True als sampling actief ???</P>
+<P><A name="timer_trigger"></A>
+6/7/8 Timer_trigger_knop / timer_enable_knop / timer_reset_knop<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>geen funktie meer (dus altijd false), in de toekomst beschikbaar als 3 vrij programmeerbare buttons.</P>
+<P><A name="markers"></A>
+9… 16 Marker_1 … Marker_8<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>True als de desbetreffende marker actief is.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Opname mode, true als desbetreffende functietoets ingedrukt, false zodra de marker naar bestand wordt geschreven</LI>
+<LI>Review en Export mode, true als marker (gedurende 1 sample), anders false</LI>
+</UL>
+<P><A name="last_sample"></A>
+17 Last_Sample<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze variabele wordt in de export en review mode true op het moment dat het laatste sample wordt verwerkt.</P>
+<P>Een typisch gebruik van deze variabele is het maken van een rapport op basis van een scan van de gehele opname. Tijdens de scan kunnen allerlei grootheden worden berekend, statische analyses worden uitgevoerd en dan … op het laaste sample 1 waarde rapporteren. Zie voor een concreet voorbeeld rekenfunktie 15, Autonome Neuropathie Analyse (30 minuten opname van diverse tests, 7 resulterende getallen als rapport-uitvoer).</P>
+<P><A name="first_sample"></A>
+18 First_Sample<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze variabele is bedoeld om binnen een opname éénmalig een bepaalde actie te starten (bijvoorbeeld het resetten van een event-counter). De variabele wordt dan ook niet true bij een herstart na een pauze.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Opname-mode, true zodra de opname voor de eerste keer wordt gestart, false zodra eerste sample door een rekenkanaal is berekend (Timer1).</LI>
+<LI>Review-mode, true als eerste sample wordt gedisplayed, false zodra eerste sample door een rekenkanaal is verwerkt.</LI>
+<LI>Export-mode, true als eerste sample wordt ingelezen, false zodra eerste sample door een rekenkanaal is verwerkt</LI>
+</UL>
+<P>NB, als geen rekenkanaal wordt gebruikt, heeft dit signaal geen zin, dus resetten hoeft niet.</P>
+<P><A name="her_start"></A>
+19 (Her-)Start<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze variabele is bij iedere (her-)start van de opname true. Dit geldt in iedere programma-mode.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="20 some_windows_freezed"></A>
+20 Some_windows_freezed&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Individuele vensters kunnen (tijdens opname?) stilgezet worden.</P>
+<P>Allereerst moet dan in de vensterinstellingen van dat venster de checkbox Display Freeze worden aangekruist.</P>
+<P>Ten tweede moet dan het systeem signaal Some_windows_freezed true worden gemaakt.</P>
+<P>Voorlopig is een klein knopje beschikbaar op het hoofdform, naast de normale Display Freeze knop.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="21 clear_displays"></A>
+21 Clear_displays&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Door dit signaal true te maken (in het algemeen vanuit een rekenfunctie), kunnen displays worden gecleared en/of de xpositie van de signalen erin worden gereset. Zodra deze actie wordt uitgevoerd, wordt de valg zelf gereset.</P>
+<P>In de individuele vensterinstellingen kan worden aangegeven wat een venster doet op deze clear actie. Voorlopig zijn hier de volgende mogelijkheden geïmplementeerd: niets, xpos=0, clear+xpos=0.</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.</P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

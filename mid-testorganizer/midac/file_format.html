@@ -1,0 +1,206 @@
+<HTML><HEAD><TITLE>MIDAC, datafile format</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E8E8E8;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P><A class=RVTS4 href="#datafile (*.d*)">DataBestand</A></P>
+<P><A class=RVTS4 href="#marker bestand (*.r*)">MarkerBestand</A></P>
+<P><A class=RVTS4 href="#config bestand (*.c*)">ConfigBestand</A></P>
+<P>ExtraTestGegBestand</P>
+<P>ExtraTestMemoBestand</P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>File Opbouw</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="versie 5, geplande bestandsopbouw"></A>
+Versie 5, geplande bestandsopbouw&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Binaire file, welke het beste met een basis-bloklengte van 1 byte gelezen kan worden.&nbsp;</P>
+<P>adressen zijn gewoon in decimale notatie&nbsp;</P>
+<P>1 = byte $08 ; lengte van de ID-string "MID-poly"&nbsp;</P>
+<P>2..9 = string "MID-poly" ; ID-string&nbsp;</P>
+<P>10..11 = 2 bytes integer ; versienummer=5&nbsp;</P>
+<P>naast de verdere gegevens uit versie 4, de volgende uitbreidingen:&nbsp;</P>
+<P><A name="v5 - algemeen header blok met algemene gegevens"></A>
+V5 - algemeen header blok met algemene gegevens&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>blok van 256 bytes, waarin extra opgeslagen&nbsp;</P>
+<P>- datum en tijd van de start van de opname (netwerk rotzooit namelijk met filedatums)&nbsp;</P>
+<P>- gebruikte AD-kaart&nbsp;</P>
+<P>- ...&nbsp;</P>
+<P><A name="v5 - een header blok per signaal"></A>
+V5 - een header blok per signaal&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>hierin kunnen bijvoorbeeld calibratie gegevens worden ondergebracht&nbsp;</P>
+<P><A name="v5 - datablok"></A>
+V5 - Datablok&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Vanwege de sequentiele afhandeling van rekenfuncties, blijft het bestand een primair sequentiëel bestand, dus ook met dezelfde truuk voor samplereductie als in versie 4.&nbsp;</P>
+<P>De data kan echter naar keuze in diverse formaten worden weggeschreven (voor alle kanalen geldt echter hetzelfde formaat), gedacht wordt aan de volgende formaten&nbsp;</P>
+<P>&nbsp; - 2 bytes integer&nbsp;</P>
+<P>&nbsp; - 4 bytes word&nbsp;</P>
+<P>&nbsp; - 4 bytes single (real)&nbsp;</P>
+<P>&nbsp; - ...&nbsp;</P>
+<P>Er wordt standaard 1 signaal extra meegenomen, waarin digitale bits kunnen worden meegenomen. Bit 0 van dit signaal is gereserveerd voor marker locatie. Afhankelijk van het gekozen formaat kunnen dus 15 of 31 digitale bits worden meegenomen. Er moet nog even goed worden nagedacht over de sample-reductie van dit kanaal.&nbsp;</P>
+<P>Het maximaal aantal kanalen (inclusief digitaal kanaal) wordt gezet op 64.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="v5 markerbestand"></A>
+V5 markerbestand&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Vooralsnog kan de structuur van het markerbestand worden gehandhaafd.&nbsp;</P>
+<P>Mogelijk dat het zinvol is extra markers toe te voegen t.b.v. bijvoorbeeld een tijdens de opname gewijzigde calibratie.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="expliciet niet aangebracht"></A>
+Expliciet niet aangebracht&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>- het veranderen van het aantal kanalen tijdens een opname&nbsp;</P>
+<P>- het veranderen van de samplefrequentie tijdens een opname&nbsp;</P>
+<P>- ...&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P><A name="datafile (*.d*)"></A>
+Data Bestand (*.d*)&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Binaire file, welke het beste met een basis-bloklengte van 1 byte gelezen kan worden.&nbsp;</P>
+<P>adressen zijn gewoon in decimale notatie&nbsp;</P>
+<P>1 = byte $08 ; lengte van de ID-string "MID-poly"&nbsp;</P>
+<P>2..9 = string "MID-poly" ; ID-string&nbsp;</P>
+<P>10..11 = 2 bytes integer ; versienummer, laatste versie is momenteel 4&nbsp;</P>
+<P>12..13 = 2 bytes integer ; lengte van het samplebuffer, is verder niet van belang !!&nbsp;</P>
+<P>14..15 = 2 bytes integer ; aantal gebruikte AD-kanalen&nbsp;</P>
+<P>16..23 = 8 bytes double ; sample frequency (Hz)&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>{extended ad-kanalen toegevoegd}&nbsp;</P>
+<P>(***************************************************************************&nbsp;</P>
+<P>AD-kanalen:&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp; 3&nbsp; 4&nbsp; 5&nbsp; 6&nbsp; 7&nbsp; 8&nbsp; 9 ..&nbsp;</P>
+<P>extended&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3a,3b&nbsp;</P>
+<P>-------------------------------------------------&nbsp;</P>
+<P>file resultaat&nbsp; 2&nbsp; 3&nbsp; 3a&nbsp; 3b&nbsp; 4&nbsp; 5&nbsp; 6&nbsp; 7&nbsp; 8&nbsp; 9 ...&nbsp;</P>
+<P>***************************************************************************)&nbsp;</P>
+<P>extended kanalen zijn kanalen die door de sample routine worden gemaakt,&nbsp;</P>
+<P>bijvoorbeeld om diastole en systole te kunnen bereken en toch een sample reductie toe te passen&nbsp;</P>
+<P>Het gebruik van extended kanalen wordt niet aanbevolen.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>24..25 = 2 bytes integer ; sample reduction of channel 1&nbsp; (het eerste AD-kanaal dat daadwerkelijk gebruikt wordt)&nbsp;</P>
+<P>26..27 = 2 bytes integer ; sample reduction of channel 2&nbsp;</P>
+<P>28..29 = 2 bytes integer ; sample reduction of channel 3&nbsp;</P>
+<P>30..31 = 2 bytes integer ; sample reduction of channel 4&nbsp;</P>
+<P>32..33 = 2 bytes integer ; sample reduction of channel 5&nbsp;</P>
+<P>34..35 = 2 bytes integer ; sample reduction of channel 6&nbsp;</P>
+<P>36..37 = 2 bytes integer ; sample reduction of channel 7&nbsp;</P>
+<P>38..39 = 2 bytes integer ; sample reduction of channel 8&nbsp;</P>
+<P>40..41 = 2 bytes integer ; sample reduction of channel 9&nbsp;</P>
+<P>42..43 = 2 bytes integer ; sample reduction of channel 10&nbsp;</P>
+<P>44..45 = 2 bytes integer ; sample reduction of channel 11&nbsp;</P>
+<P>46..47 = 2 bytes integer ; sample reduction of channel 12&nbsp;</P>
+<P>48..48 = 2 bytes integer ; sample reduction of channel 13&nbsp;</P>
+<P>50..51 = 2 bytes integer ; sample reduction of channel 14&nbsp;</P>
+<P>52..53 = 2 bytes integer ; sample reduction of channel 15&nbsp;</P>
+<P>54..55 = 2 bytes integer ; sample reduction of channel 16&nbsp;</P>
+<P>56..57 = 2 bytes integer ; sample reduction of channel 17&nbsp;</P>
+<P>58..59 = 2 bytes integer ; sample reduction of channel 18&nbsp;</P>
+<P>60..61 = 2 bytes integer ; sample reduction of channel 19&nbsp;</P>
+<P>62..63 = 2 bytes integer ; sample reduction of channel 20&nbsp;</P>
+<P>64..65 = 2 bytes integer ; sample reduction of channel 21&nbsp;</P>
+<P>66..67 = 2 bytes integer ; sample reduction of channel 22&nbsp;</P>
+<P>68..69 = 2 bytes integer ; sample reduction of channel 23&nbsp;</P>
+<P>70..71 = 2 bytes integer ; sample reduction of channel 24&nbsp;</P>
+<P>72..73 = 2 bytes integer ; sample reduction of channel 25&nbsp;</P>
+<P>74..75 = 2 bytes integer ; sample reduction of channel 26&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Er wordt van een kanaal een sample opgeslagen als geldt:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; sample-moment&nbsp; MOD&nbsp; reduction[kanaal] =0&nbsp;</P>
+<P>Op het start-moment, geldt sample-moment=0 en dus wordt hier van ieder gesampled kanaal dus altijd een sample opgeslagen.&nbsp;</P>
+<P>Een samplepunt wordt opgeslagen als 2 bytes integer, en is gelijk aan de waarde van de AD-converter.&nbsp;</P>
+<P>Als een stuk signaal wordt gemarkeerd als disabled, dan wordt van alle AD-kanalen de waarde negatief gemaakt.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>76..77 = 2 bytes integer, eerste sample van het eerste gesampelde kanaal (sample-moment=0)&nbsp;</P>
+<P>78..79 = 2 bytes integer, eerste sample van het tweede gesampelde kanaal (sample-moment=0)&nbsp;</P>
+<P>etc.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="marker bestand (*.r*)"></A>
+Marker bestand (*.R*)&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>De markerfile bestaat uit fixed lenght records, met in ieder record 1 marker.&nbsp;</P>
+<P>Een record is als volgt opgebouwd:&nbsp;</P>
+<P>1..4 = 4 bytes long word, sample-moment&nbsp;</P>
+<P>5 = byte, markercode&nbsp;</P>
+<P>6 = byte, lengte van de markertekst&nbsp;</P>
+<P>7..86 = string, markertekst, (als de lengte kleiner dan 80 is, moet het einde van de string worden genegeerd)&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>marker codes</P>
+<P>$00 = systeem marker (start, restart etc.)&nbsp;</P>
+<P>$01 = F1&nbsp;</P>
+<P>$02 = F2&nbsp;</P>
+<P>$03 = F3&nbsp;</P>
+<P>$04 = F4&nbsp;</P>
+<P>$05 = F5&nbsp;</P>
+<P>$06 = F6&nbsp;</P>
+<P>$07 = F7&nbsp;</P>
+<P>$08 = F8&nbsp;</P>
+<P>$09 = speciale systeem marker (niet voor toekomstig gebruik)&nbsp;</P>
+<P>$0A = speciale systeem marker (niet voor toekomstig gebruik)&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="config bestand (*.c*)"></A>
+Config Bestand (*.C*)&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Het config bestand is een standaard windows ini-bestand.&nbsp;</P>
+<P>Het config bestand bevat een groot aantal instellingen, welke enkel voor MIDAC zelf interessant zijn.&nbsp;</P>
+<P>Voorlopig worden daarom enkel de signaal-namen en signaal-kalibraties gepubliceerd.&nbsp;</P>
+<P>[AD-converter]&nbsp;</P>
+<P>AD-channel first=2&nbsp;&nbsp; (het eerste AD-kanaal dat gesampeld wordt, er wordt geteld vanaf 1)&nbsp;</P>
+<P>AD-channel last=4&nbsp;&nbsp; (het laatste AD-kanaal dat gesampeld wordt)&nbsp;</P>
+<P>[Signal-2]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (naam en calibraties van AD-kanaal 2, in het bovenstaande geval dus van het eerste signaal)&nbsp;</P>
+<P>name=BP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (naam van het signaal)&nbsp;</P>
+<P>measurement units=mmHg&nbsp;&nbsp;&nbsp; (eenheid, waarin het signaal wordt weergegeven)&nbsp;</P>
+<P>lower ADV-value=0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (spanning (in Volt) van calibratiepunt "lower", dit hoeft niet persé de laagste waarde te zijn !!)&nbsp;</P>
+<P>upper ADV-value=1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (de spanning (in Volt) van calibratiepunt "upper")&nbsp;</P>
+<P>lower cal-value=0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( de waarde in wereld-eenheden van het calibratiepunt "lower")&nbsp;</P>
+<P>upper cal-value=100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( de waarde in wereld-eenheden van het calibratiepunt "upper")&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst,1996</P>
+<P>SM/GvV, last updated 1-11-1999</P>
+</BODY></HTML>

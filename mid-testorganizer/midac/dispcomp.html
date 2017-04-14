@@ -1,0 +1,101 @@
+<HTML><HEAD><TITLE>Display Compressie</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P><A class=RVTS4 href="#resample display compressie">Resample Compressie</A></P>
+<P><A class=RVTS4 href="#mean display compressie">Mean Compressie</A></P>
+<P><A class=RVTS4 href="#peak display compressie">Peak Compressie</A></P>
+<P><A class=RVTS4 href="#stripchart display compressie">Stripchart Compressie</A></P>
+<P><A class=RVTS4 href="#pixel display compressie">Pixel Compressie</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Display Compressie</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="samenvatting"></A>
+Samenvatting&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Het weergeven van bemonsterde data op een computerscherm is een ondergeschoven kindje. MIDAC biedt echter voldoende mogelijkheden om een afgewogen keuze voor een juiste weergave te maken, zowel compressie als expansie.</P>
+<P>Bij display compressie tijdens het weergeven kan de volgende vuistregel worden gehanteerd:Gebruik&nbsp;<A class=RVTS4 href="#mean display compressie">Mean</A>&nbsp;of (<A class=RVTS4 href="#resample display compressie">Resample)</A>&nbsp;compressie,</P>
+<P>nadat gecontroleerd is dat (bij dezelfde tijdbasis) geen verschil met de&nbsp;<A class=RVTS4 href="#stripchart display compressie">Stripchart</A>&nbsp;compressie is geconstateerd.In het algemeen geldt voor goed bemonsterde signalen dat display expansie moet worden toegepast, en dat bij berekende signalen soms display compressie kan worden toegepast.</P>
+<P><A name="achtergrond"></A>
+Achtergrond&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Het goed weergeven van amplitude-tijd signalen op een computerscherm is vaak een onderbelichtte zaak, waaraan geen of onvoldoende aandacht wordt besteed. Een "hoog-resolutie" beeldscherm zou voldoende zijn om een goede weergave van amplitude tijdsignalen te verkrijgen. Dit is een pertinente misvatting (die zelfs onder technici heerst). Dit kan duidelijk gemaakt worden aan de hand van de onderstaande stelling:Een gemiddelde papierschrijver of analoge oscilloscoop geeft een meer realistische weergave van de werkelijkheid dan een "hoog-resolutie" computer-beeldscherm.Signalen in een computer betreffen altijd bemonsterde data. Bij bemonsterde data moet opgepast worden voor het alliasing-effect waardoor onherstelbare en ondecteerbare vervorming van het signaal kan optreden. Een bekend voorbeeld van het alliasing-effect is het terugdraaiende spaakwiel in films, hetgeen hier toevallig wel detecteerbaar is door de tegenstrijdige voortbeweging van het voertuig (detecteerbaar in een ander signaal dus !!). Bij de weergave op een computer beeldscherm wordt voor de tweede keer (ANDERS) bemonsterd. Aan de eerste bemonstering (binnenhalen van de data) wordt meestal voldoende aandacht besteed, aan de tweede bemonstering (weergeven van de data) wordt meestal geen of onvoldoende aandacht besteed.</P>
+<P>Bij bemonstering van (bandbreedte-beperkte) signalen moet voldaan worden aan het Nyquist-criterium om geen vervorming te krijgen. Het Nyquist-criterium stelt (voor base-band signalen) dat de bemonsterings-frequentie minimaal tweemaal de hoogst voorkomende&nbsp; frequentie in het signaal moet bedragen. Dit is echter een theoretisch minimum waarmee enkel een computer iets kan beginnen. Immers het tweede deel van het Nyquist-criterium zegt dat de bemonsterde data pas weer een door mensen herkenbare representatie van de oorspronkelijke data is, nadat de hoge frequenties uit de monsters zijn verwijderd, c.q. het signaal (wiskundig) wordt gereconstrueerd uit de monsters. Deze reconstructie kunnen wij ook in onze hersens uitvoeren, echter dan moet als criterium worden gehanteerd dat de bemonsterings frequentie 10-maal de hoogste frequentie bedraagt. Geoefende signaal-technici kunnen met een wat lagere factor toe, maar een factor 5 is toch wel het minimum.</P>
+<P>Resumerend moet nu de volgende conclusie worden getrokken, wil men het signaal optimaal bemonsteren (minimaal geheugen gebruik, maximale signaal informatie) dan moet men bemonsteren met 2 maal de hoogst voorkomende frequentie. Dit optimaal bemonsterde signaal moet men bekijken met een 2.5 tot 5 voudige expansie met reconstructie algoritme. Display compressie, in een optimale situatie, is dus uit den boze.</P>
+<P>In de praktijk wordt deze regel echter weinig toegepast. Hier zijn twee redenen voor aan te voeren, ten eerste onwetendheid en ten tweede bij fysiologische signalen komt de hoogst frequentie maar beperkt voor (bijv. bij het oppervlakte ECG ter hoogte van RS overgang). Daarom biedt MIDAC ruime mogelijkheden om de minst-slechte display compressie te kiezen.</P>
+<P><A name="resample display compressie"></A>
+Resample Display Compressie&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Geeft op elke horizontale positie 1 sample weer, en verwaarloosd alle tussenliggende samples. Dit is de standaard methode die door bijna alle grafische software wordt gebruikt. Deze methode geeft echter alleen een realistisch beeld als er een zeer ruime oversampling van het signaal heeft plaatsgevonden (jammer van de nodeloos gebruikte geheugenruimte).</P>
+<P><A name="mean display compressie"></A>
+Mean Display Compressie&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Geeft op elke horizontale positie het gemiddelde van alle samples die op deze horizontale positie worden afgebeeld. Door het middelen van de samples wordt een laagdoorlaatfiltering uitgevoerd, waardoor hooguit informatie verloren gaat en in ieder geval geen informatie wordt bijverzonnen. Deze methode is dus beter dan de resample compressie.</P>
+<P><A name="peak display compressie"></A>
+Peak Display Compressie&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Bij deze methode wordt op iedere vertikale positie afwisselend het minimum of het maximum van alle samples die op deze horizontale postie worden afgebeeld weergegeven. Deze methode is nagenoeg evengoed als de stripchart compressie, maar gebruikt wat minder computer tijd.</P>
+<P><A name="stripchart display compressie"></A>
+StripChart Display Compressie&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze methode probeert een papierschrijver na te bootsen door op iedere horizontale positie een vertikale lijn te tekenen van het minimum tot het maximum van alle samples die op deze horizontale positie worden afgebeeld. Hier wordt dus van de mogelijkheid gebruik gemaakt om op 1 vertikale lijn meerdere samples weer te geven, waardoor i.p.v. een zuiver 2-dimensionale ruimte gebruik gemaakt wordt van een semi 3-dimensionale ruimte. Dit is de beste methode, waarbij geen informatie verloren gaat, geen informatie wordt toegevoegd, doch de informatie is slechts vervormd. Ten opzichte van de peak display compressie methode vergt deze methode wat meer rekentijd.</P>
+<P><A name="pixel display compressie"></A>
+Pixel Display Compressie&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze methode displayed alle samples als afzonderlijke beeldpunten. Daarmee geeft deze display methode een nog betere indruk van de signaalinhoud dan de stripchart compressie. Wij mensen hebben echter meer moeite met het kijken naar losse punten, daarom geniet de stripchart compressie de voorkeur.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

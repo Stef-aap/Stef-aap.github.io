@@ -1,0 +1,565 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="generator"
+ content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+  <meta name="author" content="Stef Mientki">
+  <title>td_netwerk</title>
+</head>
+<body text="#000000" bgcolor="#8fd6f3" link="#003399" vlink="#003399"
+ alink="#cccccc">
+<a name="top"></a>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td align="center" valign="CENTER" rowspan="2" width="25%"><font
+ face="Arial,Helvetica"><a href="mid-testorganizer_index.html">Overzicht
+MidOrg</a></font>
+      <p><font face="Arial,Helvetica"><a href="td_inhoud.html">Overzicht
+Test &amp; Design</a></font> <br>
+&nbsp;</p>
+      </td>
+      <td align="center" valign="CENTER" width="50%" height="40"
+ bgcolor="#3333ff">
+      <center><b><font face="Arial,Helvetica"><font color="#ffff00">TestOrganizer</font></font></b> <br>
+      <b><font face="Arial,Helvetica"><font color="#ffff00">Design
+&amp; Test</font></font></b></center>
+      </td>
+      <td align="center" valign="CENTER" rowspan="2"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="CENTER" height="40" bgcolor="#ffff00"><b><font
+ face="Arial,Helvetica"><font color="#3333ff">Netwerk Gebruik</font></font></b></td>
+    </tr>
+  </tbody>
+</table>
+<p style="font-family: arial;">findfirst werd nog niet overal
+afgesloten met findclose !! <br>
+&nbsp; </p>
+<p style="font-family: arial;">Bij het opstarten / afsluiten worden een
+vrij globale controle uitgevoerd, <br>
+er wordt namelijk alleen gekeken of de datum van de netwerk-dbase is
+veranderd. <br>
+Daartoe wordt (na een volledige backup en op enkele andere plaatsen ??)
+de datum van de netwerk-dbase bijgehouden in de eigen ini-file. <br>
+Bij het opstarten / afsluiten / patient-kopieren wordt de volgende
+routine aangeroepen <br>
+&nbsp;&nbsp;&nbsp; backup_compare_full_databases <br>
+Op zijn beurt maakt deze routine gebruik van 2 routines om de datum van
+de netwerk-dbase te controleren en te zetten: <br>
+&nbsp;&nbsp;&nbsp; function backup_check_dbase_date <br>
+&nbsp;&nbsp;&nbsp; procedure backup_set_dbase_date (moet nog worden
+geeffectueerd) </p>
+<p style="font-family: arial;">Voordat een patient wordt gelocked, <br>
+&nbsp;&nbsp;&nbsp; backup_check_dbase_date <br>
+&nbsp;&nbsp;&nbsp; lock patinet <br>
+&nbsp;&nbsp;&nbsp; doe iets ... <br>
+&nbsp;&nbsp;&nbsp; backup_check_dbase_date <br>
+&nbsp;&nbsp;&nbsp; update de patient <br>
+&nbsp;&nbsp;&nbsp; als de eerste en tweede test van de datum ok, dan
+set-dabase_date <br>
+Er is een hele kleine kans dat er nu iets gemist is. <br>
+Echter dit is niet erg, omdat iedere keer als een patient wordt
+geselecteerd, gecontroleerd wordt of deze patient moet worden geupdate. <br>
+&nbsp; </p>
+<p style="font-family: arial;">New <br>
+<img src="redarrow.gif" height="12" width="12"> 23-6-2001, als geen
+netwerk beschikbaar, bij het opstarten 2 maal en poging tot backup,
+verbeterd <br>
+<img src="redarrow.gif" height="12" width="12"> 23-6-2001, na copy,
+kwamen er niet afgevangen fouten voor, bug fixed <br>
+<img src="redarrow.gif" height="12" width="12"> 23-6-2001, extra VAR
+databases_initialized toegevoegd, MOET NOG waarschijnlijk op meer
+plaatsen gebruikt worden <br>
+<img src="redarrow.gif" height="12" width="12"> 23-6-2001, backup.ini
+moet alleen beschreven worden als bereikbaar MOET NOG <br>
+<img src="redarrow.gif" height="12" width="12"> 9-6-2001, als
+backupdrive niet beschikbaar, werd de patientenijst nooti gevonden,
+probleem was dat bij "forcedirectories" niet werd getest op positief
+resultaat (MOET NOG OVERAL GETEST WORDEN) </p>
+<p style="font-family: arial;"><a name="testmode"></a><b><font
+ color="#000099">Testmode&nbsp;</font></b><a href="#top"><img
+ src="top_page.gif" height="14" width="14"></a> <br>
++ na backup blijft het backform doelbewust staan <br>
+&nbsp; </p>
+<p style="font-family: arial;"><a name="bekende problemen"></a><b><font
+ color="#000099">Bekende problemen&nbsp;</font></b><a href="#top"><img
+ src="top_page.gif" height="14" width="14"></a> <br>
++ na backupen kan het backup venster niet gesloten worden door kruisje
+rechtsboven <br>
+&nbsp; </p>
+<p style="font-family: arial;"><b><font color="#000099">Geen netwerk
+backup</font></b> <br>
+Er wordt niets bijgehouden in databases. <br>
+Variabelen als "deze computer mag alleen kijken", "netwerk path" zijn
+niet van belang. </p>
+<p style="font-family: arial;"><b><font color="#000099">Overschakelen
+van geen netwerk backup naar wel netwerk backup</font></b> <br>
+Eerst een volledige backup op de oude manier uitgevoerd (dus alle
+bestanden vergelijken) tegelijkertijd worden de netwerk database en
+lokale database bijgehouden. <br>
+Vervolgens geldt de situatie "wel netwerk backup". <br>
+?? zijn dan ook de evntueel gelockete patienten goed geregistreerd ?? </p>
+<p style="font-family: arial;"><b><font color="#000099">Overschakelen
+van netwerk backup naar geen netwerk backup</font></b> <br>
+Zodra is overgeschakeld, moet de situatie gelden "geen netwerk backup" </p>
+<p style="font-family: arial;"><b><font color="#000099">normale netwerk
+backup</font></b> </p>
+<p style="font-family: arial;"><b><font color="#000099">wel netwerk
+backup, maar netwerk niet beriekbaar</font></b> <br>
+&nbsp; <br>
+&nbsp; <br>
+&nbsp; <br>
+&nbsp; </p>
+<p style="font-family: arial;">Het backupen door het vergelijken van
+alle patient-bestanden duurt bij een grote patient groep veel te lang.
+Het benaderen van vele bestanden op het netwerk is de vermoedelijke
+oorzaak. <br>
+Daarom is gezocht naar een oplossing middels 1 gemeenschappelijke
+lijst. </p>
+<p style="font-family: arial;">Het gebruik van een database file, als
+gemeenschappelijke lijst, heeft de volgende voordelen: <br>
+- database tools verzorgen het locken van records <br>
+- database tools verzorgen het indexeren van de records <br>
+- records kunnen verschillende veldsoorten bevatten (tekst, numeriek,
+etc) <br>
+- er kan eenvoudige op records worden gezocht </p>
+<p style="font-family: arial;">De inhoud van de database dient zo
+minimaal mogelijk te zijn, i.v.m. diskruimte en snelheid. </p>
+<p style="font-family: arial;">De minimaal noodzakelijke velden: </p>
+<ol style="font-family: arial;">
+  <li> <b><font color="#000099">PATNR</font>&nbsp; patientnummer</b>,
+hoewel dit nu maximaal 7 karakters mogen zijn, zal dit in de nabije
+toekomst worden uitgebreid. Daarom wordt nu een lengte van 40 karakters
+gedefini&euml;erd.</li>
+  <li> <b><font color="#000099">DATETIME</font>&nbsp; tijdstip van
+laatste update</b>, omdat datum / tijd opslag in diverse databases vaak
+problemen geeft (vorm-afhankelijk), wordt gekozen tdatetime gewoon als
+een floating point variabele op te slaan. Tdatetime is een variabele
+die het aantal dagen vanaf 01-01-1900 aangeeft, dus er zijn 5 digits
+voor de decimale punt nodig. De gewenste nauwkeurigheid van de tijd
+wordt gesteld op 1 sec. Het aantal decimalen achter de decimale punt
+moet dus log(24*60*60)=4.9, dus size = Float 12.5</li>
+  <li> <b><font color="#000099">OWNER</font>&nbsp; owner van de update</b>,
+deze variabele is waarschijnlijk niet strict noodzakelijk, maar voor de
+zekerheid wordt deze toch maar meegenomen. Voor dit veld worden 11
+karakters gereserveerd. De huidige naam van een computer mag momenteel
+maximaal 11 karakters bevatten, het disknummer is maximaal 8 karaketers.</li>
+</ol>
+<span style="font-family: arial;"> Daarnaast is het noodzakelijk om te
+zien </span><b style="font-family: arial;">wie er een speciefiek
+record gelocked</b><span style="font-family: arial;"> houdt, zodat
+eventueel actie ondernomen kan worden als het record te lang gelocked
+blijft. Dit kan niet in de database worden geplaatst, omdat tijdens een
+lock het record niet beschikbaar is. Waarschijnlijk kan hier gewoon het
+oude systeem van de inifile gehandhaafd blijven. </span><br
+ style="font-family: arial;">
+<span style="font-family: arial;">&nbsp; </span>
+<p style="font-family: arial;"><a name="keuze database,"></a><b><font
+ color="#000099">Keuze database&nbsp;</font></b><a href="#top"><img
+ src="top_page.gif" height="14" width="14"></a> <br>
+Omdat het zeer eenvoudige database betreft, welke door Delphi-5
+benaderd wordt ligt dBase voor de hand. Deze database kan alles wat
+gewenst wordt is perfect benaderbaar door Delphi (zelfde producent) en
+heeft slechts een beperkt aantal specifieke drivers nodig. <br>
+Hoewel de documentatie van Delphi nogal ingewikkeld doet omtrent het
+gemeenschappelijk gebruik van databases, vereist dat de installatie van
+de BDE geschiedt door Install Shield, blijkt dit in de praktijk helemaal
+niet nodig. <br>
+Het principe is getest op 4 PC's, die allen de database zoals boven
+omschreven tegelijkertijd benaderde op de H-schijf van het netwerk en
+hierin een record lockte. Het werkte perfect. Op PC's waar geen BDE was
+geinstalleerd, was het voldoende om de bestanden in de onderstaande
+directory te kopieren naar de actuele programma directory <br>
+&nbsp;&nbsp;&nbsp; d:\ data_actueel \ dbase_dll \ *.* <br>
+&nbsp; </p>
+<p style="font-family: arial;"><b><font color="#000099">Build Patient
+List&nbsp;</font></b><a href="#top"><img src="top_page.gif" height="14"
+ width="14"></a> <br>
+bouwt vanuit een PC de gehele database met alle patienten op, door alle
+bestanden *.pat te zoeken. <br>
+de kolom datum/tijdstip wordt gevuld met de file-datum/tijd, de kolom
+owner met de ID van de betreffende PC. <br>
+???? Er moet nog exact bekeken worden wat er moet gebeuren als een
+patient al in de database aanwezig is. ???? <br>
+&nbsp; </p>
+<p style="font-family: arial;"><a name="implementatie in midorg"></a><b><font
+ color="#000099">Implementatie in MIDORG&nbsp;</font></b><a href="#top"><img
+ src="top_page.gif" height="14" width="14"></a> <br>
+De database wordt gedefinieerd in <br>
+&nbsp;&nbsp;&nbsp; datamodule1 <br>
+De reden hiervoor is dat het backup form niet altijd bestaat, dit wordt
+namelijk enkel aangemaakt (en daarna weer vernietigd) als de hele
+patientengroep moet worden geupdate. <br>
+Voor het openen van de database (en waarschuwen als deze wel nodig is,
+maar niet bereikbaar is) wordt dit uitgevoerd in: <br>
+&nbsp;&nbsp;&nbsp; to_main.inifile_effektueer <br>
+Deze routine wordt altijd aangeroepen na een inifile read. <br>
+&nbsp; </p>
+<p style="font-family: arial;"><b><font color="#000099">Lock
+Patient&nbsp;</font></b><a href="#top"><img src="top_page.gif"
+ height="14" width="14"></a> <br>
+probeert een patient te locken en geeft middels een boolean aan of het
+wel of niet gelukt is. </p>
+<p style="font-family: arial;"><b><font color="#000099">Breng eventueel
+veranderingen aan,</font></b> <br>
+in MIdorg zijn dit in ieder geval <br>
+&nbsp; </p>
+<p style="font-family: arial;"><font color="#3333ff">++ selecteren van
+een patient</font> <br>
+Te herkennen aan "patname_collbClick" </p>
+<p style="font-family: arial;">- verwijderen van een patient <font
+ color="#ff0000">Dit verwijdert helemaal niets</font> </p>
+<p style="font-family: arial;"><font color="#3333ff">++ edit patient
+gegevens, new patient</font> <br>
+<font color="#000000">Dit is altijd te herkennen aan een
+"patient_gegevens.onenter" en bij het verlaten aan een
+"patient_gegevens.onexit"</font> </p>
+<p style="font-family: arial;"><font color="#3333ff">+ edit extra
+patient text,</font> <br>
+kan altijd, maar dan read-only, als een lock gelukt was, wordt ook
+gebackuped </p>
+<p style="font-family: arial;"><font color="#3333ff">+ edit extra
+patient parameters</font> <br>
+Bij "grid_pat_parametersEnter" wordt geprobeerd te locken en bij
+"grid_pat_parametersExit" update/unlock <br>
+Voor de linkshandig button wordt in "cb_linkshandigClick"
+locked/backup/unlock in 1 keer uitgevoerd. </p>
+<p style="font-family: arial;"><font color="#3333ff">+ edit extra
+testgegevens</font> <br>
+als deze gewijzigd zijn, worden ze altijd weggeschreven door
+"write_all_testgeg" , alhier dus lock/backup.unlock </p>
+<p style="font-family: arial;"><font color="#3333ff">+ add test to
+patient + autobattery + import</font> <br>
+deze lopen allemaal via "add_test", hier is rondom het moment dat een
+"patient_write_file" optreedt een lock en update/unlock geplaatst </p>
+<p style="font-family: arial;"><font color="#3333ff">+ afnemen van 1 of
+meerdere testen</font> <br>
+<font color="#000000">dit verloopt altijd via "start_testen", hier is
+aan het begin een lock geplaatst en aan het einde (waar ook het
+eventueel afvinken reeds is gebeurd) een update/unlock</font> </p>
+<p style="font-family: arial;"><font color="#3333ff">+ bekijken van een
+test (er kunnen immers instellingen worden gewijzigd)</font> <br>
+dit verloopt altijd via "prepare_transport_file_patient" ,daar deze
+routine ook door een helehoop andere routines wordt gebruikt, wordt
+hierin extra gecontroleerd op de flag "action=action_review" dit komt
+immers alleen bij bekijken voor, in dat geval wordt aan het begin een
+lock geplaatst en aan het einde een update/unlock. </p>
+<p style="font-family: arial;"><font color="#3333ff">+ verwijderen van
+een test</font> <br>
+Gebeurt altijd via "knop_del_pattestClick", aan het begin lock
+geplaatst en aan het einde update/unlock </p>
+<p style="font-family: arial;"><font color="#3333ff">+ copy acties</font> <br>
+Na afloop, wordt eerst de lokale database opnieuw opgebouwd en wordt
+vervolgens een database vergelijking gemaakt. <br>
+&nbsp; <br>
+&nbsp; <br>
+&nbsp; </p>
+<p style="font-family: arial;">al deze gegevens gelden slechts als deze
+PC naar het netwerk mag schrijven <br>
+&nbsp; </p>
+<p style="font-family: arial;">Niet als <br>
+- Export <br>
+- Print </p>
+<p style="font-family: arial;"><b><font color="#000099">Patient
+gegevens updaten van of naar het netwerk</font></b> </p>
+<p style="font-family: arial;"><b><font color="#000099">Unlock patient</font></b> <br>
+&nbsp; </p>
+<p style="font-family: arial;">als er bij het bekijken een verschil
+wordt geconstateerd <br>
+- lock patient <br>
+- update gegevens <br>
+- unlock patient <br>
+Voor PC's die alleen mogen kijken, kan lock en unlock achterwege
+blijven </p>
+<p style="font-family: arial;">Verschillen als voor een bepaalde
+patient de <b>laatste PC-update date/time</b> kleiner is dan die in de
+gemeenschappelijke databse. <br>
+&nbsp; <br>
+&nbsp; <br>
+&nbsp; </p>
+<p style="font-family: arial;"><b><font color="#000099">Activeren van
+een aktie die een verandering teweeg brengt</font></b> <br>
+&nbsp;&nbsp;&nbsp; with patient_extension do <br>
+&nbsp;&nbsp;&nbsp; begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readonly:=not(start_lock_patient); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; label_readonly.visible:=readonly; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {PAS OP disablen, maakt het memo
+transparant voor muiskliks} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {enabled:=readonly;} </p>
+<p style="font-family: arial;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; show; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bringtofront; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if enabled then setfocus; <br>
+&nbsp;&nbsp;&nbsp; end; </p>
+<p style="font-family: arial;"><b><font color="#000099">Terugkeer na
+een verandering</font></b> <br>
+&nbsp;&nbsp;&nbsp; if not(patient_extension.readonly) then <br>
+&nbsp;&nbsp;&nbsp; begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+patient_extension.lines.savetofile(derive_extended_patient_file); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; backup_patient(patient_number,true); <br>
+&nbsp;&nbsp;&nbsp; end; <br>
+&nbsp;&nbsp;&nbsp; stop_lock_patient; <br>
+&nbsp;&nbsp;&nbsp; label_readonly.visible:=false; </p>
+<p style="font-family: arial;"><b><font color="#000099">BACKUP.INI</font></b> <br>
+[m] <br>
+aantal=1 <br>
+m1=1D1713D1 <br>
+b1= <br>
+d1=23-01-2001 21:09:45 </p>
+<p style="font-family: arial;">//deze locks worden niet meer
+verwijderd, maar dat is waarschijnlijk ook helemaal niet erg, want de
+dbase lock is weg <br>
+[001] <br>
+pc=1D1713D1 <br>
+dt=23-01-2001 21:07:32 </p>
+<p style="font-family: arial;">[00001] <br>
+pc=Ape home </p>
+<p style="font-family: arial;">[000001] <br>
+pc=1D1713D1 <br>
+dt=23-01-2001 21:09:44 <br>
+&nbsp; </p>
+<p style="font-family: arial;"><b><font color="#000099">function
+tto_main.start_lock_patient:boolean;</font></b> <br>
+(*******************************************************************************<br>
+Geeft true terug als het toegestaan is de data te veranderen, dat kan
+zijn omdat <br>
+- er geen netwerk backup is ingesteld <br>
+- er is netwerk backup en het is gelukt om het patienten record te
+locken <br>
+- er is een netwerk probleem, maar de gebruiker wil toch doorgaan </p>
+<p style="font-family: arial;">De variabele patient_locked en het
+bijbehorende label worden gezet, <br>
+als er ook daadwerkelijk een lock is aangebracht. <br>
+*******************************************************************************)<br>
+var <br>
+&nbsp; inifile :tinifile; <br>
+&nbsp; lock_pc :string; <br>
+begin <br>
+&nbsp; patient_locked:=false; <br>
+&nbsp; if form_ini.cb_computer_alleen_bekijken.checked then <br>
+&nbsp; begin <br>
+&nbsp;&nbsp;&nbsp; label_patient_lock.caption:='ReadOnly'; <br>
+&nbsp;&nbsp;&nbsp; label_patient_lock.visible:=true; <br>
+&nbsp;&nbsp;&nbsp; start_lock_patient:=false; <br>
+&nbsp; end <br>
+&nbsp; else <br>
+&nbsp; begin <br>
+&nbsp;&nbsp;&nbsp; if (form_ini.rg_backup_begin.itemindex=0) and <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(form_ini.rg_backup_flight.itemindex=0) and <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(form_ini.rg_backup_end.itemindex=0) then <br>
+&nbsp;&nbsp;&nbsp; begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {weliswaar niet gelocked, maar PC mag er
+alles mee doen} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; label_patient_lock.visible:=false; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; start_lock_patient:=true; <br>
+&nbsp;&nbsp;&nbsp; end <br>
+&nbsp;&nbsp;&nbsp; else <br>
+&nbsp;&nbsp;&nbsp; begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+label_patient_lock.caption:=patient_gegevens.cells[1,0]; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; label_patient_lock.visible:=true; </p>
+<p style="font-family: arial;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; with table_network do <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {als niet open,
+dan was er geen netwerk verbinding, opnieuw proberen} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if not(active)
+then <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+open; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+except <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+start_lock_patient:= <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+dialoog( chr($D)+chr($A)+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+'Database op het netwerk is niet bereikbaar.'+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+chr($D)+chr($A)+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+'Als u doorgaat kunnen er conflicten ontstaat', <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2,['Stoppen','Doorgaan'])=2; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end; <br>
+&nbsp; </p>
+<p style="font-family: arial;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if active then <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+indexname:='patnr'; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+first; </p>
+<p style="font-family: arial;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{als patient nog niet bestaat in database, dan toevoegen} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+not(findkey([patient_gegevens.cells[1,0]])) then <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+append; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+fieldbyname('patnr').asstring:=patient_gegevens.cells[1,0]; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+fieldbyname('datetime').asfloat:=now-1; {zorg dat ie nog geupdate
+wordt} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+fieldbyname('owner').asstring:=form_ini.edit_computer_name.text; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+post; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end; </p>
+<p style="font-family: arial;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{nu opnieuw zoeken, hij moet er zijn, tenzij dbase niet bereikbaar} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+first; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+findkey([patient_gegevens.cells[1,0]]) then <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+try <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+edit;&nbsp;&nbsp; {geeft ook een "onediterror"} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+inifile:=tinifile.create(form_ini.edit_backup_path.text+'backup.ini'); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+with inifile do <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+try <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+writestring(patient_gegevens.cells[1,0],'pc', <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+form_ini.edit_computer_name.text); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+writestring(patient_gegevens.cells[1,0],'dt', <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+datetimetostr(now)); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+finally <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+free; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+end; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+end; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+patient_locked:=true; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+start_lock_patient:=true; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+except <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+inifile:=tinifile.create(form_ini.edit_backup_path.text+'backup.ini'); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+with inifile do <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+try <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+lock_pc:=readstring(patient_gegevens.cells[1,0],'pc','????'); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+finally <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+free; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+end; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+end; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+start_lock_patient:= <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+dialoog( chr($D)+chr($A)+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+'Patient '+uppercase(patient_gegevens.cells[1,0])+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+' is geblokkeerd door '+lock_pc+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+chr($D)+chr($A)+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+'Als u doorgaat kunnen er conflicten ontstaat', <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2,['Stoppen','Doorgaan'])=2; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+end; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else
+{patient niet gevonden, terwijl zojuist is aangemaakt} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+begin <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+start_lock_patient:= <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+dialoog( chr($D)+chr($A)+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+'Database op het netwerk is niet bereikbaar.'+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+chr($D)+chr($A)+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+'Als u doorgaat kunnen er conflicten ontstaat', <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2,['Stoppen','Doorgaan'])=2; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end; </p>
+<p style="font-family: arial;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; except <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; start_lock_patient:= <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dialoog(
+chr($D)+chr($A)+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+'Patient '+uppercase(patient_gegevens.cells[1,0])+' kan niet worden
+geblokkeerd.'+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+chr($D)+chr($A)+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+'Reden onbekend, waarschijnlijk is het netwerk niet bereikbaar'+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+chr($D)+chr($A)+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+'Als u doorgaat kunnen er conflicten ontstaat', <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2,['Stoppen','Doorgaan'])=2; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end; <br>
+&nbsp;&nbsp;&nbsp; end; <br>
+&nbsp; end; <br>
+end; </p>
+<p style="font-family: arial;"><b><font color="#000099">procedure
+tto_main.stop_lock_patient;</font></b> <br>
+(*******************************************************************************<br>
+*******************************************************************************)<br>
+begin <br>
+&nbsp; with label_patient_lock do <br>
+&nbsp; begin <br>
+&nbsp;&nbsp;&nbsp; if not(form_ini.cb_computer_alleen_bekijken.checked)
+then visible:=false; <br>
+&nbsp; end; </p>
+<p style="font-family: arial;">&nbsp; with table_network do <br>
+&nbsp; begin <br>
+&nbsp;&nbsp;&nbsp; if active then cancel; <br>
+&nbsp; end; </p>
+<p><span style="font-family: arial;">&nbsp; patient_locked:=false; </span><br
+ style="font-family: arial;">
+<span style="font-family: arial;">end; </span><br
+ style="font-family: arial;">
+<span style="font-family: arial;">&nbsp; </span><br
+ style="font-family: arial;">
+<span style="font-family: arial;">&nbsp;</span> </p>
+<p> </p>
+<hr width="100%"><font size="-2">&COPY; Copyright Instrumentele Dienst,
+1999</font> <br>
+<a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height="18"
+ width="29"></a><font size="-2">&nbsp; SM, last updated 16-01-2001&nbsp;</font><a
+ href="#top"><img src="top_page.gif" height="14" width="14"></a>
+</body>
+</html>

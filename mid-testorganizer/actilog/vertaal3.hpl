@@ -1,0 +1,15 @@
+Voor de vertaling naar KLEIN/GROOT gelden de volgende formules:a
+Klein	==>	KLEIN
+Groot	==>	100 * [correction1(GROOT) - beta] / alfa
+ActiLog	==>	100 * [correction1(ACTILOG) - beta] / alfa
+		100 * [correction2(ACTILOG) - beta]  / alfa
+correction1, individuele correctie formule: 
+	x(i) := x(i) / b1 -a1
+correction2, individuele correctie formule:
+	als x(i)<150 dan	x(i) := x(i) / b1 - a1
+	anders		x(i):= x(i) / b2 - a2
+De vertaalde waarde van alle typen wordt gelimiteerd op MAX
+Negatieve resultaten worden uiteraard begrensd op 0.
+MAX=155  dan vertaling naar groot
+MAX=255  dan vertaling naar klein
+MAX=600  dan vertaling naar klein, maar ActiLog zal iets te hoog scoren

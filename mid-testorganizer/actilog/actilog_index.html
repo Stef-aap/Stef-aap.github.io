@@ -1,0 +1,323 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="generator"
+ content="Mozilla/4.7 [en-gb] (Win98; I) [Netscape]">
+  <meta name="author" content="Stef Mientki">
+  <title>model</title>
+</head>
+<body text="#000000" bgcolor="#8fd6f3" link="#003399" vlink="#003399"
+ alink="#cccccc">
+<a name="top"></a>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td align="center" valign="CENTER" rowspan="2" width="25%"><font
+ face="Arial,Helvetica"><a href="../mid-testorganizer_index.html">Overzicht
+MidOrg</a></font></td>
+      <td align="center" valign="CENTER" width="50%" height="40"
+ bgcolor="#3333ff">
+      <center><b><font face="Arial,Helvetica"><font color="#ffff00">MID
+TestOrganizer</font></font></b> <br>
+      <b><font face="Arial,Helvetica"><font color="#ffff00">ActiLog</font></font></b></center>
+      </td>
+      <td align="center" valign="CENTER" rowspan="2"><b><font
+ face="Arial,Helvetica"><font color="#000099">&nbsp;</font></font></b></td>
+    </tr>
+    <tr>
+      <td align="center" valign="CENTER" height="40" bgcolor="#ffff00"><b><font
+ face="Arial,Helvetica"><font color="#3333ff">Index</font></font></b></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;
+<table border="1" cols="4" width="100%">
+  <tbody>
+    <tr>
+      <td>
+      <center><b><font face="Arial,Helvetica"><font color="#000099">Hoofdscherm</font></font></b></center>
+      </td>
+      <td>
+      <center><b><font face="Arial,Helvetica"><font color="#000099">ActiLog</font></font></b></center>
+      </td>
+      <td>
+      <center><b><font face="Arial,Helvetica"><font color="#000099">Analyse</font></font></b></center>
+      </td>
+      <td>
+      <center><b><font face="Arial,Helvetica"><font color="#000099">Diversen</font></font></b></center>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <center><font face="Arial,Helvetica"><a href="#inleiding">Inleiding</a></font> <br>
+      <font face="Arial,Helvetica"><a href="#knoppen">Knoppen</a></font> <br>
+      <font face="Arial,Helvetica"><a href="#grafieken">Grafieken</a></font> <br>
+      <font face="Arial,Helvetica"><a href="#instel">Instellingen</a></font>
+      <p><font face="Arial,Helvetica"><a href="nieuw.html">Nieuw</a></font></p>
+      </center>
+      </td>
+      <td valign="top">
+      <center><font face="Arial,Helvetica"><a
+ href="actilog_communicatie.html#data%20lezen">Uitlezen</a></font> <br>
+      <font face="Arial,Helvetica"><a
+ href="actilog_communicatie.html#nieuwe%20patient">Opnieuw Starten</a></font> <br>
+      <font face="Arial,Helvetica"><a
+ href="actilog_communicatie.html#systeem%20instellingen">Communicatie
+Instellingen</a></font>
+      <p><font face="Arial,Helvetica"><a href="actilog_draagwijze.html">Draagwijze</a></font></p>
+      </center>
+      </td>
+      <td>
+      <center><font face="Arial,Helvetica"><a
+ href="actilog_parameters.html#parameters">Parameters</a></font> <br>
+      <a href="actilog_ascii_export.html">Export</a><br>
+      <font face="Arial,Helvetica"><a
+ href="actilog_parameters.html#zeer%20aktief">Zeer Aktief</a></font> <br>
+      <font face="Arial,Helvetica"><a
+ href="actilog_parameters.html#inspannings%20onderzoek">Inspannings
+Onderzoek</a></font> <br>
+      <font face="Arial,Helvetica"><a href="#scan">Scanning Export</a></font> <br>
+      <font face="Arial,Helvetica"><a href="actilog_dag_nacht.html">Dag-Nacht
+Detectie</a></font></center>
+      </td>
+      <td>
+      <center><font face="Arial,Helvetica"><a
+ href="actilog_bestandsopbouw.html#bestandsopbouw">Bestandsopbouw</a></font> <br>
+      <font face="Arial,Helvetica"><a
+ href="actilog_bestandsopbouw.html#vertaling%20oude%20typen">Vertaling
+Oude Typen</a></font> <br>
+      <font face="Arial,Helvetica"><a href="#installatie">Installatie</a></font>
+      <p><font face="Arial,Helvetica"><a href="nieuw.html">Nieuw</a></font></p>
+      </center>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p><a name="inleiding"></a><b><font face="Arial,Helvetica"><font
+ color="#000099">Inleiding&nbsp;</font></font></b><a href="#top"><img
+ src="top_page.gif" height="13" width="14"></a> <br>
+De ActiLog Analyzer is een totaal pakket, voor het bedienen van de
+ActiLog (vanaf versie V3.0), en het grafisch bekijken en analyseren van
+alle ActiLog data (dus ook van oudere versies). <br>
+Naast het automatisch analyseren van individuele patient-opnamen, kan
+een hele groep patienten 'gescand' worden, waarbij alle berekende
+gegevens in een 'tab-delimited' bestand worden opgeborgen. Een
+dergelijk bestand is met alle moderne programma's (zoals SPSS en EXCEL)
+in te lezen en verder te analyseren. <br>
+Voor de specifieke effekten van een geprogrammeerde (grote) inspanning
+op het activiteiten-patroon van patienten is een speciale voorziening
+aangebracht waarmee de analyse zowel voor inspanning als over diverse
+perioden na inspanning kan worden uitgevoerd. <br>
+Bij het analyseren van de patient-data, wordt allereerst een
+automatisch dag-nacht detektie uitgevoerd. <br>
+Vervolgens worden alleen de dagen 2 t/m 13 voor de analyse in
+ogenschouw genomen. Bovendien wordt deze periode van 12 dagen aan het
+begin en einde onderzocht op langdurige non-activiteit (vermoedelijk
+niet dragen). Indien deze perioden worden gevonden, dan worden ook deze
+perioden verwijderd uit de analyse. In de deelgrafiek, alsook in de
+kleur van de dagnummers, is te zien welke dagen wel en niet meetellen.
+Hierna worden alle parameters slechts berekend over de geldige
+waak-perioden. <br>
+&nbsp; </p>
+<p><a name="knoppen"></a><b><font face="Arial,Helvetica"><font
+ color="#000099">Knoppen&nbsp;</font></font></b><a href="#top"><img
+ src="top_page.gif" height="13" width="14"></a> <br>
+<font face="Arial,Helvetica">De gehele besturing is Windows 95
+compatibel. Hieronder een beknopt overzcht van de knoppen</font>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td><b><font face="Arial,Helvetica"><font color="#000099">Knop</font></font></b></td>
+      <td><b><font face="Arial,Helvetica"><font color="#000099">Betekenis</font></font></b></td>
+    </tr>
+    <tr>
+      <td><font face="Arial,Helvetica">Bestand</font></td>
+      <td><font face="Arial,Helvetica">open een aktometer bestand en
+geef dit weer op het scherm</font></td>
+    </tr>
+    <tr>
+      <td><font face="Arial,Helvetica">ActiLog</font></td>
+      <td><font face="Arial,Helvetica">uitlezen en programmeren van een
+ActiLog V3.0 of hoger</font></td>
+    </tr>
+    <tr>
+      <td><font face="Arial,Helvetica">Dagknop</font></td>
+      <td><font face="Arial,Helvetica">De dag die in het dag-display
+vergroot wordt weergegeven.</font></td>
+    </tr>
+    <tr>
+      <td><font face="Arial,Helvetica">Shift-</font> <br>
+      <font face="Arial,Helvetica">&nbsp;Dagknop</font></td>
+      <td><font face="Arial,Helvetica">Met behulp van deze toets kan in
+het dag-display meer dan 1 dag&nbsp; worden weergegeven.&nbsp;</font> <br>
+      <font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; Bijvoorbeeld
+aktuele dag=4,&nbsp;</font> <br>
+      <font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; shift-dagknop
+op&nbsp; dag=6,&nbsp;</font> <br>
+      <font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+dan worden de dagen 4 t/m 6 in het dag-display weergegeven.</font></td>
+    </tr>
+    <tr>
+      <td><font face="Arial,Helvetica">ASCII export</font></td>
+      <td><font face="Arial,Helvetica">geeft gecorrigeerd tekstbestand,
+bruikbaar in andere programma's</font></td>
+    </tr>
+    <tr>
+      <td><font face="Arial,Helvetica">Instelling</font></td>
+      <td><font face="Arial,Helvetica">instellen van schermopbouw en
+programma parameters</font></td>
+    </tr>
+    <tr>
+      <td><font face="Arial,Helvetica">V3.0</font></td>
+      <td><font face="Arial,Helvetica">Hiermee kunnen de instelling
+voor de vertaling van oude actimeter bestanden worden gewijzigd</font></td>
+    </tr>
+    <tr>
+      <td><font face="Arial,Helvetica">Handscore</font></td>
+      <td><font face="Arial,Helvetica">Toekomst, handmatige invoer /
+correctie dag-nacht</font></td>
+    </tr>
+    <tr>
+      <td><font face="Arial,Helvetica">Help</font></td>
+      <td><font face="Arial,Helvetica">Toont deze help informatie</font></td>
+    </tr>
+    <tr>
+      <td><font face="Arial,Helvetica">Print</font></td>
+      <td><font face="Arial,Helvetica">maak een afdruk van het scherm
+op de printer.</font></td>
+    </tr>
+    <tr>
+      <td><font face="Arial,Helvetica">Einde</font></td>
+      <td><font face="Arial,Helvetica">beeindig het programma</font></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp; </p>
+<p><a name="grafieken"></a><b><font face="Arial,Helvetica"><font
+ color="#000099">Grafieken&nbsp;</font></font></b><a href="#top"><img
+ src="top_page.gif" height="13" width="14"></a> <br>
+<font face="Arial,Helvetica">GRAFISCHE WEERGAVE</font> <br>
+<font face="Arial,Helvetica">Er kunnen 3 verschillende grafieken
+getoond worden, een totaal grafiek over alle (20) dagen, een
+deel-grafiek waarin 1 of meerdere dagen zichtbaar gemaakt kunnen worden
+en een zogenaamde bmode grafiek waarin periodieke (non-)aktiviteiten
+snel kunnen worden gezien. Met behulp van de versterker knop kan de
+vertikale as van de grafieken worden uitvergroot. Via de knop
+INSTELLINGEN, tabblad SCHERM, kunnen naar keuze de verschillende
+grafiekvormen al dan niet worden getoond.</font> </p>
+<p><font face="Arial,Helvetica">TOTAAL GRAFIEK</font> <br>
+<font face="Arial,Helvetica">In de totaalgrafiek wordt het signaal over
+alle dagen weergegeven. De vertikale as kan worden ingesteld met de
+versterker knop. Omdat het niet mogelijke is op de beperkte breedte van
+het scherm alle oorspronkelijke punten weer te geven, is gebruik gemaakt
+van lokale piekdetektie. Lokale piekdetektie houdt in dat van het
+groepje punten dat als gevolg van de tijdcompressie als 1 punt moet
+worden weergegeven het maximum van dit groepje wordt weergegeven. Deze
+presentatie geeft de meest realistische weergave, echter als men op
+basis van de grafische informatie het gemiddelde probeert af te
+schatten komt men uiteraard te hoog uit. Rechts bovenin staat nog het
+gemiddelde vermeld over de geldige periode. Indien de speciale
+inspannings-mode is ingeschakeld, verschijnt na het moment van
+inspanning een rode vertikale lijn. Onder de totaal grafiek bevinden
+zich knoppen met de nummers van de dagen. De kleur van deze knoppen
+heeft de volgende betekenis:</font> <br>
+<font face="Arial,Helvetica">&nbsp; grijs =niet geldig, niet
+geselekteerd voor deelweergave</font> <br>
+<font face="Arial,Helvetica">&nbsp; geel =geldig, niet geselekteerd
+voor deelweergave</font> <br>
+<font face="Arial,Helvetica">&nbsp; rood =geldig en geselekteerd voor
+deelweergave</font> <br>
+<font face="Arial,Helvetica">&nbsp; paars =niet geldig en wel
+geselkteerd voor deelweergave</font> </p>
+<p><font face="Arial,Helvetica">DEEL GRAFIEK</font> <br>
+<font face="Arial,Helvetica">Hierin kan 1 of meerdere dagen worden
+weergegeven. Het kiezen van de dag gebeurt door in de totaal grafiek op
+de betreffende dagnummer-knop te klikken met de muis. Voor het in detail
+bekijken van meerdere dagen dient men de laatst gewenste dag aan te
+klikken, terwijl men de SHIFT- toets ingedrukt houdt.</font> <br>
+<font face="Arial,Helvetica">Middels de toetsen PAGE-UP en PAGE-DOWN
+kan men het blok geselekteerde dagen heen en weer laten schuiven. Het
+weergegeven signaal is een gefilterde versie van de ruwe data. Als
+filter wordt een moving average filter gebruikt (power preserving) met
+een lengte van 6, overeenkomend met 30 minuten. De filterlengte is
+instelbaar via INSTELLINGEN, tabblad PARAMETERS. Het ruwe signaal kan
+men dus zien door de filterlengte op 1 in te stellen.</font> <br>
+<font face="Arial,Helvetica">Met behulp van de versterker knop kan de
+vertikale as worden ingesteld, zodat men het signaal nauwkeriger kan
+bekijken. Deze versterker-knop heeft tevens</font> <br>
+<font face="Arial,Helvetica">effekt op de vertikale as van de totaal
+grafiek. Rechts bovenin staat nog het gemiddelde vermeld, over de
+geldige perioden binnen het geselekteerde deel.</font> </p>
+<p><font face="Arial,Helvetica">BMODE GRAFIEK</font> <br>
+<font face="Arial,Helvetica">De bmode is speciaal bedoeld voor het
+herkennen van activiteitspatronen die iedere dag terugkomen. In de bmode
+grafiek worden alle sample punten als een grijs-modulatie weergegeven.
+Horizontaal staan hierbij telkens 2 achtereenvolgende dagen weergegeven
+in verband met het goed kunnen herkennen van de nachtperiode. Er worden
+2 bmodes onder elkaar gegegeven, boven het oorspronkelijke signaal,
+onder het dag-nacht signaal.</font> <br>
+&nbsp; </p>
+<p><a name="instel"></a><b><font face="Arial,Helvetica"><font
+ color="#000099">Instel&nbsp;</font></font></b><a href="#top"><img
+ src="top_page.gif" height="13" width="14"></a> <br>
+<font face="Arial,Helvetica">Via de knop INSTELLING kunnen instellingen
+van het programma worden gewijzigd, welke worden bewaard in AKTO.INI. De
+parameters voorafgegaan door *** kunnen alleen worden gewijzigd door het
+ini-bestand te wijzigen.</font> </p>
+<p><font face="Arial,Helvetica">SCHERM</font> <br>
+<font face="Arial,Helvetica">&nbsp; totaalgrafiek tonen</font> <br>
+<font face="Arial,Helvetica">&nbsp; deelgrafiek tonen</font> <br>
+<font face="Arial,Helvetica">&nbsp; bmodegrafiek tonen</font> <br>
+<font face="Arial,Helvetica">&nbsp; instellingen venster tonen</font> <br>
+<font face="Arial,Helvetica">&nbsp; berekende parameters tonen</font> <br>
+<font face="Arial,Helvetica">&nbsp; SPSS venster tonen</font> <br>
+<font face="Arial,Helvetica">&nbsp; aantal dagen totaalgrafiek 15/30</font> </p>
+<p><font face="Arial,Helvetica">PARAMETERS</font> <br>
+<font face="Arial,Helvetica">&nbsp; inspanningsonderzoek</font> <br>
+<font face="Arial,Helvetica">&nbsp; *** treshold</font> <br>
+<font face="Arial,Helvetica">&nbsp; *** filterlengte</font> <br>
+<font face="Arial,Helvetica">&nbsp; automatische dag/nacht detektie</font> <br>
+<font face="Arial,Helvetica">&nbsp; automatisch dagen aan begin en eind
+skippen (+gewenst aantal dagen)</font> </p>
+<p><font face="Arial,Helvetica">Daarnaast worden positie en grootte van
+het help scherm (dit scherm dus) bewaard.</font> <br>
+&nbsp; </p>
+<p><a name="scan"></a><b><font face="Arial,Helvetica"><font
+ color="#000099">Scan&nbsp;</font></font></b><a href="#top"><img
+ src="top_page.gif" height="13" width="14"></a> <br>
+<font face="Arial,Helvetica">Met behulp van het scannen kan in 1
+bepaalde directory naar een groep bestanden worden gezocht van een
+bepaald type, van deze bestanden worden alle parameters bepaald en
+weggeschreven in een TAB-delimited bestand, dat door alle moderne
+programma's gelezen kan worden.</font> </p>
+<p><font face="Arial,Helvetica">Zet zonodog in INSTELLING,
+SPSS-sacnning aan.</font> <br>
+<font face="Arial,Helvetica">zet het juiste masker op bijv:
+C:\DATA\JAN\45*.A*</font> <br>
+<font face="Arial,Helvetica">druk op ENTER of SCAN-knop.</font> <br>
+&nbsp; </p>
+<p><a name="installatie"></a><b><font face="Arial,Helvetica"><font
+ color="#000099">Installatie&nbsp;</font></font></b><a href="#top"><img
+ src="top_page.gif" height="13" width="14"></a> <br>
+<font face="Arial,Helvetica">Maak een directory waarin de programma
+bestanden worden gezet:</font> <br>
+<font face="Arial,Helvetica">&nbsp;C:\ACTILOG\AKTOPROJ.EXE</font> <br>
+<font face="Arial,Helvetica">&nbsp;AKTO.INI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(wordt zonodig automatisch aangemaakt)</font> <br>
+<font face="Arial,Helvetica">&nbsp;*.htm</font> </p>
+<p><font face="Arial,Helvetica">Opstarten:</font> <br>
+<font face="Arial,Helvetica">&nbsp;C:\ACTILOG\AKTOPROJ.EXE</font> <br>
+<font face="Arial,Helvetica">&nbsp;werkdirectory C:\ACTILOG</font> <br>
+&nbsp; </p>
+<p> </p>
+<hr width="100%"><font size="-2">&copy; Copyright Instrumentele Dienst,
+1999</font> <br>
+<a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height="18"
+ width="29"></a><font size="-2">&nbsp; SM, last updated 20-08-2000&nbsp;</font><a
+ href="#top"><img src="top_page.gif" height="14" width="14"></a>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.61 [en] (Win98; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>mid-testorganizer_backup</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><font face="Arial,Helvetica"><a href="mid-testorganizer_index.html">Index</a></font>
+<p><font face="Arial,Helvetica"><a href="td_index.html">Index&nbsp; T&amp;D</a></font>
+<p><font face="Arial,Helvetica"><a href="mid-testorganizer_backup.html">Gebruikers
+Documentatie</a></font></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">MID TestOrganizer</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><font face="Arial,Helvetica"><font color="#000000"><a href="#globale realisatie">Globale
+Realisatie</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#de belangrijkste routine-afhankelijkheden en">Routine
+Flow</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#detail realisatie">Detail
+Realisatie</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#readonly systemen">ReadOnly
+Systemen</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#problemen">Meer-Users
+Inifile</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#toekomstige verbeterings- en">Mogelijke
+Verbeteringen</a></font></font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Netwerk
+Faciliteiten Test &amp; Design</font></font></b></td>
+</tr>
+</table>
+
+<p><a name="globale realisatie"></a><b><font face="Arial,Helvetica"><font color="#000099">Globale
+realisatie&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Er is 1 centraal backup systeem (SLAVE).</font>
+<br><font face="Arial,Helvetica">Alle andere PC's (MASTERS) communiceren
+met het backup-systeem, op deze wijze worden zowel de backup van data alsook
+de data-transfer tussen PC's geregeld.</font>
+<p><font face="Arial,Helvetica">De master bepaald op wat, wanneer en hoe
+hij communiceert met de slave. Via het instellingen menu (NETWERK) kunnen
+daartoe een aantal parameters worden ingesteld. Als eenmaal de juiste instellingen
+zijn gedaan, verloopt het backupen geheel automatisch, tijdens dat de MID-TestOrganizer
+actief is.</font>
+<br><font face="Arial,Helvetica">Op de slave wordt slechts een eenvoudige
+administratie bijgehouden, teneinde conflicten te voorkomen.</font>
+<br>&nbsp;
+<p><a name="de belangrijkste routine-afhankelijkheden en"></a><b><font face="Arial,Helvetica"><font color="#000099">De
+belangrijkste routine-afhankelijkheden en programma-flow&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>
+<hr WIDTH="100%"><b><font face="Arial,Helvetica"><font color="#000099">volledig
+backup</font></font></b>
+<br><font face="Arial,Helvetica">==>&nbsp;&nbsp;&nbsp; procedure start_backup(datafiles:boolean);</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; formcreate</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; formactivate</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; procedure backup_all_patients(datafiles:boolean);</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; procedure backup_patient(patnr:string; datafiles:boolean);</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; function backup_block_patient(patnr:string):boolean;</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; function backup_unblock_patient(blocking_master:integer):boolean;</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; function backup_slave_available:boolean;</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; timer1timer</font>
+<br>
+<hr WIDTH="100%"><b><font face="Arial,Helvetica"><font color="#000099">het
+verkrijgen van alle data voor een scanning export</font></font></b>
+<br><font face="Arial,Helvetica">==>&nbsp;&nbsp;&nbsp; function backup_get_all_protocol_data_for_export(mask:string):boolean;</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; formcreate</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; formactivate</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; procedure backup_all_export;</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; timer1timer</font>
+<br>
+<hr WIDTH="100%"><b><font face="Arial,Helvetica"><font color="#000099">backup
+van 1 patient</font></font></b>
+<br><font face="Arial,Helvetica">==>&nbsp;&nbsp;&nbsp; procedure backup_patient(patnr:string;
+datafiles:boolean);</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; function backup_block_patient(patnr:string):boolean;</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; function backup_unblock_patient(blocking_master:integer):boolean;</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; function backup_slave_available:boolean;</font>
+<br>
+<hr WIDTH="100%"><b><font face="Arial,Helvetica"><font color="#000099">1
+regel van 1 patient</font></font></b>
+<br><font face="Arial,Helvetica">==>&nbsp;&nbsp;&nbsp; function backup_getdata(testline:ttestline):boolean;</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; function backup_block_patient(patnr:string):boolean;</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; function backup_unblock_patient(blocking_master:integer):boolean;</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+==>&nbsp;&nbsp;&nbsp; function backup_slave_available:boolean;</font>
+<br>
+<hr WIDTH="100%"><b><font face="Arial,Helvetica"><font color="#000099">losse
+routines gebruikt door externe units</font></font></b>
+<br><font face="Arial,Helvetica">==>&nbsp;&nbsp;&nbsp; function backup_unblock_patient(blocking_master:integer):boolean;</font>
+<br><font face="Arial,Helvetica">==>&nbsp;&nbsp;&nbsp; function backup_slave_available:boolean;</font>
+<br>
+<hr WIDTH="100%">
+<br>&nbsp;
+<p><a name="detail realisatie"></a><b><font face="Arial,Helvetica"><font color="#000099">Detail
+Realisatie&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><font face="Arial,Helvetica">+ altijd masternummer bepalen aan het begin
+van het programma</font>
+<br><font face="Arial,Helvetica">+ op alle acties vanuit MIDORG testen
+of master-nummer bekend, anders alsnog proberen</font>
+<br><font face="Arial,Helvetica">+ update van patientenlijst bij het opstarten
+van MidOrg (mid_to.formactivate, firsttime=true)</font>
+<br><font face="Arial,Helvetica">+ het zonodig laden van data bij readonly
+masters</font>
+<br><font face="Arial,Helvetica">+ het eventueel on the flight updaten
+na opnamen / gaan naar een andere patient (mid_to.patname_collb.click)</font>
+<br><font face="Arial,Helvetica">+ update van data (+patient info ?) bij
+het afsluiten van MidOrg (mid_to.formclose)</font>
+<p><font face="Arial,Helvetica">+ testprotocollen worden voorlopig niet
+bijgehouden, dit is veel te gevaarlijk</font>
+<p><font face="Arial,Helvetica">MID_TO.PAS, het hoofprogramma van MidOrg</font>
+<br><font face="Arial,Helvetica">bevat een zeer handige locatie PATname_COLLB_UPDATE
+om het updaten van de patientenlijst bij het opstarten te reailseren, of
+niet soms. Deze routine wordt aangeroepen: formactivate, en aan het einde
+van de volgende routines copy-knop, diversen-knop, instellingen-knop, patient-delete-knop,
+patient-gegevens-exit</font>
+<br><font face="Arial,Helvetica">Of toch maar gewoon in formactivate, on
+firsttime, is eigenlijk een betere.</font>
+<p><font face="Arial,Helvetica">Bij het opstarten van MidOrg, wordt in
+ieder geval de pati&euml;nten-lijst en de pati&euml;nt-bestanden (*.pat),
+inclusief de extra pati&euml;nt-gegevens (*.txt).</font>
+<br><font face="Arial,Helvetica">Afsluiten: als patienten gewijzigd deze
+(*.pat en *.txt) in ieder geval updaten.</font>
+<p><font face="Arial,Helvetica">Voordat er datauitwisseling van een specifieke
+patient plaatsvindt, wordt de desbetreffende patient geblokkeerd voor andere
+PC's.</font>
+<br><font face="Arial,Helvetica">De blokkade wordt opgeheven als:</font>
+<br><font face="Arial,Helvetica">- data-uitwisseling van deze patient gereed</font>
+<br><font face="Arial,Helvetica">- als MidOrg op een PC wordt gestart,
+wordt een eventuele blokkade van deze master opgeheven</font>
+<br><font face="Arial,Helvetica">- als MidOrg op een PC wordt gestopt,
+wordt een eventuele blokkade van deze master opgeheven</font>
+<br><font face="Arial,Helvetica">- als MidOrg een blokkade van een andere
+PC vindt, die langer dan een dag geleden is gestart</font>
+<p><font face="Arial,Helvetica">In onderstaand geval zal dus master=1,
+de blokkade van master 2 opheffen, als master=1 zelf behoefte heeft aan
+het uitwisselen van patient=0001.</font>
+<blockquote><font face="Arial,Helvetica">[m]</font>
+<br><font face="Arial,Helvetica">aantal=2</font>
+<br><font face="Arial,Helvetica">m1=1D1713D1</font>
+<br><font face="Arial,Helvetica">b1=</font>
+<br><font face="Arial,Helvetica">d1=18-08-1999 12:27:56</font>
+<p><font face="Arial,Helvetica">m2=1xxxxxx1</font>
+<br><font face="Arial,Helvetica">b2=0001</font>
+<br><font face="Arial,Helvetica">d2=17-08-1999 12:00:56</font></blockquote>
+
+<p><br><a name="readonly systemen"></a><b><font face="Arial,Helvetica"><font color="#000099">ReadOnly
+Systemen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Op deze systemen kan weliswaar data worden
+gewijzigd, maar gewijzigde data wordt nooit opgeslagen naar het backup
+medium. Op deze wijze wordt er voor gezorgd dat de data op het backup medium
+nooit beschadigd raakt.</font>
+<br><font face="Arial,Helvetica">Bij de ReadOnly-systemen kan naar keuze
+de data wel of niet worden bewaard op de master.</font>
+<p><font face="Arial,Helvetica">Laden van data bij readonly masters</font>
+<br><font face="Arial,Helvetica">+ Bekijken</font>
+<br><font face="Arial,Helvetica">+ print testen</font>
+<br><font face="Arial,Helvetica">+ Diversen NIET</font>
+<br><font face="Arial,Helvetica">+ export+ Import NIET</font>
+<br><font face="Arial,Helvetica">+ add test NIET</font>
+<br><font face="Arial,Helvetica">+ Delete test bij patient NIET</font>
+<br>&nbsp;
+<p><a name="problemen"></a><b><font face="Arial,Helvetica"><font color="#000099">Gemeenschappelijk
+gebruik van een inifile&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Het gemeenschappelijk gebruik van een
+inifile in Delphi-3 verloopt feilloos.</font>
+<br><font face="Arial,Helvetica">Dit is getest met het onderstaande programma.
+Twee programma-instances draaiend op PC-stef en 1 programma-instance draaiend
+op PC-stagaire, alle 3 de programma's ini-file "open" zetten en naar hartelust
+lezen en schrijven binnen de 3 programma's.</font>
+<blockquote><font face="Arial,Helvetica">procedure TForm1.BitBtn1Click(Sender:
+TObject);</font>
+<br><font face="Arial,Helvetica">begin</font>
+<br><font face="Arial,Helvetica">&nbsp; ini:=tinifile.create('h:\temp\aap.ini');</font>
+<br><font face="Arial,Helvetica">&nbsp; memo1.lines.add('open');</font>
+<br><font face="Arial,Helvetica">end;</font>
+<p><font face="Arial,Helvetica">procedure TForm1.BitBtn2Click(Sender: TObject);</font>
+<br><font face="Arial,Helvetica">begin</font>
+<br><font face="Arial,Helvetica">&nbsp; ini.writestring('aap','beer',datetimetostr(now));</font>
+<br><font face="Arial,Helvetica">&nbsp; memo1.lines.add('write '+datetimetostr(now));</font>
+<br><font face="Arial,Helvetica">end;</font>
+<p><font face="Arial,Helvetica">procedure TForm1.BitBtn3Click(Sender: TObject);</font>
+<br><font face="Arial,Helvetica">var line:string;</font>
+<br><font face="Arial,Helvetica">begin</font>
+<br><font face="Arial,Helvetica">&nbsp; line:=ini.readstring('aap','beer','');</font>
+<br><font face="Arial,Helvetica">&nbsp; memo1.lines.add('read '+line);</font>
+<br><font face="Arial,Helvetica">end;</font>
+<p><font face="Arial,Helvetica">procedure TForm1.BitBtn4Click(Sender: TObject);</font>
+<br><font face="Arial,Helvetica">begin</font>
+<br><font face="Arial,Helvetica">&nbsp; ini.free;</font>
+<br><font face="Arial,Helvetica">&nbsp; memo1.lines.add('free');</font>
+<br><font face="Arial,Helvetica">end;</font></blockquote>
+
+<p><br><a name="toekomstige verbeterings- en"></a><b><font face="Arial,Helvetica"><font color="#000099">Mogelijke
+Verbeteringen en Uitbreidingen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica"><font color="#000000">- de opname testprotocollen
+beheersen via het netwerk (pas op, gevaarlijk omdat bij sommige modulen
+de databestanden afhankelijk zijn van het testprotocol bestand (bv vragenlijsten))</font></font>
+<br><font face="Arial,Helvetica"><font color="#000000">- betere masker
+beheersing bij scanning export</font></font>
+<br>&nbsp;
+<p>
+<hr WIDTH="100%"><font size=-2>&copy; Copyright Instrumentele Dienst, 1999</font>
+<br><a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height=18 width=29></a><font size=-2>&nbsp;
+SM, last updated 19-08-1999&nbsp;</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+</body>
+</html>

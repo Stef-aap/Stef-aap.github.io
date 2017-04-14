@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>MIDAC AD-Conversie</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ccffff;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p><span class=rvts1>AD-conversie</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="ad-index.html">MIDAC Index</a></p>
+<p class=rvps1><a class=rvts4 href="funk0.html">Overzicht Rekenfuncties</a></p>
+<p class=rvps1><a class=rvts4 href="../mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><a name="driverlinx"></a>
+<span class=rvts2>Driverlinx</span></p>
+<p>Alle driverlinx routines t.b.v. Keithley kaarten zijn te vinden op de <a class=rvts4 href="http://www.keithley.de/support/boards%20table.html">Duitse site van Keithley</a>. Dit is een heldere site, waar ook een goede installatie <a class=rvts4 href="http://www.keithley.de/support/dlinxdelphi3o4.html">handleiding</a> (in het Engels) is te vinden. </p>
+<p>Zie verder voor <a class=rvts4 href="http://www.keithley.com/techsupport/dlinxpatch.html">updates en patches Keithley.com</a>, het is op de site van Keithley een zooitje, en zaken zijn moeilijk te vinden, vandaar deze adressen. </p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>dl16vb32.exe&nbsp; run = uitpakken </li>
+<li>in de uitgepakte bestanden staat setup.exe, run deze, er is nu een serienummer vereist </li>
+<li>de eerste keer knalt het programma, afbreken van de installatie via ctlr-alt-del, en opniewu starten zonder te rebooten </li>
+<li>nu treedt nog steeds seen of andere foutmelding over een ocx/dll op, maar het lijkt te werken </li>
+<li>restart de computer, als het goed si, wordt nu bij het opstarten de vxd driver 1.5 geladen </li>
+<li>run dlocxupd.exe (update van de installatie nodig voor Delphi) </li>
+<li>run Delphi </li>
+<li>import active-x, "driverlinxsr ole ..." </li>
+<li>"Install", geeft een foutmelding, maar doet het wel, afsluiten met "Cancel" </li>
+<li>hij lijkt het te doen, eigenlijk moet er nog wat meer gebeuren, maar er was al een oude installatie. </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="dac_kaart"></a>
+<span class=rvts2>Ondersteunde DA-kaarten</span></p>
+<p><img width=15 height=15 alt="" src="greenbal.gif">Dash 8, 16</p>
+<p><img width=15 height=15 alt="" src="greenbal.gif"> Dash 1202, 1402, 1602</p>
+<p><img width=15 height=15 alt="" src="greenbal.gif"> DasCard-1002, KPCMCIA-12AI (PCMIA-cards)</p>
+<p><img width=15 height=15 alt="" src="greenbal.gif"> PCL812</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="sample_frequentie"></a>
+<span class=rvts2>Sample Frequentie</span></p>
+<p>De Samplefrequentie is per kanaal instelbaar. Op basis van gekozen hoofdfrekwentie, kan per kanaal een opslagreductie-factor tot maximaal 30000 worden ingesteld.</p>
+<p>Als een opslagreductie-factor is ingesteld, kan ook worden ingesteld op welke reken-technische wijze deze reductie moet plaatsvinden. Momenteel kan hiervoor gekozen worden uit Resample, Mean en Peak.</p>
+<p>De maximale samplefrekwentie is sterk afhankelijk van de gebruikte computer en van de complexiteit van het opgebouwde scherm. De volgende waarden geven een indicatie, met een 100 MHz Pentium/16 MB kunnen bijvoorbeeld 16 kanalen met 1 kHz per kanaal worden gesampeld.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><a name="extended_ad"></a>
+<span class=rvts2>Extended AD-kanalen</span></p>
+<p>Extended AD-kanalen zijn direct uit de AD-kanalen afgeleide signalen, welke voor de gebruiker als gewone AD-kanalen beschikbaar zijn en daarom ook gewoon worden opgeslagen in het databestand (dit in tegenstelling tot rekenkanalen, die nooit worden opgeslagen). De grote truuk van extended AD-kanalen is dat er gerekend wordt op de hoogste samplefrequentie, terwijl de opslag gereduceerd kan plaatsvinden.</p>
+<p>Een goede toepassing vormt het bloeddruk signaal. Om diastolische, systolische bloeddruk en MAP (mean arterial pressure) goed te kunnen bepalen moet gesampled worden met minimaal 100 Hz. De relevante frequentie-inhoud van de gewenste signalen ligt beneden de 1 Hz. Door nu de bij het bloeddruk signaal als extended AD-kanalen 'dias/sys' in te stellen en de opslagreductie-factor zo in te stellen dat een 1Hz opslag plaatsvindt, worden perfecte dias/sys/map signalen verkregen en opgeslagen met 1Hz !!!</p>
+<p>Alleen krachtige korte reken-routines lenen zich om als extended rekenkanaal te worden uitgevoerd, omdat de uitvoering plaatsvindt in de hardware-interrupt routines. Momenteel zijn de volgende extended</p>
+<p>AD-kanalen beschikbaar:</p>
+<p><img width=15 height=15 alt="" src="greenbal.gif">Diastolische / Systolische bloeddruk / MAP (zie ook Bloeddruk analyse)</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Syteem Vereisten</span><img width=15 height=15 alt="" src="greenbal.gif"><span class=rvts2>Windows 3.11 of hoger</span></p>
+<p><img width=15 height=15 alt="" src="greenbal.gif"> 486 DX2-66 of sneller</p>
+<p><img width=15 height=15 alt="" src="greenbal.gif"> 8 Mb geheugen of meer</p>
+
+</body></html>

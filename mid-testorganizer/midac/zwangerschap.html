@@ -1,0 +1,167 @@
+<HTML><HEAD><TITLE>opname_maken</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Demo Zwangerschap</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>TestOrganizer</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=500 height=164 src="zwangerschap_img1.gif"></P>
+<P><SPAN class=RVTS2>Midac</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Ingangssignalen &amp; Kalibratie</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD colspan=3 width=300 height=80 bgcolor=#FFFFD2 valign=top>
+<P>Kalibratie als&nbsp;</P>
+<P><SPAN class=RVTS3>Modificatie 1</SPAN>&nbsp;= versterking van de voorversterkers 5* verhoogd (1kOhm --&gt; 210 Ohm)&nbsp;</P>
+<P>&nbsp;&nbsp;<SPAN class=RVTS3>en</SPAN></P>
+<P><SPAN class=RVTS3>Modificatie 2</SPAN>&nbsp;= Brugspanning door LDO (3.3V --&gt; 3V)&nbsp;</P>
+<P>Dit geldt niet voor de onveilige kanalen 9 t/m 13 !!!</P></TD>
+</TR>
+<TR valign=top>
+<TD width=111 bgcolor=#FFFFD2 valign=top>
+<P><SPAN class=RVTS2>Signaal</SPAN></P></TD>
+<TD width=175 bgcolor=#FFFFD2 valign=top>
+<P><SPAN class=RVTS2>Kalibratie</SPAN></P></TD>
+<TD width=327 bgcolor=#FFFFD2 valign=top>
+<P><SPAN class=RVTS2>Opmerkingen</SPAN></P></TD>
+</TR>
+<TR valign=top>
+<TD width=111 bgcolor=#FFFFD2 valign=top>
+<P>1 = Druk</P></TD>
+<TD width=175 bgcolor=#FFFFD2 valign=top>
+<P>80 / 113 / 140 /&nbsp; 194</P></TD>
+<TD width=327 bgcolor=#FFFFD2 valign=top>
+<P>Nulling meestal nodig&nbsp;</P>
+<P>BloodPressure analyse met F54</P></TD>
+</TR>
+<TR valign=top>
+<TD width=111 height=32 bgcolor=#FFFFD2 valign=top>
+<P>2 = ECG(mV)</P></TD>
+<TD width=175 height=32 bgcolor=#FFFFD2 valign=top>
+<P>-3 / -331 / 0 / -44.8 / 1&nbsp;</P></TD>
+<TD width=327 height=32 bgcolor=#FFFFD2 valign=top>
+<P>laatste getal is de AC-koppeling (1 sec, is veel beter dan 10sec !!)&nbsp;</P>
+<P>R-top detectie met F61&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=111 bgcolor=#FFFFD2 valign=top>
+<P>3 = Plet Links</P></TD>
+<TD width=175 bgcolor=#FFFFD2 valign=top>
+<P>0 / 0 / 1 / 19</P></TD>
+<TD width=327 bgcolor=#FFFFD2 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=111 bgcolor=#FFFFD2 valign=top>
+<P>4 =</P></TD>
+<TD width=175 bgcolor=#FFFFD2 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=327 bgcolor=#FFFFD2 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Onveilige signalen</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=111 bgcolor=#FFFFD2 valign=top>
+<P>5 = FinaPres</P></TD>
+<TD width=175 bgcolor=#FFFFD2 valign=top>
+<P>0&nbsp; / 148 / 200 / 2196</P></TD>
+<TD width=327 bgcolor=#FFFFD2 valign=top>
+<P>aangesloten via 20* verzwakker&nbsp;</P>
+<P>100 mmHg = 1 V</P></TD>
+</TR>
+<TR valign=top>
+<TD width=111 bgcolor=#FFFFD2 valign=top>
+<P>6</P></TD>
+<TD width=175 bgcolor=#FFFFD2 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=327 bgcolor=#FFFFD2 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=111 bgcolor=#FFFFD2 valign=top>
+<P>7 = RapidCuff</P></TD>
+<TD width=175 bgcolor=#FFFFD2 valign=top>
+<P>0 / -17.9 / 100 / 1071&nbsp;</P></TD>
+<TD width=327 bgcolor=#FFFFD2 valign=top>
+<P>100 mmHg = 100 mV&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=111 bgcolor=#FFFFD2 valign=top>
+<P>8 =&nbsp;</P></TD>
+<TD width=175 bgcolor=#FFFFD2 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=327 bgcolor=#FFFFD2 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=111 bgcolor=#FFFFD2 valign=top>
+<P>9 = Digital Bits</P></TD>
+<TD width=175 bgcolor=#FFFFD2 valign=top>
+<P>&nbsp; 0 / -5 / 4095 / 5</P></TD>
+<TD width=327 bgcolor=#FFFFD2 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Signaal analyse en protocollen</SPAN></P>
+<P><TABLE width=100% bgcolor=#C0C0C0 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=440 height=279 bgcolor=#E0E0E0 valign=top>
+<P><SPAN class=RVTS2>ECG analyse</SPAN></P>
+<P>R-top detectie middels F61.&nbsp;</P>
+<P>Als ingangssignalen dienen&nbsp;</P>
+<P>1 = ECG&nbsp;</P>
+<P>2 = voorlopig sys.signal = true (bedoeld voor cuff detectie, kan pas goed worden ingesteld nadat een opname met cuffdruk en pletbit is gemaakt).</P>
+<P>&nbsp;&nbsp;</P>
+<P>De weging is verhoogd van 0.03 naar 0.8, waardoor de lage afsnijfrekwentie verhoogd wordt van 0.25 Hz naar 7 Hz. Hierdoor worden bij een "slecht" ECG-signaal minder vaak P- en T-toppen als R-top aangezien.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>De hysteresis is verhoogd van 50 naar 1000, omdat de signalen veel groter zijn dan bij de voorlopers van de FysioFlex.&nbsp;</P>
+<P>Deze moet misschien nog wel verhoogd worden naar 5000 ????</P></TD>
+<TD width=203 height=279 bgcolor=#E0E0E0 valign=top>
+<P>&nbsp;<IMG width=384 height=277 src="crcn_img1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#C0C0C0 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=552 bgcolor=#E0E0E0 valign=top>
+<P><SPAN class=RVTS2>Bloeddruk analyse</SPAN></P>
+<P>Voor zowel Finapres als inter-arteriele druk wordt functie 54 gebruikt met dezelfde instellingen.&nbsp;</P>
+<P>De standaard instellingen, zoals hiernaasr weergeven voldoen goed.</P></TD>
+<TD width=91 bgcolor=#E0E0E0 valign=top>
+<P>&nbsp;<IMG width=188 height=245 src="crcn_img2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Schermopbouw</SPAN></P>
+<P>typisch opbouw voor plet opname</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Rekenfunkties</SPAN></P>
+<P>De rekenfunkties zijn tot een minimiem beperkt gehouden, bovendien zijn de basale rekenfunckties bovenaan geplaatst.</P>
+<P>R1 = F61, afleiden van R-top en Hr(R5) uit ECG</P>
+<P>R2 = F54, analyse bloeddruk signaal op basis van de inter-arteriële druk</P>
+</BODY></HTML>

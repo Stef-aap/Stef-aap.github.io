@@ -1,0 +1,105 @@
+06-03-2000 ============VERSIE 27 ===================
++ uren statistiek rondom inspanning verbeterd (list index out of bounds)
+
+15-04-1999 ============VERSIE 26 ===================
++ dag/nacht detectie iets verbeterd, m.n. in het geval van verwijderen van tussenliggende dagen
++ als gevolg van zeeractieve parameters werden means onder grafiek fout weergegeven, bug fixed
++ pervasively active/passive ingevoerd
+
+17-03-1999 ============VERSIE 25 ===================
++ exception error, als geen nacht gevonden, bug fixed
+
+26-06-98 =========  VERSIE 24  =======================
++ Aantal grootste pieken, waarover statistiek berekend wordt, instelbaar 1..20
++ Waarschuwing als bij scanning het uitvoer bestand niet bereikt kan worden
++ Ruwe databestanden met de juiste correctie wegschrijven in tekstbestand
++ Hoge 'stoorpieken' onderdrukt, aantal wordt aangegeven in FF-foutteller
++ versienummer van het programma veschijnt ook op print-afdruk
+
+4-12-97   =========  VERSIE 23 ========================
++ levensduur batterij verlaagd van 12 maanden naar 10 maanden (gaf soms problemen)
++ inspanning kan nu per uur op dag van inspanning worden berekend
+
+07-06-97 ========== VERSIE 22 ========================
+- piek korrektie bij 'verkeerd' gedragen aktometers
+
+15-05-97 ========== VERSIE 21 ========================
+- bij bestanden van 30 dagen trad een fout op, hersteld
+
+12-05-97 ========== VERSIE 20 ========================
+- Q0DE was gedefinieerd als de totale energie in een "dal",
+	is nu gedefinieerd als "de mate van ontspanning" oftewel het oppervlakte 	tussen het dal en de referentielijn.
+- de individuele drempel wordt gerefereerd aan het eigen gemiddelde, berekend enkel over de geldige dagdelen en dus niet over de nacht (dit is geen wijziging, was altijd al zo!)
+- helpteksten, m.b.v. van pgup/pgdown kan nu door de helpteksten worden gebrowsed
+
+               ========== VERSIE 19  =======================
+tussentijdse versie, waarschijnlijk nooit uitgegeven
+
+19-04-97 ========== VERSIE 18 ========================
+- vergelijksdoel (klein/groot/nieuw) kan worden ingesteld
+- instellen inspanningsdag versimpeld (t.b.v. time series analysis)
+- aantal pieken waarover de parameters berekend worden kan ingesteld worden
+- drempel / dagnacht-detectie / filterlengte / npeaks  bij opstarten standaard ingesteld
+- default drempel verlaagd naar 88 (=mean kontrole groep, bij V3.0-norm)
+- de naam (en plaats) van het SPSS output bestand kan vrij worden opgegeven
+- programma kan zelf Comm-poorten en ActiLog zoeken als niet juist ingesteld
+- sneltoetsen in ActiLog communicatie
+- print scherm in ActiLog communicatie
+- waarschuwing als geen ykfactor aanwezig
+- yking voor verkeerd gedragen actometers voor een bepaalde datum toegevoegd
+- alle ini-files worden uit executable-directory gehaald
+
+24-02-97 ========== VERSIE 17 ========================
+- filterlengte gefixeerd op 6 bij het opstarten
+- problemen met dagen skippen als bestand in specifieke directory; opgelost
+- bij uitlezen ActiLog, reageert serienummer prettiger
+
+14-01-97 ========== VERSIE 15 ========================
+- in SPSS bestand wordt alleen de waaklengte over de totale periode gegeven
+- bij het scannen, wordt wel het aantal dagen ingeperkt, echter dit wordt niet opgeslagen in het databestand
+- bij scherm kleiner 800*600 verschijnen er scrollbalken, niet mooi maar het werkt
+- autoskip kan aan/uit worden gezet, en het aantal dagen kan worden ingesteld
+- dag/nacht detektie kan worden uitgeschakeld
+- totaal display kan op 14/28 dagen worden gezet
+- mean en sd per dag worden in SPSS bestand opgenomen
+- serienummer ActiLog wordt zowel in ActiLog als in databestand bijgehouden
+- mean en standaard deviation worden in totaal grafiek per dag weergegeven
+- in totaal statistiek is NPEAK vervangen door D0SD, standaard deviatie over totale periode
+- dagen kunnen worden aan/uitgezet, door in de totaalgrafiek op de grafiek te klikken
+  (dit heeft effekt op de totale statistiek en de markeringen worden in het bestand bewaard)
+- SPPS, bestandsnaam niet gewijzigd, de juiste bestandsnaam is 4001.A23
+- MID-mode, speciale delen kunnen worden geprint
+- MID-mode, standaard vulling + serienummer kan worden geprogrammeerd
+
+
+================== VERSIE 15 ========================
+
+
+13-12-96 ================
+- bij het opnieuw starten van ActiLog, wordt eenmalig om serienummer gevraagd,
+   dat vervolgens permanent in de actilog aanwezig zal blijven
+================== VERSIE 14 =========================
+
+
+12-12-96 ================
+- inspanningsberekeningen per dag, rondom de dag van inspanning
+- gemiddelde in daggrafiek is nu mean over waakdeel (was gehele dag)
+- treshold en filterlengte worden bij het starten van programma op vaste waarde gezet
+- vanaf nu zal bij elke wijziging een nieuwe versienummer worden gemaakt
+================== VERSIE 13 ========================
+
+
+
+8-10-96 =================
+- vertaling oude actometer bestanden
+================== VERSIE 12 ========================
+
+2-10-96 ==================
+- schijnbare fout bij starten van volle aktometers, verholpen
+- gemiddelde in totaalgrafiek is daggemiddelde over dag 2 t/m 13
+================== VERSIE 11 ========================
+
+
+1-9-96 ===================
+- eerste openbare versie
+================== VERSIE 10 ========================

@@ -1,0 +1,345 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Midac, rekenfunctie 76, Startle Analyse</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #e8e8e8;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p><span class=rvts1>Startle Analyse (f76)</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="ad-index.html">MIDAC Index</a></p>
+<p class=rvps1><a class=rvts4 href="funk0.html">Overzicht Rekenfuncties</a></p>
+<p class=rvps1><a class=rvts4 href="../mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p><span class=rvts1>LET OP:</span></p>
+<p>De kalibratie van het startle signaal moet in micro-Volt zijn !!</p>
+<p>Als hieraan niet is voldaan, wordt er fout (c.q. niet) gemeten.</p>
+<p><br></p>
+<p><span class=rvts1>GOED: </span><img width=323 height=112 alt="" hspace=1 vspace=1 src="funk76_img6.png"></p>
+<p><span class=rvts1><br></span></p>
+<p><span class=rvts1>FOUT: </span><img width=322 height=113 alt="" hspace=1 vspace=1 src="funk76_img5.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Modificaties 1-10-2007</span></p>
+<p>Omdat bij eenaantal metingen het stimulus en pre-stimulus signaal was omgewisseld, is een extra knopje op het instelbald aangebracht.</p>
+<p><br></p>
+<p><span class=rvts2>Modificaties 23-3-2007 (V16.1)</span></p>
+<p><img width=13 height=13 alt="" src="redarrow.gif"><span class=rvts3>Midac:</span> F76, startle analye, export gaf dubbele markers. (Resteert dat na een export de data opnieuw moet worden geladen, verder mag het tijdsvenster niet kleiner zijn dan 20 msec/div (dit laatste was altijd al zo).</p>
+<p> </p>
+<p><span class=rvts2>Modificaties 17-september-2004</span></p>
+<p>Het ruwe signaal is toegevoegd aan het grafische display, de analyse en de export.</p>
+<p>De toegevoegde signalen zijn te vinden in onderstaande tabel.</p>
+<p>Bij oude analyses, die al handmatig gecorrigeerd zijn, blijven de handmatige correcties behouden en wordt dus enkel een automatische berekening van de nieuwe parameters uitgevoerd. Wel is er 1 eigennaardigheid, na zo'n eerste run, kleuren de nummerknopjes niet goed. Dus advies: even afsluiten en opnieuw openen.</p>
+<p>Tevens is een bug verwijderd: als de gain werd gewijzigd, werd de betreffende Startle opnieuw berekend, waardoor eventueel aanwezige handmatige wijzigingen verloren gingen.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Inleiding</span></p>
+<p>Met deze functie kunnen Startle responses worden geanalyseerd.</p>
+<p>Als invoer dienen het gecombineerde EMG/EOG signaal en de stimulus.</p>
+<p>De functie kent geen uitgangssignalen.</p>
+<p>Startle responses kunnen individueel in een apart venster worden bekeken.</p>
+<p>In dit venster kunnen ook correcties op de automatisch bepaalde metingen worden uitgevoerd. Verder kunnen metingen worden genegeerd en worden voorzien van commentaar.</p>
+<p>De metingen kunnen als een tab-delimited file worden geëxporteerd, waarbij in het geval van handmatige correcties, ook altijd de door de computer berekende waarden worden uitgevoerd.</p>
+<p>De functie heeft 2 ingangssignalen nodig, het gecombineerde EMG/EOG en het stimulus signaal.&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Startle Meetvenster</span></p>
+<div><table border=0 cellpadding=0 cellspacing=0>
+<tr valign=top>
+<td width="54%" valign=top>
+<p>Bovenste signaal (rood) is het EOG. </p>
+<p>Het middelste signaal (blauw) is het gelijkgerichte EMG. </p>
+<p>Het onderste signaal (rood) is het ruwe EMG. </p>
+<p>Helemaal onderaan is nog de stimulus te zien. </p>
+<p>&nbsp;&nbsp; </p>
+<p>De horizontale en vertikale lijnen geven de (door de computer) berekende parameters aan. (Blauwe lijnen voor het EOG en groene lijnen voor het EMG) </p>
+<p>&nbsp;&nbsp; </p>
+<p>De berekende parameters staan numeriek ook vermeld aan de linker kant van het venster. Aan de rechterkant staan nog enkele numerieke instellingen en het gemeten ruisnivo vlak voor de respons. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Met de +/- knoppen EOG kan het display van het EOG worden geschaald. (Idem met +/- knoppen EMG). </p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>Het knopje met het klemboard, stuurt een afdruk van het venster naar het clipboard. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Het vraagteken geeft de help informatie over deze funktie. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Export-knop, exporteert alle metingen naar een tab-delimited file (gelijk aan de standaard export knop van Midac). Na export, kan de data direct middels bv Excel worden bekeken. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Met de rode pijlen, de nummerknoppen onderaan, PageUp / PageDown, en de normale tijdbalk in Midac kan een gewenste stimulus-respons zichtbaar worden gemaakt. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Per stimulu-respons kan een kort commentaar worden ingevuld, dat ook in de exportfile wordt opgeslagen. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Door het vakje REJECT aan te vinken wordt aangegeven dat de meting genegeerd moet worden.</p>
+</td>
+<td width="40%" valign=top>
+<p><img width=368 height=564 alt="" src="funk76_img2.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Instellingen</span>&nbsp; </p>
+<div><table border=0 cellpadding=0 cellspacing=0>
+<tr valign=top>
+<td width="54%" valign=top>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>In het instelling scherm, kunnen de kleuren van de achtergrond en van afzonderlijke elementen worden ingesteld. Klik op het gewenste vak en wijzig de kleur. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Het filter is vooralsnog vast ingesteld en dus zijn de bijbehorende knoppen gedisabled. </p>
+<p>&nbsp;&nbsp; </p>
+<p>De trigger drempel wordt ingesteld op een veelvoud van de SD van het ruisnivo vlak voor de Startle respons. Deze kan worden ingesteld tussen de 3* en 10* t.o.v de SD van de ruis.&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>Filter Rectify, is de afval tijd van het RC filter na gelijkrichting. Deze parameter heeft nauwelijks invloed op de berekende parameters (wel op de visuele afbeelding van het gelijkgerichte signaal) en kan worden ingesteld tussen de het beste worden ingesteld op 10. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Zodra een van de numerieke instellingen wordt gewijzigd, dan wordt de knop "Refresh" geenabled. Het is de bedoeling dat deze knop dan wordt ingedrukt, waarna alle startles opnieuw worden geanalyseerd. Hierbij gaan de handmatige correcties en de genegeerde metingen uiteraard verloren. Het commentaar dat is ingevoerd blijft wel behouden.</p>
+</td>
+<td width="40%" valign=top>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=369 height=283 alt="" src="funk76_img3.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><span class=rvts2>Gemeten Parameters</span></p>
+<p>Het eerste blok bevat de door de computer berekende waarden.</p>
+<p>In het tweede blok zijn de metingen die handmatig gecorrigeerd zijn opgenomen in plaats van de computer berekeningen.&nbsp;&nbsp; </p>
+<div><table border=0 cellpadding=0 cellspacing=0>
+<tr valign=top>
+<td width="10%" valign=top>
+<p><span class=rvts2>Titel</span></p>
+</td>
+<td width="40%" valign=top>
+<p><span class=rvts2>Beschrijving</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>Ok</p>
+</td>
+<td width="40%" valign=top>
+<p>1 = ok (startle geaccepteerd) </p>
+<p>0 = startle rejected</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>Npar</p>
+</td>
+<td width="40%" valign=top>
+<p>12&nbsp; startle record is niet handmatig gewijzigd </p>
+<p>-12 startle record is handmatig gewijzigd, de tweede set kolommen beavt de handmatige wijziging</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>Nr</p>
+</td>
+<td width="40%" valign=top>
+<p>Volgnummer</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" height=16 valign=top>
+<p>TstartE</p>
+</td>
+<td width="40%" height=16 valign=top>
+<p>Starttijdstip van het EMG,&nbsp; </p>
+<p>Zoals alle tijdstippen, gemeten vanaf het begin van de stimulus&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>TmaxE</p>
+</td>
+<td width="40%" valign=top>
+<p>Tijdstip waarop het maximum in het EMG optreedt (***)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>maxE</p>
+</td>
+<td width="40%" valign=top>
+<p>Maximum amplitude van het gelijkgerichte EMG (***)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" height=16 valign=top>
+<p>TendE</p>
+</td>
+<td width="40%" height=16 valign=top>
+<p>Tijdstip waarop het EMG is afgelopen</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>BaseO</p>
+</td>
+<td width="40%" valign=top>
+<p>Basisamplitude van het EOG t.o.v. de BaseO</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>TmaxO</p>
+</td>
+<td width="40%" valign=top>
+<p>Tijdstip waarop het maximum in het EOG optreedt</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>maxO</p>
+</td>
+<td width="40%" valign=top>
+<p>Maximum amplitude van het EOG&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>sumE/100</p>
+</td>
+<td width="40%" valign=top>
+<p>Het gesommeerde gelijk gerichtte EMG</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>sumEE</p>
+</td>
+<td width="40%" valign=top>
+<p>SD van het EMG over de actieve periode</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>meanEE</p>
+</td>
+<td width="40%" valign=top>
+<p>0 (geen betekenis)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>sumO/100</p>
+</td>
+<td width="40%" valign=top>
+<p>EOG oppervlakte vanaf TstartE tot TmaxO</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>BaseRAW</p>
+</td>
+<td width="40%" valign=top>
+<p>Basis amplitude van het ruwe signaal</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>TstartRAW</p>
+</td>
+<td width="40%" valign=top>
+<p>Starttijdstip van de Startle in het Ruwe signaal</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>TmaxRAW</p>
+</td>
+<td width="40%" valign=top>
+<p>Tijdstip waarop het maximum optreedt</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>TendRAW</p>
+</td>
+<td width="40%" valign=top>
+<p>Einde van de startle</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>maxRAW</p>
+</td>
+<td width="40%" valign=top>
+<p>Amplitude van de startle(t.o.v. BaseRAW)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" valign=top>
+<p>sumRAW/100</p>
+</td>
+<td width="40%" valign=top>
+<p>Oppervlakte (t.o.v. BaseRAW), van TstartRAW tot TendRAW</p>
+</td>
+</tr>
+<tr valign=top>
+<td colspan=2 width="50%" height=16 valign=top>
+<p>Hier begint het tweede blok, met precies dezelfde kolommen, maar nu zij de waarde de handmatige gecorrigeerde waarden.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" height=16 valign=top>
+<p>Nr</p>
+</td>
+<td width="40%" height=16 valign=top>
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width="10%" height=16 valign=top>
+<p>...</p>
+</td>
+<td width="40%" height=16 valign=top>
+<p>&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Fout</span></p>
+<p>(***) Het meten van een maximum op deze wijze is mijn inziens niet juist.</p>
+<p>Het signaal is relatief breedbandig, in welk geval gelijkrichting en afvlakking leiden tot een aanzienlijk fout in de gemeten waarden. Mijn ruwe inschatting is, dat er een extra onzekerheid in het tijdstip van het maximum ontstaat van 5 tot 10 msec. De piek amplitude krijgt een extra onzekerheid van zo'n 10 .. 20%.</p>
+<p>De juiste methode (m.i.) is Hilbert transformeren, Analytisch signaal maken, en omhullende van het analytisch signaal berekenen.</p>
+<p>Voorzover ik metingen heb gezien, is met name de bepaling van het maximumtijdstip problematisch: de extra fout is in de orde van grootte of zelfs groter dan het te meten phenomeen.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Export Instellingen</span></p>
+<p>Door de voorwaarde dusdanig in te stellen, dat er geen exportregels worden gegenereerd, wordt een nagenoeg direct geschikte exportfile verkregen met enkel de markers en de daarbij uitgerekende parameters.</p>
+<p>&nbsp; </p>
+<p><img width=600 height=468 alt="" src="funk76_img7.gif">&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Na een export kunnen de berekende parameters, direct in bv Excel worden bekeken,</p>
+<p>door op JA te drukken</p>
+<p><img width=392 height=146 alt="" src="funk76_img8.gif"></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>Hier een voorbeeld van een dergelijke Excel View.</p>
+<p><img width=758 height=423 alt="" src="funk76_img5.gif"></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>Hier is te zien dat in kolom S, het tweede blok start.</p>
+<p><img width=535 height=288 alt="" src="funk76_img6.gif"></p>
+<p>&nbsp; </p>
+<hr noshade size=1>
+<p><br></p>
+<p><img width=746 height=727 alt="" src="funk76_img1.png"></p>
+<p><br></p>
+<p>Onderstaande is een foute 500 Hz</p>
+<p><img width=769 height=714 alt="" src="funk76_img2.png"></p>
+
+</body></html>

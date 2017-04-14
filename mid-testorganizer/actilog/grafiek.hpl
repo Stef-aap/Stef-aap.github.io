@@ -1,0 +1,18 @@
+GRAFISCHE WEERGAVE
+Er kunnen 3 verschillende grafieken getoond worden, een totaal grafiek over alle (20) dagen, een deel-grafiek waarin 1 of meerdere dagen zichtbaar gemaakt kunnen worden en een zogenaamde bmode grafiek waarin periodieke (non-)aktiviteiten snel kunnen worden gezien. Met behulp van de versterker knop kan de vertikale as van de grafieken worden uitvergroot. Via de knop INSTELLINGEN, tabblad SCHERM, kunnen naar keuze de verschillende grafiekvormen al dan niet worden getoond.
+
+TOTAAL GRAFIEK
+In de totaalgrafiek wordt het signaal over alle dagen weergegeven. De vertikale as kan worden ingesteld met de versterker knop. Omdat het niet mogelijke is op de beperkte breedte van het scherm alle oorspronkelijke punten weer te geven, is gebruik gemaakt van lokale piekdetektie. Lokale piekdetektie houdt in dat van het groepje punten dat als gevolg van de tijdcompressie als 1 punt moet worden weergegeven het maximum van dit groepje wordt weergegeven. Deze presentatie geeft de meest realistische weergave, echter als men op basis van de grafische informatie het gemiddelde probeert af te schatten komt men uiteraard te hoog uit. Rechts bovenin staat nog het gemiddelde vermeld over de geldige periode. Indien de speciale inspannings-mode is ingeschakeld, verschijnt na het moment van inspanning een rode vertikale lijn. Onder de totaal grafiek bevinden zich knoppen met de nummers van de dagen. De kleur van deze knoppen heeft de volgende betekenis: 
+  grijs	=niet geldig, niet geselekteerd voor deelweergave
+  geel	=geldig, niet geselekteerd voor deelweergave
+  rood	=geldig en geselekteerd voor deelweergave
+  paars	=niet geldig en wel geselkteerd voor deelweergave
+
+DEEL GRAFIEK
+Hierin kan 1 of meerdere dagen worden weergegeven. Het kiezen van de dag gebeurt door in de totaal grafiek op de betreffende dagnummer-knop te klikken met de muis. Voor het in detail bekijken van meerdere dagen dient men de laatst gewenste dag aan te klikken, terwijl men de SHIFT- toets ingedrukt houdt.
+Middels de toetsen PAGE-UP en PAGE-DOWN kan men het blok geselekteerde dagen heen en weer laten schuiven. Het weergegeven signaal is een gefilterde versie van de ruwe data. Als filter wordt een moving average filter gebruikt (power preserving) met een lengte van 6, overeenkomend met 30 minuten. De filterlengte is instelbaar via INSTELLINGEN, tabblad PARAMETERS. Het ruwe signaal kan men dus zien door de filterlengte op 1 in te stellen.
+Met behulp van de versterker knop kan de vertikale as worden ingesteld, zodat men het signaal nauwkeriger kan bekijken. Deze versterker-knop heeft tevens
+effekt op de vertikale as van de totaal grafiek. Rechts bovenin staat nog het gemiddelde vermeld, over de geldige perioden binnen het geselekteerde deel.
+
+BMODE GRAFIEK
+De bmode is speciaal bedoeld voor het herkennen van activiteitspatronen die iedere dag terugkomen. In de bmode grafiek worden alle sample punten als een grijs-modulatie weergegeven. Horizontaal staan hierbij telkens 2 achtereenvolgende dagen weergegeven in verband met het goed kunnen herkennen van de nachtperiode. Er worden 2 bmodes onder elkaar gegegeven, boven het oorspronkelijke signaal, onder het dag-nacht signaal.

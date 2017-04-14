@@ -1,0 +1,60 @@
+<HTML><HEAD><TITLE>MIDORG, veelgestelde vragen</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Veel gestelde vragen</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>Na klikken op de Help-knop of Help-menu in de TestOrganizer, verschijnt de foutmelding"10093: Successful WSASetup not yet performed".</P>
+<P>Oplossing: de helpbestanden zijn van het HTM-type en weergave daarvan vereist dat minimale netwerk-onderdelen geïnstalleerd moeten zijn.&nbsp;</P>
+<P>Dat kan het makkelijkst door in Windows met behulp van de wizard Internet-verbinding een niet bestaande verbinding aan te maken.&nbsp;</P>
+<P>Start de Wizard Internet-verbinding. De hier beschreven procedure geldt voor Windows98. Voor Windows95 en WindowsME verloopt de procedure op een vergelijkbare wijze.&nbsp;</P>
+<P>Kies de optie: "Ik wil mijn bestaande Internet-account overbengen naar deze computer. (Mijn telefoonlijn is verbonden met mijn modem.)"&nbsp;</P>
+<P>Windows98 gaat nu een aantal benodigde bestanden installeren en vraagt mogelijk om de Windows98-CDROM. Wanneer Windows vraagt of bestaande nieuwere bestanden moeten worden behouden, altijd Ja kiezen. Hierna start Windows de PC opnieuw op.&nbsp;</P>
+<P>Na opstarten vervolgt de wizard "Verbinding maken met het Internet". Klik op de kop Annuleren. Er verschijnt een venster met de tekst: "De wizard Internet-verbinding heeft het installeren van uw internet-verbinding niet voltooid. Weet u zeker dat u de wizard wilt afsluiten ?" Zet een vinkje in het vak "De wizard Internet-verbinding voortaan niet meer weergeven" om te voorkomen dat de Wizard telkens na opstarten van de PC opkomt en klik op Ok.&nbsp;</P>
+<P>De Help-functie in TestOrganizer en -modules alsmede Externe Pacemakertester kan nu worden gebruikt.&nbsp;</P>
+<HR noshade size=1>
+<P>Kan ik standaard de letters in het help pagina's verkleinen ?</P>
+<P>Ja, er wordt gebruik gemaakt van de standaard instellingen van de microsoft explorer (welke standaard een vreemde instelling heeft).</P>
+<P>Start de microsoft explorer</P>
+<P>&nbsp;&nbsp;&nbsp; View</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Internet Options</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; font size = small (instellen)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; proportional font = Arial (instellen)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set as default (aanklikken)</P>
+<HR noshade size=1>
+<P>Kan het programma op een netwerk draaien ?</P>
+<P>Nee het programma zelf moet altijd op een lokale harde schijf draaien.</P>
+<P>Echter voor de data wordt een&nbsp;<A class=RVTS4 href="td_mid-testorganizer_backup.html">volledige netwerkondersteuning</A>&nbsp;gegeven, dus op 1 PC opname maken en diezelfde data op een willekeurige andere (netwerk) PC bekijken en analyseren.</P>
+<HR noshade size=1>
+<P>Kun je data op een CD-ROM bewaren en direct op deze CD-ROM data bekijken en analyzeren ?</P>
+<P>Ja met de windows-95 versie kan dat, mits de CD-ROM binnnen de MID-TestOrganizer wordt ingesteld als netwerk-drive en de juiste netwerkinstellingen worden gebruikt.</P>
+<P>Met een CD-ROM zijn er twee problemen, er kan niet naar geschreven worden en de meeste CD-branders zetten alle bestanden op ReadOnly. De MID-TestOrganizer moet kunnen schrijven in zijn data-directory en in principe ook op de netwerk-drive.</P>
+<P>Belangrijk, maak een nieuwe datadirectory op de lokale schijf.</P>
+<P>Start de testorganizer met een nieuwe ini-file: bijvoorbeeld</P>
+<P>&nbsp;&nbsp;&nbsp; MID_ORG.EXE&nbsp; cdrom.ini</P>
+<P>Nu met de instellingen naar de nieuwe data-directory verwijzen.</P>
+<P>De netwerk-parameters dienen in de MID-TestOrganizer als volgt te worden ingesteld:</P>
+<P>&nbsp;&nbsp;&nbsp; update aan het begin = alleen patientdata</P>
+<P>&nbsp;&nbsp;&nbsp; update tijdens het programma = alle data</P>
+<P>&nbsp;&nbsp;&nbsp; update aan het einde = alle data</P>
+<P>&nbsp;&nbsp;&nbsp; netwerk path = path van de CD-ROM, totaan waar de subdirectory \PATIENT\ staat</P>
+<P>&nbsp;&nbsp;&nbsp; computer naam = willekeurige tekst</P>
+<P>&nbsp;&nbsp;&nbsp; deze computer mag enkel data bekijken = JA</P>
+<P>&nbsp;&nbsp;&nbsp; deze computer bevat opnamen data = NEE</P>
+<P>&nbsp;&nbsp;&nbsp; verwijderde bestanden bewaren in windows prullenbak = JA</P>
+<P>&nbsp;&nbsp;&nbsp; readonly flags van bestanden verwijderen = JA</P>
+<HR noshade size=1>
+</BODY></HTML>

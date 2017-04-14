@@ -1,0 +1,143 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>plethysmograaf_ontwerp</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">Plethysmograaf</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><b><font face="Arial,Helvetica"><font color="#000099">&nbsp;</font></font></b></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Ontwerp
+Ideeen</font></font></b></td>
+</tr>
+</table>
+
+<p><a name="algemeen"></a><b><font color="#000099">Algemeen&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Kwiktouwtje heeft een rust-waarde van 1..5 Ohm, nominaal 2.5 Ohm.
+<br>Meest gebruikte bereik van een plethysmograaf versterker is 5% full
+scale.
+<br>Als uiterste zou eventueel een bereik van 1% full scale mogelijk moeten
+zijn.
+<br>Omdat de versterker aan de veilige kant van het fysio-flex systeem
+wordt geplaatst, dient gelet te worden op een gering stroomverbruik.
+<br>&nbsp;
+<p><a name="ontwerp met een s/h"></a><b><font color="#000099">Ontwerp met
+een S/H&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Bij gebruik van een electrometer versterker, kan de lekstroom beperkt
+blijven tot 0.1 pA.
+<br>De maximaal te realiseren capaciteit, (goede kwaliteit condensator)
+bedraagt
+<blockquote>C9 = 2u2</blockquote>
+De spanningsval per uur bedraagt dan
+<blockquote>dV / uur = I * t / C = 0.1 mV</blockquote>
+Op het eerste gezicht lijkt dit voldoende, wordt nog op teruggekomen.
+<p>De stroom door het kwiktouwtje (voorgesteld door Rx) wordt als volgt
+gekozen
+<blockquote>Rx = 1 Ohm&nbsp;&nbsp;&nbsp; I = 50 mA
+<br>Rx = 2 Ohm&nbsp;&nbsp;&nbsp; I = 25 mA
+<br>Rx = 5 Ohm&nbsp;&nbsp;&nbsp; I = 10 mA</blockquote>
+Daarmee wordt de spanning op de ondertak van de brug, in rust ingesteld
+op
+<blockquote>V1 = Rx * I = 50 mV</blockquote>
+Als referentie spanning wordt de standaard in de fysio-flex aanwezige referentie
+spanning van ongeveer 3 V gebruikt.
+<br>De maximale spanning over Ry wordt daarom gesteld op 2.5 V, welke wordt
+bereikt de grootste stroom (50 mA);
+<blockquote>Ry = 2.5 / 0.05 = 50 Ohm</blockquote>
+Hiermee is dus ook de verhouding R1/R2 bepaald, ongeveer 3V/50mV = 60:1.
+<br>Uitgaande van een full scale bereik van 5% (-5%..+5%), welke moet resulteren
+in een uitgansspanning van -1V ... +1V, geldt dus voor de verhouding R3/R1
+<blockquote>R3 / R1 = Vuit / (V0 * delta) = 1 / (3 * 0.05) ~ 6.67</blockquote>
+Een praktische waarde voor R3 (de grootste weerstand) is, waaruit vervolgens
+R1 en R2 kunnen worden afgeleid
+<blockquote>R3 = 470 k
+<br>R1 = R3 / 6.67 = 70.5 k
+<br>R2 = R1 / 60 = 1.17 k</blockquote>
+Opamp U1d fungeert puur als inverter en dus mag voor de bijbehorende weerstanden
+gelden
+<blockquote>R10 = R11 = 100 k</blockquote>
+De integratie weerstand R9, een bandbreedte van enige Hz lijkt prettig,
+stel bijv 5 Hz
+<blockquote>R9 = 0.2 / 2.2E-6 = 10 k</blockquote>
+Voor de transistor Q1, kan ieder type met een beta>500 worden toegepast.
+<p>Voor de opamp's geldt als belangrijkste eis een goed DC-gedrag, dus
+DC-stabiliteit en LF-ruis.
+<br>Vandaar dat gekozen is voor de LT1014 (quad-type)
+<br>Omdat er 5 opamp's nodig zijn, is er nog aparte opamp nodig. Op zich
+kan voor de referentie spanning een TL072 worden gebruikt, omdat de stabiliteit
+van de brugspanning van gering belang is. Echter er is ook een andere overweging,
+U2 moet zeer nauwkeurig, zeer kleine DC-spanningen verzorgen. Een meer
+logische keus is dus om voor U2 een zeer stabiele DC-versterker te nemen.
+<blockquote>U1 = LT1014
+<br>U2 = OP27</blockquote>
+Nu terug naar de S/H lek:
+<br>Stel de nominale spanning over Ry=1V, een afwijking van 0.1 mV komt
+dus overeen met 0.01%. Op een full scale bereik van 1% is dit dus ruim
+voldoende. Overigens zal de drift van de opamp U2 al wat groter zijn. Indien
+deze te groot is, moet de stroom door Rx, Ry worden verhoogd.
+<br>Het is uiteraard noodzakelijk om voor de schakelaar een relais (reed-realis
+?) te gebruiken en montage op lucht of teflon toe te passen.
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="ontwerp middels een ad-converter"></a><b><font color="#000099">Ontwerp
+middels een AD-converter&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>In feite is dit ontwerp gebaseerd om het principe van een DA-converter.
+Immers een DA-converter op basis van een SAR (zonder S/H) bevat namelijk
+een DA-converter als actief reken element, en bovendien alle klimbim (oscillator,
+referentie, comparator en logika) die bij een DA-converter nog extern moet
+worden aangebracht. Voorwaarde is wel dat het SAR-sommatie punt bereikbaar
+is.
+<br>Het standaard industrie type AD1674, MAX174, MAX574, MAX674 is hiervoor
+bruikbaar.
+<p>De stroom door het kwiktouwtje (voorgesteld door Rx) wordt als volgt
+gekozen
+<blockquote>Rx = 1 Ohm&nbsp;&nbsp;&nbsp; I = 50 mA
+<br>Rx = 2 Ohm&nbsp;&nbsp;&nbsp; I = 25 mA
+<br>Rx = 5 Ohm&nbsp;&nbsp;&nbsp; I = 10 mA</blockquote>
+Daarmee wordt de spanning op de ondertak van de brug, in rust ingesteld
+op
+<blockquote>V1 = Rx * I = 50 mV</blockquote>
+De AD-converter moet nu een dusdanige stroom instellen dat de uitgangsspanning
+van de brug 0 Volt is, bij het bovengenoemde bereik van de rust weerstand
+van het kwiktouwtje. Oftewel een dynamisch bereik van een factor 5.
+<br>Vervolgens moet deze instelling zo nauwkeurig gebeuren dat de nulinstelling
+ook in het full scale bereik van 1% een geringe afwijking van 0 vertoont,
+stel 1% van het 1% bereik. Dus hebben we een 13 bits converter nodig.
+<br>Op zich is echter een kleine afwijking van 0 veel minder van belang
+dan de stabiliteit van de instelling, immers we kunnen ook nog in de software
+nullen. Met andere woorden een 12 bits converter is ruim voldoende, immers
+als enkel de stabiliteit geldt hoeven we alleen de dynamiek weg te regelen
+en zouden we aan een 3 bits DA-converter voldoende hebben.
+<p>Er wordt echter getracht de volledige dynamiek van de AD-converter te
+benutten.
+<br>&nbsp;
+<br>&nbsp;
+<p>Dit signaal moet de AD-converter op half bereik instellen.
+<br>Een full scale bereik van 1
+<br>De variatie van dit signaal
+<br>&nbsp;
+<p><a name="ontwerp met da-converter"></a><b><font color="#000099">Ontwerp
+met DA-converter&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>&nbsp;
+<br>&nbsp;
+<p>
+<hr WIDTH="100%"><font size=-2>&copy; Copyright Instrumentele Dienst, 1999-2000</font>
+<br><a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height=18 width=29></a><font size=-2>
+SM, last updated 20-05-2000&nbsp;</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+</body>
+</html>

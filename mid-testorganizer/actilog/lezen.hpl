@@ -1,0 +1,5 @@
+Met de knop DATA LEZEN worden alle gegevens uit een gebruikte ActiLog gelezen en weggeschreven naar een bestand. De naam en de plaats van dit bestand wordt via de standaard windows dialoog ingevuld.
+Indien het bestand reeds bestaat, wordt gevraagd of dit mag worden overschreven.
+Het uitlezen kan tussentijds worden afgebroken met de knop AFBREKEN
+
+Met de knop PAT.GEG.LEZEN wordt alleen het eerste blok van de ActiLog gelezen, waarin de patientgegevens, opnameduur e.d. staan.

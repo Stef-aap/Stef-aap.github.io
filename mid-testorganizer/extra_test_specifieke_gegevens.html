@@ -1,0 +1,94 @@
+<HTML><HEAD><TITLE>td extra test-specifieke gegevens</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Extra Testgegevens per Test</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="functionaliteit"></A>
+<SPAN class=RVTS2>Functionaliteit</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Per (afgenomen) test kan door de testleider een extra set alfa-numerieke gegevens worden ingevoerd. Enkele typische voorbeelden hiervan zijn: de aanvragend arts, de testleider en aanvraag indicatie. De gebruiker bepaalt geheel zelf welke extra gegevens moeten worden bijgehouden. In feite zijn deze gegevens een uitbreiding op de reeds beschikbare tekstregel "omschrijving".</P>
+<P>&nbsp;<IMG width=647 height=276 src="extra_testgegevens.gif"></P>
+<P>De gegevens zijn in te vullen, te wijzigen en te bekijken, in de database-schil MidOrg.</P>
+<P>Ook in sommige modules zijn deze (zelfde) gegevens te bekijken en te wijzigen.</P>
+<P>Deze gegevens worden bij de testresultaten in het rapport afdgedrukt (tenzij in de "TestOrganizer / Instellingen / Rapport" het vakje niet is aangekruist).</P>
+<P>Vooralsnog zijn deze gegevens niet beschikbaar in het exportbestand.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="opzetten test-specifieke gegevens"></A>
+<SPAN class=RVTS2>Opzetten test-specifieke gegevens</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Er wordt bewust gesproken van "opzetten" in plaats van "wijzigen" omdat u zich dient te realiseren dat deze set gegevens éénmalig opgezet moet worden naar uw eigen wensen en daarna maar zeer beperkt gewijzigd mag worden. Dit omdat de gegevens voor alle reeds afgenomen en toekomstige testen geldig zijn en moeten blijven.</P>
+<P>Om deze reden is ook bewust niet voor een geïntegreerde editor gekozen, maar dient u de wijzigingen met een eenvoudige tekstverwerker (bijv. notepad of wordpad) uit te voeren.</P>
+<P>Bedenk eerst wat u wilt (eenmaal aangemaakte velden mogen niet worden verwijderd, wel onzichtbaar worden gemaakt).</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="mogelijkheden"></A>
+<SPAN class=RVTS2>Mogelijkheden</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Momenteel worden de volgende velden ondersteund:</P>
+<P>&nbsp;&nbsp;&nbsp; - edit velden (vrij in te voeren velden van 1 regel lang)</P>
+<P>&nbsp;&nbsp;&nbsp; - comboboxen (edit veld, en een lijst van vooraf gedefiniëerde mogelijkheden)</P>
+<P>&nbsp;&nbsp;&nbsp; - 1 memoveld (vrije tekst meerdere A4's groot)</P>
+<P>De exacte layout wordt automatisch door het programma verzorgd, waarbij de volgorde van de velden, de globale positie van de velden, het aantal rijen en kolommen door de gebruiker worden gedefiniëerd. Het memoveld wordt altijd onderaan geplaatst.</P>
+<P>De actieve programma-module bepaald of de naam van een veld links van het veld danwel net boven het veld staat.</P>
+<P>Er zijn modules, welke vanwege de beperkte ruimte noodzakelijkerwijze een andere indeling in rijen en kolommen moeten kiezen, dan welke aangegeven door de gebruiker.</P>
+<P>Voorlopig kunnen tot 25 velden worden gedefiniëerd door de gebruiker, de overige zijn vooralsnog gereserveerd voor het gebruik in rekenfuncties (beheer bij de ID).</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="velddefinitie"></A>
+<SPAN class=RVTS2>Velddefinitie</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>De velddefinities worden opgeborgen in het bestand &lt;programma path&gt;\testgeg.ini.</P>
+<P>Het wijzigen van dit bestand dient te gebeuren met een eenvoudige tekst-editor (notepad, wordpad, o.i.d.).</P>
+<P>De opbouw van dit ini-bestand wordt uitgelegd in onderstaand voorbeeld (cursief gedrukte delen zijn letterlijke teksten uit het ini-bestand):</P>
+<P>Allereerst de definitie van de globale lay-out, (deze lay-out wordt ook gebruikt in de rapport-generatie).</P>
+<P>- het aantal velden (exclusief een eventueel zichtbaar memoveld)</P>
+<P>- het aantal kolommen</P>
+<P>- het aantal rijen[Velden]</P>
+<P>aantal=6</P>
+<P>nkol=3</P>
+<P>nrow=3Vervolgens of het memo zichtbaar is (0=onzichtbaar, 1=zichtbaar) en zoja de titel van het memo[memo]</P>
+<P>name=opmerking</P>
+<P>visible=1Nu de definities van de afzonderlijke velden, de velden dienen opeenvolgend genummerd te zijn, tot een maximum van 25.</P>
+<P>De titel (=name) van het veld, al dan niet zichtbaar (0/1), het type veld (0=edit veld, 1=combobox) en de positie. De positie geheel linksboven is 1, vervolgens wordt de eerste kolom geheel naar beneden doorgeteld, waarna wordt begonnen aan het bovenste element van de volgende kolom.[veld1]</P>
+<P>name=Laborante</P>
+<P>visible=1</P>
+<P>kind=0</P>
+<P>pos=1Voor de combobox moeten ook nog de voorgedefiniëerde velden worden ingevoerd. Allereerst het aantal (itemn) en vevolgens de afzonderlijke elementen (in dit geval item1 t/m item4)[veld3]</P>
+<P>name=Afdeling</P>
+<P>visible=1</P>
+<P>kind=1</P>
+<P>pos=5</P>
+<P>itemn=4</P>
+<P>item1=Ortopedie</P>
+<P>item2=Neurologie</P>
+<P>item3=Kindergeneeskunde</P>
+<P>item4=Psychologie</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="velddefinitie wijzigen"></A>
+<SPAN class=RVTS2>Velddefinities Wijzigen&nbsp;</SPAN>(data-integriteit)&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Bij het wijzigen van de velddefinites (nadat deze ook daadwerkelijk voor data-invoer zijn gebruikt) dienen strikte regels in acht te worden gehouden om de data integriteit te waarborgen, immers de antwoorden worden kaal opgeslagen op basis van het veldnummer.</P>
+<P>- wijzig nooit het veldnummer van een veld</P>
+<P>- is een veld niet meer nodig, verwijder het dan niet maar maak het onzichtbaar</P>
+<P>- het is toegestaan de voorgeprogrammeerde regels van een combobox te wijzigen</P>
+<P>- het is toegestaan om een edit-veld te wijzigen in een combobox en omgekeerd</P>
+<P>- de titel (name) van een veld mag zondermeer worden gewijzigd</P>
+<P>- positie van een veld mag zondermeer worden gewijzigd</P>
+<P>- het aantal rijen en kolommen mag worden gewijzigd</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="velden als systeemvariabelen"></A>
+<SPAN class=RVTS2>Velden als systeemvariabelen</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>De velden vanaf nummer 26 zijn gereserveerd voor systeem-vaaiabelen. Hierbij kan worden gedacht aan bepaalde rekenfunctie instellingen, welke per opgenomen test verschillend zijn.</P>
+<P>Voorbeeld vaatfunctie onderzoek, na afloop geeft de laborante aan welke van de metingen geldig zijn en welke niet. Deze gegevens worden bewaard in veld 26.</P>
+<P>Het beheer van deze gereserveerde veldnummers ligt bij de ID.</P>
+</BODY></HTML>

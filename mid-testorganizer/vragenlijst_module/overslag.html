@@ -1,0 +1,109 @@
+<HTML><HEAD><TITLE>Vragen Overslaan</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #F0EEEE;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Conditioneel vragen overslaan</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="vrg_indx.html#top">Vragenlijst Module</A></P>
+<P class=RVPS1><A class=RVTS4 href="userindx.html">Gebruikers Documentatie</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="vragen overslaan"></A>
+<SPAN class=RVTS2>Vragen overslaan&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Per antwoord kan worden opgegeven welke (volgende) vragen moeten worden overgeslagen, als een bepaald antwoord juist wel of juist niet is gekozen.</P>
+<P>Het is nu ook mogelijk zeer veel vragen over te slaan, door het zogenaamde "ga naar vraag.." statement.</P>
+<P>Daarnaast is het mogelijk één of meer vragen over te slaan als een aantal vragen (op meerdere pagina's) NIET beantwoord zijn.</P>
+<P>Deze mogelijkheden zijn alleen bij die vragen aanwezig, waarbij dat zinvol is, momenteel zijn dat</P>
+<P>&nbsp;&nbsp;&nbsp; - meerkeuze, 1 antwoord</P>
+<P>&nbsp;&nbsp;&nbsp; - meerkeuze, meer antwoorden</P>
+<P>&nbsp;&nbsp;&nbsp; - blokvraag</P>
+<P>&nbsp;&nbsp;&nbsp; - kindervraag</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="instellen vragen overslaan"></A>
+<SPAN class=RVTS2>Instellen vragen overslaan&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Het instellen van de overslaan condities gaat als volgt:</P>
+<P>&nbsp;&nbsp;&nbsp; - selekteer de vraag, welke de oorzaak moet zijn van het overslaan</P>
+<P>&nbsp;&nbsp;&nbsp; - selekteer een antwoord (dit is nodig om het juiste popup te laten verschijnen)</P>
+<P>&nbsp;&nbsp;&nbsp; - klik met de rechtermuistoets op het geselecteerde antwoord</P>
+<P>&nbsp;&nbsp;&nbsp; - selekteer in het popup menu "overslaan"</P>
+<P>Nu verschijnt het onderstaande instelvenster</P>
+<P>&nbsp;<IMG width=579 height=512 src="oversl1.gif"></P>
+<P>De meest linker kolom bevat de nummers van de mogelijke antwoorden. In de kolommen rechts hiervan, kunnen de vragen worden opgegeven welke moeten worden overgeslagen.</P>
+<P>Betekenis van het getoonde voorbeeld</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Antwoord 2:&nbsp; 7,8</P></TD>
+<TD valign=middle>
+<P>Als antwoord 2 is gegeven, worden vragen 7 en 8 overgeslagen</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Antwoord 4: -5</P></TD>
+<TD valign=middle>
+<P>Als antwoord 4 NIET is gegeven, wordt vraag 5 overgeslagen.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Antwoord 5:&nbsp; &gt;6</P></TD>
+<TD valign=middle>
+<P>Als antwoord 5 is gegeven, wordt direct (na het geheel beantwoorden van deze vraag/pagina) doorgesprongen naar vraag 6 en worden alle tussengelegn vragen overgeslagen.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Antwoord 6:&nbsp; &lt;6</P></TD>
+<TD valign=middle>
+<P>Als antwoord 5 NIET is gegeven, wordt direct (na het geheel beantwoorden van deze vraag/pagina) doorgesprongen naar vraag 6 en worden alle tussengelegn vragen overgeslagen.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Antwoord 8: -4 , !4</P></TD>
+<TD valign=middle>
+<P>Hiermee kan een vraag worden overgeslagen als een helehoop antwoorden NIET zijn gegeven.&nbsp;</P>
+<P>Het eerste van deze helehoop vragen moet altijd 2 statements bevatten,&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>-4 :sla vraag 4 over als antwoord 8 niet is gegeven&nbsp;</LI>
+<LI>!4: sla vraag 4 NIET over als antwoord 8 is gegeven (NB het betekent niet het omgekeerde, dus het betekent niet: "sla vraag 4 over als antwoord 8 niet is gegeven").&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Antwoord 9: !4</P></TD>
+<TD valign=middle>
+<P>De volgende van de "helehoop" vragen:&nbsp;</P>
+<P>!4 betekent dus, sla vraag 4 NIET over als antwoord 9 is gegeven.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>LET OP: er mag slechts 1 vraagnummer per hokje worden opgegegeven.</P>
+<P>Een Positief vraagnummer: de aangegeven vraag wordt overgeslagen als dit antwoord is gegeven.</P>
+<P>Een Negatief vraagnummer: de vraag wordt overgeslagen als dit antwoord niet is gegeven.</P>
+<P>Uiteraard kunnen alleen vragen worden opgegeven, die een hoger nummer dan de huidige vraag hebben.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="instellen overslaan bij blokvragen"></A>
+<SPAN class=RVTS2>Instellen overslaan bij blokvragen&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Bij het instellen van een blokvraag dient men zich te realiseren dat een blokvraag in feite een verzameling van meerdere vragen is. Dus per schermregel staat een volledige vraag met antwoorden (subvraag). En dus kan men de overslaan oorzaken per regel verschillend instellen.</P>
+<P>Bij blokvragen verschijnt onderin het overslaan instelformulier een extra aankruisvakje "Overslaan condities laten gelden voor alle subvragen". Hiermee kan men dus één instelling voor alle subvragen op deze pagina laten gelden. Als dit aankruisvakje wordt aangekruist, dan wordt om een extra bevestiging gevraagd, dit omdat alle subvragen op deze pagina hun individuele overslaan instellingen verliezen.</P>
+<P>Wil men het grootste deel van de subvragen een gelijke overslaan conditie geven en enkele subvragen extra condities, dan kan men als volgt te werk gaan</P>
+<P>&nbsp;&nbsp;&nbsp; - geef bij 1 van de subvragen de algemene conditie in</P>
+<P>&nbsp;&nbsp;&nbsp; - laat deze conditie gelden voor alle subvragen</P>
+<P>&nbsp;&nbsp;&nbsp; - overtuig u dat dit goed is</P>
+<P>&nbsp;&nbsp;&nbsp; - bewerk nu de subvragen die extra conditie krijgen</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="overzicht maken"></A>
+<SPAN class=RVTS2>Overzicht maken&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>In de toekomst zal het mogelijk worden om via het print commando een overzicht te krijgen van de ingestelde overslaan condities.</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS12>© Copyright Instrumentele Dienst, 1999-2004</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+</BODY></HTML>

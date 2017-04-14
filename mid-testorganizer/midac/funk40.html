@@ -1,0 +1,109 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunktie 40, Hulpteksten Display</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 40</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A></P>
+<P><A class=RVTS4 href="#instelform">Instellingen venster</A></P>
+<P><A class=RVTS4 href="#voorbeeld, bij bovenstaande instelling">Voorbeeld</A></P>
+<P><A class=RVTS4 href="#inputs:">Ingangen</A></P>
+<P><A class=RVTS4 href="#outputs:">Uitgangen</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>HulpTeksten Display</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Omschrijving&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze module toont afhankelijk van het ingangssignaal een bepaalde hulptekst.</P>
+<P>Er kunnen maximaal 20 verschillende teksten worden getoond, waarbij een bepaalde tekst wordt getoond zodra het ingangssignaal de voor die tekst ingestelde waarde bereikt.</P>
+<P>Iedere tekst dient te worden ondergebracht in een apart ASCII tekst bestand.</P>
+<P>Er zijn 2 fonts beschikbaar, zodat bij het wisselen ter verduidelijking een ander font (bijv. andere kleur) kan worden gekozen. De fonts worden afwisselend gebruikt, onafhankelijk van de volgorde van de teksten.</P>
+<P>Er kan niet vaker dan eens in de 5 seconden een andere tekst worden getoond.</P>
+<P>Het uitgangssignaal dat normaal 0 is, wordt gedurende 1 sample 1 gemaakt, op het moment dat een nieuwe tekst wordt getoond.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="instelform"></A>
+Instelscherm&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;<IMG width=518 height=451 src="funk40a.gif"></P>
+<P>Let bij het invoeren van de gegevens op de volgende punten:</P>
+<P>- waarde en bestandsnaam scheiden door TAB</P>
+<P>- altijd bestandsnaam inclusief volledig path opgeven</P>
+<P>- waarden in oplopende volgorde opgeven</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="voorbeeld, bij bovenstaande instelling"></A>
+Voorbeeld, bij bovenstaande instelling&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;<IMG width=236 height=176 src="funk40b.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="inputs:"></A>
+Inputs:<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=80 valign=middle>
+<P>1 = Signaal</P></TD>
+<TD width=80% valign=middle>
+<P>ingangssignaal dat gebruikt wordt als trigger voor de diverse teksten.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="outputs:"></A>
+Outputs:&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=80 valign=middle>
+<P>1 = New Text</P></TD>
+<TD width=80% valign=middle>
+<P>normaal=0, zodra tekst wordt vernieuwd gedurende 1 sample 1</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="parameters:"></A>
+Parameters:<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>1 = fontname1</P>
+<P>2 = fontsize1</P>
+<P>3 = fontcolor1</P>
+<P>4 = fontstyle1</P>
+<P>5 = fontname2</P>
+<P>6 = fontsize2</P>
+<P>7 = fontcolor2</P>
+<P>8 = fontstyle2</P>
+<P>9... = triggerwaarde en bijbehorend tekstbestand</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

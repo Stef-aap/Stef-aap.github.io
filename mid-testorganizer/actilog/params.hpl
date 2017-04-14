@@ -1,0 +1,40 @@
+Algemene gegevens berekend over de relevante dagen
+D0DLM	= gemiddelde daglengte
+D0DLSD	= standaard deviatie daglengte
+D0M	= gemiddelde amplitude over waakperioden
+D0SD	= standaard deviatie over waakperioden
+D1M	= idem D0M echter over de eerste geldige dag
+D1SD	= idem D0SD echter over de eerste geldige dag
+
+Nadat het signaal via een smitt-trigger met drempel Treshold is gegaan, worden over alle perioden de volgende parameters berekend:
+HN0	= aantal gevonden perioden
+HMM0	= gemiddelde van de pieken
+LMM0	= gemiddelde van de dalen
+HLMM0	= HMM0-LMM0
+
+Vervolgens wordt gezocht naar de 5 grootste pieken, op grond van de totale energie in een piek. Over deze pieken worden de volgende parameters berekend:
+NPEAK	= 5, controle van het aantal gevonden pieken
+Q0PM	= gemiddelde amplitude van de 5 hoogste pieken
+Q0PE	= gemiddelde energie van de 5 hoogste pieken
+Q0PB	= gemiddelde breedte van de 5 hoogste pieken
+De statistiek van de bijbehorende laagperioden (dat is de laag periode volgend opeen van de 5 gevonden hoogperioden)
+Q0DM	= gemiddelde amplitude laagperiode
+Q0DE	= gemiddelde oppervlakte tussen dal en NULLIJN tijdens de laagperiode
+Q0DB	= gemiddelde breedte laagperiode
+
+Q0D1M	=gemiddelde amplitude over 1 uur, na het einde van de piek
+Q0HLM	=Q0PM-Q0DM
+Q0HL1M	=Q0PM-Q0D1M
+
+Daarnaast worden nog de volgende algemene paramters opgeslagen:
+FILNAM	=bestandsnaam zonder extensie
+FILEXT	=bestands extensie
+TRESH	=treshold nivo voor de smitt-trigger,
+	positief wil zeggen een absolute drempel,
+	negatief, relatief t.o.v. het eigen gemiddelde
+		(bijv. -150 wil zeggen 150% eigen genmiddelde)
+Indien gewenst om het aantal zeer actieve en zeer inactieve perioden per dag te tellen, worden ook de onderstaande parameters weergegegeven (zie verder ZeerINactief)
+FPLEN, FPLOW, FPHIGH = de ingestelde grenzen
+FP1DL	= de waaklengte op dag 1  (eenheid 5 min)
+FP1L	= de totale periode 'zeer-actief' op dag 1
+FP1H	= de totale periode 'zeer-inactief' op dag 1

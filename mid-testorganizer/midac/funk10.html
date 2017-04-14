@@ -1,0 +1,99 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunctie 10</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 10</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A>&nbsp;|&nbsp;<A class=RVTS4 href="#algoritme">Algoritme</A></P>
+<P><A class=RVTS4 href="#bijzonderheden">Bijzonderheden</A>&nbsp;| Toepassing</P>
+<P><A class=RVTS4 href="funk10f.html">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Bloeddruk Analyse</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Omschrijving</P>
+<P>Bepaalt diastolische druk /systolische druk/map/hartrate uit een bloeddruk signaal.</P>
+<P>Diastolische en systolische druk worden bepaald m.b.v. topdetectie, waarbij de ontlaadcurve in een aparte variabele wordt bijgehouden, waardoor een optimale topdetectie ontstaat.</P>
+<P>Het begin van de systole (waar de steilheid van het signaal het grootst is) wordt gebruikt voor de bepaling van hartrate. Op dit moment wordt de MAP bepaald uit de laagdoorlaat gefilterde bloeddruk.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=495 bgcolor=#FFEEDD border=0 cellpadding=5 bordercolor=#000000 cellspacing=2>
+<TR valign=top>
+<TD width=33% valign=top>
+<P>Inputs</P></TD>
+<TD width=26% valign=top>
+<P>Parameters</P></TD>
+<TD width=41% valign=top>
+<P>Outputs</P></TD>
+</TR>
+<TR valign=top>
+<TD width=33% valign=top>
+<P>Bloeddruk</P></TD>
+<TD width=26% valign=top>
+<P>Alfa</P>
+<P>Hysteresis</P></TD>
+<TD width=41% valign=top>
+<P>Diastolische druk</P>
+<P>Systolische druk</P>
+<P>MAP (mean arterial pressure)</P>
+<P>Hartrate [Bpm]</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="bijzonderheden"></A>
+Bijzonderheden</P>
+<P>Deze methode is uitermate geschikt, als men het hoogfrekwent gesampelde bloeddruk signaal wil opslaan, danwel een nauwkeurige bepaling van de bovenstaande parameters wil hebben. Voor de meeste gevallen wordt echter geadviseerd om bovenstaande parameters te bepalen als Extended sample kanalen (zie ….). Deze laatste methode bespaart veel opslagruimte, omdat samplereductie plaatsvindt, nadat de analyse is uitgevoerd.</P>
+<P><A name="algoritme"></A>
+Algoritme</P>
+<P>X(n) = sample op moment n</P>
+<P>Y(n) = gefilterd sample op moment n</P>
+<P>Y(n-1) = gefilterd sample op moment (n-1)</P>
+<P>Laagdoorlaatfilter: Y(n) := (1-alfa) * Y(n-1) + alfa * X(n)</P>
+<P>met alfa = 1 / (filter*sample_frequency)</P>
+<P>Einde diastole wordt bepaald door X(n) - Y(n) &gt; hysteresis</P>
+<P>De ontlaadtijd voor diastole en systole bedraagt Y(n) := (1-beta) * Y(n-1) + beta * X(n)</P>
+<P>met beta = 1 / sample_frequency</P>
+<P>Als gedurende 3 seconden geen diastole/systole wordt gevonden, wordt het algortime gereset.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

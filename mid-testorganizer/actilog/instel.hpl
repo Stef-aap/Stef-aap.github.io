@@ -1,0 +1,19 @@
+Via de knop INSTELLING kunnen instellingen van het programma worden gewijzigd, welke worden bewaard in AKTO.INI. De parameters voorafgegaan door *** kunnen alleen worden gewijzigd door het ini-bestand te wijzigen.
+
+SCHERM
+  totaalgrafiek tonen
+  deelgrafiek tonen
+  bmodegrafiek tonen
+  instellingen venster tonen
+  berekende parameters tonen
+  SPSS venster tonen
+  aantal dagen totaalgrafiek 15/30
+
+PARAMETERS
+  inspanningsonderzoek
+  *** treshold
+  *** filterlengte 
+  automatische dag/nacht detektie
+  automatisch dagen aan begin en eind skippen (+gewenst aantal dagen)
+
+Daarnaast worden positie en grootte van het help scherm (dit scherm dus) bewaard.

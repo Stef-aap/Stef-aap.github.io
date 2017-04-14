@@ -1,0 +1,71 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunctie 14</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 14</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A>&nbsp;|&nbsp;<A class=RVTS4 href="#algoritme">Algoritme</A></P>
+<P>Bijzonderheden | Toepassing</P>
+<P><A class=RVTS4 href="funk14f.html">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Autonome Neuropathie Opname</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Omschrijving</P>
+<P>Het afnemen van de standaard autonome neuropathie test, ter bepaling van de cardio-vasculaire reflex.</P>
+<P>De autonome neuropathie test bestaat in feite uit een zes-tal losse testen, welke met korte tussenpozen in vaste volgorde worden afgenomen. Als een van de testen mislukt, moet deze kunnen worden herhaald, de laatste test wordt als juiste verondersteld. Oorspronkelijk was deze test geheel met primitieve funkties uitgevoerd, echter dit vergde 23 rekenkanalen en een uitvoerige instelling van de parameters. Omdat het protocol vast stond is besloten deze aparte rekenfunctie te ontwikkelen.</P>
+<P>De afzonderlijke testen worden door de gebruiker gestart met de marker toetsen F1 t/m F6. Vervolgens zorgt deze rekenfunktie ervoor dat de opslag van de data wordt gestart en wordt tevens een klok gestart. Per test is een afzonderlijke klok ingesteld, die telkens uit 2 of 3 aparte wekkers bestaat. Bij de omschakeling naar de voorlaatste wekker wordt de opname automatisch gestart. Tevens wordt bij iedere wekker-omschakeling (tijdens een opname) marker F7 geset (gemakkelijk bij terugkijken) en een acoustisch alarm gegeven.Na het aflopen van de laatste wekker wordt de opslag van data automatisch gestopt.</P>
+<P>BijzonderhedenDeze funktie is ontwikkeld voor een specifiek doel. Gebruik deze funktie nooit zonder voorafgaand overleg met de Instrumentele Dienst. De funktie kan namelijk worden gewijzigd zonder een opwaartse compatibiliteit te garanderen.Voor de analyse van de opgenomen data is een aparte&nbsp;<A class=RVTS4 href="funk15.html">rekenfunktie (15)</A>&nbsp;beschikbaar.Inputs</P>
+<P>geen</P>
+<P>Outputs</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Counter klokwaarde</LI>
+<LI>Mode 0=reset / 1=wekker1 / 2=wekker2</LI>
+<LI>StartKey de gebruikte marker</LI>
+</UL>
+<P>Parameters</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>sound het soort acoustisch alarm</LI>
+<LI>up/down of de klokken optellen of aftellen (periode blijft ongewijzigd)</LI>
+</UL>
+<P><A name="algoritme"></A>
+Algoritme</P>
+<P>Markers starten timers, timers starten en stoppen opslag van data. Bij de test Standing Up wordt de eerste 4.5 minuten niet geregistreerd.F1 Forced Breathing (5 min / 1 min)F2 Standing Up (4.5 min / 0.5 min / 2 min)F3 Valsalva 1 (30 sec / 15 sec / 15 sec)F4 Valsalva 2 (30 sec / 15 sec / 15 sec)F5 Valsalva 3 (30 sec / 15 sec / 15 sec)F6 Sustained Handgrip (2 min / 3 min)F7 overgang naar laatste wekkerDe gebruiker dient zelf de juiste markerteksten in te voeren. Tevens is belangrijk dat de minimale opnametijd van het protocol voldoende groot is (waarbij met evenetueel herhaalde testen rekening moet worden gehouden)</P>
+<P>Oude versie was:F1 Forced Breathing (5 min / 1 min)F2 Standing Up (5 min / 2 min)F3 Valsalva 1 (1 min / 15 sec)F4 Valsalva 2 (1 min / 15 sec)F5 Valsalva 3 (1 min / 15 sec)F6 Sustained Handgrip (2 min / 3 min)</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

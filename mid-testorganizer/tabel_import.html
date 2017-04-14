@@ -1,0 +1,93 @@
+<HTML><HEAD><TITLE>model_td</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Tabel Import</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="doel_"></A>
+<SPAN class=RVTS2>Doel</SPAN></P>
+<P>Het automatisch importeren van tabellen in de TestOrganizer, teneinde deze in het patient rapport te kunnen integreren.</P>
+<P>Buiten de TestOrganizer worden tabellen gemaakt (door mens of machine), welke in een bekende directory worden geplaatst.</P>
+<P>De TestOrganizer kijkt op regelmatige tijdstippen in deze directory, zoekt naar de opgegeven bestanden en importeert de gegevens op een voor de TestOrganizer leesbare manier.</P>
+<P>Het protocol (in de lijst "Import Tabel"), bevat gegevens over</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>in welke directory gezocht moet worden&nbsp;</LI>
+<LI>naar welke bestanden gezocht moet worden&nbsp;</LI>
+<LI>op welke wijze de gegevens geïmporteerd moeten worden&nbsp;</LI>
+<LI>op welke wijze deze gegevens (conditioneel op basis van discipline en vraagstelling) in het rapport moeten worden opgenomen&nbsp;</LI>
+</UL>
+<P>Eén tabel met invoergegevens, kan tegelijkertijd middels meerdere protocollen worden geimporteerd. Hierdoor kunnen eenvoudig gegevens worden gesplitst.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="inschakelen_"></A>
+<SPAN class=RVTS2>Inschakelen</SPAN></P>
+<P>Via Instel &gt; Systeem kan de tabelimport worden aan en uitgeschakeld (het vakje "Import"). Na een wijziging van deze instelling dient de TestOrganizer afgesloten te worden en opnieuw gestart om de nieuwe instelling te effectueren. Onder het vakje Import kan de tijd in minuten worden opgegeven, waarop de TestOrganizer naar bestanden gaat zoeken.</P>
+<P>BELANGRIJK: het zoeken naar tabelbestanden mag slechts op 1 PC in het netwerk worden uitgevoerd.</P>
+<P>BELANGRIJK: de PC die de tabellen moet zoeken moet voldoende ruimte krijgen om te zoeken</P>
+<P>&nbsp;<IMG width=628 height=298 src="tabel_import_on.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="protocol_lijst_"></A>
+<SPAN class=RVTS2>Protocol Lijst</SPAN></P>
+<P>Net als ieder ander protocol, is er ook een lijst van tabel import protocollen.</P>
+<P>Deze kunnen opdezelfde manier worden gewijzigd als de overige protocollen.</P>
+<P>Omdat de protocollen automatisch hun werk doen, kan een import-tabel-protocol uiteraard niet naar een patient worden overgehaald.</P>
+<P>&nbsp;<IMG width=425 height=217 src="tabel_import_lijst.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="edit_"></A>
+<SPAN class=RVTS2>Edit</SPAN></P>
+<P>Hieronder is het edit venster afgebeeld. De belangrijkste elementen zijn de 2 tabellen, links de voorbeeld tabel (het "Model"), rechts de geïmporteerde tabel, zoals die in de TestOrganizer geplaatst zal worden.</P>
+<P>De voorbeeld tabel is niet noodzakelijk, doch wel erg handig !! Het liefst neemt men voor de voorbeeldtabel het meest uitgebreide voorbeeld, dus zoveel mogelijk gegevens ingevuld. Het is verstandig een voorbeeltabel in de programma directory te bewaren.</P>
+<P>In principe kan de geïmporteerde tabel gewoon met het toetsenbord worden ingevuld. In iedere cel van de tabel kan of een vaste tekststring staan of een verwijzing naar een cel van het bronbestand (vergelijkbaar met Excel). Een verwijzing wordt aangegeven door er driehoekige haken omheen te zetten., bijv "&lt;C5&gt;" verwijst naar de brontabel, derde kolom, vijfde rij.</P>
+<P>&nbsp;<IMG width=689 height=463 src="tabel_import_edit2.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Voor het plaatsen van verwijzingen is nog een extra hulpmiddel toegevoegd:&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>klik op het gewenste veld in de brontabel, betreffend veld wordt gehighlight, bovenin het venster verschijnt de verwijzing naar het veld in een gehighlight veld, "&lt;C5&gt;" in bovenstaand plaatje&nbsp;</LI>
+<LI>klik nu op de gewenste positie in de geïmporteerde tabel, en de code verschijnt daar, zoals getoond in het onderste plaatje (merk op dat de code is verdwenen uit het geheighlighte veld bovenin).&nbsp;</LI>
+</UL>
+<P>&nbsp;<IMG width=694 height=463 src="tabel_import_edit1.gif"></P>
+<P>Door te klikken op de linker rij of de bovenste rij, wordt een menu getoond, waarin regels en kolommen kunnen worden verwijderd of toegevoegd.</P>
+<P>Tevens kan in dit menu een regel als "kopregel" worden gedefinieerd (de linker cel kleurt dan rood). Kopregels worden in het rapport van een grijze achtergrond voorzien.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="conditioneel_rapport_instellingen_"></A>
+<SPAN class=RVTS2>Conditioneel Rapport Instellingen</SPAN></P>
+<P>Hieronder een voorbeeld van het instellen van de dicipline en vraagstelling afhankelijkheid.</P>
+<P>De inhoud van de afzonderlijke cellen kan hier niet worden gewijzgd.</P>
+<P>Selekteer een regel en geef in de 2 blokken ernaast aan wanneer deze regel moet worden weergegeven.</P>
+<P>&nbsp;<IMG width=693 height=465 src="tabel_import_discipline.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="preview_conditioneel_rapport_"></A>
+<SPAN class=RVTS2>Preview Conditioneel Rapport</SPAN></P>
+<P>Door in de 2 rechterblokken, discipline en vraagstelling te selecteren, kan worden gezien wat er wordt weergegeven in het rapport. Het feitelijke font wordt pas bij het rapport bepaald.</P>
+<P>Tabs kunnen op 2 manieren worden ingesteld</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>door de waarden in 0.1 mm eenheden in te veullen in de tabs-regel&nbsp;</LI>
+<LI>door de kolomheaders te verschuiven&nbsp;</LI>
+</UL>
+<P>&nbsp;<IMG width=692 height=465 src="tabel_import_preview.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="rapport_"></A>
+<SPAN class=RVTS2>Rapport</SPAN></P>
+<P>&nbsp;<IMG width=665 height=367 src="tabel_import_report.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="bekijken_"></A>
+<SPAN class=RVTS2>Bekijken</SPAN></P>
+<P>&nbsp;<IMG width=800 height=600 src="tabel_import_review.gif"></P>
+</BODY></HTML>

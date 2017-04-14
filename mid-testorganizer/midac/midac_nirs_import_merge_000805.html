@@ -1,0 +1,152 @@
+<HTML><HEAD><TITLE>Midac NIRS import en merge 000805</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD rowspan=2 width=25% valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=50% height=40 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>Midac NIRS import en merge&nbsp; 000805</P></TD>
+<TD rowspan=2 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD height=40 bgcolor=#FFFF00 valign=middle>
+<P class=RVPS2>april 2001</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="kookboek merging"></A>
+Merging Midac-Nirs Geriatrie</P>
+<P>Als testbestand is de eerste opname van patient thb02 genomen.</P>
+<P>Het blijkt dat de klokken van beide PC's sterk afwijken:</P>
+<P>Midac opname is gestart op 9:48:43</P>
+<P>NIRS opname is gestart op 10:05:23</P>
+<P>Als we de NIRS import bekijken, zien we dat de syncpuls start op 63 seconden.</P>
+<P>Met andere woorden, de NIRS opname moet gestart zijn op 9:48:43 - 00:01:03 = 9:47:40</P>
+<P>&nbsp;<IMG width=600 height=400 src="midac_nirs_import_merge_000805_img1.gif"></P>
+<P>Kookboek Merging&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Selekteer een patient&nbsp;</LI>
+<LI>Selekteer bij die patient de Midac opname&nbsp;</LI>
+<LI>Selekteer een Midac protocol (dit dient alleen om de naam en bestemming van het resultaat te bepalen)&nbsp;</LI>
+<LI>Druk op de Merge-knop "++"&nbsp;</LI>
+<LI>Nu verschijnt het merge menu&nbsp;</LI>
+<LI>Vul als tweede input bestand het geimporteerde NIRS bestand in&nbsp;</LI>
+<LI>Zorg dat de instellingen zijn zoals in het plaatje (als eenmaal ingesteld, blijft alles ook bij volgende merge acties staan)&nbsp;</LI>
+<LI>Vul nu de tijd in dat de NIRS echt is gestart (rode pijl), druk op ENTER, om de ingevoerde waarde te activeren. (Bij deze patient werken de tijden 9:47:30 tot 9:47:40, oftewel minstens die 63 seconden, maar niet meer dan 73 seconden voor de midac opname)&nbsp;</LI>
+<LI>Druk op Merge&nbsp;</LI>
+<LI>Druk op Einde&nbsp;</LI>
+<LI>Kontroleer de opname, door in 1 venster beide sync signalen te zetten (zie hieronder)&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=466 height=270 src="midac_nirs_import_merge_000805_img2.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Kookboek Merging&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Selekteer een patient&nbsp;</LI>
+<LI>Selekteer bij die patient het eerste bestand dat gemerged moet worden&nbsp;</LI>
+<LI>Selekteer een Midac protocol (dit dient alleen om de naam en bestemming van het resultaat te bepalen)&nbsp;</LI>
+<LI>Druk op de Merge-knop "++"&nbsp;</LI>
+<LI>Nu verschijnt het merge menu&nbsp;</LI>
+<LI>Vul het tweede input bestand in, zodra dit veld is ingevuld zullen ook de informatie velden in de kolommen "file2" en "file3" worden gevuld.&nbsp;</LI>
+<LI>Druk op Merge&nbsp;</LI>
+<LI>Druk op Einde&nbsp;</LI>
+</UL>
+<P>Uitbreiding speciaal voor lam experimenten CAKN:&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>de switch PLAK moet geset worden voordat het tweede bestand wordt geselecteerd&nbsp;</LI>
+<LI>Voor automatische synchronisatie moet de midac opname moet als eerste bestand in de merging worden opgenomen en moet het synchronisatie signaal (met gedefinieerde amplitude, drempel 2150)&nbsp; aanwezig zijn in kanaal 13.&nbsp;</LI>
+<LI>idem, Het NIRS bestand moet als tweede bestand in de merging worden opgenomen en moet het synchronisatie signaal aanwezig zijn als laatste AD-kanaal met gedefinieerde amplitude (drempel 2450)&nbsp;</LI>
+<LI>Het NIRS bestand moet in het begin achterlopen op het MIDAC bestand, terwijl het NIRS bestand in de praktijk juist voorloopt. Daartoe kan bij het NIRS een extra vertragingstijd worden opgeteld "+sec"&nbsp; (10 sec zal in het algemeen goed werken). Als resultaat, mag het NIRS bestand echter niet meer dan 10 seconden achterlopen, daar anders de synchronisatie faalt. (Er zou ook een negatieve tijd kunnen worden ingevoerd, hoewel dit mechanisme wel is geimplementeerd, is het niet getest.&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=96 height=166 src="merge_knop.jpg"></P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=605 height=355 src="merge_menu.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="specificaties in het kort"></A>
+Specificaties in het kort&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Importeren van NIRS bestanden in Midac (inclusief events)&nbsp;</LI>
+<LI>Rekenfunctie om 9 NIRS signalen, via lineaire vergelijkingen, om te zetten in 9 uitgangssignalen&nbsp;</LI>
+<LI>Merge van 2 midac bestanden&nbsp;</LI>
+</UL>
+<P><A name="nirs import"></A>
+NIRS import&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>NIRS bestanden (*.oxy) worden automatisch herkend en kunnen inclusief de events direct (dus zonder verdere instellingen) worden geïmporteerd.&nbsp;</P>
+<P>Bij het importeren worden de OD-waarden door 2 gedeeld, de AD-kanalen blijven ongeschaald.&nbsp;</P>
+<P>Er worden de volgende signaalnamen toegekend, voor OD waarden&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; OD-s,r</P>
+<P>waarbij s=sender nummer en r=receiver.nummer.&nbsp;</P>
+<P>Voor de AD-kanalen wordt de volgende benaming gebruikt:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; AD-x</P>
+<P>Waarbij x=AD-kanaal nummer.&nbsp;</P>
+<P>Systeem events van NIRS worden in Midac verplaatst naar F8 events en user events naar F7.&nbsp;</P>
+<P>Zie voor meer informatie&nbsp;<A class=RVTS4 href="import.html">Import</A>.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="testbestanden"></A>
+TestBestanden&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>1. Patient "00merge"</P>
+<P>Onder deze patientnaam zijn de resulaten van alle testen opgenomen&nbsp;</P>
+<P>2. Korte NIRS opname met ruime variaties</P>
+<P>..\mid-data\nirs\sample.oxy&nbsp;</P>
+<P>..\mid-data\nirs\sample.evt&nbsp;</P>
+<P>Dit is een NIRs data set, waarin nagenoeg alle mogelijkheden voorkomen. Het is een opname met 3 golflengten, 2 ontvangers en 4 AD-kanalen. De opname bevat een pauze en enkele user-events.&nbsp;</P>
+<P>3. Import Template</P>
+<P>..\protocol\polygraf\_od.ini&nbsp;</P>
+<P>Template dat 3 golflengte voor 2 receivers en 4 AD-kanalen weergeeft.&nbsp;</P>
+<P>Bovendien worden met een rekenfunctie de marker teksten zichtbaar gemaakt.&nbsp;</P>
+<P>4. Testopnamen lam-26</P>
+<P>..\mid-data\nirs\lam_26.oxy&nbsp;</P>
+<P>..\mid-data\nirs\lam_26.evt&nbsp;</P>
+<P>..\mid-data\nirs\lam_26b.oxy&nbsp;</P>
+<P>..\mid-data\nirs\lam_26b.evt&nbsp;</P>
+<P>..\protocol\polygraf\lamooy3\lam_26.x1&nbsp;</P>
+<P>lam_26.oxy kan wel geimporteerd worden (zij het met moeite, rubbish aan het einde) maar vertoont geen enkele tijdsrelatie met midac opnamen.&nbsp;</P>
+<P>lam_26b.oxy wordt goed geimporteerd en wordt gemerged met de tweede helft van het Midac bestand. (in het begin van de opname is een klein fazeverschil van 1 seconde aanwezig, dat geleidelijk verdwijnt. Dit is een gevolg van de beperkte nauwkeurigheid welke altijd in het begin te zien is, omdat gesynchroniseerd wordt op het einde)&nbsp;</P>
+<P>5. Testopnamen lam-33</P>
+<P>..\mid-data\nirs\lam_33.oxy&nbsp;</P>
+<P>..\mid-data\nirs\lam_33.evt&nbsp;</P>
+<P>..\protocol\polygraf\lamooy3\lam_33.x?&nbsp;</P>
+<P>Op zich lijkt de import en merging goed te lukken, echter ook hier weer invertering en 5 seconden verschil in het begin&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="uitgevoerde testen"></A>
+Uitgevoerde Testen&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Import van [2] middels [3] naar [1]=...\polygraf\_od\00merge.d5&nbsp;</LI>
+<LI>&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst, 1999<A href="mailto:id.postbus@ids.kun.nl"><IMG width=29 height=18 src="mail.gif"></A>&nbsp; SM, last updated 24-04-2001&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+</BODY></HTML>

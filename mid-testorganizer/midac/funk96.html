@@ -1,0 +1,705 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>(F96) Veneuze Compliantie</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="331" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p><span class=rvts1>Veneuze Comliantie (F96)</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="ad-index.html">MIDAC Index</a></p>
+<p class=rvps1><a class=rvts4 href="funk0.html">Overzicht Rekenfuncties</a></p>
+<p class=rvps1><a class=rvts4 href="../mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts2>Omschrijving</span></p>
+<p>Bij deze meting wordt met een cuff één of meerdere extremiteiten dichtgedrukt met een druk op een aantal vaste waarden boven de diastolische&nbsp; druk. De cuff-druk wordt aangehouden, totdat het "eindvolume" is bereikt. Daarna wordt de cuff snel leeggelaten en wordt de volumeafname (is evenredig met de veneuze flow) gemeten.</p>
+<p>Bij het leeglopen worden 3 parameters gemeten</p>
+<p>1. De volume toename in % (welke kan worden omgezet in een absoluut volume mits het begin volume bekend is)</p>
+<p>2. De maximale helling van de pleth curve (is flow als gevolg van de elasticiteit van het veneuze vaatbed)</p>
+<p>3. De maximale helling in de tweede helft van de ontlaadcurve (is flow als gevolg van de elasticiteit van het omliggende weefsel ??)</p>
+<p><br></p>
+<p>In onderstaand plaatje is een uitvergroting te zien van het leeg lopen van de cuffs.</p>
+<p>Het licht-groene signaal is de status van de klep die de cuffs op spanning houdt.</p>
+<p>Het rode signaal is het signaal van het kwiktouwtje.</p>
+<p>De groen/zwarte lijn geven respectievelijk het begin volume en het eindvolume aan. Voot het begin volume wordt het rust-volume genomen voor de aanvang van het opblazen van de cuffs. Het begin volume wordt hier gemaskeerd door de licht-groene lijn van de klep.</p>
+<p>De blauwe lijn is de afgeleide van het pletysmograaf signaal (dus evenredig aan flow). </p>
+<p>De paarse lijnen geven de 2 toppen in het afgeleide signaal aan, ofteweel de maximale flow.</p>
+<p>Zoals in de eerste helft van het plet signaal goed is te zien, wordt het feitelijke plet signaal behoorlijk verstoord door het bloeddruk signaal en zelfs de ademhaling is soms in dit signaal te herkennen. Daarom moet een vrij sterke filtering worden toegepast bij de detectie van de toppen. Omdat een te sterke filtering de maximale flow flink kan onderschatten, mag de filtering dus weer niet te sterk zijn. Als men slechts 1 filterwaarde gebruikt, wordt of wordt bij te sterke filtering de eerste flow sterk onderschat, en bij de zwakke filtering valt de tweede piekniet meer betrouwbaar te bepalen. Daarom is hier gekozen voor 2 filters, een zwak filter voor de bepaling van de eerste piek en een sterk filter voor de tweede piek. In onderstaand plaatje ziet men net iets over de helft, dat het filter wordt omgeschakeld. Het is geen enkel bezwaar dat het tweede filter veel sterker is, omdat immers de signaalinhoud daar ook een veel grotere tijdconstante heeft.</p>
+<p><br></p>
+<p>De flow (het maximum van de afgeleide) kan met de hand worden verplaatst, hetgeen met name bedoeld is om de tweede flow in te schatten bij lage drukken, omdat deze dan door de storende hartsalg niet goed kan worden bepaald.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=452 height=334 alt="" src="funk96_img2.png"></p>
+<p><br></p>
+<p>Hieronder een plaatje (bij een veel lagere cuffdruk), warin goed te zien dat zowel hartslag als ademhaling dudielijk waarneembaar zijn. Bij deze opnamen heeft het programma weliswaar een tweede flow berekend, maar de vraag is wat dit waard is .</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=366 height=280 alt="" src="funk96_img4.png"></p>
+<p><br></p>
+<p>Export bekeken in Excel:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=546 height=144 alt="" src="funk96_img3.png"></p>
+<p><br></p>
+<p>Bovenstaande Excel uitdraai wordt verkregen, door enkele eenvoudige bewerkingen in Excel op de orginele uitdraai:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>vervang veld D,5&nbsp; "Omschrijving" door "96"</li>
+<li>selekteer het gehele sheet, door op veld 0,0 te klikken</li>
+<li>menu: Data | Filter | Auto Filter</li>
+<li>selekteer nu in het auto filter van kolom D, "96"</li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p>Het export protocol dient als volgt te worden ingesteld</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=597 height=472 alt="" hspace=1 vspace=1 src="funk96_img5.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Technische achtergrond informatie (niet bedoeld voor de gebruiker)</span></p>
+<p>pe_smeeekens</p>
+<p>filter_len=3*fsamp</p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p>Time(s)</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>Nr</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>L_dV</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>L_Flow1</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>L_Flow2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>R_dV</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>R_Flow1</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>R_Flow2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>HR [bpm]</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>Psys [mmHg]</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>MAP [mmHg]</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>Pdias [mmHg]</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>367</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.6</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>4.56</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>21.6</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.24</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.21E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>634</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.36</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>8.16</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.92</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3.32</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>37.4</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3.6</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.25E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>34.7</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>34.7</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>34.7</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1062</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2.34</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>19.9</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2.4</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3.98</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>43.4</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>4.8</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.16E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1556</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>4</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3.78</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>35.8</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>4.56</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>4.7</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>47.8</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>5.28</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.39E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p>filter_len=2*fsamp</p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p>Time(s)</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>Nr</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>L_dV</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>L_Flow1</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>L_Flow2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>R_dV</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>R_Flow1</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>R_Flow2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>HR [bpm]</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>Psys [mmHg]</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>MAP [mmHg]</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>Pdias [mmHg]</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>367</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.6</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>5.28</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>24.7</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>4.56</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.21E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>634</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.36</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>9.12</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2.4</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3.32</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>43.2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3.84</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.25E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>34.7</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>34.7</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>34.7</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1062</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2.34</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>25</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2.88</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3.98</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>50.4</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>5.28</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.16E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1556</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>4</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3.78</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>46.3</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>5.04</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>4.7</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>55.9</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>5.52</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.39E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>filter_len=1*fsamp</p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p>Time(s)</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>Nr</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>L_dV</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>L_Flow1</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>L_Flow2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>R_dV</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>R_Flow1</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>R_Flow2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>HR [bpm]</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>Psys [mmHg]</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>MAP [mmHg]</p>
+</td>
+<td width=67 height=16 valign=top>
+<p>Pdias [mmHg]</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>367</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.6</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>6.72</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>6</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>29.5</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>15.6</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.21E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>634</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.36</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>10.3</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>9.6</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3.32</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>51.4</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>12.2</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.25E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>34.7</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>34.7</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>34.7</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1062</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>2.34</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>35</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>15.4</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3.98</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>62.9</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>17.8</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.16E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1556</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>96</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>4</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>3.78</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>68.4</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>15.1</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>4.7</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>66.5</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>67.9</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>1.39E+03</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+<td width=67 height=16 valign=top>
+<p class=rvps3>0.58</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><img width=522 height=650 alt="" src="funk96_img1.bmp"></p>
+<p><br></p>
+<p><img width=522 height=674 alt="" src="funk96_img2.bmp"></p>
+<p><br></p>
+<p>Het weergeven van HR gaat vreemd, hierbij wordt namelijk de extra gain van 20 niet gecompenseerd, vandaar dat hier de scahlingsfunctie 7 moet worden tussengevoegd.</p>
+
+</body></html>

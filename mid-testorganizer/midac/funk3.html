@@ -1,0 +1,109 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunktie 3</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 3</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A>&nbsp;|&nbsp;<A class=RVTS4 href="#algoritme">Algoritme</A></P>
+<P><A class=RVTS4 href="#bijzonderheden">Bijzonderheden</A>&nbsp;|&nbsp;<A class=RVTS4 href="toepas3.html">Toepassing</A></P>
+<P><A class=RVTS4 href="funk3f.html">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Systemic Vascular Resistance</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+OmschrijvingDeze formule berekent de Systemic Vascular Resistance (SVR) bij gebruik van een ondersteunende hartpomp tijdens operatieve interventies. Hiervoor wordt gebruik gemaakt van het drukverval over het te totale vaatbed en van 1 of 2 volumestromen.</P>
+<P><TABLE width=453 bgcolor=#FFEEDD border=0 cellpadding=5 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=36% valign=top>
+<P>Inputs</P></TD>
+<TD width=36% valign=top>
+<P>Parameters</P></TD>
+<TD width=29% valign=top>
+<P>Outputs</P></TD>
+</TR>
+<TR valign=top>
+<TD width=36% valign=top>
+<P>Druk aan de hoge zijdeDruk aan de lage zijdeFlow 1Flow 2</P></TD>
+<TD width=36% valign=top>
+<P>Gain-factorOffset-factor</P></TD>
+<TD width=29% valign=top>
+<P>SVR</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="algoritme"></A>
+AlgoritmeVoor de weerstand wordt gebruik gemaakt van de volgende basisformule:Weerstand = drukverschil / flowDe funktie kan de berekende waarde direct uit drukken in wereldwaarden en en maakt hiervoor gebruik van de calibratiewaarden voor drukken en flows. Om de weerstand in de gewenste eenheid te kunnen uitdrukken zijn de extra variabelen A en B toegevoegd, waardoor de volgende uiteiendelijke formule ontstaat:Weerstand = A * ( ( MAP - CVP ) / (PulmFlow + PompFlow) + B)MetMAP = mean arterial pressureCVP = centraal veneuze drukPulmFlow = flow door pulmonarisPompFlow = flow door hartlong pompVoor de omzetting naar de gewenste eenheid (uitgedrukt in dyn,cm2,ml,s) de volgende omreken tabel</P>
+<P><TABLE width=489 bgcolor=#FFEEDD border=0 cellpadding=5 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=17% valign=top>
+<P>Grootheid</P></TD>
+<TD width=39% valign=top>
+<P>Gemeten Eenheid</P></TD>
+<TD width=44% valign=top>
+<P>Gewenste Eenheid</P></TD>
+</TR>
+<TR valign=top>
+<TD width=17% valign=top>
+<P>Druk</P></TD>
+<TD width=39% valign=top>
+<P>1 [mmHg]</P></TD>
+<TD width=44% valign=top>
+<P>= 133.3 [N / m2] = 1333 [dyn / cm2]</P></TD>
+</TR>
+<TR valign=top>
+<TD width=17% valign=top>
+<P>Flow</P></TD>
+<TD width=39% valign=top>
+<P>1 [liter / minuut]</P></TD>
+<TD width=44% valign=top>
+<P>= 16.67 [ml / seconde]</P></TD>
+</TR>
+<TR valign=top>
+<TD width=17% valign=top>
+<P>Weerstand</P></TD>
+<TD width=39% valign=top>
+<P>1 [mmHg / (liter / minuut)]</P></TD>
+<TD width=44% valign=top>
+<P>= 80 [ (dyn / cm2) / (ml / s) ]</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Waardoor voor de variabelen A en B de volgende waarden worden gevonden:A = 80, B = 0De verwachtte waarde van de weerstand (in de gewenste eenheid) bedraagt tussen de 1000 en 5000, derhalve is geen extra schaling nodig voor het verkrijgen van een goed oplossend vermogen.<A name="bijzonderheden"></A>
+Bijzonderheden<IMG width=15 height=15 src="greenbal.gif">Het resultaat wordt direct berekend in wereldwaarden</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

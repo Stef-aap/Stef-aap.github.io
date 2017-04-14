@@ -1,0 +1,155 @@
+<HTML><HEAD><TITLE>Installeren t.b.v. programmering in Delphi</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MID-TestOrganizer</P>
+<P><A class=RVTS4 href="midorg.html">Startpagina</A></P>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P><A class=RVTS4 href="#installatie">Installatie</A>&nbsp;,&nbsp;<A class=RVTS4 href="#delphi instellingen">Delphi</A>&nbsp;,&nbsp;<A class=RVTS4 href="#directory overzicht">Directories</A>&nbsp;,&nbsp;<A class=RVTS4 href="#uninstall">UnInstall</A>&nbsp;,&nbsp;<A class=RVTS4 href="#overzicht directory binnen de id (alleen bestemd">ID-dirs</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Delphi Programmeren, Installatie</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="installatie"></A>
+Installatie</P>
+<P>Kies bij de installatie voor aangepaste setup, en selecter alle sources.</P>
+<P>Hoewel niet strict noodzakelijk adviseren wij u toch de voorgestelde installatie-directory te handhaven, alle verwijzingen naar een specifieke directory zijn hierop gebaseerd.</P>
+<P><A name="handmatig bestanden goed"></A>
+Handmatig bestanden goed zetten</P>
+<P>Een aantal sources (functies toegewezen aan specifieke gebruikers) worden in subdirectories geplaatst. De inhoud van deze subdirectories, die beginnen met F..., dienen naar de hoofddirectory (C:\DATA\MIDAC) te worden gekopieerd, TENZIJ het aan u toegewezen functies betreft.</P>
+<P><A name="delphi instellingen"></A>
+Delphi instellingen</P>
+<P>Options Environement: Library path: toevoegen: C:\DATA\MIDAC\MID-LIB</P>
+<P><A name="delphi test"></A>
+Delphi test</P>
+<P>Build all</P>
+<P><A name="delphi run"></A>
+Delphi run</P>
+<P>Wijzig een van de voor u gereserveerde functies.</P>
+<P>Build all en test. Voor het testen adviseren we het volgende protocol:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Draai de normale versie van de testorganizer, met typische patientdata, de testorganizer maakt nu een transportfile aan, welke wordt gebruikt door MIDAC</LI>
+<LI>Zet in Delphi als run parameters "C:\DATA\MIDORG\TRANSPRT.TXT", nu wordt in Delphi de zojuist in de TestOrganzer gebruikte data en instelling gebruikt.</LI>
+</UL>
+<P>Als het geheel naar wens functioneert, moet ook nog MIDACEXP.DPR opnieuw worden gecompileerd, teneinde de functionaliteit ook ter beschikking te hebben in de scanning export vanuit de patienten database.</P>
+<P>Kopieer nu de execuatbles naar C:\DATA\MIDORG</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="directory overzicht"></A>
+Directory Overzicht</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=10% valign=middle>
+<P>c:\data\midorg</P></TD>
+<TD valign=middle>
+<P>De programma directory, van waaruit het programma normaal wordt gestart.&nbsp;&nbsp;</P>
+<P>Bevat alle executables en helpfiles.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>c:\data\midorg\mid-data</P></TD>
+<TD valign=middle>
+<P>Bevat alle data</P></TD>
+</TR>
+<TR valign=top>
+<TD width=15% valign=middle>
+<P>c:\data\midorg\protocol</P></TD>
+<TD valign=middle>
+<P>Bevat alle test protocollen</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>c:\data\midac</P></TD>
+<TD valign=middle>
+<P>Bevat de algemene sources</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>c:\data\midac\mid-lib</P></TD>
+<TD valign=middle>
+<P>Bevat alle noodzakelijke bibliotheken (dit path moet dus in Delphi worden toegevoegd)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>c:\data\midac\F17_2125</P></TD>
+<TD valign=middle>
+<P>Bevat klant specifieke funkties, als deze functies niet specifiek voor u bestemd zijn, dient u alle bestanden te verplaatsen naar c:\data\midac</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="uninstall"></A>
+Uninstall</P>
+<P>Omdat door het compileren bestanden zijn gewijzigd, kan het bijgeleverde uninstall deze bestanden niet meer verwijderen, deze bestanden zullen na een uninstall dus handmatig moeten worden verwijderd. PAS OP, dat u geen data weeggooit.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="overzicht directory binnen de id (alleen bestemd"></A>
+Overzicht Directory binnen de ID (alleen bestemd voor ID)</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=20% valign=middle>
+<P>c:\data\_midac</P></TD>
+<TD valign=middle>
+<P>bevat alle sources van MIDAC</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>c:\data\_midorg</P></TD>
+<TD valign=middle>
+<P>bevat alle sources van MIDORG</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>c:\data\midac$$$</P></TD>
+<TD valign=middle>
+<P>bevat de installatie specifieke bestanden van MIDAC.&nbsp;&nbsp;</P>
+<P>uitgeklede project files, Install Shield files</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>c:\data\~midorg</P></TD>
+<TD valign=middle>
+<P>bevat executable versie en test data</P></TD>
+</TR>
+</TABLE>
+</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst</P>
+<P>SM/GvV, 20-3-1998</P>
+</BODY></HTML>

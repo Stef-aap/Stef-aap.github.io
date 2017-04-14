@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><title>TestOrganizer File Opslag</title><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"></head><body text="#000000" bgcolor="#8fd6f3" link="#000099" vlink="#990099" alink="#000099">
+<h4>TestOrganizer Source Files</h4>
+<br>
+<br>
+<h4>Data Backup</h4>
+Bij het uitleveren van een programma aan een klant moeten er de volgende
+directories (inclusief subdirectories) worden opgeslagen op de BACKUP CDROM (als voorbeeld is MIDAC genomen)<br>
+<blockquote>...\...\ <b>D5_midac</b> \ *.*<br>
+... \ <b>LIBS_D5</b> \ *.*&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; (zonder subdirectories)<br>
+daarnaast moet een kopie van de <b>installatie CD</b> worden bewaard (i.v.m. overkoepelende programma's als TestOrganizer bv)<br>
+</blockquote>
+<br>
+<br>
+<br>
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top">Afhankelijk van de status van een module worden de
+sources van een programma opgeborgen in een beperkt aantal subdirectories
+(direct in de root van de data-disk)<br>
+      <blockquote><b>DATA_ACTUEEL</b> &nbsp; &nbsp;(gebruik ik om programma's waaraan gewerkt wordt op te slaan)<br>
+        <b>DATA_DEFINITIEF</b> &nbsp; (gebruik ik om programma's waaraan niet meer gewerkt wordt op te slaan)<br>
+... OF .... iets anders herkenbaars<br>
+      </blockquote>
+Voor programma's die bestaan uit meerdere executables, wordt een aparte directory
+aangemaakt, waarin alle executables + dll's worden opgeborgen. Vanuit deze
+directory kan het programma dus ook gerund worden. Tevens wordt deze directory
+gebruikt om installaties te creeeren en misschien zal er daarom nog wat meer
+in komen.<br>
+      <blockquote><b>DATA_TO_EXE</b> &nbsp;</blockquote>
+Sources van programma's worden opgeborgen in een subdirectory (van data_actueel,
+data_definitief of hoe ze ook heten mogen), die 2 elementen bevat: de versie
+van de Delphi-compiler en een herkenbare naam, zoals<br>
+      <blockquote><b>D5_MIDAC<br>
+D5_PACEMAKER</b><br>
+      </blockquote>
+      <br>
+      </td>
+      <td valign="top"><img src="data_opslag.gif" alt="" width="148" height="275">
+      <br>
+      <br>
+      <br>
+      <img src="libs_d5.gif" alt="" width="157" height="104">
+      <br>
+      </td>
+      <td valign="top"><img src="data_actueel.gif" alt="" width="162" height="391">
+      <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top">Bibliotheken en modules die gebruikt worden door meerdere programma's worden
+opgeborgen in de root\LIBS_D5. Deze bevat momenteel 3 vast gedefini&euml;erde
+subdirectories:<br>
+
+      <blockquote><b>LIBextra</b> &nbsp; voor het opbergen van algemene zelf geschreven routines<br>
+  <b>LIBextrn</b>&nbsp;&nbsp;&nbsp; voor het &nbsp;opbergen van routines van anderen<br>
+  <b>LIB_TestOrganizer</b>&nbsp;&nbsp;&nbsp; voor het opbergen van routines die door meerdere modulen van de TestOrganizer worden gebruikt<br>
+      </blockquote>
+ Door &nbsp;deze constructie behoeft bij geen enkel programma meer een library
+path te worden opgegeven, mits in Delphi, via Tools / Environement Options
+/ Library al deze directories worden toegevoegd.<br>
+      <br>
+      </td>
+      <td valign="top"><img src="library_path_d5.gif" alt="" width="419" height="368">
+      <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top">
+      <h4>Bibliotheken </h4>
+worden gebruikt om na een herinstallatie van snel alle componenten te kunnen installeren.<br>
+      <br>
+Deze worden opgeborgen in LIBS_D5.<br>
+      <br>
+Momenteel kennen we 1 bibliotheek <b>MID_LIBS</b>, welke waarschijnlijk bij ieder individu verschillend is. Misschien moeten we hier in de toekomst nog iets aan doen.<br>
+      </td>
+      <td valign="top"><img src="libs_biebd5.gif" alt="" width="205" height="267">
+&nbsp;<img src="mid_bieb.gif" alt="" width="271" height="270">
+      <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<h4>HerCompilatie</h4>
+De volgende programma's zijn opnieuw gecompileerd na het overzetten van de algemene bestanden (31-06-2002):<br>
+<br>
+<b>MidOrg</b><br>
+<br>
+<b>MidRep</b><br>
+<br>
+<b>VrLst</b><br>
+<br>
+<b>Video_score</b><br>
+<br>
+<b>Spraak</b><br>
+<blockquote>Dit programma maakt nog gebruik van de oude MID_BIEB, die inmiddels
+niet meer gebruikt zou moeten worden en is hernoemd to MID_BIEB_OLD. Bij
+een volgende revisie moet deze worden vervangen.<br>
+</blockquote>
+<b>BackUp_DB_test</b><br>
+<br>
+<b>TO_Netwerk_Watcher</b><br>
+<br>
+<br>
+</body></html>

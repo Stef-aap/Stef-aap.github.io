@@ -1,0 +1,81 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunctie 11</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 11</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A>&nbsp;| Algoritme</P>
+<P>Bijzonderheden | Toepassing</P>
+<P><A class=RVTS4 href="funk11f.html">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Enable Opname</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Omschrijving</P>
+<P>Door middel van een ingangssignaal de opname automatisch starten en stoppen.</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=501 bgcolor=#FFEEDD border=0 cellpadding=5 bordercolor=#000000 cellspacing=2>
+<TR valign=top>
+<TD width=33% valign=top>
+<P>Inputs</P></TD>
+<TD width=33% valign=top>
+<P>Parameters</P></TD>
+<TD width=33% valign=top>
+<P>Outputs</P></TD>
+</TR>
+<TR valign=top>
+<TD width=33% valign=top>
+<P>Enable</P></TD>
+<TD width=33% valign=top>
+<P>A (ondergrens)</P>
+<P>B (bovengrens)</P></TD>
+<TD width=33% valign=top>
+<P>Opname loopt</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Gebruik</P>
+<P>Opname loopt als A &lt; ENABLE &lt;= B</P>
+<P>Een typisch gebruik van deze timer is het verrichten van een aantal verschillende testen, waarbij de testen telkens handmatig gestart worden door het activeren van de juiste marker, en waarbij automatische de opname gestart en gepauzeerd wordt, zoals bijvoorbeeld gewenst bij de ‘autonome neuropathie" test.</P>
+<P>Een van de tests zou er als volgt uit kunnen zien: 2 minuten rust, 1 minuut activiteit, 5 minuten rusten, waarbij men geinteresseerd (dus opname) is in de eerste 2+1 minuten. Dit geheel kan gerealiseerd worden met het volgende rekenkanaal:</P>
+<P>system signaal marker_2 geeft de start van een marker aan</P>
+<P>functie timer2 t1=2 min, t3=1 min, t3=5min, upcounting</P>
+<P>functie opname enable A=0, B=2</P>
+<P>Zodra nu op marker-2 gedrukt wordt (deze moet uiteraard wel geenabled zijn) start de timer die direct de opname start. Na 3 minuten stopt de timer de opname weer.</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

@@ -1,0 +1,933 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.61 [en] (Win98; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>mid_to Test &amp; Design</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">MIDORG</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><b><font face="Arial,Helvetica"><font color="#000099">&nbsp;</font></font></b></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">MID_TO
+Design &amp; Test</font></font></b></td>
+</tr>
+</table>
+<a name="problemen"></a><b><font face="Arial,Helvetica"><font color="#000099">Problemen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">- als bij het starten focus op de patientenlijst
+wordt gezet, werkt de muisclick niet, totdat focus eerst ergens anders
+is geweest (slechte implementatie in columned listbox ??)</font>
+<br><font face="Arial,Helvetica">- bij het verlaten van het patientgegevens
+grid, blijft soms de selectie staan, selectie op -1,-1,-1,-1 zetten werkt
+blijkbaar niet onder alle omstandigheden (overal proberen te zetten, geen
+sluitende positie voor alle omstandigheden weten te vinden)</font>
+<p><a name="nog te doen"></a><b><font face="Arial,Helvetica"><font color="#000099">Nog
+te doen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">- bij delete patient, ook de onderliggende
+testen weggooien</font>
+<br><font face="Arial,Helvetica">- geboorte datum check : millennium</font>
+<br><font face="Arial,Helvetica">- module_listClick aanpassen en controleren</font>
+<br><font face="Arial,Helvetica">- patient blokkkering</font>
+<br><font face="Arial,Helvetica">- EN DAN conditioneel</font>
+<p><a name="belangrijke wijzigingen ten opzichte van eerdere"></a><b><font face="Arial,Helvetica"><font color="#000099">Belangrijke
+wijzigingen ten opzichte van eerdere versies&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>&nbsp;
+<p><a name="form routines"></a><b><font face="Arial,Helvetica"><font color="#000099">Form
+routines&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td VALIGN=TOP WIDTH="10%">formcreate</td>
+
+<td>Positionering en initialisering van de visuele componenten
+<br>Testen van geldige dongle</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP>formactivate</td>
+
+<td>als eerste keer: inifile lezen en effectueren
+<br>test of pc plat is gegaan, corrigeer zo mogelijk ??</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP>formclose</td>
+
+<td>inifile wegschrijven
+<br>patientfile wegschrijven
+<br>speciaal geval: afsluiten baterry edit sessie</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP>return_to_this_application</td>
+
+<td>Zodra een ander programma actief is geweest (dit komt met name voor
+als MIDAC is gestart) is dit de enige manier om de lijst met testen te
+updaten.
+<br>De boolean OTHER_PROGRAM_ACTIVE wordt geset als runprogram.
+<br>In de toekomst moet misschien hiervoor een integer worden genomen,
+<br>zodat verschillende acties mogelijk zijn.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">inifile_effektueer</font></td>
+
+<td>Effectueert de instellingen,
+<br>welke objecten zichtbaar zijn en vult de zichtbare objecten zonodig</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">create_measurement_directory</font></td>
+
+<td>is momenteel niet actief</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p><a name="algemene knoppen"></a><b><font face="Arial,Helvetica"><font color="#000099">Algemene
+knoppen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td WIDTH="20%">knop_copyClick</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>knop_helpClick</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>knop_diversenClick</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>knop_instellingClick</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>knop_clipboardClick</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>print_designClick</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>eindeClick</td>
+
+<td></td>
+</tr>
+</table>
+
+<p><a name="opstarten van onderliggende programma's"></a><b><font face="Arial,Helvetica"><font color="#000099">Opstarten
+van onderliggende programma's&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td WIDTH="20%">knop_bekijkenClick</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>knop_start_selection</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>knop_startenClick</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>knop_printClick</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>knop_exportClick</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>knop_importClick</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>start_testen</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>prepare_transportfile</td>
+
+<td></td>
+</tr>
+</table>
+
+<p><a name="prepare_transportfile"></a><b><font color="#000099">Prepare_transportfile</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Hieronder is aangegeven welke onderdelen via de nieuwe standaard procedure
+'prepare_transportfile' lopen en of ze getest zijn (gezien vanuit database
+schil MIDORG).
+<table BORDER WIDTH="98%" >
+<tr>
+<td></td>
+
+<td>New</td>
+
+<td>Edit</td>
+
+<td>Record</td>
+
+<td>View</td>
+
+<td>Report</td>
+
+<td>Import</td>
+
+<td>Export</td>
+
+<td>Settings</td>
+</tr>
+
+<tr>
+<td>Batterij</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>nvt</td>
+
+<td>nvt</td>
+
+<td>nvt</td>
+
+<td>nvt</td>
+
+<td>nvt</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>Vragenlijst</td>
+
+<td>+</td>
+
+<td>+</td>
+
+<td>+</td>
+
+<td>+</td>
+
+<td>?</td>
+
+<td>nvt</td>
+
+<td>-</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>Actilog</td>
+
+<td>+</td>
+
+<td>+</td>
+
+<td>-</td>
+
+<td>+</td>
+
+<td>?</td>
+
+<td>-</td>
+
+<td>nvt</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>NeuroPsycho</td>
+
+<td>+</td>
+
+<td>+</td>
+
+<td>+</td>
+
+<td>+</td>
+
+<td>?</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>PolyGrafie</td>
+
+<td>+</td>
+
+<td>+</td>
+
+<td>+</td>
+
+<td>+</td>
+
+<td>nvt</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>PolyScan</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>+</td>
+
+<td>?</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>Spraak</td>
+
+<td>+T</td>
+
+<td>+T</td>
+
+<td>+T</td>
+
+<td>+T</td>
+
+<td>?</td>
+
+<td>nvt</td>
+
+<td>nvt</td>
+
+<td>programma
+<br>hangt</td>
+</tr>
+
+<tr>
+<td>Tabel</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>?</td>
+
+<td>nvt</td>
+
+<td>-</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>Excel</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>?</td>
+
+<td>nvt</td>
+
+<td>nvt</td>
+
+<td>nvt</td>
+</tr>
+</table>
+eerste karakter geeft aan of wel of niet loopt via prepare_transportfile
+<br>&nbsp; (+=wel, -=niet, nvt=niet van toepassing, ?nog te doen)
+<br>T=getest
+<br>&nbsp;
+<table BORDER WIDTH="98%" >
+<tr>
+<td></td>
+
+<td>Executable
+<br>File</td>
+
+<td>Settings
+<br>File</td>
+
+<td>SubPath
+<br>Data</td>
+
+<td>Protocol
+<br>File</td>
+
+<td>Analyse
+<br>File</td>
+</tr>
+
+<tr>
+<td>Batterij</td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Vragenlijst</td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Actilog</td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>NeuroPsycho</td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>PolyGrafie</td>
+
+<td>midac.exe</td>
+
+<td>*.ini</td>
+
+<td>\polygraf\</td>
+
+<td>*.ini</td>
+
+<td>*.ana</td>
+</tr>
+
+<tr>
+<td>PolyScan</td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Spraak</td>
+
+<td>spraak.exe</td>
+
+<td>*.spi</td>
+
+<td>\spraak\</td>
+
+<td>*.spv</td>
+
+<td>*.spa</td>
+</tr>
+
+<tr>
+<td>Tabel</td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Excel</td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+<p><a name="patientenlijst"></a><b><font face="Arial,Helvetica"><font color="#000099">Patientenlijst&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><font face="Arial,Helvetica">Bij het starten wordt het focus op de patienten-lijst
+gezet. Dit werkt niet goed, daarom wordt voorlopig gestart met het focus
+op de help_knop, als deze onzichtbaar gemaakt is dan de instellingen knop,
+deze is er altijd.</font>
+<p><font face="Arial,Helvetica">Met behulp van de muis, de cursor-toetsen
+en met de beginletter kan een patient worden geselekteerd. De cursor-toetsen
+en beginletter werken alleen als de patienten-lijst het focus heeft (actief
+gekleurd is).</font>
+<p><font face="Arial,Helvetica">De patienten-lijst is alfabetisch gesorteerd,
+op de eerste kolom (daarna eventueel op volgende kolommen).</font>
+<p><font face="Arial,Helvetica">Met behulp van de knoppen onder de patienten
+lijst kunnen patienten worden toegevoegd en verwijderd en kunnen de patientgegevens
+worden gewijzigd. Dezelfde acties kunnen worden bereikt met respectievelijk
+de Insert-toets, Delete-toets en Enter-toets, uiteraard alleen als ook
+de bijbehorende knop zichtbaar is. Het wijzigen van de patientgegevens
+kan ook direkt door met de muis op &eacute;&eacute;n van de pati&euml;ntvelden
+te klikken.</font>
+<br><font face="Arial,Helvetica">Het wijzigen van het pati&euml;ntnummer
+kan alleen via ... copy-knop ??</font>
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td VALIGN=TOP WIDTH="20%"><font face="Arial,Helvetica">patname_collb_update</font></td>
+
+<td><font face="Arial,Helvetica">Bouwt de inhoud van de patientenlijst
+opnieuw op,</font>
+<br><font face="Arial,Helvetica">dit gebeurt door alle bestanden met de
+extensie "PAT" te zoeken in de patienten directory. Na afloop wordt het
+focus teruggezet op de patient die vooraf geselekteerd was, als dit niet
+lukt, dan wordt de eerste regel geselekteerd.</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">patname_collbEnter</font></td>
+
+<td><font face="Arial,Helvetica">Zet de actieve kleur</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">patname_collbExit</font></td>
+
+<td><font face="Arial,Helvetica">Zet de niet-actieve kleur</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">patname_collbClick</font></td>
+
+<td><font face="Arial,Helvetica">Patient wordt geselecteerd,</font>
+<br><font face="Arial,Helvetica">deze routine zorgt dat de patientgegevens
+en patienttesten juist worden gevuld.</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">patname_collbDblClick</font></td>
+
+<td><font face="Arial,Helvetica">Edit patient-gegevens</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">patname_collbKeyDown</font></td>
+
+<td><font face="Arial,Helvetica">Vangt biezondere toetsen af, en geeft
+deze een logische actie</font>
+<br><font face="Arial,Helvetica">Enter = Edit Patient gegevens</font>
+<br><font face="Arial,Helvetica">Insert = Nieuwe Patient Invoeren</font>
+<br><font face="Arial,Helvetica">Delete = Patient Verwijderen</font>
+<br><font face="Arial,Helvetica">Deze biezondere toetsen werken alleen
+als de bijbehorende knop zichtbaar is.</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">patname_headerSizing</font></td>
+
+<td><font face="Arial,Helvetica">Real time instelling van kolombreedte</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">patname_headerSized</font></td>
+
+<td><font face="Arial,Helvetica">Bewaar de de ingestelde kolom breedten</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">knop_patient_createClick</font></td>
+
+<td><font face="Arial,Helvetica">Invoeren van een nieuwe patient</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">knop_patient_editClick</font></td>
+
+<td><font face="Arial,Helvetica">Edit patient-gegevens</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">knop_patient_deleteClick</font></td>
+
+<td><font face="Arial,Helvetica">Verwijdert de geselekteerde patient.</font>
+<br><font face="Arial,Helvetica">Alvorens te verwijderen wordt om een bevestiging
+gevraagd, i.p.v. echt verwijderen, wordt de extensie gewijzigd van 'pat'
+naar 'atp'.</font>
+<br><font face="Arial,Helvetica">Daarna wordt de lijst opnieuw opgebouwd
+en de eerste patient in de lijst geselecteerd.</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP>pattest_collb_add</td>
+
+<td>Voegt een test (aangegeven in een structure) toe aan de patient testen
+lijst.</td>
+</tr>
+</table>
+
+<p><a name="patient gegevens"></a><b><font face="Arial,Helvetica"><font color="#000099">Patient
+gegevens&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Het patientnummer vormt de sleutel in
+de database, en moet derhalve uniek zijn en kan derhalve moeilijk gewijzigd
+worden.</font>
+<br><font face="Arial,Helvetica">Het patientnummer moet aan de volgende
+voorwaarden voldoen:</font>
+<br><font face="Arial,Helvetica">- het moet uniek zijn (dus mag nog niet
+voorkomen)</font>
+<br><font face="Arial,Helvetica">- maximaal 7 karakters (hoeven geen cijfers
+te zijn)</font>
+<br><font face="Arial,Helvetica">- als dubbelcheck=active, moet 2 maal
+een identiek patientnummer zijn ingevoerd.</font>
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td VALIGN=TOP WIDTH="20%"><font face="Arial,Helvetica">patient_gegevensEnter</font></td>
+
+<td><font face="Arial,Helvetica">Zet de actieve kleur</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">patient_gegevensExit</font></td>
+
+<td><font face="Arial,Helvetica">Kontroleert (als gewenst) geboortedatum
+en geslacht,</font>
+<br><font face="Arial,Helvetica">schrijft de gegevens naar het patient-bestand</font>
+<br><font face="Arial,Helvetica">en update de patienten-lijst (het kan
+namelijk zijn dat deze gewijzigd moet worden)</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">patient_gegevensKeydown</font></td>
+
+<td><font face="Arial,Helvetica">Vangt biezondere toetsen af, en geeft
+deze een logische actie</font>
+<br><font face="Arial,Helvetica">Enter, Tab, arrow-down = naar volgende
+regel</font>
+<br><font face="Arial,Helvetica">Escape = terug naar patienten-lijst</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">patient_gegevensMousedown</font></td>
+
+<td><font face="Arial,Helvetica">Als er een nieuwe patient is ingevoerd,
+en er wordt met de muis naar de volgende regel gesprongen, zorgt deze routine
+dat eerst het nieuwe patientnummer wodrt gecontroleerd, zonodig wordt het
+focus teruggezet op het patientnummer veld.</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">test_patientnummer</font></td>
+
+<td><font face="Arial,Helvetica">Test of nieuw ingevoerd patientnummer
+aan alle voorwaarden voldoet</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">knop_patient_extensionClick</font></td>
+
+<td><font face="Arial,Helvetica">Edit de extra patient gegevens (memo)</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">knop_datum_tijdClick</font></td>
+
+<td><font face="Arial,Helvetica">Voeg datum en tijd in in extra patient
+bestand</font></td>
+</tr>
+</table>
+
+<p><a name="patient-testen lijst"></a><b><font face="Arial,Helvetica"><font color="#000099">Patient-testen
+lijst&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td><font face="Arial,Helvetica">pattest_collbEnter</font></td>
+
+<td><font face="Arial,Helvetica">Zet de actieve kleur</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">pattest_collbExit</font></td>
+
+<td><font face="Arial,Helvetica">Zet de niet-actieve kleur</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">pattest_collbDblClick</font></td>
+
+<td><font face="Arial,Helvetica">Afnemen / Bekijken van een test, afhankelijk
+of deze al is afgenomen</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">pattest_collbKeyDown</font></td>
+
+<td><font face="Arial,Helvetica">Vangt biezondere toetsen af, en geeft
+deze een logische actie</font>
+<br><font face="Arial,Helvetica">Enter = Afnemen / Bekijken van de test</font>
+<br><font face="Arial,Helvetica">Delete = Test Verwijderen</font>
+<br><font face="Arial,Helvetica">Deze biezondere toetsen werken alleen
+als de bijbehorende knop zichtbaar is.</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">pattest_headerSizing</font></td>
+
+<td><font face="Arial,Helvetica">Real time instelling van kolombreedte</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">pattest_headerSized</font></td>
+
+<td><font face="Arial,Helvetica">Bewaar de de ingestelde kolom breedten</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP>knop_del_pattestClick</td>
+
+<td>Verwijdert de geselecteerde test, als dit is toegestaan en nadta een
+extra bevestiging is gegegeven</td>
+</tr>
+</table>
+
+<p><a name="module lijst"></a><b><font face="Arial,Helvetica"><font color="#000099">Module
+Lijst&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td VALIGN=TOP WIDTH="10%"><font face="Arial,Helvetica">module_listEnter</font></td>
+
+<td><font face="Arial,Helvetica">Zet de aktieve kleur</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">module_listExit</font></td>
+
+<td><font face="Arial,Helvetica">Zet de niet-aktieve kleur</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">module_listClick</font></td>
+
+<td><font face="Arial,Helvetica">Vult de test lijst met alle testen van
+de geselecteerde module</font></td>
+</tr>
+</table>
+
+<p><a name="testen lijst"></a><b><font face="Arial,Helvetica"><font color="#000099">Testen
+Lijst&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">edit en new zouden gecombineerd kunnen
+worden</font>
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td><font face="Arial,Helvetica">testen_collbEnter</font></td>
+
+<td><font face="Arial,Helvetica">Zet de actieve kleur</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">testen_collbExit</font></td>
+
+<td><font face="Arial,Helvetica">Zet de niet-actieve kleur</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">testen_collbDblClick</font></td>
+
+<td><font face="Arial,Helvetica">Geselecteerde test toeveoegn aan de patient</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">testen_collbKeyDown</font></td>
+
+<td><font face="Arial,Helvetica">Vangt biezondere toetsen af, en geeft
+deze een logische actie</font>
+<br><font face="Arial,Helvetica">Enter = Toevoegen test aan patient</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">knop_test_newClick</font></td>
+
+<td><font face="Arial,Helvetica">Invoeren van een nieuwe test van de geselecteerde
+module</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">knop_test_editClick</font></td>
+
+<td><font face="Arial,Helvetica">Edit geselecteerde test</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial,Helvetica">knop_test_deleteClick</font></td>
+
+<td><font face="Arial,Helvetica">Verwijdert de geselekteerde test</font>
+<br><font face="Arial,Helvetica">Alvorens te verwijderen wordt om een bevestiging
+gevraagd, i.p.v. echt verwijderen, wordt de extensie gewijzigd door deze
+1 plaats cyclish te roteren.</font></td>
+</tr>
+
+<tr>
+<td>knop_addclick</td>
+
+<td>Voegt de geselecteerde test toe aan de patient</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP>add_battery</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP>add_test</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>testen_headerSizing</td>
+
+<td><font face="Arial,Helvetica">Real time instelling van kolombreedte</font></td>
+</tr>
+
+<tr>
+<td>testen_headerSized</td>
+
+<td><font face="Arial,Helvetica">Bewaar de de ingestelde kolom breedten</font></td>
+</tr>
+</table>
+
+<p><a name="test battery"></a><b><font color="#000099">Test Battery&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td WIDTH="10%">edit_battery</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>edit_battery_exit</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>convert_battery_file</td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p>
+<hr size=2><font face="Arial,Helvetica"><font size=-2>&copy; Copyright
+Instrumentele Dienst, 1996</font></font>
+<br><font face="Arial,Helvetica"><font size=-2><a href="mailto:s.mientki@ids.kun.nl">s.mientki@ids.kun.nl</a>&nbsp;
+last updated: 14-2-1999</font></font>
+<br>&nbsp;
+</body>
+</html>

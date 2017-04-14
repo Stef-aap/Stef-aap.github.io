@@ -1,0 +1,69 @@
+<HTML><HEAD><TITLE>TestOrganizer, rapport, gebruikershandleiding</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E8E8E8;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>juni 2005</SPAN></P>
+<P><SPAN class=RVTS1>Rapport&nbsp; Generator</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Inleiding</SPAN></P>
+<P>Net als de overige modulen in de TestOrganizer, wordt een rapport gedefiniëerd door een protocol.</P>
+<P>Het protocol dient hier als template (blauwdruk, knippatroon, sjabloon, opmaakprofiel, opmaakmodel).</P>
+<P>Het template bevat de volgende elementen</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>vaste tekst en plaatjes&nbsp;</LI>
+<LI>opmaak kenmerken (font-eigenschappen, paragraaf eigenschappen, achtergrond kleur etc)&nbsp;</LI>
+<LI>commando's om resultaten van testen op te nemen in het rapport&nbsp;</LI>
+<LI>commentaar, met name bedoeld om de commando's in het rapport te documenteren voor latere herkenning&nbsp;</LI>
+</UL>
+<P>Onderstaand vindt u de belangrijkste zaken over de editor samengevat. Na het doorlezen van het "voorbeeld" kunt U het beste direct naar de voorbeelden gaan, want dat zal voor de meesten veel duidelijker zijn dan onderstaande gecomprimeerde tekst.</P>
+<P>Voor een uitgebreide handleiding van de scripttaal, zie&nbsp;<A class=RVTS4 href="testorganizer_report_script_taal.html">scripttaal</A>.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Voorbeeld</SPAN></P>
+<P>Om het een en ander wat concreter te maken beginnen we met een eenvoudig voorbeeld:</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=490 height=197 src="dekkerswald_rapport_demo1_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>De eerste 4 regels van bovenstaand rapport zijn vaste tekst, welke precies (inclusief font kenmerken) zo wordt opgenomen in het rapport als hier boven is aangegeven.</P>
+<P>De blauwe regels (de font kenmerken zijn eenvoudig aan te passen) zijn commentaar, ter verduidelijking van de commando regels (rood in bovenstaand voorbeeld).</P>
+<P>De rode regels in bovenstaand voorbeeld, zijn commando's, welke door de rapport generator zullen worden geïnterpreteerd en waarop de rapport generator de gevraagde testresultaten zal opnemen in het rapport.</P>
+<P>De eerste commando regel vertelt de rapport-generator om de patiënt-gegevens (zoals naam, patnr, geboorte datum, etc) op te nemen in het rapport. Het invoegen van deze gegevens gebeurt op de plaats waar het commando staat.</P>
+<P>De tweede rode regel vertelt de rapport-generator om een overzicht te geven van de 10 laatst afgenomen testen bij deze patient.</P>
+<P>Hoe de rapport-generator onderscheid maakt tussen vaste tekst en commando's komt in de volgende paragraaf aan de orde.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Rapport-generator Editor</SPAN></P>
+<P>Voorlopig is geen editor in de TestOrganizer geïntegreerd, maar dient gebruik gemaakt te worden van het programma PuntHoofd. (PuntHoofd is een freeware programma, gemaakt door een van onze medewerkers, die ook de bronbestanden beschikbaar heeft gesteld).</P>
+<P>Het gebruik van PuntHoofd (als editor) is vergelijkbaar met het programma WordPad. Zie voor uitgebreide informatie de handleiding van PuntHoofd.</P>
+<P>Er is één wezenlijk verschil met andere tekstverwerkers (zoals WordPad). Kan in WordPad een onbeperkt aantal tekst- en paragraaf-stijlen worden gebruikt. In PuntHoofd is het aantal tekststijlen beperkt en bovendien worden de stijlen op een andere manier gebruikt en opgeslagen.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Tekst en paragraaf stijlen</SPAN></P>
+<P>Voor degene, die bekend zijn met het maken van webpagina's, valt het principe in enkele woorden samen te vatten "HTML met external CSS".</P>
+<P>Hierbij bevat een document (dus ook een rapport of een rapport-template) naast de inhoud, alleen verwijzingen naar stijlen. De stijlen zelf worden gedefiniëerd in een apart document (RVF.CSS). Het belangrijke voordeel hiervan is dat alle documenten dezelfde stijl en dus dezelfde uitstraling hebben. Verandert men één van de stijlen, dan zullen alle documenten, waarin een verwijzing naar deze stijl voorkomt, van uiterlijk veranderen, zodra de documenten opnieuw worden bekeken of geprint.</P>
+<P>Hoewel het bovenstaande misschien wat ingewikkeld klinkt, zal blijken dat de praktijk veel gemakkelijker is (dan b.v WordPad).</P>
+<P>Net zoals je in WordPad kiest om een aantal letters&nbsp;<SPAN class=RVTS3>VET</SPAN>&nbsp;weer te geven, kies je in PuntHoofd een complete tekst-stijl voor een aantal letters, woorden of wat dan ook.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Relevante Bijzonderheden</SPAN></P>
+<P>PuntHoofd is een WYSIWYG editor met volledige drag en drop faciliteiten.</P>
+<P>Verder zijn er voorzieningen aanwezig om schermafdrukken op te nemen, pijlen en teksten aan plaatjes toe te voegen en zelfs freehand tekenen is mogelijk.</P>
+<P>Links naar zowel bestanden als websites kunnen worden ingevoegd. (In edit mode kunnen deze woden geactiveerd door de CTRL-toets in te drukken terwijl men op de link klikt).</P>
+<P>Met rechtsklikken op een item, kan de meta-data (eigenschappen) van een item worden ingesteld.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Eigenaardigheden</SPAN></P>
+<P>Helaas heeft de editor ook enkele eigenaardigheden, waarop men bedacht moet zijn.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Lege regels worden weggepoetst. Dit is te pareren door 2 spaties op een lege regel te plaatsen.&nbsp;</LI>
+<LI>De enter-toets in een tabel, springt naar de volgende cel. Als de laatste cel is bereikt, voegt de Enter-toets een nieuwe rij aan de tabel toe. Wil men een nieuwe regel in een cel plaatsen, gebruik dan shift-Enter.&nbsp;</LI>
+<LI>Tabs, worden niet ondersteund. Gebruik hiervoor randloze tabellen.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+
+</BODY></HTML>

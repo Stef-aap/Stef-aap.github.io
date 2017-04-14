@@ -1,0 +1,142 @@
+<HTML><HEAD><TITLE>Midac, rekenfunctie 69, Exponentiële Fit</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=1 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MID-TestOrganizer</P>
+<P><A class=RVTS4 href="midorg.html">Startpagina</A></P>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 69</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P class=RVPS2><A class=RVTS4 href="#omschrijving">Omschrijving</A></P>
+<P class=RVPS2><A class=RVTS4 href="#algoritme">Algoritme</A></P>
+<P class=RVPS2><A class=RVTS4 href="#ingangs_signalen">In- / Uitgangs Signalen</A></P>
+<P class=RVPS2><A class=RVTS4 href="#resultaat">Resultaat</A></P>
+<P class=RVPS2><A class=RVTS4 href="#omschrijving">Export</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Exponentiële Fit</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P><A name="omschrijving"></A>
+Omschrijving&nbsp;<A href="funk69.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze functie berekent en tekent een exponentiële fit aan een opgenomen of berekend signaal.</P>
+<P>De functie is speciaal ontwikkeld t.b.v. Ktr meting in functie 65.</P>
+<P>Het is niet aan te bevelen deze functie te gebruiken tijdens het maken van een opname, gebruik de functie dus alleen tijdens bekijken en export van de opname.</P>
+<P>Met behulp van de "Begin Marker" wordt in het oorspronkelijke signaal aangegeven, wanneer de curve fitting moet starten. Het einde van de fit kan worden aangegeven door de "Eind Marker" of door het tijdsinterval "RegressieTijd". De eerst optredende gebeurtenis zal de fit-berekening stoppen en zal het displayen van de fit tezamen met het oorsponkelijk (in tijd verschoven) signaal starten.</P>
+<P>Het tekenen van de gefitte curve kan een grotere tijdspanne bedragen dan de berekening van de fit, dit teneinde ook bij een berekening over een klein stukje van de e-macht toch een goede visuele&nbsp; vergelijking tussen gemeten en berekende curve te maken.</P>
+<P>BELANGRIJK:&nbsp; voor een goede weergave (en export) van het gemeten signaal gelijktijdig met het gefitte signaal, is het van belang dat de "pre-display-rekentijd" NUL is (zie protocol / ontwerp / algemeen /&nbsp; "het aantal seconden dat moet worden gerekend..")</P>
+<P>Voordat de berekening wordt uitgevoerd, wordt het signaal met een laagdoorlaat / notch filter gefilterd op 50 Hz. Het vertraagde ingangssignaal heeft deze filtering ook ondergaan. De parameter "afgeleide" is een interne rekenparameter (zie hieronder) en kan men het best op de waarde 3 laten staan.</P>
+<P>&nbsp;</P>
+<P>Hieronder is het effect te zien van de lengte waarover de regressie wordt berekend.</P>
+<P>Voor deze analyse is gebruik gemaakt van opname 16 van 08-02-2002.</P>
+<P>Merk op dat het verschil in de exponentiële coëfficiënt tussen een regressie berekening over 0.5 sec en 4 seconde bijna een FACTOR 2 bedraagt. Vermoedelijk speelt er dus nog een tweed orde effect een rol. Zou dit te maken kunnen hebben met het extra overstrechen dat tijdens de Ktr meting wordt uitgevoerd ??&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>&nbsp;<IMG width=277 height=284 src="funk69f.gif">&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=272 height=276 src="funk69c.gif"></P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>&nbsp;
+</TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=243 height=282 src="funk69e.gif">&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P><A name="algoritme"></A>
+Algoritme&nbsp;<A href="funk69.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze functie berekent en tekent een fit middels een exponentiele functie door een deel van de opname.</P>
+<P>&nbsp;</P>
+<P>Deze functie kan in zijn algemeenheid worden geschreven als</P>
+<P>&nbsp;(1)&nbsp;&nbsp;&nbsp;&nbsp; y = A&nbsp; +&nbsp; B&nbsp; *&nbsp; exp ( C * x + D)</P>
+<P>De meest belangrijke parameter in deze functie is in het algemeen de coëfficiënt C.</P>
+<P>De coëfficiënt D kan worden opgenomen in de coëfficiënt B, men dient zich echter bewust te zijn van deze coëfficiënt omdat in de praktijk (door inschakelverschijnselen) in het algemeen de curve niet van het tijdstip t=0 kan worden getekend.</P>
+<P>&nbsp;</P>
+<P>Om de parameters op een directe manier (d.w.z. zonder iteratie) te kunnen bepalen (b.v. via de kleinste kwadraten methoden) moet de functie eerst gelineariseerd worden (of op zijn minst worden geschreven als een polynoom van x, waarbij x in het algemeen de tijd voorstelt). Dit is vanwege de offset A niet direct mogelijk, tenzij de exponentiële functie als een polynoom geschreven wordt. Omdat echter parameter C de meest interessante parameter is, is het verstandiger om de afrondingen ergens anders neer te leggen. Daarom wordt toch gekozen voor linearisatie. Hiertoe wordt eerst de afgeleide van de functie bepaald:</P>
+<P>(2)&nbsp;&nbsp;&nbsp; dy / dx&nbsp; =&nbsp; B * C * exp ( C * x )</P>
+<P>Deze functie is wel eenvoudig te lineairiseren, door de (natuurlijke) logaritme te nemen:</P>
+<P>(3)&nbsp;&nbsp;&nbsp; ln ( dy / dx )&nbsp; =&nbsp; ln ( B * C )&nbsp; + C * x</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; oftewel</P>
+<P>&nbsp;</P>
+<P>(4)&nbsp;&nbsp;&nbsp; Y&nbsp; =&nbsp; B0&nbsp; + B1 * X</P>
+<P>Uitgaande dat men meetpunten heeft die naar verwachting voldoen aan vergelijking (4), kan men de coëfficiënten B0 en B1 direct berekenen met de volgende formules:</P>
+<P>(5)&nbsp;&nbsp;&nbsp; B0&nbsp; =&nbsp; ( 2 * ( 2 * N + 1 ) * sum( Yi) - 6 * sum(n*Yi)) /&nbsp; ( N * ( N-1))</P>
+<P>&nbsp;</P>
+<P>(6)&nbsp;&nbsp;&nbsp; B1&nbsp; =&nbsp; (12 * sum(n*Yi)&nbsp; -&nbsp; 6 * ( N + 1 ) * sum(Yi)) / ( h * N * ( N - 1 ) * ( N + 1 ))</P>
+<P>&nbsp;</P>
+<P>In feite heeft is hier het gewenste resultaat reeds bereikt, immers</P>
+<P>(7)&nbsp;&nbsp;&nbsp; C&nbsp; =&nbsp; B1</P>
+<P>&nbsp;</P>
+<P>(8)&nbsp;&nbsp;&nbsp; B0 = ln ( B * C ) , hetgeen leidt tot&nbsp;&nbsp; B =&nbsp; ( 1 / C ) * exp ( B0 ) = ( 1 / B1 ) * exp ( B0 )</P>
+<P>Alleen de parameter A (verschuiving van de grafiek) is nu nog onbepaald. Deze is van geen belang, anders dan dat deze af en toe gebruikt wordt om gemeten en berekende curve in 1 grafiek met elkaar te vergelijken. A kan nu rechtstreeks worden berekend met de volgende formule:</P>
+<P>(9)&nbsp;&nbsp;&nbsp; A&nbsp; = ( sum ( y )&nbsp; - sum (&nbsp; B *&nbsp; exp ( C * x ) ) ) / N</P>
+<P>&nbsp;</P>
+<P>Het bepalen van de afgeleide gebeurt volgens de "average sloop methode", waarbij het aantal punten waarover deze berekening plaats vindt kan worden ingesteld met de parameter "afgeleide". Aangezien het signaal zal zwaar gefilterd wordt, is een een waarde van 3 ruim voldoende.</P>
+<P>&nbsp;</P>
+<P><A name="ingangs_signalen"></A>
+Ingangs Signalen&nbsp;<A href="funk69.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>1 = ingangssignaal waarover de e-macht moet worden gefit. Hiervoor kan het beste het ruwe ongefilterde signaal worden genomen, omdat deze een iets hogere exponentiele coëfficiënt geeft, hetgeen te verklaren is uit de laagdoorlaat filtering (is trager maken) van het signaal.</P>
+<P>&nbsp;</P>
+<P><A name="uitgangs_signalen"></A>
+Uitgangs Signalen&nbsp;<A href="funk69.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>1 = vertraagde (en gefilterde) ingangssignaal, dat gebruikt kan worden om de berekende fit visueel te vergelijken.</P>
+<P>2 = gesimuleerde curve op basis van de berekende (gefitte) parameters</P>
+<P>3 = exponentiële coëfficiënt C&nbsp; [1/sec]</P>
+<P>De signalen 1 en 2 behoren dezelfde kallibratie als het ingangssignaal te hebben.</P>
+<P>Het signaal 3 behoort de kallibratie&nbsp;&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; -4.095&nbsp; /&nbsp; 5&nbsp; te hebben</P>
+<P>&nbsp;<IMG width=289 height=191 src="funk69_cal.gif"></P>
+<P>&nbsp;</P>
+<P><A name="resultaat"></A>
+Resultaat<A href="funk69.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Hieronder is het resultaat van 3 opeenvolgende Ktr metingen te zien</P>
+<P>&nbsp;<IMG width=522 height=338 src="funk69_3ktr.gif"></P>
+<P>&nbsp;</P>
+<P><A name="export"></A>
+Export<A href="funk69.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Hieronder zijn de gebruikte export instellingen afgedrukt.</P>
+<P>&nbsp;<IMG width=594 height=463 src="funk69_export.gif"></P>
+<P>&nbsp;</P>
+<P>en het resultaat gezien vanuit Excel</P>
+<P>&nbsp;<IMG width=527 height=398 src="funk69_excel.gif"></P>
+<P>&nbsp;</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst</P>
+<P>SM/GvV, 30-05-2002</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</BODY></HTML>

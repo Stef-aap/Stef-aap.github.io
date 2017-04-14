@@ -1,0 +1,146 @@
+<HTML><HEAD><TITLE>Midac, electrode impedantie meting (funktie 63)</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MID-TestOrganizer</P>
+<P><A class=RVTS4 href="midorg.html">Startpagina</A></P>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 63</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P class=RVPS2><A class=RVTS4 href="#omschrijving">Omschrijving</A></P>
+<P class=RVPS2><A class=RVTS4 href="#vereisten">Vereisten</A></P>
+<P class=RVPS2><A class=RVTS4 href="#weergavescherm">Weergavescherm</A></P>
+<P class=RVPS2><A class=RVTS4 href="#instelform">Instelscherm</A></P>
+<P class=RVPS2><A class=RVTS4 href="#inputs:">Ingangen</A></P>
+<P class=RVPS2><A class=RVTS4 href="#outputs:">Uitgangen</A></P>
+<P class=RVPS2><A class=RVTS4 href="#parameters:">Parameters</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Electrode Impedantie Meting</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Omschrijving&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze functie meet de elektrode impedantie van1 of meerdere kanalen. Met name bij EEG-metingen is het wenselijk/noodzakelijk om vooraf, achteraf en zo mogelijk op regelmatige tijdstippen tussendoor, de impedantie te meten en vast te leggen.</P>
+<P>Voor het meten van de elektrode-impedantie moet de FysioFlex voorzien zijn van een special voor dit doel geschikte generator. Deze generator stuurt kleine stromen (&lt;10 nA) afwisselend door de individuele meetelectroden en door de common-electrode. De impedantie van de aard-electrode (of beter gezegd de DRL-electrode) kan niet worden gemeten, deze heeft echter geen invloed op het signaal, enkel op de onderdrukking van common-mode storingen. Dus is de storing op alle kanalen te hoog, dan is mogelijk de aard-electrode impedantie te hoog.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="vereisten"></A>
+Vereisten&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>minimale sample-frequentie 50 Hz (20 Hz doet het nog wel, maar wordt niet gegarandeerd.&nbsp;</P>
+<P>versterker gain moet in de hoogste stand staan (2 mVtt)&nbsp;</P>
+<P>tijdconstante van het hoogdoorlaat filter moet minstens 1 seconde bedragen&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="weergavescherm"></A>
+Weergavescherm&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Bovenaan wordt altijd de impedantie van de centrale electrode weergegeven. Hieronder volgen de impedanties van signalen in de volgorde waarin ze in de rekenfunctie zijn ingevoerd.&nbsp;</P>
+<P>De totale breedte van de meetbalken is ongeveer 1.5* de maximaal ingestelde impedantie-waarde.&nbsp;</P>
+<P>Er zijn 2 vaste vertikale meetstrepen, één op 50% van de maximale ingestelde impedantie-waarde en en één op 100% van de maximaal ingestelde impedantie-waarde.&nbsp;</P>
+<P>De kleur van de meetbalk verandert als de 70% lijn wordt overschreden, kleuren kunnen vrij worden ingesteld.&nbsp;</P>
+<P>Het venster is vrij te verplaatsen en te schalen.&nbsp;</P>
+<P>Als gedurende 3 seconden geen impedantie detectie wordt waargenomen, worden alle impedantiewaarden 0 gemaakt.</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=223 height=279 src="funk63a.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="instelform"></A>
+Instelscherm&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Het aantal actieve kanalen, stelt enerzijds het aantal meetbalken in het weergave venster in en anderzijds wordt hiermee de impedantie van de centrale electrode gekalibreerd.&nbsp;</P>
+<P>Door op "goed" of "fout" te klikken, kan de kleur van de balk onder respectievelijk boven de maximale impedantie worden ingesteld. In het edit-veld ertussen kan de maximale impedantie in kOhm worden ingegeven.&nbsp;</P>
+<P>In de rechter kolom kunnen korte namen van de signalen worden ingegeven.&nbsp;</P>
+<P>De instellingen voor Automatisch meting zijn niet geïmplementeerd.</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=206 height=264 src="funk63b.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="inputs:"></A>
+Ingangen&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Momenteel is voorzien in maximaal 8 ingangen. Op verzoek kunnen deze worden uitgebreid.</P>
+<P>Het aantal ingangskanalen dat actief geanalyseerd wordt, kan worden ingesteld. Er wordt altijd vanaf ingangskanaal 1 gestart en er wordt een aaneengesloten reeks van kanalen geanalyseerd. Niet gewenste ingangskanalen moeten wel van een of ander signaal worden voorzien.</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=80 valign=middle>
+<P>1 .. 8 = Signaal 1.. 8</P></TD>
+<TD width=80% valign=middle>
+<P>ingangssignalen</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="outputs:"></A>
+Uitgangen&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=120 valign=middle>
+<P>1 = Filtered sum</P>
+<P>2 = Afgeleide</P>
+<P>3 = Impedantie Common</P>
+<P>4 = Impedantie signaal 1</P>
+<P>5 = Impedantie signaal 2</P>
+<P>...</P>
+<P>11 = Impedantie signaal 8</P></TD>
+<TD valign=top>
+<P>Som van alle actieve ingangssignalen, laagdoorlaat gefilterd</P>
+<P>Afgeleide van de som, gebruikt voor encoding van het modulatie signaal</P>
+<P>Impedantie van de common electrode</P>
+<P>Impedantie van kanaal 1</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="parameters:"></A>
+Parameters&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>1 = vensterpositie en formaat</P>
+<P>2 = weerstandsinstellingen</P>
+<P>3 = kleuren</P>
+<P>4 = namen</P>
+<P>5 = auto eiegenschappen</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="technische achtergrond"></A>
+Technische Achtergrond&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>De generator genereert het volgende signaal</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>1 periode een stroom door de individuele meet-electroden, resulterend in een positieve ingangsspanning die evenredig is met de electrode impedantie in het desbetreffende kanaal.</LI>
+<LI>2 perioden geen stroom, ter bepaling van de base-line (alle versterkers zijn AC-gekoppeld)</LI>
+<LI>1 periode een stroom door de common-electrode, resulterend in een negatieve spanning, identiek op alle kanalen.</LI>
+<HR noshade size=1></LI>
+</UL>
+<P>© Copyright Instrumentele Dienst</P>
+<P>SM/GvV, 20-3-1998</P>
+</BODY></HTML>

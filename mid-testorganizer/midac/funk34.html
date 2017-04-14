@@ -1,0 +1,108 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunktie 1</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 34</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#algoritme">Algoritme</A></P>
+<P><A class=RVTS4 href="#bijzonderheden">Bijzonderheden</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Fourier Analyse</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>- signaalnaam in venster, hoe ??</P>
+<P>- resize --&gt; hoe zet ik dan de ruler en scaling of others</P>
+<P>- zeropadding in combinatie met sommige vensters geeft vreemd verschijnsel</P>
+<P><A name="omschrijving"></A>
+Description</P>
+<P>This function performs a Fourier Analysis of the input signal.</P>
+<P>The number of points to be analysed, the window function and the length of zero-padding can be selected.</P>
+<P>Power or magnitude can be selected as output (both lineair or logarithmic) together with the phase information.</P>
+<P>In the 32-bit version also real and imaginairy parts can be denoted as outputs.</P>
+<P>With a second input signal it's possible to select certain time-samples to form together a time-sequence. If for instance you want to analyse the frequency contents of the hartrate (not of the ECG), you would set the first input signal to the RR-interval and the second input signal to the R-top detector.</P>
+<P>This function uses the Intel Signal Processing Library, yielding optimal numerical performance in the case of Pentium and higher processors.</P>
+<P>IMPORTANT: the Intel Signal Processing Library (NSP) must be correctly installed.</P>
+<P>At the moment the function is somewhat restricted, due to the limitations of the 16-bit environment. In the 32-bit version it will be expanded to a full Fourier Analysis Package. (longer time-sequences, more windows, real/imaginairy parts).</P>
+<P>For a quick real-time analysis of sampled data or selection of FFT-parameters, you can select an auto-popup form to control the behaviour of the FFT calculations on-line.</P>
+<P>An extra output is available, which is zero if there's not (yet) an FFT available and which identifies the sample number if there is valid FFT-output.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Window Blackman</P>
+<P>The general Blackman window is given by the next formula (not implemented in 16-bit version)</P>
+<P>&nbsp;&nbsp;&nbsp; w(n) = (a+1) / 2 - 0.5*cos(2*p*n / (N-1)) - (a / 2)*cos(4*p*n / (N-1))</P>
+<P>Window Blackman Standard</P>
+<P>The Blackman standard window is definied bij a = - 0.16</P>
+<P>Window Blackman Optional</P>
+<P>provides a modified window that has a 30-dB/octave roll-off, by using</P>
+<P>&nbsp;&nbsp;&nbsp; a&nbsp; = - sqr [ sin(p / (N-1)) / sin(2*p /(N-1)) ]</P>
+<P>Window Hamming</P>
+<P>Window Hann</P>
+<P>Window Bartlett</P>
+<P>Window Kaiser</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Inputs</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=637 border=0 cellpadding=4 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=5% valign=top>&nbsp;
+</TD>
+<TD width=24% valign=top>
+<P>time-series</P></TD>
+<TD width=71% valign=top>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>&nbsp;
+</TD>
+<TD valign=middle>
+<P>enable time-sample</P></TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+</TABLE>
+</P>
+<P>Parameters</P>
+<P>&nbsp;&nbsp;</P>
+<P>Outputs</P>
+<P><A name="algoritme"></A>
+Algoritme</P>
+<P><A name="bijzonderheden"></A>
+Bijzonderheden</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

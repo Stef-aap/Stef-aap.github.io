@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>opname_maken</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #efefef;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p><span class=rvts1>Meetsystemen CRCN&nbsp; (pnr 032703)</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>FF2-firmware = V6/V4 (geen ondersteuning 1000 Hz)</p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Ingangssignalen &amp; Kalibratie</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td colspan=3 width=300 height=16 valign=top style="{background-color: #ffffd2;}">
+<p>Kalibratie als </p>
+<p><span class=rvts3>Modificatie 1</span> = versterking van de voorversterkers 5* verhoogd (1kOhm --&gt; 210 Ohm) </p>
+<p>&nbsp; <span class=rvts3>en</span></p>
+<p><span class=rvts3>Modificatie 2</span> = Brugspanning door LDO (3.3V --&gt; 3V) </p>
+<p>Dit geldt niet voor de onveilige kanalen 9 t/m 13 !!!</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p><span class=rvts2>Signaal</span></p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p><span class=rvts2>Kalibratie</span></p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p><span class=rvts2>Opmerkingen</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p>1 = Druk</p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p>20 / 63 / 120 /&nbsp; 210</p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p>Nulling meestal nodig </p>
+<p>BloodPressure analyse met F54</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p>2 = ECG(mV)</p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p>0 / -331 / 3 / -44.8 / 1 </p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p>laatste getal is de AC-koppeling (1 sec, is veel beter dan 10sec !!) </p>
+<p>R-top detectie met F61 </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p>3 = Plet Links</p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p>15-monitor 0 / 2958 / 1 / 1983</p>
+<p>17-monitor 0 / 2992 / 1 / 3004</p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p>4 = Plet Rechts</p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p>15-monitor 0&nbsp; / 3019 / 1 / 3032 </p>
+<p>17-monitor 0 / 3014 / 1 / 3024</p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 height=16 valign=top style="{background-color: #ffffd2;}">
+<p>5 = PolsCuff</p>
+</td>
+<td width=175 height=16 valign=top style="{background-color: #ffffd2;}">
+<p>20 / 62.8 / 120 / 210</p>
+</td>
+<td width=327 height=16 valign=top style="{background-color: #ffffd2;}">
+<p>Nulling 1-malig gewenst</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p>6 = Valsalva</p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p>20 / 62.8 / 120 / 210</p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p>7 = </p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p>&nbsp; </p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p>8 =</p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p>&nbsp; </p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p>&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Onveilige signalen</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p>9 = FinaPres</p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p>0 / -5 / 200 / 1980 </p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p>aangesloten via 20* verzwakker </p>
+<p>100 mmHg = 1 V</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 height=32 valign=top style="{background-color: #ffffd2;}">
+<p>10 = MicroNeuro</p>
+</td>
+<td width=175 height=32 valign=top style="{background-color: #ffffd2;}">
+<p>0 / -5 / 4000 / 1980</p>
+</td>
+<td width=327 height=32 valign=top style="{background-color: #ffffd2;}">
+<p>aangesloten via 40* verzwakker </p>
+<p>uitgedrukt in mV, zoals ook bij FF1</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p>11 = RapidCuff</p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p>0 / -17.9 / 4095 / 5</p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p>100 mmHg = 100 mV&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p>12 = </p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p>&nbsp; </p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=111 valign=top style="{background-color: #ffffd2;}">
+<p>13 = Digital Bits</p>
+</td>
+<td width=175 valign=top style="{background-color: #ffffd2;}">
+<p>0 / -5 / 4095 / 5</p>
+</td>
+<td width=327 valign=top style="{background-color: #ffffd2;}">
+<p>&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Signaal analyse en protocollen</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=440 height=279 valign=top style="{background-color: #e0e0e0;}">
+<p><span class=rvts2>ECG analyse</span></p>
+<p>R-top detectie middels F61. </p>
+<p>Als ingangssignalen dienen </p>
+<p>1 = ECG </p>
+<p>2 = voorlopig sys.signal = true (bedoeld voor cuff detectie, kan pas goed worden ingesteld nadat een opname met cuffdruk en pletbit is gemaakt).</p>
+<p>&nbsp; </p>
+<p>De weging is verhoogd van 0.03 naar 0.8, waardoor de lage afsnijfrekwentie verhoogd wordt van 0.25 Hz naar 7 Hz. Hierdoor worden bij een "slecht" ECG-signaal minder vaak P- en T-toppen als R-top aangezien. </p>
+<p>&nbsp; </p>
+<p>De hysteresis is verhoogd van 50 naar 1000, omdat de signalen veel groter zijn dan bij de voorlopers van de FysioFlex. </p>
+<p>Deze moet misschien nog wel verhoogd worden naar 5000 ????</p>
+</td>
+<td width=203 height=279 valign=top style="{background-color: #e0e0e0;}">
+<p><img width=384 height=277 alt="" src="crcn_img1.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=552 valign=top style="{background-color: #e0e0e0;}">
+<p><span class=rvts2>Bloeddruk analyse</span></p>
+<p>Voor zowel Finapres als inter-arteriele druk wordt functie 54 gebruikt met dezelfde instellingen. </p>
+<p>De standaard instellingen, zoals hiernaasr weergeven voldoen goed.</p>
+</td>
+<td width=91 valign=top style="{background-color: #e0e0e0;}">
+<p><img width=188 height=245 alt="" src="crcn_img2.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Schermopbouw</span></p>
+<p>typisch opbouw voor plet opname</p>
+<p><img width=514 height=389 alt="" src="crcn_img3.gif"></p>
+<p>Het venster linksboven is alleen ter indicatie, daarom klein, daarom ook raster weggehaald, waardoor de zichtbaarheid op de signalen wordt vergroot. De sneltoetsen voor versterking en offset (niet nodig, want AC-gekoppeld) is allen gekoppeld aan het ECG, omdat de druksignalen binnen een bekend bereik blijven.</p>
+<p>&nbsp; </p>
+<p>Het middelste venster links bevat Cuffdruk en Plet Links. De versterking is enkel gekoppeld aan dhet Plet signaal, want bereik van de cuffdruk is bekend.</p>
+<p>Onderste venster links idem voor Plet R.</p>
+<p>Helemaal rechtsonder staan de pletsignalen numeriek weergegeven. Belangrijk is dat zich hier ook de nul knoppen bevinden om het pletsignaal binnen het tekenvenster te houden.</p>
+<p>&nbsp; </p>
+<p>Helemaal rechtsboven de HartRate afgeleid uit het ECG. Hier wordt ook de cuffdruk numeriek weergegeven en daarmee zou dus het cuffsignaal het grafisch venster eigenlijk kunnen verdwijnen.</p>
+<p>&nbsp; </p>
+<p>De twee middelste vensters rechts, zijn de bloeddruk analyse vensters op basis van FinaPres en respectievelijk inter-arteriële bloedruk. Ook hier weer de nulknoppen, die het beste 1-malig aan het begin van een experiment kunnen worden ingedrukt.</p>
+<p>&nbsp;&nbsp; </p>
+<p><span class=rvts2>Rekenfunkties</span></p>
+<p><img width=290 height=130 alt="" src="crcn_img4.gif"></p>
+<p>De rekenfunkties zijn tot een minimiem beperkt gehouden, bovendien zijn de basale rekenfunckties bovenaan geplaatst.</p>
+<p>R1 = F61, afleiden van R-top en Hr(R5) uit ECG</p>
+<p>R2 = F54, analyse bloeddruk signaal op basis van de inter-arteriële druk</p>
+<p>R3 = F54, analyse bloeddruk signaal op basis van Finapres</p>
+<p>R4 = F53, nulling functie t.b.v. de beide plet signalen</p>
+<p>R5 = HR afgeleid uit R1</p>
+<p>&nbsp; </p>
+
+</body></html>

@@ -1,0 +1,133 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunktie 39, Triggerable Cyclische Multi-Timer</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 39</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A></P>
+<P><A class=RVTS4 href="#instelform">Instellingen venster</A></P>
+<P><A class=RVTS4 href="#voorbeeld, bij bovenstaande instelling">Voorbeeld</A></P>
+<P><A class=RVTS4 href="#inputs:">Ingangen</A></P>
+<P><A class=RVTS4 href="#outputs:">Uitgangen</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Triggerable Cyclische Multi-Timer</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Omschrijving&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Met deze timer kunnen een aantal identieke timer cycli worden doorlopen.</P>
+<P>Iedere timercyclus bestaat uit maximaal 3 perioden, waarbij de duur van iedere periode kan worden opgegeven. De timer kan de opname van signalen sturen, per periode kan worden opgegeven of de opname al dan niet moet lopen.</P>
+<P>De timer als geheel wordt gestart door een trigger signaal, dat in het algemeen een functietoets zal zijn.</P>
+<P>Eenmaal gestart blijft de timer in principe doorlopen totdat het aantal opgegeven cycli is afgelopen.</P>
+<P>Eventueel kan de timer worden gepauzeerd door de knop "stop timers" in het hoofdvenster aan te klikken. Door wederom de triggerpuls aan te bieden, loopt de timer weer door vanaf het punt waarop deze gestopt is.</P>
+<P>Nadat het opgegeven aantal cycli is afgelopen, kan de totale timer opnieuw worden gestart door het aanbieden van het juiste trigger signaal. Aan het einde van de totale cyclus staat de cyclus teller 1 boven de ingestelde waarde, zodat deze eventueel gebruikt kan worden voor het trigger van iets anders.</P>
+<P><A name="instelform"></A>
+Instelscherm&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;<IMG width=543 height=474 src="funk39i.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="voorbeeld, bij bovenstaande instelling"></A>
+Voorbeeld, bij bovenstaande instelling&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;<IMG width=516 height=351 src="funk39j.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="inputs:"></A>
+Inputs:<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=80 valign=middle>
+<P>1 = Trigger signaal</P></TD>
+<TD width=80% valign=middle>
+<P>het trigger signaal behoeft slechts 1 sample aan de opgegeven conditie te voldoen.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="outputs:"></A>
+Outputs:&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=80 valign=middle>
+<P>1 = cyclus</P></TD>
+<TD width=80% valign=middle>
+<P>geeft aan in welke cyclus de timer zich bevindt,&nbsp;</P>
+<P>0 = nog niet gestart</P>
+<P>1 ... N = timer bevindt zich in deze cyclus</P>
+<P>N+1 = timer is geheel klaar</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>2 = totale tijd</P></TD>
+<TD valign=middle>
+<P>de verstreken totaal tijd</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>3 =mode</P></TD>
+<TD valign=middle>
+<P>welke van de 3 timers actief is</P>
+<P>0 = geen timer actief&nbsp; (of tijdelijk gepauzeerd, is te zien aan waarde cyclus teller)</P>
+<P>1 = timer 1 actief</P>
+<P>2 = timer 2 actief</P>
+<P>3 = timer 3 actief</P>
+<P>daarnaast komen de volgende overgangswaarden voor (maak hier geen gebruik van)</P>
+<P>4 = overgang naar een nieuwe start van timer 1</P>
+<P>5 = overgang naar het einde van de totaal cyclus.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>4 = tijd binnen een periode</P></TD>
+<TD valign=middle>
+<P>loopt dus van 0 tot de som van timer1 + timer2 + timer3</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="parameters:"></A>
+Parameters:<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>1 = trigger conditie</P>
+<P>2 = trigger level</P>
+<P>3 = number of timer cycles</P>
+<P>4 = allow record control</P>
+<P>5 = time 1</P>
+<P>6 = record on in timer 1</P>
+<P>7 = time 2</P>
+<P>8 = record on in timer 2</P>
+<P>9 = time 3</P>
+<P>10 = record on in timer 3</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

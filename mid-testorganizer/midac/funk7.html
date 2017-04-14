@@ -1,0 +1,168 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunctie 7</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 7</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A>&nbsp;|&nbsp;<A class=RVTS4 href="#algoritme">Algoritme</A></P>
+<P>Bijzonderheden | Toepassing</P>
+<P><A class=RVTS4 href="funk7f.html">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Filters</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Omschrijving.....<A class=RVTS4 href="#fir_design">FIR-design</A>....<A class=RVTS4 href="#rc_filter">RC-filter</A>....<A class=RVTS4 href="#vergelijking">Vergelijking-Filters</A>....&nbsp;<A class=RVTS4 href="#toekomst">Toekomst</A>Met deze funktie kan een signaal worden gefilterd.Standaard zijn aanwezig een eerste orde RC-filter en een Moving Average filter. Daarnaast heeft deze funktie de mogelijkheid het signaal te convolueren met de impulsresponsie van een willekeurig filter dat uit een bestand wordt gelezen. Deze funktie kan ook een hulpprogramma starten voor het ontwerpen van willekeurige FIR-filters (Finite Impuls Response) volgens het Remez Exchange algoritme. Het helpboekje is door de gebruiker te wijzigen, zodat bijvoorbeeld informatie over zelf ontwikkelde filters kan worden bijgehouden.</P>
+<P><TABLE width=495 bgcolor=#FFEEDD border=0 cellpadding=5 bordercolor=#000000 cellspacing=2>
+<TR valign=top>
+<TD width=29% valign=top>
+<P>Inputs</P></TD>
+<TD colspan=2 width=47% valign=top>
+<P>Parameters</P></TD>
+<TD width=24% valign=top>
+<P>Outputs</P></TD>
+</TR>
+<TR valign=top>
+<TD rowspan=4 width=29% height=53 valign=top>
+<P>Signaal In</P></TD>
+<TD colspan=2 width=47% height=53 valign=top>
+<P>Afhankelijk van het gekozen filtertype: (zie ook 'Algoritme')</P></TD>
+<TD rowspan=4 width=24% height=53 valign=top>
+<P>Signaal Uit</P></TD>
+</TR>
+<TR valign=top>
+<TD width=25% height=27 valign=top>
+<P>RC-filter:&nbsp;</P></TD>
+<TD width=22% height=27 valign=top>
+<P>alfa</P></TD>
+</TR>
+<TR valign=top>
+<TD width=25% height=31 valign=top>
+<P>Moving Average</P></TD>
+<TD width=22% height=31 valign=top>
+<P>filterlengte</P></TD>
+</TR>
+<TR valign=top>
+<TD width=25% height=34 valign=top>
+<P>Impuls Responsie</P></TD>
+<TD width=22% height=34 valign=top>
+<P>bestandsnaam</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="algoritme"></A>
+Algoritme, afhankelijk van het gekozen filtertype:</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=498 border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=9% valign=top>&nbsp;
+</TD>
+<TD width=23% valign=top>
+<P>RC-filter</P></TD>
+<TD width=68% valign=top>
+<P>recursie: y(n) = (1-alfa)*x(n) + alfa*y(n-1)</P></TD>
+</TR>
+<TR valign=top>
+<TD width=9% valign=top>&nbsp;
+</TD>
+<TD width=23% valign=top>
+<P>Moving Average</P></TD>
+<TD width=68% valign=top>
+<P>y(n) = som[x(n-filterlengte+1)...x(n)] / filterlengte</P></TD>
+</TR>
+<TR valign=top>
+<TD width=9% valign=top>&nbsp;
+</TD>
+<TD width=23% valign=top>
+<P>Impuls Responsie</P></TD>
+<TD width=68% valign=top>
+<P>convolutieintegraal van signaal en filter-impulsresponsie</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="bijzonderheden"></A>
+Bijzonderheden<IMG width=15 height=15 src="greenbal.gif">RC-filter en Moving Average filter ingebouwd<IMG width=15 height=15 src="greenbal.gif">convolutie met willekeurige impulsresponsie uit ASCII bestand<IMG width=15 height=15 src="greenbal.gif">FIR ontwerpprogramma volgens Remez Exchange algoritme<IMG width=15 height=15 src="greenbal.gif">Notitieblok, bijvoorbeeld voor het bijhouden van filter eigenschappen<A name="fir_design"></A>
+FIR filter designThe Remez Exchange algorithm yields optimal filters that satisfy the so-called minimax error criterion. For a given number of coefficients, the filter minimizes the maximum ripple in the passband. This criterion has two major implications. First, the Remez Exchange yields an FIR filter with the smallest number of coefficients.(speed) Second, the passband ripple components all have equal amplitude.</P>
+<P><TABLE width=633 border=0 cellpadding=4 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=13% valign=top>
+<P>from:</P></TD>
+<TD width=87% valign=top>
+<P>B. Windsor &amp; P. ToldalagiEDN, March 3, 1983, Cahners Publishing Company</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Bij het gebruik van het ingesloten FIR-design programma, verschijnt een helptekst in beeld die toelichting geeft op de door het programma gestelde vragen. Ook staan hier enkele tips om het gestelde doel gemakkelijker te bereiken.<A name="rc_filter"></A>
+RC-filter</P>
+<P>Er wordt gebruik gemaakt van de volgende recursie formule:</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=633 border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=13% valign=top>&nbsp;
+</TD>
+<TD width=87% valign=top>
+<P>y(n) = alfa * x(n) + (1-alfa) * y(n-1)</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>indien de samplefrequentie veel groter dan de gewenste filterfrequentie, geldt:</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=633 border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=13% valign=top>&nbsp;
+</TD>
+<TD width=87% valign=top>
+<P>(delta-t) / RC = alfa</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Dus voor de berekening van alfa geldt:</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=633 border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=13% valign=top>&nbsp;
+</TD>
+<TD width=87% valign=top>
+<P>alfa = 1 / (fs * R * C) = 2 * pi * f / fs</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="fir_bestand"></A>
+Bestandsopbouw filter impulsresponsieHeeft men op een andere wijze de coëfficiënten van een filter met eindige impulsresponsie verkregen dan kunnen deze door deze rekenfunktie worden ingelezen als de bestandopbouw voldoet aan de volgende eisen:De impulsresponsie van een filter moet worden opgeslagen als een ASCII bestand met de extensie *.FIR. Eventule aanvullende teksten kunnen worden opgeborgen in een ASCII bestand met dezelfde naam maar met de extensie *.TXT.De opbouw van het impuls responsie bestand is als volgt:&lt;filterlengte&gt; .....CR/LF&lt;filtercoëfficiënt 1&gt; etc.Achter de filterlengte mogen op dezelfde regel nog andere zaken voorkomen.De filtercoëficiënten mogen allen op dezelfde regel, ieder op een aparte regel of combinaties hiervan staan. Scheiding tussen de filtercoëfficiënten dient via spatie of tab te geschieden. Er wordt altijd vanuit gegaan dat een filter symmetrisch is, dus slechts de helft (afgerond naar boven) van de coëfficiënten behoeft aanwezig te zijn.<A name="vergelijking"></A>
+Vergelijking filtertypesHeeft men behoefte aan een eenvoudig laagdoorlaat filter, gebruik dan het RC-filter. Voor alle andere toepassingen wordt geadviseerd een FIR filter te gebruikten.Het Moving Average filter is slechts toegevoegd vanwege de vroegere populairiteit in bepaalde vakgebieden. Het is filter is vergeleken met het RC-filter traag en heeft een vergelijkbaar steilheid. De enige nuttige toepassing is misschien de reductie van random!! ruis. Voor de toekomst is een mediaan filter gepland dat in deze situatie een betere oplossing biedt, namelijk een geringere beïnvloeding van de frequentiekarakteristiek.<A name="toekomst"></A>
+Toekomstige uitbreidingenVoor de toekomst staan ons de volgende uitbreidingen voor ogen<IMG width=15 height=15 src="greenbal.gif">eenvoudigere invoer parameters bij FIR-design programma<IMG width=15 height=15 src="greenbal.gif">filter visueel beoordelen in het frekwentie-domein<IMG width=15 height=15 src="greenbal.gif">mediaan filter</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

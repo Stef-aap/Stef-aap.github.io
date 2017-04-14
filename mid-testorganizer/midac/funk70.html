@@ -1,0 +1,126 @@
+<HTML><HEAD><TITLE>Midac, rekenfunctie 70, Hartspier-tensiemeter</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=1 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MID-TestOrganizer</P>
+<P><A class=RVTS4 href="midorg.html">Startpagina</A></P>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 70</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P class=RVPS2>&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Hartspier-Tensiemeter</P>
+<P class=RVPS2>pnr 040203</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P><A name="omschrijving"></A>
+General Description&nbsp;<A href="funk69.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>This Midac-function is specially ment for the measurement of a dual hartmuscle tension measurement.</P>
+<P>It mainly serves the following purposes</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>control of the 2 stepper motors&nbsp;</LI>
+<LI>automatic setting of the optimal muscle length, that is the length where the created force is at its maximum</LI>
+<LI>easy nulling of the force transducers</LI>
+</UL>
+<P>The second option is not yet included, because we first need real data to test the algoritme.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>This is the normal view of this Midac function.</P>
+<P>&nbsp;</P>
+<P>It gives information about the actual force of both muscles and controls to control both the motors.</P>
+<P>&nbsp;</P>
+<P>Find Max and Stop are buttons for the setting of the automatic muscle length.</P>
+<P>When maximum is set, the small lock will close, preventing the further control of the motors, as well by hand as by computer. By clicking on lock, it will toggle between open and closed. When the lock is open the motors can be controled either by hand or by computer.</P>
+<P>When the optimal length is set by the computer, a curve will be shown, with on the horizontal axis the length and on the the vertical axis the force.</P>
+<P>&nbsp;</P>
+<P>The force just above the curves always shows the actual force (which is updated 10 times per second).</P>
+<P>&nbsp;</P>
+<P>The motors can be controled by the computer keybord, when the manual checkbox is not checked and this window has focus (the caption of the window must be highlighted).</P>
+<P>The small green block between the arrows, indicates which of the motors is controled by the keyboard.</P>
+<P>&nbsp;</P>
+<P>The meaning of the keyboard keys is as follows</P>
+<P>&nbsp;&nbsp;&nbsp; up-arrow&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move motor slow upwards, increasing the muscle length</P>
+<P>&nbsp;&nbsp;&nbsp; ctrl + up-arrow&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move motor fast upwards</P>
+<P>&nbsp;&nbsp;&nbsp; down-arrow&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move motor slow downwards</P>
+<P>&nbsp;&nbsp;&nbsp; ctrl +&nbsp; down-arrow&nbsp;&nbsp; move moter fast downwards</P>
+<P>&nbsp;&nbsp;&nbsp; right-arrow&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attach keyboard controls to the right motor</P>
+<P>&nbsp;&nbsp;&nbsp; left-arrow&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attach keyboard controls to the left motor</P>
+<P>&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=269 height=235 src="funk70a.gif"></P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>By clicking on the numerical force value, you can adjust&nbsp; the font of that force value.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>These settings should normally be left unchanged.</P>
+<P>&nbsp;</P>
+<P>RS232 port indicates to which commport the motor controler is connected.</P>
+<P>&nbsp;</P>
+<P>Halfstepping gives a smoother movement of the motors, but because the used motors have a too low torque for this system, it doesn't work. So leave this checkbox OFF.</P>
+<P>&nbsp;</P>
+<P>Force 2 windings gives the motors more power, which should be ON, because the motors already have a low torque.</P>
+<P>&nbsp;</P>
+<P>Low speed and high speed determines the speed off the motors, when controled by the computer.</P>
+<P>Handspeed is the speed of the motors when controlled manually.</P>
+<P>The value can range from 1 to 13. During the first experiments the best settings should be determined.</P>
+<P>&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=266 height=238 src="funk70b.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst</P>
+<P>SM/GvV, 27-09-2002</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</BODY></HTML>

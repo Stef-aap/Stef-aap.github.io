@@ -1,0 +1,75 @@
+<HTML><HEAD><TITLE>Marker_sync_puls</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MID-TestOrganizer</P>
+<P><A class=RVTS4 href="midorg.html">Startpagina</A></P>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P class=RVPS2><A class=RVTS4 href="#omschrijving">Omschrijving</A></P>
+<P class=RVPS2><A class=RVTS4 href="#bijzonderheden">Bijzonderheden</A></P>
+<P class=RVPS2><A class=RVTS4 href="#instelform">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Hardware Sync Puls, door Marker</P>
+<P class=RVPS2>GEPLAND, NOG NIET GEIMPLEMENTEERD</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="omschrijving"></A>
+Omschrijving<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Zodra een marker wordt ingedrukt, kan op diverse manieren een hardware synchronisatiepuls worden gegenereerd. Uiteraard zijn er beperkingen voor wat betreft de mogelijkheden van de syncpuls, afhankelijk van de gebruikte data-acquisitie kaart.&nbsp;</P>
+<P>De volgende instellingen (welke worden opgeslagen in het protocol bestand) zijn aanwezig&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>sync puls al dan niet activeren, default is deze niet geactiveerd&nbsp;</LI>
+<LI>welke markers (F1 .. F8) al dan niet een sync puls zullen genereren, dit kan er dus 1 zijn , maar ook meerdere&nbsp;</LI>
+<LI>op welke uitgang van de data-acquisitiekaart de syncpuls zal verschijnen, hier kan slechts 1 mogelijkheid worden geselecteerd&nbsp;</LI>
+</UL>
+<P>&nbsp;</P>
+<P>Als uitgang van de syncpuls zijn de volgende mogelijkheden aanwezig (er kan slechts 1 van de mogelijkheden worden geselecteerd en uiteraard worden de mogelijkheden begrensd door de mogelijkheden van de gebruikte data-acquisitiekaart)&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>digitaal uitgangs bitje 0 t/m 3&nbsp;</LI>
+<LI>DAC0 of DAC1. In dit geval wordt het nummer van de marker omgezet in een evenredige spanning, dus marker F1 geeft een puls van ongeveer 0.5 Volt, marker F2 van 1 Volt, etc&nbsp;</LI>
+</UL>
+<P>&nbsp;</P>
+<P>De synchronisatiepuls wordt gegenereerd zodra de marker wordt ingedrukt.&nbsp;</P>
+<P>De duur van de puls bedraagt minimaal 0.5 seconden, maar kan ook een veelvoud hiervan bedragen, afhankelijk van de belasting van de computer.&nbsp;</P>
+<P>De opgaande flank van de synpuls vormt dus de daadwerkelijke synchronisatie.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Opmerking:&nbsp;</P>
+<P>In het algemeen zal op de data-acquisitie kast een extra connector moeten worden geplaatst voor het naar buiten brengen van de sync-puls.&nbsp;</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst</P>
+<P>SM/GvV, 08-02-2002</P>
+</BODY></HTML>

@@ -1,0 +1,68 @@
+<HTML><HEAD><TITLE>Reuma HandAnalyse</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS2>Redundantie verwijdering</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>patient_number</SPAN>&nbsp;is vervangen door&nbsp;<SPAN class=RVTS3>patient_gegevens_new.Radboud_nummer</SPAN></P>
+<P>deze variabele mag alleen gezet worden door een van volgende de leesroutines aan te roepen</P>
+<P><SPAN class=RVTS3>function get_patient_gegevens_short(patnr:string):boolean;</SPAN></P>
+<P><SPAN class=RVTS3>function get_patient_gegevens_full(patnr:string):boolean;</SPAN></P>
+<P>Het schrijven van deze variabele is dan ook verboden.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>tinifile</SPAN>&nbsp;overal vervangen door&nbsp;<SPAN class=RVTS3>tmeminifile</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>actionresult&nbsp;</SPAN>overal vervangen door<SPAN class=RVTS3>&nbsp;Action Result</SPAN></P>
+<P>Om deze reden vinkt ReumaHandScore niet af, opnieuw compileren, of heb ik een oude versie ?</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>checken</SPAN></P>
+<P>De&nbsp; volgende objects zouden nooit meer gebruikt mogen worden om data te halen of op te bergen</P>
+<P>- patient_gegevens</P>
+<P>- pattest_collb</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>name_testprotocol&nbsp;</SPAN></P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS3>extra_testgegevens</SPAN>&nbsp;,hier zouden nog wat veranderingen in moeten komen</P>
+<P>- als meerdere testen zijn geselecteerd, verbergen !</P>
+<P>- als voor een test niet beschikbaar verbergen</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Test</SPAN></P>
+<P><SPAN class=RVTS3>patient gegevens</SPAN></P>
+<P>+ patient lezen</P>
+<P>+ patient gegevens wijzigen</P>
+<P>+ nieuwe patient toevoegen</P>
+<P>+ patient verwijderen</P>
+<P>+ extra patient parameters</P>
+<P>+ extra patient text</P>
+<P>+ linkshandig</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>patienttesten</SPAN></P>
+<P>+ test toevoegen</P>
+<P>+ test verwijderen</P>
+<P>+ testen verwijderen</P>
+<P>+ battery simpel toevoegen</P>
+<P>-- battery complex toevoegen</P>
+<P>-- auto battery toeveoegen</P>
+<P>-- import</P>
+<P>-- merge</P>
+<P>+ extra testgegevens</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>testen</SPAN></P>
+<P>+ uitvoeren</P>
+<P>+ afvinken</P>
+<P>+ afvinken na crash</P>
+<P>+ bekijken</P>
+<P>+ oud report</P>
+<P>- new report</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>netwerk backup</SPAN></P>
+<P>-&nbsp;</P>
+</BODY></HTML>

@@ -1,0 +1,83 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunctie 16</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=1 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 16</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A>&nbsp;|&nbsp;<A class=RVTS4 href="#algoritme">Algoritme</A></P>
+<P>Bijzonderheden |&nbsp;<A class=RVTS4 href="#toepassing">Toepassing</A></P>
+<P><A class=RVTS4 href="funk16f.html">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>AD naar Wereldwaarde conversie</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Omschrijving</P>
+<P>Met deze functie kunnen AD-waarden worden vertaald naar Wereld-waarden. In de normale display en rekenfuncties vindt een automatische ijking plaats en is deze functie dus niet nodig. Deze functie komt met name van pas bij vertaling naar wereld-waarden bij export van numerieke data, waarbij de functie tevens dient om de numerieke nauwkeurigheid te definiëren.</P>
+<P>Voor de vertaling wordt gebruik gemaakt van de calibratie waarden zoals opgeslagen in de signalen tabellen van AD-kanalen en Reken-kanalen. Extra kan een gain-factor worden toegevoegd om het dynamisch bereik te verschuiven. Bij export van variabelen kan deze extra gain weer worden geneutraliseerd. De vertaling is onafhankelijk van de resolutie van de AD-converter.</P>
+<P><A name="toepassing"></A>
+Voorbeeld:</P>
+<P>men wil de diastolische bloeddruk met 0.1 mmHg nauwkeurig exporteren:</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>De normale ijking is in mmHg, dus normaal zou slechts een nauwkeurigheid van 1 mmHg worden gerealiseerd. Door nu een gain van 10 in deze funktie in te stellen en bij export een deler van 10 te gebruiken kan het gewenste resultaat worden behaald.</P>
+<P><TABLE width=501 bgcolor=#FFEEDD border=1 cellpadding=5 bordercolor=#000000 cellspacing=2>
+<TR valign=top>
+<TD width=33% valign=top>
+<P>Inputs</P></TD>
+<TD width=33% valign=top>
+<P>Parameters</P></TD>
+<TD width=33% valign=top>
+<P>Outputs</P></TD>
+</TR>
+<TR valign=top>
+<TD width=33% valign=top>
+<P>In</P></TD>
+<TD width=33% valign=top>
+<P>Gain</P></TD>
+<TD width=33% valign=top>
+<P>Out</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="algoritme"></A>
+Algoritme</P>
+<P>OUT = gain * INwaarbij OUT in wereld-eenheden en IN in AD-eenheden</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

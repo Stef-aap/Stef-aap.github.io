@@ -1,0 +1,5 @@
+Met behulp van het scannen kan in 1 bepaalde directory naar een groep bestanden worden gezocht van een bepaald type, van deze bestanden worden alle parameters bepaald en weggeschreven in een TAB-delimited bestand, dat door alle moderne programma's gelezen kan worden.
+
+Zet zonodog in INSTELLING, SPSS-sacnning aan.
+zet het juiste masker op bijv: C:\DATA\JAN\45*.A*
+druk op ENTER of SCAN-knop.

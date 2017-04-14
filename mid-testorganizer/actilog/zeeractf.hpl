@@ -1,0 +1,17 @@
+Per dag meten van 'lange' perioden van 'zeer' lage en 'zeer' hoge activiteit 
+   Periode		= de minimaal vereiste periodeduur
+   Inactief Niveau	= onder dit niveau wordt aangemerkt als zeer laag
+   Actief Niveau	= boven dit niveau wordt aangemerkt als zeer hoog
+Als periode=0, worden voor deze variabelen geen kolommen in het 
+uitvoer bestand aangemaakt. Als periode<>0 dan worden ook de 
+waarden van de ingestelde periode en beide niveaus opgenomen in het 
+uitvoer bestand.
+FPLEN, FPLOW, FPHIGH = de ingestelde grenzen
+FP1DL	= de waaklengte op dag 1
+FP1L	= de totale periode 'zeer-actief' op dag 1
+FP1H	= de totale periode 'zeer-inactief' op dag 1
+Alle periode worden uitgedrukt in eenheden van 5 minuten.
+BIJVOORBEELD: bij een minimaal vereiste periode van 15 minuten, zal een 
+aaneengesloten zeer-actieve periode van 35 minuten dus worden geteld 
+als 6. Namelijk in 35 minuten zit 2 maal 15 minuten en iedere periode van 5 
+minuten telt als 3 maal 5 minuten.

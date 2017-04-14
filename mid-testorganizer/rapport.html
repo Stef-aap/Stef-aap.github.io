@@ -1,0 +1,114 @@
+<HTML><HEAD><TITLE>rapport</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Rapport (klassiek)</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="inleiding"></A>
+<SPAN class=RVTS2>Inleiding</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Er kan een patiënt rapport worden afgedrukt, waarin alle of een deel van de uitgevoerde testen kunnen worden opgenomen.&nbsp;</P>
+<P>Het rapport kan worden voorzien van een eigen logo en titels. De fonts kunnen per groep naar eigen inzicht worden ingesteld.&nbsp;</P>
+<P>Voordat het feitelijk afdrukken begint, wordt altijd een preview (zoals hieronder aangegeven) op het scherm gegeven.&nbsp;</P>
+<P>Bij sommige modulen is het mogelijk om vanuit een module het rapport te printen, in dat geval betreft het enkel een rapport van de betreffende test, tevens voorzien van alle algemene patientgegevens.&nbsp;</P>
+<P>&nbsp;<IMG width=570 height=556 src="rapport_voorbeeld.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="algemene rapport-gegevens"></A>
+<SPAN class=RVTS2>Algemene Rapport-gegevens</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>In de TestOrganizer kunnen de algemene gegevens als logo en titels worden opgegeven, via Instel / tabblad Rapport.&nbsp;</P>
+<P>Tevens kunnen bepaalde gegevens worden onderdrukt, door de betreffende afvink-vakjes uit te zetten, zie onderstaand scherm.&nbsp;</P>
+<P>Het logo wijzigen kan ook door op het logo te klikken.</P>
+<P>&nbsp;<IMG width=578 height=406 src="instel_rapport.gif">&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="rapport samenstellen"></A>
+<SPAN class=RVTS2>Rapport Samenstellen</SPAN></P>
+<P>Na het indrukken van de knop print verschijnt het onderstaande scherm.&nbsp;</P>
+<P>Door het overhalen van testresultaten van links naar rechts worden de geselecteerde testen opgenomen in het rapport. Middels een aantal extra knoppen kunnen ook alle afgenomen testen van de laatste week, laatste 4 weken en laatste jaar in 1 keer worden overgehaald.</P>
+<P>Bij bepaalde modulen kunnen rapporten worden gemaakt, waarvan de inhoud afhankelijk is van de behandelende discipline en / of de medische vraagstelling. Indien meerdere disciplines worden aangekruist, worden ook meerdere rapporten afgedrukt (de voetnoot van een rapport bevat voor wie het rapport is bestemd.</P>
+<P>Tevens kan bij bepaalde modulen het gewenste nivo van het rapport worden aangegeven (alleen het eindresultaat of ook tussenliggende gegevens).&nbsp;</P>
+<P>Rechstonder zijn nog de volgende aankruisvakjes:</P>
+<P>Direct printen, er wordt geen preview van de rapporten getoond, maar de resultaten worden direct afgedrukt op de printer.</P>
+<P>Vragenlijst in patientvorm: zie hieronder</P>
+<P>&nbsp;<IMG width=765 height=446 src="rapport_samenstellen.gif">&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Rapport afhankelijk van discipline</P>
+<P>Sommige modulen (bijvoorbeeld vragenlijst module) kunnen de inhoud van een rapport variëren afhankelijk van de beoordelende discipline.</P>
+<P>De diciplines kunnen worden gewijzigd door het bestand "Disciplines.ini" (in de algemene programma - directory) aan te passen, volgens het voorbeeld aan de rechterzijde.</P>
+<P>Nadat het bestand is gebruikt door de TestOrganizer, zullen in dit bestand extra gegevens worden opgenomen. Laat als gebruiker deze extra gegevens altijd ongemoeid.</P>
+<P>BELANGRIJK: bij het gebruik in bijvoorbeeld de vragenlijst module, worden deze gegevens niet textueel gebruikt, maar de volgorde wordt gebruikt !!!&nbsp; Bijvoorbeeld in de vragenlijst wordt opgeslagen dat de subschaal "Fatigue" alleen moet worden afgedrukt bij de eerste en derde discipline. Dus denk eerst na alvorens deze gegevens echt te gebruiken !!&nbsp;</P>
+<P>Wil men een discipline niet meer gebruiken, verwijder hem dan niet, maar geef hem desnoods een loze naam, zoals "niet meer in gebruik" of "-", zodat de volgorde van alle andere disciplines ongewijzigd blijft.</P>
+<P>Als toch eens onverhoopt de volgorde is gewijzigd, loop dan alle testen, waarin een discipline afhankelijke output wordt aangemaakt langs en controleer hierin deze discipline afhankelijke elementen.</P>
+<P>De disciplines kunnen ook worden ingesteld via de knop INSTEL van de TestOrganizer, zie plaatje hieronder.</P></TD>
+<TD valign=top>
+<P>[algemeen]</P>
+<P>aantal=4</P>
+<P>[1]</P>
+<P>naam=algemeen</P>
+<P>[2]</P>
+<P>naam=fysiotherapeut</P>
+<P>[3]</P>
+<P>naam=psycholoog</P>
+<P>[4]</P>
+<P>naam=longarts</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=586 height=408 src="instel_disciplines.gif"></P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Rapport afhankelijk van vraagstelling</P>
+<P>Sommige modulen (bijvoorbeeld vragenlijst module) kunnen de inhoud van een rapport variëren afhankelijk van de medische vraagstelling.</P>
+<P>De vraagstellingen kunnen worden gewijzigd door het bestand "PatientenGroep.ini" (in de algemene programma - directory) aan te passen, volgens het voorbeeld aan de rechterzijde.</P>
+<P>Nadat het bestand is gebruikt door de TestOrganizer, zullen in dit bestand extra gegevens worden opgenomen. Laat als gebruiker deze extra gegevens altijd ongemoeid.</P>
+<P>Verder geldt hierbij net zoals hierboven, verander de volgorde niet en verwijder geen vraagstellingen, maar maak ze neutraal kwa tekst !!!</P>
+<P>De vraagstellingen kunnen ook worden ingesteld via de knop INSTEL van de TestOrganizer, zie plaatje hieronder.</P></TD>
+<TD valign=top>
+<P>[algemeen]</P>
+<P>aantal=3</P>
+<P>[1]</P>
+<P>naam=algemeen</P>
+<P>[2]</P>
+<P>naam=COPD</P>
+<P>[3]</P>
+<P>naam=longemfyseem</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=584 height=402 src="instel_vraagstelling.gif">&nbsp;&nbsp;</P>
+<P>Vragenlijst in patientvorm</P>
+<P>Dit is de oude rapport manier (patientvorm), waarbij de vragen en antwoorden zo worden afgedrukt als de patient ze op het scherm krijgt.</P>
+<P>&nbsp;<IMG width=624 height=198 src="vragenlijst_module/rapport_patientvorm.gif"></P>
+<P>Dit is het resultaat van dezelfde antwoorden op dezelfde vragen, maar nu in de nieuwe rapport vorm (NIET patientvorm), waarbij vragen en antwoorden een geheel andere tekst kunnen krijgen en vraag en antwoord zelfs op 1 regel kan worden geplaatst.&nbsp;</P>
+<P>&nbsp;<IMG width=216 height=147 src="vragenlijst_module/rapport_disciplinevorm.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="fonts instellen"></A>
+<SPAN class=RVTS2>Fonts Instellen</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Na het drukken op de knop "Fonts", verschijnt het onderstaande instelscherm. Door op een paneel te klikken, kan het betreffende font worden ingesteld. Er zijn enkele fonts die niet expliciet kunnen worden ingesteld. De hoofdtitel van het rapport bestaat uit het normaal font, echter de grootte wordt met 4 punten verhoogd en het font wordt bold gemaakt. Zo ook de footer, deze bestaat uit header font 1, echter met een grootte van 6 punten.&nbsp;</P>
+<P>Voor het instellen van fonts worden de volgende adviezen gegeven:&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>stel eerst het normaal font in, dit komt immers het meest voor, een "true type" geeft het mooiste resultaat.&nbsp;</LI>
+<LI>kies voor header font 2 hetzelfde font als het normaal font, desnoods iets groter of kleiner en desgewenst bold&nbsp;</LI>
+<LI>kies voor header font 1 een wat kleiner font, en eventueel een strak font (als Arial), dit omdat in deze regels soms erg veel informatie wordt weergegeven&nbsp;</LI>
+<LI>kies voor fixed font uiteraard een fixed font, wat qua grootte en vorm overeen komt met het normaal font&nbsp;</LI>
+</UL>
+<P>Op sommige oude printers en netwerk printers treden soms problemen op met voornamelijk fixed fonts. Raadpleeg in dat geval de gebruiksaanwijzing van uw printer om te bezien welke fonts ondersteund worden of probeer een ander (fixed) font.&nbsp;</P>
+<P>NB het onderstaand voorbeeld hieronder geeft dus een slechte fontkeuze</P>
+<P>&nbsp;aan.&nbsp;</P>
+<P>&nbsp;<IMG width=487 height=413 src="rapport_printer_fonts.gif"></P>
+</BODY></HTML>

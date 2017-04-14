@@ -1,0 +1,193 @@
+<HTML><HEAD><TITLE></TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS7>21 december 2004</SPAN></P>
+<P>(ff2)<SPAN class=RVTS1>&nbsp;TongKrachtMeter (F81)</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>(Janneke Weikamp 19045)</P>
+<P><SPAN class=RVTS2>Inleiding</SPAN></P>
+<P>Deze rekenfunktie is bedoeld ter ondersteuning van de uitlezing en analyse van de tongkrachtmeter.</P>
+<P>De tongkrachtmeter bevat krachtsensoren in 3 richtingen, naar voren, naar links/rechts en naar onder/boven.</P>
+<P>Helaas zijn de sensoren van voren en boven/onder sterk met elkaar gekoppeld.</P>
+<P>Middels metingen op een trek/druk bank is deze afahankelijkheid in kaart gebracht en zijn correctie formules in deze rekenfunctie ondergebracht.</P>
+<P>Daarnaast zorgt deze meting, tijdens de meting voor het weergeven van de (gecorrigeerde) numerieke waarden, en voor het nullen van de sensoren.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Display &amp; Instel vensters</SPAN></P>
+<P>In het linkse plaatje is de weergave van de actuele waarden weergegeven. De actuele waarden zijn gecompenseerd voor de onderlinge afhankelijkheid van de sensoren. Tevens is hier het extra signaal "SQRT" weergegeven, dat een vectoriële optelling is van de kracht boven/onder en de kracht links/rechts.</P>
+<P>In het rechterplaatje zijn de instellingen weergegeven.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Het fonttype van de signaal naam kan worden ingesteld, door op "Naam Font" te klikken&nbsp;</LI>
+<LI>Het fonttype van de numerieke weergave kan worden ingesteld, door op "Waarde Font" te klikken&nbsp;</LI>
+<LI>de kleur van het font van ieder signaal kan worden gewijzigd door op "kleur1" te drukken&nbsp;</LI>
+<LI>Indien "Op slot zetten na nulling" wordt aangevinkt, wordt telkens na een nulling het betreffende knopje gedisabled, zodat er niet per ongeluk op de nulling knop gedrukt kan worden. Het is hier goed om op te merken dat het nulling ook achteraf (en meerdere malen) in de rekenfunktie kan gebeuren. Wel is het hiervoor noodzakelijk dat er korte stukjes met een nulsignaal mee worden opgenomen.&nbsp;</LI>
+<LI>De middelingsperiode geeft aan hoe zwaar het signaal wordt gefilterd, voordat het wordt weergegeven danwel wordt geexporteerd. Een goede waarde voor deze middelingstijd is 0.6 .. 1 seconde.&nbsp;</LI>
+</UL>
+<P>&nbsp;<IMG width=241 height=317 src="funk81_img1.gif">&nbsp;&nbsp;&nbsp;<IMG width=239 height=317 src="funk81_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Het maken van de opname</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Het bekijken en analyseren van de opname</SPAN></P>
+<P>Voor oude opnamen:eerst de opname van een nieuw protocol voorzien, eerste opname van patient,</P>
+<P>24 FysioFlex 1 opnamen</P>
+<P>34 FysioFlex 2 opnamen,</P>
+<P>44 FysioFlex 2 opnamen met omgekeerde sensor</P>
+<P>Daarna markers F4 plaatsen, waar de signalen nul zijn. Dit mag eventueel meerdere maken gebeuren.</P>
+<P>Op de plaatsen vlak na het maximum markers plaatsen</P>
+<P>3=voor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2=boven&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1=links&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1=rechts</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Het exporteren van de resultaten</SPAN></P>
+<P>&nbsp;<IMG width=389 height=443 src="funk81_img20.gif">&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS2>Achtergrond informatie</SPAN></P>
+<P>Oude opnamen zijn 26? en 32, 33, 35</P>
+<P>Nieuwe opnamen 26p,44,45,46</P>
+<P>Oud protocol</P>
+<P>3=voor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2=boven&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1=links&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1=rechts</P>
+<P>r,v,b,l</P>
+<P>l,r,v,b</P>
+<P>b,l,r,v</P>
+<P>&nbsp;&nbsp;</P>
+<P>In het nieuwe protocol</P>
+<P>3=voor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2=boven&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1=links&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1=rechts</P>
+<P>r,v,l,b</P>
+<P>b,l,v,r</P>
+<P>l,r,b,v zo lang en zo hard mogelijk duwen</P>
+<P>opname 44, 45, STANDAARD, FF2</P>
+<P>opname 34, wel FF2, maar transducer omgekeerd t.o.v. 44,45</P>
+<P>opname 24, FF1</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>opname 44</SPAN></P>
+<P>&nbsp;<IMG width=914 height=823 src="funk81_img9.gif"></P>
+<P>&nbsp;<IMG width=321 height=177 src="funk81_img10.gif">&nbsp;&nbsp;<IMG width=298 height=199 src="funk81_img11.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=389 height=443 src="funk81_img20.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>opname 34</SPAN></P>
+<P>&nbsp;<IMG width=905 height=773 src="funk81_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=360 height=163 src="funk81_img7.gif">&nbsp;&nbsp;&nbsp;<IMG width=290 height=172 src="funk81_img8.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>opname 24, FF1</SPAN></P>
+<P>&nbsp;<IMG width=898 height=824 src="funk81_img17.gif"></P>
+<P><SPAN class=RVTS7>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;<IMG width=371 height=140 src="funk81_img16.gif"><SPAN class=RVTS7>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><IMG width=349 height=195 src="funk81_img18.gif"></P>
+<P><SPAN class=RVTS7>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;<IMG width=382 height=221 src="funk81_img19.gif"><SPAN class=RVTS7>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Korrektie van de naar-voren-sensor als gevolg van de naar-boven-kracht</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>De ijkingen zijn uitgevoerd op de grote freesbank, met de 1 kg veerkrachtmeter.</P>
+<P>Alle krachten zijn gemeten in grammen.</P>
+<P>Een extra probleem doet zich hierbij voor, dat het Midac systeem een zeer vreemde meting oppikt als deze gevoed wordt uit het net. Derhalve dient tijdens de meting de portable-PC gevoed te worden uit de accus.</P>
+<P>De metingen zijn te vinden in TONKRACHT_YK5.XLS.</P>
+<P>&nbsp;&nbsp;</P>
+<P>IJking van de kracht naar boven, geeft de volgende grafieken voor de naar-boven-sensor en de naar-voren-sensor.</P>
+<P>&nbsp;<IMG width=480 height=409 src="tongkrachtmeter_img1.gif"></P>
+<P>Opvallend is dat de naar-voren-sensor een niet-linear verloop vertoont, hetgeen te wijten is aan het typisch gedrag van kunststoffen. Het was beter geweest, om deze meting uit te voeren, door tussen ieder meetpunt de balasting naar nul terug te brengen.</P>
+<P>Het blijkt ook dat&nbsp; de richtingscoëfficiënt zoals nu bepaald het bij patiënten minder goed doet. Dit komt omdat een patiënt maar even drukt. Daarom is gekozen de helling te bereken over de eerste twee punten. Het gevonden resultaat doet het dan beter bij patienten.</P>
+<P>Omdat excel niet door 2 punten een grafiek wil tekenen, zijn de 2 punten eerst linear geëxtrapoleerd.</P>
+<P>&nbsp;<IMG width=530 height=391 src="tongkrachtmeter_img2.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Een kracht zuiver naar voren, levert de volgende grafiek op</P>
+<P>&nbsp;<IMG width=477 height=409 src="tongkrachtmeter_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Dus voor de AD-waarden op de naar-voren-sensor, krijgen we nu de volgende deelformules</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AD<SPAN class=RVTS7>voren,als gevolg kracht naar boven</SPAN>&nbsp;= -32.8 * F<SPAN class=RVTS7>boven</SPAN>&nbsp; +&nbsp; 2473</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AD<SPAN class=RVTS7>voren, als gevolg kracht naar voren</SPAN>&nbsp;= 4.5 * F<SPAN class=RVTS7>voor</SPAN>&nbsp; +&nbsp; 2149</P>
+<P>&nbsp;&nbsp;</P>
+<P>De offsets hadden hier in beide gevallen gelijk moeten zijn, ook dit is te wijten aan de (reversibele) deformatie van het kunststof. Maar omdat we toch relatieve metingen doen, laten we de offset hier buiten beschouwing.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AD<SPAN class=RVTS7>voren, als gevolg van wat dan ook</SPAN>&nbsp;= 4.5 * F<SPAN class=RVTS7>voor</SPAN>&nbsp; - 32.8 * F<SPAN class=RVTS7>boven</SPAN>&nbsp; + offset</P>
+<P>&nbsp;&nbsp;</P>
+<P>Voor de naar voren gerichte kracht, kunnen we nu de volgende formule opschrijven:</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F<SPAN class=RVTS7>voor</SPAN>&nbsp;= ( AD<SPAN class=RVTS7>voren, als gevolg van wat dan ook</SPAN>&nbsp; + 32.8 * F<SPAN class=RVTS7>boven</SPAN>&nbsp; + offset ) / 4.5</P>
+<P>&nbsp;&nbsp;</P>
+<P>Nu kunnen we Fboven uitdrukken in ADboven,&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AD<SPAN class=RVTS7>boven</SPAN>&nbsp;= -8.5 * F<SPAN class=RVTS7>boven</SPAN>&nbsp; - 417</P>
+<P>&nbsp;&nbsp;</P>
+<P>Dit alles combinerend, levert de volgende uitdrukking voor de "juiste" kracht naar voren</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F<SPAN class=RVTS7>voor</SPAN>&nbsp;= (AD<SPAN class=RVTS7>voor</SPAN>&nbsp;/ 4.5) + (32.8 / (4.5*8.5) * AD<SPAN class=RVTS7>boven</SPAN>&nbsp;+ offset</P>
+<P>&nbsp;&nbsp;</P>
+<P>hetgeen ook te schrijven is als</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F<SPAN class=RVTS7>voor</SPAN>&nbsp;= (AD<SPAN class=RVTS7>voor</SPAN>&nbsp;/ 4.5) + (AD<SPAN class=RVTS7>boven</SPAN>&nbsp;/ 1.2) + offset</P>
+<P>&nbsp;&nbsp;</P>
+<P>Het kalibreren van de naar voren gerichte kracht is niet zo eenvoudig, kijk maar eens naar het volgende plaatje.</P>
+<P>Hierin is te zien dat de naar-boven-sensor niet nul blijft, maar enerzijds een hoop ruis bevat en anderzijds toch langzaam meeloopt. Dit heeft o.a. tot gevolg dat het gecorrigeerde naar-voren-signaal veel ruisiger is dan het het ruwe naar-voren-signaal.</P>
+<P>Het tweede probleem is dat we een meetfout introduceren, ....</P>
+<P>&nbsp;<IMG width=764 height=376 src="tongkrachtmeter_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Kalibratie Midac, in grammen</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>Rechts-ruw&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; -630&nbsp; /&nbsp; 5</P>
+<P>Boven-ruw&nbsp;&nbsp;&nbsp;&nbsp; 0 /&nbsp; -5&nbsp; /&nbsp; -482&nbsp; /&nbsp; 5&nbsp;&nbsp;</P>
+<P>Voren-ruw&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; 910&nbsp; /&nbsp; 5</P>
+<P>&nbsp;&nbsp;</P>
+<P>Rechts**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; 4095&nbsp; /&nbsp; 5</P>
+<P>Boven**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; 4095&nbsp; /&nbsp; 5</P>
+<P>Voren**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; 4095&nbsp; /&nbsp; 5</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Kalibratie Midac, in Newton</SPAN></P>
+<P>Rechts-ruw&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; -6.17 /&nbsp; 5</P>
+<P>Boven-ruw&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; -4.72 /&nbsp; 5</P>
+<P>Voren-ruw&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; 8.92 /&nbsp; 5</P>
+<P>&nbsp;&nbsp;</P>
+<P>Rechts**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; 40.1&nbsp; / 5</P>
+<P>Boven**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; 40.1&nbsp; / 5</P>
+<P>Voren**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; /&nbsp; -5&nbsp; /&nbsp; 40.1&nbsp; / 5</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=386 height=128 src="tongkrachtmeter_img5.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=333 height=124 src="tongkrachtmeter_img6.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=598 height=474 src="tongkrachtmeter_img7.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Marker 1 = Kracht naar Rechts / Links</P>
+<P>Marker 2 = Kracht naar Boven</P>
+<P>Marker 3 = Kracht naar Voren</P>
+<P>Marker 4 = Nulpunt</P>
+<P>Eventueel marker Links Rechts apart&nbsp; ??</P>
+<P>&nbsp;&nbsp;</P>
+<P>De kracht wordt telkens gemeten t.o.v. het laatste nulpunt.</P>
+<P>Er kan dus meerdere malen een nulpunt worden gezet.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Voorbeeld pat=44, eerste opname</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=505 height=377 src="tongkrachtmeter_img10.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=416 height=378 src="tongkrachtmeter_img9.gif"></P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

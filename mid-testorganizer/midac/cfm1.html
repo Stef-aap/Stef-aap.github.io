@@ -1,0 +1,116 @@
+<HTML><HEAD><TITLE>cfm1</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD rowspan=2 width=25% valign=middle>&nbsp;
+</TD>
+<TD width=50% height=40 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>Digitaal EEG Systeem</P></TD>
+<TD rowspan=2 valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD height=40 bgcolor=#FFFF00 valign=middle>
+<P class=RVPS2>CFM Meting</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="resultaten voorstudie"></A>
+Resultaten Voorstudie</P>
+<P>Conclusie: Op basis van het huidige EPP kastje kan een goed digitaal EEG systeem gebouwd worden. Zie onderstaande voorbeelden.</P>
+<P>Het systeem bestaat uit een patient-box, een tussenkastje, PC (eventueel portable) en een scheidingstransformator.</P>
+<P>Dit geheel kan het beste op een 'slanke' kar worden geplaatst, zodat het systeem gemakkelijk in de buurt van een couveuse geplaatst kan worden. De afstand tussen patientbox en PC kan meerdere meters bedragen, zodat de PC ook op grotere afstand geplaatst kan worden.</P>
+<P>Doordat altijd de ruwe data wordt opgeslagen en alle signaalbewerkingen software-matig geschieden is zowel online als offline een grote flexibiliteit beschikbaar (dus ook 1 of meer-kanaals CFM meting).</P>
+<P>De volgende gewenste functionaliteiten waren in de proefopstelling nog niet aanwezig, c.q. nog niet optimaal:</P>
+<P>- electrode impedantie tester</P>
+<P>- juiste patientbox, d.w.z. goede pluggen, pluggen geplaatst in de vorm van bovenaanzicht hoofd</P>
+<P>- glasvezel kabel blijkt te kwetsbaar (vervangen door koper)</P>
+<P>- batterij voeding te vervangen door 6kV/2pF voeding</P>
+<P>- slanke kar</P>
+<P>- CSA, real-time frequentie analyse (wordt momenteel uitgetest in Midac)</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="voorbeeld 1:"></A>
+Voorbeeld:</P>
+<P>Onderstaand voorbeeld is een opname van een gezonde volwassen vrijwilliger.</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>CFM&nbsp;</P>
+<P>op Cz</P></TD>
+<TD width=100 valign=middle>
+<P>Zowel de filtering aan de lage als aan de hoge kant dienen nog iets scherper te worden uitgevoerd. Amplitude overeenkostig CFM specificaties, halverwege = 10 uVtt, top = 100 uVtt.&nbsp;</P>
+<P>Door de vele oogbewegingen en de korte tijdsduur (waardoor beperkte tijdscompressie 20 sec/div) lijken er erg veel spikes in het CFM te zitten.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=10% valign=top>
+<P>F4&nbsp;</P>
+<P>C4&nbsp;</P>
+<P>Cz</P></TD>
+<TD valign=middle>
+<P>Standaard Unipolaire afleidingen (software matig ook achteraf instelbaar)&nbsp;</P>
+<P>Gefilterd van 2 tot 16 Hz (ook softwarematig instelbaar)&nbsp;</P>
+<P>Volledig venster = 300uVtt, Tijdbasis 200 msec/div</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>C3&nbsp;</P>
+<P>F3&nbsp;</P>
+<P>F3-C3</P></TD>
+<TD valign=middle>
+<P>Standaard Uni-polaire en Bi-polaire afleidingen&nbsp;</P>
+<P>idem</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;<IMG width=938 height=738 src="cfm1.gif"></P>
+<P>&nbsp;<IMG width=580 height=246 src="cfm2.gif"></P>
+<P>Zelfde opname, zelfde tijdssegment, CFM op F4</P>
+<P><A name="specificaties hardware"></A>
+Specificaties Hardware</P>
+<P>De hardware bepaalt wat er wordt opgeslagen en met welke informatie-bandbreedte.</P>
+<P>- hardware meet 8 differentiële kanalen (9 electroden + eventueel DRL)</P>
+<P>- opslag van ruwe signalen in volledige 24 bits notatie</P>
+<P>- bandbreedte DC-100 Hz</P>
+<P>- ruis &lt; 1 uVtt (over volle bandbreedte)</P>
+<P>- CMMR zeer goed</P>
+<P><A name="specificaties software"></A>
+Specificaties Software</P>
+<P>De software bepaalt de filtering en andere (niet-lineaire) bewerkingen en de wijze wat er hoe wordt weergegeven. De weergave kan voor opname en weergave verschillend zijn. Omdat alle ruwe data beschikbaar is, kan men achteraf altijd andere analyses uitvoeren.</P>
+<P>- alle uni-polaire en bi-polaire afleidingen mogelijk</P>
+<P>- CFM op een of meerdere afleidingen</P>
+<P>- normaal EEG en CFM op verschillende tijdas af te beelden</P>
+<P>- programma start geheel automatisch, zonder dat er instellingen behoeven te worden gedaan</P>
+<P>- aantal kanalen / sample-frequentie is instelbaar (waardoor beperking van de opslagruimte mogelijk)</P>
+<P>- bij het uitvallen van de computer gaat geen reeds opgenome data verloren</P>
+<P>- frequentie analyse mogelijk</P>
+<P>- export naar clipboard en printer mogelijk</P>
+<P><A name="pc vereisten"></A>
+PC vereisten</P>
+<P>- pentium II, &gt;200 MHz</P>
+<P>- printerpoort EEP 1.9 compatibel</P>
+<P><A name="benodigde opslagcapaciteit"></A>
+Benodigde Opslagcapaciteit</P>
+<P>8 kanalen * 4 byte * 200 Hz = 6.4 kbyte/s</P>
+<P>1 uur opname = 23 Mbyte</P>
+<P>24 uur opname = 0.5 Gbyte</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst</P>
+<P>SM 17-12-1998</P>
+</BODY></HTML>

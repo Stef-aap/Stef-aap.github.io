@@ -1,0 +1,88 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunktie 64, NIRS calculations</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=1 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 64</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A></P>
+<P><A class=RVTS4 href="#funk64.ini">FUNK64.INI</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>NIRS calculations</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Omschrijving&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Met deze functie kunnen de ruwe meetsignalen van de NIRS worden omgerekend in chromphore waarden.</P>
+<P>De ruwe NIRS data kan worden geïmporteerd met... en eventueel worden gemerged met andere midac data via ...</P>
+<P>Er kunnen maximaal 8 ingangssignalen ( OD [ lambda] ) worden verwerkt to maximaal 8 uitgangssignalen ( Out[i] ), volgens onderstaande formule (voor uitgereidere informatie, zie de NIRS handleiding):</P>
+<P>Out [i] = scale * som ( a [ lambda , i ] * OD [lambda] ) / ( IO * DPF )Alle factoren kunnen op de gebruikelijke wijze worden ingesteld via de functie instellingen.</P>
+<P>&nbsp;<IMG width=527 height=281 src="funk64c.jpg"></P>
+<P>De namen van de kolommen en rijen kunnen worden gewijzigd na het aanvinken van de checkbox "Edit Fixed Fields".&nbsp; In verband met afrondings-beperkingen, is het beter om IO=0.05 in te stellen.</P>
+<P>Op het moment dat de rekenfunctie voor het eerst wordt aangemaakt, worden er default parameter waarden opgehaald uit het bestand funk64.ini (in de programma directory). Dit bestand kan naar eigen inzicht worden gewijzigd met een kale ASCII-editor.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="funk64.ini"></A>
+FUNK64.INI&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>[algemeen]</P>
+<P>name=funk64.ini</P>
+<P>n_lambda=3</P>
+<P>n_chromophore=3</P>
+<P>io=50</P>
+<P>dpf=6.23</P>
+<P>[lambda]</P>
+<P>lambda1=905 nm</P>
+<P>lambda2=850 nm</P>
+<P>lambda3=770 nm</P>
+<P>[chromo1]</P>
+<P>name=O2Hb</P>
+<P>scale=1.0</P>
+<P>lambda1=1.776</P>
+<P>lambda2=0.081</P>
+<P>lambda3=-1.157</P>
+<P>[chromo2]</P>
+<P>name=HHb</P>
+<P>scale=1.0</P>
+<P>lambda1=-0.221</P>
+<P>lambda2=-1.02</P>
+<P>lambda3=1.642</P>
+<P>[chromo3]</P>
+<P>name=tHb</P>
+<P>scale=1.0</P>
+<P>lambda1=1.555</P>
+<P>lambda2=-0.939</P>
+<P>lambda3=0.485</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 20-04-2001.&nbsp;</P>
+</BODY></HTML>

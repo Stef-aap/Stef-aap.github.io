@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="141" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p><span class=rvts1>Spraak Research Analyse</span><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (februari 2009)</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Inleiding</span></p>
+<p>Als de testOrganizer is gestart in de research mode, verschijnt er na het starten van een print-out, een tussenscherm, waarin detail analyses kunnen worden uitgevoerd.</p>
+<p><br></p>
+<p>&nbsp;&nbsp; </p>
+<p><span class=rvts2>Tabblad Result</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #ece9d8 #aca899 #aca899 #ece9d8; border-style: solid;">
+<tr valign=top>
+<td width=984 valign=top>
+<p>Door op een item in de gele lijst (target-lijst) te klikken, wordt alle target-regels (=geel) vernieuwd. Idem wit=actual.</p>
+<p>Er zijn vaak 2 manieren om de resultaten van een (eenvoudige) RULE te bekijken, als voorbeeld de RULE fric-&gt;plos:</p>
+<p>1.klik in zowel de gele als de witte lijst op de gewenste RULE (FR2PL)</p>
+<p>2. klik in de target-lijst op FRIC en in de actual-lijst op PLOS</p>
+<p>Op deze wijze kunnen dus ook niet bestaande Rules direct worden getest, zonder deze in de LAL-file in te voeren.</p>
+<p>In de actualstring en de targetstring, wordt het optreden van de te toetsen variabelen weergegeven door een rode letter.</p>
+<p>Bij een sequentie, wordt enkel de eerste klank van een sequentie op deze wijze gemarkeerd.</p>
+<p><br></p>
+</td>
+<td width=170 valign=top>
+<p><a href="spraak_analyse5.gif"><img width=489 height=526 alt="" src="spraak_analyse5.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>In het tabblad RESULT, worden alle rules (zwart), met hun score en alle woorden waarin deze rule van toepassing is, worden in rood/blauw weergegeven (rood als een positie voldoet, anders blauw)</p>
+<p>De header bevat alle algemene gegevens en syntax fouten zijn aangegeven in rood. Met behulp van de printknop kan dit tabblad (in kleur) worden afgedrukt. Het is zelfs mogelijk hierin te editten. De aangebrachte wijzingingen in de tekst worden uiteraard niet opgeslagen maar wel afgedrukt.</p>
+<p>In het tabblad LAL, kan de analysefile worden geedit en alle berekeningen opnieuw worden uitgevoerd, zie hieronder.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Tabblad LAL-file</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #ece9d8 #aca899 #aca899 #ece9d8; border-style: solid;">
+<tr valign=top>
+<td width=1046 valign=top>
+<p>Het tabblad LAL-file geeft de exacte inhoud van het bestand weer. Zuivere commentaar regels worden in zwart afgebeeld, alle syntactisch correcte analyseregels in blauw en de regels met syntax fouten in rood.</p>
+<p>Met de knop OPEN, kan een ander analyse bestand worden opgeroepen, waarna de berekening automatisch opnieuw wordt uitgevoerd.</p>
+<p>De lal-tekst kan worden gewijzigd, zodra dit gebeurt zal het groene veld met de bestandsnaam rood kleuren, ten teken dat er iets is gewijzigd.</p>
+<p>Door op de knop BEREKEN te drukken, worden de wijzigingen opgeslagen en alle berekeningen opnieuw uitgevoerd.</p>
+<p>Het bestand kan in kleur worden afgedrukt met de knop PRINT.</p>
+</td>
+<td width=108 valign=top>
+<p><img width=331 height=394 alt="" src="spraak_analyse3.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Lipp Export</span></p>
+<p>todo</p>
+<p><br></p>
+<p><span class=rvts2>Syntax </span></p>
+<p>Bij het ontwerp van de syntax is getracht zoveel mogelijk aan te sluiten bij de syntax van LIPP.</p>
+<p>Overbodige en/of irrelevante definities zijn weggelaten.</p>
+<p>Hier en daar is de wiskundige basis consistenter gemaakt, waardoor als bijkomend voordeel het gebruik van buffers is vereenvoudigd.</p>
+<p>Toegevoegd zijn:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; - Commando's voor een leesbare omschrijving van de variabelen / rules</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; - Definities van normen</p>
+<p><br></p>
+<p><span class=rvts2>Algemeen </span></p>
+<p>Formules worden geschreven in normale presentatie (dus geen RPN).</p>
+<p>Een statement mag over meerdere regels worden uitgeschreven.</p>
+<p>Het einde van een statement wordt gemarkeerd door een punt-komma (:).</p>
+<p>Statements worden in volgorde van binnenkomst verwerkt.</p>
+<p>Recursie is niet toegestaan.</p>
+<p>In het rapport worden bij de omschrijvingen, de leading en trailing spaces en %-tekens verwijderd.</p>
+<p>&nbsp;&nbsp; </p>
+<p><span class=rvts2>Geïmplementeerde Syntax </span></p>
+<p>Definitie van een variabele, enkel bestaande uit kenmerken</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; VAR&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; {xxx} ;&nbsp; &lt;omschrijving&gt;</p>
+<p>Definitie van een (tussen-) variabele, samengesteld uit een combinatie van andere variabelen en operators,</p>
+<p>deze variabele wordt niet opgenomen in het gebruikers rapport</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (&lt;formule&gt;) ;&nbsp; &lt;omschrijving&gt;</p>
+<p>Idem, echter resultaat wordt vermeld in het gebruikers rapport</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; EXEC&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (&lt;formule&gt;)&nbsp; ; &lt;omschrijving&gt;</p>
+<p>Definitie van een kenmerk-gelijkheid (voor gebruik in variabelen)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; [C]</p>
+<p>Definitie van een norm voor een variabele (heeft alleen zin voor DEF EXEC RULE)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; NORM "&lt;naam&gt;" =&nbsp; 32% ; &lt;omschrijving&gt;</p>
+<hr noshade size=1>
+<p><br></p>
+<p><span class=rvts10>DEF VAR&nbsp; "&lt;naam&gt;"&nbsp; = {xxx} ; &lt;omschrijving&gt; </span></p>
+<p>Definiëert een set van kenmerken, welke wordt getest op elke afzonderlijke klank in de doeltekst en de uitgesproken tekst.</p>
+<p><span class=rvts10>&lt;naam&gt;</span> is de gewenste naam voor de variabele</p>
+<p><span class=rvts10>xxx</span> geeft de vereiste waarden (0 ... 16) op de verschillende kenmerken (A ... P).</p>
+<p><span class=rvts10>&lt;omschrijving&gt;</span> is enkel bedoeld om de LAL-file in een later stadium beter leesbaar te maken.</p>
+<p>Indien een variabele-naam meer dan 1 keer wordt gedefiniëerd, wordt een foutmelding gegenereerd.</p>
+<p>Verschillende waarden voor 1 kenmerk kunnen op de volgende wijze verkort worden genoteerd</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; B[1-3] = B[1]&nbsp; B[2]&nbsp; B[3]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; voor dit kenmerk wordt een klank getest op een waarde van 1,2 of 3</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; B[1,2,5] = B[1]&nbsp; B[2]&nbsp; B[5]&nbsp;&nbsp;&nbsp;&nbsp; voor dit kenmerk wordt een klank getest op een waarde van 1,2 of 5</p>
+<p>Als van een kenmerk (A ... P) geen waarden zijn opgegeven, dan wordt dit kenmerk niet getest !!!</p>
+<p>Voorbeeld 1:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; VAR&nbsp; "PLOS"&nbsp; =&nbsp; {&nbsp; B[1]&nbsp; } ;</p>
+<p>De variabele PLOS is waar, als voor het kenmerk B een waarde van 1 geldt, de waarden van de overige kenmerken zijn niet van belang.</p>
+<p>Voorbeeld 2:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; VAR&nbsp; "AAP"&nbsp; =&nbsp; {&nbsp; B[1]&nbsp; C[0] } ;</p>
+<p>De variabele AAP is waar, als voor het kenmerk B een waarde van 1 geldt én voor het kenmerk C een waarde van 0 geldt, terwijl de waarden van de overige kenmerken niet van belang zijn.</p>
+<hr noshade size=1>
+<p><br></p>
+<p><span class=rvts10>DEF&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; = (&nbsp; (vvv1)&nbsp; -&gt;&nbsp; (vvv2)&nbsp; ) ;&nbsp; &lt;omschrijving&gt; </span></p>
+<p><span class=rvts10>DEF&nbsp; EXEC&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (&nbsp; (vvv1)&nbsp; -&gt;&nbsp; (vvv2)&nbsp; ) ;&nbsp; &lt;omschrijving&gt;</span></p>
+<p><span class=rvts10>DEF&nbsp; EXEC&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (logische combinatie van variabelen) ; &lt;omschrijving&gt;</span></p>
+<p><span class=rvts10>DEF&nbsp; EXEC&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (sequentie van variabelen) ; &lt;omschrijving&gt;</span></p>
+<p><span class=rvts10>DEF&nbsp; EXEC&nbsp; RULE&nbsp; "&lt;naam&gt;"&nbsp; =&nbsp; (transcriptie) ; &lt;omschrijving&gt;</span></p>
+<p><span class=rvts10>IEDERE COMBINATIE VAN BOVENSTAANDE</span></p>
+<p>Definiëert een transcriptie van een set kenmerken in het doelwoord (vvv1) naar een set kenmerken in de uitgesproken tekst (vvv2).</p>
+<p>De toevoeging EXEC, betekent dat de uitkomst in het resultaat-rapport wordt vermeld, verder zijn de statements geheel identiek. </p>
+<p><span class=rvts10>&lt;naam&gt;</span> is de gewenste naam van de transcriptie.</p>
+<p><span class=rvts10>vvv1</span> en <span class=rvts10>vvv2</span> zijn sequenties van variabelen (of enkelvoudige variabelen). Beide sequenties mogen een ongelijke lengte hebben. De variabelen moeten reeds gedefiniëerd zijn.</p>
+<p>In plaats van een transcriptie, mag een regel ook worden gedefiniëerd als een logische functie van eerder gedefiniëerde transcripties.</p>
+<p><span class=rvts10>&lt;omschrijving&gt;</span> een omschrijving van de variabele, welke bij EXEC ook in het rapport wordt vermeld</p>
+<p>Het resultaat van een transcriptie bestaat altijd uit 2 getallen, het aantal keren dat de kenmerken vvv1 in het doelwoord voorkomen (ook wel "noemer" genoemd) en het aantal keren dat op dezelfde positie de kenmerken vvv2 in de uitgesproken tekst gelden (de gezochte transcriptie optreedt) (ook wel "teller" genoemd).</p>
+<p>Dus 2 / 5 betekent, in de doelwoorden is 5 maal de set kenmerken vvv1 voorgekomen, in twee van deze gevallen is een transcriptie naar de kenmerken vvv2 opgetreden.</p>
+<p>Voorbeeld 1:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF EXEC RULE&nbsp; "FR2PL"&nbsp; =&nbsp; ( ( Fric )&nbsp; -&gt;&nbsp; ( Plos) ) ;</p>
+<p>Voorbeeld 2:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF RULE&nbsp; "OmECSylF1"&nbsp; = ( ( VGpX&nbsp; TC&nbsp; A# )&nbsp; -&gt; ( VGpX&nbsp; A# ) ) ;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF RULE&nbsp; "OmECSylF2"&nbsp; = ( ( VGpX&nbsp; TC&nbsp; NilX&nbsp; A# )&nbsp; -&gt; ( VGpX&nbsp; A# ) ) ;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF EXEC RULE "OmECSylF"&nbsp; =&nbsp; ( OmECSylF1&nbsp;&nbsp; OR&nbsp; OmECSylF2 ) ;</p>
+<p>Voorbeeld 3 (wiskundig identiek aan voorbeeld 2)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF EXEC RULE "OmECSylF"&nbsp; =&nbsp; ( ( ( VGpX&nbsp; TC&nbsp; A# )&nbsp; -&gt; ( VGpX&nbsp; A# ) )&nbsp; OR</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( ( VGpX&nbsp; TC&nbsp; NilX&nbsp; A# )&nbsp; -&gt; ( VGpX&nbsp; A# ) ) ) ;</p>
+<hr noshade size=1>
+<p><br></p>
+<p><span class=rvts10>Kenmerk-gelijkheid [A]&nbsp; [B]&nbsp; ...&nbsp; [P]</span></p>
+<p>De kenmerk-gelijkheid is in feite in gewone (voorgedefiniëerde) variabele, welke altijd aanwezig is.</p>
+<p>De kenmerk-gelijkheid toetst één specifiek kenmerk (A,B,..P) op zowel targetstring als actualstring en vergelijkt vervolgens beide resultaten. Deze bits-gewijze vergelijking levert enkel TRUE op als zowel actualstring als targetstring true zijn. Met andere woorden de toetsing op bijvoorbeeld [A] levert alleen dan een TRUE op, als op de desbetreffende positie de kenmerk-waarde-A in targetstring en actualstring identiek zijn.Het gebruik van buffers in LIPP is vreemd en wiskundig niet consistent. Door een gewijzigde syntax kan hetzelfde worden bereikt, wel wiskundig consistent, waardoor de implementatie eenvoudiger wordt. Aan de hand van een voorbeeld zal dit duidelijk gemaakt worden.</p>
+<p>De oorspronkelijke LIPP rule: DEF VAR&nbsp; "TC" = { B[1-8] } ;</p>
+<p>&nbsp;&nbsp;&nbsp; DEF EXEC RULE&nbsp;&nbsp; "AAP" = ( ( TC&nbsp; AND&nbsp; (&nbsp; [ B1:=A , B2:=B ] ) )&nbsp;&nbsp; -&gt;&nbsp; ( TC&nbsp; AND&nbsp; (&nbsp; NOT&nbsp; [ B1=A , B2=B ] ) ) ) ; </p>
+<p>De betekenis hiervan is:</p>
+<p>&nbsp;&nbsp;&nbsp; bepaal het aantal overgangen TC -&gt; TC , waarbij tevens de waarden van de kenmerken A en/of B verschillen.</p>
+<p>Het vreemde aan bovenstaande regel is dat de eerste AND operator een fake operator is. Bij de evaluatie van deze formule moet derhalve een speciale constructie gemaakt worden. Dezelfde regel kan ook als volgt worden geschreven </p>
+<p>&nbsp;&nbsp;&nbsp; DEF EXEC RULE&nbsp;&nbsp; "AAP" = ( TC -&gt;&nbsp; ( TC&nbsp; AND ( NOT ( [ A ] )&nbsp; OR&nbsp; NOT( [ B ] )&nbsp; ) ) ); </p>
+<p>Deze regel bevat geen fake operatoren, is wiskundig geheel correct, daarom eenvoudig te evalueren en bovendien, de menselijke interpretatie is direct af te lezen !!!</p>
+<hr noshade size=1>
+<p><br></p>
+<p><span class=rvts10>Normen </span></p>
+<p>Normen worden vermeld in het gebruikers-rapport.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; DEF&nbsp; NORM "&lt;naam&gt;" =&nbsp; 32% ; &lt;omschrijving&gt;</p>
+<p>Over de interpretatie bestaat nog diskussie.</p>
+<p>&nbsp;&nbsp; </p>
+<p><span class=rvts2>Specifieke Voorbeelden </span></p>
+<p>Hieronder zijn een aantal specifieke voorbeelden verzameld.&nbsp; Tevens een aantal regels uit oude LIPP-bestanden (o.a. Analog.lal), die naar mijn mening (wiskundig) fout zijn, omdat ze redundante condities bevatten.</p>
+<hr noshade size=1>
+<p><br></p>
+<p>Sequentie, vervanging LIPP-buffer DEF EXEC RULE&nbsp; "Aap" =&nbsp; ( TC &amp; TV ) ;&nbsp;&nbsp; Dit is dus een variabele die vermeld wordt in het gebruikers rapport</p>
+<p>DEF EXEC RULE "Beer" = ( NOT [C] ) ;&nbsp;&nbsp;&nbsp;&nbsp; Vermeld alle posities waarop kenmerk C een ongelijke waarde heeft</p>
+<hr noshade size=1>
+<p>Foute syntax: DEF&nbsp; GLOB&nbsp; "SylOnset" = ( ( A#&nbsp; CGpX )&nbsp; OR&nbsp; A# ); Correcte syntax (maar direct in de nieuwe notatie) DEF&nbsp; RULE&nbsp; "SylOnset" = (&nbsp; A#&nbsp; );</p>
+<hr noshade size=1>
+<p>Foute syntax: DEF EXEC RULE "SubPlace" = ( ( TC&nbsp; AND&nbsp; ( [B1:=A, B2:=B, B3:=C, B4:=D] ) ) -&gt; ( TC&nbsp; AND&nbsp; ( NOT&nbsp; [B1=A] ) ) ) ; Correcte syntax (maar direct in de nieuwe notatie) DEF EXEC RULE "SubPlace" = ( TC&nbsp; -&gt; ( TC&nbsp; AND&nbsp; NOT ( [A] ) ) ) ;</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Wiskunde</span></p>
+<p>Doel van de analyse is om de fout uitgesproken woorden nader te analyseren en met name na te gaan welk soort fouten er zijn gemaakt. Daarvoor worden eerst alle fout uitgesproken woorden opgezocht, ten tweede wordt bekeken of het fout uitgesproken woord wel de juiste lengte heeft (anders kan geen goede vergelijking worden gemaakt). Vervolgens worden alle fout uitgesproken woorden (van de juiste lengte) achter elkaar gezet, met tussen ieder woord een uitroepteken (!), waardoor 1 lange string van de uitspraak onstaat (actual-string). De bijbehorende doelwoorden worden op dezelfde manier achter elkaar geplakt (target-string). Voorbeeld: </p>
+<p><br></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bAnK ! xl c !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {actual-string: de uitgesproken tekst} </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bank ! glas !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {target-string: de doelwoorden} </span></p>
+<p><br></p>
+<p>Iedere klank, aangeduid met een letter uit het fonetisch alfabet, heeft daartoe een aantal kenmerk-waarden op de 16 kenmerken (A,B,..P). Deze kenmerken zijn gedefinieerd in het bestand <a class=rvts4 href="spraak_lipp_bestand.html#kenmerken bestand lipp_ascii.ini">lipp_ascii.ini</a>. Voorbeeld, de fonetische klank met de ascii-waarde van A, heeft de kenmerk-waarde-A=18, kenmerk-waarde-B=16, kenmerk-waarde-D=1 en nul op alle overige kenmerk-waarden. </p>
+<p><br></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [kenmerk&nbsp; A&nbsp; B&nbsp; C&nbsp; D&nbsp; E&nbsp; F&nbsp; G&nbsp; G&nbsp; I&nbsp; J&nbsp; K&nbsp; L&nbsp; M&nbsp; N&nbsp; O&nbsp; P] </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A&nbsp;&nbsp;&nbsp; 65= 18,16,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp;&nbsp; 70= 09,03,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><br></p>
+<p>In eerste instantie worden fonetisch logische deelverzamelingen van kenmerken gemaakt. Voorbeeld, een True Vowel (TV) wordt gedefinieerd als een kenmerk-waarde-B van 11 t/m 16, terwijl de overige kenmerk-waarden niet van belang zijn. </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TV = B [11-16] </p>
+<p><br></p>
+<p>Door nu zowel de target-string als de actual-string te toetsen op de voorwaarden True Vowel, ontstaat de variabele TV. Met behulp van formules kunnen variabelen worden gecombineerd en vergeleken. De uitkomst van een formule geeft aan hoe vaak aan de gevraagde kriteria is voldaan.</p>
+<p>&nbsp;&nbsp; </p>
+<p><br></p>
+<p><span class=rvts10>LIPP-getal</span></p>
+<p>Intern wordt gerekend met zogenaamde LIPP-getallen. Een LIPP-getal bestaat uit twee serie booleans, gepresenteerd als 2 strings, waarbij 0=false, 1=true en !=woordscheidingsteken (de spaties in het voorbeeld dienen enkel ter verduidelijking). </p>
+<p>Voorbeeld van een LIPP-getal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1101 ! 11001 ! 110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {evaluatie van de uitgesproken tekst, Actual-string, A}</span></p>
+<p><span class=rvts12>TV&nbsp; =&nbsp; ------------------</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1011 ! 10100 ! 001&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {evaluatie van de target tekst, target-string, T} </span></p>
+<p><span class=rvts12><br></span></p>
+<p>Alleen uitgesproken woorden die een gelijke lengte als het doelwoord hebben, worden geëvalueerd, derhalve staan de woordscheidingstekens in beide strings altijd op dezelfde plaats. Een LIPP-getal wordt gecreëerd door de definitie van een variabele of door een rechtstreekse kenmerk-vergelijking. De posities van de enen (1) in de Actual-string, geeft de posities van de gevraagde variabele in de uitgesproken woorden aan. Door het aantal enen (1) te tellen, wordt het aantal "occurences" van een bepaalde variabele verkregen. De samenvatting wordt verkregen door het aantal enen in beide strings te tellen, hetgeen een compressed LIPP-getal oplevert als 2/5, Hetgeen te interpreteren is als "de getoetste uitspraak voldoet in 2 van de 5 mogelijke gevallen".</p>
+<p>&nbsp;&nbsp; </p>
+<p><span class=rvts3>Kenmerk-gelijkheid</span></p>
+<p>De kenmerk-gelijkheid is in feite in gewone (voorgedefiniëerde) variabele, welke altijd aanwezig is. De kenmerk-gelijkheid toetst één specifiek kenmerk (A,B,..P) op zowel targetstring als actualstring en vergelijkt vervolgens beide resultaten. Deze bits-gewijze vergelijking levert enkel TRUE op als zowel actualstring als targetstring true zijn. Met andere woorden er treedt een true op als op het gevraagde kenmerk een exacte gelijkheid van de kenmerk-waarde aanwezig is. In onderstaand voorbeeld (kenmerk-gelijkheid-C) zijn A1 en T1 dus ook altijd gelijk. </p>
+<p><br></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A1</span></p>
+<p><span class=rvts12>[C]&nbsp; = -----</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T1</span></p>
+<p><span class=rvts12><br></span></p>
+<p><br></p>
+<p><span class=rvts3>Operatoren</span></p>
+<p>Formules worden gemaakt door LIPP-getallen te combineren met operatoren. De uitkomst van een formule is altijd weer een LIPP-getal. De volgende operatoren worden ondersteund: </p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>unary logische operatoren:&nbsp; NOT </li>
+<li>binairy logische operatoren: AND&nbsp; OR&nbsp; &lt;&nbsp; &lt;=&nbsp; =&nbsp; &gt;&nbsp; &gt;= </li>
+<li>sequency operator:&nbsp; &amp; </li>
+<li>transcriptie operator: -&gt; </li>
+</ul>
+<p>Alle operatoren worden bitsgewijs op de variabelen toegepast.</p>
+<p><br></p>
+<p>&nbsp;&nbsp; </p>
+<p><span class=rvts3>Unary operator: NOT</span></p>
+<p>Dit is een bits-gewijze NOT-operator, op zowel de targetstring alsook op de actualstring.</p>
+<p><br></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A1&nbsp;&nbsp;&nbsp; NOT ( A1)</span></p>
+<p><span class=rvts12>NOT&nbsp; ---- = ---------</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T1&nbsp;&nbsp;&nbsp; NOT&nbsp; (A2)</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts3>Binairy operatoren :&nbsp; AND&nbsp; OR&nbsp; &lt;&nbsp; &lt;=&nbsp; =&nbsp; &gt;&nbsp; &gt;=</span></p>
+<p>Dit is een bits-gewijze binairy operator, op zowel de targetstring alsook op de actualstring.</p>
+<p><br></p>
+<p>&nbsp; A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A1&nbsp; AND&nbsp; A2</p>
+<p>------&nbsp;&nbsp; AND&nbsp;&nbsp; ------&nbsp;&nbsp; =&nbsp;&nbsp; -------------------</p>
+<p>&nbsp; T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T1&nbsp; AND&nbsp; T2</p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts3>Sequency operator: &amp; </span></p>
+<p>Een sequentie is een reeks opeenvolgende klanken, waarbij iedere klank wordt getoetst op zijn eigen (gelijk of verschillend) kriteria. </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SEQ_Vooorbeeld = ( TC &amp; TV) </p>
+<p><br></p>
+<p>Een sequentie moet omgeven zijn door ronde haken, daar de evaluatie van deze operator van achter naar voren moet plaatsvinden (zie onderstaand voorbeeld van een sequentie van 3 LIPP-getallen).</p>
+<p><br></p>
+<p>&nbsp; A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A1&nbsp; AND&nbsp; SHL ( A2 )</p>
+<p>------&nbsp;&nbsp; &amp;&nbsp; ------&nbsp;&nbsp; =&nbsp;&nbsp; -------------------------------</p>
+<p>&nbsp; T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T1&nbsp; AND&nbsp; SHL ( T2 )</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A1&nbsp; AND SHL ( A2&nbsp; AND&nbsp; SHL ( A3 ) )</p>
+<p>------&nbsp;&nbsp; &amp;&nbsp; ------&nbsp; &amp;&nbsp; -----&nbsp;&nbsp; =&nbsp; ---------------------------------------------------------</p>
+<p>&nbsp; T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T1&nbsp; AND&nbsp; SHL ( T2&nbsp;&nbsp; AND&nbsp; SHL ( T3 ) )</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts3>Transcriptie operator:&nbsp; -&gt; </span></p>
+<p>Zoekt naar overgangen van kriteria in de targetstring naar (andere of gelijke) kriteria in actualstring. De posities die aan de kriteria voldoen in de targetstring zijn T1 en de kriteria voor de actualstring zijn A2. Omdat het om een transcriptie gaat zijn A1 en T2 niet van belang. Dus de mogelijkheden die voldoen op basis van de targetstring zijn T1. De echte overgangen die voldoen aan beide kriteria worden dus gevormd door T1 AND A2.</p>
+<p><br></p>
+<p>&nbsp; A1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T1&nbsp; AND&nbsp; A2</p>
+<p>------&nbsp;&nbsp; -&gt;&nbsp; ------&nbsp;&nbsp; =&nbsp;&nbsp; -------------------</p>
+<p>&nbsp; T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T1</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts3>Kenmerken bestand LIPP_ASCII.INI</span></p>
+<p>Opmerking: Dit bestand kan met een kale ASCII tekstverwerker (b.v. notepad) worden gewijzigd.</p>
+<p><span class=rvts12>[ArrayWaarden]</span></p>
+<p><span class=rvts12>[kenmerk&nbsp; A&nbsp; B&nbsp; C&nbsp; D&nbsp; E&nbsp; F&nbsp; G&nbsp; G&nbsp; I&nbsp; J&nbsp; K&nbsp; L&nbsp; M&nbsp; N&nbsp; O&nbsp; P] </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp; 32= 00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00&nbsp; toets spatie,&nbsp; weergave spatie </span></p>
+<p><span class=rvts12>'&nbsp;&nbsp;&nbsp; 39= 00,00,00,00,00,00,00,00,00,00,02,00,00,00,00,00 </span></p>
+<p><span class=rvts12>.&nbsp;&nbsp;&nbsp; 46= 00,00,00,15,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>?&nbsp;&nbsp;&nbsp; 63= 11,01,00,02,00,00,00,00,00,00,00,00,00,00,00,00&nbsp; toets / </span></p>
+<p><span class=rvts12>A&nbsp;&nbsp;&nbsp; 65= 18,16,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>E&nbsp;&nbsp;&nbsp; 69= 14,15,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>F&nbsp;&nbsp;&nbsp; 70= 09,03,00,01,00,00,00,00,00,00,00,00,00,00,00,00&nbsp; zowel toets F als G </span></p>
+<p><span class=rvts12>I&nbsp;&nbsp;&nbsp; 73= 15,13,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>N&nbsp;&nbsp;&nbsp; 78= 09,07,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>O&nbsp;&nbsp;&nbsp; 79= 15,14,01,01,00,00,00,00,00,00,00,00,00,00,00,00&nbsp; toets ^O&nbsp; , weergave nul-met-slash </span></p>
+<p><span class=rvts12>R&nbsp;&nbsp;&nbsp; 82= 09,05,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>S&nbsp;&nbsp;&nbsp; 83= 08,03,01,02,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>U&nbsp;&nbsp;&nbsp; 85= 16,12,01,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>V&nbsp;&nbsp;&nbsp; 86= 02,08,00,01,00,00,00,00,00,00,00,00,00,00,00,00&nbsp; zowel toets V als W </span></p>
+<p><span class=rvts12>Z&nbsp;&nbsp;&nbsp; 90= 08,03,01,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>a&nbsp;&nbsp;&nbsp; 97= 16,16,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>b&nbsp;&nbsp;&nbsp; 98= 01,01,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>d&nbsp;&nbsp;&nbsp; 100=07,01,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>e&nbsp;&nbsp;&nbsp; 101=14,14,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>f&nbsp;&nbsp;&nbsp; 102=02,03,00,02,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>g&nbsp;&nbsp;&nbsp; 103=09,01,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>h&nbsp;&nbsp;&nbsp; 104=11,03,00,02,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>i&nbsp;&nbsp;&nbsp; 105=14,12,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>j&nbsp;&nbsp;&nbsp; 106=08,08,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>k&nbsp;&nbsp;&nbsp; 107=09,01,00,02,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>l&nbsp;&nbsp;&nbsp; 108=07,08,02,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>m&nbsp;&nbsp;&nbsp; 109=01,07,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>n&nbsp;&nbsp;&nbsp; 110=07,07,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>o&nbsp;&nbsp;&nbsp; 111=18,14,01,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>p&nbsp;&nbsp;&nbsp; 112=01,01,00,02,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>r&nbsp;&nbsp;&nbsp; 114=07,05,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>s&nbsp;&nbsp;&nbsp; 115=07,03,06,02,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>t&nbsp;&nbsp;&nbsp; 116=07,01,00,02,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>u&nbsp;&nbsp;&nbsp; 117=18,12,01,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>v&nbsp;&nbsp;&nbsp; 118=02,03,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>w&nbsp;&nbsp;&nbsp; 119=01,08,00,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>x&nbsp;&nbsp;&nbsp; 120=09,03,00,02,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>y&nbsp;&nbsp;&nbsp; 121=14,12,01,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>z&nbsp;&nbsp;&nbsp; 122=07,03,06,01,00,00,00,00,00,00,00,00,00,00,00,00 </span></p>
+<p><span class=rvts12>{&nbsp;&nbsp;&nbsp; 123=09,05,00,01,00,00,00,00,00,00,00,00,00,00,00,00&nbsp; toets R,&nbsp; weergave R </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp; 141=18,15,01,01,00,00,00,00,00,00,00,00,00,00,00,00&nbsp; toets O,&nbsp; weergave omgekeerde c </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp; 171=16,14,00,01,00,00,00,00,00,00,00,00,00,00,00,00&nbsp; toets @,&nbsp; weergave omgekeerde e </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp; 172=16,12,01,01,00,00,00,00,00,00,00,00,00,00,00,00&nbsp; toets U,&nbsp; weergave u-met-streepje </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp; 195=18,15,00,01,00,00,00,00,00,00,00,00,00,00,00,00&nbsp; eerste helft van ^y </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp; 214=00,00,00,14,00,00,00,00,00,00,00,00,00,00,00,00&nbsp; toets $ of -,&nbsp; weergave - </span></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Code vertaling Keyboard</span></p>
+<p>&nbsp; case key of</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; #15 :Key := #79;&nbsp; //&nbsp;&nbsp; &lt;ctrl&gt;-o&nbsp; wordt nul-met-streep-erdoor</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; #36 :Key := #214; //&nbsp;&nbsp; $ wordt - streepje</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; #45 :Key := #214; //&nbsp;&nbsp; O met trema wordt minteken</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; #47 :Key := #63;&nbsp; //&nbsp;&nbsp; / wordt vraagteken-aan-de-grond</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; #64 :Key := #171; //&nbsp;&nbsp; @ wordt omgekeerde e</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; #71 :Key := #70;&nbsp; //&nbsp;&nbsp; G wordt F (G is namelijk logischer in Nederlands)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; #79 :Key := #141; //&nbsp;&nbsp; hoofdletter-O&nbsp; wordt omgekeerde c</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; #82 :Key := #123; //&nbsp;&nbsp; R wordt R (klopt niet in het font)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; #85 :Key := #172; //&nbsp;&nbsp; U wordt kleine u-met-horizontale-streep</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; #87 :Key := #86;&nbsp; //&nbsp;&nbsp; W wordt V (W is namelijk logischer in Nederlands)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; {#95 is underscore, wordt bij printen #61}</p>
+<p>&nbsp;&nbsp; end;</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts3>SIL Manuscript IPA93</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #ece9d8 #aca899 #aca899 #ece9d8; border-style: solid;">
+<tr valign=top>
+<td width=637 valign=top>
+<p>Hiernaast ter vergelijking het font Courier en Doulouse IPA93 (mansucript). Van het font Courier is de ASCII-waarde bekend.</p>
+<p>LET OP: in het IPA-font zitten veel combinatie tekens, daarom klopt de uitlijning ook niet altijd, terwijl de font grootte van beide lettertypen gelijk is.</p>
+</td>
+<td width=210 valign=top>
+<p><img width=396 height=568 alt="" src="doulouse_ipa93_font.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><span class=rvts3><br></span></p>
+<p><span class=rvts3><br></span></p>
+
+</body></html>

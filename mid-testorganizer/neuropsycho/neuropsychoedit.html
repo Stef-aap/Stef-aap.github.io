@@ -1,0 +1,1715 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.7 [nl] (Win95; U) [Netscape]">
+   <title>ID-Testorganizer, module NeuroPsychologische Testen, Protocol aanmaken / bewerken</title>
+</head>
+<body text="#000000" link="#003399" vlink="#003399" alink="#CCCCCC" background="midlogb6.gif">
+<a name="top"></a>
+<center><table BORDER CELLSPACING=0 CELLPADDING=0 WIDTH="100%" >
+<tr>
+<td>
+<table BORDER CELLSPACING=0 CELLPADDING=7 WIDTH="100%" BGCOLOR="#FFFFFF" >
+<tr>
+<td ROWSPAN="2" WIDTH="25%" HEIGHT="40" BGCOLOR="#FFFFF8"><b><font face="Verdana"><font size=-1><a href="neuropsycho.html">Naar
+het startdocument van NeuroPsychologische Testen</a></font></font></b></td>
+
+<td ALIGN=CENTER WIDTH="50%" HEIGHT="20" BGCOLOR="#3333FF">
+<center><b><font face="Verdana"><font color="#FFFFFF"><font size=+1>ID-TESTORGANIZER</font></font></font></b>
+<br><b><font face="Verdana"><font color="#FFFFFF"><font size=+1>Module
+NeuroPsychologische Testen</font></font></font></b></center>
+</td>
+
+<td ROWSPAN="2" WIDTH="25%" HEIGHT="40" BGCOLOR="#FFFFF8"></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER WIDTH="50%" HEIGHT="20" BGCOLOR="#99FFCC">
+<center><b><font face="Verdana">Gebruikersdocumentatie:&nbsp;</font></b>
+<br><b><u><font face="Verdana"><font size=+1>Een test aanmaken/bewerken</font></font></u></b></center>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table></center>
+
+<p><b><font face="Verdana"><font color="#006600"><font size=+2>Een Test
+met meerdere items aanmaken/bewerken</font></font></font></b>
+<br>&nbsp;
+<p><b><font face="Verdana"><font size=+1>Inhoudsopgave</font></font></b>
+<p><b><font face="Verdana"><font color="#000099"><font size=-1><a href="#startbewerken">Starten
+met bewerken</a></font></font></font></b>
+<br><b><font face="Verdana"><font size=-1><a href="#editpaneel">Het Edit-paneel</a></font></font></b>
+<br><b><font face="Verdana"><font size=-1><a href="#headereditpaneel">Header
+van het Edit-paneel</a></font></font></b>
+<br><b><font face="Verdana"><font color="#000099"><font size=-1><a href="#taakselecteren">Bedieningspaneel
+Een ITEM selecteren / testen</a></font></font></font></b>
+<br><b><font face="Verdana"><font color="#000099"><font size=-1><a href="#instellingentest">Instellingen
+van deze test en Algemene instellingen van het programma</a></font></font></font></b>
+<br><b><font face="Verdana"><font color="#000099"><font size=-1><a href="#instructietekst">Instructietekst
+van een test aanmaken/bewerken</a></font></font></font></b>
+<br><b><font face="Verdana"><font color="#000099"><font size=-1><a href="#taakregels">Bedieningspaneel
+Kies een ITEM-regel</a></font></font></font></b>
+<br><b><font face="Verdana"><font color="#000099"><font size=-1><a href="#instellingentest">Instellingen
+van een geselecteerde ITEM-regel</a></font></font></font></b>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Keuze van
+Object typen:</font></font></font>
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#achtergrond_bestand">Achtergrond
+(bestand)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#achtergrond_monokleur">Achtergrond
+(monokleur)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#grafisch_object_(bestand)">Grafisch
+object (bestand)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#grafisch object (geometrische">Grafisch
+object (geometrische vorm)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#invoer_toetsenbord">Invoer
+(toetsenbord)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#invoer_muis">Invoer
+(muis)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#invoer_mptknoppendoos">Invoer
+(MPT-knoppenkast)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#invoer_mptfingertapping">Invoer
+(MPT-fingertapping)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#lampen_mptknoppenkast">Lampen
+MPT-knoppenkast</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#geluid_bestand">Geluid
+(bestand)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#stop_geluid">Stop
+geluid</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#resultaatmemo_tonen">ResultaatMemo:
+Tonen (1e keer)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#resultaatmemo_tonenopnieuw">ResultaatMemo:
+Tonen (opnieuw)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#resultaatmemo_verbergen">ResultaatMemo:
+Verbergen</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#wachttijd">Wachttijd
+vast/random</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#instelling_earlyresponstijd">Instelling
+Early Responstijd</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#stop_item">Stop
+item</a></font></font></font></b></li>
+
+<br><b><font face="Verdana"><font color="#000099"><font size=-1><a href="#sneller">Sneller
+werken met grafische objecten</a></font></font></font></b>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="startbewerken"></a><b><font face="Verdana"><font color="#000099">Starten
+met bewerken&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" BORDER=0 height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Onderdelen van de module NeuroPsychologische
+Testen, dus ook het onderdeel
+<u>Een test bewerken of nieuw aanmaken</u>,
+worden <b>altijd</b> gestart vanuit de ID-Testorganizer.</font></font>
+<br><font face="Verdana"><font size=-1>Starten vanuit de ID-Testorganizer
+gaat als volgt:</font></font>
+<br><font face="Verdana"><font size=-1>Zorg ervoor dat in het vak Modulen
+NeuroPsycho is geselecteerd.</font></font>
+<br><font face="Verdana"><font size=-1>Om een nieuwe test aan te maken:
+druk op de knop Nieuw onder het vak met de aanwezig protocollen.</font></font>
+<br><font face="Verdana"><font size=-1>Om een bestaand protocol te bewerken:
+selecteer in het vak met de aanwezig protocollen de regel met het gewenste
+protocol en klik dan op de knop Edit onder het vak.</font></font>
+<br><font face="Verdana"><font size=-1>In een venster wordt dan eerst gevraagd
+of het een echte test betreft of een oefen-test.</font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="editpaneel"></a><b><font face="Verdana"><font color="#000099">Het
+Edit-paneel&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" BORDER=0 height=14 width=14></a>
+<p><img src="editpaneeluitlegknoppen.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=547 width=776>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="headereditpaneel"></a><b><font face="Verdana"><font color="#000099">Header
+van het Editpaneel&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" BORDER=0 height=14 width=14></a>
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER CELLPADDING=5 WIDTH="100%" >
+<tr VALIGN=TOP>
+<td VALIGN=TOP><b><font face="Verdana">Header van Editpaneel: Editpaneel
+verkleinen/vergroten en knop Einde</font></b>
+<p><img src="editpaneelheader.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=348 width=504 align=LEFT>
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Headerpaneel</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Hierin wordt de naam van de geselecteerde
+test getoond.</font></font>
+<br><font face="Verdana"><font size=-1>Wanneer op het headerpaneel wordt
+geklikt, dan verkleint het Editpaneel zodat alleen het headerpaneel (dat
+is dan rood gekleurd) en de knop Einde zichtbaar blijven.</font></font>
+<br><font face="Verdana"><font size=-1>Wanneer de muis boven het rood gekleurde
+headerpaneel wordt bewogen, dan verplaatst het Editpaneel zich naar de
+onderzijde of bovenzijde van het scherm. Dit kan handig zijn om op een
+scherm met resolutie 800x600 een grafisch object of de muiscursor in de
+linkerbovenhoek van het scherm te kunnen plaatsen.</font></font>
+<br><font face="Verdana"><font size=-1>Het Editpaneel kan weer vergroot
+worden worden door op de knop Einde te drukken &ograve;f door op een leeg
+deel van de achtergrond te klikken.</font></font>
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Knop Einde</font></font></font></b>
+<br><font face="Verdana"><font size=-1>De knop Einde heeft meerdere functies.</font></font>
+<blockquote>
+<li>
+<font face="Verdana"><font size=-1>Wanneer het Editpaneel verkleind is,
+dan zorgt een klik op deze knop ervoor dat het Editpaneel weer wordt vergroot.
+Wordt op dat moment de begin- of eindpositie van een grafisch object ingesteld,
+dan wordt die actie eveneens be&euml;indigd.</font></font></li>
+
+<li>
+<font face="Verdana"><font size=-1>Anders wordt deze knop gebruikt om de
+Edit-mode te verlaten. In een venster wordt gevraagd om een bestandsnaam
+in te voeren waaronder het protocol op de harde schijf wordt opgeslagen.
+Na klikken op de knop <b>Opslaan</b> wordt het bestand opgeslagen, na klikken
+op de knop <b>Annuleren</b> wordt gevraagd om te bevestigen dat eventuele
+wijzigingen niet bewaard moeten worden. Wanneer het protocol werd opgeslagen
+op de harde schijf wordt vervolgens in een nieuw venster gevraagd om de
+testnaam (omschrijving van het protocol) in te voeren. Voer hier eventueel
+een nieuwe omschrijving in en klik op de knop OK om deze testnaam op te
+slaan of klik op de knop Annuleren (dan wordt de oude testnaam gebruikt).</font></font></li>
+</blockquote>
+</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="taakselecteren"></a><b><font face="Verdana"><font color="#000099">Bedieningspaneel
+Een ITEM selecteren / testen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" BORDER=0 height=14 width=14></a>
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER CELLPADDING=5 WIDTH="100%" >
+<tr VALIGN=TOP>
+<td VALIGN=TOP><b><font face="Verdana">Een ITEM selecteren / testen</font></b>
+<br>&nbsp;
+<p><img src="editpaneeltakenvensteruitlegknoppen.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=374 width=505 align=LEFT>
+<p><font face="Verdana"><font size=-1>Zodra een ander item wordt geselecteerd,
+worden wijzigingen in het huidige item automatisch opgeslagen in het protocol-bestand.</font></font>
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Een item
+toevoegen</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Taken worden altijd aan het einde
+van de takenlijst toegevoegd.</font></font>
+<br><font face="Verdana"><font size=-1>(taken kunnen indien gewenst later
+verplaatst worden).</font></font>
+<br><font face="Verdana"><font size=-1>Na klikken op de knop <b>Een ITEM
+toevoegen</b> verschijnt een venster met de vraag "Wilt u het geselecteerde
+item kopi&euml;ren en als basis gebruiken voor het nieuwe item ?".</font></font>
+<br><font face="Verdana"><font size=-1>Klik op <b>Ja </b>om deze keuze
+te maken.</font></font>
+<br><font face="Verdana"><font size=-1>Kilk op <b>Nee</b> om hiervoor niet
+te kiezen. Er wordt dan een nieuwe item aangemaakt met 1 regel: een zwarte
+achtergrond op starttijd 0.</font></font>
+<br><font face="Verdana"><font size=-1>Klik op <b>Annuleren</b> om geen
+item toe te voegen.</font></font>
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Een item
+verwijderen</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Verwijderde items worden onmiddellijk
+gewist in het test-bestand en kunnen dus niet meer teruggehaald worden.</font></font>
+<br><font face="Verdana"><font size=-1>Wanneer het laatste item wordt gewist,
+dan blijft er toch 1 item over met 1 regel: een zwarte achtergrond met
+starttijd=0.</font></font>
+<br><font face="Verdana"><font size=-1>Een test moet namelijk altijd minstens
+1 item bevatten.</font></font>
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Instructietekst</font></font></font></b>
+<br><font face="Verdana"><font size=-1>De instructietekst, die aanwijzingen
+bevat voor het afnemen van een test, invoeren / bewerken.&nbsp;</font></font>
+<br><font face="Verdana"><font size=-1><a href="#instructietekst">Klik
+op deze regel voor aanwijzingen.</a></font></font>
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Test</font></font></font></b>
+<br><font face="Verdana"><font size=-1><font color="#000000">Het item afspelen
+zoals dat ook gebeurt tijdens testafname om de ITEM-regels te controleren.</font>
+Tijdens het afspelen is een ITEM-monitor zichtbaar met weergave van de
+verstreken tijd en de uitgevoerde ITEM-regels.&nbsp;</font></font>
+<br><i><font face="Verdana"><font size=-1>Opmerking: het afspelen van een
+test in Edit-mode verloopt niet geheel real-time (de timer die wordt gebruikt
+bij het afspelen van een test loopt in Edit-mode iets langzamer dan bij
+een echte test-afname).</font></font></i>
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Instellingen
+van deze test en van het programma</font></font></font></b>
+<br><font face="Verdana"><font color="#000000"><font size=-1><a href="#instellingentest">Klik
+op deze regel voor meer informatie.</a></font></font></font></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="instellingentest"></a><b><font face="Verdana"><font color="#000099">Instellingen
+van deze test en Algemene instellingen van het programma&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" BORDER=0 height=14 width=14></a>
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER CELLPADDING=5 COLS=1 WIDTH="100%" >
+<tr>
+<td><b><font face="Verdana">Instellingen van deze test</font></b>
+<p><img src="editpaneelinstellingentest.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=509 width=640 align=LEFT>
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Instelling
+Overgang van het uitgevoerde item naar het volgende item</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Tijdens de afname van een test wordt
+na afloop van de uitvoer van een item even gepauzeerd voordat het volgende
+item start. De tijd kan hier ingesteld worden. Er kan gekozen worden voor:</font></font>
+<p><font face="Verdana"><font size=-1>- Altijd na dezelfde tijd. Die tijd
+kan in het vak <b>Vaste / Minimale tijd (sec)</b> ingevoerd worden.</font></font>
+<br><font face="Verdana"><font size=-1>- Na een variabele tijd. Er is dan
+sprake van een willekeurige tijd (maar wel altijd tussen de ingestelde
+minimum tijd en de ingestelde maximum tijd). De minimum en maximum tijd
+kunnen ingevoerd worden in respectievelijk de vakken <b>Vaste / Minimale
+tijd (sec)</b> en <b>Maximale tijd (sec)</b>.</font></font>
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Instelling
+hand-dominantie</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Hier kan worden ingesteld met welke
+hand een test moet worden uitgevoerd.</font></font>
+<br><font face="Verdana"><font size=-1>De instelling geldt voor alle items
+in een test.</font></font>
+<br><font face="Verdana"><font size=-1>Er kan worden gekozen voor de dominante
+hand of de niet-dominante hand. Deze instelling is dus afhankelijk van
+de in Testorganizer bij de pati&euml;ntgegevens ingestelde handdominantie.</font></font>
+<br><font face="Verdana"><font size=-1>Er kan echter ook worden gekozen
+voor de linkerhand of de rechterhand, dus onafhankelijk van de handdominantie
+van de pati&euml;nt.</font></font><font face="Verdana"><font size=-1></font></font>
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Instelling
+De afname van een test mag worden onderbroken</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Wanneer dit vakje is aangeklikt
+dan wordt gedurende de pauzetijd tussen twee opeenvolgende taken tijdens
+een test-afname een knop Pauzeren zichtbaar linksboven op het scherm. Wanneer
+hierop met de muis wordt geklikt, dan verschijnt een venster met de keuze
+Doorgaan / Pauzeren / Negeren. Pas na invoer van het pati&euml;nt paswoord
+wordt de keuze Pauzeren / Negeren geaccepteerd. Een gepauzeerde test-afname
+kan later worden afgemaakt.</font></font>
+<p><font face="Verdana"><font size=-1>Klik op de knop OK (wijzigingen worden
+opgeslagen) of Annuleren (de wijzigingen worden na een extra bevestiging
+niet opgeslagen) om dit onderdeel af te sluiten.</font></font>
+<br><b><i><font face="Verdana"><font color="#FF0000"><font size=-1>Wanneer
+dit venster op het scherm staat kunnen de andere onderdelen van de Edit-mode
+NIET gebruikt worden.</font></font></font></i></b></td>
+</tr>
+
+<tr>
+<td><b><font face="Verdana">Algemene programma instellingen</font></b>
+<p><b><i><font face="Verdana"><font color="#006600"><font size=-1>Opmerking:
+de algemene programma-instellingen kunnen ook direct worden bereikt en
+bewerkt vanuit de TestOrganizer. Klik hiervoor in TestOrganizer op de knop
+Instel en kies tabblad Modulen. Zoek in de tabel naar de regel die begint
+met Neuro Psycho en klik met de rechter muistoets in het laatste veld (onder
+kopje: Instellingen) op deze regel. Kies voor Edit bestand. De Algemene
+programma instellingen kunnen nu worden bewerkt. Overigens is dan alleen
+tabblad Algemene programma instellingen zichtbaar (en dus niet tabblad
+Instellingen voor deze test).</font></font></font></i></b>
+<br>&nbsp;
+<p><img src="editpaneelinstellingenprogramma.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=509 width=642 align=LEFT>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><b><font face="Verdana"><font color="#000000">Instellingen voor de Edit-mode
+(bewerken van een test)</font></font></b>
+<br><b><font face="Verdana"><font color="#006600"><font size=-1>Instelling
+Toon hints (helptekst) wanneer de muis-cursor boven een knop hangt</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Wanneer dit vakje is aangevinkt
+worden hints (helpteksten) getoond&nbsp; door de muiscursor even te laten
+rusten boven een knop in een bedieningspaneel.</font></font>
+<br>&nbsp;
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Instelling
+Grafische zijn objecten altijd zichtbaar</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Wanneer dit vakje is aangevinkt
+blijven grafische objecten tijdens het stappen door de itemregels zoveel
+mogelijk zichtbaar.</font></font>
+<br><font face="Verdana"><font size=-1>Normaal zijn grafische objecten
+tijdens het stappen door itemregels alleen zichtbaar wanneer dat bij afspelen
+van het item ook het geval zou zijn (dus wanneer de som van de ingestelde
+starttijd en de tijdsduur van een grafisch object groter is dan de starttijd
+van de geselecteerde itemregel).</font></font>
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="instellingenhtml"></a><b><font face="Verdana"><font color="#006600"><font size=-1>Gegevens
+van de externe HTML-editor voor het aanmaken van instructietekst</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Hier kunnen de gegevens ingevuld
+worden van de HTML-editor die wordt gebruikt voor het aanmaken van instructietekst.</font></font>
+<br><font face="Verdana"><font size=-1><b>Volledig pad plus bestandsnaam</b>:
+Plaats in dit vak de naam van het programma inclusief de volledige locatie
+op de harde schijf.</font></font>
+<br><font face="Verdana"><font size=-1><b>Parameters</b>: Vul hier de benodigde
+parameters in.</font></font>
+<br><font face="Verdana"><font size=-1><b><i>Opmerking 1: </i></b>wanneer
+geen editor is gespecificeerd wordt Windows Kladblok gebruikt als editor.
+Een basis-kennis van de HTML-taal is vereist om met Windows Kladblok de
+instructietekst te bewerken.</font></font>
+<br><font face="Verdana"><font size=-1><b><i>Opmerking 2: </i></b>wanneer
+op een PC internet-ondersteuning alsmede Microsoft Office 2000 op een standaard
+wijze zijn ge&iuml;nstalleerd, dan kunnen de gegevens worden gebruikt zoals
+in bovenstaande figuur is aangegeven. De HTML-editor kan in dat geval vooraf
+worden worden ingesteld bij de Windows-instellingen via: Start / Instellingen
+/ Configuratiescherm / Internet-opties / tabblad Programma's / Internet-programma's
+/ HTML-editor.</font></font>
+<br><font face="Verdana"><font size=-1><b><i>Opmerking 3: </i></b>het standaard
+programma dat op een PC wordt gebruikt als HTML-editor kan ook als volgt
+worden gevonden. Start Windows Verkenner, klik op menu Beeld / Mapopties
+/ Bestandstypen en zoek in de lijst naar HTML-document. Selecteer deze
+regel. Klik op de knop Bewerken. Selecteer in vak Acties de regel met bewerken
+of edit en klik vervolgens op de knop bewerken onder het vak. In vak "Toepassing
+die wordt gestart bij de actie" die dan zichtbaar wordt staat dan het volledige
+pad plus bestandsnaam van de standaard ingestelde HTML-editor. Deze gegevens
+kunnen met kopi&euml;ren en plakken worden overgezet naar de instellingen
+van module Neuropsychologische Testen.&nbsp;</font></font>
+<br><font face="Verdana"><font size=-1>Voorbeeld: wanneer Netscape als
+standaard browser is ingesteld en op een standaard wijze is ge&iuml;nstalleerd,
+dan is dit de volledige programma-aanroep voor editen van een HTML-document:
+C:\PROGRA~1\NETSCAPE\COMMUN~1\PROGRAM\NETSCAPE.EXE -edit "%1". Vul in vak
+<b>Volledig
+pad plus bestandsnaam</b> in: C:\PROGRA~1\NETSCAPE\COMMUN~1\PROGRAM\NETSCAPE.EXE
+en in vak <b>Parameters</b>: -edit.&nbsp; "%1" verwijst naar het te bewerken
+bestand en wordt door module Neuropsychologische Testen automatisch toegevoegd.</font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><b><font face="Verdana"><font color="#000000">Serial MPT-knoppenkast</font></font></b>
+<br><b><font face="Verdana"><font color="#006600"><font size=-1>Nummer
+van de COM-poort</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Selecteer het nummer van de seri&euml;le
+COM-poort van de PC, waarop de MPT-knoppenkast is aangesloten.</font></font>
+<p><font face="Verdana"><font size=-1>Er kan ook automatisch worden gezocht
+naar de MPT-knoppenkast.</font></font>
+<br><font face="Verdana"><font size=-1>Ga hiervoor als volgt te werk.</font></font>
+<ul>
+<li>
+<font face="Verdana"><font size=-1>Sluit de MPT-knoppenkast middels de
+meegeleverde seri&euml;le kabel aan op een vrije COM-poort (seri&euml;le
+RS232-poort) van de PC</font></font></li>
+
+<li>
+<font face="Verdana"><font size=-1>Sluit de netvoedingsadapter aan op de
+MPT-knoppenkast en stop de adaptor in een 230V-contactdoos.</font></font></li>
+
+<li>
+<font face="Verdana"><font size=-1>Houd de centrale knop (dat is de knop
+middenonder op de knoppenkast) ingedrukt.</font></font></li>
+
+<li>
+<font face="Verdana"><font size=-1>Klik nu met de muis op de knop MPT-knoppenkast
+zoeken en vervolgens op de knop Start Zoeken. Alle beschikbare COM-poorten
+worden gescand totdat de MPT-knoppenkast wordt gevonden. De resultaten
+van de zoekactie worden op het scherm gemeld.</font></font></li>
+</ul>
+
+<br>&nbsp;
+<p><font face="Verdana"><font size=-1>Klik op de knop OK (wijzigingen worden
+opgeslagen) of Annuleren (de wijzigingen worden na een extra bevestiging
+niet opgeslagen) om dit onderdeel af te sluiten.</font></font>
+<br><b><i><font face="Verdana"><font color="#FF0000"><font size=-1>Wanneer
+dit venster op het scherm staat kunnen de andere onderdelen van de Edit-mode
+NIET gebruikt worden.</font></font></font></i></b></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="instructietekst"></a><b><font face="Verdana"><font color="#000099"><a href="#instellingentest">Instructietekst
+van een test aanmaken/bewerken&nbsp;</a></font></font></b><a href="#top"><img src="top_page.gif" BORDER=0 height=14 width=14></a>
+<p><font face="Verdana"><font size=-1>Instructietekst staat in een HTML-type
+bestand en kan niet worden bewerkt met onderdelen binnen module Neuropsychologische
+Testen. Hiervoor moet dus een externe HTML-editor worden gebruikt zoals
+Netscape Composer (standaard ingebouwd in Netscape Communicator) of Microsoft
+FrontPage. Module Neuropsychologische Testen kan wel een leeg HTML-document
+aanmaken en vervolgens de externe HTML-editor starten met dit document.
+Hiertoe moeten wel de gegevens van de HTML-editor worden gespecificeerd
+bij de Instellingen van module Neuropsychologische Testen (<a href="#instellingenhtml">klik
+hier voor aanwijzingen</a>).</font></font>
+<br><font face="Verdana"><font size=-1>Na klikken op de knop Instructietekst
+bewerken in het Bedieningspaneel verschijnt het venster zoals hieronder
+is weergegeven:</font></font>
+<p><img src="instructietekst.jpg" HSPACE=10 VSPACE=10 BORDER=2 height=549 width=749>
+<p><font face="Verdana"><font size=-1>In het vak onder Preview Instructietekst
+wordt de inhoud van het bestaande HTML-document getoond en kan volledig
+worden bekeken.</font></font>
+<br><font face="Verdana"><font size=-1>Wanneer er nog geen document bestaat,
+wordt dat gemeld.</font></font>
+<br><font face="Verdana"><font size=-1>Na klikken op de knop <b>Nieuw bestand
+aanmaken</b>, wordt een standaard leeg HTML-document aangemaakt (met de
+juiste bestandsnaam op de juiste locatie op de harde schijf).</font></font>
+<br><font face="Verdana"><font size=-1>Na klikken op de knop <b>Start HTML-editor</b>,
+wordt de externe HTML-editor gestart en kan de instructietekst worden bewerkt.
+Wanneer bij Instellingen van module Neuropsychologische Testen niets is
+gespecificeerd, wordt Windows Kladblok gebruikt als HTML-editor.</font></font>
+<br><font face="Verdana"><font size=-1>Na klikken op de knop <b>Afsluiten</b>,
+wordt dit onderdeel verlaten.</font></font>
+<br><font face="Verdana"><font size=-1><b><i>Opmerking:</i></b> de inhoud
+van het vak onder Preview Instructietekst wordt ververst door op de tekst
+<b>Preview
+Instructietekst</b> te klikken.</font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="taakregels"></a><b><font face="Verdana"><font color="#000099">Bedieningspaneel
+Kies een ITEM-regel&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" BORDER=0 height=14 width=14></a>
+<br>&nbsp;
+<table BORDER CELLPADDING=5 WIDTH="100%" >
+<tr VALIGN=TOP>
+<td VALIGN=TOP><b><font face="Verdana">ITEM-regels bewerken</font></b>
+<br><img src="editpaneeltaakregelsvensteruitlegknoppen.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=345 width=348 align=LEFT>
+<p><font face="Verdana"><font size=-1>Zie de betekenis van de knoppen hiernaast.</font></font>
+<br><font face="Verdana"><font size=-1>Zodra een andere itemregel wordt
+gekozen, worden de instellingen van die regel zichtbaar in het grote itemregel-venster.</font></font>
+<br>&nbsp;
+<br>&nbsp;
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Keuze van
+ITEM-regels</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Dat kan met de knoppen zoals hiernaast
+is aangegeven.</font></font>
+<br><font face="Verdana"><font size=-1>Het is echter ook mogelijk om een
+itemregel behorend bij een grafisch object, dat op het scherm staat, op
+te roepen door op dat object te klikken. Wanneer vervolgens nogmaal op
+dat object wordt geklikt, dan kan de positie en grootte van het object
+ingesteld worden. Zo kunnen grafische objecten sneller en makkelijker ingesteld
+worden.</font></font>
+<br>&nbsp;
+<br>&nbsp;
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Undo</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Met deze knop kunnen verwijderde
+itemregels weer teruggehaald worden. Deze knop is alleen bruikbaar wanneer
+er eerder itemregels werden verwijderd. Dat is te zien aan de knop: wanneer
+een rood kruis door de pijl zichtbaar is, dan zijn er geen regels verwijderd
+en heeft de Undo-knop geen functie (en zal ook geen hint-tekst geven).</font></font>
+<br>&nbsp;
+<br>&nbsp;
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Handmatig
+sorteren</font></font></font></b>
+<br><font face="Verdana"><font size=-1>Itemregels worden altijd automatisch
+op starttijd gesorteerd. Wanneer meerdere itemregels met eenzelfde starttijd
+worden gebruikt, dan kan het nuttig zijn om de volgorde daarvan handmatig
+te wijzigen. Na starten van een invoerobject of een object wachttijd worden
+immers de overige itemregels met dezelfde starttijd pas afgehandeld wanneer
+het invoerobject of het object wachttijd is afgerond en het kan daarom
+nodig zijn om de volgorde van de itemregels met eenzelfde starttijd te
+wijzigen.</font></font>
+<p><img src="editpaneelhandmatigsorteren.jpg" HSPACE=10 VSPACE=10 BORDER=1 height=490 width=298 align=LEFT>
+<br>&nbsp;
+<p><font face="Verdana"><font size=-1>Na indrukken van de knop handmatig
+sorteren wordt naast het Edit-paneel een paneel Handmatig sorteren geplaatst.
+Hierop staan alle item-regels in de actuele sorteervolgorde. Per item-regel
+worden overigens alleen de starttijd en het type object getoond. De op
+het Edit-paneel ingestelde item-regel is geselecteerd in het paneel Handmatig
+sorteren. Wanneer op het Edit-paneel een andere regel wordt geselecteerd,
+dan wordt die regel ook geselecteerd in het paneel Handmatig sorteren.
+Wanneer in het paneel Handmatig sorteren een andere regel wordt geselecteerd,
+wordt die regel ook ingesteld in het Edit-paneel.</font></font>
+<br><font face="Verdana"><font size=-1>In paneel Handmatig sorteren kan
+een regel op de volgende wijze worden verplaatst: selecteer de regel die
+verplaatst moet worden en houd de muisknop ingedrukt. Sleep de regel vervolgens
+naar de gewenste positie en laat dan de muisknop los.&nbsp;</font></font>
+<p><font face="Verdana"><font size=-1>Het paneel Handmatig sorteren kan
+worden verwijderd door indrukken van de knop Verbergen op het paneel of
+door opnieuw indrukken van de knop Handmatig sorteren op het Edit-paneel.
+Het paneel wordt in een aantal gevallen automatisch verwijderd, onder andere
+tijdens een Test-uitvoer van het item of bij het afsluiten van de Edit-sessie.</font></font>
+<br><font face="Verdana"><font size=-1>&nbsp;</font></font></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="instellingen van de geselecteerde"></a><b><font face="Verdana"><font color="#000099">Instellingen
+van een geselecteerde ITEM-regel&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" BORDER=0 height=14 width=14></a>
+<br>&nbsp;
+<br>&nbsp;
+<p><img src="taakregelpaneeluitlegknoppen.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=488 width=779>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><b><font face="Verdana"><font color="#006600"><font size=-1>Type object</font></font></font></b>
+<br><font face="Verdana"><font size=-1>In feite het soort actie dat uitgevoerd
+moet worden.</font></font>
+<br><font face="Verdana"><font size=-1>Er kan gekozen worden uit de volgende
+mogelijkheden.</font></font>
+<br>&nbsp;
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#achtergrond_bestand">Achtergrond
+(bestand)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#achtergrond_monokleur">Achtergrond
+(monokleur)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#grafisch_object_(bestand)">Grafisch
+object (bestand)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#grafisch object (geometrische">Grafisch
+object (geometrische vorm)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#invoer_toetsenbord">Invoer
+(toetsenbord)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#invoer_muis">Invoer
+(muis)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#invoer_mptknoppendoos">Invoer
+(MPT-knoppenkast)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#geluid_bestand">Geluid
+(bestand)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#lampen_mptknoppenkast">Lampen
+MPT-knoppenkast</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#invoer_mptfingertapping">Invoer
+(MPT-fingertapping)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#resultaatmemo_tonen">ResultaatMemo:
+Tonen (1e keer)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#resultaatmemo_tonenopnieuw">ResultaatMemo:
+Tonen (opnieuw)</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#resultaatmemo_verbergen">ResultaatMemo:
+Verbergen</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#wachttijd">Wachttijd
+vast/random</a></font></font></font></b></li>
+
+<li>
+<b><font face="Verdana"><font color="#000099"><font size=-1><a href="#instelling_earlyresponstijd">Instelling
+Early Responstijd</a></font></font></font></b></li>
+
+<br>&nbsp;
+<p>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="achtergrond_bestand"></a><b><font face="Verdana"><font color="#000099">Achtergrond
+(bestand)&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Keuze achtergrondplaat
+uit bestand.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Bestandsnaam:</b>
+Keuze van het bestand met de achtergrondplaat.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Mogelijke
+bestandtypen: BMP, WMF en EMF.</font></font></font>
+<br><font face="Verdana"><font size=-1>De afmeting van een achtergrondplaat
+bedraagt 800 x 600 pixels.</font></font>
+<br><font face="Verdana"><font size=-1>(Wanneer het bestand andere afmetingen
+heeft, dan wordt het plaatje geschaald naar 800 x 600 pixels).</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. Aantal seconden vanaf het
+ITEM-start, met 1 decimaal op te geven.</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<p><i><font face="Verdana"><font color="#000000"><font size=-1><b>OPMERKING</b>:
+Wanneer bij uitvoer van een item een andere achtergrondplaat wordt gewenst,
+moet die opnieuw worden ingevoerd als object.</font></font></font></i>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="achtergrond_monokleur"></a><b><font face="Verdana"><font color="#000099">Achtergrond
+(monokleur)&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Keuze achtergrondplaat
+met 1 kleur.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. Aantal seconden vanaf ITEM-start,
+met 1 decimaal op te geven.</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><i><font face="Verdana"><font color="#000000"><font size=-1><b>OPMERKING</b>:
+Wanneer bij uitvoer van een item een andere achtergrondplaat wordt gewenst,
+moet die opnieuw worden ingevoerd als object.</font></font></font></i>
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectachtergrondmonokleur.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=103 width=309>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Achtergrondkleur:
+</b>Keuze
+van de kleur van de achtergrondplaat. De ingestelde kleur is zichtbaar
+op de druktoets. Na indrukken van de toets kan een andere kleur worden
+gekozen.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="grafisch_object_(bestand)"></a><b><font face="Verdana"><font color="#000099">Grafisch
+object (bestand)&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Keuze grafisch
+object (voorgrondplaatje) uit een grafisch bestand.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Er kunnen
+maximaal 10 objecten (met elk een afbeelding uit een grafisch bestand)
+van dit type in &eacute;&eacute;n item worden gebruikt.</font></font></font>
+<br><font face="Verdana"><font size=-1>Wanneer de geselecteerde <font color="#000000">ITEM-</font>regel
+een dergelijk object type bevat, dan is in de rechter onderhoek van het
+plaatje een 'hot spot' zichtbaar, om het plaatje te onderscheiden van andere
+zichtbare plaatjes.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Bestandsnaam:</b>
+Keuze van het bestand met het voorgrondplaatje.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Mogelijke
+bestandtypen: BMP, WMF en EMF.</font></font></font>
+<br><font face="Verdana"><font size=-1>Na keuze worden de afmetingen aangepast
+aan het raster (vast ingesteld op 10 x 10 pixels). De breedte en hoogte
+van het plaatje kunnen daardoor iets kleiner worden.</font></font>
+<br><font face="Verdana"><font size=-1>Wanneer de plaatjes nog moeten worden
+aangemaakt, dan is het handig om hiermee rekening te houden. De afmetingen
+zijn minimaal 10 x 10 pixels en voor grotere plaatjes geldt dat zowel de
+breedte als de hoogte een veelvoud moeten bedragen van 10 pixels. De breedte
+van een plaatje mag nooit groter zijn dan de 800 pixels, de hoogte nooit
+groter dan 600 pixels.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Tijdsduur:</b>
+Tijdsduur waarbinnen het plaatje zichtbaar is. Tijdsduur wordt opgegeven
+in seconden (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer 0 wordt gespecificeerd blijft het plaatje zichtbaar tot het einde
+van het item.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Knipperperiode:
+</b>Tijdsduur
+van 1 volledige knipperperiode (dus 1x aan-tijd plus 1x uit-tijd) . De
+knipperperiode wordt opgegeven in seconden (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer 0 wordt gespecificeerd knippert het plaatje niet.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Tijdsduur
+verpl.: </b>Tijdsduur waarbinnen het plaatje zich verplaatst van de beginpositie
+naar de eindpositie. De tijdsduur van de verplaatsing wordt opgegeven in
+seconden (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer 0 wordt gespecificeerd blijft het plaatje op de beginpositie staan.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Beginpositie:
+</b>Na
+indrukken van deze knop kunnen de beginpositie (linker bovenhoek) en de
+afmetingen van het plaatje ingesteld worden.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Het instelpaneel
+verdwijnt tijdelijk, zodat het gehele venster zichtbaar wordt.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1><u>Instellen
+beginpositie (linker bovenhoek)</u>: klik met de linker muismuis op het
+plaatje (op een andere plek dan de hot spot in de rechter onderhoek) en
+houdt de muistoets ingedrukt. Het plaatje kan nu naar de gewenste positie
+verplaatst worden, maar blijft altijd binnen de kaders van het venster
+en altijd op raster-co&ouml;rdinaten.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1><u>Instellen
+afmetingen</u>: klik met de linker muismuis op de hot spot in de rechter
+onderhoek op het plaatje en houdt de muistoets ingedrukt. Het breedte en
+hoogte van het plaatje kunnen nu naar rechts en naar beneden t.o.v. de
+linker bovenhoek ingesteld worden. Het plaatje blijft altijd binnen de
+kaders van het venster en op raster-co&ouml;rdinaten</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Stoppen met
+instellen van de beginpositie: Klik met de muis op de achtergrond buiten
+het gebied van het grafisch object. Het instelpaneel verschijnt dan weer.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Eindpositie:
+</b>Na
+indrukken van deze knop kan de eindpositie (linker bovenhoek) van het plaatje
+ingesteld worden. Dit is alleen zinvol wanneer het plaatje zich moet verplaatsen
+van begin- naar eindpositie (dus bij Tijdsduur verpl. mag niet 0 staan).</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Het instelpaneel
+verdwijnt tijdelijk, zodat het gehele venster zichtbaar wordt.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>(<i>De hotspot
+staat mogelijk nog op de locatie van de beginpositie maar verschijnt in
+het grafisch object zodra de muis boven het grafisch object wordt bewogen</i>).</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1><u>Instellen
+eindpositie (linker bovenhoek)</u>: klik met de linker muismuis op het
+plaatje (op een andere plek dan de hot spot in de rechter onderhoek) en
+houdt de muistoets ingedrukt. Het plaatje kan nu naar de gewenste positie
+verplaatst worden, maar blijft altijd binnen de kaders van het venster
+en altijd op raster-co&ouml;rdinaten.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Stoppen met
+instellen van de eindpositie: Klik met de muis op de achtergrond buiten
+het gebied van het grafisch object. Het instelpaneel verschijnt dan weer.</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+de afmetingen van het plaatje kunnen ook bij eindpositie ingesteld worden,
+maar dit is niet zinvol. Tijdens de verplaatsing behoudt het plaatje namelijk
+de afmetingen zoals ingesteld bij Beginpositie.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was;
+<b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectgrafobjbestand.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=104 width=312>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Muisdoel:
+</b>Wanneer
+het instelvakje is aangeklikt dan wordt dit plaatje gebruikt als muisdoel,
+dus bij een reactietijdmeting waarbij met de muis op een bepaald plaatje
+geklikt moet worden. Slechts 1 voorgrondplaatje kan muisdoel zijn.</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer bij meerdere voorgrondplaatjes (object types <u>grafisch object
+bestand</u> of <u>grafisch object geometrische vorm</u>) muisdoel is aangezet,
+dan zal alleen het&nbsp; plaatje met de hoogste starttijd muisdoel zijn.</font></font></font></i>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="grafisch object (geometrische"></a><b><font face="Verdana"><font color="#000099">Grafisch
+object (geometrische vorm)&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Keuze grafisch
+object (voorgrondplaatje) met een bepaalde vorm en kleur.</font></font></font>
+<br><font face="Verdana"><font size=-1>Wanneer de geselecteerde <font color="#000000">ITEM-</font>regel
+een dergelijk object type bevat, dan is in de rechter onderhoek van het
+plaatje een 'hot spot' zichtbaar, om het plaatje te onderscheiden van andere
+zichtbare plaatjes.</font></font>
+<br>&nbsp;
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Knipperperiode:
+</b>Tijdsduur
+van 1 volledige knipperperiode (dus 1x aan-tijd plus 1x uit-tijd) . De
+knipperperiode wordt opgegeven in seconden (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer 0 wordt gespecificeerd knippert het plaatje niet.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Tijdsduur:</b>
+Tijdsduur waarbinnen het plaatje zichtbaar is. Tijdsduur wordt opgegeven
+in seconden (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer 0 wordt gespecificeerd blijft het plaatje zichtbaar tot het einde
+van het item.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Knipperperiode:
+</b>Tijdsduur
+van 1 volledige knipperperiode (dus 1x aan-tijd plus 1x uit-tijd) . De
+knipperperiode wordt opgegeven in seconden (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer 0 wordt gespecificeerd knippert het plaatje niet.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Tijdsduur
+verpl.: </b>Tijdsduur waarbinnen het plaatje zich verplaatst van de beginpositie
+naar de eindpositie. De tijdsduur van de verplaatsing wordt opgegeven in
+seconden (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer 0 wordt gespecificeerd blijft het plaatje op de beginpositie staan.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Beginpositie:
+</b>Na
+indrukken van deze knop kunnen de beginpositie (linker bovenhoek) en de
+afmetingen van het plaatje ingesteld worden.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Het instelpaneel
+verdwijnt tijdelijk, zodat het gehele venster zichtbaar wordt.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1><u>Instellen
+beginpositie (linker bovenhoek)</u>: klik met de linker muismuis op het
+plaatje (op een andere plek dan de hot spot in de rechter onderhoek) en
+houdt de muistoets ingedrukt. Het plaatje kan nu naar de gewenste positie
+verplaatst worden, maar blijft altijd binnen de kaders van het venster
+en altijd op raster-co&ouml;rdinaten.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1><u>Instellen
+afmetingen</u>: klik met de linker muismuis op de hot spot in de rechter
+onderhoek op het plaatje en houdt de muistoets ingedrukt. Het breedte en
+hoogte van het plaatje kunnen nu naar rechts en naar beneden t.o.v. de
+linker bovenhoek ingesteld worden. Het plaatje blijft altijd binnen de
+kaders van het venster en op raster-co&ouml;rdinaten</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Stoppen met
+instellen van de beginpositie: Klik met de muis op de achtergrond buiten
+het gebied van het grafisch object. Het instelpaneel verschijnt dan weer.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Eindpositie:
+</b>Na
+indrukken van deze knop kan de eindpositie (linker bovenhoek) van het plaatje
+ingesteld worden. Dit is alleen zinvol wanneer het plaatje zich moet verplaatsen
+van begin- naar eindpositie (dus bij Tijdsduur verpl. mag niet 0 staan).</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Het instelpaneel
+verdwijnt tijdelijk, zodat het gehele venster zichtbaar wordt.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>(<i>De hotspot
+staat mogelijk nog op de locatie van de beginpositie maar verschijnt in
+het grafisch object zodra de muis boven het grafisch object wordt bewogen</i>).</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1><u>Instellen
+eindpositie (linker bovenhoek)</u>: klik met de linker muismuis op het
+plaatje (op een andere plek dan de hot spot in de rechter onderhoek) en
+houdt de muistoets ingedrukt. Het plaatje kan nu naar de gewenste positie
+verplaatst worden, maar blijft altijd binnen de kaders van het venster
+en altijd op raster-co&ouml;rdinaten.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Stoppen met
+instellen van de eindpositie: Klik met de muis op de achtergrond buiten
+het gebied van het grafisch object. Het instelpaneel verschijnt dan weer.</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+de afmetingen van het plaatje kunnen ook bij eindpositie ingesteld worden,
+maar dit is niet zinvol. Tijdens de verplaatsing behoudt het plaatje namelijk
+de afmetingen zoals ingesteld bij Beginpositie.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectgeometrischevorm.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=138 width=306>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Geometrische
+vorm type: </b>Hier kan de gewenste geometrische vorm geselecteerd worden.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Afhankelijk
+van het type kunnen &eacute;&eacute;n of meer instellingen uitgevoerd worden.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1>Er kan gekozen
+worden uit de volgende mogelijkheden:</font></font></font>
+<br><b><font face="Verdana"><font color="#006600"><font size=-1>(1) Monokleur</font></font></font></b>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Een instelbare
+rechthoek met 1 kleur (zonder border).</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Hierbij naar
+keuze instellen: <u>Vullingkleur</u> (is kleur van de rechthoek).</font></font></font>
+<br><b><font face="Verdana"><font color="#006600"><font size=-1>(2) Lijn</font></font></font></b>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Een lijn binnen
+het vlak van een instelbare rechthoek.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Hierbij naar
+keuze instellen: <u>Vullingkleur</u> (is kleur van de lijn), <u>Borderbreedte</u>
+(is breedte van de lijn),
+<u>Achtergrondkleur</u>&nbsp; (is kleur van de
+achtergrond van de rechthoek achter de lijn), <u>Orientatie</u> (is ori&euml;ntatie
+van de lijn: horizontaal, vertikaal of diagonaal).</font></font></font>
+<br><b><font face="Verdana"><font color="#006600"><font size=-1>(3) Rechthoek</font></font></font></b>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Een instelbare
+rechthoek met border rondom de rechthoek.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Hierbij naar
+keuze instellen: <u>Vullingkleur</u> (is de vulkleur van de rechthoek,
+maar alleen zichtbaar wanneer het vakje Figuur opvullen is aangeklikt),
+<u>Borderkleur</u>
+(is de kleur van de border),
+<u>Borderbreedte</u> (is de breedte van de
+border rondom de rechthoek),
+<u>Achtergrondkleur</u> (is kleur van de achtergrond,
+maar alleen zichtbaar wanneer het vakje Figur opvullen niet is aangeklikt),
+<u>Figuur
+opvullen</u> (aangeklikt: dan wordt de vulkleur gebruikt als vulling voor
+de rechthoek en anders de achtergrondkleur).</font></font></font>
+<br><b><font face="Verdana"><font color="#006600"><font size=-1>(4) Ellips
+(en cirkel)</font></font></font></b>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Een instelbare
+ellips met border rondom de ellips (binnen het vlak van een instelbare
+rechthoek).</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Hierbij naar
+keuze instellen: <u>Vullingkleur</u> (is de vulkleur van de ellips, maar
+alleen zichtbaar wanneer het vakje Figuur opvullen is aangeklikt), <u>Borderkleur</u>
+(is de kleur van de border),
+<u>Borderbreedte</u> (is de breedte van de
+border rondom de ellips),
+<u>Achtergrondkleur</u> (is kleur van de achtergrond
+buiten de ellips en binnen de ellips, maar dit laatste alleen wanneer het
+vakje Figuur opvullen niet is aangeklikt),
+<u>Figuur opvullen</u> (aangeklikt:
+dan wordt de vulkleur gebruikt als vulling voor de rechthoek en anders
+de achtergrondkleur).</font></font></font>
+<br><b><font face="Verdana"><font color="#006600"><font size=-1>(5) Ster</font></font></font></b>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Een instelbare
+stervom (8-hoek) met border rondom de ster (binnen het vlak van een instelbare
+rechthoek). De vorm kan met orientatie ingesteld worden.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Hierbij naar
+keuze instellen: <u>Vullingkleur</u> (is de vulkleur van de ster, maar
+alleen zichtbaar wanneer het vakje Figuur opvullen is aangeklikt), <u>Borderkleur</u>
+(is de kleur van de border),
+<u>Borderbreedte</u> (is de breedte van de
+border rondom de ster), <u>Achtergrondkleur</u> (is kleur van de achtergrond
+buiten de stervorm en binnen de stervorm, maar dit laatste alleen wanneer
+het vakje Figuur opvullen niet is aangeklikt),
+<u>Figuur opvullen</u> (aangeklikt:
+dan wordt de vulkleur gebruikt als vulling voor de stervorm en anders de
+achtergrondkleur) en <u>Orientatie</u> (is de soort stervorm met 8 variaties).</font></font></font>
+<br><b><font face="Verdana"><font color="#006600"><font size=-1>(6) Pijl</font></font></font></b>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Een instelbare
+pijlvorm met border rondom de pijl (binnen het vlak van een instelbare
+rechthoek).</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Hierbij naar
+keuze instellen: <u>Vullingkleur</u> (is de vulkleur van de pijl, maar
+alleen zichtbaar wanneer het vakje Figuur opvullen is aangeklikt), <u>Borderkleur</u>
+(is de kleur van de border),
+<u>Borderbreedte</u> (is de breedte van de
+border rondom de pijlvorm),
+<u>Achtergrondkleur</u> (is kleur van de achtergrond
+buiten de pijl en binnen de pijl, maar dit laatste alleen wanneer het vakje
+Figur opvullen niet is aangeklikt), <u>Figuur opvullen</u> (aangeklikt:
+dan wordt de vulkleur gebruikt als vulling voor de pijl en anders de achtergrondkleur)
+en <u>Orientatie</u> (is ori&euml;ntatie van de pijl: alle richtingen horizontaal,
+vertikaal of diagonaal).</font></font></font>
+<br><b><font face="Verdana"><font color="#006600"><font size=-1>(7) Letter</font></font></font></b>
+<br><font face="Verdana"><font color="#000000"><font size=-1>&Eacute;&eacute;n
+of meerdere lettertekens binnen het vlak van een instelbare rechthoek.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Hierbij naar
+keuze instellen: <u>Vullingkleur</u>(is de kleur van de lettertekens),
+<u>Borderkleur</u>
+(is de kleur van de border rondom de rechthoek),
+<u>Borderbreedte</u> (is
+de breedte van de border rondom de rechthoek),
+<u>Achtergrondkleur</u>
+(is kleur van de achtergrond van de rechthoek), <u>Orientatie</u> (is de
+grootte van de lettertekens; met de stand '1 uur' wordt de kleinste letter
+ingesteld en de grootte van de lettertekens neemt toe door draaiing van
+orientatie met de wijzers van de klok mee), <u>Tekst</u> (is de letter
+of lettertekens).</font></font></font>
+<br><b><font face="Verdana"><font color="#006600"><font size=-1>(8) Dobbelsteen</font></font></font></b>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Een dobbelsteen
+binnen het vlak van een instelbare rechthoek.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Hierbij naar
+keuze instellen: <u>Vullingkleur</u> (is de kleur van de stippen van de
+dobbelsteen), <u>Borderkleur</u> (is de kleur van de border rondom de rechthoek),
+<u>Borderbreedte</u>
+(is de breedte van de border rondom de rechthoek),
+<u>Achtergrondkleur</u>
+(is de kleur van de achtergrond van de rechthoek), <u>Orientatie</u> (is
+de stand van de dobbelsteen, dus het aantal stippen; met de stand '1 uur'
+wordt de kleinste stand (1 stip) ingesteld en de stand neemt toe door draaiing
+van orientatie met de wijzers van de klok mee; ook de normaal niet voorkomende
+standen met 7 of 8 stippen kan worden ingesteld).</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Muisdoel:
+</b>Wanneer
+het instelvakje is aangeklikt dan wordt dit plaatje gebruikt als muisdoel,
+dus bij een reactietijdmeting waarbij met de muis op een bepaald plaatje
+geklikt moet worden. Slechts 1 voorgrondplaatje kan muisdoel zijn.</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer bij meerdere voorgrondplaatjes (object types <u>grafisch object
+bestand</u> of <u>grafisch object geometrische vorm</u>) muisdoel is aangezet,
+dan zal alleen het&nbsp; plaatje met de hoogste starttijd muisdoel zijn.</font></font></font></i>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="invoer_toetsenbord"></a><b><font face="Verdana"><font color="#000099">Invoer
+(toetsenbord)&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Keuze wacht op invoer van toetsenbord.
+Dit is altijd de laatste regel van een item, want uitvoer van een item
+stopt na invoer.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Tijdsduur:</b>
+Maximaal toegestane tijdsduur waarbinnen invoer afgehandeld moet zijn.
+Tijdsduur wordt opgegeven in seconden (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer 0 wordt gespecificeerd wordt gewacht op invoer.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectinvoertoetsenbord.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=124 width=308>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Invoer van
+toetsenbord, type:</b> keuze van het type toetsenbordinvoer. Keuze uit
+tekst (er moet een tekst ingetoetst worden, afgesloten door indrukken van
+de Enter-toets) of reactietijd (er moet &eacute;&eacute;n toets ingedrukt
+worden, uit een reeks van toegestane toetsen).</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Resultaat
+opslaan:</b> keuze of het resultaat van de invoer moet worden bewaard.
+Wanneer dit vakje wordt aangevinkt is het resultaat beschikbaar in het
+rapport en het Resultaatmemo.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Tekst:</b>
+de tekst die ingetoetst moet worden (zonder de afsluitende Enter-toets).
+Deze keuze is alleen zichtbaar wanneer als type toetsenbordinvoer is gekozen
+voor tekst. De tekst mag bestaan uit letters en/of cijfers.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Toegestane
+toetsen / Gewenste toets:</b> de gewenste toets en de toegestane toetsen.
+Deze keuze is alleen zichtbaar wanneer als type toetsenbordinvoer is gekozen
+voor reactietijd. De toetsen kunnen niet in de vakken ingevoerd worden,
+selectie geschiedt door klikken op de drukknop "Kies".</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Dan verschijnt
+het volgende venster waarop een toetsenbord is afgebeeld met alle bruikbare
+toetsen.</font></font></font>
+<br><img src="toetsenkeuzepaneel.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=253 width=647>
+<br><b><i><font face="Verdana"><font color="#FF0000"><font size=-1>Wanneer
+dit venster op het scherm staat kunnen de andere onderdelen van de Edit-mode
+NIET gebruikt worden.</font></font></font></i></b>
+<br><font face="Verdana"><font size=-1>Selectie van een toets door muisklik
+op een toets, de-selectie door nogmaals een muisklik op dezelfde toets.</font></font>
+<br><font face="Verdana"><font size=-1>Er kunnen meerdere toegestane toetsen
+ingesteld worden (minimaal 0 en maximaal 31, worden in rood weergegeven)
+en &eacute;&eacute;n gewenste toets (wordt in geel weergegeven).</font></font>
+<br><font face="Verdana"><font size=-1>Met de instelling Keuze-invoer linksboven
+kan ingesteld worden of de toegestane toetsen of de gewenste toets ingesteld
+worden.</font></font>
+<br><font face="Verdana"><font size=-1>Wanneer de Shift-toets ingedrukt
+gehouden wordt, dan kan door muisklik op een toets een groep toegestane
+toetsen geselecteerd of gedeselecteerd worden (bijvoorbeeld alle letters
+of alle cijfers).</font></font>
+<br><font face="Verdana"><font size=-1><b>Belangrijk</b>: Bij selectie
+van de linker of rechter Shift-toets moet bedacht worden dat tijdens test-afname
+niet onderscheiden kan worden of de linker Shift-toets of de rechter Shift-toets
+wordt ingedrukt. Datzelfde geldt voor de linker en rechter Alt-toets en
+de linker en rechter Control-toets.</font></font>
+<p><font face="Verdana"><font size=-1>Na selectie van de toetsen kan dit
+onderdeel worden verlaten door indrukken van de toets OK (de wijzigingen
+worden bewaard) of Annuleren (de wijzigingen worden NIET bewaard). Wanneer
+geen gewenste toets is opgegeven, dan wordt aangenomen dat de Spatiebalk
+gebruikt moet worden.</font></font>
+<br><font face="Verdana"><font size=-1>De geselecteerde toegestane toetsen
+en de geselecteerde gewenste toets zijn nu gecodeerd ingevuld in de vakken
+<b>Toegestane
+toetsen</b> / <b>Gewenste toets</b>.</font></font>
+<br><font face="Verdana"><font size=-1>Deze codes worden ook gebruikt in
+het protocolbestand en het resultaatbestand.</font></font>
+<br><b><font face="Verdana"><font size=-1><a href="neuropsychoextrainfo.html#extrainfotoetsenbordcodes">Klik
+op deze regel voor een overzicht van de gecodeerde toetsen.</a></font></font></b>
+<p><font face="Verdana"><font size=-1><b>Opmerking</b>: de toets Esc (Escape)
+kan niet worden geselecteerd (want deze toets kan tijdens test-afname worden
+gebruikt om de test af te breken).</font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="invoer_muis"></a><b><font face="Verdana"><font color="#000099">Invoer
+(muis)&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Keuze wacht op invoer van indrukken
+van een muisknop. Dit is altijd de laatste regel van een item, want uitvoer
+van een item stopt na invoer.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Tijdsduur:</b>
+Maximaal toegestane tijdsduur waarbinnen invoer afgehandeld moet zijn.
+Tijdsduur wordt opgegeven in seconden (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer 0 wordt gespecificeerd wordt gewacht op invoer.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Beginpositie:
+</b>Na
+indrukken van deze knop kan de gewenste startpositie van de muis ingesteld
+worden door met de muis te klikken op de gewenste positie. De ingestelde
+muispositie is zichtbaar als een wit kruis op een blauw vierkantje. Deze
+instelling is overigens alleen van toepassing bij keuze van <b>Grafisch
+object is doel</b> bij<b>Invoer van muis / Type Reactietijdsmeting</b>.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<br>&nbsp;
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectinvoermuis.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=123 width=313>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Invoer van
+muis, type Reactietijdsmeting:</b> Keuze van het type muisinvoer. Keuze
+uit geen doel (er moet alleen op de gewenste muisknop gedrukt worden) of
+grafisch object is doel (er moet met de voorgeschreven muistoets geklikt
+worden op een grafisch object, dus een voorgrondplaatje). Alleen in het
+laatste geval wordt de muispositie altijd op de te specificeren beginpositie
+ingesteld.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Resultaat
+opslaan:</b> keuze of het resultaat van de invoer moet worden bewaard.
+Wanneer dit vakje wordt aangevinkt is het resultaat beschikbaar in het
+rapport en het Resultaatmemo.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Gewenste
+muistoets:</b> De gewenste muistoets. Keuze uit linkse, middelste (indien
+aanwezig) of rechtse muisknop.</font></font></font>
+<br><font face="Verdana"><font color="#FF0000"><font size=-1>Let op ! De
+muis moet binnen de Windows-omgeving (Instellingen / Configuratiescherm)
+als een rechtshandige muis ingesteld staan.</font></font></font>
+<br><font face="Verdana"><font color="#FF0000"><font size=-1>Wanneer bij
+de pati&euml;ntgegevens linkshandigheid is ingesteld, dan worden bij testafname
+de muisknoppen links/rechts automatisch omgedraaid.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="invoer_mptknoppendoos"></a><b><font face="Verdana"><font color="#000099">Invoer
+(MPT-knoppenkast)&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Keuze wacht op indrukken of loslaten
+van &eacute;&eacute;n of meerdere knoppen op de MPT-knoppenkast.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Tijdsduur:</b>
+Maximaal toegestane tijdsduur waarbinnen invoer afgehandeld moet zijn.
+Tijdsduur wordt opgegeven in seconden (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+wanneer 0 wordt gespecificeerd wordt gewacht op invoer.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectinvoermpt.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=109 width=313>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Type: wacht
+op:</b> keuze of gewacht moet worden op indrukken of loslaten van een knop.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Kies een
+knop:</b> keuze van de knop of knoppen die moet worden ingedrukt of losgelaten.
+Klik met de muis op de gewenste knop. Er moet altijd minstens &eacute;&eacute;n
+knop worden ingesteld.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Resultaat
+opslaan:</b> keuze of het resultaat van de invoer moet worden bewaard.
+Wanneer dit vakje wordt aangevinkt is het resultaat beschikbaar in het
+rapport en het Resultaatmemo.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="invoer_mptfingertapping"></a><b><font face="Verdana"><font color="#000099">Invoer
+MPT-fingertapping&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>MPT-fingertapping uitvoeren.</font></font>
+<br><font face="Verdana"><font size=-1>Gedurende de ingestelde tijdsduur
+moet continu en zo snel mogelijk een opgegeven knop op de MPT-knoppenkast
+worden gedrukt. De tijd tussen 2 opeenvolgende knop-aanslagen (indrukken)
+wordt continu geregistreerd.</font></font>
+<br><font face="Verdana"><font size=-1>Tussenresultaten (gemiddelde tussen-toetstijd
+en standaard deviatie) worden op het ResultaatMemo gemeld, de intervaltijd
+waarover tussenresultaten worden bepaald is instelbaar.</font></font>
+<p><b><font face="Verdana"><font color="#FF0000"><font size=-1>OPMERKING:
+Bij MPT-fingertapping worden de meetresultaten <u>altijd</u> opgeslagen.</font></font></font></b>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Tijdsduur:</b>
+De tijdsduur van de fingertapping-meting. Tijdsduur wordt opgegeven in
+seconden (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+Tijdsduur heeft hier dus een andere functie dan bij andere invoerobjecten
+! Tijdsduur moet minimaal op 1 worden ingesteld (en mag nooit 0 zijn).</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectmptfingertapping.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=106 width=309>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Duur subinterval:</b>
+keuze van de intervaltijd waarover tussenresultaten moeten worden bepaald
+en getoond. Subinterval wordt opgegeven in seconden (met 1 decimaal). De
+tussenresulaten worden tijdens de meting alleen op het ResultaatMemo getoond,
+wanneer dat tevoren is geactiveerd. De tussenresultaten (de gemiddelde
+tussen-toetstijd en standaarddeviatie over elk subinterval) en het eindresultaat
+(de gemiddelde tussen-toetstijd en standaarddeviatie over de gehele meting)
+wordt opgeslagen in het resultaatbestand.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Kies een
+knop:</b> keuze van de knop (mag slechts 1 knop zijn) die moet worden ingedrukt.
+Klik met de muis op de gewenste knop.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="lampen_mptknoppenkast"></a><b><font face="Verdana"><font color="#000099">Lampen
+MPT-knoppenkast&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>De lampen op de MPT-knoppenkast
+aan- of uitzetten.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectlampenmpt.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=110 width=311>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Kies de
+lampen die moeten aanschakelen:</b> Klik met de muis op een knop om de
+corresponderende lamp aan te zetten (de knop is dan rood) of uit te zetten.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="geluid_bestand"></a><b><font face="Verdana"><font color="#000099">Geluid
+(bestand)&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Keuze afspelen van een geluidsfragment.</font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Er kunnen
+maximaal 10 objecten (met elk een ander geluid uit een geluidsbestand)
+van dit type in &eacute;&eacute;n item worden gebruikt.</font></font></font>
+<br>&nbsp;
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Bestandsnaam:</b>
+Keuze van het bestand met het geluidsfragment.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Mogelijke
+bestandtypen: WAV.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Tijdsduur:</b>
+Tijdsduur waarbinnen het geluisfragment hoorbaar is. Wanneer de tijdslengte
+van het geluidsfragment groter is dan Tijdsduur, dan wordt het afspelen
+van het geluidsfragment afgekapt. Tijdsduur wordt opgegeven in seconden
+(met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking
+1: wanneer 0 wordt gespecificeerd wordt het geluidsfragment altijd geheel
+afgespeeld.</font></font></font></i>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking
+2: wanneer een tweede geluidsfragment wordt gestart, terwijl een eerder
+gestart geluidsfragment nog bezig is met afspelen, dan zijn beide geluidsfragmenten
+hoorbaar wanneer het verschillende geluidsbestanden betreft.</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectgeluid.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=102 width=311>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Test: </b>Druk
+op deze knop om het geluidsfragment te beluisteren. Het fragment wordt
+geheel afgespeeld (en kan niet gestopt worden).</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="stop_geluid"></a><b><font face="Verdana"><font color="#000099">Stop
+geluid&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Het onmiddellijk stoppen van alle
+nog afspelende geluidsobjecten.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="resultaatmemo_tonen"></a><b><font face="Verdana"><font color="#000099">ResultaatMemo:
+Tonen (1e keer)&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Het ResultaatMemo voor de 1e keer
+in een test oproepen en instellen.</font></font>
+<br><font face="Verdana"><font size=-1>Het ResultaatMemo wordt in de Editor
+weergegeven als een wit gekleurde rechthoek met een rode rand, en rode
+diagonale streep en in 2 hoeken een vierkant blokje.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Beginpositie:
+</b>Na
+indrukken van deze knop kunnen de positie en de afmetingen van het ResultaatMemo
+ingesteld worden.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Het instelpaneel
+wordt tijdelijk verkleind, zodat het gehele venster zichtbaar wordt. De
+kleuren van het ResultaatMemo worden omgedraaid (rood wordt wit en omgekeerd).
+In 2 hoeken is een vierkant blokje zichtbaar. Wanneer met de linker muistoets
+op een vierkant blokje wordt geklikt, dan kan de betreffende hoek worden
+versleept naar een andere positie (linker muistoets ingedrukt houden en
+dan de muis bewegen). Zo kunnen de positie en de afmetingen van het ResultaatMemo
+naar wens worden ingesteld.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1>Stoppen met
+instellen van de beginpositie: klik met de muis op de achtergrond buiten
+het gebied van het ResultaatMemo &ograve;f op de knop Einde van het instelpaneel.
+Het instelpaneel verschijnt dan weer.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectresultaatmemotonen.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=124 width=311>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Memo leegmaken:</b>
+De inhoud van het memo wissen.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Toon knop
+afdrukken:</b> De knop Afdrukken zichtbaar maken op het memo, zodat de
+actuele inhoud van het memo op elk gewenst moment kan worden afgedrukt.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Achtergrondkleur
+instellen:</b> De achtergrondkleur van het memo instellen.</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Lettertype
+instellen:</b> Het gewenste lettertype van het memo instellen. Ingesteld
+kan worden: het lettertype, de tekenstijl (standaard, cursief, vet, vet
+cursief), de grootte (punten), effecten (doorhalen, onderstrepen, kleur).</font></font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Achtergrondkleur
+en Lettertype van Memo:</b> De actuele instellingen van de achtergrondkleur
+en het lettertype. De achtergrondkleur in dit vak is de ingestelde achtergrondkleur
+van het memo. De tekst van de instellingen in dit vak wordt weergegeven
+met de gekozen lettertype-instellingen.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="resultaatmemo_tonenopnieuw"></a><b><font face="Verdana"><font color="#000099">ResultaatMemo:
+Tonen (opnieuw)&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Het ResultaatMemo opnieuw oproepen
+met dezelfde instellingen zoals eeder in een test werd ingesteld.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="resultaatmemo_verbergen"></a><b><font face="Verdana"><font color="#000099">ResultaatMemo:
+Verbergen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Het ResultaatMemo verbergen.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="wachttijd"></a><b><font face="Verdana"><font color="#000099">Wachttijd
+vast/random&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Een vaste of random tijd wachten
+tijdens de uitvoer van een item.</font></font>
+<br><font face="Verdana"><font size=-1>Bij een vaste tijd wordt de uitvoer
+van een item gedurende de ingestelde vaste tijd gestopt.</font></font>
+<br><b><i><font face="Verdana"><font size=-1>OPMERKING: Een vaste wachttijd
+kan ook worden verkregen door bij de starttijd van een itemregel waarv&oacute;&oacute;r
+moet worden gewacht de starttijd later in te stellen dan de starttijd van
+de vorige itemregel (wanneer een itemregel start op 5 sec en de vorige
+itemregel start op 3,5 sec dan wordt tussen beide itemregels 1,5 sec gewacht).</font></font></i></b>
+<br><font face="Verdana"><font size=-1>Bij een random tijd wordt een willekeurige
+tijd gewacht (maar de wachttijd ligt altijd tussen de opgegeven minimale
+tijd en maximale tijd).</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectwachttijd.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=103 width=314>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Type wachttijd:</b>
+Hier kan worden gekozen voor een vaste wachttijd (die gespecificeerd moet
+worden in het vak <b>Vaste / minimale tijd</b>) of een random tijd (hierbij
+moeten de minimale en maximale wachttijd worden gespecificeerd in de vakken
+<b>Vaste
+/ minimale tijd</b> resp. <b>Maximale tijd</b>).</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1><b>Vaste /
+minimale tijd:</b> De tijd kan worden ingesteld in eenheden van 100 milliseconde.</font></font></font>
+<br><font face="Verdana"><font color="#000000"><font size=-1><b>Maximale
+tijd:</b> De tijd kan worden ingesteld in eenheden van 100 milliseconde.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="instelling_earlyresponstijd"></a><b><font face="Verdana"><font color="#000099">Instelling
+Early Responstijd&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>De Early Responstijd instellen.
+Deze wordt na starten van een test altijd standaard ingesteld op 0 ms.
+Tijdens de uitvoer van een test kan deze tijd op een andere waarde worden
+ingesteld.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<p><b><u><font face="Verdana"><font color="#000000"><font size=-1>SPECIFIEKE
+INSTELLINGEN</font></font></font></u></b>
+<p><img src="taakregelobjectearlyresponstijd.jpg" HSPACE=15 VSPACE=5 BORDER=1 height=69 width=311>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Early Responstijd
+instellen:</b> De tijd kan worden ingesteld in eenheden van 10 milliseconde.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="stop_item"></a><b><font face="Verdana"><font color="#000099">Stop
+item&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Het onmiddellijk stoppen van de
+uitvoer van het item.</font></font>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Starttijd:
+</b>Tijdstip
+waarop deze ITEM-regel uitgevoerd moet worden. De starttijd wordt opgegeven
+in seconden vanaf ITEM-start (met 1 decimaal).</font></font></font>
+<br><i><font face="Verdana"><font color="#000000"><font size=-1>Opmerking:
+bij elke wijziging van de starttijd worden de ITEM-regels opnieuw gesorteerd
+op oplopende starttijd. ITEM-regels met eenzelfde starttijd moeten altijd
+handmatig worden gesorteerd !</font></font></font></i>
+<p><font face="Verdana"><font color="#000000"><font size=-1><b>Alleen uitvoeren
+bij vorig resultaat: </b>hier kan worden ingesteld of deze itemregel altijd
+moet worden uitgevoerd of afhankelijk van het resultaat van de vorige invoer.
+<b>Altijd</b>:
+deze itemregel wordt altijd uitgevoerd; <b>Fout</b>: deze itemregel wordt
+alleen uitgevoerd wanneer het resultaat van het vorige invoerobject Fout
+was; <b>Goed</b>: deze itemregel wordt alleen uitgevoerd wanneer het resultaat
+van het vorige invoerobject Goed was; <b>Alles goed</b>: deze regel wordt
+alleen uitgevoerd wanneer het resultaat van alle vorige invoerobjecten
+in dit item Goed was.</font></font></font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="sneller"></a><b><font face="Verdana"><font color="#000099">Sneller
+werken met grafische objecten&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Verdana"><font size=-1>Er zijn enkele functies ingebouwd,
+waardoor de instellingen van grafische objecten sneller uitgevoerd kunnen
+worden.</font></font>
+<p><font face="Verdana"><font size=-1>Wanneer 1x op een zichtbaar grafisch
+object wordt geklikt, waarvan de corresponderende <font color="#000000">ITEM-</font>regel
+niet is ingesteld (dus de hotspot is niet zchtbaar op het betreffende grafische
+object) dan wordt automatisch de bijbehorende <font color="#000000">ITEM-</font>regel
+opgezocht en zichtbaar gemaakt op het Editpaneel. Ook de hotspot wordt
+dan zichtbaar in de rechter onderhoek van het grafische object.</font></font>
+<p><font face="Verdana"><font size=-1>Wordt 1x geklikt (met de <b><u>linker</u></b>
+muistoets) op een grafisch object, waarvan op dat moment de corresponderende
+<font color="#000000">ITEM-</font>regel
+zichtbaar is op het Editpaneel (dus waarop de hotspot zichtbaar is), dan
+heeft dat dezelfde functie als klikken op de knop <b>Beginpositie</b> op
+het Editpaneel.</font></font>
+<br><font face="Verdana"><font size=-1>Wordt 1x geklikt (met de <b><u>rechter</u></b>
+muistoets) op een grafisch object, waarvan op dat moment de corresponderende
+<font color="#000000">ITEM-</font>regel
+zichtbaar is op het Editpaneel (dus waarop de hotspot zichtbaar is), dan
+heeft dat dezelfde functie als klikken op de knop <b>Eindpositie</b> op
+het Editpaneel.</font></font>
+<br><font face="Verdana"><font size=-1>In beide gevallen wordt het Editpaneel
+verkleind en kunnen de gewenste begin- of eindpositie en de afmetingen
+van het object worden ingesteld.</font></font>
+<br><font face="Verdana"><font size=-1>Het instellen hiervan wordt be&euml;indigd
+door te klikken op een vrij deel van de achtergrond &ograve;f op de knop
+Einde van het Editpaneel &ograve;f op een ander grafisch object (deze wordt
+dan geselecteerd en de bijbehorende
+<font color="#000000">ITEM-</font>regel
+wordt opgezocht en ingesteld).</font></font>
+<br>&nbsp;
+<p>
+<hr size=2><font face="Verdana"><font size=-2>&copy; Instrumentele Dienst,
+GvV, bijgewerkt op 17-10-2002.</font></font>
+<br>&nbsp;
+</body>
+</html>

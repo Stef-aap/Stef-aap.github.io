@@ -1,0 +1,18 @@
+De gehele besturing is Windows 3.1 compatibel.
+Hieronder volgt een korte omschrijving van alle knoppen:
+BESTAND	:open een aktometer bestand en geef dit weer op het scherm
+PRINT		 :maak een afdruk van het scherm op de printer.
+EINDE		 :beeindig het programma
+ACTILOG		 :uitlezen en programmeren van een ActiLog V3.0 of hoger
+ASCII export	:geeft gecorrigeerd tekstbestand, bruikbaar in andere programma's
+HAND-SCORE	:OPTIONEEL, geeft de mogelijkheid om handscores (zelfobservaties
+              		 van bepaalde parameters) in te voeren (per dag, met een interval
+              		 naar keuze van 1,2,3,4,6,8,12,24 uur), grafisch weer te geven en
+              		 op te slaan in een bestand.
+Dagknop		:De dag die in het dag-display vergroot wordt weergegeven.
+Shift-Dagknop	:Met behulp van deze toets kan in het dag-display meer dan 1 dag
+	              	 worden weergegeven. Bijvoorbeeld aktuele dag=4, shift-dagknop op
+		 dag=6, dan worden de dagen 4 t/m 6 in het dag-display weergegeven.
+HELP		:toont help informatie
+INSTELLING	:instellen van schermopbouw en programma parameters
+totaalgrafiek	:klik schakelt de desbetreffende dag in/uit

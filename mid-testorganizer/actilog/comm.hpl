@@ -1,0 +1,22 @@
+Bij de communicatie tussen computer en ActiLog, dienen de volgende regels in acht te worden genomen:
+  - start het programma, voordat de ActiLog wordt verbonden
+  - koppel de ActiLog los, voordat het programma wordt beeindigd.
+
+BATTERIJ: laat deze er altijd inzitten, anders werkt batterij-meter niet correct
+
+De belangrijkste knoppen zijn:
+========================
+Data Lezen	Hiermee wordt een gebruikte ActiLog uitgelezen en 				worden de meetdata opgeslagen in een bestand
+Nieuw Patient	Hiermee wordt een ActiLog gereed gemaakt voor een nieuwe patient
+
+Overige knoppen:
+==============
+Pat.Geg.Lezen	Hiermee worden alleen de patientgegevens van een ActiLog gelezen, er 		wordt niets in een bestand opgeslagen
+Serienummer	Hiermee kan het serienummer van de ActiLog worden gewijzigd,
+		de opgeslagen data gaat dan wel verloren.
+Afbreken		Hiermee kan een lopende uitlees cyclus worden afgebroken
+Start		Na het invoeren van nieuwe patientgegevens wordthiermee de feitelijke 		programmering van de ActiLog gestart
+Herstel		Keer terug naar de oorspronkelijke patientgegevens
+Einde		Stop het programma
+Help		Toon dit help scherm
+Instellingen	Wijzig de hardware instellingen van de computer

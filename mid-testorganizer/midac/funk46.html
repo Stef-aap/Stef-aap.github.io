@@ -1,0 +1,259 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunktie 39, Triggerable Cyclische Multi-Timer</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 46</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A></P>
+<P><A class=RVTS4 href="#inputs:">Ingangen</A></P>
+<P><A class=RVTS4 href="#outputs:">Uitgangen</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Universal Multi-Timer 4</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="andere timer functies"></A>
+Andere Timer Functies&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>8&nbsp;&nbsp;<A class=RVTS4 href="funk8.html">Multi-timer</A>&nbsp;(freerun + start/stop/pauze/reset op basis van ingangssignalen)</P>
+<P>12&nbsp;<A class=RVTS4 href="funk12.html">Multi-timer 2</A>&nbsp;(triggerable)</P>
+<P>26&nbsp;<A class=RVTS4 href="funk26.html">Multi-timer met opname besturing</A></P>
+<P>29&nbsp;<A class=RVTS4 href="funk29.html">Multi-timer 3</A></P>
+<P>39&nbsp;<A class=RVTS4 href="funk39.html">Triggerable Cyclische Multi-Timer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="uitgebreide omschrijving"></A>
+Omschrijving&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Cyclische multi-timer, waarbij aantal sub-cycli kan worden ingesteld en iedere subcyclus bestaat uit 3 achtereen geschakelde timers. Het aantal subcycli kan worden ingesteld tussen 1 en oneindig.&nbsp;</P>
+<P>Kan zowel flank getriggerd als nivo gestuurd worden gebruikt.&nbsp;</P>
+<P>Eventueel kan de timer worden gebruikt voor opname besturing.&nbsp;</P>
+<P>Een van de belangrijkste verschillen met eerdere timers is dat de complete timer wordt gereset als een nieuwe startpuls (opgaande flank) wordt aangeboden.&nbsp;</P>
+<P>Alle signalen zijn inactief bij de waarde=0 en actief als de signalen &gt;0.&nbsp;</P>
+<P>Reageert op de knop stop-timers.&nbsp;</P>
+<P>De timer kan zowel nivo-gestuurd als flank-gestuurd worden gebruikt.</P>
+<P>Globaal betekent nivo gestuurd de timer loopt zolang de enable ingang &gt;0 is, flank gestuurd wil zeggen dat een opgaande flank op de enable ingang voldoende is om de timer te laten lopen, loopt de timer dan is het nivo van de enable ingang niet meer van belang.</P>
+<P>Nivo-gestuurd</P>
+<P>De timer loopt als enable&gt;0 en hold=0 en timer-cyclus nog niet is afgerond.</P>
+<P>De timer springt naar 00:00 bij het begin van het programma of bij een opgaande flank van de enable ingang.</P>
+<P>De timer blijft stilstaan als nog niet gestart of als hold&gt;0 of als timer-cyclus is afgerond.</P>
+<P>Een opgaande flank van de enable ingang heeft geen effect als hold&gt;0.</P>
+<P>&nbsp;<IMG width=487 height=238 src="funk46a.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=5% valign=middle>
+<P>A</P></TD>
+<TD valign=middle>
+<P>Eerste start van een timer-cyclus, door Enable wordt &gt;0 en Hold=0</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>B</P></TD>
+<TD valign=middle>
+<P>Tijdens het lopen van de timer (Enable&gt;0) wordt Hold&gt;0, waardoor de timer blijft stilstaan</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>C</P></TD>
+<TD valign=middle>
+<P>Tijdens het lopen van de timer (Enable&gt;0) wordt Hold=0, waardoor de timer weer verder loopt</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>D</P></TD>
+<TD valign=middle>
+<P>De timer stopt doordat Enable 0 wordt, de timer blijft op de huidige waarde staan</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>E</P></TD>
+<TD valign=middle>
+<P>De hold-functie Hold&gt;0 doet niets, omdat de ingang Enable=0</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>F</P></TD>
+<TD valign=middle>
+<P>De timer wordt gereset en begint te lopen omdat Enable van laag naar hoog gaat</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>G</P></TD>
+<TD valign=middle>
+<P>De timer heeft het einde van de timer-cyclus bereikt, terwijl Enable&gt;0, dus blijft de timer op de maximale waarde vaststaan.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Flank-gestuurd</P>
+<P>De timer loopt als gestart door een opgaande flank en hold=0 en timer-cyclus nog niet is afgerond.</P>
+<P>De timer springt naar 00:00 bij het begin van het programma of als een opgaande flank.</P>
+<P>De timer blijft stilstaan als nog niet gestart of als hold&gt;0 of als timer-cyclus is afgerond.</P>
+<P>Een opgaande flank van de enable ingang heeft geen effect als hold&gt;0.</P>
+<P>&nbsp;<IMG width=496 height=237 src="funk46b.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=5% valign=middle>
+<P>A</P></TD>
+<TD valign=middle>
+<P>Eerste start van een timer-cyclus, door Enable wordt &gt;0 en Hold=0</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>B</P></TD>
+<TD valign=middle>
+<P>Tijdens het lopen van de timer (Enable&gt;0) wordt Hold&gt;0, waardoor de timer blijft stilstaan</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>C</P></TD>
+<TD valign=middle>
+<P>Tijdens het lopen van de timer (Enable&gt;0) wordt Hold=0, waardoor de timer weer verder loopt</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>D</P></TD>
+<TD valign=middle>
+<P>Er gebeurt niets, immers enkel de opgaande flank van het trigger signaal is van belang</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>E</P></TD>
+<TD valign=middle>
+<P>De timer heeft het einde van de timer-cyclus bereikt, terwijl Enable&gt;0, dus blijft de timer op de maximale waarde vaststaan.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>F</P></TD>
+<TD valign=middle>
+<P>De hold-functie Hold&gt;0 doet niets, omdat de timer de maximale waarde reeds heeft bereikt</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>G</P></TD>
+<TD valign=middle>
+<P>De timer wordt gereset en begint opnieuw te lopen omdat Enable van laag naar hoog gaat</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>H</P></TD>
+<TD valign=middle>
+<P>Nog voordat de timer-cyclus geheel is beëindigd, verschijnt er een opgaande flank op de trigger-ingang, waardoor de timer gereset wordt maar wel door blijft lopen.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Timer-cyclus</P>
+<P>De timer bestaat uit 3 achter elkaar geplaatste timers, die na elkaar worden gestart (d.w.z. de tweede timer start als de eerste timer is afgelopen etc.).</P>
+<P>Van iedere afzonderlijke timer kan de tijd worden ingesteld en kan worden opgegeven of gedurende deze timer de opname moet lopen.</P>
+<P>Deze set van 3 timers (sub-cyclus) kan een willekeurig aantal keren worden herhaald, zelfs tot in het oneindige als de waarde 0 wordt opgegeven.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="inputs:"></A>
+Inputs:<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=80 valign=middle>
+<P>1 = Enable / Trigger</P></TD>
+<TD width=80% valign=middle>
+<P>het trigger signaal behoeft slechts 1 sample aan de opgegeven conditie te voldoen.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>2 = Hold&nbsp;</P></TD>
+<TD valign=middle>
+<P>de timer wordt tijdelijk gestopt, zonder de timer te resetten</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="outputs:"></A>
+Outputs:&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=80 valign=middle>
+<P>1= SubTijd</P></TD>
+<TD width=80% valign=middle>
+<P>De tijd van 1 enkele subtimer</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>2 = Mode</P></TD>
+<TD valign=middle>
+<P>welke van de 3 timers actief is</P>
+<P>0 = geen timer actief&nbsp; (of tijdelijk gepauzeerd, is te zien aan waarde cyclus teller)</P>
+<P>1 = timer 1 actief</P>
+<P>2 = timer 2 actief</P>
+<P>3 = timer 3 actief</P>
+<P>daarnaast komen de volgende overgangswaarden voor</P>
+<P>4 = overgang naar een nieuwe start van timer 1 (nieuwe cyclus), maak geen gebruik van deze waarde)</P>
+<P>5 = de timercyclus is beeindigd</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>3 = Totale Tijd</P></TD>
+<TD valign=middle>
+<P>de verstreken totaal tijd</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>4 = NCyclus</P></TD>
+<TD valign=middle>
+<P>geeft aan in welke cyclus de timer zich bevindt,&nbsp;</P>
+<P>0 = nog niet gestart</P>
+<P>1 ... N = timer bevindt zich in deze cyclus</P>
+<P>N+1 = timer is geheel klaar</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>5 = NStart</P></TD>
+<TD valign=middle>
+<P>Het aantal (geldige) startpulsen</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="parameters:"></A>
+Parameters:<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>1 = time 1</P>
+<P>2 = record on in timer 1</P>
+<P>3 = time 2</P>
+<P>4 = record on in timer 2</P>
+<P>5 = time 3</P>
+<P>6 = record on in timer 3</P>
+<P>7 = number of timer cycles&nbsp; (0=oneindig)</P>
+<P>8 = flank triggered (anders level)</P>
+<P>9 = allow record control</P>
+<P>10 = allow stop timers</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst 1999</P>
+<P>SM/GvV, last updated 05-03-1999</P>
+</BODY></HTML>

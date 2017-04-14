@@ -1,0 +1,104 @@
+<HTML><HEAD><TITLE>Midac, rekenfunctie 54, Bloeddruk Numeriek display + Nulling</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E8E8E8;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P>(FF2)&nbsp;<SPAN class=RVTS1>Bloeddruk numeriek display and nulling (f54)</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Historie</SPAN></P>
+<P>20-10-2004, V11.4 default Laagdoorlaat filter op 10 Hz gezet (was 1 Hz)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="omschrijving"></A>
+<SPAN class=RVTS2>Omschrijving&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Deze functie analyseert de bloeddruk-golf (of soortgelijke signalen), en geeft de resultaten zowel numeriek weer alsook in de vorm van uitgangssignalen. Tevens is (tijdens opname) een nulknop beschikbaar voor het nullen van de transducer.</P>
+<P>Beschikbare uitgangssignalen zijn: Systole druk, Diastolische druk, MAP, HR, RR.</P>
+<P>Daarnaast is de afgeleide beschikbaar, het gefilterde ingangssignaal en een valid signaal.</P>
+<P>Voor een goede werking van het algoritme, moet het signaal een bloeddruk-achtige vorm hebben. De belangrijkste kenmerken, repeterend signaal met een frequentie van ongeveer 1 Hz, steile upstroke en een relatief langzame downstroke (eventuele met notches).</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=214 valign=middle>
+<P>&nbsp;<IMG width=185 height=262 src="f54_numeriek.gif"></P></TD>
+<TD width=512 valign=middle>
+<P><A name="numeriek display"></A>
+<SPAN class=RVTS2>Numeriek Display&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Signaal calibratie wordt automatisch uit de signaal tabel afgeleid.</P>
+<P>Kleuren en fonts van de variabelen zijn vrij instelbaar via het tabblad "Weergave".</P>
+<P>Het venster is vrij schaalbaar en positioneerbaar.</P>
+<P>Door op het slotje te klikken, kan de Null-knop al dan niet worden enabled.</P>
+<P>Afhankelijk van de instelling, wordt na het indrukken van een Null-knop, de betreffende Null_knop al dan niet gedisabled.</P>
+<P>In de weergave is het null-knopje niet aanwezig.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=486 valign=middle>
+<P><A name="weergave instellingen"></A>
+<SPAN class=RVTS2>Weergave Instellingen&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Door op&nbsp; "Naam Font" of "Waarde Font" te klikken, kunnen de fonts van respectievelijk de signaalnaam c.q. de waarde worden ingesteld (behalve de kleur).</P>
+<P>Door op Systole ... HR te klikken kan de kleur van een signaal worden ingesteld.&nbsp;</P></TD>
+<TD width=240 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=189 height=261 src="f54_weergave.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=192 valign=middle>
+<P>&nbsp;<IMG width=193 height=308 src="funk54_img1.gif"></P></TD>
+<TD width=534 valign=middle>
+<P><A name="algoritme instellingen"></A>
+<SPAN class=RVTS2>Algoritme Instellingen&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Differentie lengte, het aantal samples voor de bepaling van de afgeleide. Deze wordt zowel gebruikt in het detectie algoritme als voor het uitgangssignaal "afgeleide".</P>
+<P>HeartRate Max en HeartRate Min, geven een extra controle op de gemeten HeartRate.</P>
+<P>50 Hz bromfilter, filtert zowel brom als frequenties boven de 50 Hz.</P>
+<P>Delayed is vervallen.</P>
+<P>Als "Op Slot zetten na nulling" is aangekruist, wordt een signaal geblokkeerd voor nulling, zodra eenmaal een nulling is uitgevoerd.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=736 height=730 src="f54_grafieken.gif"></P>
+<P>Bovenstaande afbeelding betreft een oor-plethysmogram, vandaar dat gekozen is voor een baseline (delayed) analyse.</P>
+<P>In het onderste venster is het ruwe plethysmogram weergegeven.</P>
+<P>De baseline correctie is vervallen en daarmee is het bovenste venster niet meer van toepassing.</P>
+<P>In het middelste venster zijn hr, afgeleide en valid signaal te zien.</P>
+<P>In het numerieke venster zijn de actuele waarden van diastole, systole, map en hr te zien.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="algoritme"></A>
+<SPAN class=RVTS2>Algoritme&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Indien aangekruist, wordt het signaal eerst gefilterd (50 Hz notch + hogere frequenties verwijderen).</P>
+<P>Hierna wordt de afgeleide bepaald middels de average-sloop methode. De lengte van de afgeleide bepaling kan worden ingesteld. De optimale instelling hangt sterk af van de aanwezige storingen in het signaal en de gebruikte sample-frequentie. Voor een sample-frequentie van 100 Hz, kan een richtgetal van 10 voor de afgeleide-lengte worden aangehouden.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=473 height=287 src="f54_detectie1.gif"></P>
+<P>Middels een toestandsmachine wordt nu getracht de begin systolische momenten te bepalen. Dit zijn de meest karakteristieke momenten met hoge afgeleiden.</P>
+<P>In bovenstaande figuur is de detectie weergegeven (blauw = een plethysmograaf signaal, rood = de afgeleide van dit plethysmograaf signaal, geel = de toestandsteller, deze loopt vanaf 0, de vertikale groene lijnen zijn markers.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Initialisatie van de variabelen&nbsp;</LI>
+<LI>zoek naar afgeleide groter dan de (dynamisch bepaalde) drempel (dit wordt opgevat als begin systole), eerste groene marker in bovenstaande figuur. Nu wordt de heartrate berekend, getest op min en max waarde en als geldig, dan worden alle uitgangsparameters gezet. Als heartrate te groot of te klein, negeren en doorgaan via toestand 4.&nbsp;</LI>
+<LI>wacht tot maximum van de afgeleide is bereikt (tweede groene marker in bovenstaande figuur), nu kan de drempelwaarde worden bijgesteld&nbsp;</LI>
+<LI>wacht tot afgeleide negatief, dan terug naar toestand 2&nbsp;</LI>
+<LI>als gedurende 3 seconden geen heartrate wordt gedetecteerd, worden alle uitgangswaarden 0 gemaakt en wordt een lage detectie drempel ingesteld.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+
+</BODY></HTML>

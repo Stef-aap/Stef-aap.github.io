@@ -1,0 +1,172 @@
+<HTML><HEAD><TITLE>Blokschema FysioFlex-2</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FFFFFF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>FysioFlex-2</SPAN></P>
+<P><A class=RVTS4 href="fysioflex_cheap.html">FysioFlex-Simplex</A></P>
+<P>Globale opbouw</P>
+<P>Iedere ingangsmodule bestaat uit een 4-kanaals universele versterker en een 24-bit AD-converter. De ingangsmodulen aan de medisch-veilige zijde en aan de niet-medisch-veilige zijde zijn volkomen identiek.</P>
+<P>De besturingsmodule verzorgt de besturing van de ingangsmodulen, de communicatie met de PC en de voeding. Tevens is op de besturingsmodule de medisch veilige scheiding aangebracht.</P>
+<P>&nbsp;<IMG width=560 height=566 src="fysioflex2_overview.gif"></P>
+<P>Ingangsmodule</P>
+<P>Uitgangspunt van de ingangsmodule is de 4-kanaals differentiële 24 bits AD-converter. Hiervoor is het type ADS1211 van TI geselecteerd. Dit is een van de weinige die én 24 bits lineair heeft, én 4 kanalen heeft, én voldoende snel is, én een replacement (ADS 1213 van TI) heeft.</P>
+<P>Deze AD-converter heeft een maximale througput van 16 kHz bij gebruik van 1 kanaal. Bij gebruik van meerdere kanalen reduceert the througput met een factor 3 of 4, afhankelijk van de gekozen besturing. De hier gekozen besturing (gebruik van CS) geeft een reductie van 4, zodat de maximale sample frekwentie 1 kHz (exact 975 Hz) bedraagt.</P>
+<P>De overige functionele elementen van de ingangsmodulen worden gevormd door, een brugspanning-uitgang en een sensor-ID ingang.</P>
+<P>De ingangsversterker is een differentiële ingangstrap met een differentiële versterking in het doorlaatgebied van 20. Omdat de AD-converter een differentiële ingang heeft, worden de differentële uitgangen van de voorversterker rechtstreeks op de AD-converter aangesloten.</P>
+<P>Patient-lekstroom, bij een enkelvoudige fout</P>
+<P>In principe zijn alle galvanische verbindingen met de patient via relatief hoogohmige weerstanden gerealiseerd. De waarde van deze weerstanden is gebaseerd op een maximale onbedoelde lekstroom van 10 uA bij een enkelvoudige fout. Bij een voedingsspanning van 5V wordt dan de volgende waarde verkregen (factor 2, omdat de lekstroom altijd door 2 (hoogohmige) galvanische verbindingen loopt)</P>
+<P>R&nbsp; =&nbsp; (5 V&nbsp; /&nbsp; 10uA)&nbsp; / 2&nbsp; =&nbsp; 250 kOhm</P>
+<P>Daarnaast wordt via een crowbar (zener+zekering) gezorgd dat de voedingsspanning in het circuit nooit meer dan 5V6 kan bedragen.</P>
+<P>Defibrillator beveiliging is gerealiseerd middels enerzijds een dubbele gasontladingsbuis (ontsteekspanning 80V ??) en serieweerstanden en anderzijds door wederom serieweerstanden en clampdioden naar aarde en voedingsspanning. Al deze serieweerstanden tellen ook mee voor het maximaliseren van de patient-lekstroom bij een enkelvoudige interne fout.</P>
+<P>Simulatie via Belkin RS232-USB converter</P>
+<P>- JALss=RS232,&nbsp; Midac=USB,&nbsp; andersom werkt niet goed.</P>
+<P>Master/slave</P>
+<P>na het zenden van een byte moet uiteraard gewacht worden totdat de data verzonden is plus nog een beetje (stopbit),</P>
+<P>voordat de slave enabled wordt,&nbsp;</P>
+<P>hetzelfde geldt in omgekeerde volgorde,</P>
+<P>de master mag pas weer gaan zenden ongeveer 10 usec nadat de slave disabled is, immers de slave kon nog bezig zijn.</P>
+<P>ToDo</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI></LI>
+<LI>10 nF = 30 kOhm over de ingangstrap versterkings weerstandf ??&nbsp;</LI>
+<LI>reduced sampling ??&nbsp;</LI>
+<LI>digout , yes 2* onveilig&nbsp;</LI>
+<LI>digin, yes 2* onveilig (opbergen in start byte ?)&nbsp;</LI>
+<LI>nog lagere frequenties, door lagere turbo rate ?&nbsp;</LI>
+<LI>calibrate tussendoor of commando of auto callibrate&nbsp;</LI>
+<LI>who is master, veilig of onveilig ??&nbsp;</LI>
+<LI>serieel ontvangst buffer vergroten aan PC kant&nbsp;</LI>
+</UL>
+<P>FTDI USB converter</P>
+<P>Bij 20 MHz bedraagt de maximal baudrate voor de PIC&nbsp; 1250kBaud.</P>
+<P>De FDTI chip 232AM kan 3,000,000 / 2.5 = 1200 kBaud aan.</P>
+<P>FDTI 232BM heeft deeltal van 2.375, hiermee wordt 1250 kBaud op 1% nauwkeurig benaderd.</P>
+<P>De afwijking is aan de hoge kant, ongeveer 4%.</P>
+<P>In de praktijk blijkt echter zowel de veilige als de onveilige kant het goed te doen.</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=319 valign=middle>
+<P>gewijzigde versie voor winXP,</P>
+<P>de baudrate voor 57600 is aangepast.</P>
+<P>Door nu MIDAC in te stellen op 57600, wordt in feite een baudrate van 1250 of 1200 kBaud gehaald.</P>
+<P>Deze wijziging moet eventueel ook voor andere operating systemen worden uitgehaald (voor de installatie!!)</P></TD>
+<TD width=497 valign=middle>
+<P>[FtdiPort232.NT.HW.AddReg];HKR,,"UpperFilters",0x00010000,"serenum"HKR,,"ConfigData",1,01,00,3F,3F,10,27,88,13,C4,09,E2,04,71,02,38,41,9c,80,4E,C0,</P>
+<P>02,40,</P>
+<P>1A,00,0D,00,06,40,03,80,00,00,d0,80</P></TD>
+</TR>
+<TR valign=top>
+<TD width=319 valign=middle>
+<P>Orginele versie</P></TD>
+<TD width=497 valign=middle>
+<P>[FtdiPort232.NT.HW.AddReg];HKR,,"UpperFilters",0x00010000,"serenum"HKR,,"ConfigData",1,01,00,3F,3F,10,27,88,13,C4,09,E2,04,71,02,38,41,9c,80,4E,C0,</P>
+<P>34,00,</P>
+<P>1A,00,0D,00,06,40,03,80,00,00,d0,80</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>TX&nbsp; van PC naar veilige PIC</P>
+<P>Het blijkt dat de USB converter onvoldoende stroom kan leveren (zowel negatief als positief ), bij een voldoende grote (TTL) spannings zwaai.</P>
+<P>Derhalve moet de optocoupler gevoed worden uit een zwaardere trap (liefst met CMOS zwaai).&nbsp; Aangezien we nog een 74ACT74 poort over hebben kunnen we deze gebruiken als driver. De te leveren stroom is voldoende. Omdat nu de USB module niet meer belast wordt, zal de zwaai op de TX pin voldoende blijven door de onveilige PIC goed te worden ontvangen.</P>
+<P>Bij het gebruik van een 7474 als driver moeten we oppassen omdat niet alle fabrikanten dezelfde interne opbouw hebben voor wat betreft set/preset condities !!!&nbsp; Na een aantal fabrikanten nagelopen te hebben, (Philips, TI, ST), blijkt dat ze in ieder geval als gemeenschappelijk de volgende "inverter"&nbsp; ondersteunen:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set = 0</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clear = input</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -Q = inverted output</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data and clock zijn niet relevant</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Q doet niets of verschillend</P>
+<P>Omdat de driver nu inverteert, moet de diode in de opto-coupler anders aangesloten worden.</P>
+<P>Belangrijk hierbij is dat de weerstand tussen de driver en de opto-coupler zit en niet tussen aarde en optocoupler (i.v.m. de CMRR !!).</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>aardvlak doet wonderen</P>
+<P>LM324 lijkt het beste,</P>
+<P>ondanlks de beperkte ingangasimpedantie van 50 MOhm</P>
+<P>(TLC27 10^12)</P>
+<P>Blijkbaar is de bariere erg goed,</P>
+<P>dan is immers de ingangsimpedantie niet&nbsp; meer van belang,</P>
+<P>Wel vereist de LM324 abosluut een ref tbv bias</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=408 height=268 src="veilig_tlc27.gif"></P>
+<P>veilig TLC27</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=398 height=274 src="veilig_lm324.gif"></P>
+<P>veilig LM324</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>ECG op kanaal 1, via LM324</P>
+<P>Druk op kanaal 2, via TLC72, hobbel is een geblazen druk van ongeveer 20 mmHg</P>
+<P>Onveilige zijde, DC-DC converter ingeschakeld, waarom verbeterd het signaal zo sterk ????</P>
+<P>geen aardvlak, voeding vanuit USB.</P>
+<P>Zou het verlagen van de USB spanning dit veroorzaken ???</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Onderstaand opnamen zijn allemaal gemaakt aan de onveilige zijde.</P>
+<P>TLC27 is de beste</P>
+<P>LM324 is tweede keus (maar heeft lage ingangsimpedantie)</P>
+<P>Aardvlak kan veel verbeteren</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=404 height=270 src="lm324_ac_1.gif"></P>
+<P>LM324, AC</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=408 height=278 src="lm324_dc_1.gif"></P>
+<P>LM324, DC</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=404 height=276 src="tlc27_ac_1.gif"></P>
+<P>TLC27, AC</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=408 height=270 src="lmc6044_ac_1.gif"></P>
+<P>LMC6044, AC</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=408 height=270 src="lm324_dc_2.gif"></P>
+<P>LM324, DC</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=408 height=268 src="tlc27_dc_2.gif"></P>
+<P>TLC27, DC,&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=406 height=268 src="lmc6044_dc_2.gif"></P>
+<P>LMC6044, DC</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=410 height=276 src="tlc27_dc_3.gif"></P>
+<P>TLC27, DC, aardscherm onder gehele voorversterker+AD converter</P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

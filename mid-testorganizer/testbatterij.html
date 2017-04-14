@@ -1,0 +1,160 @@
+<HTML><HEAD><TITLE>model</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>TestBatterijen</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="inleiding"></A>
+<SPAN class=RVTS2>Inleiding</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>In principe is de testbatterij een simpele opsomming van een aantal achter elkaar uit te voeren testen.</P>
+<P>Bij een aantal testen (zoals vragenlijsten) is het mogelijk om de resulaten van een afgenomen test te gebruiken als conditie om te bepalen wat de volgende test (niet noodzakelijkerwijs een vragenlijst) is die moet worden afgenomen (conditionele testen).</P>
+<P>De interne bestandsopbouw is vernieuwd. Oude batterij bestanden worden echter automatisch vertaald.</P>
+<P>Een testbatterij kan bestaan uit de volgende regels:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI><A class=RVTS4 href="#tekstregel">tekstregel</A></LI>
+<LI><A class=RVTS4 href="#gewone testregel">gewone (niet-conditionele) test</A></LI>
+<LI><A class=RVTS4 href="#conditionele testregel">conditionele test</A></LI>
+</UL>
+<P>Het volgende voorbeeld geeft een voorbeeld van de bovenstaande 3 mogelijkheden/dit is een tekstregel</P>
+<P>V,SCL90 ;</P>
+<P>als V,SCL90,I3 &gt; 4 dan V,SIP ;Hieronder een uitgebreider voorbeeld (met fictieve vragenlijsten).</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>zwart is verklarende tekst</P>
+<P>blauw is correct commando-regel</P>
+<P>rood is foute commando-regel</P>
+<P>Bij de uitvoering worden enkel correcte commando-regels uitgevoerd.</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=529 height=527 src="battery_test_vb.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="tekstregel"></A>
+<SPAN class=RVTS2>Tekstregel&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Het allereerste karakter van deze regel moet een gewone slash "/" zijn. De tekst mag niet over meerdere regels verdeeld worden. Gebruik zonodig meerdere regels, die elk beginnen met een slash.</P>
+<P>Een tekstregel mag in een test-regel (welke wel uit meerdere regels kan bestaan) voorkomen.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="gewone testregel"></A>
+<SPAN class=RVTS2>Gewone testregel&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Een gewone testregel bestaat uit een test en dient afgesloten te worden met een punt-komma ";".</P>
+<P>VoorbeeldV,SCL90;Betekent: neem de vragenlijst SCL90 ten alle tijde af.</P>
+<P>Omdat testen van verschillende soort geen onderling unieke naam behoeven te hebben, moet aangegeven worden dat het om een vragenlijst handelt ("V,").</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="conditionele testregel"></A>
+<SPAN class=RVTS2>Conditionele testregel&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Bestaat uit een conditie, gevolgd door een test.</P>
+<P>Deze regel dient eveneens afgesloten te worden met een punt-komma, en mag over meerdere regels worden uitgeschreven (met ertussen zelfs tekst-regels.</P>
+<P>Voorbeeld:als&nbsp; V,SCL90,Smoeheid &gt; 3 dan V,SIP anders V,CDC ;Betekent, als van de (reeds afgenomen) vragenlijst SCL90, op de subschaal moeheid meer dan 3 is gescored, dan moet de vragenlijst SIP worden afgenomen, zoniet dan moet de vragenlijst CDC worden afgenomen.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="bijzondere syntax"></A>
+<SPAN class=RVTS2>Bijzondere Syntax&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Omdat het minteken "-" gebruikt wordt als wiskundig aftrekken, moet in namen van testen dit teken vervangen worden door een vraagteken "?", voorbeeld vragenlijst SCL-90 moet dus als volgt worden opgegeven.V,SCL?90;Vraagnummers in vragenlijsten hebben een gelijke nummering als in het export-bestand. Hieronder enige voorbeelden, waarbij achter de punt komma, verklarende tekst is afgedrukt:...V,SCL90,I7...;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vraag 7, in geval slechts 1 antwoord</P>
+<P>...V,SCL90,I8b...;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vraag 8, tweede subvraag, dus meerkeuze meerantwoorden vraag of enkele blokvraag</P>
+<P>...V,SCL90,I9c2...;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vraag 9, derde subvraag, tweede blok, dus een dubbele blokvraagGetallen moeten worden geschreven in de Angelsaksische notatie, dat wil zeggen met een decimale punt (en niet met een komma).</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="aanbevelingen"></A>
+<SPAN class=RVTS2>Aanbevelingen</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Maak ruim gebruik van haakjes, want alle operatoren hebben hetzelfde hierarchies nivo,2+3*5 wordt geëvalueerd als (2+3)*5</P>
+<P>2+(3*5) wordt geëvalueerd als 2*(3+5)Maak ruim gebruik van spaties en tabs, hetgeen de leesbaarheid vergroot.</P>
+<P>Voeg omdezelfde reden tekstregels toe.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="rekenkundige operatoren"></A>
+<SPAN class=RVTS2>Rekenkundige operatoren</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Operators</P></TD>
+<TD valign=middle>
+<P>Beschrijving</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>+ ,&nbsp; - ,&nbsp; * ,&nbsp; /</P></TD>
+<TD valign=middle>
+<P>optellen, aftrekken, vermenigvuldigen, delen</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&gt; , &lt;</P>
+<P>&gt;= , =&gt; , &lt;= , =&lt;</P>
+<P>=</P></TD>
+<TD valign=middle>
+<P>groter dan, kleiner dan</P>
+<P>groter of gelijk dan, kleiner of gelijk dan</P>
+<P>gelijk</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;... EN ...</P>
+<P>&nbsp;... OF ...</P>
+<P>NIET ( ... )</P></TD>
+<TD valign=middle>
+<P>logische EN, logische OF</P>
+<P>logische NIET</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>ALS ... DAN ...</P>
+<P>ALS ... DAN ... ANDERS ...</P></TD>
+<TD valign=middle>
+<P>conditionele statements</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>( ... )&nbsp; ,&nbsp; [&nbsp; ... ]&nbsp;</P></TD>
+<TD valign=middle>
+<P>haken om volgorde van bewerkingen te reguleren</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>spaties en TABs</P></TD>
+<TD valign=middle>
+<P>worden gebruikt om symbolen te scheiden</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;;</P></TD>
+<TD valign=middle>
+<P>geeft het einde van een commando-regel aan</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="editor"></A>
+<SPAN class=RVTS2>Editor</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>In het edit veld kan op de normale manier geedit worden,</P>
+<P>Na het indrukken van de knop "Controleer" wordt de syntax van commando regels gecontroleerd. Syntactisch correcte commando-regels worden blauw gekleurd, tekst regels worden zwart gekleurd en foute commando-regels worden rood gekleurd.</P>
+<P>Met de knop "Print" kan deze tekst (inclusief de titel) worden afgedrukt. Bij gebruik van een kleurenprinter wordt de tekst ook in kleur afgedrukt.</P>
+<P>In het fout venster verschijnen de foutmeldingen op twee manieren,</P>
+<P>als eerste wordt de gehele regel afgedrukt,</P>
+<P>als tweede wordt het woord afgedrukt waar de fout wordt geconstateerd.</P>
+<P>Een testbatterij met fouten zal overigens wel worden uitgevoerd, enkel de foute regels worden niet uitgevoerd.</P>
+<P>Overigens is de interpreter niet in staat alle fouten af te vangen, zie bijvoorbeeld het voorbeeld hierboven.</P>
+<P>Lees ook eens de "<A class=RVTS4 href="#aanbevelingen">aanbevelingen</A>" .</P>
+<P>&nbsp;<IMG width=709 height=509 src="battery_editor.gif"></P>
+<P>De fout die hier geconstateerd wordt, beteknt dat de vragenlijst ZZ100I niet bestaat. Als deze vragenlijst tijdens de feitelijke uitvoering van de test wel bestaat, zal deze commando-regel dan gewoon worden uitgevoerd.</P>
+<P>Via de "Insert-toets" of via de rechter-muisknop kan onderstaand hulpscherm worden opgeroepen, waarmee correcte items in het programma kunt invoeren. Zodra namelijk op de "OK-knop" wordt gedrukt, wordt het "resultaat" op de cursor-positie ingevoerd.</P>
+<P>Het hulpscherm toont alle beschikbare testen, en binnen een test alle beschikbare items.</P>
+<P>&nbsp;<IMG width=468 height=198 src="battery_hulp.gif"></P>
+</BODY></HTML>

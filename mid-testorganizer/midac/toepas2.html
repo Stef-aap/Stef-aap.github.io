@@ -1,0 +1,59 @@
+<HTML><HEAD><TITLE>toepas2</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A>&nbsp;|&nbsp;<A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P>TOEPASSINGEN</P>
+<P><A class=RVTS4 href="toepas0.html">Overzicht</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>REKENFUNCTIE 2</P>
+<P><A class=RVTS4 href="funk2.html">Beschrijving</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Toepassing van rekenfunctie 2</P>
+<P class=RVPS2>Bloeddruk Bepaling Onset</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Achtergrond</P>
+<P>Bij patienten met een dwarslaesie werken bepaalde terugkoppel-elementen in de regeling van de bloeddruk niet goed of onvoldoende. Om deze regelmechanismen beter te doorgronden is de afdeling Fysiologie geïnteresseerd in de aansturing van de eigenschappen van het arteriële vaatbed. Een van de parameters die iets zegt over de status van het arteriële vaatbed is de latentietijd tussen de R-top in het ECG en de onset van de bloeddruk in de periferie. Het bepalen van de R-top levert geen probleem. Het volautomatisch bepalen van de bloeddruk onset is echter een lastiger probleem.</P>
+<P>&nbsp;<IMG width=263 height=145 src="onset1.gif"></P>
+<P>Probleem</P>
+<P>De vol-automatische bepaling van de bloeddruk onset wordt gekenmerkt door de volgende specifieke problemen:<IMG width=15 height=15 src="greenbal.gif">grote laagfrekwent component<IMG width=15 height=15 src="greenbal.gif">aanzienlijke hoeveelheid ruis<IMG width=15 height=15 src="greenbal.gif">fenomeen is asymetrisch<IMG width=15 height=15 src="greenbal.gif">bepalen nulde afgeleide is storingsgevoelig<IMG width=15 height=15 src="greenbal.gif">wavelet vóór de onset is sterk variant<IMG width=15 height=15 src="greenbal.gif">artefacten (b.v. bij beweging)Principe Oplossing</P>
+<P>Duidelijk is dat de opgaande helling van het bloeddruk signaal wel goed te bepalen is. Omdat deze helling behoorlijk steil is, kan de onset nauwkeurig bepaald worden door de bepaling van het snijpunt van deze helling met een goed gekozen horizontale lijn ter hoogte van de diastolische druk. Weliswaar zal de echte onset iets eerder optreden doch de geïntroduceerde fout geeft slechts een constante afwijking.</P>
+<P>Praktische Uitwerking</P>
+<P>De helling wordt bepaald door het berekenen van een lineaire regressie, welke wordt gestart op 15% van het begin en welke door loopt tot 85% van de top. Dit bereik garandeert enerzijds dat de curve voldoende lineair is en anderzijds wordt de maximale hoeveelheid informatie benut waardoor een optimale ruisonderdrukking wordt bereikt. De diastolische druk wordt bepaald door het lokale minimum te bepalen van het gefilterde druksignaal in de periode voorafgaand aan de helling. Daarnaast worden een aantal JBF algoritmen gebruikt om resterende artefacten te onderdrukken.</P>
+<P>Resultaat</P>
+<P>Het algoritme, uitgevoerd in MIDAC, werkt volautomatisch. De latentietijd wordt met een nauwkeurigheid beter dan 5 msec en in de meeste gevallen zelfs beter dan 2 msec.</P>
+<P>&nbsp;<IMG width=263 height=145 src="onset2.gif"><IMG width=263 height=145 src="onset3.gif"></P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

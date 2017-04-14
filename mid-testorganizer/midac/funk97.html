@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffff;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132115" /></head>
+<body>
+
+<p><span class=rvts1>Hartspier Tensie (F97)</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="ad-index.html">MIDAC Index</a></p>
+<p class=rvps1><a class=rvts4 href="funk0.html">Overzicht Rekenfuncties</a></p>
+<p class=rvps1><a class=rvts4 href="../mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Inleiding</span></p>
+<p><br></p>
+<p><br></p>
+<p><img width=615 height=652 alt="" src="funk97_img16.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Beschikbare signalen</span></p>
+<p><img width=389 height=434 alt="" src="funk97_img13.png"></p>
+<p><br></p>
+<p><span class=rvts2>Excel Voorbeeld</span></p>
+<p><img width=897 height=632 alt="" src="funk97_img14.png"></p>
+<p><br></p>
+<p><img width=857 height=523 alt="" src="funk97_img15.png"></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=262 valign=top style="background-color: #ffffd4;">
+<p>Het <span class=rvts10>krachtsignaal</span> wordt gefilterd met een instelbaar (eerste orde) laagdoorlaat filter om ruisvrije bepaling van de top-top amplitude te verkrijgen. Bij een afsnijfrekwentie van 10 Hz wordt een redelijk betrouwbaar signaal verkregen, zonder dat de top noemenswaardig wordt beïnvloed. Zie hiernaast, rood is ruwe signaal, geel is het gefilterde signaal.</p>
+</td>
+<td width=512 valign=top style="background-color: #ffffd4;">
+<p><img width=258 height=171 alt="" src="funk97_img2.png"><img width=224 height=217 alt="" src="funk97_img3.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width="100%" valign=top style="background-color: #ffffd4;">
+<p>Voor de bepaling van de<span class=rvts10> helling</span> wordt gebruik gemaakt van average sloop method. Naast dat deze methode eenvoudig is, heeft hij het grote voordeel dat een impliciete laagdoorlaat filtering uitvoert. Links een afbeelding met een differentie lengte van 10 en rechts een diffirentie lengte van 40. We zien dat een differentielengte van 40, goed filtert en amplitude en fase nauwelijks aantasten.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width="100%" valign=top style="background-color: #ffffd4;">
+<p><img width=235 height=180 alt="" src="funk97_img4.png"><img width=207 height=175 alt="" src="funk97_img5.png"><img width=224 height=217 alt="" src="funk97_img6.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Max-Min detectie van het kracht signaal</span></p>
+<p><img width=488 height=171 alt="" src="funk97_img8.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Pulsdetectie</span> van de stimulus gebeurt door de stimulus puls ( rode curve) eerst te filteren met een eerste order laagdoorlaat filter ( met vaste afsnij-frequentie) en vervolgens met een state-machine te zoeken naar het punt waar puls &gt; filtered stimulus en vervolgens naar filtered stimulus.</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=203 height=164 alt="" src="funk97_img7.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Export Instellingen</span></p>
+<p>Sample frekwentie = 500 Hz: middeling over 30000 levert dus 1 minuut periode.</p>
+<p><br></p>
+<p><img width=599 height=482 alt="" src="funk97_img12.png"></p>
+<p><br></p>
+<p><span class=rvts2>Signaal Kalibratie</span></p>
+<p><img width=486 height=353 alt="" src="funk97_img10.png"></p>
+
+</body></html>

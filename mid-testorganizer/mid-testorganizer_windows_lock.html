@@ -1,0 +1,187 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en"><html><head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <meta name="author" content="Stef Mientki"><title>mid-testorganizer windows-locking in NT,2000,XP</title></head><body text="#000000" bgcolor="#8fd6f3" link="#003399" vlink="#003399" alink="#cccccc">
+<a name="top"></a>
+<table border="1" width="100%">
+<tbody><tr>
+<td align="center" valign="CENTER" rowspan="2" width="25%"><font face="Arial,Helvetica"><a href="http://www.kun.nl/id/stpond.htm">ID-Spon
+home</a></font>
+<p><font face="Arial,Helvetica"><a href="midorg.html">Overview</a></font></p></td>
+
+<td align="center" valign="CENTER" width="50%" height="40" bgcolor="#3333ff">
+<center><b><font face="Arial,Helvetica"><font color="#ffff00">MID TestOrganizer</font></font></b></center>
+</td>
+
+<td align="center" valign="CENTER" rowspan="2"><b><font face="Arial,Helvetica"><font color="#000099">&nbsp;</font></font></b></td>
+</tr>
+
+<tr>
+<td align="center" valign="CENTER" height="40" bgcolor="#ffff00"><b><font face="Arial,Helvetica"><font color="#3333ff">Windows Locking in NT,2000,XP</font></font></b></td>
+</tr>
+</tbody></table>
+
+<br>
+<br>
+<br>
+<br>
+<table cellpadding="2" cellspacing="2" border="1" style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">Programma onderdeel<br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">XP-compatibel<br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Opmerkingen</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">TestOrganizer<br>
+      </td>
+      <td style="vertical-align: top;">Ja<br>
+      </td>
+      <td style="vertical-align: top;">kleuren nog nalopen<br>
+in installatie dwgina.dll meenemen<br>
+dongle codering voor XP nog effectueren<br>
++ dongle file in installatie<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Vragenlijst<br>
+      </td>
+      <td style="vertical-align: top;">Ja<br>
+      </td>
+      <td style="vertical-align: top;">kleuren aanpassen<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">NeuroPsycho<br>
+      </td>
+      <td style="vertical-align: top;">Nee<br>
+      </td>
+      <td style="vertical-align: top;">lock aanbrengen<br>
+kleuren ??<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Midac<br>
+      </td>
+      <td style="vertical-align: top;">Alleen RS232/USB<br>
+      </td>
+      <td style="vertical-align: top;">geen opmerkingen<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p><br>
+<span style="font-weight: bold;">Dongle coding</span><br style="font-weight: bold;">
+[107]<br>
+o=Interne, Lenders<br>
+98=32 bits integer (bit0=battery etc)<br>
+XP=32 bits integer<br>
+984=12-04-2003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//date of update contract midac for win98<br>
+XP4=12-04-2003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//date of update contract midac for winXP<br>
+<br>
+</p>
+
+
+<p><span style="font-weight: bold;">TestOrganizer StartUp</span><br style="font-weight: bold;">
+Het eerste idee was, om te kijken of de volgende conditie aanwezig was:<br>
+&nbsp; - Operating System &gt;= NT<br>
+&nbsp; - Modulen die gelocked moeten worden enabled en licentie aanwezig<br>
+in dat geval, als winlock niet was ge&iuml;nstalleerd, dan waarschuwen en mogelijkheid tot installatie geven.<br>
+Dit is echter geen goede zaak, vooral voor die gebruikers die enkel analyseren, is namelijk de winlock niet nodig.<br>
+<br>
+</p>
+<p><span style="font-weight: bold;">Feitelijke lock functie</span><br style="font-weight: bold;">
+Vlak voor het starten van de testen wordt de lock functie aangeroepen. <br>
+Na het aflopen van de test(en) wordt de lock weer ongedaan gemaakt. <br>
+Omdat er echter fouten zitten in winlock (zie mail onderaan), moet ook in het programma de lock worden geactiveerd.<br>
+Dwinlock werkt zowel voor win98 ....winXP en moet alleen voor
+&gt;=NT-versie (NT,2000,XP) worden ge&iuml;nstalleerd als Ctrl-Alt-Del
+onderdrukt moet worden.<br>
+<br></p>
+
+
+<p><span style="font-weight: bold;">TestOrganizer --&gt; Settings --&gt; System</span><br style="font-weight: bold;">
+Als het gebruikte operating systeem NT, 2000 of XP is, is er een extra
+knop geenabled, waarmee DwinLock kan worden ge&iuml;nstalleerd of kan
+worden gede&iuml;nstalleerd.<br>
+<br>
+</p>
+<p><span style="font-weight: bold;">
+Standalone PC (win-XP prof UK)</span><br>
+Als de PC is ingesteld op geen login-dialog (dus ook geen password),
+verschijnt na het installeren van dwinlock wel een login-dialog.<br>Alleen de eerste keer na het installeren van dwinlock, kwamen er ook 2 meldingen "restoring form severe error",<br>
+onduidelijk is of dit iets met winlock te maken heeft.<br>
+<br></p>
+<p><span style="font-weight: bold;">Problemen met winlock, mail to leverancier</span><br style="font-weight: bold;">
+I've an application A,
+<br>
+that launches an application B.
+<br>
+Application A waits till application B is finished and then continuous.
+<br>
+
+<br>
+I'm running winXP prof-UK.
+<br>
+
+<br>
+In application A I've a dwinlock component with the property nowinkeys=true.
+<br>
+
+<br>
+What happens:
+<br>
+
+<br>
+In application A, pressing win-E (start Explorer),
+<br>
+application A closes,
+<br>
+apperently because "win-E" is translated in "Alt-E" and
+<br>
+in application A, "E" is the accelerator key for Close ("End").
+<br>
+
+<br>
+Is this the normal behaviour ??
+<br>
+Are all win-keys translated in alt-keys ??
+<br>
+
+<br>
+When I press win-E in application B (launched from application A),
+<br>
+the explorer comes in front !!
+<br>
+Is this normal behaviour ??
+<br>
+Should I place a dwinlock component in application B too ?
+<br>
+
+<br>
+<br>
+<br>
+</p>
+<p><br>
+<a href="#top"><img src="top_page.gif" height="14" width="14"></a><font face="Arial,Helvetica"><font size="-2">
+met dit pijltje bereikt u altijd de top van de pagina</font></font>
+<br>
+</p>
+<hr width="100%"><font size="-2">&copy; Copyright Instrumentele Dienst, 1999</font>
+<br><a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height="18" width="29"></a><font size="-2">
+SM, last updated 4-4-2003</font>
+<br>
+</body></html>

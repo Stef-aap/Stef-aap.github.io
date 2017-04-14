@@ -1,0 +1,8 @@
+Voor de vertaling van oude Actometers naar de waarde van ActiLog V3.0 gelden de volgende formules:
+
+nieuwe waarde type A:  new=1.15*(1.55*A+14)
+nieuwe waarde type B:  new=1.15*B
+
+
+type A: de kleine actometer
+type B: de wat grotere aktometer met 1 jaar batterij

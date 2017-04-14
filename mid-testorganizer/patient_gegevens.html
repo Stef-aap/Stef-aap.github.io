@@ -1,0 +1,119 @@
+<HTML><HEAD><TITLE>patient_gegevens</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>PatientGegevens</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="mid-testorganizer_index.html">TestOrganizer</A></P>
+<P class=RVPS1>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="patienten_lijst"></A>
+<SPAN class=RVTS2>Patiënten Lijst</SPAN>&nbsp;&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Dit is een lijst van alle ingevoerde patienten, gesorteerd op de eerste kolom.&nbsp;</P>
+<P>Door in deze lijst een regel (een patient) te selecteren, verschijnen rechts van deze lijst alle patient gegevens en de uitgevoerde (en eventueel geplande testen) die bij deze patient zijn afgenomen. Bij lange patientlijsten kan het selecteren worden versneld door de eerste letter van een patient in te toetsen.&nbsp;</P>
+<P>De knoppen onderaan de patientenlijst hebben betrekking op de patientenlijst.&nbsp;&nbsp;</P>
+<P>Nieuw : invoeren van een nieuwe patient&nbsp;</P>
+<P>Edit: het wijzigen van een reeds ingevoerde patient, dit ook direct geschieden door de gegevens van deze patient te klikken.&nbsp;</P>
+<P>Delete: het verwijderen van een patient.&nbsp;</P>
+<P>Via&nbsp; Instel / Patientenlijst / ... kunnen de gewenste kolommen en volgorde ervan in de patientenlijst worden ingesteld.</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=210 height=336 src="patienten_lijst.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Instellen van de PatiëntenLijst</SPAN><A href="patient_gegevens.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Dit venster is te bereiken via</P>
+<P>&nbsp; Instel / Patientenlijst / ...</P>
+<P>De onderwerpen die worden voorafgegaan door een '+' worden in de lijst opgenomen. Door te DUBBELKLIKKEN op een onderwerp wordt het onderwerp afwisselend in- of uitgeschakeld.</P>
+<P>Met de knoppen NAAR BOVEN/BENEDEN kan een geselekteerd onderwerp worden verplaatst.&nbsp;</P>
+<P>De KOLOMBREEDTE kan worden ingesteld in de header van de namenlijst de scheidingsstreep te slepen. Dit gaat uiteraard alleen als het aankruisvakje hierboven aangekruist is.</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=318 height=219 src="patienten_lijst_instellen.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="standaard patientgegevens"></A>
+<SPAN class=RVTS2>Standaard PatientGegevens</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Hieronder staan de standaard patient-gegevens weergegeven.&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>&nbsp;<IMG width=207 height=131 src="patgeg.gif"></P>
+<P>Via het instelvenster (rechts afgebeeld), kan de benaming voor de eerste twee velden worden gedefiniëerd.</P>
+<P>Beide velden worden afgedrukt in het rapport en opgenomen in het export-bestand.</P>
+<P>Belangrijk is echter te weten dat het eerste veld uniek moet zijn, omdat dit gebruikt wordt als sleutelwoord in de patienten database.</P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=540 height=373 src="instel_patgeg.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Het patientnummer moet een unieke string zijn, omdat deze als sleutelwoord in de database wordt gebruikt. Het programma kontroleert een nieuw ingevoerde patient.&nbsp;</P>
+<P>Als extra controle (immers het achteraf wijzigen van een patientnummer is erg ingewikkeld) kan ingesteld worden dat een patientnummer tweemaal moet worden ingevoerd. Instellen via&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; Instellingen / Patientgegevens / Patientnummer dubbel invoeren</P>
+<P>Voor een aantal testen is de leeftijd van de patient van belang, in die gevallen is het verstandig om de controle op een geldige geboortedatum aan te zetten. Instellen via&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; Instellingen / Patientgegevens / Geboortedatum kontroleren</P>
+<P>Hetzelfde geldt voor het geslacht, instellen via&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; Instellingen / Patientgegevens / Geslacht kontroleren</P>
+<P>De standaard patientgegevens kunnen worden gebruikt als kolommen in de patientenlijst. In te stellen via&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; Instellingen / Patientenlijst</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="patient testgegevens"></A>
+<SPAN class=RVTS2>Patient TestGegevens</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>De patienten testlijst zoals hieronder afgebeeld, bevat een overzicht van alle afgenomen en alle geplande testen van de betreffende patient.</P>
+<P>De gewenste kolommen kunnen worden ingesteld via,</P>
+<P>&nbsp;&nbsp;&nbsp; Instellingen / Patient Testlijst</P>
+<P>De kolombreedte kan visueel worden ingesteld (mits vrijgegeven) door de kolom-scheidingslijn met de muis te verslepen.</P>
+<P>&nbsp;<IMG width=683 height=218 src="patient_testlijst.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="extra patientgegevens"></A>
+<SPAN class=RVTS2>Extra PatientGegevens</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Extra patientgegevens kunnen niet worden gebruikt in de kolommen van de patiëntenlijst.&nbsp;</P>
+<P>Zodra er behoefte aan is, wordt deze tabel uitgebreid.&nbsp;</P>
+<P>Momenteel zijn Lengte, Gewicht en Linkshandigheid als standaard parameters toegevoegd.&nbsp;</P>
+<P>Daarnaast zijn er 3 parameters die door de gebruiker zelf gedefiniëerd kunnen worden.&nbsp;</P>
+<P>In het menu Instellingen / Patient Gegevens / Extra Patient Parameters kunnen de extra parameters door de gebruiker worden gedefiniëerd. Eenmaal gedfiniëerd en gebruikt, dienen deze parameters niet meer gewijzigd te worden, daar de opslag niet op basis van de naam maar op basis van het veldnummer geschiedt.&nbsp;</P>
+<P>&nbsp;<IMG width=354 height=105 src="pat_parameters.gif"></P>
+<P>Het zichtbaar zijn van de extra patient gegevens wordt standaard ingesteld via&nbsp;</P>
+<P>&nbsp;&nbsp; Instel / Scherm Layout / Extra Patient Parameters</P>
+<P>Daarnaast kan het al dan niet zichtbaar zijn worden getoggeld, middels de knop ExtraPars.&nbsp;</P>
+<P>De knop ExrtraPars is op zijn beurt ook al dan niet zichtbaar te maken via&nbsp;</P>
+<P>&nbsp;&nbsp; Instel / Scherm Layout / Knop Extra Parameters</P>
+<P>&nbsp;<IMG width=540 height=373 src="instel_patgeg.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Patient Gegevens, Extra Tekst</SPAN><A href="patient_gegevens.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Met behulp van "Extra Text" kan per patient extra tekst worden opgeslagen,&nbsp;</P>
+<P>zoals hieronder is weergegeven.&nbsp;</P>
+<P>Het betreft gewone kale tekst.&nbsp;</P>
+<P>Met behulp van de knop Datum/Tijd kan op de plaats van de cursor de actuele dataum en tijd worden ingevuld.</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=174 height=406 src="test_knoppen.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;<IMG width=799 height=201 src="extra_textgegevens.gif">&nbsp;&nbsp;</P>
+</BODY></HTML>

@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="generator"
+ content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+  <meta name="author" content="Stef Mientki">
+  <title>model</title>
+</head>
+<body text="#000000" bgcolor="#8fd6f3" link="#003399" vlink="#003399"
+ alink="#cccccc">
+<a name="top"></a>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td align="center" valign="CENTER" rowspan="2" width="25%"><font
+ face="Arial,Helvetica"><a href="../midorg.html">MID TestOrganizer</a></font></td>
+      <td align="center" valign="CENTER" width="50%" height="40"
+ bgcolor="#3333ff">
+      <center><b><font face="Arial,Helvetica"><font color="#ffff00">MID
+TestOrganizer Installatie Programma</font></font></b></center>
+      </td>
+      <td align="center" valign="CENTER" rowspan="2"><b><font
+ face="Arial,Helvetica"><font color="#000099">&nbsp;</font></font></b></td>
+    </tr>
+    <tr>
+      <td align="center" valign="CENTER" height="40" bgcolor="#ffff00"><b><font
+ face="Arial,Helvetica"><font color="#3333ff">Creatie van een
+Installatie Medium</font></font></b></td>
+    </tr>
+  </tbody>
+</table>
+<p> </p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<hr width="100%">
+<center><b><font face="Arial,Helvetica"><font color="#000099">Versie
+1.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vrijgave&nbsp; 22-01-2002</font></font></b></center>
+<hr width="100%"><b><font face="Arial,Helvetica"><font color="#000099">22-01-2002&nbsp;</font></font></b><a
+ href="#top"><img src="top_page.gif" height="14" width="14"></a> <br>
+<img src="redarrow.gif" height="12" width="12"><font
+ face="Arial,Helvetica"> Starten vanuit directory "D:\MidOrg Installatie
+Bron" (hier na te noemen de root)</font> <br>
+<img src="redarrow.gif" height="12" width="12"> Dongle installatie (voor
+het geval de dongle niet gelijk herkend wordt) toegevoegd aan Root <br>
+<img src="redarrow.gif" height="12" width="12"> I.p.v. bepaalde
+bestanden uit de root te kopieren, wordt de gehele root altijd
+gekopieerd. <br>
+&nbsp;
+<p> </p>
+<hr width="100%">
+<center><b><font face="Arial,Helvetica"><font color="#000099">Versie
+1.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vrijgave&nbsp; 20-12-2000</font></font></b></center>
+<hr width="100%"><b><font face="Arial,Helvetica"><font color="#000099">20-12-2000&nbsp;</font></font></b><a
+ href="#top"><img src="top_page.gif" height="14" width="14"></a> <br>
+<img src="redarrow.gif" height="12" width="12"><font
+ face="Arial,Helvetica"> Overbodige delphi-3 help installaties verwijderd</font> <br>
+<img src="redarrow.gif" height="12" width="12"><font
+ face="Arial,Helvetica"> Donglenummers voor NeuroPsycho aangepast</font> <br>
+&nbsp;
+<p> </p>
+<hr width="100%">
+<center><b><font face="Arial,Helvetica"><font color="#000099">Start
+invoering Versienummer</font></font></b>
+<hr width="100%"></center>
+<b><font face="Arial,Helvetica"><font color="#000099">Nieuw
+7-12-1999&nbsp;</font></font></b><a href="#top"><img src="top_page.gif"
+ height="14" width="14"></a> <br>
+<img src="redarrow.gif" height="12" width="12"><font
+ face="Arial,Helvetica"> BIVBX11.DLL + MSCOMM.VBX meegenomen in
+windwos/system list (nodig voor Midac)</font> <br>
+<img src="redarrow.gif" height="12" width="12"><font
+ face="Arial,Helvetica"> Help files werden dubbel ge&iuml;nstalleerd,
+(met zeer veel hernoemingen), bug fixed</font> <br>
+<img src="redarrow.gif" height="12" width="12"><font
+ face="Arial,Helvetica"> Bestandenlijst werd te lang voor gewoon memo,
+vervangen door richedit geeft problemen met naar onder schuiven,
+derhalve maar gewoon een tlabel</font>
+<p><a name="creatie van een installatie"></a><b><font
+ face="Arial,Helvetica"><font color="#000099">Creatie van een
+installatie&nbsp;</font></font></b><a href="#top"><img
+ src="top_page.gif" height="14" width="14"></a> <br>
+<font face="Arial,Helvetica">Programma (door de toevoeging van de
+parameter CREATE wordt creatie i.p.v. installatie gestart)</font> <br>
+<font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;
+c:\data\_install\install.exe&nbsp;&nbsp; create</font> <br>
+<font face="Arial,Helvetica">Gegevens voor de installatie staan in</font> <br>
+<font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; &lt;programma
+directory&gt;\install.ini</font> <br>
+<font face="Arial,Helvetica">oftewel</font> <br>
+<font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;
+c:\data\_install\install.ini</font> <br>
+<font face="Arial,Helvetica">In tegenstelling tot de feitelijke
+installatie worden bestanden die overschreven dreigen te raken niet
+hernoemd, maar gewoon overschreven.</font> <br>
+&nbsp; </p>
+<p><a name="het configuratie bestand install.ini"></a><b><font
+ face="Arial,Helvetica"><font color="#000099">Het configuratie bestand
+INSTALL.INI&nbsp;</font></font></b><a href="#top"><img
+ src="top_page.gif" height="14" width="14"></a> <br>
+<font face="Arial,Helvetica">Als eerste worden alle te defini&euml;ren
+modules genoemd, de module-naam vormt tevens de section-name, waarin de
+specifieke gegevens van de betreffende module staan</font> </p>
+<blockquote><font face="Arial,Helvetica">[Modules]</font> <br>
+  <font face="Arial,Helvetica">aantal=10</font> <br>
+  <font face="Arial,Helvetica">module 1=MID TestOrganizer</font> <br>
+  <font face="Arial,Helvetica">module 2=Battery</font> <br>
+  <font face="Arial,Helvetica">module 3=Vraaglst</font> <br>
+  <font face="Arial,Helvetica">module 4=Actilog</font> <br>
+  <font face="Arial,Helvetica">module 5=NeuroPsycho</font> <br>
+  <font face="Arial,Helvetica">module 6=PolyGraf</font> <br>
+  <font face="Arial,Helvetica">module 7=PolyScan</font> <br>
+  <font face="Arial,Helvetica">module 8=SpraakAnalyse</font> <br>
+  <font face="Arial,Helvetica">module 9=Tabellen</font> <br>
+  <font face="Arial,Helvetica">module 10=Excel</font></blockquote>
+<font face="Arial,Helvetica">Vervolgens komen de afzonderlijke gegevens
+van iedere module</font> <br>
+<font face="Arial,Helvetica"><b>Basepath</b> (waar de programma's komen
+te staan): hier ontbreekt enkel de driveletter, vandaar dat deze met een
+dubbele-punt begint</font> <br>
+<font face="Arial,Helvetica"><b>Protocolpath</b> (waar de
+testprotocollen komen te staan) is enkel een subpath dat wordt
+toegevoegd aan het basepath</font> <br>
+<font face="Arial,Helvetica"><b>Datapath</b> (waar de testopnamen en
+patientgegevens komen te staan) eveneens enkel een subpath dat wordt
+toegevoegd aan het basepath.</font> <br>
+<font face="Arial,Helvetica"><b>Enable</b> geeft de default aan bij de
+creatie van de module (false=geen installatie cre&euml;ren)</font> <br>
+<font face="Arial,Helvetica"><b>Inifile</b> (komt alleen voor bij het
+hoofdprogramma) geeft de default inifile aan, welke bij installatie ook
+de ingestelde waarden meekrijgt, zodat direct gestart kan worden zonder
+instellingen te wijzigen.</font>
+<p><font face="Arial,Helvetica"><b>Source_aantal</b>, het aantal
+programma source-regels dat volgt</font> <br>
+<font face="Arial,Helvetica"><b>Source1</b>, programma bestanden die
+moeten worden gekopi&euml;erd (mag normale dos-wildcards bevatten)</font> </p>
+<p><font face="Arial,Helvetica"><b>Protocol_aantal</b>, het aantal
+testprotocol source-regels dat volgt</font> <br>
+<font face="Arial,Helvetica"><b>Protocol1</b>, testprotocol bestanden
+die moeten worden gekopi&euml;erd (mag normale dos-wildcards bevatten)</font> </p>
+<p><font face="Arial,Helvetica">Hierna komen allerlei bestanden, welke
+worden ondergebracht in prog / prot / data directory</font> <br>
+<font face="Arial,Helvetica"><b>Vb_prog_aantal</b>, het aantal
+voorbeeld regels dat volgt</font> <br>
+<font face="Arial,Helvetica"><b>Vb_prog1</b>, voorbeeld bestanden die
+moeten worden gekopi&euml;erd (mag normale dos-wildcards bevatten) naar
+de programma directory.</font> <br>
+<font face="Arial,Helvetica"><b>Vb_prog_dest1</b>, subpath, toegevoegd
+aan het algemene programma-path, waar naar toe bovenstaande bestanden
+worden gekopieerd.</font> </p>
+<p><font face="Arial,Helvetica">idem te kopieren naar protocol directory</font> <br>
+<b><font face="Arial,Helvetica">Vb_prot_aantal</font></b> <br>
+<b><font face="Arial,Helvetica">Vb_prot1</font></b> <br>
+<b><font face="Arial,Helvetica">Vb_prot_dest1</font></b> </p>
+<p><font face="Arial,Helvetica">idem te kopieren naar data directory</font> <br>
+<b><font face="Arial,Helvetica">Vb_data_aantal</font></b> <br>
+<b><font face="Arial,Helvetica">Vb_data1</font></b> <br>
+<b><font face="Arial,Helvetica">Vb_data_dest1</font></b> <br>
+&nbsp; <br>
+&nbsp; </p>
+<blockquote><font face="Arial,Helvetica">[MID TestOrganizer]</font> <br>
+  <font face="Arial,Helvetica">ProgSize=2500</font> <br>
+  <font face="Arial,Helvetica">DataSize=10</font> <br>
+  <font face="Arial,Helvetica">Enable=1</font> <br>
+  <font face="Arial,Helvetica">BasePath=:\data\aap\</font> <br>
+  <font face="Arial,Helvetica">DataPath=mid-data\</font> <br>
+  <font face="Arial,Helvetica">ProtocolPath=protocol\</font> <br>
+  <font face="Arial,Helvetica">Inifile=mid_org.ini</font> <br>
+  <font face="Arial,Helvetica">source_aantal=7</font> <br>
+  <font face="Arial,Helvetica">source1=c:\data\d3_morg\mid_org.exe</font> <br>
+  <font face="Arial,Helvetica">source2=c:\data\d3_morg\mid_org.ini</font> <br>
+  <font face="Arial,Helvetica">source3=c:\data\d3_morg\ih_*.hpl</font> <br>
+  <font face="Arial,Helvetica">source4=c:\data\d3_morg\spromeps.obj</font> <br>
+  <font face="Arial,Helvetica">source5=c:\data\d3_morg\help\*.htm</font> <br>
+  <font face="Arial,Helvetica">source6=c:\data\d3_morg\help\*.gif</font> <br>
+  <font face="Arial,Helvetica">source7=c:\data\d3_morg\help\*.jpg</font>
+  <p><font face="Arial,Helvetica">[Vraaglst]</font> <br>
+  <font face="Arial,Helvetica">ProgSize=800</font> <br>
+  <font face="Arial,Helvetica">DataSize=1000</font> <br>
+  <font face="Arial,Helvetica">Enable=1</font> <br>
+  <font face="Arial,Helvetica">DataPath=Vraaglst\</font> <br>
+  <font face="Arial,Helvetica">ProtocolPath=Vraaglst\</font> <br>
+  <font face="Arial,Helvetica">source_aantal=5</font> <br>
+  <font face="Arial,Helvetica">source1=c:\data\d3_vrgl\vrlst.exe</font> <br>
+  <font face="Arial,Helvetica">source2=c:\data\d3_vrgl\vrlst.ini</font> <br>
+  <font face="Arial,Helvetica">source3=c:\data\d3_vrgl\htm_help\*.htm</font> <br>
+  <font face="Arial,Helvetica">source4=c:\data\d3_vrgl\htm_help\*.gif</font> <br>
+  <font face="Arial,Helvetica">source5=c:\data\d3_vrgl\htm_help\*.jpg</font> <br>
+  <font face="Arial,Helvetica">protocol_aantal=1</font> <br>
+  <font face="Arial,Helvetica">protocol1=c:\data\~midorg\protocol\vraaglst\test_all.vli</font> </p>
+  <p><font face="Arial,Helvetica">vb_data_aantal=2</font> <br>
+  <font face="Arial,Helvetica">vb_data1=c:\data\~midorg\mid-data\patient\patient.pat</font> <br>
+  <font face="Arial,Helvetica">vb_data_dest1=patient\</font> <br>
+  <font face="Arial,Helvetica">vb_data2=c:\data\~midorg\mid-data\vraaglst\test_all\patient*.*</font> <br>
+  <font face="Arial,Helvetica">vb_data_dest2=vraaglst\test_all\</font> <br>
+&nbsp;</p>
+</blockquote>
+<a name="mogelijke verbeteringen installatie programma"></a><b><font
+ face="Arial,Helvetica"><font color="#000099">Mogelijke Verbeteringen
+Installatie Programma&nbsp;</font></font></b><a href="#top"><img
+ src="top_page.gif" height="14" width="14"></a> <br>
+&nbsp;
+<p><a name="mogelijke verbeteringen"></a><b><font face="Arial,Helvetica"><font
+ color="#000099">Mogelijke Verbeteringen Installatie Creatie</font></font></b><a
+ href="#top"><img src="top_page.gif" height="14" width="14"></a> <br>
+<font face="Arial,Helvetica"><font color="#000000">- bestanden sorteren
+alvorens te kopi&euml;ren</font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">- editten van de
+inifile</font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">- omvang van de
+verschillende onderdelen dynamisch meten en opslaan in installatie
+bestand</font></font> <br>
+<font face="Arial,Helvetica">- er zijn nog problemen met de directories
+'vragenlijst' t.o.v.'vraaglst', bij het installeren, niet bij het creeren</font> </p>
+<p> </p>
+<hr width="100%"><font size="-2">&COPY; Copyright Instrumentele Dienst,
+1999</font> <br>
+<a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height="18"
+ width="29"></a><font size="-2">SM, last updated 16-06-1999</font>
+</body>
+</html>

@@ -1,0 +1,8 @@
+Deze funktie voert de analyse van de autonome neuropathie 
+test. Tijdens de analyse wordt als output een ander signaal 
+gegeven dan de antwoorden na de analyse.
+
+De antwoorden komen beschikbaar in een (excell) bestand
+door tijdens geëxport te selecteren op 'lastsample >= 1'
+en de juiste uitgangssignalen te selecteren.
+

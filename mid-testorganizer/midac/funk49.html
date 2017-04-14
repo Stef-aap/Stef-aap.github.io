@@ -1,0 +1,122 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunktie 49, 4-kanaals Brom Filter</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 49</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A></P>
+<P><A class=RVTS4 href="#inputs:">Ingangen</A></P>
+<P><A class=RVTS4 href="#outputs:">Uitgangen</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>4-kanaals Brom Filter</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="uitgebreide omschrijving"></A>
+Omschrijving&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Dit is een eenvoudig (en dus snel) bromfilter voor 4 kanalen simultaan.</P>
+<P>De filtering wordt verzorgd door een moving average filter, waarvan de filterlengte automatisch wordt aangepast aan de samplefrekwentie, volgens de volgende formule:</P>
+<P>&nbsp;&nbsp; filterlengte = samplefrequency / 50</P>
+<P>Dit filter werkt dus enkel voor samplefrekwenties die een veelvoud van 50 Hz zijn, hetgeen in Midac altijd het geval zal zijn.</P>
+<P>Hogere harmonische worden eveneens uitgefilterd, omdat de overdrachtsfunctie een sin(x)/x is met nulpunten op 50 Hz en veelvouden hiervan.</P>
+<P>Een nadeel kan zijn dat hogere frekwenties dus ook worden verzwakt.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="inputs:"></A>
+Inputs:<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=80 valign=middle>
+<P>1 = Signaal 1</P></TD>
+<TD width=80% valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>2 = Signaal 2</P></TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>3 = Signaal 3</P></TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>4 = Signaal 4</P></TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="outputs:"></A>
+Outputs:&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=200 valign=middle>
+<P>1 = Signaal 1 gefilterd</P></TD>
+<TD width=80% valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>2 = Signaal 2 gefilterd</P></TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>3 = Signaal 3 gefilterd</P></TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>4 = Signaal 4 gefilterd</P></TD>
+<TD valign=middle>&nbsp;
+</TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="parameters:"></A>
+Parameters:<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>1 = future use</P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst 1999</P>
+<P>SM/GvV, last updated 23-09-1999</P>
+</BODY></HTML>

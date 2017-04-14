@@ -1,0 +1,102 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunctie 12</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 12</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A>&nbsp;|&nbsp;<A class=RVTS4 href="#algoritme">Algoritme</A></P>
+<P><A class=RVTS4 href="#bijzonderheden">Bijzonderheden</A>&nbsp;|&nbsp;<A class=RVTS4 href="#toepassing">Toepassing</A></P>
+<P><A class=RVTS4 href="funk12f.html">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Multi Timer 2</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Omschrijving</P>
+<P>Met deze funktie kan een tijd of een serie tijden worden afgeteld. De teleenheid bedraagt 1 seconde.</P>
+<P>Nadat de eerste teller is afgelopen, start de tweede teller etc. Tellers met een een ingestelde waarde van 0 doen niet mee, derhalve moet de eerste teller ongelijk nul zijn. De aktieve teller wordt aangegeven in het uitgangssignaal mode, zodat dit zichtbaar gemaakt kan worden.</P>
+<P>De teller is identiek aan rekenfunktie 8, echter nu kan de timercyclus getriggerd worden doordat het ingangssignaal een drempel overschreidt. Als de timer eenmaal getriggerd is, doorloopt de timer 1 en niet meer dan 1 volledige cyclus.</P>
+<P><A name="bijzonderheden"></A>
+Bijzonderheden<IMG width=15 height=15 src="greenbal.gif">3 in serie geschakelde timers (eenvoudig uitbreidbaar in de toekomst)</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">up of down counting</P>
+<P>&nbsp;<IMG width=15 height=15 src="greenbal.gif">triggered (one-shot) als ingangssignaal boven ingestelde drempelInputs</P>
+<P>1=Trigger als TRIGGER groter dan drempel wordt de timercyclus gestart</P>
+<P>Outputs</P>
+<P>1=Mode de mode 0=stopped, 1=timer1, 2=timer2, etc</P>
+<P>2=Counter teller uitgang</P>
+<P>Parameters</P>
+<P>drempel de grens waarboven de timercyclus gestart wordt</P>
+<P>down/up counting true=down counting</P>
+<P>timer 1 preset waarde van timer 1</P>
+<P>timer 2 preset waarde van timer 2</P>
+<P>timer 3 preset waarde van timer 3</P>
+<P><A name="algoritme"></A>
+Algoritme</P>
+<P>De eerste keer is de tellerwaarde voor start van de teller anders dan de volgende keren. Dit is bewust gedaan om te kunnen constateren dat de timer minstens 1 maal is afgelopen.</P>
+<P>Bij upcounting is de startwaarde de EERSTE keer 0, bij een 3 seconde teller verloopt de telling dan als volgt:</P>
+<P>voor start =0</P>
+<P>eerste seconde =0</P>
+<P>tweede seconde =1</P>
+<P>derde seconde =2</P>
+<P>vierde seconde =3 bij het begin van de vierde seconde is de ingestelde tijd bereikt</P>
+<P>De tweede keer verloopt de telling identiek</P>
+<P>voor start =3 (LET OP, dit is anders dan de eerste keer)</P>
+<P>eerste seconde =0</P>
+<P>etc.</P>
+<P>Voor downcounting geldt hetzelfde, waarbij de eerste keer de waarde voor start gelijk is aan de af te tellen waarde, bij een volgende keer is de waarde voor start gelijk aan 0</P>
+<P><A name="toepassing"></A>
+Gebruik</P>
+<P>Een typisch gebruik van deze timer is het verrichten van een aantal verschillende testen, waarbij de testen telkens handmatig gestart worden door het activeren van de juiste marker, en waarbij automatische de opname gestart en gepauzeerd wordt, zoals bijvoorbeeld gewenst bij de ‘autonome neuropathie" test.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Marker1 start Timer1</P>
+<P>Timer1 enabled Opname (eventueel slechts in een deel van de timercyclus)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>idem:</P>
+<P>Marker2 start Timer2</P>
+<P>Timer2 enabled Opname (eventueel slechts in een deel van de timercyclus)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Op deze wijze worden in 1 opname een aantal testen verzameld, bovendien kan men binnen de opname een test herhalen, waarbij een juist scanning export algoritme de laatste versie voor een berekening kan nemen.</P>
+<P>Bovenstaande funkties kunnen met 1 rekenkanaal worden gerealiseerd:</P>
+<P>system signaal marker_2</P>
+<P>functie timer2</P>
+<P>functie opname enable</P>
+<P>Toekomstige uitbreidingen<IMG width=15 height=15 src="greenbal.gif">indien behoefte: een groter aantal aaneengeschakelde timers</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

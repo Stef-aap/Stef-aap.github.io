@@ -1,0 +1,91 @@
+<HTML><HEAD><TITLE>MIDAC Programmeren in Delphi</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE PAGINA</P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Eigen rekenfuncties in DLL's</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Met iedere programmeer-tool, waarmee windows DLL's kunnen worden gemaakt, kunnen nieuwe rekenfuncties worden toegevoegd.&nbsp;</P>
+<P>Een aantal rekenfuncties is voorbestemd om aangeroepen te worden vanuit een DLL. Door het aanpassen van deze DLL's kunt u nagenoeg alles uitvoeren dat de ingebouwde rekenfuncties ook kunnen.&nbsp;</P>
+<P>Ondermeer de volgende functionaliteiten staan ter beschikking van eigen DLL's&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>geen, 1 of meer ingangssignalen binnen krijgen&nbsp;</LI>
+<LI>geen, 1 of meer uitgangssignalen genereren&nbsp;</LI>
+<LI>eigen grafieken of tabellen maken in eigen vensters&nbsp;</LI>
+<LI>nagenoeg alle systeem signalen staan direct ter beschikking (zonder ze eerst als ingangssignaal te definiëren)&nbsp;</LI>
+<LI>pre-scans op de data uitvoeren&nbsp;</LI>
+<LI>signalen in bepaalde tijdsvensters exporteren&nbsp;</LI>
+<LI>alle parameter instellingen kunnen door Midac in de config file worden bewaard&nbsp;</LI>
+</UL>
+<P>Rekenfuncties in DLL's hebben de volgende nadelen en/of beperkingen&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>enkele systeem variabelen zijn niet bereikbaar, teneinde de stabiliteit van het programma beter in de hand te houden&nbsp;</LI>
+<LI>focus terugzetten op Midac gaat niet (eenvoudig), en zolang het focus op een DLL-form staat, komen de toetsen niet bij Midac&nbsp;</LI>
+<LI>popup forms hebben een iritant stay-on-top gedrag&nbsp;</LI>
+<LI>popup forms kunnen niet automatisch door Midac gepositioneerd worden&nbsp;</LI>
+</UL>
+<P>Voorbeeld; rekenfunktie 57 laat een groot aantal van bovenstaande aspecten zien.&nbsp;</P>
+<P>Alle van belang zijnde globals zijn gedefiniëerd in funkclas_types.pas&nbsp;</P>
+<P>Alle parameters worden enkel de volgende formats gebruikt:&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>integer, een standaard 4 bytes integer&nbsp;</LI>
+<LI>longbool, een standaard 4 bytes boolean&nbsp;</LI>
+<LI>pchar, een standaard null terminated string&nbsp;</LI>
+<LI>structuren bestaande uit bovenstaande elementen&nbsp;</LI>
+<HR noshade size=1></LI>
+</UL>
+<P>© Instrumentele Dienst. Bijgewerkt op 27-07-2000&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

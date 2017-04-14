@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Midac, rekenfunctie 71, Positive Puls Analyzer</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #e2e2e2;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="2" /></head>
+<body>
+
+<p>(FF2) <span class=rvts1>RF 2, Onset Systolische Bloeddruk</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="ad-index.html">MIDAC Index</a></p>
+<p class=rvps1><a class=rvts4 href="funk0.html">Overzicht Rekenfuncties</a></p>
+<p class=rvps1><a class=rvts4 href="../mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=0 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td valign=middle>
+<div><table width="100%" border=1 cellpadding=7 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td rowspan=2 width="25%" height=40 valign=middle style="{background-color: #fffff8;}">
+<p>MIDAC</p>
+<p><a class=rvts4 href="../../../midac1.html">Startpagina</a></p>
+<p><a class=rvts4 href="../../../ad-index.html">Inhoudsopgave</a></p>
+<p><a class=rvts4 href="funk0.html">Rekenfuncties</a></p>
+</td>
+<td width="50%" height=20 valign=middle style="{background-color: #3333ff;}">
+<p class=rvps2>MIDAC, rekenfunctie 71</p>
+</td>
+<td rowspan=2 width="25%" height=40 valign=middle style="{background-color: #fffff8;}">
+<p class=rvps2><a class=rvts4 href="#omschrijving">Omschrijving</a></p>
+<p class=rvps2><a class=rvts4 href="#numeriek%20display">Numeriek Display</a></p>
+<p class=rvps2><a class=rvts4 href="#weergave%20instellingen">Weergave Instelling</a></p>
+<p class=rvps2><a class=rvts4 href="#algoritme%20instellingen">Algoritme Instelling</a></p>
+<p class=rvps2><a class=rvts4 href="#algoritme">Algoritme</a></p>
+</td>
+</tr>
+<tr valign=top>
+<td width="50%" height=20 valign=middle style="{background-color: #99ffcc;}">
+<p class=rvps2>Positieve puls analyzer</p>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<p><a name="omschrijving"></a>
+Omschrijving <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Deze methode analyseert een positieve puls.</p>
+<p>Kan bijvoorbeeld gebruikt worden voor de analyse van bloeddruk, plethysmograaf en spiercontraties.</p>
+<div><table width="100%" border=1 cellpadding=2 cellspacing=2 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=395 valign=top>
+<p> De rode curve is het orginele signaal (in dit geval de kracht van een ratte spiervezel).</p>
+<p>Duidelijk is te zien dat het signaal verontreinigd is met een hoogfrequent modulatie (ongeveer 100 Hz), welke vermoedelijk afkomstig is van het lichtnet .</p>
+<p> De donker-blauwe curve is het gefilterde signaal op uitgangskanaal 1. In dit geval is een 50Hz notch filter gebruikt. Duidelijk is te zien dat het signaal enigszins wordt vertraagd als gevolg van de filtering, maar de vorm wordt niet of nauwelijks aangetast. Indien, om hetzelfde effect te verkrijgen, gefilterd zou zijn met een laagdoorlaatfilter, zou met name de opgaande flank van het signaal minder steil worden.</p>
+<p> Het gele signaal is de afgeleide van het gefilterde signaal. Door de wijze van afgeleide berekening, wordt het afgeleide signaal automatisch gefilterd.</p>
+<p> Het licht-blauwe signaal geeft de status van de detector aan. Op het moment dat deze de waarde 4 aannneemt (slechts 1 sample), zijn alle berekende waarden beschikbaar, bijvoorbeeld t.b.v. export.</p>
+</td>
+<td width=288 valign=top>
+<p><img width=249 height=229 alt="" src="funk71a.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<div><table width="100%" border=1 cellpadding=2 cellspacing=2 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=396 valign=top>
+<p> Het rode signaal is de afgeleide van het gefilterde signaal.</p>
+<p> Het blauwe signaal is het maximum van de afgeleide.</p>
+<p> Het gele signaal is het minimum van de afgeleide.</p>
+<p> Het groene signaal is het aantal samples vanaf het maximum signaal tootaan het minumum van de afgeleide.</p>
+</td>
+<td width=287 valign=top>
+<p><img width=234 height=178 alt="" src="funk71b.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p> Ingangs Signalen</p>
+<p>1&nbsp;&nbsp;&nbsp; te analyseren signaal met positieve pulsen</p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=2 cellspacing=2 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td valign=top>
+<p>Uitgangs Signalen</p>
+</td>
+<td valign=top>
+<p>De signalen 1,4,5,6, worden gekalibreerd volgens het ingangssignaal</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>1=gefilterd signaal</p>
+</td>
+<td valign=top>
+<p>Het signaal kan worden gefilterd met een eerst orde laagdoorlaat fileter en of een moving avearge 50 Hz notch filter.</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>2=afgeleide</p>
+</td>
+<td valign=top>
+<p>De afgeleide van het signaal wordt bepaald op het gefilterde signaal</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>3=detector state</p>
+</td>
+<td valign=top>
+<p>0 = no pulse</p>
+<p>1= positieve flank</p>
+<p>2,3 = negatieve flank</p>
+<p>4 = puls detectie gereed, alle uitgangsvariabelen zijn nu geldig. Deze toestand is slechts 1 sample geldig, zodat deze toestand speciaal geschikt is als voorwaarde voor de export.</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>4=minimum</p>
+</td>
+<td valign=top>
+<p>Het minimum van het signaal wordt bepaald door&nbsp; vanaf het punt waar de pulsdetectie is gestart 0.2 seconde terug te lopen en te zoeken naar het minimum in het gefilterde signaal.</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>5=maximum</p>
+</td>
+<td valign=top>
+<p>het maximum van het signaal</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>6=max-min</p>
+</td>
+<td valign=top>
+<p>het verschil tussen maximum en minimum signaal</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>7=oppervlakte stijgend</p>
+</td>
+<td valign=top>
+<p>het oppervlakte (de som van alle samples, t.o.v. de basislijn=minimum van het signaal).</p>
+<p>Met behulp van de "Oppervalket Gain" kan dit signaal verzwakt worden.</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>8=samples stijgend</p>
+</td>
+<td valign=top>
+<p>Het aantal samples waarover het bovenstaande oppervlakte is berekend</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>9=oppervalkte dalend</p>
+</td>
+<td valign=top>
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>10=samples dalend</p>
+</td>
+<td valign=top>
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>11=max afgeleide</p>
+</td>
+<td valign=top>
+<p>het maximum van de afgeleide</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>12=min afgeleide</p>
+</td>
+<td valign=top>
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p>13=Smax...dS/dtmin</p>
+</td>
+<td valign=top>
+<p>De afstand (in samples) van het maximum van het signaal tot aan de sterkste daling (minimum van de afgeleide)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>Instellingen</p>
+<div><table width="100%" border=1 cellpadding=2 cellspacing=2 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=425 valign=top>
+<p>Hiernaast de instellingen zoals gebruikt bij het meten ene analyseren van de contartie van spiervezels, opgenomen met 500 Hz.</p>
+<p> LDF staat op 100 Hz en is daarmee dus uitgeschakeld.</p>
+<p> Nadat de optimale filtering is vastgesteld, worden de differentie instellingen gezet.</p>
+<p>Differentiatie vindt plaats middels de "average sloop methode", en dus hoe langer de lengte, hoe meer gefilterd de afgeleide zal zijn.</p>
+<p>Differentie gain is bedoeld om het signaal zichtbaar (en detecteerbaar) te maken.</p>
+<p>De differentie drempel is de detectie drempel van de pulsdetector en werkt op het versterkte afgeleide signaal.</p>
+</td>
+<td width=258 valign=top>
+<p><img width=175 height=215 alt="" src="funk71c.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<hr noshade size=1 >
+<p>© Copyright Instrumentele Dienst <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>SM/GvV&nbsp; 05-02-2000</p>
+
+</body></html>

@@ -1,0 +1,274 @@
+<HTML><HEAD><TITLE>Vragenlijst, export</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #F0EEEE;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Vragenlijst Export</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="vrg_indx.html#top">Vragenlijst Module</A></P>
+<P class=RVPS1><A class=RVTS4 href="userindx.html">Gebruikers Documentatie</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Export</SPAN></P>
+<P>kies in de testprotocol-lijst de gewenste vragenlijst</P>
+<P>druk op de knop EXPORT</P>
+<P>nu verschijnt een venster waarin de exportbestanden staan vermeld</P>
+<P>pas zonodig patiëntmasker en/of uitvoerbestand aan</P>
+<P>druk op START</P>
+<P>nu verschijnt een venster, waarin specifieke export mogelijkheden voor de vragenlijst kunnen worden ingesteld</P>
+<P>kolomtitels en patiëntgegevens</P>
+<P>druk op start</P>
+<P>&nbsp;&nbsp;</P>
+<P>de patientbestanden worden in alfabetische volgorde doorlopen</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="datums"></A>
+<SPAN class=RVTS2>Datums&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>De datums die door de exportfunctie worden weggeschreven zijn Y2K-proof, ongeacht of de brondatum dit was of niet.</P>
+<P>Omdat sommige programma's problemen hebben met het herkennen van datums, wordt een datum op verschillende manieren (in verschillende kolommen) weergegegeven:</P>
+<P>&nbsp;&nbsp;&nbsp; ..dat&nbsp;&nbsp;&nbsp;&nbsp; dd-mm-yyyy</P>
+<P>&nbsp;&nbsp;&nbsp; ..dat1&nbsp;&nbsp;&nbsp; dd</P>
+<P>&nbsp;&nbsp;&nbsp; ..dat2&nbsp;&nbsp;&nbsp; mm</P>
+<P>&nbsp;&nbsp;&nbsp; ..dat3&nbsp;&nbsp;&nbsp; yyyy</P>
+<P>&nbsp;&nbsp;&nbsp; ..dat4&nbsp;&nbsp;&nbsp; &lt;aantal dagen sinds 1-1-1900&gt;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="kolomtitels"></A>
+<SPAN class=RVTS2>Kolomtitels&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Om de tabel duidelijker te maken, worden in onderstaande voorbeelden de volgende gegevens gebruikt (in plaats van meta-data beschrijvingen):</P>
+<P>&nbsp;&nbsp;&nbsp; spss-prefix = 'BOA_'</P>
+<P>&nbsp;&nbsp;&nbsp; vraagnummer = 7</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Vraagsoort/gegevens</P></TD>
+<TD valign=middle>
+<P>Kolom Titel</P></TD>
+<TD valign=middle>
+<P>Opmerkingen</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>algemene gegevens</P></TD>
+<TD valign=top>
+<P>patnr</P>
+<P>BOA_vlnr</P>
+<P>BOA_fildat</P>
+<P>BOA_fildat1</P>
+<P>BOA_fildat2</P>
+<P>BOA_fildat3</P>
+<P>BOA_fildat4</P></TD>
+<TD valign=top>
+<P>patientnummer (geen spss-prefix)</P>
+<P>volgnummer van de test</P>
+<P>bestandsdatum dd-mm-yyyy</P>
+<P>bestandsdatum dd</P>
+<P>bestandsdatum mm</P>
+<P>bestandsdatum yyyy</P>
+<P>bestandsdatum aantal dagen sinds 1-1-1900</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>patient gegevens</P></TD>
+<TD valign=top>
+<P>naam</P>
+<P>gebdat</P>
+<P>gebdat1</P>
+<P>gebdat2</P>
+<P>gebdat3</P>
+<P>gebdat4</P>
+<P>mv</P></TD>
+<TD valign=top>
+<P>naam van de patient (kan onderdrukt worden)</P>
+<P>geboortedatum dd-mm-yyyy</P>
+<P>geboortedatum dd</P>
+<P>geboortedatum mm</P>
+<P>geboortedatum yyyy</P>
+<P>geboortedatum aantal dagen sinds 1-1-1900</P>
+<P>sexe</P>
+<P>De patient gegevens zijn niet voorzien van een spss-prefix, daar deze vragenlijst onafhankelijk zijn.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Subschalen</P></TD>
+<TD valign=top>
+<P>BOA_moe</P>
+<P>BOA_claus</P>
+<P>BOA_TOT</P></TD>
+<TD valign=top>
+<P>eerste subschaal (prefix + afkorting van de subschaal)</P>
+<P>tweede subschaal</P>
+<P>TOTAAL van allle subschalen</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>meerkeuze, 1 antwoord</P></TD>
+<TD valign=middle>
+<P>BOA_V7</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>meerkeuze, meer antwoorden</P></TD>
+<TD valign=top>
+<P>BOA_V7a</P>
+<P>BOA_V7b</P>
+<P>BOA_V7d</P>
+<P>...</P></TD>
+<TD valign=top>
+<P>antwoord op eerste subvraag</P>
+<P>antwoord op tweede subvraag</P>
+<P>antwoord op vierde subvraag (derde subvraag is niet aanwezig in deze vragenlijst en dus ontbreekt BOA_V7c)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>numerieke vraag</P></TD>
+<TD valign=middle>
+<P>BOA_V7</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>thermometer vraag</P></TD>
+<TD valign=middle>
+<P>BOA_V7</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>vrij antwoord</P></TD>
+<TD valign=middle>
+<P>BOA_V7</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>enkelvoudige blokvraag</P></TD>
+<TD valign=top>
+<P>BOA_V7a</P>
+<P>BOA_V7b</P>
+<P>BOA_V7d</P>
+<P>...</P></TD>
+<TD valign=top>
+<P>antwoord op eerste subvraag</P>
+<P>antwoord op tweede subvraag</P>
+<P>antwoord op vierde subvraag (derde subvraag is niet aanwezig in deze vragenlijst en dus ontbreekt BOA_V7c)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>dubbel blokvraag</P></TD>
+<TD valign=top>
+<P>BOA_V7a1</P>
+<P>BOA_V7a2</P>
+<P>BOA_V7b1</P>
+<P>BOA_V7b2</P>
+<P>BOA_V7d1</P>
+<P>BOA_V7d2</P>
+<P>...</P></TD>
+<TD valign=top>
+<P>antwoord op eerste subvraag, eerste blok</P>
+<P>antwoord op eerste subvraag, tweede blok</P>
+<P>antwoord op tweede subvraag, eerste blok</P>
+<P>antwoord op tweede subvraag, tweede blok</P>
+<P>antwoord op vierde subvraag, eerste blok</P>
+<P>antwoord op vierde subvraag, tweede blok</P>
+<P>(derde subvraag is niet aanwezig in deze vragenlijst en dus ontbreekt BOA_V7c1 en BOA_V7c2)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>kindervraag</P></TD>
+<TD valign=middle>
+<P>BOA_V7</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="antwoorden"></A>
+<SPAN class=RVTS2>Antwoorden&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Vraagsoort/gegevens</P></TD>
+<TD valign=middle>
+<P>Opmerkingen</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>meerkeuze, 1 antwoord</P></TD>
+<TD valign=middle>
+<P>positief getal = het volgnummer van het antwoord</P>
+<P>0 = niet beantwoord</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>meerkeuze, meer antwoorden</P></TD>
+<TD valign=top>
+<P>0 = subvraag niet aangekruist</P>
+<P>1 = subvraag aangekruist</P>
+<P>Omdat ook het aankruisen van geen enkel antwoord bij dit vraagtype geldig is, kan geen detectie op het niet beantwoorden plaatsvinden.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>numerieke vraag</P></TD>
+<TD valign=middle>
+<P>het opgegegeven getal</P>
+<P>-1 = niet beantwoord</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>thermometer vraag</P></TD>
+<TD valign=middle>
+<P>het opgegegeven getal</P>
+<P>-1 = niet beantwoord</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>vrij antwoord</P></TD>
+<TD valign=middle>
+<P>De eerste karakters van het vrije tekstveld.</P>
+<P>Bij de instellingen... kan het gewenste aantal karakters worden opgegegeven.</P>
+<P>Voorafgaande spaties, tabs en regeleinden worden onderdrukt en niet meegeteld.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>enkelvoudige blokvraag</P></TD>
+<TD valign=top>
+<P>het opgegeven antwoord</P>
+<P>0 = niet beantwoord</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>dubbel blokvraag</P></TD>
+<TD valign=top>
+<P>het opgegeven antwoord</P>
+<P>ook het tweede blok telt gewoon vanaf 1 en verder</P>
+<P>0 = niet beantwoord</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>kindervraag</P></TD>
+<TD valign=middle>
+<P>positief getal = het volgnummer van het antwoord</P>
+<P>0 = niet beantwoord</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS12>© Copyright Instrumentele Dienst, 1999-2004</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

@@ -1,0 +1,172 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.61 [en] (Win98; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>Fysio Flex System,  Nellcor Oxi Sensors</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><font face="Arial,Helvetica"><a href="fysio_flex_index.html">Fysio
+Flex System</a></font>
+<p><font face="Arial,Helvetica"><a href="td_ffs_index.html">Design &amp;
+Test</a></font></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">Fysio Flex
+System</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><font face="Arial,Helvetica"><font color="#000000"><a href="#inleiding">Inleiding</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#nellcor sensor aansluitingen">Sensor
+Aansluiting</a></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><a href="#interface schema">Interface</a></font></font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Nellcor
+Oxi Sensor Interface</font></font></b></td>
+</tr>
+</table>
+
+<p><a name="inleiding"></a><b><font face="Arial,Helvetica"><font color="#000099">Inleiding&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<table WIDTH="100%" >
+<tr>
+<td><font face="Arial,Helvetica">De Nellcor Puls-Oxi sensors kunnen via
+een eenvoudig interface kabeltje worden aangesloten op het Fysio Flex System,
+met als doel het meten van de hartslag.&nbsp;</font>
+<br><font face="Arial,Helvetica">Omdat slechts &eacute;&eacute;n van de
+golflengte van de Puls-Oxi sensor wordt gebruikt kan niet de Oxigenatie
+(SpO<sub>2</sub>) worden gemeten.</font>
+<br><font face="Arial,Helvetica">In de toekomst is het misschien mogelijk
+via een software functie de respiratie te meten.</font>
+<br><font face="Arial,Helvetica">Voor experimentele studies kan het gewenst
+zijn de gehele polsgolf in ogenschouw te nemen.</font></td>
+
+<td><img src="nellcor_ds-100a.gif" height=190 width=141></td>
+</tr>
+</table>
+
+<p><a name="nellcor sensor aansluitingen"></a><b><font face="Arial,Helvetica"><font color="#000099">Nellcor
+Sensor aansluitingen&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ROWSPAN="9"><font face="Arial,Helvetica">De nellcor puls-oxi sensors
+bevatten een rode en een infrarode led (golflengten ...???), anti-parallel
+geschakeld tussen de pennen 2 en 3.</font>
+<br><font face="Arial,Helvetica">De detectie gebeurt met een photodiode
+(helaas daglicht gevoelig), tussen de pennen 5 en 9, en afzonderlijk afgeschermd
+door pen 6.</font>
+<br><font face="Arial,Helvetica">De gehele kabel is nogeens afgeschernd
+via pen 7.</font>
+<p><font face="Arial,Helvetica">Hiernaast de aansluit gegevens van de 9-polige
+D-connector nog eens op een rij, tussen haakjes de kleur van de aansluitdraden
+in de sensor.</font>
+<br><font face="Arial,Helvetica">De sensor bevat een male-connector.</font>
+<p><font face="Arial,Helvetica">De verschillende <a href="nellcor.pdf">uitvoeringsvormen</a>
+van de sensor zijn te vinden in het <a href="nellcor.pdf">overzicht</a>
+(pdf-format).</font></td>
+
+<td><font face="Arial,Helvetica">1 = not connected&nbsp;</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">2 = anode IR-led, kathode R-led</font>
+<br><font face="Arial,Helvetica">(rood)</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">3 = cathode IR-led, anode R-led</font>
+<br><font face="Arial,Helvetica">(zwart)</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">4 = pen niet aanwezig</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">5 = anode van photo-diode</font>
+<br><font face="Arial,Helvetica">(wit)</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">6 = shield van photo-diode</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">7 = total shield</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">8 = pen niet aanwezig</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">9 = cathode van photo-diode</font>
+<br><font face="Arial,Helvetica">(groen)</font></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p><a name="interface schema"></a><b><font face="Arial,Helvetica"><font color="#000099">Interface
+schema&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Als transmitter is de Infra-Red led gekozen,
+vanwege het grotere uitgangssignaal (in het infrarood werken namelijk volume
+en HbO2 versterkend). De stroom is empirisch bepaald op 4 mA, bij grotere
+stromen kan men de ontwikkelde warmte voelen. De spanningsval over de IR-led
+bedraagt ongeveer 1V2, dus voor R1 geldt</font>
+<blockquote><font face="Arial,Helvetica">R<sub>1</sub> = (3V1 - 1V2) /
+4 mA = 470 Ohm.</font></blockquote>
+<font face="Arial,Helvetica">Er is in eerste instantie getracht de photodiode
+op te nemen in een spanningsloze stroom-spannings omzetter, middels een
+LM358 (enkelvoudige voedingsspanning opamp). De voedingsspanning van 3V1
+bleek echter te gering.</font>
+<br><font face="Arial,Helvetica">Ook een pnp-tor als darlington (photo-diode
+kaal in de basis van de tor) bleek geen echte verbetering te geven.</font>
+<br><font face="Arial,Helvetica">Omdat de "veilige"-versterkers toch gevoelig
+genoeg zijn en de lineairiteit van gering belang is, is besloten gewoon
+middels een weerstand (R2) een stroom-spannings-omzetter te maken.</font>
+<br><font face="Arial,Helvetica">Met twee sensors (OXI-A/N en DS-100A)
+is bij diverse personen in de leeftijd van 6 tot 45 jaar, m/v, op diverse
+plaatsen op het lichaam (vinger, voorhoofd, oor, arm, wang) gemeten. Daarbij
+bleek dat met de volgende waarde altijd een goed signaal was te verkrijgen:</font>
+<blockquote><font face="Arial,Helvetica">R<sub>2</sub> = 330 kOhm</font></blockquote>
+<font face="Arial,Helvetica">De versterking kan niet van te voren worden
+vastgesteld en moet afhankelijk van persoon en plaats op het lichaam op
+1, 10, of 100 worden ingesteld.</font>
+<br><font face="Arial,Helvetica">Omdat het signaal moet worden aangesloten
+op een DC-kanaal (het signaal mag immers niet meedoen in de DRL-bepaling)
+en het signaal wel DC bevat, zijn C1 en R3 toegevoegd. De waarden van deze
+componenten zijn empirisch bepaald, zodanig dat de laagste frequenties
+in de polsgolf niet zichtbaar worden aangetast.</font>
+<blockquote><font face="Arial,Helvetica">C<sub>1</sub> = 1 uF</font>
+<br><font face="Arial,Helvetica">R<sub>3</sub> = 330 kOhm</font></blockquote>
+<font face="Arial,Helvetica">Door de hoogohmige photo-diode wordt af en
+toe hoogfrequent storing opgepikt. Door middels C2 de hogere frequenties
+te verzwakken, worden hoge frequenties extra onderdrukt.</font>
+<blockquote><font face="Arial,Helvetica">C<sub>2</sub> = 100 nF</font></blockquote>
+<img src="nellcor.gif" height=391 width=493>
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="interface opbouw"></a><b><font face="Arial,Helvetica"><font color="#000099">Interface
+Opbouw&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Het interface gedeelte wordt ingebouwd
+in een klein doosje (Farnell&nbsp; 737-550) en voorzien van 30 cm snoer
+met 6-polige Lemo-plug. Aan de kopse kant wordt een 9-polige D-connector
+(female) ingebouwd.</font>
+<br><font face="Arial,Helvetica">De D-connector wordt op een klein printje
+gemonteerd, waarin in het midden een gat zit op de plaats van de schroef
+in het doosje. Op deze wijze wordt een redelijke bevestiging van de D-connector
+verkregen.</font>
+<br>De kabel met lemoplug kan middels een iets te klein gat in de tegenoverliggende
+zijde van de D-connector en een tiewrap aan de binnenzijde redelijk geborgd
+worden.
+<p>
+<hr WIDTH="100%"><font size=-2>&copy; Copyright Instrumentele Dienst, 1999</font>
+<br><a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height=18 width=29></a><font size=-2>
+SM, last updated 16-10-1999&nbsp;</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+</body>
+</html>

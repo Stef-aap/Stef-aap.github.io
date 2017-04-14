@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="184" />
+<meta name="spellcheck" content="66579" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>januari 2008</span></p>
+<p><span class=rvts1>Test Aanmaken</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Inleiding</span></p>
+<p>Het programma toont achtereenvolgens een aantal plaatjes (of teksten), waarbij het kind bij ieder plaatje het afgebeelde woord moet uitspreken, dit noemen we in het vervolg een <span class=rvts10>"taak"</span>. De door het kind uitgesproken tekst wordt opgenomen in een audio bestand. Om het kind wat te laten ontspannen, wordt af en toe tussen de opdrachten door een <span class=rvts10>"beloning"</span> gegeven (leuk plaatje, animatie o.i.d.).</p>
+<p>Alle opdrachten die achtereenvolgens in één keer worden afgenomen, noemen we een <span class=rvts10>"test"</span>.</p>
+<p><br></p>
+<p><span class=rvts2>Opdracht</span></p>
+<p>Een opdracht heeft een aantal <span class=rvts10>gemeenschappelijk parameters</span> (die dus voor alle opdrachten gelijk zijn)</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>De achtergrond kleur </li>
+<li>De kleur van de tekstbalk </li>
+<li>Het font voor de tekstbalk </li>
+<li>De grootte van het plaatje in procenten ( 0 .. 100%) </li>
+<li>Het font, in geval er een tekst i.p.v. een plaatje wordt gebruikt </li>
+<li>Een achtergrond plaatje (dat transparantie mag bevatten) </li>
+<li>De grootte van het achtergrond plaatje in procenten </li>
+</ul>
+<p><br></p>
+<p>Daarnaast zijn er een aantal <span class=rvts10>opdracht specifieke parameters</span>:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Het plaatje of de tekst </li>
+<li>De begeleidende tekst (meestal gebruikt voor het aangeven van het uit te spreken woord) </li>
+<li>Het begeleidende geluid (meestal gebruikt als voorbeeld hoe het moet worden uitgesproken) </li>
+<li>Het gemeenschappelijk achtergrond plaatje kan overruled worden </li>
+<li>De gemeenschappelijke achtergrond kleur kan overruled worden </li>
+</ul>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #ece9d8 #aca899 #aca899 #ece9d8; border-style: solid;">
+<tr valign=top>
+<td width=361 valign=middle style="background-color: #ffffd4;">
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <img width=317 height=243 alt="" src="spraak2_begin_img1.png"></p>
+</td>
+<td width=339 valign=middle style="background-color: #ffffd4;">
+<p>Links een voorbeeld van een plaatje dat op 80% wordt afgebeeld.</p>
+<p><br></p>
+<p>Bij ieder plaatje kan een <span class=rvts10>geluidsfragment</span> worden toegevoegd.</p>
+<p><br></p>
+<p>In dit voorbeeld kent het gebruikte plaatje geen transparantie, waardoor het achtergrond plaatje niet zichtbaar is.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Omdat het woord soms niet of minder geschikt is, kunnen er bij iedere opdracht één of meerdere <span class=rvts10>alternatieven</span> worden toegevoegd. Het aantal alternatieven is in principe onbeperkt. Ieder alternatief heeft exact dezelfde instelmogelijkheden als een normale opdracht.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Beloning</span></p>
+<p>Om het kind wat afwisseling te bieden en geboeid te houden, wordt om een aantal opdrachten een beloning gegeven. Een beloning is een leuk plaatje, animatie of zelfs iets interactiefs. In de test staat aangegeven hoe de beloning moet worden gegeven. Bij het starten van de test kan de belonings-frekwentie verhoogd of verlaagd worden, dit kan overigens ook tijdens de test. Daarnaast kan op ieder moment als de gebruiker dan noodzakelijk acht, een extra beloning worden gegeven. De volgende mogelijkheden zijn geïmplementeerd als beloning: plaatje, AVI animatie, MOV - filmpje, Uitvoerbaar Programma. Het beloningsvenster is even groot als het taakveld (in onderstaande figuur het paarse vlak middenin), maar de kleur van het omliggende gebied kan afwijkend worden ingesteld, zodat in een oogopslag duidelijk is of het een taak betreft dan wel een beloning. Het opgegeven plaatje / filmpje wordt (in de juiste verhouding) zo groot mogelijk weergegeven. Er wordt geen geluidsfragment afgespeeld, omdat een animatie of filmpje zelf al een ingebouwd geluid kunnen hebben.</p>
+<p><br></p>
+<p>In het algemeen, wordt bij de beloning het volgende protocol gevolgd:</p>
+<ol style="text-indent: 0px; margin-left: 20px; list-style-position: outside;">
+<li value=1>geef plaatje of filmpje (al dan niet met ingesloten geluid) en tekst (indien aanwezig) weer </li>
+<li value=2>wordt op de Grote Knop gedrukt, dan stopt animatie / filmpje en verschijnt tekst "Goed Zo!" </li>
+<li value=3>is de tijd van het plaatje verstreken, of het filmpje afgelopen, verschijnt de tekst "Druk op de SpatieBalk" </li>
+<li value=4>op ieder moment kan op de spatiebalk worden gedrukt, waardoor de beloning stopt en wordt doorgegaan naar de volgende taak. </li>
+</ol>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=380 height=236 alt="" src="spraak2_begin_img7.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Beloning:&nbsp; Plaatjes&nbsp; GIF, JPG, JPEG, BMP, ICO, EMF, WMF, PNG</span></p>
+<p>Het <span class=rvts10>plaatje</span> wordt zo groot mogelijk (wel in de juiste hoogte/breedte verhouding) weergegeven. Daarnaast kan er per plaatje een <span class=rvts10>individuele tekst</span> onderin beeld worden weergegeven. Het plaatje wordt gedurende een <span class=rvts10>bepaalde tijd</span> weergegeven. Deze tijd wordt éénmalig opgegeven voor alle plaatjes, maar kan per plaatje korter worden ingesteld. Als tijdens het weergeven op de <span class=rvts10>Grote Knop</span> wordt gedrukt, verschijnt de tekst <span class=rvts10>"Goed Zo !"</span>,&nbsp; de volgende taak wordt verkregen door op de spatiebalk te drukken. Als er niet op de Grote Knop wordt gedrukt, maar de tijd is verstreken, verschijnt de standaard tekst <span class=rvts10>"Druk op SpatieBalk"</span> teneinde door te gaan naar de volgende taak.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Beloning:&nbsp; AVI Animatie</span></p>
+<p>Hier kan een AVI animatie worden weergegeven, eventueel voorzien van een tekst. De AVI file moet wel van redelijke kwaliteit zijn, om goed te worden weergegeven (bijvoorbeeld aangemaakt met AnimationShop van Jasc). AVI bestanden met een heel klein formaat (bv 32*32 pixels) hebben in het algemeen erg veel moeite in de juiste verhouding geschaald te worden. Bij het indrukken van de <span class=rvts10>Grote Knop</span>, wordt de <span class=rvts10>animatie gestopt</span> en verschijnt de tekst <span class=rvts10>"Goed Zo !"</span>. Door dus in de basis tekst bij een plaatje een opdracht te zetten, zoals "Stop het plaatje als de wijzer op de 6 staat" kan op een simpele wijze een interaktieve beloning worden gecreëerd. Als de animatie is afgelopen, stopt deze vanzelf en verschijnt de tekst <span class=rvts10>"Druk op SpatieBalk"</span> .</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Beloning:&nbsp; AVI overig</span></p>
+<p>De meeste AVI bestanden (dit kunnen ook hele films zijn) kunnen worden afgespeeld (afhankelijk van de aanwezige windows mediaplayer). Hiervoor geldt verder hetzelfde als voor de AVI-animatie.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Beloning:&nbsp; MOV filmpje</span></p>
+<p>Dit is een formaat dat wordt gebruikt door de meeste <span class=rvts10>digitale foto camera's</span>. Er kan weer <span class=rvts10>tekst</span> worden bijgeplaatst in de vorm van een opdracht, want ook hier geldt, de <span class=rvts10>Grote Knop</span> stopt het filmpje en laat de tekst <span class=rvts10>"Goed Zo !"</span> verschijnen.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Beloning:&nbsp; Uitvoerbaar Programma</span></p>
+<p>In principe kan ieder windows programma worden gestart (hierbij kan worden gedacht aan bestaande spelletjes). Nadat het opgegeven windows programma is gestart, wordt het spraakprogramma stilgelegd en geminimaliseerd, totdat het opgestarte programma is afgesloten. Het spraak programma kan uiteraard tijden het draaien van het externe programma geen invloed uitoefenen op het externe programma.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts2>Fonetisch Font</span></p>
+<p>SIL Doulos IPA-93</p>
+<p><br></p>
+<p><br></p>
+<p><img width=264 height=130 alt="" src="spraak2_begin_img30.png"><span class=rvts4>Manuscript = monospaced</span></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=IPAhome">IPA Transcription with SIL Fonts</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&item_id=encore-ipa">SIL Encore IPA Fonts</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&item_id=encore-ipa-download">SIL Encore IPA Download</a></p>
+<p><br></p>
+<p><img width=664 height=379 alt="" src="spraak2_begin_img24.png"></p>
+<p><img width=707 height=161 alt="" src="spraak2_begin_img23.png"></p>
+<p><br></p>
+<p><span class=rvts8><br></span></p>
+<p><br></p>
+<p><span class=rvts2>Opbouw van het test bestand</span></p>
+<p>Het bestand is opgebouwd als een standaard ini-formaat. Het bestand bevat de volgende 3 secties:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Algemeen, bevat algemene instellingen en default instelling voor taken en beloningen </li>
+<li>Opdrachten, bevat alle taken </li>
+<li>Beloning, bevat alle beloningen </li>
+</ul>
+<p><span class=rvts10><br></span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #ece9d8 #aca899 #aca899 #ece9d8; border-style: solid;">
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>[Algemeen]</span></p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Toelichting</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p>Version=2.0</p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p>n.v.t.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p>Titel=Test Stef</p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p>voor de gebruiker herkenbare omschrijving, wordt in de lijst met testen gebruikt</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p>AantalOpdrachten=2</p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p>n.v.t.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p>BGcolor = 200,150,150</p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p>Achtergrond kleur (RGB-code)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p>BGImage = bloem.bmp</p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p>Achtergrond plaatje</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p>BGSize = 40</p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p>Percentuele grootte van het achtergrond plaatje</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p>ImageSize = 80</p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p>Percentuele grootte van de taak plaatjes</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p>Beloning Iedere = 5</p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p>Om de hoeveel taken een beloning wordt gegeven</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p>Max_Beloning_Duur = 20</p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p>Maximale duur (in seconden) van een beloning</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p>Beloning_Einde_Text = Druk op SpatieBalk</p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p>De tekst die aan het einde van een beloning verschijnt</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=249 valign=top style="background-color: #ffffd4;">
+<p>CommPort = 1</p>
+</td>
+<td width=451 valign=top style="background-color: #ffffd4;">
+<p>n.v.t.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>plaatje&nbsp; ~&nbsp; geluid&nbsp; ~ tekst&nbsp; ~&nbsp; achtergrond plaatje&nbsp; ~&nbsp; ????&nbsp; ~&nbsp; achtergrond kleur</span></p>
+<p>In het algemeen zullen enkel de eerste 3 elementen worden gebruikt</p>
+<p><br></p>
+<p><span class=rvts10>[Opdrachten]</span></p>
+<p>1.0 = arm.bmp~bloed.wav~arm</p>
+<p>1.1 = bloed.bmp~bloed.wav~bloed~arm.bmp</p>
+<p>1.2 = beer.bmp~brief.wav~brief~~250,10,10</p>
+<p>1.W = arm</p>
+<p>1.T = &lt;fonetische spelling&gt;</p>
+<p><br></p>
+<p>2.0 = hier proberen we \n een \n tekst~bus.wav</p>
+<p>2.1 = beer.bmp~brief.wav</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>beloning&nbsp; ~&nbsp; max tijd&nbsp; ~&nbsp; eind tekst</span></p>
+<p>[Beloning]</p>
+<p>1 = scilab_img2.png</p>
+<p>2 = clock.avi~~Wacht tot 6</p>
+<p>3 = mote_prototype.jpg~2</p>
+<p><br></p>
+<p><br></p>
+<p>=======================================</p>
+<p><br></p>
+<p><span class=rvts2>Opbouw Antwoord bestand</span></p>
+<p><br></p>
+<p>[Uitspraak]</p>
+<p>U_1=.AuÖto.</p>
+<p><br></p>
+<p>U_2=.bþþS</p>
+<p>M_2=.bþþAlþ.&nbsp;&nbsp;&nbsp;&nbsp; &lt;== modified target alleen opgeslagen als afwijkt van target</p>
+<p><br></p>
+
+</body></html>

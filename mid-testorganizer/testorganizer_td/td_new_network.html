@@ -1,0 +1,141 @@
+<HTML><HEAD><TITLE>Reuma HandAnalyse</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #DDDDDD;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P>storage in ini-file</P>
+<P>JUSTONE even verwijderd !!</P>
+<P>even LOGFILE altijd !!</P>
+<P>&nbsp;&nbsp;</P>
+<P>TO1:&nbsp;&nbsp; D:\data_TO_exe&nbsp;&nbsp; D:\midorg1</P>
+<P>TO1:&nbsp;&nbsp; D:\data_TO_exe2&nbsp;&nbsp; D:\midorg2</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="../../../data_to_exe/mid_org.exe">D:\Data_TO_exe\Mid_org.exe</A></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="../../../data_to_exe2/mid_org.exe">D:\Data_TO_exe2\mid_org.exe</A></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Network2.pas</SPAN></P>
+<P>Allereerst bevat deze module een aantal lock/unlock routines, waarmee kan een gehele patient of een gedeelte van een patient worden gelocked.&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function&nbsp;&nbsp;<SPAN class=RVTS3>NW2_lock_succeeded</SPAN>(patnr:string; testnr:integer):boolean;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure&nbsp;<SPAN class=RVTS3>NW2_unlock</SPAN>;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure&nbsp;<SPAN class=RVTS3>NW2_unlock_all</SPAN>;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure&nbsp;<SPAN class=RVTS3>NW2_unlock_all_larger_24hour</SPAN>;</P>
+<P>Daarnaast bevat deze module een aantal synchronisatie routines, waarmee een gehele patient danwel een gedeelte van de patient kan worden gesynchroniseerd tussen de lokale PC en het netwerk.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function&nbsp;<SPAN class=RVTS3>NW2_synchro_patientgegevens_only</SPAN>(patnr:string; copied_from_network:boolean):boolean;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function&nbsp;<SPAN class=RVTS3>NW2_synchro_patient_patfile</SPAN>(patnr:string; copied_from_network:boolean):boolean;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function&nbsp;<SPAN class=RVTS3>NW2_synchro_single_test_NL</SPAN>(patnr:string; linenr:integer):boolean;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function&nbsp;<SPAN class=RVTS3>NW2_synchro_patient_complete_NL</SPAN>(patnr:string):boolean;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Lock / Unlock routines</SPAN></P>
+<P>De normale lock / unlock routines zijn</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function&nbsp;&nbsp;<SPAN class=RVTS3>NW2_lock_succeeded</SPAN>(patnr:string; testnr:integer):boolean;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure&nbsp;<SPAN class=RVTS3>NW2_unlock</SPAN>;</P>
+<P>Een lokale PC kan maximaal 1 patient geheel locken, maar het geniet natuurlijk de voorkeur om slechts het noodzakelijke deel van een patient te blokkeren.</P>
+<P>Middels de parameter&nbsp;<SPAN class=RVTS3>testnr</SPAN>&nbsp;kan worden aangegeven wat er moet&nbsp; worden geblokkeerd. Met een getal groter dan 0, wordt een enkelvoudige test aangeduid (het testnummer in de range [1..N]). Voor de andere patientonderdelen zijn de volgende constanten beschikbaar:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>lock_patient_geheel</SPAN>&nbsp; = 0;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>lock_patient_patfile</SPAN>&nbsp;= -1;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>lock_patient_txtfile</SPAN>&nbsp;= -2;</P>
+<P>In principe moet het locken/unlocken altijd in paren gaan. Hierbij is nesting mogelijk omdat bij het locken een counter wordt opgehoogd, en bij het unlocken een counter wordt afgelaagd. De patient is pas werkelijk vrijgegeven als de counter op 0 staat.</P>
+<P>De meest verregaande lock wordt telkens bewaard. Dit is voor verbetering vatbaar, maar voorlopig dus voorzichtig omgaan met geneste totale locks, omdat dit de gemakkelijk de gehele patient kan locken.</P>
+<P>Het te vaak aanroepen van unclock heeft geen nadelig effect.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>NW2_lock_succeeded</SPAN>('333',2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //lock de tweede test van patient 333</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>NW2_lock_succeeded</SPAN>('333',0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //lock de gehele patient 333</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>NW2_lock_succeeded</SPAN>('333',2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //gehele patient blijft gelocked</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>NW2_unlock</SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //verlaag lockcounter (maar gehele patient blijft gelocked)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>NW2_unlock</SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //verlaag lockcounter (maar gehele patient blijft gelocked)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>NW2_unlock</SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //unlock de patient geheel</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>NW2_unlock</SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //doet niets, want gehele patient is al unlocked</P>
+<P>In bovenstaand voorbeeld is tevens te zien dat de tweede lock de gehele patient blokkeert, en dat na de eerste unlock, nog steeds de gehele patient gelocked blijft.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Het locken van een nieuwe patient, haalt een eventuele lock van een andere patient weg.</P>
+<P>Hoewel niet wordt aangeraden om dit te gebruiken, is onderstaande constructie valide.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>NW2_lock_succeeded</SPAN>('333',2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //lock de tweede test van patient 333</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>NW2_lock_succeeded</SPAN>('111',0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //lock de gehele patient 111 (unlock 333)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>NW2_lock_succeeded</SPAN>('888',0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //lock de gehele patient 888 (unlock 111)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>NW2_unlock</SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //unlock de patient geheel</P>
+<P>Dan zijn er nog 2 routines, om locks die door fouten zijn blijven staan te verwijderen.</P>
+<P>Procedure die alle locks van deze lokale PC verwijderd, deze dient dus te worden aangeroepen aan het einde van het programma</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure&nbsp;<SPAN class=RVTS3>NW2_unlock_all</SPAN>;</P>
+<P>Procedure om locks van andere lokale PC's, die meer dan 24 uur oud zijn te verwijderen, deze dient dus aan het begin van het programma te worden aangeroepen</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure&nbsp;<SPAN class=RVTS3>NW2_unlock_all_larger_24hour</SPAN>;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Synchronisatie routines</SPAN></P>
+<P>Met deze routines kan een gehele patient danwel een gedeelte van de patient worden gesynchroniseerd tussen de lokale PC en het netwerk. De routines, waarvan de naam eindigt op "_NL" moeten gelocked zijn, tenminste wil men hiermee bestanden naar het netwerk kopiëren.</P>
+<P>synchronisatie van pat-file en txt-file</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function&nbsp;<SPAN class=RVTS3>NW2_synchro_patientgegevens_only</SPAN>(patnr:string; copied_from_network:boolean):boolean;</P>
+<P>synchronisatie van pat-file</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function&nbsp;<SPAN class=RVTS3>NW2_synchro_patient_patfile</SPAN>(patnr:string; copied_from_network:boolean):boolean;</P>
+<P>synchronisatie van alle bestanden die behoren bij 1 enkele test</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function&nbsp;<SPAN class=RVTS3>NW2_synchro_single_test_NL</SPAN>(patnr:string; linenr:integer):boolean;</P>
+<P>synchronisatie van alle bestanden (van 1 patient)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function&nbsp;<SPAN class=RVTS3>NW2_synchro_patient_complete_NL</SPAN>(patnr:string):boolean;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Lock en synchronisatie ?</SPAN></P>
+<P>De vraag is wat moet er eerst gebeuren, in het geval men beide akties (locken en synchroniseren) wil doen.</P>
+<P>In principe moet natuurlijk eerst gelocked worden, immers alleen dan wordt voorkomen dat er tussentijds nog iets veranderd. Echter een aktie (bijvoorbeeld het verwijderen van een test) wordt uitgevoerd op een regelnummer, wordt nu door de synchronisatie het regelnummer gewijzigd (er worden testen tussenuit gehaald), dan kan de aktie niet doorgaan. Daarom geven de belangrijkste synchronisatie routines nu aan of er een nieuw pat-bestand van het netwerk is gecopiëerd.</P>
+<P>Overigens is voor het synchroniseren niet altijd een lock nodig, immers als men alleen gegevens wil bekijken, synchroniseert men om er zeker van te zijn dat de gegevens zo uptodate mogelijk zijn.</P>
+<P>Alle synchronisatie routines zijn zo gebouwd, dat ze zelf voor een eventuele lock zorgen. Als er bij een synchronisatie al een lock aanwezig was en er wordt een hogere lock (bijvoorbeeld de gehele patient) gebruikt tijdens de synchronsatie, dan wordt aan het eind van de synchronisatie de orginele lock weer teruggezet.</P>
+<P>Het is verstandig om na een lock, de unlock te zetten in de finally-section van een try/finally statement.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>voorbeeld</SPAN>&nbsp;from add_test_new</P>
+<P>&nbsp;&nbsp;&nbsp; //test of complete patient gelocked kan worden</P>
+<P>&nbsp;&nbsp;&nbsp; if not(NW2_lock_succeeded(patient_gegevens_new.Radboud_nummer,lock_patient_geheel))</P>
+<P>&nbsp;&nbsp;&nbsp; then exit;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; try</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //als er een nieuwer bestand van het netwerk is gehaald, opnieuw inlezen</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NW2_synchro_patient_patfile(patient_gegevens_new.Radboud_nummer,copied_from_network);</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if copied_from_network then</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NW4_get_patient_gegevens_full(patient_gegevens_new.Radboud_nummer);</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ....aktie....</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //resultaat lokaal opbergen</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NW4_patient_write_file;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; finally</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //display verversen, opnieuw synchroniseren en unlocken</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NW6_display_patientfile;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NW2_synchro_patient_patfile(patient_gegevens_new.Radboud_nummer,copied_from_network);</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NW2_unlock;</P>
+<P>&nbsp;&nbsp;&nbsp; end;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Snel zoeken nieuwste gegevens</SPAN></P>
+<P>Om een snelle test te verkrijgen, waar de nieuwste informatie van een bepaalde patient is, wordt er zowel lokaal alsook op het netwerk een lijst bijgehouden, waarin per patient is aangegeven, wanneer deze voor het laatst is geupdate. De lokale lijst wordt aan het begin van het programma geopend en blijft de gehele sessie open staan. De netwerk lijst moet uiteraard iedere keer opnieuw worden geopend.</P>
+<P>De lokale lijst is&nbsp;<SPAN class=RVTS3>form_NW2.NW_local_filelist</SPAN>. Het inlezen van de lijst gebeurt éénmalig in het mainform&nbsp;<SPAN class=RVTS3>onactivate</SPAN>. Het sluiten gebeurt éénmalig in het&nbsp;<SPAN class=RVTS3>onclose</SPAN>&nbsp;event van het mainform.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Als datum wordt de filedatum van de patientfile gebruikt. Het is dus zaak de datum van de algemene patientfile te wijzigen, zodra een van de andere data-files van de patient wijzigt. Als mocht blijken dat het opvragen van de filedatum sneller gaat dan het lezen/schrijven van een inifile, kan eenvoudig worden omgeschakeld.</P>
+<P>Het voordeel van een lijst is dat snel de toestand van alle patienten gecontroleerd kan worden, terwijl via de fileage snel de toestand van 1 enkele patient getest kan worden.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Voor het lezen van de beide data, zijn 2 functies beschikbaar</P>
+<P>&nbsp;&nbsp;&nbsp; NW2_patient_filedate_local(patnr:string);</P>
+<P>&nbsp;&nbsp;&nbsp; NW2_patient_filedate_network(patnr:string);</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Patient Lock</SPAN></P>
+<P>Op het netwerk is een inifile, waarin staat welke patienten (of onderdelen van patienten) gelocked zijn en door welke PC (iedere PC moet dus een unieke naam hebben.</P>
+<P>Bij het opstarten van de TestOrganizer, worden éénmalig in het onactivate van het mainform, alle locks die langer dan 24 uur geleden gezet zijn (door welke PC dan ook) verwijderd.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Procedures NW2</SPAN></P>
+<P>function&nbsp;<SPAN class=RVTS3>NW2_lock_succeeded</SPAN>(testnr:integer):boolean;</P>
+</BODY></HTML>

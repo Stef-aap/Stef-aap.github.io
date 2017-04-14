@@ -1,0 +1,75 @@
+<HTML><HEAD><TITLE>vrg_alg2</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #F0EEEE;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Instellingen vragenlijst module</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="vrg_indx.html#top">Vragenlijst Module</A></P>
+<P class=RVPS1><A class=RVTS4 href="userindx.html">Gebruikers Documentatie</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="module instellingen"></A>
+<SPAN class=RVTS2>Module Instellingen&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Module instellingen bevatten specifieke gebruikersinstellingen die in principe gelden voor alle vragenlijsten, tenzij deze worden overruled door de instellingen in individuele vragenlijsten.</P>
+<P>De module instellingen worden bewaard in het initalisatie bestand dat kan worden opgegeven in de database schil MIDORG. Hierdoor kunnen verschillende module instellingen op 1 computer systeem draaien.</P>
+<P>Samenvattend:MIDORG wordt gestart met een initialisatie bestand als eerste parameter (default = midorg.ini) en in dit initialisatie bestand wordt verwezen naar een initialisatie bestand voor de vragenlijst module (default = vraaglst.vli)Module Instellingen Overzicht</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>font&nbsp;</LI>
+<LI>geluid bij de algemene knoppen in de kinder-layout&nbsp;</LI>
+<LI>geluid bij de algemene knoppen in de volwassen-layout&nbsp;</LI>
+<LI>helptekst / geluid omtrent de bediening bij het beantwoorden&nbsp;</LI>
+</UL>
+<P>Daarnaast zijn er een aantal tijdelijke instellingen, die enkel geldig zijn voor bijvoorbeeld de edit mode</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>schermgrootte&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P><A name="hierarchie van de instellingen"></A>
+<SPAN class=RVTS2>Hierarchie van de instellingen&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Een aantal instellingen (zoals fonts en geluiden) kunnen op verschillende nivo's worden ingesteld. Uiteraard kan slechts 1 van deze instellingen tegelijkertijd actief zijn, daarom is het belangrijk goed te beseffen wanneer, welke instelling actief is, zodat een bewuste keus gemaakt kan worden. Voor een eenvoudig en goed gebruik kunt u ook direct het&nbsp;<A class=RVTS4 href="#advies met betrekking tot instellingen">advies opvolgen</A>, zonder zich in het onderstaande verhaal te verdiepen.</P>
+<P>De prioriteit van de instellingen is:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Detail instellingen binnen een vraag&nbsp;</LI>
+<LI>Instellingen van de individuele Vraag&nbsp;</LI>
+<LI>Instellingen van de individuele Vragenlijst&nbsp;</LI>
+<LI>Instellingen van de vragenlijst-Module&nbsp;</LI>
+</UL>
+<P>De detail instellingen komen slechts in een beperkt aantal vraagsoorten voor, bijv. het font van teksten bij de pijlen in een blokvraag. De reden voor deze instellingen is een puur noodzakelijke, terugkomend op het voorbeeld, er is slechts een zeer beperkte ruimte voor de teksten bij de pijlen. Dus als een groot font voor de vraag en subvragen wordt gebruikt (de ruimte hiervoor is namelijk te vergroten) kunnen de pijlteksten toch goed zichtbaar blijven.</P>
+<P>De instellingen van een individuele vraag, beperken zich meestal tot de antwoorden en de subvragen. Om de uniformiteit van de vragenlijst (over alle vragen heen) zoveel mogelijk te behouden, zijn deze instellingen beperkt tot de niet gemeenschappelijke delen van een individuele vraag. De vraagtekst bijvoorbeeld, welke bovenaan de pagina verschijnt, neemt altijd de instelling van de vragenlijst (of als deze ontbreekt, van de module) over.</P>
+<P>De instellingen van de vragenlijst gelden in principe voor alle vragen binnen de huidige vragenlijst, tenzij overruled door de individuele vraaginstelling of de detail-instelling.</P>
+<P>De instellingen van de vragenlijst-module hebben de laagste prioriteit, maar zijn misschien wel het belangrijkste als een en dezelfde vragenlijst op meerdere systemen moet worden gebruikt. Deze instelling maakt een vragenlijst portable (onafhankelijk van het systeem waar het op draait), vraagt het minste invoerwerk en garandeert uniformiteit over vragenlijsten heen.</P>
+<P>Deze instellingen hebben een aantal afwijkende eigenschappen</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>deze instellingen gelden in principe als basis voor alle vragenlijsten.&nbsp;</LI>
+<LI>deze instellingen kunnen de vragenlijst instellingen overrulen (niet de instellingen van de individuele vraag en de detail-instellingen).&nbsp;</LI>
+<LI>deze instellingen worden niet in de vragenlijst opgeslagen, maar in het module-initialisatie bestand. Per computer-systeem of per MIDORG-systeem kunnen dus verschillende instellingen worden gehanteerd.&nbsp;</LI>
+</UL>
+<P>Verder kan deze instelling ook vanuit de database-schil MIDORG worden ingesteld.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="advies met betrekking tot instellingen"></A>
+<SPAN class=RVTS2>Advies met betrekking tot instellingen&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Voor een eenvoudig, maar goed gebruik van de instellingen kan het volgende recept gebruikt worden:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>bepaal de grootte van het scherm waarop de vragenlijsten meestal worden afgenomen.&nbsp;</LI>
+<LI>stel het porgramma in op deze schermgrootte gebruik bij het aanmaken en wijzigen van een vragenlijst deze schermgrootte in het programma. Op deze manier kunt u precies zien hoe de vragen eruit zullen zien.&nbsp;</LI>
+<LI>zet in de module-instellingen op "overheersend".&nbsp;</LI>
+<LI>geef de module-instellingen een geschikte waarden en controleer deze instellingen bij een aantal vragenlijsten.&nbsp;</LI>
+<LI>gebruik geen (of zo beperkt mogelijk) vragenlijst instellingen.&nbsp;</LI>
+<LI>gebruik geen (of zo beperkt mogelijk) vraag instellingen.&nbsp;</LI>
+<LI>gebruik geen (of zo beperkt mogelijk) detail instellingen.&nbsp;</LI>
+<LI>als de vragenlijsten op verschillende systemen worden gebruikt, maak dan voor ieder systeem een aparte module-instelling.&nbsp;</LI>
+<LI>zorg ervoor dat op alle gebruikte PC's de benodigde fonts aanwezig zijn.&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS12>© Copyright Instrumentele Dienst, 1999-2004</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+</BODY></HTML>

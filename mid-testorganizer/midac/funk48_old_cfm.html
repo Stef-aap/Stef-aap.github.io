@@ -1,0 +1,85 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunktie 1</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P>REKENFUNCTIES</P>
+<P><A class=RVTS4 href="funk0.html">Overzicht</A>&nbsp;|&nbsp;Volgende</P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 48 (38 oud)</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A></P>
+<P><A class=RVTS4 href="#bijzonderheden">Bijzonderheden</A></P>
+<P><A class=RVTS4 href="#instelform">Instellingen venster</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Cerebrale Functie Monitoring</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Omschrijving<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><A name="algoritme"></A>
+Algoritme&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Signaal in zijn volledige dynamiek bepalen (omdat een sample meer dan 15 bit bedraagt, wordt deze overgedragen als 2 kanalen)Val := a * in[2] + in[1] - b</P>
+<P>&nbsp;</P>
+<P>DC-component bepalen,</P>
+<P>als verschil groter dan 250 uV dan DC component direct laten volgen (niet lineaire bewerking dus)als&nbsp;&nbsp;&nbsp; abs(DC - Val) &gt; Spike_Drempel</P>
+<P>dan&nbsp;&nbsp;&nbsp;&nbsp; DC := Val</P>
+<P>anders&nbsp;&nbsp; DC := (1 - LF_corner) * DC + LF_corner * ValNu hoge frequenties eruit filteren.</P>
+<P>Dit wordt gedaan door een laagdoorlaatfiltering van het sample na aftrek van de DC component&nbsp; (Val - DC).Signal := (1 - HF_corner) * Signal + HF_corner * (Val - DC)Nu eerste absolute waarde nemen&nbsp; en zodanig schalen dat 0 uVt ==&gt; 0&nbsp; en 50 uVt geeft 100.</P>
+<P>Deze schaling is noodzakelijk om de overgang lineair-logaritimisch goed te leggen.Rectified := abs( Signal / 8)Dan zonodig logaritme nemen als groter dan 10 , deze waarde is bepaald aan de hand van de tabel op pag 139 van het beroemde boek.als&nbsp;&nbsp;&nbsp; Rectified &gt; 10</P>
+<P>dan&nbsp;&nbsp;&nbsp; Rectified:= 4.25 * ln(Rectified)Piekdetectie + smoothen, dit geschiedt middels diode-werking gevolgd door een RC-netwerk met LF2_corner.</P>
+<P>Ook dit is een niet lieaire bewerking.als&nbsp;&nbsp;&nbsp; Rectified &gt; Smoothed</P>
+<P>dan&nbsp;&nbsp;&nbsp; Smoothed := Rectified</P>
+<P>anders Smoothed := (1 - LF2_corner) * Smoothed + LF2_corner * RectifiedTenslotte schalen naar de normale 12 bit, offset=2048,</P>
+<P>voor het EEG geldt 1uV = 10AD</P>
+<P>voor het CFM signaal geldt&nbsp; 0..10 uV&nbsp; =&nbsp; 0 .. 50 AD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; en&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 .. 100 uV&nbsp; = 50 .. 100 ADOutput_EEG := 2048 + Signal / (1.6 * gain)</P>
+<P>Output _CFM := 2048 + 5 *&nbsp; Smoothed /&nbsp; gain</P>
+<P>&nbsp;</P>
+<P>Constanten:Spike_Drempel = 4000&nbsp; (=250 uV)</P>
+<P>LF_corner = 0.013&nbsp;&nbsp;&nbsp; =2 Hz (eerste orde RC-filter)</P>
+<P>HF_corner = 0.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =16 Hz (eerste orde RC-filter)</P>
+<P>LF2_corner = 0.006&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =1 Hz (eerste orde RC-filter)</P>
+<P>16 AD = 1 uV&nbsp; (geldt bij een gain = 1)</P>
+<P>a = 2 ^15</P>
+<P>b = 2 ^21<A name="bijzonderheden"></A>
+Bijzonderheden&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><A name="instelform"></A>
+Instelscherm&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Inputs: geen<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Parameters: titel, omschrijvingen&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Outputs: ingevoerde waarden (mits numeriek)&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<HR noshade size=1>
+<P>© Copyright Instrumentele Dienst</P>
+<P>SM/GvV, 1-12-1998</P>
+</BODY></HTML>

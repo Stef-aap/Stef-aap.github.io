@@ -1,0 +1,133 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.79 [en] (Win98; U) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>actilog_calibartion</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><font face="Arial,Helvetica"><a href="../../mid-testorganizer_index.html">Overzicht
+MidOrg</a></font></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">Actilog Kalibratie</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Model</font></font></b></td>
+</tr>
+</table>
+
+<p><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>&nbsp;
+<p>Akto meter ongeveer een dag in een bepaalde positie dragen.
+<br>Alle posities moeten worden getest: links / rechts en sensor onder
+/ boven.
+<p>Eerst via MID een nummer toekennen aan de aktometer.
+<br>Vervolgens snel wissen (geheugen wordt niet gewist, alleen de teller
+!!) en battery uitnemen.
+<p>Als alle aktometers die gelijktijdig worden gedragen, zo snel mogelijk
+de batterij in alle aktometers doen, zodat ze gelijk lopen.
+<p>Nadat de aktometer in een bepaalde positie gedragen is:(ongveer 1 dag
+met liefst enkele actieve perioden van ongeveer een half uur)
+<br>aktometer uitlezen en bestand opslaan.
+<p>Inlezen in Excel gaat heel eenvoudig, er mag direct op "finish" worden
+gedrukt omdat het formaat herkend wordt door Excel.
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td>Kopieer in de tweede kolom de meetwaarden van de gebruikte referentie.
+<p>Verwijder tussenliggende stukken met geen signaal
+<br>Verwijder eventuele rotzooi aan het einde, zorg dat beide kolommen
+gelijk eindigen.
+<p>Selecteer de te verwijderen rijen,
+<br>Verwijder deze rijen door met de RECHTERMUIS toets in de kantlijn het
+naastgetoonde menu op te roepen en aldaar Delete te selecteren.
+<br>(op een andere manier verwijderen, verwijdert wel de getallen maar
+niet de regels).
+<p>VUL OP CEL C10 het aantal relevante regels (eindregel-10, vanwege de
+header).
+<p>Nukan de makro gestrt worden die de grafiek tekent en een aantal basale
+gegevens berekent,</td>
+
+<td><img src="macro4.gif" BORDER=0 height=474 width=306></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td>De macros zijn opgeborgen in "personal.xls".
+<br>Dit bestand moet dus geopend worden voordat de macros beschikbaar gebruikt
+kunnen worden.
+<br>&nbsp;
+<p>Tools / Macro / Macros...
+<p>Selecteer Actilog_yking
+<p>Druk op RUN</td>
+
+<td><img src="macro1.gif" height=306 width=396></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td>Hier de gegevens en de grafiek zoals hij door de makro wordt getekend.</td>
+
+<td><img src="macro2.gif" BORDER=0 height=446 width=638></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td>Tools / Data Analysis / Regression ...
+<p><img src="regressie2.gif" BORDER=0 height=186 width=393>
+<p>invullen zoals hiernaast aangegeven,
+<br>waarbij uiteraardde lengte van X- en Y-range afwijkend kan zijn
+<p>&nbsp;</td>
+
+<td><img src="regressie3.gif" height=366 width=412></td>
+</tr>
+</table>
+
+<p>Opbergen als tab-delimited file met de extensie TXT
+<br>Opbergen als XLS file
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td>Op basis van de Excel grafieken wordt gekozen of onder danwel boven
+de meest lineaire overeenkomst heeft.
+<p>Vervolgens worden van de gekozen draagwijze (onder/boven) de linker
+en rechter opname in het programma compare (zie hiernaast) toegevoegd,
+welke de ykfactoren berekent.</td>
+
+<td><img src="compare.gif" height=394 width=274></td>
+</tr>
+</table>
+
+<p>
+<hr WIDTH="100%"><font size=-2>&copy; Copyright Instrumentele Dienst, 1999</font>
+<br><a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height=18 width=29></a><font size=-2>&nbsp;
+SM, last updated 16-06-1999&nbsp;</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+</body>
+</html>

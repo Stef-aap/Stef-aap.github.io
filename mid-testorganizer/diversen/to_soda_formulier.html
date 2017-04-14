@@ -1,0 +1,70 @@
+<HTML><HEAD><TITLE>Reuma HandAnalyse, SODA score formulier</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E8E8E8;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Soda Score formulier</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Versie 9.3</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>cijfers in verklaring worden nu "vet" afgedrukt&nbsp;</LI>
+<LI>naam is gewijzigd van "aap2" naar "SODA_test"&nbsp;</LI>
+<LI>inbedding in nieuwe rapport generator&nbsp;</LI>
+<LI>tikfout "handteren" gecorrigeerd&nbsp;</LI>
+<LI>rapport samenvatting is uitgebreid met normaal/kort, normering en therapeut(e)&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Versie 9.2, initial release</SPAN></P>
+<P>De printknop rechtsboven in het soda programma is vooralsnog tijdelijk, totdat de rapport generator gereed is.</P>
+<P>Kleuren, fonts, borders en kolombreedten moeten nog definitief worden vastgesteld, maar hier wordt gewacht op de rapport generator, omdat deze mogelijk enkele beperkingen op zal leggen.</P>
+<P>Teksten dienen nog expliciet te worden gecontroleerd.</P>
+<P>De rechterbovenhoek (knoppen) moet nog worden opgeschoond.</P>
+<P>Nog bepaald moet worden welke teksten wel en niet mogen worden gewijzigd (technische bepaling), vermoedelijk mag enkel de naam van de therapeut worden gewijzigd.</P>
+<P>Enter/Return blokkeren in alle velden !!</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Inleiding</SPAN></P>
+<P>Dit programma implementeert een geautomatiseerd SODA scoreformulier. Het programma draait geheel onder de TestOrganizer.</P>
+<P>Zowel de normale alsook het verkorte SODA scoreformulier worden volledig ondersteund.&nbsp;</P>
+<P>Voor beide vormen zijn ook de bijbehorende normen geïmplementeerd.</P>
+<P>Er is een extra kolom toegevoegd (L-R) om de gebruikte hand bij een activiteit te noteren.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Invullen en navigatie</SPAN></P>
+<P>Zodra het formulier wordt opgestart, wordt de cursor automatisch op het eerst in te vullen veld gezet. De numerieke invul-velden (en ook het L-R veld) worden gecontroleerd op geldigheid. In deze velden is het voldoende om slechts 1 karakter in te tikken, waarna (bij een geldige invoer) de cursor automatisch naar het volgende veld springt.</P>
+<P>Velden met vaste tekst en automatisch berekende velden kunnen niet worden gewijzigd</P>
+<P>De kolom "vm" en de totaal scoren worden automatisch berekend.</P>
+<P>De vergelijking met de norm wordt pas uitgevoerd, nadat alle noodzakelijke velden (geldig) zijn ingevuld.</P>
+<P>Bij een normale SODA lijst, kan ook de verkorte score en normering worden bekeken, door (tijdelijk) het aankruisvakje "verkorte SODA" te activeren. LET OP: dit aankruisvakje wordt gearchiveerd bij de antwoorden en maakt integraal onderdeel uit van de antwoorden !</P>
+<P>In de kolom Opmerkingen kan 1 regel tekst worden ingevuld. Deze regel kan wel lang zijn, zodat ie automatisch wordt omgevouwen, maar er mogen geen CR/LF (Enters / Returns) in staan, deze zijn dan ook geblokkeerd.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Het vak rechtsboven, met de algemene patientgegevens, wordt ingevuld vanuit de Testorganizer en het wijzigen hiervan heeft dan ook geen effect. Er wordt nog geprobeerd het editten te blokkeren..</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Bekijken en wijzigen</SPAN></P>
+<P>In de "bekijken-mode" kunnen de gegevens in de tabel en de naam van de therapeut worden gewijzigd. Hiertoe moet wel het aankruishokje "wijzigen" worden geactiveerd</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Rapportage OUD</SPAN></P>
+<P>In de oude rapportage vorm, wordt de resultaten van de SODA score lijst in een aantal eenvoudige regels weergegeven.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Rapportage Nieuw</SPAN></P>
+<P>In de nieuwe vorm kan de SODA op twee nivo's in het rapport worden verwerkt, voor de laatst afgenomen SODA test, zien de script commandos er als volgt uit:</P>
+<P>Alleen de uitkomsten met bijhorende normering, via</P>
+<P><SPAN class=RVTS11>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Print,1&nbsp; SODA,soda_test,0;</SPAN></P>
+<P>danwel het complete formulier, inclusief bijbehorende normering, via</P>
+<P><SPAN class=RVTS11>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Print,2&nbsp; SODA,soda_test,0;</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Design</SPAN></P>
+<P>Het afdrukken van een rapport, staat geen gemengde portrait / landscape afdruk toe. Derhalve kan het&nbsp; het SODA-formulier alleen in portrait worden afgedrukt.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Voorlopig wordt het formulier hard gegenereerd, omdat de tabel functie in PuntHoofd nog onvoldoende stabiel is geïmplementeerd.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Cijfers in verklaring nog vet weergeven als dat kan.</P>
+</BODY></HTML>

@@ -1,0 +1,166 @@
+<HTML><HEAD><TITLE>MIDAC, rekenfunktie 41, Pacemaker ECG analyse</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #E2E2E2;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RF 2, Onset Systolische Bloeddruk</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><A class=RVTS4 href="ad-index.html">MIDAC Index</A></P>
+<P class=RVPS1><A class=RVTS4 href="funk0.html">Overzicht Rekenfuncties</A></P>
+<P class=RVPS1><A class=RVTS4 href="../mid-testorganizer_index.html">TestOrganizer</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=middle>
+<P><TABLE width=100% bgcolor=#FFFFFF border=0 cellpadding=7 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>MIDAC</P>
+<P><A class=RVTS4 href="midac1.html">Startpagina</A></P>
+<P><A class=RVTS4 href="ad-index.html">Inhoudsopgave</A></P>
+<P><A class=RVTS4 href="funk0.html">Rekenfuncties</A></P></TD>
+<TD width=50% height=20 bgcolor=#3333FF valign=middle>
+<P class=RVPS2>MIDAC, rekenfunctie 41</P></TD>
+<TD rowspan=2 width=25% height=40 bgcolor=#FFFFF8 valign=middle>
+<P>DEZE REKENFUNCTIE</P>
+<P><A class=RVTS4 href="#omschrijving">Omschrijving</A></P>
+<P><A class=RVTS4 href="#instelform">Instellingen venster</A></P>
+<P><A class=RVTS4 href="#voorbeeld, bij bovenstaande instelling">Voorbeeld</A></P>
+<P><A class=RVTS4 href="#inputs:">Ingangen</A></P>
+<P><A class=RVTS4 href="#outputs:">Uitgangen</A></P></TD>
+</TR>
+<TR valign=top>
+<TD width=50% height=20 bgcolor=#99FFCC valign=middle>
+<P class=RVPS2>Pacemaker ECG analyse</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="omschrijving"></A>
+Omschrijving&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Eerdere ECG functies: 1&nbsp;</P>
+<P>Dit is zeer robuste hartrate detector (dus veel rekentijd), minder geschikt voor snelle realtime applicaties.&nbsp;</P>
+<P>Deze detector is ook geschikt voor pacemaker patienten en heeft een automatische up/down detectie van de R-top.&nbsp;</P>
+<P>- bepaalt HR op basis van RR en SS interval en geeft als resultaat de beste van beide&nbsp;</P>
+<P>- detecteert pacemaker pulsen (beschikbaar als uitgang)&nbsp;</P>
+<P>- geeft huidige en vorige RR-interval (inclusief valid-signaal) t.b.v. RR-scatter diagram&nbsp;</P>
+<P>- begrenzing op minimale en maximale hartrate&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>PacePuls uitgang geeft een puls=1 vanaf pacemaker puls tot aan eerstvolgende S-top (het signaal is vertraagd als gevolg van de filtering).&nbsp;</P>
+<P>RR1, RR2 en RR-valid zijn speciaal bedoeld voor weergave van het RR-scatter diagram.&nbsp;</P>
+<P>RR1=huidige,&nbsp; RR2=vorige,&nbsp; RR-Valid=1 op moment van nieuwe RR-waarde.&nbsp;</P>
+<P>Typische kenmerken&nbsp;</P>
+<P>- Q-top ontbreekt&nbsp;</P>
+<P>- T-top vaak even hoog als R-top&nbsp;</P>
+<P>- als pacemaker actief, sterker, smalle pacepulsen&nbsp;</P>
+<P>- afleiding 2 bevat de best detecteerbare informatie&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alfa1:=2*pi*lf1/sample_frequency;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alfa2:=alfa1/20;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lf2:=alfa2*lf1/alfa1;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay:=round(sample_frequency/(10*lf2));&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if delay&gt;funk_41_delay_maxn then delay:=funk_41_delay_maxn;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; {bereken gefilterde signalen}&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; {smooth1 is een gefilterd signaal,&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; waarbij de eventuele pacepulsen sterk zijn onderdrukt}&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; smooth1:=alfa1*input1+(1-alfa1)*smooth1;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; {smooth2 is zeer zwaar gefilterd, teneinde een mean te krijgen}&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; smooth2:=alfa2*input1+(1-alfa2)*smooth2;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; delay_ar[delay_arp]:=round(smooth1);&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; delay_arp:=(delay_arp+1) mod delay;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>filter voor mean berekening fm=fc/20&nbsp;</P>
+<P>delay = fs / (10 * fm)&nbsp;</P>
+<P>standaard filter fc=3Hz&nbsp;</P>
+<P>(2 Hz werkt nog redelijk, 1 Hz is duidelijk te laag)&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=564 height=283 src="funk41a.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; if delay_ar[delay_arp]&gt;max1 then max1:=delay_ar[delay_arp] else max1:=max1-1.2;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; if delay_ar[delay_arp]&lt;min1 then min1:=delay_ar[delay_arp] else min1:=min1+1.2;&nbsp;</P>
+<P>&nbsp;<IMG width=755 height=286 src="funk41b.gif"></P>
+<P>&nbsp;<IMG width=754 height=284 src="funk41c.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Voor een goede top-detectie moet na de detectie van een extremum gezocht worden in de richting van het gemiddelde via een soort omgekeerde e-macht. Dat wil zeggen in het begin langzaam, naarmate de tijd verstrijkt moet sneller in de richting van het gemiddelde gelopen worden. Dit garandeert een goede convergentie ook nadat een storing is opgetreden. Een verdere verbetring kan bereikt worden door de convergentie snelheid eveneens te laten afhangen van het verschil tussen convergentielijn en het momentane signaal. Naast onderstaande methode is een kwadratische convergentie geprobeerd, welke minder goed blijkt te werken.&nbsp;</P>
+<P>Gekozen is uiteidelijk voor het onderstaande convergentie algoritme, telkens als een extremum wordt gevonden, wordt de tijd op 0 gezet. Uiteraard wordt de convergentielijn geclipt op het gemiddelde.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min:=min+(signaal-min)*tijd*0.02/sample_frequency&nbsp;</P>
+<P>In onderstaand plaatje is als factor 0.04 gebruikt, teneinde de werking van het algoritme explicieter te laten uitkomen.&nbsp;</P>
+<P>&nbsp;<IMG width=565 height=281 src="funk41d.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Bepaling van de hartrate&nbsp;</P>
+<P>Beschreven voor de S-top (bepaling 1), dezelfde berekening gebeurt ook voor de R-top (bepaling 2)&nbsp;</P>
+<P>Na filtering is de S-top het meest karakteristiek.&nbsp;</P>
+<P>Daarom is in het volgende algoritme toegepast de S-top als beslissings kriterium toegepast. Als extra filtering wordt het gemiddelde van RR en SS interval genomen.&nbsp;</P>
+<P>state=0 : initiele toestand, wacht op s-top&nbsp;</P>
+<P>als s-top gevonden, initialiseer tellers en ga naar state=1&nbsp;</P>
+<P>state=1 : verhoog tellers (RR2, SS) en wacht op R-top&nbsp;</P>
+<P>als R-top gevonden, oude RR interval bewaren RR1:=RR2 en nieuwe RR-interval resetten RR2:=0 en ga naar state=2&nbsp;</P>
+<P>state=2 : wacht op S-top&nbsp;</P>
+<P>als S-top gevonden, dan HR bepalen HR=(RR1+SS)/2 en SS-interval resetten SS:=0 en terug naar state=1&nbsp;</P>
+<P>als R-top gevonden, oude RR-interval ophogen&nbsp; RR1:=RR1+RR2 en nieuwe RR-interval resetten RR2:=0&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=567 height=287 src="funk41f.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Bij gezonde personen verdient het aanbeveling de hartrate te detecteren met nadruk op de R-top, immers dit is de sterkste en steilste piek. Bij sommige pacemaker patienten is echter de S-top het meest geschikt. Indien bij gezonde personen de electroden verkeerd om worden aangesloten is ook de neerwaartse piek het meest sprekend (overeenkomend met S-top benadrukking).&nbsp;</P>
+<P>Daarom is gekozen om beide methoden continue te berekenen en vervolgens de beste te selecteren.&nbsp;</P>
+<P>&nbsp;<IMG width=561 height=282 src="funk41e.gif"></P>
+<P>De gele hartrate curve is bepaald met nadruk op de S-toppen, de blauwe hartrate curve met nadruk op de R-toppen. Continue worden beide hartrates bepaald en hun gemiddelde bijgehouden. De hartrate die momentaan de kleinste afstand tot zijn eigen gemiddelde heeft wordt als werkelijke hartrate (rode curve, enigszins naar boven geschoven) gebruikt.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="instelform"></A>
+Instelscherm&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="voorbeeld, bij bovenstaande instelling"></A>
+Voorbeeld, bij bovenstaande instelling&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="inputs:"></A>
+Inputs:<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=80 valign=middle>
+<P>1 = Signaal</P></TD>
+<TD width=80% valign=middle>
+<P>ingangssignaal dat gebruikt wordt als trigger voor de diverse teksten.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="outputs:"></A>
+Outputs:&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=80 valign=middle>
+<P>1 = New Text</P></TD>
+<TD width=80% valign=middle>
+<P>normaal=0, zodra tekst wordt vernieuwd gedurende 1 sample 1</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="parameters:"></A>
+Parameters:<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>1 = frequentie laagdoorlaat filter</P>
+<P>2 = hartrate minimaal</P>
+<P>3 = hartrate maximaal</P>
+<P>4 = pacepuls treshold</P>
+<HR noshade size=1>
+<P>© Instrumentele Dienst. Bijgewerkt op 8-12-1999.&nbsp;</P>
+</BODY></HTML>

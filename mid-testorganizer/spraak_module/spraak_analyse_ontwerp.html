@@ -1,0 +1,119 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>spraak_analyse_ontwerp</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><font face="Arial,Helvetica"><a href="spraak_index.html">Overzicht
+Spraak</a></font>
+<br><font face="Arial,Helvetica"><a href="spraak_analyse_syntax.html">Syntax</a></font>
+<br><font face="Arial,Helvetica"><a href="spraak_analyse_wiskunde.html">Wiskundige
+Interpretatie</a></font>
+<br><font face="Arial,Helvetica"><a href="spraak_lipp_bestand.html">Kenmerken
+en Font</a></font></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">MID TestOrganizer</font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#FFFF00">SpraakAnalyse</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><font face="Arial,Helvetica"><a href="#inleiding">Inleiding</a></font>
+<br><font face="Arial,Helvetica"><a href="#tabblad result">Result</a></font>
+<br><font face="Arial,Helvetica"><a href="#tabblad lal-file">LAL-file</a></font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Analyse
+Ontwerpen &amp; Testen</font></font></b></td>
+</tr>
+</table>
+
+<p><a name="inleiding"></a><b><font face="Arial,Helvetica"><font color="#000099">Inleiding&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Voor ieder testprotocol, dient een gelijknamig
+analyse-bestand aanwezig te zijn. Normale gebruikers behoeven zo nooit
+een analyse-protocol te selecteren, het programma doet dat automatisch.
+Als niet een gelijknamig analyse-bestand aanwezig is, wordt de gebruiker
+alsnog gevraagd een keuze uit de beschikbare analyse-bestanden te maken.</font>
+<br><font face="Arial,Helvetica">In de speciale onderzoeksmode, kan bij
+een opname, ieder willekeurig analyse-protocol worden gekozen.</font>
+<br><font face="Arial,Helvetica">Nadat in de onderzoeksmode een analyse-bestand
+is geselecteerd, verschijnen onderstaande vensters.</font>
+<br>&nbsp;
+<p><a name="tabblad result"></a><b><font face="Arial,Helvetica"><font color="#000099">Tabblad
+Result&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td><font face="Arial,Helvetica">Door op een item in de gele lijst (target-lijst)
+te klikken, wordt alle target-regels (=geel) vernieuwd. Idem wit=actual.</font>
+<p><font face="Arial,Helvetica">Er zijn vaak 2 manieren om de resultaten
+van een (eenvoudige) RULE te bekijken, als voorbeeld de RULE fric->plos:</font>
+<br><font face="Arial,Helvetica">1.klik in zowel de gele als de witte lijst
+op de gewenste RULE (FR2PL)</font>
+<br><font face="Arial,Helvetica">2. klik in de target-lijst op FRIC en
+in de actual-lijst op PLOS</font>
+<p><font face="Arial,Helvetica">Op deze wijze kunnen dus ook niet bestaande
+Rules direct worden getest, zonder deze in de LAL-file in te voeren.</font>
+<p><font face="Arial,Helvetica">In de actualstring en de targetstring,
+wordt het optreden van de te toetsen variabelen weergegeven door een <font color="#FF0000">rode</font>
+letter.</font>
+<br><font face="Arial,Helvetica">Bij een sequentie, wordt enkel de eerste
+klank van een sequentie op deze wijze gemarkeerd.</font>
+<p><font face="Arial,Helvetica">&nbsp;</font></td>
+
+<td><img src="spraak_analyse5.gif" height=526 width=489></td>
+</tr>
+
+<tr>
+<td COLSPAN="2"><font face="Arial,Helvetica">In het tabblad RESULT, worden
+alle rules (zwart), met hun score en alle woorden waarin deze rule van
+toepassing is, worden in <font color="#FF0000">rood</font>/<font color="#3333FF">blauw</font>
+weergegeven (<font color="#FF0000">rood</font> als een positie voldoet,
+anders <font color="#3333FF">blauw</font>)</font>
+<br><font face="Arial,Helvetica">De header bevat alle algemene gegevens
+en syntax fouten zijn aangegeven in <font color="#FF0000">rood</font>.
+Met behulp van de printknop kan dit tabblad (in kleur) worden afgedrukt.
+Het is zelfs mogelijk hierin te editten. De aangebrachte wijzingingen in
+de tekst worden uiteraard niet opgeslagen maar wel afgedrukt.</font>
+<p><font face="Arial,Helvetica">In het tabblad LAL, kan de analysefile
+worden geedit en alle berekeningen opnieuw worden uitgevoerd, zie hieronder.</font></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p><a name="tabblad lal-file"></a><b><font face="Arial,Helvetica"><font color="#000099">Tabblad
+LAL-file&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td><font face="Arial,Helvetica">Het tabblad LAL-file geeft de exacte inhoud
+van het bestand weer. Zuivere commentaar regels worden in zwart afgebeeld,
+alle syntactisch correcte analyseregels in <font color="#3333FF">blauw</font>
+en de regels met syntax fouten in <font color="#FF0000">rood</font>.</font>
+<p><font face="Arial,Helvetica">Met de knop OPEN, kan een ander analyse
+bestand worden opgeroepen, waarna de berekening automatisch opnieuw wordt
+uitgevoerd.</font>
+<p><font face="Arial,Helvetica">De lal-tekst kan worden gewijzigd, zodra
+dit gebeurt zal het <font color="#009900">groene</font> veld met de bestandsnaam
+<font color="#FF0000">rood</font>
+kleuren, ten teken dat er iets is gewijzigd.</font>
+<br><font face="Arial,Helvetica">Door op de knop BEREKEN te drukken, worden
+de wijzigingen opgeslagen en alle berekeningen opnieuw uitgevoerd.</font>
+<p><font face="Arial,Helvetica">Het bestand kan in kleur worden afgedrukt
+met de knop PRINT.</font></td>
+
+<td><img src="spraak_analyse3.gif" height=394 width=331></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p>
+<hr WIDTH="100%"><font size=-2>&copy; Copyright Instrumentele Dienst, 1999</font>
+<br><a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height=18 width=29></a><font size=-2>&nbsp;
+SM, last updated 29-12-1999&nbsp;</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+</body>
+</html>

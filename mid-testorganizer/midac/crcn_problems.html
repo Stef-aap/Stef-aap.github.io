@@ -1,0 +1,73 @@
+<HTML><HEAD><TITLE>opname_maken</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS2>CRCN problemen</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>Hier een kort historisch overzicht.</P>
+<P>Op 24 of 25 januari afspraak met Marjo gemaakt om</P>
+<P>op donderdag 27 januari (of indien aan één van beide kanten er iets tussen zou komen op maandag 31 januari)</P>
+<P>de nieuwe software te installeren.</P>
+<P>Van beide kanten bleek het donderdags niet haalbaar</P>
+<P>en dus is op 31 januari getracht de software te installeren.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Maandag 31 januari:</P>
+<P>- alle ontbrekende kabels afgeleverd</P>
+<P>- voor het tweede systeem bleek niemand het password te kennen.</P>
+<P>Zelfs na een hack met het password van een systeem beheerder, wilde windows niet goed opstarten.</P>
+<P>- het eerste (oude) systeem had een verlopen wachtwoord, ook hier wist niemand het wachtwoord.</P>
+<P>We zijn hier met een password van een systeem beheerder wel in komen,</P>
+<P>en hebben vervolgens nieuwe Midac versie geinstalleerd en heb ik dit getest en geen onregelmatigheden geconstateerd.</P>
+<P>Tussendoor kwam Marc Gomez nog even, of we ook bij hem even de Midac konden installeren.</P>
+<P>Alsdus gedaan, maar niet getest.</P>
+<P>Marc zou die dag met Henri Timmers, het nieuwe MSNA protocol testen, ik heb niets van het resultaat vernomen.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Dinsdag 1 februari</P>
+<P>Problemen dat Midac niet op wilde nemen (zeer boze Richard Engbersen).</P>
+<P>Ter plekke verholpen, door de oude Midac terug te zetten,</P>
+<P>De oorzaak is later achterhaald en berust op een combinatie van 2 problemen:</P>
+<P>1. verkeerd meetprotocol: een gewijzigde rekenfunctie die niet werkte (zou op zich niet de oorzaak mogen zijn van het niet opnemen)</P>
+<P>2. bug: het blokkeren van de opname als gevolg van een niet-goed-ingestelde rekenfunktie.</P>
+<P>Door eenvoudigweg het meetprotocol aan te passen is het probleem te verhelpen.</P>
+<P>De bug (die ik er vroeger direct uitgehaald zou hebben) heb ik nu laten zitten en is enkel opgeslagen in mijn hoofd (wat ISO).</P>
+<P>&nbsp;&nbsp;</P>
+<P>Naar aanleiding van het geconstateerde probleem,</P>
+<P>heb ik een opzet voor een procedure opgezet en nog diezelfde morgen met Gerard Rongen doorgebeld.</P>
+<P>Maar mijn indruk was dat Gerard meer gepikeerd was door de ontstane problemen,</P>
+<P>dan oren te hebben voor een betere struktuur in de toekomst.</P>
+<P>Om de zaak zo snel mogelijk op te lossen heb ik vervolgens contact proberen te zoeken met Michel Theunissen (de software beheerder van hun). Na een dag vergeefs telefonisch contact te zoeken, heb ik hem maar een mail geschreven, waarop ik tot op heden geen antwoord heb ontvangen.&nbsp; In deze mail zijn ook voorstellen gedaan om speciaal voor de ID een eeuwigdurend administrators account aan te maken.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Het door mij voorgestelde protocol voor het installeren van een nieuwe Midac versie bij het CRCN, ziet er globaal als volgt uit:</P>
+<P>1. de laatste oude Midac versie blijft volledig aktief.</P>
+<P>2. de nieuwe Midac wordt in een aparte directory geinstalleerd, met eigen meetprotocollen (kopie van de oude, zonodig aangepast aan de nieuwe Midac) maar verwijzend naar dezelfde patient en data directory. Er komen dus 2 start iconen op het buroblad, welke duidelijk onderscheidbaar moeten zijn.</P>
+<P>3. Na installatie worden alle protocollen (in daardwerkelijk opname mode en vervolgens review mode) getest door een collega van IDSPON</P>
+<P>4. IDSPON, levert een korte beschrijving van de veranderingen, welke door CRCN wordt verspreid onder de gebruikers (waarbij wordt aangedrongen om de nieuwe versie te gebruiken).</P>
+<P>5. CRCN meldt aan IDSPON terug, met welke protocollen de nieuwe Midac daadwerkelijk is gebruikt ("geen nieuws = goed nieuws"&nbsp; is m.i. onvoldoende)</P>
+<P>6. IDSPON krijgt de beschikking over een administrators account</P>
+<P>&nbsp;&nbsp;</P>
+<P>Donderdag 3 februari</P>
+<P>Marc Gomez heeft grote problemen. opname werkt niet, ... door Henny en Gert opgelost.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Status op dit moment:</P>
+<P>- alles is in principe gereed</P>
+<P>- er is niets door een IDSPON collega getest</P>
+<P>- zonder systeem passwords kunnen we niets.</P>
+<P>- afgelopen vrijdag de situatie met Gert en Henny doorgesproken, Gert zou het systeem kunnen installeren en gelijktijdig testen.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Installatie door Gert</SPAN></P>
+<P>- de nieuwe midac, midorg, licentie file staan op mijn computer onder data_TO_exe, onder de subdirectory output staat hier ook de complete installatie (heb ik nog niet geupload naar de H-schijf)</P>
+<P>- protocol Engbersen1.ini bevatte een fout als gevolg van het extra toegevoegde ingangssignaal bij funktie 6, gecorrigeerd protocol bijgevoegd</P>
+<P>- overige protocollen testen op aanwezigheid Funktie61, hierbij als tweede parameter sys.signal = true invoeren). R-top detectie middels F61. (bedoeld voor cuff detectie, kan pas goed worden ingesteld nadat een opname met cuffdruk en pletbit is gemaakt).</P>
+<P>- Funktie 84 (Plet analyse), eerste ingangssignaal omzetten naar S13=digbits.</P>
+<P>- (Funktie 62 (MSNA) hoeft niets mee te gebeuren is een analyse protocol, bovendien wacht ik nog op de resultaten van Marc).</P>
+</BODY></HTML>

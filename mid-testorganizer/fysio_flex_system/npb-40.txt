@@ -1,0 +1,24 @@
+output van npb-40 nelcorr spo2
+
+16 - 33 - SpO2 - BPM
+
+ 16 33 98 71
+ 16 33 98 71
+ 16 33 98 71
+ 16 33 98 71
+ 16 33 98 72
+ 16 33 98 72
+
+
+sensor niet om vinger,
+hier gaat ie de mist in en dan komt het volgende terug
+
+
+ 2 48 51 32 80 48 48 67 68
+ 2 48 51 32 80 48 48 67 68
+ 2 48 51 32 80 48 48 67 68
+ 2 48 51 32 80 48 48 67 68
+ 2 48 51 32 80 48 48 67 68
+
+
+baudrate 19200, 8 bits no parity, no handshake, 1 stopbit

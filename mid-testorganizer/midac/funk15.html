@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>MIDAC, rekenfunctie 15</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #e2e2e2;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="97" />
+<meta name="spellcheck" content="132115" /></head>
+<body>
+
+<p><span class=rvts1>RF 2, Onset Systolische Bloeddruk</span></p>
+<p>&nbsp; </p>
+<p class=rvps1><a class=rvts4 href="ad-index.html">MIDAC Index</a></p>
+<p class=rvps1><a class=rvts4 href="funk0.html">Overzicht Rekenfuncties</a></p>
+<p class=rvps1><a class=rvts4 href="../mid-testorganizer_index.html">TestOrganizer</a></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=0 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td valign=middle>
+<div><table width="100%" border=0 cellpadding=7 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td rowspan=2 width="25%" height=40 valign=middle style="{background-color: #fffff8;}">
+<p>MIDAC</p>
+<p><a class=rvts4 href="midac1.html">Startpagina</a></p>
+<p><a class=rvts4 href="ad-index.html">Inhoudsopgave</a></p>
+<p><a class=rvts4 href="funk0.html">Rekenfuncties</a></p>
+</td>
+<td width="50%" height=20 valign=middle style="{background-color: #3333ff;}">
+<p class=rvps2>MIDAC, rekenfunctie 15</p>
+</td>
+<td rowspan=2 width="25%" height=40 valign=middle style="{background-color: #fffff8;}">
+<p>DEZE REKENFUNCTIE</p>
+<p><a class=rvts4 href="#omschrijving">Omschrijving</a> | Algoritme</p>
+<p>Bijzonderheden | <a class=rvts4 href="#toepassing">Toepassing</a></p>
+<p><a class=rvts4 href="funk15f.html">Instellingen venster</a></p>
+</td>
+</tr>
+<tr valign=top>
+<td width="50%" height=20 valign=middle style="{background-color: #99ffcc;}">
+<p class=rvps2>Autonome Neuropathie Analyse</p>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<p><a name="omschrijving"></a>
+Omschrijving</p>
+<p>Deze funktie (analyse autonome neuropathie) behoort bij <a class=rvts4 href="funk14.html">funktie 14</a> (opname autonome neuropathie).</p>
+<p>Bijzonderheden</p>
+<p>Deze funktie is ontwikkeld voor een specifiek doel. Gebruik deze funktie nooit zonder voorafgaand overleg met de Instrumentele Dienst. De funktie kan namelijk worden gewijzigd zonder een opwaartse compatibiliteit te garanderen.</p>
+<p>Inputs</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>RR-interval </li>
+<li>R-top </li>
+<li>Diastole </li>
+<li>Systole </li>
+<li>Breathing (Impedantie) </li>
+</ul>
+<p>Outputs</p>
+<p>De outputs van deze funktie zijn na het doorlopen van het gehele bestand gelijk aan:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>10*IEdiff, Forced Breathing: I-E difference [Bpm] </li>
+<li>10*BPsys, Standing Up: delta(BP-systole) [mmHg] </li>
+<li>10*BPdia, Standing Up: delta(BP-diastole) [mmHg] </li>
+<li>10*HRdelta, Standing Up: delta(HR)max [Bpm] </li>
+<li>1000*T/B, Standing Up: T/B ratio [] </li>
+<li>1000*Valsalva, Valsalva 1,2,3: Highest Valsalva Ratio [] </li>
+<li>10*SHdia, Sustained Handgrip: delta(BP-diastole) [mmHg] </li>
+</ul>
+<p>De waarde zijn allen vermenigvuldigd met een individuele factor om voldoende nauwkerigheid te verkrijgen.Tijdens de berekeningen zijn de outputs anders gedefiniëerd, teneinde het rekenalgoritme te kunnen controleren.Parameters</p>
+<p>geen</p>
+<p>Forced BreathingDe gehele test duurt 6 minuten en wordt liggend uitgevoerd. Eerst 5 minuten rust, daarna gedurende 1 minuut geforceerd in-/uitademen (6 keer).De berekening wordt geinitiëerd door marker F1.De ademhaling wordt afgeleid uit het impedantie signaal, stijging=inspiratie en daling=expiratie. Voor de hartrate wordt gebruik gemaakt van het RR-interval.Tijdens de inpiratie wordt de maximale hartfrequentie bepaald en gedurende de expiratie de minimale hartfrequentie. Per respiratie wordt het verschil tussen maximale en minimale hartfrequentie (I-E-difference) bepaald. De uiteindelijke waarde wordt verkregen door de I-E-difference over de 6 respiraties te middelen.Omdat de gehele test liggend wordt uitgevoerd, zullen er weinig bewegings-artefacten zijn, daarom wordt slechts 1 seconde aan begin en einde van de werkelijke rekenperiode verwijderd.</p>
+<div><table width=633 border=0 cellpadding=4 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width="10%" valign=top>
+<p>&nbsp; </p>
+</td>
+<td width="90%" valign=top>
+<p><img width=459 height=117 alt="" src="funk15k.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>Tijdens de berekeningen zijn de outputs als volgt gedefiniëerd:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>IE-diff [Bpm] (5 wordt T/B) </li>
+<li>HR min [Bpm] (6 wordt Valsalva) </li>
+<li>HR max [Bpm] (7 wordt SHdia) </li>
+</ul>
+<p>Standing UpDe gehele test duurt 7 minuten. Na 5 minuten liggende rust, binnen 3 seconde tot staan komen en gedurende 2 minuten staan. De eerste 4.5 minuten van de test wordt niet opgeslagen.De berekening wordt geinitiëerd door marker F2.Voor de bloeddruk wordt gebruik gemaakt van diastolische en systolische bloeddruk.Voor de hartrate wordt gebruik gemaakt van het RR-interval.</p>
+<div><table width=633 border=0 cellpadding=4 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width="8%" valign=top>
+<p>&nbsp; </p>
+</td>
+<td width="92%" valign=top>
+<p><img width=498 height=132 alt="" src="funk15l.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>De volgende parameters worden berekend:2 = BPdia = Gemiddelde Diastole(rust) - gemiddelde Diastole(50..80 sec)3 = BPsys = Gemiddelde Systole(rust) - gemiddelde systole(50..80 sec)4 = HRdelta = HRmax(5..30 sec) - HR(rust)5 = T/B ratio = HRmax(5..30) / HRmin(5..30)Tijdens de berekeningen zijn de relevante outputs als volgt gedefiniëerd:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>diastolische druk (rust en activiteit) </li>
+<li>systolische druk (rust en activiteit); </li>
+<li>HR(rust) </li>
+<li>HRmin </li>
+<li>HRmax </li>
+</ul>
+<p>Valsalva</p>
+<p>Deze test wordt in drievoud uitgevoerd. Door middel van de markers F3, F4 en F5 worden de verschillende Valsalva-tests uit elkaar gehouden. Iedere Valsalva test duurt 75 seconde. Het opgenomen deel is wat korter gehouden dan de testduur. Tijdens de test wordt alleen gekeken naar de hartrate, afgeleid uit RR-interval.</p>
+<p>&nbsp; </p>
+<div><table width=633 border=0 cellpadding=4 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width="10%" valign=top>
+<p>&nbsp; </p>
+</td>
+<td width="90%" valign=top>
+<p><img width=440 height=127 alt="" src="funk15m.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>Van iedere Valsalva manoeuvre wordt de verhouding HRmax(Valsalva) / HRmin (rust-na) berekend. Van de 3 Valsalva metingen wordt uiteindelijk de hoogste Valsava Ratio geëxporteerd (output 6).</p>
+<p>Tijdens de berekeningen zijn de relevante outputs als volgt gedefiniëerd:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Valsalva Ratio van actuele Valsalva </li>
+<li>HRmin (rust-na) </li>
+<li>HRmax (Valsalva) </li>
+</ul>
+<p>Sustained Handgrip</p>
+<p>Deze test duurt in totaal 5 minuten. Gedurende 2 minuten rust, daarna gedurende 3 minuten op 30% maximale kracht knijpen.</p>
+<p>&nbsp; </p>
+<div><table width=633 border=0 cellpadding=4 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width="8%" valign=top>
+<p>&nbsp; </p>
+</td>
+<td width="92%" valign=top>
+<p><img width=459 height=117 alt="" src="funk15n.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>Berekend wordt het verschil tussen maximale diastolische bloeddruk tijdens knijpen en de gemiddelde diastolische bloeddruk tijdens de laatste 30 seconde van de rust. Voor de bepaling van de maximaal diastolische bloeddruk wordt het signaal over 5 seconden gemiddeld.De volgende parameters worden berekend:7 = SHdia = MaxDiastole(knijpen) - gemiddelde Diastole(rust)</p>
+<p>Tijdens de berekeningen zijn de relevante outputs als volgt gedefiniëerd:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>diastolische druk tijdens rust </li>
+<li>maximale diastolische druk tijdens activiteit (diastolische druk gemiddeld over 5 sec) </li>
+</ul>
+<p><a name="toepassing"></a>
+Output Voorbeeld</p>
+<p>&nbsp; </p>
+<div><table width=552 border=0 cellpadding=4 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width="9%" valign=top>
+<p>&nbsp; </p>
+</td>
+<td width="91%" valign=top>
+<p><img width=445 height=269 alt="" src="funk15o.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<hr noshade size=1 >
+<p>© Instrumentele Dienst. Bijgewerkt op 8-12-1999. </p>
+
+</body></html>
