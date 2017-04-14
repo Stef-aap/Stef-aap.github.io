@@ -1,0 +1,65 @@
+<HTML><HEAD><TITLE>PuntHoofd, Overview</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #DDDDDD;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>PuntenSlijper</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>PuntenSlijper is an automatic download/upgrade utility. PuntenSlijper can both download/upgrade from an URL as well as from a standard network location.</P>
+<P>PuntenSlijper waits untill the calling program has finished. (For the time being this mechanism is implemented as wait for 5 seconds to start the download.)</P>
+<P>After downloading all the files, PuntenSlijper restarts the calling program again, with the parameters specified.</P>
+<P>On each run of PuntenSlijper, it will also checkes for it's own updates.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>How to implement in a program</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>What should be placed on the download site</SPAN></P>
+<P>- new files to download</P>
+<P>- version file</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Command / Version File</SPAN></P>
+<P>The version file contains a string identifying the latest version. If the calling program detects a difference between it's own version and the latest version, it should add a section to the command/version file and pass this version file to PuntenSlijper.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>CmdFile: Program Section</SPAN></P>
+<P>The program section contains the information about the calling program. This is the only section that should be modified the calling program. It contains the name of the calling program (including the full path) and the parameters that should be used to restart the program after downloading all the files. Usually the parameters are the same as the parameters where the calling program was started orginally, but it's of course possible to use special parameters to notify the calling program that it has been updated.</P>
+<P>If the item&nbsp;<SPAN class=RVTS3>program</SPAN>&nbsp;is empty, nothing will be done after downloading.&nbsp;</P>
+<P class=RVPS1>[program]</P>
+<P class=RVPS1>program=D:\data_actueel\D7_FileNurse\FileNurse.exe</P>
+<P class=RVPS1>paramcount=1</P>
+<P class=RVPS1>paramstr_1=filenurse.ini</P>
+<P class=RVPS1>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>CmdFile: Version Section</SPAN></P>
+<P>The version section is set in the file on the download site. It just contains one item (a string) containing the version information. This has in principle nothing todo with the fileversion of a file, the calling program determines how it's used.</P>
+<P>The calling program should compare this string with the previous stored string, and if they are different, lauch PuntenSlijper.</P>
+<P class=RVPS1>[version]</P>
+<P class=RVPS1>new=3.4</P>
+<P class=RVPS1>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>CmdFile: Downloads Section</SPAN></P>
+<P>This section contains all the information about the new files to be downloaded.</P>
+<P>If item&nbsp;<SPAN class=RVTS3>N</SPAN>&nbsp;is empty, N=1 is assumed</P>
+<P><SPAN class=RVTS3>Download_1</SPAN>&nbsp;contains the full URL of the first file to download.</P>
+<P><SPAN class=RVTS3>Checked_1</SPAN>&nbsp;if default downloading this file</P>
+<P><SPAN class=RVTS3>FileTo_1</SPAN>&nbsp;contains the relative path (compared to the calling program) where the first file should be stored</P>
+<P><SPAN class=RVTS3>Size_1</SPAN>&nbsp;size in kB of the first file. If empty 1000 (1 MB) is assumed</P>
+<P><SPAN class=RVTS3>Name_1</SPAN>&nbsp;a readable name, not esssential, just for displaying during download. Can be very usefull in downloading more than 1 file, where the user can makes choices what to download.</P>
+<P><SPAN class=RVTS3>Needs_1</SPAN>&nbsp;a comma-delimited list of file-numbers, which are needed if this file is downloaded&nbsp;</P>
+<P class=RVPS1>[downloads]</P>
+<P class=RVPS1>n=1</P>
+<P class=RVPS1>download_1=http://oase.uci.kun.nl/%7Emientki/download/FileNurse.exe</P>
+<P class=RVPS1>fileto_1=aap1.txt</P>
+<P class=RVPS1>checked_1=1</P>
+<P class=RVPS1>size_1=2000</P>
+<P class=RVPS1>name_1=FileNurse Executable V3.42</P>
+<P class=RVPS1>needs_1=</P>
+<P>&nbsp;</P>
+</BODY></HTML>

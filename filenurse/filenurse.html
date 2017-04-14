@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>PuntHoofd, Overview</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="7" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p><span class=rvts1>FileNurse Index</span></p>
+<p>&nbsp; </p>
+<p>in BROWSE, panels met padths moten editable zijn of althans te grabben !!</p>
+<p> </p>
+<p><span class=rvts2>Versie 0.7</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts3>new:</span> accepts UNC paths (not fully tested)</li>
+<li><span class=rvts3>new:</span> synchronize without a transport medium, can now be stored in a ini-file, so you directly synchronize 2 computers</li>
+<li><span class=rvts3>new:</span> can detect changes in the windows installation and if detected, perform an automatic backup of the C-drive</li>
+<li><span class=rvts3>new:</span> browse button in the synchro page works now</li>
+<li><span class=rvts3>change:</span> Old ZIPUPD translation removed</li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>Synchronize without transport medium:</span></p>
+<p>Create an ini-file, as a copy of an existing filenurse backup file. Now start FileNurse with as the first and only parameter the name (and path) of this copied file). Edit the synchro settings and "Save". Now this backup-inifile can be used to synchronize 2 computers.</p>
+<p><br></p>
+<p>In the backup-inifile, the following section will be added:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [BackUp]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; other disk=\\Birgit\S\</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cb_insert_driveletter=0</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cb_synchro_relative=1</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cb_leave_equals=0</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Windows Installation Changes:</span></p>
+<p>You have to declare the first part of the path where the backup should be stored, in the programs main ini_file "FileNurse.ini" (located in the application's directory:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [general]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; backup file=U:\schijf_image\amd_64_</p>
+<p><br></p>
+<p>You have to install the autoit program in the application's directory:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DrvImagerXP_auto.exe</p>
+<p><br></p>
+<p>You have to install DrvImager (freeware)</p>
+<p>When a change in the windows installation is detected, the program will ask a few questions and start the backup.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Versie 0.6</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts3>new:</span> cvs files are automatically excluded</li>
+</ul>
+<p><span class=rvts3><br></span></p>
+<p> </p>
+<p><span class=rvts2>Versie 0.5</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts3>improvement:</span> Old ZIPUPD.ini files are correctly translated </li>
+<li><span class=rvts3>improvement:</span> in SYNCHRO buttons (+header) long enough disabled </li>
+</ul>
+<p>&nbsp; </p>
+<p><span class=rvts2>Nog te doen</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>cancel button </li>
+<li>browser dir up </li>
+<li>schijf overzichter new map </li>
+</ul>
+<p>&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>FileNurse is a program that perfoms all kind of file and disk maintenance. It has the following features:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>2 panel browser </li>
+<li>extended and fast file search </li>
+<li>backup / synchronize function </li>
+<li>ASCII file compare </li>
+<li>special folder browser </li>
+<li>logfile&nbsp;&nbsp;&nbsp;&nbsp; </li>
+</ul>
+
+</body></html>

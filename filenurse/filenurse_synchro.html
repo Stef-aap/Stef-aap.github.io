@@ -1,0 +1,312 @@
+<HTML><HEAD><TITLE>PuntHoofd, Overview</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FFFFFF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>FileNurse, Synchronisation</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>The primary purpose of this feature is to synchronize datafiles on multiple computers through some kind of medium. But it can also be used to backup data to for instance a network drive. And it's also usefull for diskmanagement and file searching.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Normal synchro action</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>insert the transport medium&nbsp;</LI>
+<LI>start FileNurse with the appropiate commandline (see Program Start), FileNurse will now make a complete scan (based on inifile stored on the transport medium). A red nurse will blink if FileNurse finds unresolvable copy directions.&nbsp;</LI>
+<LI>press Enter, FileNurse will update all files&nbsp;</LI>
+<LI>press Enter, FileNurse will be closed&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=634 height=520 src="filenurse_synchro.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Basic Modes</SPAN></P>
+<P>There are 3 different modes of comparing (the examples will clarify these)</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>mode-A: compare just 2 paths&nbsp;</LI>
+<LI>mode-B: compare a number of paths, of the same drive, to the corresponding paths of another relative location&nbsp;</LI>
+<LI>mode-C: compare a number of paths, possible of different drives, to the corresponding paths of one other relative location&nbsp;</LI>
+</UL>
+<P>For each path (in all modes) it's possible to indicate if subdirectories should be included in the comparison.</P>
+<P>For all paths (in all modes) it's possible to indicate which files should be left out of the comparison, and after that it's even possible to make exceptions on this exclusion list.</P>
+<P>Two files are recognized as different, if the datetime flag is different and/or if the size is different. To compensate for the weird difference in datetime flag between FAT and NTFS (in the summertime), it's possible to add or subtract 1 hour before the comparison is done.</P>
+<P>All settings can be stored in a file.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Mode-A</SPAN></P>
+<P>This is the just a normal compare between 2 directories.</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 height=102 valign=top>
+<P>primary path&nbsp;</P>
+<P>&nbsp;<IMG width=133 height=70 src="filenurse_synchro_img8.gif"></P></TD>
+<TD width=418 height=102 valign=top>
+<P>Secondary path&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=169 height=43 src="filenurse_synchro_img10.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Here all the files (excluding subdirectories) in&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; "D:\DATA_ACTUEEL\STEF\...."&nbsp;</P>
+<P>are compared to the files in&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; "D:\TEMP2\...."</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 height=102 valign=top>
+<P>primary path&nbsp;</P>
+<P>&nbsp;<IMG width=141 height=70 src="filenurse_synchro_img11.gif"></P></TD>
+<TD width=418 height=102 valign=top>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>The same as above, except all subdirectories are included.&nbsp;</P>
+<P>Setting can be done through the RightMouse button.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 height=102 valign=top>
+<P>primary path&nbsp;</P>
+<P>&nbsp;<IMG width=140 height=104 src="filenurse_synchro_img12.gif"></P></TD>
+<TD width=418 height=102 valign=top>
+<P>&nbsp;&nbsp;</P>
+<P>The same as above, ...&nbsp;</P>
+<P>but now all the exe-files are left out of the comparison, ...&nbsp;</P>
+<P>except the file "FileNurse.exe"</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Mode-B</SPAN></P>
+<P>Compare a number of paths, of the same drive, to the corresponding paths of another relative location</P>
+<P>The primary path is the same as in mode-A.</P>
+<P>But the secondary path consists of the specified secondary path plus the primary path (minus the drive).</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 height=102 valign=top>
+<P>primary path&nbsp;</P>
+<P>&nbsp;<IMG width=141 height=70 src="filenurse_synchro_img11.gif"></P></TD>
+<TD width=418 height=102 valign=top>
+<P>Secondary path&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=166 height=42 src="filenurse_synchro_img13.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Here all the files (including subdirectories) in&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; "D:\DATA_ACTUEEL\STEF\...."&nbsp;</P>
+<P>are compared to the files in&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; "D:\TEMP2\DATA_ACTUEEL\STEF\...."</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 height=102 valign=top>
+<P>primary path&nbsp;</P>
+<P>&nbsp;<IMG width=148 height=305 src="filenurse_synchro_img14.gif"></P></TD>
+<TD width=418 height=102 valign=top>
+<P>&nbsp;&nbsp;</P>
+<P>And of course you can add a lot of exclusions and exceptions.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Mode-C</SPAN></P>
+<P>At first sight this mode looks very simmilar to mode-B, except this mode can be used to backup different drives to just 1 medium.</P>
+<P>Therefor the secondary path consists of&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>the specified secondary path&nbsp;</LI>
+<LI>plus the drive letter of the primary path&nbsp;</LI>
+<LI>plus the primary path (minus the drive)..&nbsp;</LI>
+</UL>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 height=102 valign=top>
+<P>primary path&nbsp;</P>
+<P>&nbsp;<IMG width=140 height=83 src="filenurse_synchro_img16.gif"></P></TD>
+<TD width=418 height=102 valign=top>
+<P>Secondary path&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=168 height=43 src="filenurse_synchro_img15.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Here all the files (including subdirectories) in&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; "D:\DATA_ACTUEEL\STEF\...."&nbsp;</P>
+<P>are compared to the files in&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; "D:\TEMP2\D\DATA_ACTUEEL\STEF\...."&nbsp;</P>
+<P>and (excluding subdirectories)&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; "C:\DATA\...."&nbsp;</P>
+<P>are compared to the files in&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; "D:\TEMP2\C\DATA\...."&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Wildcards</SPAN></P>
+<P>A lot of wildcards are possible, but not all are allowed all the time. To be safe, don't use the wildcards "&lt;" and "&gt;" and use only files (thus without paths) in the excluded and included section. In the Synchronize section it's safe to use both bare paths (without filenames) and paths with filenames.</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 valign=top>
+<P>*.txt</P>
+<P>C:\*.txt</P>
+<P>?:\*.txt</P>
+<P>C:lib\*.txt</P>
+<P>lib\*.txt</P>
+<P>C:\lib\*.txt</P>
+<P>*:\lib\*.txt&nbsp;</P>
+<P>&lt;&nbsp;</P>
+<P>&gt;</P></TD>
+<TD width=418 valign=top>
+<P>Ignores all text files in any folder and drive</P>
+<P>Ignores all text files in root of drive C:</P>
+<P>Ignores all text files in root of any drive</P>
+<P>Ignores all text files in lib subfolder of any folder of drive C:</P>
+<P>Ignores all text files in lib subfolder of any folder of any drive</P>
+<P>Ignores all text files in lib subfolder of root of drive C:</P>
+<P>Ignores all text files in lib subfolder of root of any drive&nbsp;</P>
+<P>Exclude subdirectories, even is explicitly specified&nbsp; (must be first character)&nbsp;</P>
+<P>Include subdirectories, even is explicitly excluded&nbsp; (must be first character)</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>TreeView</SPAN></P>
+<P>The treeview shows 3 sections: Synchronize, Excluded and Included.</P>
+<P>If a section is empty, its title is dimmed.&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=125 valign=top>
+<P>&nbsp;<IMG width=125 height=98 src="filenurse_synchro_treemenu.gif"></P></TD>
+<TD width=629 valign=top>
+<P>With Insert New / Delete, it's possible to add or remove items from the treeview. By clicking on an item, it's possible to edit an item (section names can not be changed). With drag and drop it's possible to move items within the treeview.&nbsp;</P>
+<P>Set Colors is used to set font and background colors for items, depending on their status.&nbsp;</P>
+<P>Show These Files is explained below.&nbsp;</P>
+<P>Include Subdirs (only valid for paths in the Synchronize section) can be (un-)checked. It's advised to set different fonts/background for paths with and without sub directories.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Show These Files</SPAN></P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=97 valign=top>
+<P>Synchronize</P></TD>
+<TD width=517 valign=top>
+<P>Shows all the files (thus also the equal files) indicated by all the selection masks, with the full apply of all excluded and all included files</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 valign=top>
+<P>Synchronize&nbsp;</P>
+<P>&nbsp; child</P></TD>
+<TD width=418 valign=top>
+<P>Shows all the files indicated by the selected child, with the full apply of all excluded and all included files</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 valign=top>
+<P>Excluded</P></TD>
+<TD width=418 valign=top>
+<P>Shows all the files indicated by all the excluded masks, with the full apply of all included files</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 valign=top>
+<P>Excluded&nbsp;</P>
+<P>&nbsp; child</P></TD>
+<TD width=418 valign=top>
+<P>Shows all the files indicated by all the selected excluded mask, with the full apply of all included files</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 valign=top>
+<P>Included</P></TD>
+<TD width=418 valign=top>
+<P>Shows all the files indicated by all the included masks</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 valign=top>
+<P>Included&nbsp;</P>
+<P>&nbsp; child</P></TD>
+<TD width=418 valign=top>
+<P>Shows all the files indicated by the selected masks</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Typical example of using "show these files"</SPAN></P>
+<P>Some day you might discover that windows is creating a lot of nonsense files like "thumbs.db". These files also pollutes your transport medium, so want to get rid of them.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>add "thumbs.db" to the exclusion list&nbsp;</LI>
+<LI>select thumbs.db and run "show these files"&nbsp;</LI>
+<LI>select all the files in the list&nbsp;</LI>
+<LI>either choose "delete right side" or "delete both sides"&nbsp;</LI>
+</UL>
+<P>and now your transport medium is clean and will stay clean.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>FileList</SPAN></P>
+<P>The filelist contains all the files, according to the last selected comparison.</P>
+<P>If "show these files" is used, also equal files will be shown.</P>
+<P><TABLE width=100% bgcolor=#FFFFBF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=78 valign=top>
+<P>&nbsp;<IMG width=127 height=159 src="filenurse_synchro_listmenu.gif"></P></TD>
+<TD width=418 valign=top>
+<P>With "Reverse, ===&gt;, &lt;===" you can set o change the copy direction.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>"Delete Both/Left/Right Side" deletes the&nbsp;<SPAN class=RVTS3>selected</SPAN>&nbsp;files at the indicated locations.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>"Remove from list", removes the&nbsp;<SPAN class=RVTS3>selected</SPAN>&nbsp;files from the list (not from the driectories). Besides it's a temporary action, because the will return on the next comparsion.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Colors, changes colors of listitems, depending on their status.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Program start</SPAN></P>
+<P>When the program is started with the parameter "synchro" and a drive letter, it starts automatically the synchronisation module:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FileNurse.exe&nbsp;&nbsp; synchro&nbsp;&nbsp; F:\</P>
+<P>The drive letter may be abbreviated to a single letter or extended to a fully qualified path.</P>
+<P>So other valid examples are:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F:\</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F:\path\subpath\</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Load / Save</SPAN></P>
+<P>With Load and Save, the treeview, directory paths and filemasks are loaded or saved explicitly to or from the secondary path (in general the transport medium) in the file&nbsp; "PH_FileNurse.ini" .</P>
+<P>A copy of this file is also stored in a subdirectory "Backups" of the directory of FileNurse. The filename of this copy is the serial number of the transport medium..</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Font &amp; Background</SPAN></P>
+<P>&nbsp;<IMG width=310 height=210 src="filenurse_synchro_colors.gif"></P>
+<P>&nbsp;</P>
+</BODY></HTML>
