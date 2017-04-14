@@ -1,0 +1,226 @@
+<HTML>
+<HEAD>
+  <meta name="keywords" content="NQC,NQC API,Mindstorms,Lego Mindstorms">
+  <TITLE>Timers - NQC API</TITLE>
+</HEAD>
+<BODY BGCOLOR='#f8f8f8'>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH='100%' >
+<tr>
+<td WIDTH='33%'><a href='http://www.enteract.com/~dbaum/nqc/'>
+<img src='nqc.gif' height=35 width=90 align='middle' alt='NQC' border=0></a>&nbsp;<a href='#overview'>Overview</a></td>
+<td ALIGN=CENTER WIDTH='34%' ><b><font size=+2>Timers</font></b></td><td ALIGN=RIGHT WIDTH='33%'>
+<a href='index.html'>Contents</a> | <a href='master_index.html'>Master Index</a></td>
+</tr>
+</table>
+<center>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</center>
+<br><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#ClearTimer' style='color: #CC6666'>ClearTimer()</A>
+<td>&nbsp;<td>Reset the specified timer to 0.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetTimer' style='color: #CC6666'>SetTimer()</A>
+<td>&nbsp;<td>Set a timer to a specific value (which may be any expression).
+</table>
+<p><b><font size=+1>VALUES / QUERIES</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Timer' style='color: #999900'>Timer()</A>
+<td>&nbsp;<td>Return the current value of specified timer (in 100ms resolution).
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#FastTimer' style='color: #999900'>FastTimer()</A>
+<td>&nbsp;<td>Return the current value of specified timer (in 10ms resolution).
+</table>
+<p><A name='overview'></a><b><font size=+1>OVERVIEW</font></b><br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>All targets provide several independent timers with 100ms resolution (10 ticks per second).  The Scout provides 3 such timers while the RCX and CyberMaster provide 4.  The timers wrap around to 0 after 32767 ticks (about 55 minutes).  The value of a timer can be read using Timer(n), where n is a constant that determines which timer to use (0-2 for Scout, 0-3 for the others).  
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>RCX2 provides the ability to read the same timers with higher resolution by using <tt><A href="#fasttimer">FastTimer</A></tt>(n), which returns the timer's value with 10ms resolution (100 ticks per second).  
+
+
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='ClearTimer'></A><font color=#CC6666><b>ClearTimer(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Reset the specified timer to 0.
+
+
+<blockquote><pre>ClearTimer(0); 
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetTimer'></A><font color=#CC6666><b>SetTimer(n, value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set a timer to a specific value (which may be any expression).
+
+
+<blockquote><pre>SetTimer(0, x);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>VALUES / QUERIES</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Timer'></A><font color=#999900><b>Timer(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the current value of specified timer (in 100ms resolution).
+
+
+<blockquote><pre>x = Timer(0);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='FastTimer'></A><font color=#999900><b>FastTimer(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the current value of specified timer (in 10ms resolution).
+
+
+
+<blockquote><pre>x = FastTimer(0);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+</body>
+</html>

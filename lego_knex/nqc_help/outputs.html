@@ -1,0 +1,715 @@
+<HTML>
+<HEAD>
+  <meta name="keywords" content="NQC,NQC API,Mindstorms,Lego Mindstorms">
+  <TITLE>Outputs - NQC API</TITLE>
+</HEAD>
+<BODY BGCOLOR='#f8f8f8'>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH='100%' >
+<tr>
+<td WIDTH='33%'><a href='http://www.enteract.com/~dbaum/nqc/'>
+<img src='nqc.gif' height=35 width=90 align='middle' alt='NQC' border=0></a>&nbsp;<a href='#overview'>Overview</a></td>
+<td ALIGN=CENTER WIDTH='34%' ><b><font size=+2>Outputs</font></b></td><td ALIGN=RIGHT WIDTH='33%'>
+<a href='index.html'>Contents</a> | <a href='master_index.html'>Master Index</a></td>
+</tr>
+</table>
+<center>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</center>
+<br><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetOutput' style='color: #CC6666'>SetOutput()</A>
+<td>&nbsp;<td>Set the outputs to the specified mode.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetDirection' style='color: #CC6666'>SetDirection()</A>
+<td>&nbsp;<td>Set the outputs to the specified direction.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetPower' style='color: #CC6666'>SetPower()</A>
+<td>&nbsp;<td>Sets the power level of the specified outputs.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#On' style='color: #CC6666'>On()</A>
+<td>&nbsp;<td>Turn specified outputs on.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Off' style='color: #CC6666'>Off()</A>
+<td>&nbsp;<td>Turn specified outputs off.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Float' style='color: #CC6666'>Float()</A>
+<td>&nbsp;<td>Make outputs float.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Fwd' style='color: #CC6666'>Fwd()</A>
+<td>&nbsp;<td>Set outputs to forward direction.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Rev' style='color: #CC6666'>Rev()</A>
+<td>&nbsp;<td>Set outputs to reverse direction.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Toggle' style='color: #CC6666'>Toggle()</A>
+<td>&nbsp;<td>Flip the direction of the outputs.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#OnFwd' style='color: #CC6666'>OnFwd()</A>
+<td>&nbsp;<td>Set outputs to forward direction and turn them on.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#OnRev' style='color: #CC6666'>OnRev()</A>
+<td>&nbsp;<td>Set outputs to reverse direction and turn them on.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#OnFor' style='color: #CC6666'>OnFor()</A>
+<td>&nbsp;<td>Turn outputs on for a specified amount of time.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetGlobalOutput' style='color: #CC6666'>SetGlobalOutput()</A>
+<td>&nbsp;<td>Disable or re-enable outputs depending on the mode parameter.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetGlobalDirection' style='color: #CC6666'>SetGlobalDirection()</A>
+<td>&nbsp;<td>Reverses or restores the directions of outputs.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetMaxPower' style='color: #CC6666'>SetMaxPower()</A>
+<td>&nbsp;<td>Sets the maximum power level allowed for the outputs.
+</table>
+<p><b><font size=+1>VALUES / QUERIES</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#OutputStatus' style='color: #999900'>OutputStatus()</A>
+<td>&nbsp;<td>Returns the current output setting for motor n.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#GlobalOutputStatus' style='color: #999900'>GlobalOutputStatus()</A>
+<td>&nbsp;<td>Returns the current global output setting for motor n.
+</table>
+<p><A name='overview'></a><b><font size=+1>OVERVIEW</font></b><br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>All of the functions dealing with outputs take a set of outputs as their first argument.  This set must be a constant.  The names <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt> are used to identify the three outputs.  Multiple outputs can be combined by adding individual outputs together.  For example, use <tt>OUT_A</tt>+<tt>OUT_B</tt> to specify outputs A and B together.  The set of outputs must always be a compile time constant (it cannot be a variable).
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Each output has three different attributes: mode, direction, and power level.  The mode can be set by calling <tt><A href="#setoutput">SetOutput</A></tt>(outputs, mode).  The mode parameter  should be one of the following constants:
+<br>&nbsp;
+<table border=1 cellspacing=0 cellpadding=3>
+<tr><th>Output Mode</th><th>Meaning
+<tr><td><tt>OUT_OFF</tt></td> <td>output is off (motor is prevented from turning)
+<tr><td><tt>OUT_ON</tt></td> <td>output is on (motor will be powered)
+<tr><td><tt>OUT_FLOAT</tt></td> <td>motor can "coast"
+</table>
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The other two attributes, direction and power level, may be set at any time, but only have an effect when the output is on.  The direction is set with the <tt><A href="#setdirection">SetDirection</A></tt>(outputs, direction) command.  The direction parameter should be one of the following constants:
+<br>&nbsp;
+<table border=1 cellspacing=0 cellpadding=3 >
+<tr><th>Direction</th>	<th>Meaning
+<tr><td><tt>OUT_FWD</tt></td> <td>Set to forward direction
+<tr><td><tt>OUT_REV</tt></td> <td>Set to reverse direction
+<tr><td><tt>OUT_TOGGLE</tt></td> <td>Switch direction to the opposite of what it is presently
+</table>
+
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The power level can range 0 (lowest) to 7 (highest).  The names <tt>OUT_LOW</tt>, <tt>OUT_HALF</tt>, and <tt>OUT_FULL</tt> are defined for use in setting power level.  The level is set using the <tt><A href="#setpower">SetPower</A></tt>(outputs, power) function.
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>By default, all three motors are set to full power and the forward direction (but still turned off) when a program  starts.
+
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Since control of outputs is such a common feature of programs, a number of convenience functions are provided that make it easier to work with the outputs.  It should be noted that these commands do not provide any  new functionality above the <tt><A href="#setoutput">SetOutput</A></tt> and <tt><A href="#setdirection">SetDirection</A></tt> commands.  They are merely convenient ways to make programs more concise.
+
+
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetOutput'></A><font color=#CC6666><b>SetOutput(outputs, mode)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the outputs to the specified mode.  Outputs is one or more of <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt>.  Mode must be <tt>OUT_ON</tt>, <tt>OUT_OFF</tt>, or <tt>OUT_FLOAT</tt>.
+
+<blockquote><pre>SetOutput(OUT_A + OUT_B, OUT_ON); <font color="#009900">// turn A and B on</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetDirection'></A><font color=#CC6666><b>SetDirection(outputs, direction)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the outputs to the specified direction.  Outputs is one or more of <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt>.  Direction must be <tt>OUT_FWD</tt>, <tt>OUT_REV</tt>, or <tt>OUT_TOGGLE</tt>.
+
+<blockquote><pre>SetDirection(OUT_A, OUT_REV); <font color="#009900">// make A turn backwards</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetPower'></A><font color=#CC6666><b>SetPower(outputs, power)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Sets the power level of the specified outputs.  Power may be an expression, but should result in a value between 0 and 7.  The constants <tt>OUT_LOW</tt>, <tt>OUT_HALF</tt>, and <tt>OUT_FULL</tt> may also be used.
+
+<blockquote><pre>SetPower(OUT_A, OUT_FULL); <font color="#009900">// A full power</font>
+<br>SetPower(OUT_B, x);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='On'></A><font color=#CC6666><b>On(outputs)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Turn specified outputs on.  Outputs is one or more of <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt> added together.
+
+<blockquote><pre>On(OUT_A + OUT_C); <font color="#009900">// turn on outputs A and C</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Off'></A><font color=#CC6666><b>Off(outputs)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Turn specified outputs off.  Outputs is one or more of <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt> added together.
+
+<blockquote><pre>Off(OUT_A); <font color="#009900">// turn off output A</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Float'></A><font color=#CC6666><b>Float(outputs)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Make outputs float.  Outputs is one or more of <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt> added together.
+
+<blockquote><pre>Float(OUT_A); <font color="#009900">// float output A</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Fwd'></A><font color=#CC6666><b>Fwd(outputs)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set outputs to forward direction.  Outputs is one or more of <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt> added together.
+
+<blockquote><pre>Fwd(OUT_A);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Rev'></A><font color=#CC6666><b>Rev(outputs)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set outputs to reverse direction.  Outputs is one or more of <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt> added together.
+
+<blockquote><pre>Rev(OUT_A);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Toggle'></A><font color=#CC6666><b>Toggle(outputs)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Flip the direction of the outputs.  Outputs is one or more of <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt> added together.
+
+<blockquote><pre>Toggle(OUT_A);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='OnFwd'></A><font color=#CC6666><b>OnFwd(outputs)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set outputs to forward direction and turn them on.  Outputs is one or more of <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt> added together.
+
+<blockquote><pre>OnFwd(OUT_A);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='OnRev'></A><font color=#CC6666><b>OnRev(outputs)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set outputs to reverse direction and turn them on.  Outputs is one or more of <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt> added together.
+
+<blockquote><pre>OnRev(OUT_A);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='OnFor'></A><font color=#CC6666><b>OnFor(outputs, time)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Turn outputs on for a specified amount of time, then turn them off.  Outputs is one or more of <tt>OUT_A</tt>, <tt>OUT_B</tt>, and <tt>OUT_C</tt> added together.  Time is measures in 10ms increments (one second = 100) and may be any expression.
+
+
+<blockquote><pre>OnFor(OUT_A, x);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetGlobalOutput'></A><font color=#CC6666><b>SetGlobalOutput(outputs, mode)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Disable or re-enable outputs depending on the mode parameter.  If mode is <tt>OUT_OFF</tt>, then the outputs will be turned off and disabled.  While disabled any subsequent calls to <tt><A href="#setoutput">SetOutput</A></tt>() (including convenience functions such as On()) will be ignored.  Using a mode of <tt>OUT_FLOAT</tt> will put the outputs in float mode before disabling them.  Outputs can be re-enabled by calling <tt><A href="#setglobaloutput">SetGlobalOutput</A></tt>() with a mode of <tt>OUT_ON</tt>.  Note that enabling an output doesn't immediately turn it on - it just allows future calls to <tt><A href="#setoutput">SetOutput</A></tt>() to take effect.
+
+<blockquote><pre>SetGlobalOutput(OUT_A, OUT_OFF);  <font color="#009900">// disable output A</font>
+<br>SetGlobalOutput(OUT_A, OUT_ON);  <font color="#009900">// enable output A</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetGlobalDirection'></A><font color=#CC6666><b>SetGlobalDirection(outputs, direction)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Reverses or restores the directions of outputs.  The direction parameter should be <tt>OUT_FWD</tt>, <tt>OUT_REV</tt>, or <tt>OUT_TOGGLE</tt>.  Normal behavior is a global direction of <tt>OUT_FWD</tt>.  When the global direction is <tt>OUT_REV</tt>, then the actual output direction will be the opposite of whatever the regular output calls request.  Calling <tt><A href="#setglobaldirection">SetGlobalDirection</A></tt>() with <tt>OUT_TOGGLE</tt> will switch between normal and opposite behavior.
+
+<blockquote><pre>SetGlobalDirection(OUT_A, OUT_REV); <font color="#009900">// opposite direction</font>
+<br>SetGlobalDirection(OUT_A, OUT_FWD); <font color="#009900">// normal direction</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetMaxPower'></A><font color=#CC6666><b>SetMaxPower(outputs, power)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Sets the maximum power level allowed for the outputs.  The power level may be a variable, but should have a value between <tt>OUT_LOW</tt> and <tt>OUT_FULL</tt>.
+
+<blockquote><pre>SetMaxPower(OUT_A, OUT_HALF);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>VALUES / QUERIES</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='OutputStatus'></A><font color=#999900><b>OutputStatus(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Returns the current output setting for motor n.  Note that n must be 0, 1, or 2 - not <tt>OUT_A</tt>, <tt>OUT_B</tt>, or <tt>OUT_C</tt>.
+
+
+<blockquote><pre>x = OutputStatus(0); <font color="#009900">// status of OUT_A</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='GlobalOutputStatus'></A><font color=#999900><b>GlobalOutputStatus(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Returns the current global output setting for motor n.  Note that n must be 0, 1, or 2 - not <tt>OUT_A</tt>, <tt>OUT_B</tt>, or <tt>OUT_C</tt>.
+
+<blockquote><pre>x = GlobalOutputStatus(0); <font color="#009900">// global status of OUT_A</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+</body>
+</html>

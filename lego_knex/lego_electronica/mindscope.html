@@ -1,0 +1,575 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en"><html><head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]"><title>Mindscope</title></head>
+
+<body text="#000000" bgcolor="#ffff00" link="#0000ee" vlink="#551a8b" alink="#ff0000">
+&nbsp;
+<table width="100%">
+<tbody><tr>
+<td align="center"><a name="top"></a><font face="Arial,Helvetica"><a href="../lego_mindstorms_knex_index.html">Lego-Knex</a></font>
+<br><font face="Arial,Helvetica"><a href="../../robbert/robbert_home.html">Robbert</a></font>
+<br><font face="Arial,Helvetica"><a href="../../mattijs/mattijs_home.html">Mattijs</a></font>
+<br><a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height="18" width="29"></a></td>
+
+<td align="center"><b><font face="Arial,Helvetica"><font size="+3">Lego MindScope</font></font></b>
+<br><font face="Arial,Helvetica"><font size="+2">Stef Mientki</font></font>
+<br><font size="-1">august&nbsp; 2001</font></td>
+
+<td><br>
+</td>
+</tr>
+</tbody></table>
+
+<table border="1" width="100%">
+<tbody><tr>
+<td colspan="2"><a name="main features"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Main
+features</font></font></b>
+<ul>
+<li>
+<font face="Arial,Helvetica">4 signals simultanuously</font></li>
+
+<li>
+<font face="Arial,Helvetica">XT-graph and XY-graph</font></li>
+
+<li>
+<font face="Arial,Helvetica">all resources can be sampled (sensors, motors,
+global variables, timers)</font></li>
+
+<li>
+<font face="Arial,Helvetica">fast (1 channel 50Hz) (with some gaps)</font></li>
+
+<li>
+<font face="Arial,Helvetica">fast 1 byte, 1 channel, 70 Hz without gaps
+(V1.1)</font></li>
+</ul>
+<font face="Arial,Helvetica">The idea of this scope was based on <a href="http://www.plazaearth.com/usr/gasperi/mrsensor.htm">"Mr.
+Sensor"</a> form Michael Gasperi (needs Visual Basic).</font></td>
+</tr>
+
+<tr>
+<td align="center"><img src="mindscope1.jpg" height="368" width="494"></td>
+
+<td align="left" valign="CENTER"><a name="contents"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Contents&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<br>&nbsp;
+<ul>
+<li>
+<font face="Arial,Helvetica"><a href="#xt-graph">XT graph</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#xy-graph">XY graph</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#start%20recording">Start Recording</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#measurement%20cursor">Measurement
+Cursor</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#printing%20an%20image">Printing an image</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#gain%20settings">Gain Settings</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#timebase">Timebase</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#fast%201%20byte%20sampling">Fast 1 Byte</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#signal%20selection">Signal Selection</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#layout%20settings">Layout Settings</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#downloads">Downloads</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#downloads">Requirements</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#future%20developments">Future Developments</a></font></li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<a name="xt-graph"></a><b><font face="Arial,Helvetica"><font color="#3366ff">XT-graph&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="11" width="11"></a>
+<br><font face="Arial,Helvetica">In the XT-mode, you can select a maximum
+of 4 signals to be displayed simultanuously.</font>
+<br><font face="Arial,Helvetica">The current amplitudes of the selected
+signals are represented in a numerical format on the right side, with the
+same color as the XT-graphs.</font>
+<br><font face="Arial,Helvetica">The upper and lower levels of amplitude
+and time are represented in the corresponding labels.</font>
+<br><font face="Arial,Helvetica">Below the numerical amplitude levels,
+the relative time in respect to the leftside of the plot area is represented.</font>
+<br><font face="Arial,Helvetica">The time indicated at the lower left corner
+is always zero. The time in the lower right corner is the (calculated)
+time at the right side of the graph.</font>
+<br>&nbsp;
+<p><a name="xy-graph"></a><b><font face="Arial,Helvetica"><font color="#3333ff">XY-graph&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="11" width="11"></a>
+<table border="1" width="100%">
+<tbody><tr>
+<td><font face="Arial,Helvetica">nice picture to be inserted</font></td>
+
+<td><font face="Arial,Helvetica">In the XY-mode there are always 2 signals
+available, which of course can have only 1 color.</font>
+<p><font face="Arial,Helvetica">With the timebase the sample frequency
+can still be set.</font>
+</p><p><font face="Arial,Helvetica">With the erase button, the display can
+be erased.</font></p></td>
+</tr>
+</tbody></table>
+
+<br>&nbsp;
+</p><p><a name="program menu"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Program
+Menu&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="11" width="11"></a>
+<br><font face="Arial,Helvetica">This is my standard menu, where in this
+case only the <b><font color="#3333ff">blue items</font></b> are active.</font>
+<table border="1" cols="5" width="100%">
+<tbody><tr>
+<td>
+<center><b><font face="Arial,Helvetica"><font color="#3333ff">File</font></font></b></center>
+</td>
+
+<td>
+<center><font face="Arial,Helvetica">Edit</font></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica"><font color="#3333ff">View</font></font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica"><font color="#3333ff">Tools</font></font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica"><font color="#3333ff">Help</font></font></b></center>
+</td>
+</tr>
+
+<tr>
+<td align="center" valign="top"><font face="Arial,Helvetica">Load Config File</font>
+<br><font face="Arial,Helvetica">Save Config File</font>
+<br>
+<hr width="100%"><font face="Arial,Helvetica">Load Data File</font>
+<br><font face="Arial,Helvetica">Save Data File</font>
+<br><font face="Arial,Helvetica">Print Data</font>
+<br>
+<hr width="100%"><b><font color="#3333ff">Preferences</font></b>
+<br>
+<hr width="100%"><b><font face="Arial,Helvetica"><font color="#3333ff">Exit</font></font></b></td>
+
+<td>&nbsp;</td>
+
+<td align="center" valign="top"><b><font face="Arial,Helvetica"><font color="#3333ff">XT
+Graph</font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#3333ff">XY Graph</font></font></b></td>
+
+<td align="center" valign="top"><b><font face="Arial,Helvetica"><font color="#3333ff">Connected</font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#3333ff">Test Connection</font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#3333ff">Commport =</font></font></b>
+<br>
+<hr width="100%"><b><font color="#3333ff">Set RCX high power</font></b>
+<br><b><font color="#3333ff">Set RCX low power</font></b>
+<br>
+<hr width="100%"><b><font color="#3333ff">RTS on</font></b>
+<br><b><font color="#3333ff">DTR on</font></b>
+<br>
+<hr width="100%"><b><font color="#3333ff">Allow Task</font></b>
+<br><b><font color="#3333ff">Task 9 ...</font></b></td>
+
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+<b><font color="#3333ff">Preferences</font></b>
+<br>Currently this is only used for the path of the helpfiles.
+</p><p><b><font color="#3333ff">Connected</font></b>
+<br>Indicates if the selected commport is allocated. By clicking, the allocation
+is toggled, so other programs can communicate with the RCX.
+</p><p><b><font color="#3333ff">Test Connection</font></b>
+<br>Try to connect to the RCX, and set the colored indicator block and
+firmware version.
+</p><p><b><font color="#3333ff">Commport =</font></b>
+<br>Select a (different) RS232 port. (normally this will only be done once,
+when the program is started for the first time)
+</p><p><b><font color="#3333ff">Set RCX high/low Power</font></b>
+<br>Because RCX transmit power can not be read, these just send the command
+to the RCX. On program exit, the power status is saved in the inifile and
+restored the next time MindScope is used.
+</p><p><b><font color="#3333ff">RTS on</font></b>
+<br>Normally leave RTS unchecked.
+<br>RTS is used by the IR-tower to allow transmission and receiving of
+data. So the program will automatically toggle the RTS line to its needs.
+<br>Only in special cases (modified tower without batteries) it's necessairy
+to set RTS continuously on.
+</p><p><b><font color="#3333ff">DTR on</font></b>
+<br>Normally leave DTR checked.
+<br>The IR-tower doesn't use the DTR line at all.
+<br>Modified towers can use the DTR line for several purposes.
+</p><p><b><font color="#3333ff">Allow Task</font></b>
+<br>For future use, now this is always checked (and disabled)
+</p><p><b><font color="#3333ff">Task 9...</font></b>
+<br>The number of the task, which will be used for the blocktransfer in
+the fast sampling mode.
+<br>&nbsp;
+<br>&nbsp;
+</p><p><a name="start recording"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Start
+Recording and getting Connection&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="11" width="11"></a>
+<table border="1" width="100%">
+<tbody><tr>
+<td align="center">
+<br><img src="mindscope55.jpg" height="23" width="178">
+<br>By using from the menu
+<br>Tools / Test Connection
+<br>these blocks will be updated,
+<br>as well as all sample actions</td>
+
+<td><font face="Arial,Helvetica">Starting and stopping of the sampling
+is done by the identical named buttons.</font>
+<p><font face="Arial,Helvetica">The 3 colored blocks, displays the connection
+with the RCX (green=OK, red=Wrong)</font>
+<br><font face="Arial,Helvetica">In normal operation, when the RCX is on,
+and communication succeeds, all blocks will be green.</font>
+</p><ol>
+<li>
+<font face="Arial,Helvetica">The left most block indicates the connection
+between the PC and the IR-tower.</font></li>
+
+<li>
+<font face="Arial,Helvetica">The middle block indicates the quality of
+the battery in the IR-tower, according to Lego, but that's only partial
+true</font></li>
+
+<li>
+<font face="Arial,Helvetica">The right most block indicates a real communication
+between IR-tower and RCX succeeded</font></li>
+</ol>
+<font face="Arial,Helvetica">On the right of the colored blocks is the
+firmware version number (here 3.28).</font>
+<br><font face="Arial,Helvetica">All settings will be saved in and ini-file,
+which is stored in the program directory.</font></td>
+</tr>
+
+<tr>
+<td><img src="mindscope6.jpg" height="180" width="201"></td>
+
+<td><font face="Arial,Helvetica">When the program is started for the first
+time, the dialog on the left is displayed.</font>
+<br><font face="Arial,Helvetica">All future restarts, the program start
+with this commport. You can change it from the menu TOOLS / COMMPORT.</font>
+<p><font face="Arial,Helvetica">It will list the available (and free commports
+upto nr 4), in this case thus only Commport 2, and you can select one of
+the free commports for the IR-tower of the RCX.</font>
+<br><font face="Arial,Helvetica">Note: if another program (i.e. RCXcc)
+is communicating with the IR-tower, this commport will be not free.</font></p></td>
+</tr>
+</tbody></table>
+
+<br>&nbsp;
+</p><p><a name="measurement cursor"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Measurement
+Cursor&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="11" width="11"></a>
+<br><font face="Arial,Helvetica">For measurements with the cursor, the
+sampling must be off.</font>
+<br><font face="Arial,Helvetica">By moving the mouse-cursor into the plot
+area, and holding the left-mouse-button, a vertical line is drawn, the
+time from the left of the graph and amplitudes of the signals at the position
+of the cursor line are displayed.</font>
+<br><font face="Arial,Helvetica">In XY-mode you'll see a crosshair, and
+the (signal) values at the center of the crosshair are displayed.</font>
+<br>&nbsp;
+</p><p><a name="printing an image"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Printing
+an image&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="11" width="11"></a>
+<br><font face="Arial,Helvetica">With Alt-PrintScreen form the keyboard
+you can copy the total program window to the clipboard and paste it in
+a arbitrary paint program for printing.</font>
+<br>&nbsp;
+</p><p><a name="gain settings"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Gain
+Settings&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="11" width="11"></a>
+<table border="1" width="100%">
+<tbody><tr>
+<td><img src="mindscope4.jpg" height="201" width="185"></td>
+
+<td><font face="Arial,Helvetica">By clicking on the upper or lower axis
+label, you can set another axis minimum and or maximum.</font>
+<p><font face="Arial,Helvetica">You can choose form a pre definied range
+(which sets both upper and lower value) or set every other range by selecting
+"other".</font>
+</p><p><font face="Arial,Helvetica">The scaling can be done dynamically, that
+is while sampling is running, though it may affect timing a little.</font></p></td>
+</tr>
+</tbody></table>
+
+<br>&nbsp;
+</p><p><a name="signal selection"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Signal
+Selection&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<table border="1" width="100%">
+<tbody><tr>
+<td><img src="mindscope2.jpg" height="276" width="185"></td>
+
+<td><font face="Arial,Helvetica">First select the wanted signal from the
+pulldown box, then select the appropiate number. The possible numbers are
+limited to the RCX constraints and are in assembler notation (so sensor
+1 has number 0 and so on).</font>
+<p><font face="Arial,Helvetica">Sensor&nbsp; 0..2</font>
+<br><font face="Arial,Helvetica">Motor 0..2</font>
+<br><font face="Arial,Helvetica">Global Var&nbsp; 0..31</font>
+<br><font face="Arial,Helvetica">Message (no number)</font>
+<br><font face="Arial,Helvetica">Timer&nbsp; 0..3</font>
+<br><font face="Arial,Helvetica">Watch (no number)</font>
+</p><p><font face="Arial,Helvetica">Signal 1 is always required, you cann't
+switch it off.</font>
+<br><font face="Arial,Helvetica">In XY-mode always signal 1 and signal
+2 must be active and the signals 3 and 4 are off.&nbsp;</font>
+<br><font face="Arial,Helvetica">Signal selection can be done dynamically
+during sampling.</font>
+<br><font face="Arial,Helvetica">&nbsp;</font></p></td>
+</tr>
+</tbody></table>
+
+<br>&nbsp;
+</p><p><a name="timebase"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Timebase&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<br><font face="Arial,Helvetica">In the slow modes (black values in the
+tabel below), timing is done by the PC and samples are acquired by the
+direct poll command.</font>
+<br><font face="Arial,Helvetica">Fast sampling (red values) is done by
+blockmode transfer and stretching or compressing the display distance of
+the points.</font>
+<br><font face="Arial,Helvetica">The real sample frequency is the fast
+mode is only determined by the number of active signals, in the following
+way</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; 1 channel = 50 Hz</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; 2 channels = 33 Hz</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; 3 channels = 23 Hz</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; 4 channels = 18 Hz</font>
+<br><font face="Arial,Helvetica">The fast mode needs to download a small
+task into the RCX, the tasknumber can be choosen freely..</font>
+<table border="1" cols="4" width="98%">
+<tbody><tr>
+<td><font face="Arial,Helvetica">Time / division</font></td>
+
+<td><font face="Arial,Helvetica">Total Time</font></td>
+
+<td><font face="Arial,Helvetica">Sample Frequency</font></td>
+
+<td><font face="Arial,Helvetica">Notes</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">30 min / div</font>
+<br><font face="Arial,Helvetica">15 min / div</font>
+<br><font face="Arial,Helvetica">5 min / div</font>
+<br><font face="Arial,Helvetica">2 min / div</font>
+<br><font face="Arial,Helvetica">1 min / div</font>
+<br><font face="Arial,Helvetica">30 sec / div</font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">10 sec / div</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">5 sec / div</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">2 sec / div</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">1 sec / div</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">0.5 sec / div</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">0.2 sec / div</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">0.1 sec / div</font></font></td>
+
+<td><font face="Arial,Helvetica">5 hour</font>
+<br><font face="Arial,Helvetica">2.5 hour</font>
+<br><font face="Arial,Helvetica">50 min</font>
+<br><font face="Arial,Helvetica">20 min</font>
+<br><font face="Arial,Helvetica">10 min</font>
+<br><font face="Arial,Helvetica">5 min</font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">100 sec</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">50 sec</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">20 sec</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">10 sec</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">5 sec</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">2 sec</font></font>
+<br><font face="Arial,Helvetica"><font color="#ff0000">1 sec</font></font></td>
+
+<td valign="top"><font face="Arial,Helvetica">1/60 Hz</font>
+<br><font face="Arial,Helvetica">1/30 Hz</font>
+<br><font face="Arial,Helvetica">1/10 Hz</font>
+<br><font face="Arial,Helvetica">1/4 Hz</font>
+<br><font face="Arial,Helvetica">1/2 Hz</font>
+<br><font face="Arial,Helvetica">1 Hz</font></td>
+
+<td valign="top"><font face="Arial,Helvetica">PC triggered polling</font>
+<br><font face="Arial,Helvetica">PC triggered polling</font>
+<br><font face="Arial,Helvetica">PC triggered polling</font>
+<br><font face="Arial,Helvetica">PC triggered polling</font>
+<br><font face="Arial,Helvetica">PC triggered polling</font>
+<br><font face="Arial,Helvetica">PC triggered polling</font></td>
+</tr>
+</tbody></table>
+
+</p><p><a name="fast 1 byte sampling"></a><b><font color="#3333ff">Fast 1 Byte
+Sampling&nbsp;</font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<br>For really continuous sampling (i.e. ECG recording) a special mode
+is added, which samples at 70 Hz, 1 byte, 1 channel.
+<br>This special mode can be activated by the menuitem TOOLS / check FAST_1_BYTE.
+If this mode is activated, the panel F1B in the menubar will light yellow.
+<table border="1" width="100%">
+<tbody><tr>
+<td>In this case no program is downloaded into the RCX, because it will
+be necessairy to optimal scale the value to get enough resolution.
+<p>On the right is a simple NQC program that just divides the sensor value
+by a factor 4.
+</p><p>It's obvious that after starting the task in the RCX,. the PC has no
+control over the RCX until the task is stopped by the RUN button on the
+RCX. Starting and stopping of the sampling in Mindscope is this mode only
+starts and stops the display of the signal.</p></td>
+
+<td bgcolor="#ffffff">task fast_serial_1byte()
+<br>{
+<br>#define _S SENSOR_2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // the actual
+used sensor port
+<p>&nbsp; // activate power to sensor and set raw value
+<br>&nbsp; SetSensorType (_S, SENSOR_TYPE_LIGHT);
+<br>&nbsp; SetSensorMode (_S, SENSOR_MODE_RAW);
+</p><p>&nbsp; // initialize the serial communication
+<br>&nbsp; SetSerialComm(SERIAL_COMM_DEFAULT);
+<br>&nbsp; SetSerialPacket(SERIAL_PACKET_DEFAULT);
+</p><p>&nbsp; while (true)
+<br>&nbsp; {
+<br>&nbsp;&nbsp;&nbsp; // ensure there's only 1 databyte (0..255),&nbsp;
+<br>&nbsp;&nbsp;&nbsp; // depending on the sensor optimal scaling must
+be performed here
+<br>&nbsp;&nbsp;&nbsp; // don't make complex calculations,&nbsp;
+<br>&nbsp;&nbsp;&nbsp; // because it will slowdown the samplefrequency
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(0,_S/4);
+<br>&nbsp;&nbsp;&nbsp; SendSerial(0,1);
+<br>&nbsp; }
+<br>}
+</p><p>&nbsp;</p></td>
+</tr>
+</tbody></table>
+This mode is implemented in a quick and dirty way, therefor some remarks:
+<br>&nbsp;&nbsp;&nbsp; - although the signal name is shown, it doesn't
+activate anytghing
+<br>&nbsp;&nbsp;&nbsp; - timebase settings larger than 0.5 sec/div have
+no effect
+<br>&nbsp;&nbsp;&nbsp; - ....
+<br>&nbsp;
+</p><p><a name="layout settings"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Layout
+Settings&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<table border="1" width="100%">
+<tbody><tr>
+<td><img src="mindscope3.jpg" height="168" width="184"></td>
+
+<td><font face="Arial,Helvetica">Colors can be changed by pressing on one
+of the labels.</font>
+<p><font face="Arial,Helvetica">Font is used for displaying the sampled
+or&nbsp; measured signals in a numerical format.</font>
+</p><p><font face="Arial,Helvetica">The grid settings speaks for themself.</font>
+</p><p><font face="Arial,Helvetica">Linewidth is the thickness of the line
+used for drawing the signals.</font>
+<br><font face="Arial,Helvetica">&nbsp;</font></p></td>
+</tr>
+</tbody></table>
+
+<br>&nbsp;
+</p><p><a name="future developments"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Future
+Developments&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<br>&nbsp;
+<table border="1" cols="2" width="100%">
+<tbody><tr>
+<td><b><font face="Arial,Helvetica"><font color="#3333ff">Usefull extensions</font></font></b></td>
+
+<td><b><font face="Arial,Helvetica"><font color="#3333ff">Extensions for
+fun</font></font></b></td>
+</tr>
+
+<tr>
+<td valign="top">
+<ul>
+<li>
+<font face="Arial,Helvetica">Larger history buffer</font></li>
+</ul>
+</td>
+
+<td>
+<ul>
+<li>
+<font face="Arial,Helvetica">Printing of image</font></li>
+
+<li>
+<font face="Arial,Helvetica">Save / Load data file</font></li>
+
+<li>
+<font face="Arial,Helvetica">Embedding MindScope in RCXcc</font></li>
+
+<li>
+<font face="Arial,Helvetica">Reading of the standard datalog</font></li>
+
+<li>
+<font face="Arial,Helvetica">Starting with different config files</font></li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td colspan="2"><b><font face="Arial,Helvetica"><font color="#3333ff">History</font></font></b>
+<p>V1.2 april 2003<br>
+&nbsp; &nbsp; - sometimes problems under win-XP, solved<br>
+</p>
+      <p>V1.1 august 2001 (not finished, use it only if there's need for fast
+contiuous recording, i.e. ECG)
+<br>&nbsp;&nbsp;&nbsp; - fast sampling mode, 70 Hz, 1 channel, 1byte, real
+continuous without gaps
+<br>&nbsp;&nbsp;&nbsp; - launching of other applications (not well tested
+yet)
+      </p>
+<p>V1.0 may 2001
+<br>&nbsp;&nbsp;&nbsp; - measurement cursor in XT-graph, showed only the
+value of signal 1, bug fixed
+<br>&nbsp;&nbsp;&nbsp; - if fourth channel was off, it went on after a
+program restart, bug fixed
+<br>&nbsp;&nbsp;&nbsp; - if channel 2 is off, next start indicates "message",
+bug fixed
+<br>&nbsp;&nbsp;&nbsp; - if PC was very busy, channels got interchanged,
+bug fixed
+<br>&nbsp;&nbsp;&nbsp; - no spirit.ocx required anymore
+<br>&nbsp;&nbsp;&nbsp; - RTS and DTR lines are made low on program exit
+(for modified IR-towers that can stay alive)
+<br>&nbsp;&nbsp;&nbsp; - fast sampling&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 channel&nbsp;&nbsp; 50
+Hz / channel
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 channels 33 Hz / channel
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 channels 23 Hz / channel
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 channels 18 Hz / channel
+</p><p><font face="Arial,Helvetica">V0.0 april 2001, first release with only
+slow sampling</font></p></td>
+</tr>
+
+<tr>
+<td><br>
+</td>
+
+<td><br>
+</td>
+</tr>
+</tbody></table>
+
+<br>&nbsp;
+</p><p><a name="downloads"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Downloads
+and Requirements&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+</p><p><font face="Arial,Helvetica">Executable program including this help
+file, packed as a self extracting ZIP (V1.0), <a href="../../download/mindscope.exe">MINDSCOPE.EXE</a>&nbsp;
+( 400 kB).</font>
+</p><p>V1.2&nbsp; <a href="../../download/mindscope_fast.zip">MINDSCOPE_FAST.ZIP</a>&nbsp;
+(400kB), use only when fast sampling requiered
+<br>&nbsp;
+</p><p><font face="Arial,Helvetica">The program requires Win95 or higher. (No
+spirit.ocx required)</font>
+<br><font face="Arial,Helvetica">RCX 2.0 required (firmware &gt;= 3.28).</font>
+<br><font face="Arial,Helvetica">No other InfraRed communication is allowed
+during measurements</font>
+<br><font face="Arial,Helvetica">For the fast sampling modes, 1 free task
+(selectable, default 9)&nbsp; in the current program is needed.</font>
+<br><font face="Arial,Helvetica">For displaying this help file a internet
+browser should be installed.</font>
+</p><p><font face="Arial,Helvetica">The <a href="../../download/mindscope_source.exe">sources
+(in Delphi 5)</a>.</font>
+</p></body></html>

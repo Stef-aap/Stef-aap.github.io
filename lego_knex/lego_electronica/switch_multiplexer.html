@@ -1,0 +1,116 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>Switch_multiplexer</title>
+</head>
+<body text="#000000" bgcolor="#FFFF00" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER><a name="top"></a><a href="../lego_mindstorms_knex_index.html">Lego-Knex</a>
+<br><a href="../../robbert/robbert_home.html">Robbert</a>
+<br><a href="../../mattijs/mattijs_home.html">Mattijs</a>
+<br><a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height=18 width=29></a></td>
+
+<td ALIGN=CENTER><b><font size=+3>Lego Switch Multiplexer</font></b>
+<br><font size=+2>Stef Mientki</font>
+<br><font size=-1>april 2001</font></td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td>The best way to multiplex a number of switches is to create a current-source
+followed by a so called R-2R ladder network. With such a design you can
+even multiplex up to 8 (maybe 9) switches.
+<br>There will be a little problem caused by the internal 10 kOhm resistor
+of the RCX, but you compensate for that.
+<p>An even better idea is time-multiplexing, as done by <a href="http://www.plazaearth.com/usr/gasperi/MUX.HTM">Michael
+Gasperi</a> and combining it with a current source.
+<p>On the right is a rough scetch of our <a href="universal_control_box.html">Universal
+Control Box</a> , which is a pratical compromise between the different
+principles.
+<br>Features
+<ul>
+<li>
+<font face="Arial,Helvetica">3 potmeters</font></li>
+
+<li>
+<font face="Arial,Helvetica">10 switches</font></li>
+
+<li>
+<font face="Arial,Helvetica">3 external analog inputs</font></li>
+
+<li>
+<font face="Arial,Helvetica">3 status LEDs</font></li>
+
+<li>
+<font face="Arial,Helvetica">test terminals</font></li>
+</ul>
+</td>
+
+<td><a href="universal_control_box.html"><img src="control_box_principle.jpg" height=374 width=474></a></td>
+</tr>
+
+<tr>
+<td>The design of <a href="http://www.plazaearth.com/usr/gasperi/3rmux.htm">Michael
+Gasperi</a>.
+<p>You can extend this by a fourth resistor, to multiplex 4 switches. In
+that case practical resistor values are 10 kOhm, 33 kOhm, 68 kOhm, 150
+kOhm.
+<p>The Excel tables for both the 3 and 4 switch multiplexer are shown below.
+<p>If you want to experiment with the resistor values, you can download
+the <a href="resistor_mux.xls">Excel file</a>.</td>
+
+<td>
+<center><a href="http://www.plazaearth.com/usr/gasperi/3rmux.htm"><img src="resistor_mux_gasperi.gif" height=283 width=412></a></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><img src="resistor4_mux.jpg" height=330 width=440></center>
+</td>
+
+<td>
+<center><img src="resistor3_mux.jpg" height=190 width=420></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><a href="http://www.akasa.bc.ca/tfm/lego_resistor.html"><img src="resistor_mux_tmf.gif" height=102 width=272></a></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>This design was made by <a href="http://www.akasa.bc.ca/tfm/lego_resistor.html">TMF</a>,
+also not bad, but the Michael Gasperi is little bit beter, the smallest
+difference between to succeeding values is larger (see table above). The
+Michael Gasperi design may also be easier to construct in a practical sense.</td>
+
+<td>
+<center><img src="resistor3b_mux.jpg" height=327 width=440></center>
+</td>
+</tr>
+
+<tr>
+<td COLSPAN="2"><a href="http://members.axion.net/~rduff/rcxinput.html">Rob
+Duff</a>, designed this 6-input multiplexer&nbsp;
+<center><img src="rcx6input.gif" height=380 width=480 align=RIGHT></center>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

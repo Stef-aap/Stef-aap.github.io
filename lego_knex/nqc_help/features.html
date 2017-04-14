@@ -1,0 +1,961 @@
+<HTML>
+<HEAD>
+  <meta name="keywords" content="NQC,NQC API,Mindstorms,Lego Mindstorms">
+  <TITLE>Misc. Features - NQC API</TITLE>
+</HEAD>
+<BODY BGCOLOR='#f8f8f8'>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH='100%' >
+<tr>
+<td WIDTH='33%'><a href='http://www.enteract.com/~dbaum/nqc/'>
+<img src='nqc.gif' height=35 width=90 align='middle' alt='NQC' border=0></a>&nbsp;<a href='#overview'>Overview</a></td>
+<td ALIGN=CENTER WIDTH='34%' ><b><font size=+2>Misc. Features</font></b></td><td ALIGN=RIGHT WIDTH='33%'>
+<a href='index.html'>Contents</a> | <a href='master_index.html'>Master Index</a></td>
+</tr>
+</table>
+<center>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</center>
+<br><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Wait' style='color: #CC6666'>Wait()</A>
+<td>&nbsp;<td>Make a task sleep for specified amount of time (in 100ths of a second).
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#StopAllTasks' style='color: #CC6666'>StopAllTasks()</A>
+<td>&nbsp;<td>Stop all currently running tasks.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetSleepTime' style='color: #CC6666'>SetSleepTime()</A>
+<td>&nbsp;<td>Set the sleep timeout the requested number of minutes (which must be a constant).
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SleepNow' style='color: #CC6666'>SleepNow()</A>
+<td>&nbsp;<td>Force the device to go to sleep.
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetWatch' style='color: #CC6666'>SetWatch()</A>
+<td>&nbsp;<td>Set the system watch to the specified number of hours and minutes.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetRandomSeed' style='color: #CC6666'>SetRandomSeed()</A>
+<td>&nbsp;<td>Seed the random number generator with n.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SelectProgram' style='color: #CC6666'>SelectProgram()</A>
+<td>&nbsp;<td>Select the specified program and start running it.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetScoutRules' style='color: #CC6666'>SetScoutRules()</A>
+<td>&nbsp;<td>Set the various rules used by the scout in stand-alone mode.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetScoutMode' style='color: #CC6666'>SetScoutMode()</A>
+<td>&nbsp;<td>Put the scout into stand-alone (0) or power (1) mode.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetEventFeedback' style='color: #CC6666'>SetEventFeedback()</A>
+<td>&nbsp;<td>Set which events should be accompanied by audio feedback.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetLight' style='color: #CC6666'>SetLight()</A>
+<td>&nbsp;<td>Control the Scout's LED.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Drive' style='color: #CC6666'>Drive()</A>
+<td>&nbsp;<td>Turns on both motors at the power levels specified.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#OnWait' style='color: #CC6666'>OnWait()</A>
+<td>&nbsp;<td>Turns on the motors specified.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#OnWaitDifferent' style='color: #CC6666'>OnWaitDifferent()</A>
+<td>&nbsp;<td>Like <tt><A href="#onwait">OnWait</A></tt>().
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#ClearTachoCounter' style='color: #CC6666'>ClearTachoCounter()</A>
+<td>&nbsp;<td>Resets the tachometer for the motor(s) specified.
+</table>
+<p><b><font size=+1>VALUES / QUERIES</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Random' style='color: #999900'>Random()</A>
+<td>&nbsp;<td>Return a random number between 0 and n.
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Program' style='color: #999900'>Program()</A>
+<td>&nbsp;<td>Number of the currently selected program.
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Watch' style='color: #999900'>Watch()</A>
+<td>&nbsp;<td>Return the value of the system clock in minutes.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#BatteryLevel' style='color: #999900'>BatteryLevel()</A>
+<td>&nbsp;<td>Return the battery level in millivolts.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#FirmwareVersion' style='color: #999900'>FirmwareVersion()</A>
+<td>&nbsp;<td>Return the firmware version as an integer.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#ScoutRules' style='color: #999900'>ScoutRules()</A>
+<td>&nbsp;<td>Return current setting for one of the rules.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#EventFeedback' style='color: #999900'>EventFeedback()</A>
+<td>&nbsp;<td>Return the set of events that have audio feedback.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#TachoCount' style='color: #999900'>TachoCount()</A>
+<td>&nbsp;<td>Returns the current value of the tachometer for a specified motor.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#TachoSpeed' style='color: #999900'>TachoSpeed()</A>
+<td>&nbsp;<td>Returns the current speed of the tachometer for a specified motor.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#ExternalMotorRunning' style='color: #999900'>ExternalMotorRunning()</A>
+<td>&nbsp;<td>This is actually a measure of the current being drawn by the motor.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#AGC' style='color: #999900'>AGC()</A>
+<td>&nbsp;<td>Return the current value of the automatic gain control on the RF receiver.
+</table>
+<p><A name='overview'></a><b><font size=+1>OVERVIEW</font></b><br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>CyberMaster provides alternate names for the sensors: <tt>SENSOR_L</tt>, <tt>SENSOR_M</tt>, and <tt>SENSOR_R</tt>.  It also provides alternate names for the outputs: <tt>OUT_L</tt>, <tt>OUT_R</tt>, <tt>OUT_X</tt>.  Additionally, the two internal motors have tachometers, which measure 'clicks' and speed as the motors turn. There are about 50 clicks per revolution of the shaft. The tachometers can be used, for example, to create a robot which can detect if it has bumped into an object without using any external sensors. The tachometers have maximum values of 32767 and do not differentiate between directions. They will also count up if the shaft is turned by hand, including when no program is running.
+
+
+
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Wait'></A><font color=#CC6666><b>Wait(time)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Make a task sleep for specified amount of time (in 100ths of a second).  The time argument may be an expression or a constant:
+
+<blockquote><pre>Wait(100);	<font color="#009900">// wait 1 second</font>
+<br>Wait(Random(100)); <font color="#009900">// wait random time up to 1 second</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='StopAllTasks'></A><font color=#CC6666><b>StopAllTasks()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Stop all currently running tasks.  This will halt the program completely, so any code following this command will be ignored.
+
+<blockquote><pre>StopAllTasks();	<font color="#009900">// stop the program</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetSleepTime'></A><font color=#CC6666><b>SetSleepTime(minutes)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the sleep timeout the requested number of minutes (which must be a constant).  Specifying 0 minutes disables the sleep feature.
+
+<blockquote><pre>SetSleepTime(5); <font color="#009900">// sleep after 5 minutes</font>
+<br>SetSleepTime(0); <font color="#009900">// disable sleep time</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SleepNow'></A><font color=#CC6666><b>SleepNow()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Force the device to go to sleep.  Only works if the sleep time is non-zero.
+
+
+<blockquote><pre>SleepNow(); <font color="#009900">// go to sleep</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetWatch'></A><font color=#CC6666><b>SetWatch(hours, minutes)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the system watch to the specified number of hours and minutes.  Hours must be a constant between 0 and 23 inclusive.  Minutes must be a constant between 0 and 59 inclusive.
+
+<blockquote><pre>SetWatch(3, 15);	<font color="#009900">// set watch to 3:15</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetRandomSeed'></A><font color=#CC6666><b>SetRandomSeed(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Seed the random number generator with n.  N may be an expression.
+
+<blockquote><pre>SetRandomSeed(x); <font color="#009900">// seed with value of x</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SelectProgram'></A><font color=#CC6666><b>SelectProgram(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Select the specified program and start running it.  Note that programs are numbered 0-4 (not 1-5 as displayed on the LCD).
+
+<blockquote><pre>SelectProgram(3);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetScoutRules'></A><font color=#CC6666><b>SetScoutRules(motion, touch, light, time, fx)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the various rules used by the scout in stand-alone mode.
+
+<blockquote><pre></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetScoutMode'></A><font color=#CC6666><b>SetScoutMode(mode)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Put the scout into stand-alone (0) or power (1) mode.  As a programming call it really only makes sense to put into stand-alone mode since it would already be in power mode to run an NQC program.
+
+<blockquote><pre></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetEventFeedback'></A><font color=#CC6666><b>SetEventFeedback(events)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set which events should be accompanied by audio feedback.
+
+<blockquote><pre>SetEventFeedback(EVENT_1_PRESSED);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetLight'></A><font color=#CC6666><b>SetLight(mode)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Control the Scout's LED.  Mode must be <tt>LIGHT_ON</tt> or <tt>LIGHT_OFF</tt>.
+
+
+<blockquote><pre>SetLight(LIGHT_ON); <font color="#009900">// turn on LED</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Drive'></A><font color=#CC6666><b>Drive(motor0, motor1)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Turns on both motors at the power levels specified. If a power level is negative, then the motor will run in reverse. Equivalent to this code:
+</pre>
+
+<blockquote><pre>SetPower(OUT_L, abs(power0));
+<br>SetPower(OUT_R, abs(power1));
+<br>if(power0 < 0)
+<br>    { SetDirection(OUT_L, OUT_REV) }
+<br>else
+<br>    { SetDirection(OUT_L, OUT_FWD) }
+<br>if(power1 < 0)
+<br>    { SetDirection(OUT_R, OUT_REV) }
+<br>else
+<br>    { SetDirection(OUT_R, OUT_FWD) }
+<br>SetOutput(OUT_L + OUT_R, OUT_ON);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='OnWait'></A><font color=#CC6666><b>OnWait(motors, n time)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Turns on the motors specified, all at the same power level then waits for
+the given time. The time is in 10ths of a second, with a maximum of 255 (or
+25.5 seconds). Equivalent to this code:
+
+<blockquote><pre>SetPower(motors, abs(power));
+<br>if(power < 0)
+<br>    { SetDirection(motors, OUT_REV) }
+<br>else
+<br>    { SetDirection(motors, OUT_FWD) }
+<br>SetOutput(motors, OUT_ON);
+<br>Wait( time * 10 );
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='OnWaitDifferent'></A><font color=#CC6666><b>OnWaitDifferent(motors, n0, n1, n2, time)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Like <tt><A href="#onwait">OnWait</A></tt>(), except different power levels can be given for each motor.
+
+<blockquote><pre></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='ClearTachoCounter'></A><font color=#CC6666><b>ClearTachoCounter(motors)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Resets the tachometer for the motor(s) specified.
+
+<blockquote><pre></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>VALUES / QUERIES</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Random'></A><font color=#999900><b>Random(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return a random number between 0 and n.  N must be a constant.
+
+<blockquote><pre>x = Random(10);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Program'></A><font color=#999900><b>Program()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Number of the currently selected program.
+
+<blockquote><pre>x = Program();
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Watch'></A><font color=#999900><b>Watch()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the value of the system clock in minutes.
+
+<blockquote><pre>x = Watch();
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='BatteryLevel'></A><font color=#999900><b>BatteryLevel()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the battery level in millivolts.
+
+<blockquote><pre>x = BatteryLevel();
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='FirmwareVersion'></A><font color=#999900><b>FirmwareVersion()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the firmware version as an integer.  For example, version 3.2.6 is 326.
+
+
+<blockquote><pre>x = FirmwareVersion();
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='ScoutRules'></A><font color=#999900><b>ScoutRules(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return current setting for one of the rules.  N should be a constant between 0 and 4.
+
+<blockquote><pre>x = ScoutRules(1); <font color="#009900">// get setting for rule #1</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='EventFeedback'></A><font color=#999900><b>EventFeedback()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the set of events that have audio feedback.
+
+
+<blockquote><pre>x = EventFeedback();
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='TachoCount'></A><font color=#999900><b>TachoCount(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Returns the current value of the tachometer for a specified motor.
+
+<blockquote><pre></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='TachoSpeed'></A><font color=#999900><b>TachoSpeed(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Returns the current speed of the tachometer for a specified motor. The speed is fairly constant for an unladen motor at any speed, with a maximum value of 90. (This will be lower as your batteries lose power!) The value drops as the load on the motor increases. A value of 0 indicates that the motor is stalled.
+
+<blockquote><pre></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='ExternalMotorRunning'></A><font color=#999900><b>ExternalMotorRunning()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>This is actually a measure of the current being drawn by the motor.  The values returned tends to fluctuate slightly, but are, on average, as follows for an unladen motor:
+<table>
+<tr><td>0</td><td>motor is floating
+<tr><td>1</td><td>motor is off
+<tr><td valign=top><=7</td><td>motor is running at around this power level.  This is where the value fluctuates the most (probably related to the <tt>PWM</tt> method used to drive the motors.) In any case, you should know what power level you set the motor to in the first place.
+</table>
+The value increases as the load on the motor increases, and a value between 260 and 300 indicates that the motor has stalled.
+
+<blockquote><pre></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='AGC'></A><font color=#999900><b>AGC()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the current value of the automatic gain control on the RF receiver.  This can be used to give a very rough (and somewhat inaccurate) measure of the distance between the CyberMaster and the RF transmitter.
+
+<blockquote><pre>x = AGC();
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+</body>
+</html>

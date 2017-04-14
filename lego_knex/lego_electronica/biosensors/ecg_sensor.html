@@ -1,0 +1,229 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>ECG_sensor</title>
+</head>
+<body text="#000000" bgcolor="#FFFF00" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER><a name="top"></a><a href="../../lego_mindstorms_knex_index.html">Lego-Knex</a>
+<br><a href="../../../robbert/robbert_home.html">Robbert</a>
+<br><a href="../../../mattijs/mattijs_home.html">Mattijs</a>
+<br><a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height=18 width=29></a></td>
+
+<td ALIGN=CENTER><b><font size=+3>Mindstorms ECG Sensor</font></b>
+<br><font size=+2>Stef Mientki</font>
+<br><font size=-1>august&nbsp; 2001</font></td>
+
+<td ALIGN=CENTER><a href="#electro cardiogram">the ECG</a>
+<br><a href="#cirquit">Schematics</a>
+<br><a href="#electrodes">Electrodes</a>
+<br><a href="#other needs">Other Needs</a>
+<br><a href="#some recordings">Some Recordings</a>
+<br><a href="#background information">Background Info</a></td>
+</tr>
+</table>
+
+<p><b><font face="Arial,Helvetica"><font color="#FF0000">Warning 1</font></font></b>
+<br><font face="Arial,Helvetica">Always operate the RCX with batteries,
+never use a mains adapter because there's a serious risk of electrocution.</font>
+<p><b><font face="Arial,Helvetica"><font color="#FF0000">Warning 2</font></font></b>
+<br><font face="Arial,Helvetica">Don't draw diagnostic conclusions, because
+the quality of the sensors is in general not accurate enough.</font>
+<p><b><font face="Arial,Helvetica"><font color="#FF0000">Warning 3</font></font></b>
+<br><font face="Arial,Helvetica">Don't scrub the skin before applying electrodes
+(although all electrode suppliers will advise you to do), it gives unnessairy
+risk of skin damage and all sensor-electronics are designed in such a way
+that there's no need for it.</font>
+<br>&nbsp;
+<p><a name="electro cardiogram"></a><b><font face="Arial,Helvetica"><font color="#3333FF">Electro
+CardioGram&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">The ECG measures the electric activity
+of the heart. Below on the left is an animated picture of the propagation
+of the electrical activity of the heart. Below on the right side is the
+electrical activity of the heart, measured between the left-arm and right-arm.</font>
+<br><font face="Arial,Helvetica">Note that the propagation of the electrical
+activity is very slow compared to the propagation in normal electrical
+wires.</font>
+<br><font face="Arial,Helvetica">You can easily detect heartrate from the
+ECG, which will increase during physical (and even mental) stress.</font>
+<br><font face="Arial,Helvetica">A trained doctor can recognize all kind
+off heart defects on the base of very small deviations in the registered
+signals. The proposed&nbsp; ECG-sensor isn't sensititive enough to display
+these small deviations. For instance in the right picture below the third
+heartbeat is not normal, but with an RCX (where you've no garantee that
+all samples will be catched) you could see a similar heartbeat, although
+the underlying&nbsp; heartbeat could be perfectly normal.</font>
+<br><font face="Arial,Helvetica">By placing the electrodes on different
+places around the heart, you get different waveforms, and you can focus
+on the electrical activity of the different parts of the heart.</font>
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER><img src="heartpmp.gif" height=93 width=98></td>
+
+<td ALIGN=CENTER VALIGN=CENTER><img src="ecg_anim.gif" height=47 width=293></td>
+</tr>
+</table>
+
+<p><a name="cirquit"></a><b><font color="#3333FF">Cirquit&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>The sensor amplifier consist of th <a href="bio_amplifiers.html">6-wire
+general purpose bio-amplifer</a> (high CMRR, high input impedance).
+<br>Gain is set to 2000 by resistor R1.
+<br>For the cable it's best to use twin shielded audiocable, as shown in
+the diagram below.
+<br>The DRL (Driven Right Leg) terminal should be connected to some common
+point on the body (a hand or a leg will do) to reduce the common mode interference
+(mains frequency).
+<br><img src="ecg_sensor.gif" height=215 width=694>
+<p>Here some pictures of the actual hardware (the trimpot is not used).
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER><img src="exg_amplifier3.gif" height=216 width=287>
+<br>The bio-amplifier build on an experimental board mounted on a <a href="../connectors.html#very easy female lego">very
+simple femal Lego connector</a>, so it fits directly to the RCX.</td>
+
+<td ALIGN=CENTER VALIGN=CENTER><img src="ecg_sensor3.gif" height=145 width=144>
+<br>The 6-wire connector, the red blocks are the 100 nF condensators. In
+the middle the gain resistor can be seen.</td>
+
+<td ALIGN=CENTER VALIGN=CENTER><img src="ecg_sensor2.gif" height=192 width=286>
+<br>Another view of the bio-amplifier, the ECG-sensor connector and the
+<a href="../connectors.html#very easy female lego">female
+Lego connector</a>.</td>
+</tr>
+</table>
+
+<p><a name="electrodes"></a><b><font color="#3333FF">Electrodes&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>The electrodes must be made of a material with a stable polarisation
+voltage. This does not yield for the DRL-electrode which can be made of
+any metal (because no current flows through it).
+<br>The most stable electrode material (which is not poisonous) is chlorized-silver
+(Ag-AgCl).
+<br>Other materials that will do are Silver (Ag) or chrome ?
+<br>Below there are number of recordings with different electrode materials,
+it may help to choose the right electrodes.
+<br>The most important electrode parameter is the stability of the polarisation
+voltage. If you want to experiment with different electrode materials,
+here are some general guidelines:
+<ul>
+<li>
+use a bad soluable metal (platina, gold, silver, ... chrome ...) or even
+beter a good clorized metal like Ag-AgCl</li>
+
+<li>
+use as large electrodes as possible (the polarisation voltage heavely depends
+on the current-density)</li>
+
+<li>
+ensure good stable fixing of the electrodes to the skin (if the polarisation
+voltage is high, it's very sensititive to movements)</li>
+
+<li>
+try to increase the input impedance of the amplifier (lower the current-density)</li>
+</ul>
+
+<p><br>An overview of the different <a href="http://www.oucom.ohiou.edu/CVPhysiology/A013.htm">standard
+electrode placements</a> is given by Richard E. Klabunde, Ph.D.
+<br>&nbsp;
+<p><a name="other needs"></a><b><font color="#3333FF">Other needs&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>You need of course some kind of data-acquisition program on your PC.
+<br>I used the <a href="../mindscope.html#downloads">MindScope program V1.1</a>.
+This program downloads a little task into the RCX, and then starts that
+task. The task sends continuously samples of the selected sensor to the
+PC. Therefor it's necessairy that you can <a href="../ir_tower/ir_tower.html#keeping ir-tower">keep
+your IR tower alive</a>, which is described <a href="../ir_tower/ir_tower.html#keeping ir-tower">here</a>.
+If you make long measurements, it's wise to make another small modification
+to your IR-tower, "<a href="../ir_tower/ir_tower.html#ir-tower without a">IR-tower
+without batteries</a>"
+<br>&nbsp;
+<p><a name="some recordings"></a><b><font color="#3333FF">Some Recordings&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td><img src="ecg_ag_agcl.gif" height=346 width=298></td>
+
+<td VALIGN=CENTER><a name="good recording"></a><b><font color="#3333FF">Good
+ECG recording&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p>Electrodes are Ag-AgCl disposable electrodes (used in hospitals),
+<br>electrodes are attached on the chest in Einthoven-II bipolair lead
+setting.
+<p>The reference electrode (DRL) is the right hand.
+<p>The sample frequency here is about 70 Hz and the recording was made
+with the mindscope program version 1.1.</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td><img src="ecg_ag_agcl_nodrl.gif" height=346 width=298></td>
+
+<td VALIGN=CENTER><a name="bad cmrr, due to not using"></a><b><font color="#3333FF">Bad
+CMRR, due to not using DRL&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p>The same as above, but the reference electrode is not connected.
+<br>The "high frequency noise" is due to the common mode mains of 50 Hz.</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td><img src="ecg_silver_conector.gif" height=346 width=300></td>
+
+<td><a name="simpel silver"></a><b><font color="#3333FF">Simpel Silver
+Electrodes&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p>ECG electrodes are silver 6 mm bananna connectors,
+<br>electrodes are just held in the left and right hand,
+<br>reference electrode is also placed in one of the hands.
+<p>These electrodes are more sensitive to movement artefacts than Ag-AgCl
+electrodes.</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td><img src="ecg_antenne_electrode.gif" height=344 width=302></td>
+
+<td><a name="simpel chrome?"></a><b><font color="#3333FF">Simpel chrome?
+electrodes&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p>ECG electrodes are pieces of an telescope antenna (probably chrome),
+<br>electrodes are just held in the left and right hand,
+<br>reference electrode is also placed in one of the hands.
+<p>The stability of these "electrodes"&nbsp; is quiet good although these
+electrodes are more sensitive to movement artefacts than Ag-AgCl electrodes.</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td><img src="ecg_unstable_electrode.gif" height=346 width=299></td>
+
+<td><a name="bad electrodes (stainless steel)"></a><b><font color="#3366FF">Bad
+electrodes (stainless steel)&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p>Here you can see the low frequency drift, caused by electrodes which
+are not stable (yet).</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p><a name="background information"></a><b><font color="#3333FF">Background
+Information&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>A relative simple but complete <a href="http://www.oucom.ohiou.edu/CVPhysiology/A009.htm">explanation
+of the ECG</a> is given by Richard E. Klabunde, Ph.D. from the Ohio University
+College of Osteopathic Medicine.
+<br>An overview of the different <a href="http://www.oucom.ohiou.edu/CVPhysiology/A013.htm">standard
+electrode placements</a> is also given by Richard E. Klabunde, Ph.D.
+<br>The <a href="http://www.mrcppart1.co.uk/ecgs/ecghist.html">history
+of the ECG measurements</a> can be found in the ECG library.
+</body>
+</html>

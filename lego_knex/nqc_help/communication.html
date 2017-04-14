@@ -1,0 +1,490 @@
+<HTML>
+<HEAD>
+  <meta name="keywords" content="NQC,NQC API,Mindstorms,Lego Mindstorms">
+  <TITLE>Communication - NQC API</TITLE>
+</HEAD>
+<BODY BGCOLOR='#f8f8f8'>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH='100%' >
+<tr>
+<td WIDTH='33%'><a href='http://www.enteract.com/~dbaum/nqc/'>
+<img src='nqc.gif' height=35 width=90 align='middle' alt='NQC' border=0></a>&nbsp;<a href='#overview'>Overview</a></td>
+<td ALIGN=CENTER WIDTH='34%' ><b><font size=+2>Communication</font></b></td><td ALIGN=RIGHT WIDTH='33%'>
+<a href='index.html'>Contents</a> | <a href='master_index.html'>Master Index</a></td>
+</tr>
+</table>
+<center>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</center>
+<br><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#ClearMessage' style='color: #CC6666'>ClearMessage()</A>
+<td>&nbsp;<td>Clear the message buffer.
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SendMessage' style='color: #CC6666'>SendMessage()</A>
+<td>&nbsp;<td>Send an IR message.
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetTxPower' style='color: #CC6666'>SetTxPower()</A>
+<td>&nbsp;<td>Set the power level for IR transmission.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetSerialComm' style='color: #CC6666'>SetSerialComm()</A>
+<td>&nbsp;<td>Set the communication settings.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetSerialPacket' style='color: #CC6666'>SetSerialPacket()</A>
+<td>&nbsp;<td>Set the packet settings.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetSerialData' style='color: #CC6666'>SetSerialData()</A>
+<td>&nbsp;<td>Set one byte of data in the transmit buffer.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SendSerial' style='color: #CC6666'>SendSerial()</A>
+<td>&nbsp;<td>Use the contents of the transmit buffer to build a packet and send it out the IR port.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SendVLL' style='color: #CC6666'>SendVLL()</A>
+<td>&nbsp;<td>Sends a Visible Light Link (VLL) command.
+</table>
+<p><b><font size=+1>VALUES / QUERIES</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Message' style='color: #999900'>Message()</A>
+<td>&nbsp;<td>Returns the most recently received message.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SerialData' style='color: #999900'>SerialData()</A>
+<td>&nbsp;<td>Returns the value of a byte in the transmit buffer (<tt>NOT</tt> received data).
+</table>
+<p><A name='overview'></a><b><font size=+1>OVERVIEW</font></b><br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The RCX and Scout can send and receive simple messages using IR.  A message can have a value from 0 to 255, but the use of message 0 is discouraged.  The most recently received message is remembered and can be accessed as <tt><A href="#message()">Message()</A></tt>.  If no message has been received, <tt><A href="#message()">Message()</A></tt> will return 0.  Note that due to the nature of IR communication, receiving is disabled while a message is being transmitted.
+
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The RCX2 can transmit serial data out the IR port.  Prior to transmitting any data, the communication and packet settings must be specified.  Then, for each transmission, data should be placed in the transmit buffer, then sent using the <tt><A href="#sendserial">SendSerial</A></tt>() function.
+The communication settings are set with <tt><A href="#setserialcomm">SetSerialComm</A></tt>, and determine how bits are sent over IR.  Possible values are shown below. 
+<br>&nbsp;
+<table border cellspacing=0 cellpadding=3 >
+<tr><th>Option</th><th>Effect
+<tr><td><tt>SERIAL_COMM_DEFAULT</tt></td> <td>default settings
+<tr><td><tt>SERIAL_COMM_4800</tt></td> <td>4800 baud
+<tr><td><tt>SERIAL_COMM_DUTY25</tt></td> <td>25% duty cycle
+<tr><td><tt>SERIAL_COMM_76KHZ</tt></td> <td>76kHz carrier
+</table>
+
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The default is to send data at 2400 baud using a 50% duty cycle on a 38kHz carrier.  To specify multiple options (such as 4800 baud with 25% duty cycle), combine the individual options using bitwise or (<tt>SERIAL_COMM_4800</tt> | <tt>SERIAL_COMM_DUTY25</tt>).
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The packet settings are set with <tt><A href="#setserialpacket">SetSerialPacket</A></tt> and control how bytes are assembled into packets.  Possible values are shown below.
+<br>&nbsp;
+<table border cellspacing=0 cellpadding=3 >
+<tr><th>Option</th><th>Effect
+<tr><td><tt>SERIAL_PACKET_DEFAULT</tt></td> <td>no packet format - just data bytes
+<tr><td><tt>SERIAL_PACKET_PREAMBLE</tt></td> <td>send a packet preamble
+<tr><td><tt>SERIAL_PACKET_NEGATED</tt></td> <td>follow each byte with its complement
+<tr><td><tt>SERIAL_PACKET_CHECKSUM</tt></td> <td>include a checksum for each packet
+<tr><td><tt>SERIAL_PACKET_RCX</tt></td> <td>standard RCX format (preamble, negated data, and checksum)
+</table>
+
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Note that negated packets always include a checksum, so the <tt>SERIAL_PACKET_CHECKSUM</tt> option is only meaningful when <tt>SERIAL_PACKET_NEGATED</tt> is not specified.  Likewise the preamble, negated, and checksum settings are implied by <tt>SERIAL_PACKET_RCX</tt>.
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The transmit buffer can hold up to 16 data bytes.  These bytes may be set using <tt><A href="#setserialdata">SetSerialData</A></tt>, then transmitted by calling <tt><A href="#sendserial">SendSerial</A></tt>. For example, the following code sends two bytes (0x12 and 0x34) out the serial port:
+<pre>   SetSerialComm(SERIAL_COMM_DEFAULT);
+   SetSerialPacket(SERIAL_PACKET_DEFAULT);
+   SetSerialData(0, 0x12);
+   SetSerialData(1, 0x34);
+   SendSerial(0, 2);
+</pre>
+
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='ClearMessage'></A><font color=#CC6666><b>ClearMessage()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Clear the message buffer.  This facilitates detection of the next received message since the program can then wait for <tt><A href="#message()">Message()</A></tt> to become non-zero:
+
+<blockquote><pre>ClearMessage();	<font color="#009900">// clear out the received message</font>
+<br>until(Message() > 0);	<font color="#009900">// wait for next message</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SendMessage'></A><font color=#CC6666><b>SendMessage(message)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Send an IR message.  Message  may be any expression, but the RCX can only send messages with a value between 0 and 255, so only the lowest 8 bits of the argument are used.
+
+<blockquote><pre>SendMessage(3);	<font color="#009900">// send message 3</font>
+<br>SendMessage(259); <font color="#009900">// another way to send message 3</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetTxPower'></A><font color=#CC6666><b>SetTxPower(power)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the power level for IR transmission.  Power should be one of the constants <tt>TX_POWER_LO</tt> or <tt>TX_POWER_HI</tt>.
+
+
+<blockquote><pre>SetTxPower(TX_POWER_LO);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetSerialComm'></A><font color=#CC6666><b>SetSerialComm(settings)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the communication settings, which determine how the bits are sent over IR
+
+<blockquote><pre>SetSerialComm(SERIAL_COMM_DEFAULT);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetSerialPacket'></A><font color=#CC6666><b>SetSerialPacket(settings)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the packet settings, which control how bytes are assembled into packets.
+
+<blockquote><pre>SetSerialPacket(SERIAL_PACKET_DEFAULT);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetSerialData'></A><font color=#CC6666><b>SetSerialData(n, value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set one byte of data in the transmit buffer.  N is the index of the byte to set (0-15), and value can be any expression.
+
+<blockquote><pre>SetSerialData(3, x); <font color="#009900">// set byte 3 to x</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SendSerial'></A><font color=#CC6666><b>SendSerial(start, count)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Use the contents of the transmit buffer to build a packet and send it out the IR port - according to the current packet and communication settings.  Start and count are both constants that specify the first byte and the number of bytes within the buffer to be sent. 
+
+
+<blockquote><pre>SendSerial(0,2); <font color="#009900">// send first two bytes in buffer</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SendVLL'></A><font color=#CC6666><b>SendVLL(value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Sends a Visible Light Link (VLL) command, which can be used to communicate with the MicroScout or Code Pilot.  The specific VLL commands are described in the Scout SDK.
+
+<blockquote><pre>SendVLL(4); <font color="#009900">// send VLL command #4</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>VALUES / QUERIES</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Message'></A><font color=#999900><b>Message()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Returns the most recently received message.
+
+<blockquote><pre></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SerialData'></A><font color=#999900><b>SerialData(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Returns the value of a byte in the transmit buffer (<tt>NOT</tt> received data).  N must be a constant between 0 and 15.
+
+
+<blockquote><pre>x = SerialData(7); <font color="#009900">// read byte #7</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+</body>
+</html>

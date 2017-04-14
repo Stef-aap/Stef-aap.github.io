@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+  <meta name="keywords" content="NQC,NQC API,Mindstorms,Lego Mindstorms">
+  <TITLE>Access Control - NQC API</TITLE>
+</HEAD>
+<BODY BGCOLOR='#f8f8f8'>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH='100%' >
+<tr>
+<td WIDTH='33%'><a href='http://www.enteract.com/~dbaum/nqc/'>
+<img src='nqc.gif' height=35 width=90 align='middle' alt='NQC' border=0></a>&nbsp;<a href='#overview'>Overview</a></td>
+<td ALIGN=CENTER WIDTH='34%' ><b><font size=+2>Access Control</font></b></td><td ALIGN=RIGHT WIDTH='33%'>
+<a href='index.html'>Contents</a> | <a href='master_index.html'>Master Index</a></td>
+</tr>
+</table>
+<center>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</center>
+<br><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetPriority' style='color: #CC6666'>SetPriority()</A>
+<td>&nbsp;<td>Set a task's priority to p.
+</table>
+<p><b><font size=+1>VALUES / QUERIES</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+</table>
+<p><A name='overview'></a><b><font size=+1>OVERVIEW</font></b><br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Access control allows a task to request ownership of one or more resources.  In NQC, access control is provided by the acquire statement, which has two forms:
+<pre>  acquire ( <i>resources</i> ) <i>body</i>
+  acquire ( <i>resources</i> ) <i>body</i> catch <i>handler</i>
+</pre>
+where <i>resources</i> is a constant that specifies the resources to be acquired and <i>body</i> and <i>handler</i> are statements.  The NQC API defines constants for individual resources which may be added together to request multiple resources at the same time.  The behavior of the acquire statement is as follows:  Ownership of the specified resources will be requested.  If another task of higher priority already owns the resources, then the request will fail and execution will jump to the handler (if present).  Otherwise, the request will succeed, and the body will begin to be executed.  While executing the body, if another task of equal or higher priority requests any of the owned resources, then the original task will lose ownership.  When ownership is lost, execution will jump to the handler (if present).  Once the body has completed, the resources will be returned back to the system (so that lower priority tasks may acquire them), and execution will continue with the statement following the acquire statement.  If a handler is not specified, then in both the case of a failed request, or a subsequent loss of ownership, control will pass to the statement following the acquire statement.  For example, the following code acquires a resource for 10 seconds, playing a sound if it cannot complete successfully:
+
+<pre>   acquire(ACQUIRE_OUT_A)
+   {
+      Wait(1000);
+   }
+   catch
+   {
+      PlaySound(SOUND_UP);
+   }
+</pre>
+Access control is implemented primarily by the <tt>acquire</tt> statement.  The <tt><A href="#setpriority">SetPriority</A></tt> function can be used to set a task's priority, and the following constants may be used to specify resources in an <tt>acquire</tt> statement.
+<br>&nbsp;
+<table border cellspacing=0 cellpadding=3>
+<tr><th width=200>Constant</th> <th width=150>Resource
+<tr><td><tt>ACQUIRE_OUT_A</tt>,<br><tt>ACQUIRE_OUT_B</tt>,<br><tt>ACQUIRE_OUT_C</tt><br></td><td>outputs
+<tr><td><tt>ACQUIRE_SOUND</tt></td><td>sound
+</table><!--nospace-->
+
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><table border cellspacing=0 cellpadding=3>
+<tr><td width=200><tt>ACQUIRE_USER_1</tt>,<br><tt>ACQUIRE_USER_2</tt>,<br><tt>ACQUIRE_USER_3</tt>,<br><tt>ACQUIRE_USER_4</tt></td>
+<td width=150>user defined
+</table>
+
+
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetPriority'></A><font color=#CC6666><b>SetPriority(p)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set a task's priority to p, which must be a constant.  RCX2 supports priorities 0-255, while Scout supports priorities 0-7.  Note that lower numbers are higher priority.
+
+
+<blockquote><pre>SetPriority(1);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>VALUES / QUERIES</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+</table>
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+</body>
+</html>

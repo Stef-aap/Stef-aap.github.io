@@ -1,0 +1,315 @@
+#define _S SENSOR_2       // the actual used sensor port
+#define _SN 2             // the actual used sensor port number
+#define _SUB_SENSOR 2     // sensor to be read (1..8) 
+#define _LED_VALUE 5      // LED value {0..7}
+#define _MOTOR OUT_C      // motor port to activate                                                                                                                                                                                                                                                                                                                                                                                // 1..8
+
+int X1,X2,X3,X4,X5,X6,X7,X8=0;    // to store sub-sensor values, in RCXcc "Var0.. Var7"
+int SWITCH_TEST1=0;               // for test purposes, in RCXxx "Var 8"
+int SWITCH_TEST2=0;               // for test purposes, in RCXxx "Var 9"
+int LED_VAL=7;                    // actual LED value (0..7)
+int LED_OLD=9;                    // previous LED value
+
+#define _testprog 2       // testprogram to run
+task main()
+{
+  if (_testprog==1)
+  {
+    start read_sensor_x;
+    start set_LEDs;
+    start read_sensor_x;
+  }
+  else
+  {
+    if (_testprog==2)
+    {
+      start read_all_sensors;
+      start set_all_motors;
+      start encode_switch_4;
+      start encode_switch_5;
+    }
+    else
+    {
+      start read_all_sensors;     
+      start set_all_motors;
+      start encode_switch_4;
+      start encode_switch_5;
+      start inc_led;
+    }
+  }
+}
+
+
+task encode_switch_4()
+{
+  int x=0;
+  while (true)
+  {
+    // evaluate sensor, range = 315 ... 887 (so delta=572)
+    // there are N=32 values possible 0..31
+    // for evenly spaced intervals, the outer intervals must be half the normal value
+    // so a normal interval will be delta/(N-1)=18.2
+    // by giving a extra offset of half a interval=9, we get a simple formula
+    // to get a stable reading in RCXcc, an intermediate var is used
+    // x=((X5-306)*31/580);
+    // 315 .. 870 (delta=555)
+   x=((X4-300)*15/550);
+    SWITCH_TEST1=x;
+  }   
+}
+
+task encode_switch_5()
+{
+  int x=0;
+  while (true)
+  {
+    x=((X5-300)*15/550);
+    SWITCH_TEST2=x;
+  }   
+}
+
+
+task set_all_motors()
+{
+  int x=0;
+  while (true)
+  {
+    // evaluate sensor, range = 315 ... 1005 (so delta=690)
+    // for the motor there are N=17 values possible -7..-1,0,1..7
+    // for evenly spaced intervals, the outer intervals must be half the normal value
+    // so a normal interval will be delta/(N-1)=43
+    // by giving a extra offset of half a interval=22, we get a simple formula
+    x=((X1-293)/43);
+    if (x==8)
+    {
+      Off(OUT_A);
+    }
+    else
+    {
+      if (x>8)
+      {
+        OnFwd(OUT_A);
+        SetPower(OUT_A,x-9);
+      }
+      else
+      {
+        OnRev(OUT_A);
+        SetPower(OUT_A,7-x);
+      }
+    }
+    
+    x=((X2-293)/43);
+    if (x==8)
+    {
+      Off(OUT_B);
+    }
+    else
+    {
+      if (x>8)
+      {
+        OnFwd(OUT_B);
+        SetPower(OUT_B,x-9);
+      }
+      else
+      {
+        OnRev(OUT_B);
+        SetPower(OUT_B,7-x);
+      }
+    }
+    
+    x=((X3-293)/43);
+    if (x==8)
+    {
+      Off(OUT_C);
+    }
+    else
+    {
+      if (x>8)
+      {
+        OnFwd(OUT_C);
+        SetPower(OUT_C,x-9);
+      }
+      else
+      {
+        OnRev(OUT_C);
+        SetPower(OUT_C,7-x);
+      }
+    }
+  }
+}
+
+
+
+
+task read_all_sensors()
+{
+  while (true)
+  {
+    // generate a long touch-sensor pulse to reset the counter
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensor(_S,SENSOR_TOUCH);
+    Wait(4);                        // generate reset pulse
+    SetSensor(_S,SENSOR_LIGHT);
+
+    // read first sensor
+    // wait a small period (by calling SetSensorMode) and then read sensor
+    SetSensorMode(_S, SENSOR_MODE_RAW);
+    X1=_S; 
+    
+    // another way of waiting, which consumes more time
+    //Wait(1);
+    //x=SensorValueRaw(_SN);
+    
+    // read second sensor
+    // by first repeating the light-sensor command,
+    // touch sensor pulses will be more equal in length
+    SetSensor(_S,SENSOR_LIGHT);   // improves noise reduction
+    SetSensor(_S,SENSOR_TOUCH);   // generate clock pulse
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensorMode(_S, SENSOR_MODE_RAW);
+    X2=_S;   
+
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensor(_S,SENSOR_TOUCH);
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensorMode(_S, SENSOR_MODE_RAW);
+    X3=_S;   
+
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensor(_S,SENSOR_TOUCH);
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensorMode(_S, SENSOR_MODE_RAW);
+    X4=_S;   
+
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensor(_S,SENSOR_TOUCH);
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensorMode(_S, SENSOR_MODE_RAW);
+    X5=_S;   
+
+    SetSensor(_S,SENSOR_LIGHT);   
+    SetSensor(_S,SENSOR_TOUCH);   
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensorMode(_S, SENSOR_MODE_RAW);
+    X6=_S;   
+
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensor(_S,SENSOR_TOUCH);
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensorMode(_S, SENSOR_MODE_RAW);
+    X7=_S;   
+
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensor(_S,SENSOR_TOUCH);
+    SetSensor(_S,SENSOR_LIGHT);
+    SetSensorMode(_S, SENSOR_MODE_RAW);
+    X8=_S;   
+
+
+    // now set LEDs, if changed
+    if (LED_OLD != LED_VAL)
+    {
+      LED_OLD=LED_VAL;
+      
+      // generate a long touch-sensor pulse to reset the counter
+      SetSensor(_S,SENSOR_LIGHT);
+      SetSensor(_S,SENSOR_TOUCH);
+      Wait(4);                        // generate reset pulse
+      SetSensor(_S,SENSOR_LIGHT);
+
+      repeat (LED_VAL+8)
+      {
+        SetSensor(_S,SENSOR_LIGHT);   // improves noise reduction
+        SetSensor(_S,SENSOR_TOUCH);   // generate clock pulse
+        SetSensor(_S,SENSOR_LIGHT);
+      }
+  
+      // generate a long touch-sensor pulse to reset the counter
+      // this will generate a extra clock pulse to counter 2
+      SetSensor(_S,SENSOR_LIGHT);
+      SetSensor(_S,SENSOR_TOUCH);
+      Wait(4);
+      SetSensor(_S,SENSOR_LIGHT);
+    }
+  }
+}
+
+
+
+
+
+
+// task read_sensor_x()
+// TEST PURPOSE: calibrate sensor inputs
+// this tasks steps the counter to the sensor, specified by _SUB_SENSOR
+// and sets the RCX to display the raw value of that sensor
+task read_sensor_x()
+{
+  // generate a long touch-sensor pulse to reset the counter
+  SetSensor(_S,SENSOR_LIGHT);
+  SetSensor(_S,SENSOR_TOUCH);
+  Wait(4);                        // generate reset pulse
+  SetSensor(_S,SENSOR_LIGHT);
+
+  repeat (_SUB_SENSOR-1)
+  {
+    SetSensor(_S,SENSOR_LIGHT);   // improves noise reduction
+    SetSensor(_S,SENSOR_TOUCH);   // generate clock pulse
+    SetSensor(_S,SENSOR_LIGHT);
+  }
+  
+  // set sensormode RAW and display this value
+  SetSensorMode(_S, SENSOR_MODE_RAW);
+  SelectDisplay(_SN);
+}
+
+
+
+// task set_LEDs()
+// TEST PURPOSE
+// this task set the LED's to the vaule specified in _LED_VALUE
+task set_LEDs()
+{
+  // generate a long touch-sensor pulse to reset the counter
+  SetSensor(_S,SENSOR_LIGHT);
+  SetSensor(_S,SENSOR_TOUCH);
+  Wait(4);                        // generate reset pulse
+  SetSensor(_S,SENSOR_LIGHT);
+
+  repeat (_LED_VALUE+8)
+  {
+    SetSensor(_S,SENSOR_LIGHT);   // improves noise reduction
+    SetSensor(_S,SENSOR_TOUCH);   // generate clock pulse
+    SetSensor(_S,SENSOR_LIGHT);
+  }
+  
+  // generate a long touch-sensor pulse to reset the counter
+  // this will generate a extra clock pulse to counter 2
+  SetSensor(_S,SENSOR_LIGHT);
+  SetSensor(_S,SENSOR_TOUCH);
+  Wait(4);
+  SetSensor(_S,SENSOR_LIGHT);
+  
+  // TEST PURPOSE now read sensor
+  start read_sensor_x;
+}
+
+
+
+// task inc_led()
+// TEST PURPOSE: increments LED-counter every second
+task inc_led()
+{
+  while (true)
+  {
+    Wait(100);
+    if (LED_VAL<=6)
+    {
+      LED_VAL=LED_VAL+1;
+    }
+    else
+    {
+      LED_VAL=0;
+    }
+  }
+}

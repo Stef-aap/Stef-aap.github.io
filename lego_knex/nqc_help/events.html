@@ -1,0 +1,1033 @@
+<HTML>
+<HEAD>
+  <meta name="keywords" content="NQC,NQC API,Mindstorms,Lego Mindstorms">
+  <TITLE>Events - NQC API</TITLE>
+</HEAD>
+<BODY BGCOLOR='#f8f8f8'>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH='100%' >
+<tr>
+<td WIDTH='33%'><a href='http://www.enteract.com/~dbaum/nqc/'>
+<img src='nqc.gif' height=35 width=90 align='middle' alt='NQC' border=0></a>&nbsp;<a href='#overview'>Overview</a></td>
+<td ALIGN=CENTER WIDTH='34%' ><b><font size=+2>Events</font></b></td><td ALIGN=RIGHT WIDTH='33%'>
+<a href='index.html'>Contents</a> | <a href='master_index.html'>Master Index</a></td>
+</tr>
+</table>
+<center>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</center>
+<br><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Event' style='color: #CC6666'>Event()</A>
+<td>&nbsp;<td>Manually triggers the specified events.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetEvent' style='color: #CC6666'>SetEvent()</A>
+<td>&nbsp;<td>Configure an event (a number from 0 to 15) to use the specified source and type.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#CalibrateEvent' style='color: #CC6666'>CalibrateEvent()</A>
+<td>&nbsp;<td>Calibrate the event by taking an actual sensor reading and then applying the specified ratios.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetUpperLimit' style='color: #CC6666'>SetUpperLimit()</A>
+<td>&nbsp;<td>Set the upper limit for the event.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetLowerLimit' style='color: #CC6666'>SetLowerLimit()</A>
+<td>&nbsp;<td>Set the lower limit for the event.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetHysteresis' style='color: #CC6666'>SetHysteresis()</A>
+<td>&nbsp;<td>Set the hysteresis for the event.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetClickTime' style='color: #CC6666'>SetClickTime()</A>
+<td>&nbsp;<td>Set the click time for the event.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetClickCounter' style='color: #CC6666'>SetClickCounter()</A>
+<td>&nbsp;<td>Set the click counter for the event.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetSensorClickTime' style='color: #CC6666'>SetSensorClickTime()</A>
+<td>&nbsp;<td>Set the click time used to generate events from the light sensor.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetCounterLimit' style='color: #CC6666'>SetCounterLimit()</A>
+<td>&nbsp;<td>Set the limit for counter n.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetTimerLimit' style='color: #CC6666'>SetTimerLimit()</A>
+<td>&nbsp;<td>Set the limit for timer n.
+</table>
+<p><b><font size=+1>VALUES / QUERIES</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#ActiveEvents' style='color: #999900'>ActiveEvents()</A>
+<td>&nbsp;<td>Return the set of events that have been triggered for a given task.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#CurrentEvents' style='color: #999900'>CurrentEvents()</A>
+<td>&nbsp;<td>Return the set of events that have been triggered for the active task.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#ClearEvent' style='color: #999900'>ClearEvent()</A>
+<td>&nbsp;<td>Clear the configuration for the specified event.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#ClearAllEvents' style='color: #999900'>ClearAllEvents()</A>
+<td>&nbsp;<td>Clear the configurations for all events.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#EventState' style='color: #999900'>EventState()</A>
+<td>&nbsp;<td>Return the state of a given event.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#UpperLimit' style='color: #999900'>UpperLimit()</A>
+<td>&nbsp;<td>Return the current upper limit for the specified event number.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#LowerLimit' style='color: #999900'>LowerLimit()</A>
+<td>&nbsp;<td>Return the current lower limit for the specified event number.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#Hysteresis' style='color: #999900'>Hysteresis()</A>
+<td>&nbsp;<td>Return the current hysteresis for the specified event number.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#ClickTime' style='color: #999900'>ClickTime()</A>
+<td>&nbsp;<td>Return the current click time for the specified event number.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#ClickCounter' style='color: #999900'>ClickCounter()</A>
+<td>&nbsp;<td>Return the current click counter for the specified event number.
+</table>
+<p><A name='overview'></a><b><font size=+1>OVERVIEW</font></b><br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+Event monitoring is implemented with the <tt>monitor</tt> statement, which has a syntax very similar to <tt>acquire</tt>:
+<pre>   monitor ( <I>events</I> ) <I>body</I>
+   monitor ( <I>events</I> ) <I>body</I> <I>handler_list</I>
+</pre>
+Where <I>handler_list</I> is one or more handlers of the form
+<pre>   catch ( <I>catch_events</I> ) <I>handler</I>
+</pre>
+The last handler in a handler list can omit the event specification:
+<pre>   catch <I>handler</I>
+</pre>
+<I>Events</I> is a constant that determines which events should be monitored.
+<!--nospace-->
+
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td><ul><li>For the Scout, events are predefined, so there are constants such as <tt>EVENT_1_PRESSED</tt> which can be used to specify events.  The Scout event constants (<i>i.e.</i>, event masks) may be added together to specify multiple events.  
+</ul><!--nospace-->
+
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><ul><li>With RCX2, the meaning of each event  is configured by the programmer.  There are 16 events (numbers 0 to 15).  In order to specify an event in a monitor statement, the event number must be converted to an event mask using the <tt>EVENT_MASK</tt>() macro.  
+</ul><!--nospace-->
+
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td><ul><li>Multiple masks can be combined using bitwise OR.
+</ul><!--nospace-->
+
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td><br>The <tt>monitor</tt> statement will execute the body while monitoring the specified events.  If any of the events occur, execution will jump to the first handler for that event (a handler without an event specification handles any event).  If no event handler exists for the event, then control will continue at the statement following the monitor statement.  
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The following example waits for 10 seconds while monitoring events 2, 3, and 4 for RCX2:
+<pre>    monitor( EVENT_MASK(2) | EVENT_MASK(3) | EVENT_MASK(4) )
+    {
+    	Wait(1000);
+    }
+    catch ( EVENT_MASK(4) )
+    {
+    	PlaySound(SOUND_DOWN); <font color="#009900">// event 4 happened</font>
+    }
+    catch
+    {
+    	PlaySound(SOUND_UP); <font color="#009900">// event 2 or 3 happened</font>
+    }
+</pre>
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>RCX2 provides an extremely flexible event system.  There are 16 events, each of which can be mapped to one of several event sources (the stimulus that can trigger the event), and an event type (the criteria for triggering).  A number of other parameters may also be specified depending on the event type.  For all of the configuration calls an event is identified by its event number - a constant from 0 to 15.  
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Legal event sources are sensors, timers, counters, or the message buffer.  An event is configured by calling <tt><A href="#setevent">SetEvent</A></tt>(event, source, type), where event is a constant event number (0-15), source is the event source itself, and type is one of the types shown below (some combinations of sources and types are illegal).
+<br>&nbsp;
+<table border cellspacing=0 cellpadding=3>
+<tr><th>Event Type</th> <th>Condition</th> <th>Event Source
+<tr><td><tt>EVENT_TYPE_PRESSED</tt></td><td>value becomes on</td><td>sensors only
+<tr><td><tt>EVENT_TYPE_RELEASED</tt></td><td>value becomes off</td><td>sensors only
+<tr><td><tt>EVENT_TYPE_PULSE</tt></td><td>value goes from off to on to off</td><td>sensors only
+<tr><td><tt>EVENT_TYPE_EDGE</tt></td><td>value goes from on to off or vice versa</td><td>sensors only
+<tr><td><tt>EVENT_TYPE_FASTCHANGE</tt></td><td>value changes rapidly</td><td>sensors only
+<tr><td><tt>EVENT_TYPE_LOW</tt></td><td>value becomes low</td><td>any
+<tr><td><tt>EVENT_TYPE_NORMAL</tt></td><td>value becomes normal</td><td>any
+<tr><td><tt>EVENT_TYPE_HIGH</tt></td><td>value becomes high</td><td>any
+<tr><td><tt>EVENT_TYPE_CLICK</tt></td><td>value from low to high back to low</td><td>any
+<tr><td><tt>EVENT_TYPE_DOUBLECLICK</tt></td><td>two clicks within a certain time</td><td>any
+<tr><td><tt>EVENT_TYPE_MESSAGE</tt></td><td>new message received</td><td><tt><A href="#message()">Message()</A></tt> only
+</table>
+<p>
+The first four event types make use of a sensor's boolean value, thus are most useful with touch sensors.  For example, to set event #2 to be triggered when a touch sensor on port 1 is pressed, the following call could be made:
+<pre>   SetEvent(2, SENSOR_1, EVENT_TYPE_PRESSED);
+</pre>
+In order for <tt>EVENT_TYPE_PULSE</tt> or <tt>EVENT_TYPE_EDGE</tt> to be used, the sensor must be configured in the <tt>SENSOR_MODE_PULSE</tt> or <tt>SENSOR_MODE_EDGE</tt> respectively.
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><tt>EVENT_TYPE_FASTCHANGE</tt> should be used with sensors that have been configured with a slope parameter.  When the raw value changes faster than the slope parameter an <tt>EVENT_TYPE_FASTCHANGE</tt> event will be triggered.
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The next three types (<tt>EVENT_TYPE_LOW</tt>, <tt>EVENT_TYPE_NORMAL</tt>, and <tt>EVENT_TYPE_HIGH</tt>) convert an event source's value into one of three ranges (low, normal, or high), and trigger an event when the value moves from one range into another.  The ranges are defined by the <I>lower limit</I> and <I>upper limit</I> for the event.  When the source value is <ul>
+<li>lower than the lower limit, the source is considered <I>low</I>
+<li>between the limits, the source is considered <I>normal</I>
+<li>higher than the upper limit, the source is considered <I>high</I>
+</ul>
+<!--nospace-->
+
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><br>The following example configures event #3 to trigger when the sensor on port 2's value goes into the high range.  The upper limit is set for 80, and the lower limit is set for 50.  This configuration is typical of how an event can be triggered when a light sensor detected a bright light.
+<pre>   SetEvent(3, SENSOR_2, EVENT_TYPE_HIGH);
+   SetLowerLimit(3, 50);
+   SetUpperLimit(3, 80);
+</pre>
+A <B>hysteresis</B> parameter can be used to provide more stable transitions in cases where the source value may jitter.  Hysteresis works by making the transition from low to normal a little higher than the transition from normal to low.  In a sense, it makes it easier to get into the low range than get out of it.  A symmetrical case applies to the transition between normal and high. 
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>A transition from low to high back to low will trigger a <tt>EVENT_TYPE_CLICK</tt> event, provided that the entire sequence is faster than the <I>click time</I> for the event.  If two successive clicks occur and the time between clicks is also less than the click time, then an <tt>EVENT_TYPE_DOUBLECLICK</tt> event will be triggered.  The system also keeps track of the total number of clicks for each event.  
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The last event type, <tt>EVENT_TYPE_MESSAGE</tt>, is only valid when <tt><A href="#message()">Message()</A></tt> is used as the event source.  The event will be triggered whenever a new message arrives (even if its value is the same as a previous message).
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The <tt>monitor</tt> statement and some API functions (such as <tt><A href="#activeevents">ActiveEvents</A></tt>() or <tt><A href="#event()">Event()</A></tt>) need to handle multiple events.  This is done by converting each event number to an event mask, and then combining the masks with a bitwise OR.  The <tt>EVENT_MASK</tt>(event) macro converts an event number to a mask.  For example, to monitor events 2 and 3, the following statement could be used:
+<pre>   monitor(EVENT_MASK(2) | EVENT_MASK(3))
+</pre>
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The Scout provides 15 events, each of which has a predefined meaning as shown in the table below.
+<br>&nbsp;
+<table border cellspacing=0 cellpadding=3>
+<tr><th>Event name</th> <th>Condition
+<tr><td><tt>EVENT_1_PRESSED</tt></td><td>sensor 1 pressed
+<tr><td><tt>EVENT_1_RELEASED</tt></td><td>sensor 1 released
+<tr><td><tt>EVENT_2_PRESSED</tt></td><td>sensor 2 pressed
+<tr><td><tt>EVENT_2_RELEASED</tt></td><td>sensor 2 released
+<tr><td><tt>EVENT_LIGHT_HIGH</tt></td><td>light sensor "high"
+<tr><td><tt>EVENT_LIGHT_NORMAL</tt></td><td>light sensor "normal"
+<tr><td><tt>EVENT_LIGHT_LOW</tt></td><td>light sensor "low"
+<tr><td><tt>EVENT_LIGHT_CLICK</tt></td><td>low to high to low
+<tr><td><tt>EVENT_LIGHT_DOUBLECLICK</tt></td><td>two clicks
+<tr><td><tt>EVENT_COUNTER_0</tt></td><td>counter 0 over limit
+<tr><td><tt>EVENT_COUNTER_1</tt></td><td>counter 1 over limit
+<tr><td><tt>EVENT_TIMER_0</tt></td><td>timer 0 over limit
+<tr><td><tt>EVENT_TIMER_1</tt></td><td>timer 1 over limit
+<tr><td><tt>EVENT_TIMER_2</tt></td><td>timer 2 over limit
+<tr><td><tt>EVENT_MESSAGE</tt></td><td>new message received
+</table>
+<p>
+The first four events are triggered by touch sensors connected to the two sensor ports.  <tt>EVENT_LIGHT_HIGH</tt>, <tt>EVENT_LIGHT_NORMAL</tt>, and <tt>EVENT_LIGHT_LOW</tt> are triggered by the light sensor's value changing from one range to another.  The ranges are defined by <tt><A href="#setsensorupperlimit">SetSensorUpperLimit</A></tt>, <tt><A href="#setsensorlowerlimit">SetSensorLowerLimit</A></tt>, and <tt><A href="#setsensorhysteresis">SetSensorHysteresis</A></tt> which were described previously.
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td><tt>EVENT_LIGHT_CLICK</tt> and <tt>EVENT_LIGHT_DOUBLECLICK</tt> are also triggered by the light sensor.  A click is a transition from low to high and back to low within a certain amount of time, called the <I>click time</I>.  
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Each counter has a counter limit.  When the counter exceeds this limit, <tt>EVENT_COUNTER_0</tt> or <tt>EVENT_COUNTER_1</tt> is triggered.  Timers also have a limit, and they generate <tt>EVENT_TIMER_0</tt>, <tt>EVENT_TIMER_1</tt>, and <tt>EVENT_TIMER_2</tt>.
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td><tt>EVENT_MESSAGE</tt> is triggered whenever a new IR message is received.
+
+
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Event'></A><font color=#CC6666><b>Event(events)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Manually triggers the specified events.  This can be useful in testing event handling of the program, or in other cases simulating an event based on other criteria.  Note that the specification of the events themselves is slightly different between RCX2 and Scout.  RCX2 uses the <tt>EVENT_MASK</tt> macro to compute an event mask, while Scout has predefined masks.
+
+
+<blockquote><pre>Event(EVENT_MASK(3)); <font color="#009900">// triggering an RCX2 event</font>
+<br>Event(EVENT_1_PRESSED);  <font color="#009900">// triggering a Scout event</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetEvent'></A><font color=#CC6666><b>SetEvent(event, source, type)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Configure an event (a number from 0 to 15) to use the specified source and type.  Both event and type must be constants, and source should be the actual source expression.
+
+<blockquote><pre>SetEvent(2, Timer(0), EVENT_TYPE_HIGH);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='CalibrateEvent'></A><font color=#CC6666><b>CalibrateEvent(event, lower, upper, hyst)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Calibrate the event by taking an actual sensor reading and then applying the specified ratios - lower, upper, and hyst - to determine actual limits and hysteresis value.  The specific formulas for calibration depend on sensor type and are explained in the LEGO SDK.  Calibration is not instantaneous - <tt><A href="#eventstate">EventState</A></tt>() can be checked to determine when the calibration is complete (typically about 50ms).
+
+<blockquote><pre>CalibrateEvent(2, 50, 50, 20);
+<br>until(EventState(2) != 5); <font color="#009900">// wait for calibration</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetUpperLimit'></A><font color=#CC6666><b>SetUpperLimit(event, limit)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the upper limit for the event, where event is a constant event number and limit can be any expression.
+
+<blockquote><pre>SetUpperLimit(2, x); <font color="#009900">// set upper limit for #2 to x</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetLowerLimit'></A><font color=#CC6666><b>SetLowerLimit(event, limit)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the lower limit for the event, where event is a constant event number and limit can be any expression.
+
+<blockquote><pre>SetLowerLimit(2, x); <font color="#009900">// set lower limit for #2 to x</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetHysteresis'></A><font color=#CC6666><b>SetHysteresis(event, value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the hysteresis for the event, where event is a constant event number and value can be any expression.
+
+<blockquote><pre>SetHysteresis(2, x);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetClickTime'></A><font color=#CC6666><b>SetClickTime(event, value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the click time for the event, where event is a constant event number and value can be any expression.  The time is specified in increments of 10ms, so one second would be a value of 100.
+
+<blockquote><pre>SetClickTime(2, x);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetClickCounter'></A><font color=#CC6666><b>SetClickCounter(event, value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the click counter for the event, where event is a constant event number and value can be any expression.
+
+<blockquote><pre>SetClickCounter(2, x);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetSensorClickTime'></A><font color=#CC6666><b>SetSensorClickTime(value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the click time used to generate events from the light sensor.  Value should be specified in increments of 10ms, and may be any expression.
+
+<blockquote><pre>SetSensorClickTime(x);  
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetCounterLimit'></A><font color=#CC6666><b>SetCounterLimit(n, value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the limit for counter n.  N must be 0 or 1, and value may be any expression.
+
+<blockquote><pre>SetCounterLimit(0, 100); <font color="#009900">// set counter 0 limit to 100</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetTimerLimit'></A><font color=#CC6666><b>SetTimerLimit(n, value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the limit for timer n.  N must be 0, 1, or 2, and value may be any expression.
+
+
+<blockquote><pre>SetTimerLimit(1, 100); <font color="#009900">// set timer 1 limit to 100</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>VALUES / QUERIES</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='ActiveEvents'></A><font color=#999900><b>ActiveEvents(task)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the set of events that have been triggered for a given task.
+
+<blockquote><pre>x = ActiveEvents(0);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='CurrentEvents'></A><font color=#999900><b>CurrentEvents()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the set of events that have been triggered for the active task.
+
+<blockquote><pre>x = CurrentEvents();
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='ClearEvent'></A><font color=#999900><b>ClearEvent(event)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Clear the configuration for the specified event.  This prevents it from triggering until it is re-configured.
+
+<blockquote><pre>ClearEvent(2); <font color="#009900">// clear event #2 </font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='ClearAllEvents'></A><font color=#999900><b>ClearAllEvents()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Clear the configurations for all events.
+
+<blockquote><pre>ClearAllEvents();
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='EventState'></A><font color=#999900><b>EventState(event)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the state of a given event.  States are 0: Low, 1: Normal, 2: High, 3: Undefined, 4: Start calibrating, 5: Calibrating in process.
+
+<blockquote><pre>x = EventState(2);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='UpperLimit'></A><font color=#999900><b>UpperLimit(event)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the current upper limit for the specified event number.
+
+<blockquote><pre>x = UpperLimit(2); <font color="#009900">// get upper limit for event 2</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='LowerLimit'></A><font color=#999900><b>LowerLimit(event)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the current lower limit for the specified event number.
+
+<blockquote><pre>x = LowerLimit(2); <font color="#009900">// get lower limit for event 2</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='Hysteresis'></A><font color=#999900><b>Hysteresis(event)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the current hysteresis for the specified event number.
+
+<blockquote><pre>x = Hysteresis(2);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='ClickTime'></A><font color=#999900><b>ClickTime(event)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the current click time for the specified event number.
+
+<blockquote><pre>x = ClickTime(2);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='ClickCounter'></A><font color=#999900><b>ClickCounter(event)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Return the current click counter for the specified event number.
+
+
+<blockquote><pre>x = ClickCounter(2);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+</body>
+</html>

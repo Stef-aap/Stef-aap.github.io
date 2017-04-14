@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META name="generator" CONTENT="Microsoft Word 97">
+   <META name="generator" CONTENT="Mozilla/4.01 [de] (Win95; I) [Netscape]">
+   <META name="author" CONTENT="cbaumann">
+   <TITLE>Scanner Datalog</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#F1DF89" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#FF0000"><FONT SIZE=+3>The
+RCX-Datalog</FONT></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica">The datalog represents a flexible storage
+of information inside of the RCX. Using the datalog might seem complicated.
+Here some advice:</FONT>
+
+<P><FONT FACE="Arial,Helvetica">1. Before using the datalog you have to
+define its size. You do this by sending the immediate instruction <I><FONT COLOR="#CC0000">SetDatalog(Size)</FONT></I>
+through a program running on your computer. Remember that immediate instructions
+may not be run inside of an RCX-program, but are to be sent to the RCX
+using the infrared-tower. <I><FONT COLOR="#CC0000">Size</FONT></I> must
+be a positive integer-number. The available size depends on the actual
+use of the RCX-memory. Its maximum is about 2kB. <I><FONT COLOR="#CC0000">SetDatalog(0)</FONT></I>
+clears the datalog.</FONT>
+<BR><FONT FACE="Arial,Helvetica">2. Every time your RCX-program wants to
+store a value in the datalog, you'll have to call the <I><FONT COLOR="#CC0000">DatalogNext(Source,
+Number)</FONT></I> instruction. See the technical reference book for the
+specification of the source and number parameter.</FONT>
+<BR><FONT FACE="Arial,Helvetica">3. The upload of the data stored in the
+datalog is managed by using the <I><FONT COLOR="#CC0000">UploadDatalog(From,
+Size)</FONT></I> instruction from the computer. This is the most difficult
+part of the task. First you must get the real size of the datalog. You
+will then have to check, whether the data is in variant-format. After this
+you will upload the datalog in packages of minimum 1 and maximum 50 single
+datas. Put attention not to try to upload 0 data. This will cause a DivisionByZero
+error-message. Here an example:</FONT>
+
+<P><FONT FACE="Times New Roman,Times">var data: variant;</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+idx,iUpper,iLower,iCounter,uploads:integer;</FONT>
+
+<P><FONT FACE="Times New Roman,Times">procedure getTheDatalog;</FONT>
+<BR><FONT FACE="Times New Roman,Times">begin</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;data:=spirit1.uploadDatalog(0,1);&nbsp;&nbsp;
+<FONT COLOR="#3333FF">{get the first data datalog}</FONT></FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;if VarIsArray(data) then iUpper:=data[2,0]
+else exit;&nbsp; <FONT COLOR="#3333FF">{data must be variant type, then
+get the size}</FONT></FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;if iUpper=0 then exit;&nbsp;
+<FONT COLOR="#3333FF">{you can't upload zero data}</FONT></FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;uploads:=trunc(iUpper/50);&nbsp;
+<FONT COLOR="#3333FF">{the trunc-function in turbo-pascal is comparable
+to the Int-function in Basic}</FONT></FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;if (iUpper mod 50)=0 then
+uploads:=uploads-1;&nbsp; <FONT COLOR="#3333FF">{this line solves an interesting
+problem, if the size is a multiple of 50}</FONT></FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;for iCounter:=0 to uploads
+do</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp; begin</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp; iLower:=iCounter*50;</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp; If iUpper&lt;=50 then
+data:=spirit1.UploadDatalog(iLower,iUpper)</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+else</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+data:=spirit1.UploadDatalog(iLower,50);</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp; iUpper:=iUpper-50;</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp; if varIsArray(data) then</FONT>
+<FONT COLOR="#3333FF">{data must be variant type}</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; begin</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+for idx:=VarArrayLowBound(data,2) to VarArrayHighBound(data,2) do&nbsp;
+<FONT COLOR="#3333FF">{variant-functions}</FONT></FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+begin</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<FONT COLOR="#3333FF">{do something with data[2,idx]}</FONT></FONT>
+<BR><FONT FACE="Times New Roman,Times"><FONT COLOR="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{in data[0,idx] you'll find an index, in data[1,idx] the source-type, in
+data[2,idxx] the number-value}</FONT></FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+end;</FONT>
+<BR><FONT FACE="Times New Roman,Times">&nbsp;&nbsp;&nbsp;&nbsp; end;</FONT>
+<BR><FONT FACE="Times New Roman,Times">end;</FONT>
+<BR>&nbsp;
+<BR><FONT FACE="Arial,Helvetica">In the case of the scanner, we want to
+transform data into a bitmap-picture. If you want to collect data and make
+mathematical transformation in order to provide function-plot, you should
+use ROBOLAB, which has plenty of features.</FONT>
+<BR>
+<HR>
+<CENTER>&nbsp;<A href="javascript:history.back()"><IMG src="arrowleftgreen.jpg" ALT="Retour" BORDER=0 HEIGHT=24 WIDTH=24 ALIGN=TEXTTOP></A><FONT FACE="Arial,Helvetica"><A href="roboticsintro.html">Main
+page</A></FONT></CENTER>
+
+<CENTER>&nbsp;</CENTER>
+
+</BODY>
+</HTML>

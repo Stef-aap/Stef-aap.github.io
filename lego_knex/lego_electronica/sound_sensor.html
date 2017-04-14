@@ -1,0 +1,163 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>Sound sensor</title>
+</head>
+<body text="#000000" bgcolor="#FFFF00" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER><a href="../lego_mindstorms_knex_index.html">Lego-Knex</a>
+<br><a href="../../robbert/robbert_home.html">Robbert</a>
+<br><a href="../../mattijs/mattijs_home.html">Mattijs</a>
+<br><a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height=18 width=29></a></td>
+
+<td ALIGN=CENTER><b><font size=+3>Lego Sound Sensor</font></b>
+<br><font size=+2>van Mattijs, Stef en Robbert Mientki</font>
+<br><font size=-1>januari 2001</font></td>
+
+<td></td>
+</tr>
+</table>
+
+<p><font face="Arial,Helvetica">This was our first project, to test our
+knowledge of the electronics of the RCX and to get a feeling of how to
+put the components into a lego brick. For convenience we used standard
+components and no smd-components.</font>
+<br><font face="Arial,Helvetica">We designed it straight forward and of
+course this leads almost exact to the&nbsp; <a href="http://www.plazaearth.com/usr/gasperi/sound.htm">design
+of Michael Gasperi.</a> His design was also published (without reference)
+in a Dutch magazine, Elektuur july/august 2000, schematic 30. Of course
+this is not a clean electronic design, but more "getting maximum functionality
+from a minimal number of components".</font>
+<br><font face="Arial,Helvetica">We have tried to optimize the design (see
+schematic below), which resulted in the following differences with respect
+to&nbsp; the design of Michael Gasperi:</font>
+<ul>
+<li>
+<font face="Arial,Helvetica">we used an electret microphone, which is much
+smaller and has a higher sensitivity</font></li>
+
+<li>
+<font face="Arial,Helvetica">the power supply capacitor C3 is much smaller,
+even with 1uF the sensor works perfect (see <a href="designing_sensors.html#creating positive supply">my
+arguments</a>)</font></li>
+
+<li>
+<font face="Arial,Helvetica">we saved 1 diode, by combining the creation
+of the positive power supply and generating the output signal</font></li>
+
+<li>
+<font face="Arial,Helvetica">we amplified the signal extra with U1B (5*),
+one of the resistors R6 or R7 is mounted in way it can easily be changed</font></li>
+
+<li>
+<font face="Arial,Helvetica">we increased the value of R8, saving a lot
+of energy (minus 5 mA).</font></li>
+</ul>
+<font face="Arial,Helvetica">This sensor uses less than 1.5 mA of current,
+which can even be reduced by a factor 2 by using a TLC272 (CMOS opamp)
+instead of the LM358.</font>
+<p><font face="Arial,Helvetica">The RC-time of C2/R5 seems to be optimal,
+we've tried other values but they performed worse.</font>
+<p><font face="Arial,Helvetica">Increasing R8 from 1 kOhm to 10 kOhm gives
+a great reduction of power needs. This is quit simpel to understand, if
+you assume that most of the time there is no sound, then output 7 of U1
+will be 0 Volt. The RCX drives its terminals 97% of the time (hard) to
++8 Volt (see <a href="rcx_inside.html">measurements</a>). So the power consumption
+of R8 will be roughly 8 Volt / R8, which in the case of 1 kOhm is 8 mA.
+There is a little drawback, the effective signal range is only 2.5V ...
+5V, instead of 0.5 V ... 5V. Because the amplifier isn't linear at all,
+and even has a memory effect, the decreased range doesn't affect the performance
+of the cirquit.</font>
+<p><font face="Arial,Helvetica">Combining the positive power supply and
+the signal generation, results in a power supply for the opamp which is
+0.7 Volt less than normally. This is no problem because the opamps will
+work correctly downto 3 Volt, it will even save some (very little) current.</font>
+<center>
+<p><img src="sound_sensor.jpg" height=301 width=647></center>
+
+<p><br>
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>
+<center><img src="mic3.jpg" height=140 width=213></center>
+</td>
+
+<td>
+<center><img src="mic1.jpg" height=145 width=199></center>
+</td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">The 4*2 brick, with the inside removed.</font>
+<br><font face="Arial,Helvetica">On the right the microphone already mounted.</font></td>
+
+<td><font face="Arial,Helvetica">Here another look at the microphone, really
+small.</font></td>
+</tr>
+
+<tr>
+<td>
+<center><img src="sound_sensor1.jpg" height=207 width=155></center>
+</td>
+
+<td>
+<center><img src="sound_sensor3.jpg" height=120 width=180></center>
+</td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">Still 4 resistors and 1 diode to go.</font></td>
+
+<td><font face="Arial,Helvetica">The same electronics seen from besides.</font>
+<br><font face="Arial,Helvetica">On the left you see the microphone.</font></td>
+</tr>
+
+<tr>
+<td>
+<center><img src="sound_sensor4.jpg" height=109 width=193></center>
+</td>
+
+<td>
+<center><img src="sound_sensor5.jpg" height=106 width=118></center>
+</td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">Completely mounted.</font>
+<br><font face="Arial,Helvetica">It was a hard job to get the last 5 components
+in it.</font>
+<br><font face="Arial,Helvetica">Because the electronics just fits in the
+height we have to mount a 1/3 height plate as a bottom cover (this wasn't
+planned).</font>
+<p><font face="Arial,Helvetica">The largest mistake we made, was the use
+of the wrong resistor type. We used 0.25 Watt metal film resistors, in
+the future we will use 0.125 Watt carbon film resistors, these are the
+smallest resistor components normally available.</font>
+<br><font face="Arial,Helvetica">Another improvment may be the use of smd-ic's,
+which still can be handled without the use of a printed cirquit board.</font></td>
+
+<td><font face="Arial,Helvetica">It works perfect !</font>
+<p><font face="Arial,Helvetica">The microphone used was an&nbsp;</font>
+<br><font face="Arial,Helvetica">EM5SB from Teisco Sound Research LTD,&nbsp;</font>
+<br><font face="Arial,Helvetica">2.7 mm in height and 5 mm in diameter.</font>
+<br><font face="Arial,Helvetica">In Europe you can order this mic at Conrad
+nr: 30 20 07,&nbsp;</font>
+<br><font face="Arial,Helvetica">(costs about 5 Euro).</font></td>
+</tr>
+</table>
+
+</body>
+</html>

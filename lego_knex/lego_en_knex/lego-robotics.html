@@ -1,0 +1,1448 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>Lego Mindstorms Internals</title>
+</head>
+<body bgcolor="#FFFFFF">
+
+<h1>
+Lego Mindstorms Internals</h1>
+A note to the reader: some of these links may be unreachable. I'm leaving
+them here if only to give credit where credit is due. Newer items are added
+to the bottom of each section, so look there for news.
+<p>The <a href="http://www.legomindstorms.com">Lego Mindstorms</a> (#9719)
+product is a robot-kit-in-a-<a href="http://lonestar.texas.net/~mack/html/lego.html">box</a>.
+It consists of a computer module (the "RCX"), and an inventory of many
+technics parts. It appears to be a productized version of the MIT Programmable
+Brick, as the following table will show you.
+<br>&nbsp;
+<table BORDER BGCOLOR="#FFFFC0" >
+<tr>
+<th BGCOLOR="#FFFF80">box</th>
+
+<th BGCOLOR="#FFFF80">size</th>
+
+<th BGCOLOR="#FFFF80">sensors</th>
+
+<th BGCOLOR="#FFFF80">motors</th>
+
+<th BGCOLOR="#FFFF80">url</th>
+</tr>
+
+<tr>
+<td>Cricket:</td>
+
+<td>4x6</td>
+
+<td>2</td>
+
+<td>2</td>
+
+<td><a href="http://lcs.www.media.mit.edu/people/fredm/projects/cricket/">url</a></td>
+</tr>
+
+<tr>
+<td>RCX:</td>
+
+<td>8x12</td>
+
+<td>3</td>
+
+<td>3</td>
+
+<td><a href="http://www.legomindstorms.com/rcx.html">url</a></td>
+</tr>
+
+<tr>
+<td>Brick:</td>
+
+<td>9x13</td>
+
+<td>6</td>
+
+<td>4</td>
+
+<td><a href="http://el.www.media.mit.edu/groups/el/projects/programmable-brick/">url</a></td>
+</tr>
+</table>
+
+<h2>
+The Lego-Robotics Mailing List</h2>
+A group of people have figured out how to talk to the RCX from operating
+systems unsupported by The Lego Group. Wired Online has <a href="http://www.wired.com/news/news/culture/story/15171.html">noticed</a>
+us.
+<p>This group of people gathers at the lego-robotics mailing list. You
+may subscribe to this list by <a href="mailto:lego-robotics-subscribe@crynwr.com">sending
+a subscription request</a>. Nothing special is needed in the subject or
+body of the message. You can also <a href="mailto:lego-robotics-unsubscribe@crynwr.com">get
+off the list</a>. You can also read the mailing list via <a href="http://www.lugnet.com/robotics/">HTTP</a>
+(web pages) or via <a href="news://lugnet.com/lugnet.robotics">NNTP</a>
+at <a href="http://www.lugnet.com/">LUGNET</a>, and if you want to receive
+messages in digest format, LUGNET also offers <a href="http://www.lugnet.com/news/mail/">news-by-mail</a>
+delivery with several digest options.
+<h2>
+General Mindstorms Info</h2>
+You can buy the Mindstorms RIS (Robotics Invention System) at the stores
+listed below (presuming they have it in stock), and many fine toy outlets.
+Also available are <a href="http://www-control.eng.cam.ac.uk/sc10003/addon.html">RIS
+extension kits</a>. Also available are two other, less capable, Mindstorms
+sets: <a href="http://www.geocities.com/connorbd/mindstorms/setfaq.html">RDS
+and DDK</a>. Fred Martin has a <a href="ftp://cherupakha.media.mit.edu/pub/el-publications/manuals/robot-builders-guide">robot
+builder's guide.</a>
+<p>Places to buy Mindstorms (not a comprehensive list):
+<ul>
+<li>
+<a href="http://www.constructiontoys.com/" The Construction Site</a>in
+Waltham, MA</a></li>
+
+<li>
+<a href="http://www.robotstore.com">The Robot Store</a></li>
+
+<li>
+<a href="http://www.faoschwarz.com">F.A.O. Schwarz</a></li>
+
+<li>
+<a href="http://www.hammacher.com">Hammacher-Schlemmer</a></li>
+
+<li>
+<a href="http://www.toysrus.com">Toys 'R' Us</a></li>
+
+<li>
+<a href="http://www.zanybrainy.com">Zainy Brainy</a></li>
+
+<li>
+<a href="http://www.target.com">target</a></li>
+
+<li>
+<a href="http://www.themagicboxltd.com/">The Magic Box</a></li>
+</ul>
+Erik Brok has an <a href="http://www.svc.fcj.hvu.nl/brok/legomind/robo">introduction
+to programming</a> with Mindstorms page.
+<p>Kin W. Lau has a page of resources for <a href="http://www.viztel.com/mie">using
+Mindstorms in education</a>. Franz-Michael S. Mellbin has <a href="http://www.crynwr.com/lego-robotics/education.html">one
+also</a>.
+<h2>
+Notes</h2>
+Todd Graham is working on a remote-control and remote-viewing <a href="http://farside.i1.net/~bexar/">robot</a>
+he calls a Telerobot.
+<p>Cindy Salwen pointed out a description of the protocol for the <a href="http://troyda.sas.muohio.edu/paper2.html">serial
+interface</a> between the computer and the Dacta Control lab. This may
+or may not be related to the protocol used by the RCX, but if you're reading
+this page, it's probably interesting information anyway. She also contributes
+another URL: <a href="http://www.natinst.com/robolab/">National Instruments
+(LabVIEW) pages</a>. Robolab is available for sale from <a href="http://www.pitsco-legodacta.com/html/robolab.html">Pitsco</a>.
+<p><a href="http://fredm.www.media.mit.edu/people/fredm/mindstorms/index.html">Fred
+Martin</a>, arguably the father of the RCX (well, given that Lego redesigned
+the Programmable Brick from the ground up for production reasons, the *grand*father),
+has a page on Lego Mindstorms.
+<p><a href="mailto:kekoa@graphics.stanford.edu">Kekoa Proudfoot</a> says
+"toast that warranty!" He took apart his RCX and took some pictures of
+the <a href="http://graphics.stanford.edu/~kekoa/rcx/">inside</a> of it.
+He also looked up the numbers for some of the chips. Peter Ljungstrand
+bought a CyberMaster kit, disassembled the main unit, and took <a href="http://www.viktoria.informatics.gu.se/~peter/lego/">pictures</a>.
+<p>Patrick R. Gili has some notes on <a href="http://www.crynwr.com/lego-robotics/disassembling.html">disassembling
+the RCX</a>
+<p><a href="mailto:dbaum at enteract dot com">Dave Baum</a> says that RCX
+to RCX communication is pretty simple. There's a low level command in the
+RCX to send a message which contains a single 8 bit number as payload (plus
+the protocol "wrapper"). The RCX also remembers the last "message" it has
+seen, and this value can be used to make decisions. Pretty basic stuff,
+but still enough to do some reasonable things.
+<p>Dave also talks about the <a href="http://www.enteract.com/~dbaum/lego/motors.html">various
+Lego motors</a>. The motors that come with MS are the 5225 Gear Motor.
+Such motors may be purchased at Lego Shop at Home.
+<p>Dave is also "pretty sure" there are 32 global variables that can be
+used in RCX coding.
+<p>Rotation and temperature sensors are available from <a href="http://www.pitsco-legodacta.com/">Pitsco</a>.
+<p>Dave relates: The rotation sensor works very well for this sort of thing.
+Its "raw" value is one of 4 analog voltages, each of which correspond to
+a 22.5 degree segment within a quadrant. Simply based on raw readings,
+it is impossible to tell which quadrant the sensor is in. However, the
+RCX firmware samples this sensor quite frequently and can keep track of
+how many quadrants have been "moved through". The end result is a reading
+that tells you the number of revolutions in 1/16 of a revolution increments.
+Sample rate is good...I have been able to use the sensor directly on the
+"gear" motor and not miss any rotation. In one of my models I then geared
+down the motor by a worm -> 24t and a 8t -> 24t gear reduction. The result
+was I could measure the position of the gear reduced "arm" at better than
+1/3 a degree.
+<p>Peter Liu says that "Do you byte, when I knock?" is the key to UnlockFirmware().
+<p>Jonathan Knudsen is working on an <a href="http://www.oreilly.com/catalog/lmstorms/">O'Reilly
+book</a> on Lego Mindstorms. You can buy it at <a href="http://www.amazon.com/exec/obidos/ASIN/1565926927/">Amazon</a>.
+He's got a <a href="http://www.oreilly.com/catalog/lmstorms/resources/index.html">bunch
+of links</a> to Lego and Mindstorms resources.
+<p>Jonathan Woodward was curious about which colors of Lego <a href="http://www.io.com/~woodward/lego/">reflect
+infrared</a> the best.
+<p>Matt Jadud and Greg Hanek at Indiana University are doing a lot with
+<a href="http://www.indiana.edu/~legobots/">Lego Robots</a>.
+<p>So are Carlos Raez and Brenda Groff of <a href="http://www.etcs.ipfw.edu/lego">the
+Fort Wayne campus</a>.
+<p>Some students in a Luxembourg boarding school have a Lego Mindstorms
+users' group called <a href="http://www.restena.lu/convict/Jeunes/RoboticsIntro.htm">Robobull</a>.
+<h2>
+Building</h2>
+Jim Studt built a public <a href="http://8ball.federated.com/">Magic 8
+Ball</a>. Enter your question and press the Ask button, and you see a video
+of an RCX spinning the 8 ball, along with the final answer that floats
+to the top.
+<p>Ren&eacute; Schalburg wrote <a href="http://schalburg.homepage.dk/Spider/Spider.html">Creating
+a Spider Robot using LEGO-Mindstorms</a>.
+<p>Doug Carlson has a <a href="http://www.visi.com/~dc">four-wheel synchro</a>
+robot which can move in any direction. He uses two angle sensors (available
+from Pitsco/Dacta), and can make it move in a perfect square.
+<p>Wes Matchett built a <a href="http://www.pressroom.com/~wesm/mStorms/Syncro2/Syncro2.html">different
+type</a> of synchro drive.
+<p>Wes also constructed an <a href="http://www.pressroom.com/~wesm/mStorms/IOExtender/IOExtender.html">IOExtender</a>
+that uses relays to increase the number of sensors &amp; motors the RCX
+can use. The IOExtender connects the RCX to a total of 6 sensors and 4
+motors, if this design is pushed to its limit. This version is designed
+to allow the RCX to control the syncro drive mentioned above.
+<p>Dan L says "You can place a 1X2 beam in front of the light sensor. This
+blocks the LED but not the sensor."
+<p>Gavin Smyth has pictures of a <a href="http://www.beesknees.freeserve.co.uk/lego/things.html">walker</a>
+that uses universal joints to make the leg rods "bend".
+<p>Alex Wetmore built a <a href="http://www.phred.org/~alex/lego">robotic
+platform</a> using the plans for the adder/subtracter found on Leo's Lego.
+The platform allows you the robot to get the normal four motions (forward,
+reverse, spin left, spin right) with a perfectly straight forward and reverse.
+One of the motors is used to move the robot forward and backwards. To turn
+the robot left and right you use the other motor.
+<p>Fredrik Gl&ouml;ckner created a triple gait cycle <a href="http://www.math.uio.no/~fredrigl/technic/cm-hexapod/">hexapod</a>
+using the CyberMaster. He has other <a href="http://www.math.uio.no/~fredrigl/technic/">Technics
+models</a>.
+<p>Bill Clagett has a few Technics and Mindstorms <a href="http://www.mindspring.com/~clagett/bill/lego/index.html">creations</a>.
+<p>Robert Fay has posted pictures and a QuickTime movie of his new <a href="http://www.geocities.com/Heartland/Bluffs/7900/">vertical
+mill</a>.
+<p>Don Hewitt has built a <a href="http://www.crynwr.com/lego-robotics/extreme-rotation-sensor.html">rotation
+sensor</a> from the Extreme Creatures Fiber Optic parts.
+<p>Bert van Dam has a page for his robots, and <a href="http://home.concepts.nl/~bvandam/index.html">homemade
+sensors</a>.
+<p>Likewise for Michael Gasperi, who has a Mindstorms page that talks about
+<a href="http://www.plazaearth.com/usr/gasperi/lego.htm">how the sensors
+work</a>, as well as some building he's done, in particular, a recreation
+of Gray Walter's robotic turtle. He also has a book entitled <a href="http://www.amazon.com/exec/obidos/ASIN/1893115844/mindstorsensorin">Extreme
+Mindstorms</a>, written with Dave Baum, Ralph Hempel, and Luis Villa.
+<p>Michael Nielsen has some great info about <a href="http://www.daimi.au.dk/~mic/speciale/RCX/">implementing
+RCX sensors</a>.
+<p>Ben Erwin has the only site with K-12 RCX-related <a href="http://ldaps.ivv.nasa.gov/Curriculum/legoengineering.html">lesson
+plans</a> (that he knows of).
+<p>Henrik Hautop Lund is the head of <a href="http://legolab.daimi.au.dk">LEGO
+Lab</a> at the University of Aarhus.
+<p>Ben Williamson has built <a href="http://www.pobox.com/~benw/lego/">several
+robots</a>, including:
+<p>The FetchBot searches for dark objects to grab, lift and deposit elsewhere.
+The grabber and the arm are driven by one motor. The page includes an animation
+of the arm grabbing a block, and photos of the gearing and cams that make
+it work.
+<p>The Truck is a robotic tractor-trailer vehicle with rack-and-pinion
+steering. The tractor contains sensors and the steering and drive motors,
+while the trailer carries the RCX controller and an earthmover. The Truck
+can back up in a straight line by using the sensors to determine if the
+trailer is off centre.
+<p>BTW, he got some fun feedback from The Probe robot that he posted earlier,
+including mail from someone who works for Digital Instruments. Apparently
+they hold the patent on the technique that his robot uses, they just do
+it on a somewhat finer (nano) scale. Sounds like a theme for a competition:
+how many patents can you infringe using Lego? :)
+<p>Rich Thompson has been playing around with the "radar" created by using
+IR messages and has posted some <a href="http://www.marsrobot.com">pics
+and code examples</a> (in BotCode since the C skills are rusty, and BotCode
+feels more like assembly...).
+<p>Chris Stanley made a <a href="http://www.csepaintball.com/chris/radarbot.html">radarbot</a>
+by transmitting IR data.
+<p>Dave Astolfo has pics of a <a href="http://www.astolfo.com/lego">Fire
+Extinguisher</a>. It seeks out candlelight, and blows it out.
+<p>Simen Svale Skogsrud built a <a href="http://www.mop.no/~simen/lego.htm">Lego-scanner</a>.
+He also put in descriptions and code examples for proximity-detection and
+using the FOS-light unit as a rotation sensor. Be welcome. No actual pictures
+of lego-creations yet, but lots of attractive illustrations.
+<p>Michael Powell's directional transmission shows one way to do different
+things based on the <a href="http://www.sonic.net/~rci/transmission.htm">direction
+of the motor</a>.
+<p>Mario Ferrari built a <a href="http://www.geocities.com/CapeCanaveral/Galaxy/9449/">two-legged
+walker</a>
+<p>Dennis Clark has a homemade sensor to do <a href="http://www.verinet.com/~dlc/botlinks.htm">IR
+proximity detection</a>.
+<p>Jin Sato has made some <a href="http://www.mi-ra-i.com/JinSato/MindStorms/index-e.html">nifty
+robots</a>.
+<p>Linda Hamilton is doing <a href="http://courses.marshall.edu/~hamilton/public/lego.htm">lots
+of things</a> with her math classes.
+<p>Brian Cooper builds combat robots called <a href="http://hometown.aol.com/Klaupacius/RCX/InfraDreadnaughts.html">InfraDreadnaughts</a>.
+He demonstrated them at the MIT MindFest.
+<p>David Mattison has done some work on improving the <a href="http://www.rcx.ic24.net/select.html">IR
+Radar</a> capabilities, and he's also designed a robot similar to Ben Williamson's
+probe, but scanning the ceiling.
+<p>As a group project at Loughborough University we have been developing
+an autonomous explorer robot using Lego Mindstorms. The results of this
+years work are now complete. From <a href="http://www.lboro.ac.uk/departments/el/robotics/">this
+link</a> click on the 'planetary explorer project'.
+<p>In March Chris Busse ran a Mindstorms maze running competition for a
+company gathering, "Geeks at the Beach" in Miami. 16 teams from different
+cities in 4 countries participated! Each team was given a Mindstorms kit,
+rules, and three weeks to prepare a robot that could navigate one of three
+possible maze routes. <a href="http://www.bussetech.com/lego/mindstorms/">Pictures
+and rules</a> are available.
+<p>Jennifer Clark built <a href="http://www.telepresence.strath.ac.uk/jen/lego/">two
+Technic creations</a>: a skid steer loader and a mobile crane, which received
+rave reviews on the mailing list.
+<h2>
+Heroes</h2>
+Kekoa Proudfoot has done the work to figure out the <a href="http://graphics.stanford.edu/~kekoa/rcx/opcodes.html">opcodes</a>
+in the packets, which seem also to be the programming opcodes as well!
+He is a <a href="http://graphics.stanford.edu/~kekoa/rcx/">minor deity</a>!
+<h2>
+Programming</h2>
+The Lego Mindstorms Group has an <a href="http://www.legomindstorms.com/sdk/">official
+SDK</a>. This Technical Reference document tells you how to use SPIRIT.OCX
+directly to write LEGO MINDSTORMS RCX or LEGO Technic CyberMaster programs,
+providing more detailed control over the LEGO Programmable Bricks.
+<p>Thomas Dow is using his HP-100LX to <a href="http://www.magicnet.net/~twdow/mindstorms.html">generate
+RCX IR codes</a>.
+<p>Bjarne Rene has made a web page on how to make a <a href="http://www.geocities.com/SiliconValley/Hills/8306/Lego/mindprog.html">C++
+program</a> that can communicate with the RCX.
+<p>Paul Haas has a <a href="http://hamjudo.com/rcx">Perl program</a> to
+talk to the RCX from a Linux box.
+<p>Owen Stenseth has some RCX <a href="http://www.geocities.com/CapeCanaveral/Hangar/8629/RCXTools.html">perl
+tools</a>, to disassemble RCX opcodes.
+<p>Dave Baum has a simple <a href="http://www.enteract.com/~dbaum/lego/nqc/index.html">C-like
+language</a> that can be used to program the LEGO RCX. It runs on Windows,
+Macintosh, Linux, and OS/2.
+<p>Brian Connors has written <a href="http://www.geocities.com/ResearchTriangle/Station/2266/nqcipc/nqcipcdoc.html">NQCIPC</a>,
+very simple interprocess messaging package for NQC for use on Mindstorms
+and Cybermaster. It provides semaphore services and a simple intertask
+messaging system, all implemented as NQC macros.
+<p>Kekoa has IRIX source for a very <a href="http://graphics.stanford.edu/~kekoa/rcx/tools.html">simple
+Unix tool</a> for communicating with the RCX.
+<p>Laurent Demailly has written <a href="http://www.demailly.com/tcl/rcx/">TclRCX</a>.
+<p>Dario Laverde developed the first 100% <a href="http://www.escape.com/~dario/java/rcx">Java
+API</a> for the RCX. This RCX Java API Library is available with source
+code and example applications.
+<p>Tramm "Foo" Hudson has a program to <a href="http://www.crynwr.com/lego-robotics/mk-dl">download
+firmware</a> into the RCX.
+<p>Eric Brok has made a Visual Basic program (for Windows) that allows
+him to control the RCX and download certain programs. The program is called
+<a href="http://www.svc.fcj.hvu.nl/brok/legomind/robo">Mind Control</a>.
+Mind Control can be used to interprete the user's own text files (with
+Spirit commands).
+<p>Sean Hearne and David Hanley at the Waterford Institute of Technology,
+Ireland, have put together a <a href="http://emhain.wit.ie/~p98ac25">course
+for programming the RCX with Visual Basic.</a>
+<p>Bert van Dam has data and programs in <a href="http://home.concepts.nl/~bvandam/index.html">Visual
+Basic</a>.
+<p>Gary Kacmarcik has written a H300 <a href="http://www.geocities.com/ResearchTriangle/Thinktank/4411/">disassembler
+in Perl</a>. This script takes the firm0309.lgo file (which you'll need
+to copy from your Mindstorms CD) and a separate comment file, and merges
+the output of the disassembly with the comment file to produce a commented
+disassembly.
+<p>There's a shareware <a href="http://www.desktopmusic.com/botcode.htm">BotCode</a>
+program. Don't know much about it.
+<p>Gordon's <a href="http://www.umbra.demon.co.uk/gbp.html">Brick Programmer</a>
+is an alternative visual programming interface for Mindstorms. It provides
+a folding editor, symbolic variables, access to the RCX data log, a simple
+debugger and its free!
+<p>Brian Cwikla has written a program editor/tester/debugger that allows
+you to <a href="http://www.geocities.com/Area51/Nebula/8488/lego.html">write
+programs for the RCX</a> with all the functions listed in the Mindstorms
+SDK and not have to know VB.
+<p>Mark Overmars has created the <a href="http://www.cs.uu.nl/people/markov/lego/">RCX
+Command Center</a> for Windows. It's a program that assists you in programming
+the Lego MindStorms Robots. It provides a higher level interface to the
+RCX, the programmable brick that forms the heart of the Lego Robots.
+<p>A new web page with examples of RCX programming using <a href="http://www.ceeo.tufts.edu/graphics/moreonrobolab.html">ROBOLAB</a>.
+<p>Peter Hesketh wants to program the RCX in MS QBasic under <a href="http://www.phesk.demon.co.uk/lego/">DOS</a>.
+He has written two programs so far: a talkrcx and a firmware download,
+both of which will work on any PC with DOS and QBasic.
+<p>Andy Bower has written <a href="http://www.object-arts.com/Bower/Bot-Kit">Bot-Kit</a>,
+an interactive object oriented environment for the RCX and Cybermaster
+using the Smalltalk programming language. It uses the Spirit OCX as a base
+and runs under Win95/98 and NT4 systems.
+<p>Ralph Hempel has a firmware replacement which runs forth, called <a href="http://www.hempeldesigngroup.com/lego/pbFORTH">pbFORTH</a>.
+pbForth has a <a href="http://www.hempeldesigngroup.com/lego/pbFORTH/pbForthGUI.html">GUI</a>.
+<p>Ralph also has a suite of <a href="http://www.hempeldesigngroup.com/tcltk/rcx">Tcl/Tk
+tools for the RCX</a>.
+<p>Malcolm S Powell has written <a href="http://www.umbra.demon.co.uk/gbp.html">Gordon's
+Brick Programmer</a> as a replacement for the Mindstorms Programming Environment.
+Tree view based instead of blocks: point and click to add commands, drag
+to move them, allows variables, and nested loops. No C or Visual Basic
+programming required!
+<p>Chris Stanley has a utility called <a href="http://www.csepaintball.com/chris/rcxi.html">RCX
+Interrogator</a>. It will (hopefully) tell you everything there is to know
+about the state of your rcx: variables, sensors, motors, memory map and
+more.
+<p>Nick H. has written <a href="http://ickna.hypermart.net/ickna">WebSpirit</a>,
+which enables you to control the RCX Via the ActiveX Control, and JavaScript
+<p>Richard Maynard has written <a href="http://www.netway.com/~rmaynard/">Brainstorm</a>
+which is a UCBLogo version for Mindstorms. Win95/NT.
+<p>Denis Cousineau is distributing <a href="http://prelude.PSY.UMontreal.CA/%7Ecousined/lego/robot/rcx/rcx_command/">RCX_command</a>.
+RCX command is a program editor for the Lego RCX programmable brick. Using
+RCX command, you can build programs, and download them to the RCX. You
+can also send immediate command (ex. PlaySystemSound, or PBTurnOff). You
+can also retrieve information from the RCX using commands such as Poll,
+or MemMap. RCX commands are compatible with the Lego &copy; SPIRIT.OCX
+library. Complete documentation is available on the Lego Mindstorms web
+site.
+<p>Kekoa's <a href="http://graphics.stanford.edu/~kekoa/rcx/tools.html#Librcx">librcx</a>
+is intended to be a lowest-level driver for the Lego RCX. It provides an
+interface between your C code and the ROM. The intent is to allow you to
+easily explore the ROM interface. It is also possible to use this code
+as a starting point for writing something more sophisticated, along the
+lines of <a href="#legos">LegOS</a>. Librcx requires the GNU H8 development
+environment.
+<p>Scott Lewis has a 100% <a href="http://www.slewis.com/rcxport">pure
+Java interface</a> for communicating with the RCX. It provides an object-oriented
+interface for downloading tasks/subroutines into the RCX, as well as sending
+arbitrary RCX commands. Source included with GPL license.
+<p><img src="new.gif" date="6/16" >David Van Wagner has written code to
+write simple programs <a href="http://alumni.cse.ucsc.edu/~davevw/onscreen/index.html">onscreen</a>
+using the RCX buttons. Version 1.0 contains only enough functionality to
+be useful. Gotos, Outputs, and Delays are implemented with a maximum of
+16 instructions. Later releases should have more functionality."
+<p>Jan Newmarch wrote a <a href="http://pandonia.canberra.edu.au/java/jini/tutorial/Jini.xml">Jini/MindStorms
+driver</a> as part of his Jini tutorial.
+<p>Aviv Eyal has been programming his RCX using Java and Visual J++ 6.0
+COM features. He's generalized the code so others may use his classes to
+program RCX programs (tasks+subroutines) from Java. He calls it <a href="http://www.dromology.com/mindstorms/spirit.htm">MJSDK</a>
+- Mindstorms Java Software Development Kit.
+<p>Mitchell 'the dude' Wagner and a fellow CS major at Indiana University
+have been working on a version of <a href="http://www.cs.indiana.edu/~mtwagner/legoscheme/">Scheme</a>
+for the Lego Robots.
+<p>Jose Solorzano has a <a href="http://www.crazyrobots.com/tinyvmsite/">JVM
+for the RCX</a>. He also is working on <a href="http://lejos.sourceforge.net">leJOS</a>.
+<p>John C. Quillan has a perl module to allow you to communicate with your
+RCX, called <a href="http://members.home.com/quillan/lego/rcx.pm.html">LEGO::RCX</a>.&nbsp;<a name="legos"></a>
+<h2>
+legOS</h2>
+Markus L. Noga has written some replacement firmware: <a href="http://www.noga.de/legOS/">legOS-0.1.</a>
+legOS allows you to program the LEGO Mindstorms RCX in assembler and standard
+C. Beyond the bytecode barrier, arrays, structures, pointers and arbitrary
+user-defined data types await.
+<p>Luis Villa has written a <a href="http://arthurdent.dorm.duke.edu/legos/HOWTO/HOWTO.html">legOS
+HOWTO</a>.
+<p>Dave Madden has a <a href="https://vheissu.mersenne.com/~dhm/compile-legOS.html">web-based
+compiler</a> for legOS. Drop your C/C++ code into a form, press submit,
+and you get back a link to the compiled code.
+<p>Marco Beri and Mario Ferrari just released the first version of <a href="http://www.geocities.com/~marioferrari/emulegos.html">emulegOS</a>,
+a software emulator of legOS and the RCX itself. Emulegos is C/C++ code
+to compile and link together with your own legOS code. So it's not an application
+but requires a development system. Our first version runs under the Borland
+C++Builder IDE, but we put a great effort in keeping the code as much portable
+as possible, so it shouldn't be a pain to move it to other platforms/compilers.
+We'll appreciate anybody's help in this.
+<p>Barry Fagin is <a href="http://home.rmi.net/~fagin/Papers/sigcse2001.htm">teaching
+robotics programming</a> using <a href="http://www.usafa.af.mil/dfcs/adamindstorms.htm">ADA
+and the Mindstorms</a> system.
+<h2>
+Communication</h2>
+The RCX uses a 38kHz carrier, which is pretty typical for TV remotes. As
+for the sampling rate, the RCX runs at 2400 bps, which makes each bit approx
+417us. Sony remotes (which aren't the fastest), use pulse widths of 600us
+and 1200us, so we're in the right ball park. I think a learning remote
+would do pretty well.
+<p>Peter Middlestorb reports that a learning remote does indeed work. He
+used a Casio Model 1174 CMD-40 watch.
+<p>Robert Eddings says that the OmniRemote successfully learned and played
+back the Lego mindstorms command codes. He has a page with a
+<a href="http://www.bestnetdesign.com/palm/">trained
+OmniRemote</a>.
+<p>The IR protocol associated with sending a "message" to the RCX is pretty
+simple. Bit encoding is 2400 bps, NRZ, 1 start, 8 data, odd parity, 1 stop
+bit. A '0' is coded as a 417us pulse of 38kHz IR, a '1' bit is 417us of
+nothing.
+<p>At the packet level, all packets look like this:
+<pre>0x55 0xff 0x00 D1 ~D1 D2 ~D2 ... Dn ~Dn C ~C</pre>
+where D1...Dn are the message body, and C = D1 + D2 + ... Dn.
+<p>The data for sending an IR message is F7 followed by the 8 bit "message".
+For example:
+<pre>55 ff 00 f7 08 12 ed 09 f6</pre>
+is a packet sending the message "0x12" to the RCX.
+<p>Kekoa writes:
+<p>The scheme used to transmit data results in an equal number of zero
+bits and one bits, allowing a receiver to compensate for a constant signal
+bias (caused by ambient light) simply by subtracting the average signal
+value. Note that the header also has an equal number of ones and zeros;
+this warms up the receiver before the real data arrives.
+<p>The data portion of each message starts with an opcode. An opcode is
+either a request (PC to RCX) or a reply (RCX to PC). Requests have 0x80
+clear, replies have 0x80 set. The reply corresponding to a given request
+is the request's complement and vice-versa. Opcodes seem to come in pairs;
+that is, there are two opcodes to specify each request, and there are two
+opcodes to specify each reply. These "dual" of a given request or reply
+opcode is the exclusive or of that opcode with 0x08.
+<p>Example:
+<p>Op 0x10 Alive Request / Op 0xef Alive Response
+<br>Op 0x18 Alive Request / Op 0xe7 Alive Response
+<br>0x10 and 0xef are complements
+<br>0x18 and 0xe7 are complements
+<br>0x10 and 0x18 differ only in 0x08 bit
+<br>0xef and 0xe7 differ only in 0x08 bit
+<p>Dave believes the IR device loops back DTR/DSR, and the PC software
+uses this to detect if the IR device is attached.
+<p>Kekoa has a <a href="http://www.crynwr.com/lego-robotics/trace1.txt">trace</a>
+of a firmware download session.
+<p>Vadim Strizhevsky and Owen Stenseth have a program which lets you send
+and receive packets from <a href="http://members.rotfl.com/vadim/rcx">RCX
+on a Palm Pilot</a> via serial line. It can also decode/encode the packets
+and find out if RCX is on-line.
+<p>Mike Kory wrote a Palm Pilot program to <a href="http://www.advancenet.net/~kory/pilot/">control
+the RCX</a> through a serial cable connected to the RCX's IR tower.
+<p>Len Holgate tells us about <a href="http://www.jetbyte.com/WebRemote/">WebRemote</a>.
+The WebRemote Device Controller allows you to control devices across a
+NetMeeting connection. If you have devices to control then you simply run
+the device controller, add the drivers for your devices and connect to
+NetMeeting to make the devices available. If you want to control someone's
+devices then just run the device controller and connect to NetMeeting.
+Once connected available devices will be displayed. You can select a device
+to control and if you don't have the appropriate controller installed you
+can download it from the web automatically.
+<p>Kevin Gott has developed a program called Remote Control X that allows
+someone to control their RCX by using a <a href="http://www.users.uswest.net/~kjgott/rmtctrlx/">game
+contoller</a> via the infrared transmitter.
+<h2>
+RC commands</h2>
+Lu contributes the following table of RC commands:
+<table BORDER BGCOLOR="#FFFFC0" >
+<tr>
+<th BGCOLOR="#FFFF80">Command&nbsp;</th>
+
+<th BGCOLOR="#FFFF80">Parameter(s)&nbsp;</th>
+
+<th BGCOLOR="#FFFF80">Vague explanation</th>
+</tr>
+
+<tr>
+<td>On&nbsp;</td>
+
+<td>(outport A/B/C)&nbsp;</td>
+
+<td>turn on one or more things connected to port(s) A, B or C</td>
+</tr>
+
+<tr>
+<td>OnFor&nbsp;</td>
+
+<td>(outport A/B/C)(time in tenths of a second or random)</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Off&nbsp;</td>
+
+<td>(outport A/B/C)</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>SetPower&nbsp;</td>
+
+<td>(outport A/B/C)(1=low to 8=max)</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>SetDirection&nbsp;</td>
+
+<td>(outport A/B/C)(left or right)</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>ReverseDirection</td>
+
+<td>(outport A/B/C)</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Wait&nbsp;</td>
+
+<td>(time in tenths of a second)&nbsp;</td>
+
+<td>possible values are 1-3276</td>
+</tr>
+
+<tr>
+<td>Beep&nbsp;</td>
+
+<td>(sound type 1 to type 6)</td>
+</tr>
+
+<tr>
+<td>Tone&nbsp;</td>
+
+<td>(frequency)(time in tenths of a second)&nbsp;</td>
+
+<td>possible frequency values are 0-20000 (a chart shows places middle
+C at 523) possible time values are 1-25</td>
+</tr>
+
+<tr>
+<td>ResetCounter&nbsp;</td>
+
+<td></td>
+
+<td>set the built in counter to 0</td>
+</tr>
+
+<tr>
+<td>AddToCounter&nbsp;</td>
+
+<td></td>
+
+<td>adds 1</td>
+</tr>
+
+<tr>
+<td>ResetRotation&nbsp;</td>
+
+<td>(inport 1/2/3)&nbsp;</td>
+
+<td>to 0 if an angle sensor is connected</td>
+</tr>
+
+<tr>
+<td>ResetMessage&nbsp;</td>
+
+<td></td>
+
+<td>clears a received IR message</td>
+</tr>
+
+<tr>
+<td>ResetTimer&nbsp;</td>
+
+<td></td>
+
+<td>reset to 00:00</td>
+</tr>
+
+<tr>
+<td>SendToRCX&nbsp;</td>
+
+<td>(integer 1 to 255)&nbsp;</td>
+
+<td>send IR message to another RCX&nbsp;</td>
+</tr>
+
+<tr>
+<th BGCOLOR="#FFFF80">Flow control</th>
+</tr>
+
+<tr>
+<td>Check&amp;Choose&nbsp;</td>
+
+<td>(sensor 1/2/3)(True/False)&nbsp;</td>
+
+<td>pick sensor(s) connected to port 1, 2, or 3 and check the status</td>
+</tr>
+
+<tr>
+<td>Check&amp;Choose&nbsp;</td>
+
+<td>(counter/timer/RCX)(value range)(True/False)&nbsp;</td>
+
+<td>here's where you check for a message from another RCX</td>
+</tr>
+
+<tr>
+<td>Repeat&nbsp;</td>
+
+<td>(integer or random)</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>RepeatForever&nbsp;</td>
+
+<td></td>
+
+<td>moms just hate this</td>
+</tr>
+
+<tr>
+<td>RepeatWhile&nbsp;</td>
+
+<td>touch sensor (1/2/3)&nbsp;</td>
+
+<td>repeat while sensor is pressed</td>
+</tr>
+
+<tr>
+<td>"&nbsp;</td>
+
+<td>timer (0-3276)&nbsp;</td>
+
+<td>while timer value = preset val</td>
+</tr>
+
+<tr>
+<td>"&nbsp;</td>
+
+<td>counter (0-32767)&nbsp;</td>
+
+<td>"</td>
+</tr>
+
+<tr>
+<td>"&nbsp;</td>
+
+<td>RCX (1-255)&nbsp;</td>
+
+<td>while message val = preset val&nbsp;</td>
+</tr>
+
+<tr>
+<td>"&nbsp;</td>
+
+<td>light sensor (1/2/3)(dark range/bright range)&nbsp;</td>
+
+<td>there are 2 ranges with a total range from 0-100</td>
+</tr>
+
+<tr>
+<td>WaitUntil&nbsp;</td>
+
+<td>(sensor 1/2/3)&nbsp;</td>
+
+<td>until sensor condition is true&nbsp;</td>
+</tr>
+
+<tr>
+<th BGCOLOR="#FFFF80">Sensor Watchers</th>
+
+<th BGCOLOR="#FFFF80"></th>
+
+<th BGCOLOR="#FFFF80"></th>
+</tr>
+
+<tr>
+<td>Touch&nbsp;</td>
+
+<td>(sensor 1/2/3)(pressed/released)</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Light&nbsp;</td>
+
+<td>(sensor 1/2/3)(dark value range/bright value range)</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Rotation&nbsp;</td>
+
+<td>(sensor 1/2/3)(0 to 160)(forward/backward)</td>
+
+<td>16 counts per rotation</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Temperature&nbsp;</td>
+
+<td>(sensor 1/2/3)(cold value range/warm value range) C or F</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Counter&nbsp;</td>
+
+<td>(range from value/to value) 0-32767</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Timer&nbsp;</td>
+
+<td>(range from value/to value) in tenths of a second 0-3276</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>RCX&nbsp;</td>
+
+<td>(range from value/to value) 1-255&nbsp;</td>
+
+<td></td>
+</tr>
+</table>
+
+<h2>
+CPU</h2>
+Kekoa writes:
+<p>Here are the specs on part number <a href="http://semiconductor.hitachi.com/products/pdf/h33th014d2.pdf">HD6433292</a>,
+which you can see in the picture of the bottom of the circuit board:
+<table>
+<tr>
+<td>Series&nbsp;</td>
+
+<td>H8/3297</td>
+</tr>
+
+<tr>
+<td>Product name&nbsp;</td>
+
+<td>H8/3292</td>
+</tr>
+
+<tr>
+<td>Part number&nbsp;</td>
+
+<td>HD6433292</td>
+</tr>
+
+<tr>
+<td>ROM size&nbsp;</td>
+
+<td>16K</td>
+</tr>
+
+<tr>
+<td>RAM size&nbsp;</td>
+
+<td>512</td>
+</tr>
+
+<tr>
+<td>Speed&nbsp;</td>
+
+<td>16MHz @ 5V</td>
+</tr>
+
+<tr>
+<td>8-bit Timers&nbsp;</td>
+
+<td>2</td>
+</tr>
+
+<tr>
+<td>16-bit Timers&nbsp;</td>
+
+<td>1</td>
+</tr>
+
+<tr>
+<td>A/D Conversion&nbsp;</td>
+
+<td>8 8-bit</td>
+</tr>
+
+<tr>
+<td>I/O pins&nbsp;</td>
+
+<td>43</td>
+</tr>
+
+<tr>
+<td>Input only pins&nbsp;</td>
+
+<td>8</td>
+</tr>
+
+<tr>
+<td>Serial port&nbsp;</td>
+
+<td>1</td>
+</tr>
+
+<tr>
+<td>10mA outputs&nbsp;</td>
+
+<td>10</td>
+</tr>
+</table>
+
+<p>Thanks to Patrick Gili for pointing Kekoa toward the Hitachi page with
+pointers the chip's manual in various formats.
+<h2>
+Hardware</h2>
+Chip numbers, as discerned (with a magnifying glass!) by Kekoa, with some
+additions from Martin Legault.
+<p>Numbers for elements on the top (LCD side) of the board (power connector
+on the right), moving generally from left to right:
+<table BORDER BGCOLOR="#FFFFC0" >
+<tr>
+<td>2&nbsp;</td>
+
+<td>IR LEDs&nbsp;</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>IR receiver&nbsp;</td>
+
+<td>TK19 / TFM. / 749 / 1380</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>small chip, below IR receiver leads, four leads&nbsp;</td>
+
+<td>CDC / P83</td>
+</tr>
+
+<tr>
+<td>8&nbsp;</td>
+
+<td>small chips scattered on left half, three leads&nbsp;</td>
+
+<td>3K / P / 81</td>
+</tr>
+
+<tr>
+<td>3&nbsp;</td>
+
+<td>small chips scattered on left half, three leads&nbsp;</td>
+
+<td>1K / P / 82</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>capacitor to right of IR receiver leads&nbsp;</td>
+
+<td>4.7uF</td>
+</tr>
+
+<tr>
+<td>3&nbsp;</td>
+
+<td>red cylinders w/ two black lines, two leads&nbsp;</td>
+
+<td>diac</td>
+</tr>
+
+<tr>
+<td>5&nbsp;</td>
+
+<td>resistors, yellow label on black&nbsp;</td>
+
+<td>10K</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>1M</td>
+</tr>
+
+<tr>
+<td>5&nbsp;</td>
+
+<td>resistors, yellow label on black&nbsp;</td>
+
+<td>2.2K</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>22K</td>
+</tr>
+
+<tr>
+<td>3&nbsp;</td>
+
+<td>resistors, yellow label on black&nbsp;</td>
+
+<td>3.3K</td>
+</tr>
+
+<tr>
+<td>3&nbsp;</td>
+
+<td>resistors, yellow label on black&nbsp;</td>
+
+<td>39</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>47K</td>
+</tr>
+
+<tr>
+<td>3&nbsp;</td>
+
+<td>resistors, yellow label on black&nbsp;</td>
+
+<td>10K 1%</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor (?), yellow label on black&nbsp;</td>
+
+<td>IRD (?)</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor (?), white label on green&nbsp;</td>
+
+<td>560</td>
+</tr>
+
+<tr>
+<td>3&nbsp;</td>
+
+<td>Probably capacitors for power line filtering&nbsp;</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>LCD display&nbsp;</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>speaker (under LCD)&nbsp;</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>LCD controller (under LCD)&nbsp;</td>
+
+<td>PCF8566T / 61875 / YSM98061</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>metal can with two (?) leads&nbsp;</td>
+
+<td>H2 / 100 / 16V</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>voltage regulator (?)&nbsp;</td>
+
+<td>LM293</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>power connector&nbsp;</td>
+
+<td>8 (on back) / 22 (on top)</td>
+</tr>
+
+<tr>
+<td>12&nbsp;</td>
+
+<td>scattered brown boxes, two leads&nbsp;</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>24&nbsp;</td>
+
+<td>scattered diodes&nbsp;</td>
+
+<td>SM 4002</td>
+</tr>
+
+<tr>
+<td>12&nbsp;</td>
+
+<td>clips&nbsp;</td>
+
+<td>?</td>
+</tr>
+</table>
+
+<p>Numbers for elements on the bottom (microcontroller) side of the board
+(power connector on left), moving generally from left to right:
+<table BORDER BGCOLOR="#FFFFC0" >
+<tr>
+<td>1&nbsp;</td>
+
+<td>small chip, leftmost on board, three leads&nbsp;</td>
+
+<td>Z5 / P / 7d</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>Probably 2N3055 power transistor&nbsp;</td>
+
+<td>F3055L / H7 / 01</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>tantalum cap&nbsp;</td>
+
+<td>10uF, 6V</td>
+</tr>
+
+<tr>
+<td>2&nbsp;</td>
+
+<td>small chips, right of 3055, three leads&nbsp;</td>
+
+<td>3K / P / 81</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>gray box, two leads&nbsp;</td>
+
+<td>?</td>
+</tr>
+
+<tr>
+<td>3&nbsp;</td>
+
+<td>motor controllers (?), 16 leads&nbsp;</td>
+
+<td><a href="http://www.melexis.com/site/products/10402/10402.htm">ELEX
+10402B</a> / 9980A 4597</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>bank of three input NAND gates, 14 leads&nbsp;</td>
+
+<td>74HC10D</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>small chip beneath 74HC10, three leads&nbsp;</td>
+
+<td>Z4 / P / 7o</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>small chip above right of 74HC10, three leads&nbsp;</td>
+
+<td>1K / P / 82</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>bank of flip flops, 20 leads&nbsp;</td>
+
+<td>74HC377D</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>crystal, above microcontroller&nbsp;</td>
+
+<td>16Mhz</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>small chip above microcontroller, three leads&nbsp;</td>
+
+<td>P 005</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>microcontroller, 64 pin QFP&nbsp;</td>
+
+<td>HD6433292B02F</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>RAM, 32K (?), 28 pins&nbsp;</td>
+
+<td>D43256B60-70LL / 9752XD077</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>capacitor, upper right, two leads&nbsp;</td>
+
+<td>4.7uF</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>small chip, right edge center, three leads&nbsp;</td>
+
+<td>3K / P / 81</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>small chip, right edge bottom, three leads&nbsp;</td>
+
+<td>1K / P / 82</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>10</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>100</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>10K</td>
+</tr>
+
+<tr>
+<td>10&nbsp;</td>
+
+<td>resistors, yellow label on black&nbsp;</td>
+
+<td>100K</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>12K</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>150K</td>
+</tr>
+
+<tr>
+<td>4&nbsp;</td>
+
+<td>resistors, yellow label on black&nbsp;</td>
+
+<td>22K</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>220K</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>330</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>390K</td>
+</tr>
+
+<tr>
+<td>6&nbsp;</td>
+
+<td>resistors, yellow label on black&nbsp;</td>
+
+<td>47K</td>
+</tr>
+
+<tr>
+<td>1&nbsp;</td>
+
+<td>resistor, yellow label on black&nbsp;</td>
+
+<td>470K</td>
+</tr>
+
+<tr>
+<td>4&nbsp;</td>
+
+<td>brown boxes, two leads&nbsp;</td>
+
+<td>?</td>
+</tr>
+</table>
+
+<p>Frank Angeli disassembled his <a href="http://www.crynwr.com/lego-robotics/light-sensor.html">light
+sensor</a>. He has <a href="http://www.franweb.com/lego/">pictures</a>,
+too. Michael Gasperi figured out the light sensor <a href="http://www.plazaearth.com/usr/gasperi/lego.htm">schematic</a>.
+<p>Paul Haas has figured out that the RCX generates a signal which can
+control a servo. His Hitec HS-300 servo responds to 1 millisecond (ms)
+pulses by rotating to one extreme and 2 ms pulses by rotating to the other
+extreme. You can make the RCX generate pulses like that. It takes 3 resistors
+to get the voltage right and the wave form shape clean enough. His Servo
+is only rated up to 6 volts, so he used 4 AA batteries for it. Now the
+servo goes to either extreme under the direction of the RCX.
+<p>John Kittelsrud wrote step-by-step instructions on a way to <a href="http://www.primenet.com/~johnkit/Projects.html">connect
+R/C servos</a> to Legos.
+<p>Allen Martin wrote something about <a href="http://www.crynwr.com/lego-robotics/h8-interrupts.html">H8
+interrupts</a>.
+<p>Malcolm S Powell has devised a simple <a href="http://www.umbra.demon.co.uk/legopages.html">optical
+sensor</a> that can sense linear motion or rotation.
+<p>Wes Matchett has been working on <a href="http://www.pressroom.com/~wesm/mStorms/TouchSensor.html">constructing
+a touch sensor</a> from parts of old devices. He discovered that the micro
+switches from a MS mouse and a Logitech mouse are the exact width of the
+inside dimensions of a 2x Lego brick. Here are the instructions and two
+pics of the results. The price is right, $0.00
+<p>Johann Borenstein has written a <a href="ftp://ftp.eecs.umich.edu/people/johannb/pos96rep.pdf">book</a>
+entitled "Where Am I? -- Systems and Methods for Mobile Robot Positioning".
+While it's about non-lego robots, it's got quite a bit of applicable information.
+This book, which you can download for free, contains nearly 300 pages with
+*great* illustrations. It's a pretty weighty tome, though (comes in at
+over 13.5MB, but is in PDF (Adobe Acrobat) format).
+<p>Terry King has made some homemade LED bricks. The two pictures <a href="http://www.crynwr.com/lego-robotics/2leds.jpg">2leds.jpg</a>
+and <a href="http://www.crynwr.com/lego-robotics/2ledcopp.jpg">2ledcopp.jpg</a>
+are pretty self-explanatory.
+<p>DCPMicro has some sensors for sound, voltage, temperature, pH, angular
+position, humidity and air pressure. They have created <a href="http://www.dcpmicro.com/lego">an
+interface</a> to make them work with the RCX.
+<h2>
+Firmware</h2>
+W. Craig Trader writes:
+<p>Since the RIS software downloads the firmware to the RCX brick, it should
+be possible to identify the firmware and disassemble it; I'm guessing that
+...\Firm\Firm0309.lgo is the firmware file. I looked at it and it appears
+to be in Motorola <a href="http://www.hitex.com/chipdir/oth/srecord.txt">S-record
+format</a>.
+<p>Matthew Cross writes: I have sucessfully built a set of binutils that
+can disassemble the RCX firmware.
+<ol>
+<li>
+Download binutils source: <tt>ftp://prep.ai.mit.edu/pub/gnu/binutils-2.9.1.tar.gz</tt></li>
+
+<li>
+Run the configure script with the option
+<tt>--target=h8300-hitachi-hms</tt>.
+I also added
+<tt>--prefix=/usr/local</tt> to install it under /usr/local.
+Then run 'make' and 'make install'</li>
+
+<li>
+To disassemble the RCX firmware: <tt>/usr/local/bin/h8300-hitachi-hms-objdump
+-b srec -m h8300 --disassemble-all Firm0309.lgo</tt></li>
+</ol>
+I just disassembled it last night and will be starting to analyze it today.
+I'll be very interested in trading notes with anyone also working on this.
+Be sure to snarf a copy of the <a href="http://semiconductor.hitachi.com/products/pdf/h3ltp001d1.pdf">h8/300</a>
+manuals.
+<p>I believe that they would operate the chip in mode 2 - Expanded mode
+with on-chip ROM. So the memory map should be the center one on page 60
+of h83297h.pdf (the hardware manual). It seems that they have an on-chip
+ROM because there is no external ROM on the RCX board, and also note that
+the S-Records load at address 0x8000, which lines up with where the external
+address space starts on this memory map.
+<p>Olof &Aring;strand has similar instructions for NT users:
+<ol>
+<li>
+download <a href="http://www.cygnus.com/misc/gnu-win32/">cygnus cygwin32</a>.</li>
+
+<li>
+Then download the gnu binutils.</li>
+
+<li>
+Install the cygnus package. Create a /bin directory. Copy sh.exe to there.</li>
+
+<li>
+Unpack the gnu-binutils. Winzip will do this for you. I think you have
+to help it with the extentions ( .tar.gz or .tgz).</li>
+
+<li>
+In a Cygnus-shell, at the binutils toplevel, type</li>
+
+<pre>./configure --target=3Dh8300-hms-coff
+make
+make install</pre>
+</ol>
+I did get some errors when compiling ldemul.c but the rest of the tools
+installed fine. They install under /usr/local/bin. This is on your default
+disk. To access other disks use //c //d .
+<p>Copy Firm0309.lgo firmware.srec Then do <tt>/usr/local/bin/h8300-hms-coff-objdump
+-m h8300 -D --no-show-raw-insn firmware.srec > firmware.s</tt>
+<p>Now you should have your firmware dump.
+<p>Kekoa has instructions on <a href="http://www.crynwr.com/lego-robotics/rom-image.html">getting
+a complete ROM image</a>. He also has a writeup on how to <a href="http://www.crynwr.com/lego-robotics/download.html">download</a>
+new firmware to the RCX.
+<p>Dick Swan measured the time it takes to <a href="http://www.crynwr.com/lego-robotics/cpu-time.txt">execute
+an RCX instruction</a>.&nbsp;
+<hr>Send suggestions for improvement to
+<address>
+<a href="mailto:nelson@crynwr.com">Russell Nelson</a></address>
+
+<br><!-- Created: Fri Mar  6 21:43:05 EST 1998 --><!-- hhmts start -->Last
+modified: Tue Jan 2 10:44:24 EST 2001<!-- hhmts end -->
+</body>
+</html>

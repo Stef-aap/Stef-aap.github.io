@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+  <meta name="keywords" content="NQC,NQC API,Mindstorms,Lego Mindstorms">
+  <TITLE>RCX Index - NQC API</TITLE>
+</HEAD>
+<BODY BGCOLOR='#f8f8f8'>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH='100%' >
+<tr>
+<td WIDTH='33%'><a href='http://www.enteract.com/~dbaum/nqc/'>
+<img src='nqc.gif' height=35 width=90 align='middle' alt='NQC' border=0></a></td>
+<td ALIGN=CENTER WIDTH='34%' BGCOLOR=#33CCFF><font color="#FFFFFF"><b><font size=+2>RCX Index</font></b></td><td ALIGN=RIGHT WIDTH='33%'>
+<a href='index.html'>Contents</a> | <a href='master_index.html'>Master Index</a></td>
+</tr>
+</table>
+<center>
+</center>
+<table align=center width=65%>
+<tr><td align=center><a href='#sensors'>Sensors</a> | <a href='#outputs'>Outputs</a> | <a href='#sound'>Sound</a> | <a href='#timers'>Timers</a> | <a href='#communication'>Communication</a> | <a href='#lcd'>LCD&nbsp;Display</a> | <a href='#data'>Data&nbsp;Logging</a> | <a href='#features'>Misc.&nbsp;Features</a> </table>
+<br><center><font color=#CC6666>Functions / Commands</font> are in 
+<font color=#CC6666>red</font>.
+<font color=#999900>Values / Queries</font> are in 
+<font color=#999900>tan</font>.</center>
+<table align=center BORDER=0 CELLSPACING=0 cellpadding=2>
+
+<tr><td align=center colspan=3><a name='sensors'></a><br>&nbsp;<b>SENSORS</b><br><hr>
+<tr><td valign=top><A href='sensors.html#SetSensor' style='color: #CC6666'>SetSensor()</A><td>&nbsp;<td>Set the type and mode of the given sensor to the specified configuration.
+<tr><td valign=top><A href='sensors.html#SetSensorType' style='color: #CC6666'>SetSensorType()</A><td>&nbsp;<td>Set a sensor's type.
+<tr><td valign=top><A href='sensors.html#SetSensorMode' style='color: #CC6666'>SetSensorMode()</A><td>&nbsp;<td>Set a sensor's mode.
+<tr><td valign=top><A href='sensors.html#ClearSensor' style='color: #CC6666'>ClearSensor()</A><td>&nbsp;<td>Clear the value of a sensor.
+<tr><td valign=top><A href='sensors.html#SensorValue' style='color: #999900'>SensorValue()</A><td>&nbsp;<td>Returns the processed sensor reading for sensor n.
+<tr><td valign=top><A href='sensors.html#SensorType' style='color: #999900'>SensorType()</A><td>&nbsp;<td>Returns the configured type of sensor n.
+<tr><td valign=top><A href='sensors.html#SensorMode' style='color: #999900'>SensorMode()</A><td>&nbsp;<td>Returns the current sensor mode for sensor n.
+<tr><td valign=top><A href='sensors.html#SensorValueBool' style='color: #999900'>SensorValueBool()</A><td>&nbsp;<td>Returns the boolean value of sensor n.
+<tr><td valign=top><A href='sensors.html#SensorValueRaw' style='color: #999900'>SensorValueRaw()</A><td>&nbsp;<td>Returns the raw value of sensor n.
+
+<tr><td align=center colspan=3><a name='outputs'></a><br>&nbsp;<b>OUTPUTS</b><br><hr>
+<tr><td valign=top><A href='outputs.html#SetOutput' style='color: #CC6666'>SetOutput()</A><td>&nbsp;<td>Set the outputs to the specified mode.
+<tr><td valign=top><A href='outputs.html#SetDirection' style='color: #CC6666'>SetDirection()</A><td>&nbsp;<td>Set the outputs to the specified direction.
+<tr><td valign=top><A href='outputs.html#SetPower' style='color: #CC6666'>SetPower()</A><td>&nbsp;<td>Sets the power level of the specified outputs.
+<tr><td valign=top><A href='outputs.html#On' style='color: #CC6666'>On()</A><td>&nbsp;<td>Turn specified outputs on.
+<tr><td valign=top><A href='outputs.html#Off' style='color: #CC6666'>Off()</A><td>&nbsp;<td>Turn specified outputs off.
+<tr><td valign=top><A href='outputs.html#Float' style='color: #CC6666'>Float()</A><td>&nbsp;<td>Make outputs float.
+<tr><td valign=top><A href='outputs.html#Fwd' style='color: #CC6666'>Fwd()</A><td>&nbsp;<td>Set outputs to forward direction.
+<tr><td valign=top><A href='outputs.html#Rev' style='color: #CC6666'>Rev()</A><td>&nbsp;<td>Set outputs to reverse direction.
+<tr><td valign=top><A href='outputs.html#Toggle' style='color: #CC6666'>Toggle()</A><td>&nbsp;<td>Flip the direction of the outputs.
+<tr><td valign=top><A href='outputs.html#OnFwd' style='color: #CC6666'>OnFwd()</A><td>&nbsp;<td>Set outputs to forward direction and turn them on.
+<tr><td valign=top><A href='outputs.html#OnRev' style='color: #CC6666'>OnRev()</A><td>&nbsp;<td>Set outputs to reverse direction and turn them on.
+<tr><td valign=top><A href='outputs.html#OnFor' style='color: #CC6666'>OnFor()</A><td>&nbsp;<td>Turn outputs on for a specified amount of time.
+<tr><td valign=top><A href='outputs.html#OutputStatus' style='color: #999900'>OutputStatus()</A><td>&nbsp;<td>Returns the current output setting for motor n.
+
+<tr><td align=center colspan=3><a name='sound'></a><br>&nbsp;<b>SOUND</b><br><hr>
+<tr><td valign=top><A href='sound.html#PlaySound' style='color: #CC6666'>PlaySound()</A><td>&nbsp;<td>Plays one of the 6 preset RCX sounds.
+<tr><td valign=top><A href='sound.html#PlayTone' style='color: #CC6666'>PlayTone()</A><td>&nbsp;<td>Plays a single tone of the specified frequency and duration.
+
+<tr><td align=center colspan=3><a name='timers'></a><br>&nbsp;<b>TIMERS</b><br><hr>
+<tr><td valign=top><A href='timers.html#ClearTimer' style='color: #CC6666'>ClearTimer()</A><td>&nbsp;<td>Reset the specified timer to 0.
+<tr><td valign=top><A href='timers.html#Timer' style='color: #999900'>Timer()</A><td>&nbsp;<td>Return the current value of specified timer (in 100ms resolution).
+
+<tr><td align=center colspan=3><a name='communication'></a><br>&nbsp;<b>COMMUNICATION</b><br><hr>
+<tr><td valign=top><A href='communication.html#ClearMessage' style='color: #CC6666'>ClearMessage()</A><td>&nbsp;<td>Clear the message buffer.
+<tr><td valign=top><A href='communication.html#SendMessage' style='color: #CC6666'>SendMessage()</A><td>&nbsp;<td>Send an IR message.
+<tr><td valign=top><A href='communication.html#SetTxPower' style='color: #CC6666'>SetTxPower()</A><td>&nbsp;<td>Set the power level for IR transmission.
+<tr><td valign=top><A href='communication.html#Message' style='color: #999900'>Message()</A><td>&nbsp;<td>Returns the most recently received message.
+
+<tr><td align=center colspan=3><a name='lcd'></a><br>&nbsp;<b>LCD DISPLAY</b><br><hr>
+<tr><td valign=top><A href='lcd.html#SelectDisplay' style='color: #CC6666'>SelectDisplay()</A><td>&nbsp;<td>Select a display mode.
+
+<tr><td align=center colspan=3><a name='data'></a><br>&nbsp;<b>DATA LOGGING</b><br><hr>
+<tr><td valign=top><A href='data.html#CreateDatalog' style='color: #CC6666'>CreateDatalog()</A><td>&nbsp;<td>Create a datalog of the specified size (which must be a constant).
+<tr><td valign=top><A href='data.html#AddToDatalog' style='color: #CC6666'>AddToDatalog()</A><td>&nbsp;<td>Add the value.
+<tr><td valign=top><A href='data.html#UploadDatalog' style='color: #CC6666'>UploadDatalog()</A><td>&nbsp;<td>Initiate and upload of count data points beginning at start.
+
+<tr><td align=center colspan=3><a name='features'></a><br>&nbsp;<b>MISC. FEATURES</b><br><hr>
+<tr><td valign=top><A href='features.html#Wait' style='color: #CC6666'>Wait()</A><td>&nbsp;<td>Make a task sleep for specified amount of time (in 100ths of a second).
+<tr><td valign=top><A href='features.html#StopAllTasks' style='color: #CC6666'>StopAllTasks()</A><td>&nbsp;<td>Stop all currently running tasks.
+<tr><td valign=top><A href='features.html#SetSleepTime' style='color: #CC6666'>SetSleepTime()</A><td>&nbsp;<td>Set the sleep timeout the requested number of minutes (which must be a constant).
+<tr><td valign=top><A href='features.html#SleepNow' style='color: #CC6666'>SleepNow()</A><td>&nbsp;<td>Force the device to go to sleep.
+<tr><td valign=top><A href='features.html#SetWatch' style='color: #CC6666'>SetWatch()</A><td>&nbsp;<td>Set the system watch to the specified number of hours and minutes.
+<tr><td valign=top><A href='features.html#Random' style='color: #999900'>Random()</A><td>&nbsp;<td>Return a random number between 0 and n.
+<tr><td valign=top><A href='features.html#Program' style='color: #999900'>Program()</A><td>&nbsp;<td>Number of the currently selected program.
+<tr><td valign=top><A href='features.html#Watch' style='color: #999900'>Watch()</A><td>&nbsp;<td>Return the value of the system clock in minutes.
+</table>
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+</body>
+</html>

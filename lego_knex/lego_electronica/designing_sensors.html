@@ -1,0 +1,199 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>Designing_sensors</title>
+</head>
+<body text="#000000" bgcolor="#FFFF00" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER><a name="top"></a><a href="../lego_mindstorms_knex_index.html">Lego-Knex</a>
+<br><a href="../../robbert/robbert_home.html">Robbert</a>
+<br><a href="../../mattijs/mattijs_home.html">Mattijs</a>
+<br><a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height=18 width=29></a></td>
+
+<td ALIGN=CENTER><b><font size=+3>Lego Designing Sensors</font></b>
+<br><font size=+2>Stef Mientki</font>
+<br><font size=-1>januari 2001</font></td>
+
+<td ALIGN=CENTER><a href="#creating ground">Creating Ground</a>
+<br><a href="#creating positive supply">Creating Power</a>
+<br><a href="#generating signals">Creating Signals</a></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER COLSPAN="2"><a name="creating ground"></a><b><font color="#3333FF">Creating
+Ground&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a></td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT COLSPAN="2">Because the connector can mounted in several
+positions, you never know where the positive supply is. Therefore you have
+to use some kind of diode principle. Looking on the internet I found 2
+principles, from which the FET design I liked the most.</td>
+</tr>
+
+<tr>
+<td>
+<center><img src="generating_gnd1.jpg" height=190 width=122></center>
+</td>
+
+<td>The most simple and often seen manner to create ground is displayed
+in the schematic on the left. You can use every small signal diode.
+<p>The main disadvantage of this circuit is that depending on the current
+drawn, the voltage across the diodes varies. Because of that, most sensors
+will behave in a non-linear way, specially if a large range is required.
+<p>For simple (not too accurate) sensors this is a perfect solution.</td>
+</tr>
+
+<tr>
+<td>
+<center><img src="generating_gnd2.jpg" height=155 width=169></center>
+</td>
+
+<td>By using 2 N-channel FETs, which behave as a fixed resistor as low
+as 0.1 Ohm, you get a real hard ground (nearly independant of the current)
+and therfor a very linear sensor behaviour over a wide range.
+<br>I found this principle at <a href="http://home.flash.net/~sevcik/index.html">Techno-Stuff.</a>
+<p>The design is quiet strange, because the source and drain of the FETs
+is exchanged (drain should be more positive than source). If you have a
+theoretical FET this would be no problem. In practice the drain of a FET
+is far more better isolated, and thus can handle higher voltages. At these
+low voltages in practice there's still no problem.
+<br>IN FACT, putting the FETs the other way around, doesn't work at all,
+due to the anti-parallel protection diode within the FET's it will cause
+a short cirquit.
+<p>This design is a little more expensive and it als takes a bit more space.</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER COLSPAN="2"><a name="creating positive supply"></a><b><font color="#3333FF">Creating
+Positive Supply</font></b></td>
+</tr>
+
+<tr>
+<td COLSPAN="2">Creating the positive supply is more simpel, because 5
+Volt is the maximum voltage the AD-converter of the RCX can measure.
+<br>Some people think that applying more than 5 Volt will damage the AD-converter
+(specification says it will accept 5 Volt + 0.3 Volt as a absolute maximum
+rating), but by selecting a light sensor you will also drive the (external)
+RCX terminals by 7.. 8 Volt. Conclusion: there must be a protection network
+between the RCX terminals and the AD-converter.</td>
+</tr>
+
+<tr>
+<td>
+<center><img src="generating_positive.jpg" height=182 width=143></center>
+</td>
+
+<td>The capacitor value is often taken too large, which takes up too much
+space.
+<p>If you calculate the necessairy value, you get the following formulas
+for the capacitance per unit of current drawn:
+<br>if you allow 5% power supply current:&nbsp;&nbsp;&nbsp; C = 0.3 uF/mA
+<br>if you allow 1% power supply current:&nbsp;&nbsp;&nbsp; C = 1.4 uF/mA
+<p>So if you draw 5 mA current, 10uF will always be enough.</td>
+</tr>
+
+<tr>
+<td>
+<center><img src="generating_positive2.jpg" height=218 width=264></center>
+</td>
+
+<td>You can add a low drop regulator to get exactly 5 Volt.</td>
+</tr>
+
+<tr>
+<td><img src="generating_positive3.jpg" height=212 width=303></td>
+
+<td>The lego / mindstorms community is very creative, so it's hard to come
+up with a new idea, but here is one I think.
+<p>Combining the creation of the positive power supply and the signal path,
+you can save 1 diode.</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER COLSPAN="2"><a name="generating signals"></a><b><font color="#3333FF">Generating
+Signals</font></b></td>
+</tr>
+
+<tr>
+<td>
+<center><img src="sense_input.jpg" height=256 width=316></center>
+</td>
+
+<td><b><font color="#3333FF">Sensor Input Basics</font></b>
+<p>The sensor inputs of the RCX are in fact current sensing inputs. Driving
+such an input with a voltage source is a bad habit. You'll have to add
+a series resistor to limit the current drawn in cases the sensor is hard
+pulled up to +7Volt. This will result in a non-linearity and above excessive
+energy is lost (normally during 95% of the time the +7V is present).
+<br>&nbsp;</td>
+</tr>
+
+<tr>
+<td>
+<center><img src="current_driven_sensor.jpg" height=284 width=391></center>
+</td>
+
+<td><b><font color="#3333FF">Current Driven Sensor</font></b><b><font color="#3333FF"></font></b>
+<p>This drive cirquit has several advantages over the commonly used voltage-driven
+cirquit.
+<ul>
+<li>
+it's far more linear (see purple curve below)</li>
+
+<li>
+it consumes less power (the sense current will never exceed the 0.5 mA,
+regardless of the power supply)</li>
+
+<li>
+offset is not affected by diode-drop, so indepent of the current drawn
+by the rest of the electronics of the sensor cirquit.</li>
+</ul>
+With R2/R3 the gain of the input can be adjusted. At the junction of R2-R3
+the full range of the RCX is reached with 0 ... 50 mV.</td>
+</tr>
+
+<tr>
+<td>
+<center><img src="voltage_driven_sensor.jpg" height=275 width=361>
+<p>The commonly used voltage driven cirquit
+<br>On the right the blue curve shows the linearity</center>
+
+<br>&nbsp;</td>
+
+<td>
+<center><img src="current_source_linearity.jpg" height=334 width=407></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><img src="generating_signal2.jpg" height=199 width=239></center>
+</td>
+
+<td>This idea was also found at <a href="http://home.flash.net/~sevcik/index.html">Techno-Stuff</a>.
+<br>It has one component less than the standard schematic and above it's
+more linear than the standard schematic. Depending on the polarity of the
+RCX terminals only R1 or R2 is used to generate the sense-signal.
+<br>The drawback of this is that some extra current is lost from the output
+of the opamp through the other resistor to ground.</td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+</body>
+</html>

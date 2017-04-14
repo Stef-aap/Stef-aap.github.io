@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+  <meta name="keywords" content="NQC,NQC API,Mindstorms,Lego Mindstorms">
+  <TITLE>CyberMaster Index - NQC API</TITLE>
+</HEAD>
+<BODY BGCOLOR='#f8f8f8'>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH='100%' >
+<tr>
+<td WIDTH='33%'><a href='http://www.enteract.com/~dbaum/nqc/'>
+<img src='nqc.gif' height=35 width=90 align='middle' alt='NQC' border=0></a></td>
+<td ALIGN=CENTER WIDTH='34%' BGCOLOR=#00CC00><font color="#FFFFFF"><b><font size=+2>CyberMaster Index</font></b></td><td ALIGN=RIGHT WIDTH='33%'>
+<a href='index.html'>Contents</a> | <a href='master_index.html'>Master Index</a></td>
+</tr>
+</table>
+<center>
+</center>
+<table align=center width=65%>
+<tr><td align=center><a href='#sensors'>Sensors</a> | <a href='#outputs'>Outputs</a> | <a href='#sound'>Sound</a> | <a href='#timers'>Timers</a> | <a href='#features'>Misc.&nbsp;Features</a> </table>
+<br><center><font color=#CC6666>Functions / Commands</font> are in 
+<font color=#CC6666>red</font>.
+<font color=#999900>Values / Queries</font> are in 
+<font color=#999900>tan</font>.</center>
+<table align=center BORDER=0 CELLSPACING=0 cellpadding=2>
+
+<tr><td align=center colspan=3><a name='sensors'></a><br>&nbsp;<b>SENSORS</b><br><hr>
+<tr><td valign=top><A href='sensors.html#SetSensorMode' style='color: #CC6666'>SetSensorMode()</A><td>&nbsp;<td>Set a sensor's mode.
+<tr><td valign=top><A href='sensors.html#ClearSensor' style='color: #CC6666'>ClearSensor()</A><td>&nbsp;<td>Clear the value of a sensor.
+<tr><td valign=top><A href='sensors.html#SensorValue' style='color: #999900'>SensorValue()</A><td>&nbsp;<td>Returns the processed sensor reading for sensor n.
+<tr><td valign=top><A href='sensors.html#SensorType' style='color: #999900'>SensorType()</A><td>&nbsp;<td>Returns the configured type of sensor n.
+<tr><td valign=top><A href='sensors.html#SensorMode' style='color: #999900'>SensorMode()</A><td>&nbsp;<td>Returns the current sensor mode for sensor n.
+
+<tr><td align=center colspan=3><a name='outputs'></a><br>&nbsp;<b>OUTPUTS</b><br><hr>
+<tr><td valign=top><A href='outputs.html#SetOutput' style='color: #CC6666'>SetOutput()</A><td>&nbsp;<td>Set the outputs to the specified mode.
+<tr><td valign=top><A href='outputs.html#SetDirection' style='color: #CC6666'>SetDirection()</A><td>&nbsp;<td>Set the outputs to the specified direction.
+<tr><td valign=top><A href='outputs.html#SetPower' style='color: #CC6666'>SetPower()</A><td>&nbsp;<td>Sets the power level of the specified outputs.
+<tr><td valign=top><A href='outputs.html#On' style='color: #CC6666'>On()</A><td>&nbsp;<td>Turn specified outputs on.
+<tr><td valign=top><A href='outputs.html#Off' style='color: #CC6666'>Off()</A><td>&nbsp;<td>Turn specified outputs off.
+<tr><td valign=top><A href='outputs.html#Float' style='color: #CC6666'>Float()</A><td>&nbsp;<td>Make outputs float.
+<tr><td valign=top><A href='outputs.html#Fwd' style='color: #CC6666'>Fwd()</A><td>&nbsp;<td>Set outputs to forward direction.
+<tr><td valign=top><A href='outputs.html#Rev' style='color: #CC6666'>Rev()</A><td>&nbsp;<td>Set outputs to reverse direction.
+<tr><td valign=top><A href='outputs.html#Toggle' style='color: #CC6666'>Toggle()</A><td>&nbsp;<td>Flip the direction of the outputs.
+<tr><td valign=top><A href='outputs.html#OnFwd' style='color: #CC6666'>OnFwd()</A><td>&nbsp;<td>Set outputs to forward direction and turn them on.
+<tr><td valign=top><A href='outputs.html#OnRev' style='color: #CC6666'>OnRev()</A><td>&nbsp;<td>Set outputs to reverse direction and turn them on.
+<tr><td valign=top><A href='outputs.html#OnFor' style='color: #CC6666'>OnFor()</A><td>&nbsp;<td>Turn outputs on for a specified amount of time.
+<tr><td valign=top><A href='outputs.html#OutputStatus' style='color: #999900'>OutputStatus()</A><td>&nbsp;<td>Returns the current output setting for motor n.
+
+<tr><td align=center colspan=3><a name='sound'></a><br>&nbsp;<b>SOUND</b><br><hr>
+<tr><td valign=top><A href='sound.html#PlaySound' style='color: #CC6666'>PlaySound()</A><td>&nbsp;<td>Plays one of the 6 preset RCX sounds.
+<tr><td valign=top><A href='sound.html#PlayTone' style='color: #CC6666'>PlayTone()</A><td>&nbsp;<td>Plays a single tone of the specified frequency and duration.
+
+<tr><td align=center colspan=3><a name='timers'></a><br>&nbsp;<b>TIMERS</b><br><hr>
+<tr><td valign=top><A href='timers.html#ClearTimer' style='color: #CC6666'>ClearTimer()</A><td>&nbsp;<td>Reset the specified timer to 0.
+<tr><td valign=top><A href='timers.html#Timer' style='color: #999900'>Timer()</A><td>&nbsp;<td>Return the current value of specified timer (in 100ms resolution).
+
+<tr><td align=center colspan=3><a name='features'></a><br>&nbsp;<b>MISC. FEATURES</b><br><hr>
+<tr><td valign=top><A href='features.html#Wait' style='color: #CC6666'>Wait()</A><td>&nbsp;<td>Make a task sleep for specified amount of time (in 100ths of a second).
+<tr><td valign=top><A href='features.html#StopAllTasks' style='color: #CC6666'>StopAllTasks()</A><td>&nbsp;<td>Stop all currently running tasks.
+<tr><td valign=top><A href='features.html#SetSleepTime' style='color: #CC6666'>SetSleepTime()</A><td>&nbsp;<td>Set the sleep timeout the requested number of minutes (which must be a constant).
+<tr><td valign=top><A href='features.html#SleepNow' style='color: #CC6666'>SleepNow()</A><td>&nbsp;<td>Force the device to go to sleep.
+<tr><td valign=top><A href='features.html#Drive' style='color: #CC6666'>Drive()</A><td>&nbsp;<td>Turns on both motors at the power levels specified.
+<tr><td valign=top><A href='features.html#OnWait' style='color: #CC6666'>OnWait()</A><td>&nbsp;<td>Turns on the motors specified.
+<tr><td valign=top><A href='features.html#OnWaitDifferent' style='color: #CC6666'>OnWaitDifferent()</A><td>&nbsp;<td>Like <tt>OnWait</tt>().
+<tr><td valign=top><A href='features.html#ClearTachoCounter' style='color: #CC6666'>ClearTachoCounter()</A><td>&nbsp;<td>Resets the tachometer for the motor(s) specified.
+<tr><td valign=top><A href='features.html#Random' style='color: #999900'>Random()</A><td>&nbsp;<td>Return a random number between 0 and n.
+<tr><td valign=top><A href='features.html#TachoCount' style='color: #999900'>TachoCount()</A><td>&nbsp;<td>Returns the current value of the tachometer for a specified motor.
+<tr><td valign=top><A href='features.html#TachoSpeed' style='color: #999900'>TachoSpeed()</A><td>&nbsp;<td>Returns the current speed of the tachometer for a specified motor.
+<tr><td valign=top><A href='features.html#ExternalMotorRunning' style='color: #999900'>ExternalMotorRunning()</A><td>&nbsp;<td>This is actually a measure of the current being drawn by the motor.
+<tr><td valign=top><A href='features.html#AGC' style='color: #999900'>AGC()</A><td>&nbsp;<td>Return the current value of the automatic gain control on the RF receiver.
+</table>
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+</body>
+</html>

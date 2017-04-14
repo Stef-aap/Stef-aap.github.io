@@ -1,0 +1,629 @@
+<HTML>
+<HEAD>
+  <meta name="keywords" content="NQC,NQC API,Mindstorms,Lego Mindstorms">
+  <TITLE>Sensors - NQC API</TITLE>
+</HEAD>
+<BODY BGCOLOR='#f8f8f8'>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH='100%' >
+<tr>
+<td WIDTH='33%'><a href='http://www.enteract.com/~dbaum/nqc/'>
+<img src='nqc.gif' height=35 width=90 align='middle' alt='NQC' border=0></a>&nbsp;<a href='#overview'>Overview</a></td>
+<td ALIGN=CENTER WIDTH='34%' ><b><font size=+2>Sensors</font></b></td><td ALIGN=RIGHT WIDTH='33%'>
+<a href='index.html'>Contents</a> | <a href='master_index.html'>Master Index</a></td>
+</tr>
+</table>
+<center>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</center>
+<br><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetSensor' style='color: #CC6666'>SetSensor()</A>
+<td>&nbsp;<td>Set the type and mode of the given sensor to the specified configuration.
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetSensorType' style='color: #CC6666'>SetSensorType()</A>
+<td>&nbsp;<td>Set a sensor's type.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetSensorMode' style='color: #CC6666'>SetSensorMode()</A>
+<td>&nbsp;<td>Set a sensor's mode.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#ClearSensor' style='color: #CC6666'>ClearSensor()</A>
+<td>&nbsp;<td>Clear the value of a sensor.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetSensorLowerLimit' style='color: #CC6666'>SetSensorLowerLimit()</A>
+<td>&nbsp;<td>Set the light sensor's lower limit.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetSensorUpperLimit' style='color: #CC6666'>SetSensorUpperLimit()</A>
+<td>&nbsp;<td>Set the light sensor's upper limit.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetSensorHysteresis' style='color: #CC6666'>SetSensorHysteresis()</A>
+<td>&nbsp;<td>Set the light sensor's hysteresis.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#CalibrateSensor' style='color: #CC6666'>CalibrateSensor()</A>
+<td>&nbsp;<td>Reads the current value of the light sensor.
+</table>
+<p><b><font size=+1>VALUES / QUERIES</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SensorValue' style='color: #999900'>SensorValue()</A>
+<td>&nbsp;<td>Returns the processed sensor reading for sensor n.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SensorType' style='color: #999900'>SensorType()</A>
+<td>&nbsp;<td>Returns the configured type of sensor n.
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SensorMode' style='color: #999900'>SensorMode()</A>
+<td>&nbsp;<td>Returns the current sensor mode for sensor n.
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SensorValueBool' style='color: #999900'>SensorValueBool()</A>
+<td>&nbsp;<td>Returns the boolean value of sensor n.
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SensorValueRaw' style='color: #999900'>SensorValueRaw()</A>
+<td>&nbsp;<td>Returns the raw value of sensor n.
+</table>
+<p><A name='overview'></a><b><font size=+1>OVERVIEW</font></b><br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>There are three sensors, which internally are numbered 0, 1, and 2.  This is potentially confusing since they are externally labeled as sensors 1, 2, and 3.  To help mitigate this confusion, the sensor names <tt>SENSOR_1</tt>, <tt>SENSOR_2</tt>, and <tt>SENSOR_3</tt> have been defined.  These sensor names may be used in any function that requires a sensor as an argument.  Furthermore, the names may also be used whenever a program wishes to read the current value of the sensor:
+<pre>   x = SENSOR_1; <font color="#009900">// read sensor and store value in x </font>
+</pre>
+Note that the sensor names can not be used for the sensor values, such as <tt><A href="#sensorvalue">SensorValue</A></tt>. For all of these values the sensor must be
+specified by its sensor number (0, 1, or 2), and not a sensor name (e.g. <tt>SENSOR_1</tt>). 
+
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The sensor ports on the RCX are capable of interfacing to a variety of different sensors (other targets don't support configurable sensor types).  It is up to the program to tell the RCX what kind of sensor is attached to each port.  A sensor's type may be configured by calling <tt><A href="#setsensortype">SetSensorType</A></tt>.  There are four sensor types, each corresponding to a specific LEGO sensor.  A fifth type (<tt>SENSOR_TYPE_NONE</tt>) can be used for reading the raw values of generic passive sensors.  In general, a program should configure the type to match the actual sensor.  If a sensor port is configured as the wrong type, the RCX may not be able to read it accurately.
+<br>&nbsp;
+<table border cellspacing=0 cellpadding=3 >
+<tr><th>Sensor Type</th> <th>Meaning</th>
+<tr><td><tt>SENSOR_TYPE_NONE</tt></td>	<td>generic passive sensor
+<tr><td><tt>SENSOR_TYPE_TOUCH</tt></td>	<td>a touch sensor
+<tr><td><tt>SENSOR_TYPE_TEMPERATURE</tt></td>	<td>a temperature sensor
+<tr><td><tt>SENSOR_TYPE_LIGHT</tt></td>	<td>a light sensor
+<tr><td><tt>SENSOR_TYPE_ROTATION</tt></td>	<td>a rotation sensor
+</table>
+
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Both the RCX and CyberMaster allow a sensor to be configured in different modes.  The sensor mode determines how a sensor's raw value is processed.  Some modes only make sense for certain types of sensors, for example <tt>SENSOR_MODE_ROTATION</tt> is useful only with rotation sensors.  The sensor mode can be set by calling <tt><A href="#setsensormode">SetSensorMode</A></tt>.  The possible modes are shown below.  Note that since CyberMaster does not support temperature or rotation sensors, the last three modes are restricted to the RCX only.
+<br>&nbsp;
+<table border cellspacing=0 cellpadding=3 >
+<tr><th>Sensor Mode</th><th>Meaning</th>
+</tr>
+<tr><td><tt>SENSOR_MODE_RAW</tt></td>	<td>raw value from 0 to 1023
+<tr><td><tt>SENSOR_MODE_BOOL</tt></td>	<td>boolean value (0 or 1)
+<tr><td><tt>SENSOR_MODE_EDGE</tt></td>	<td>counts number of boolean transitions
+<tr><td><tt>SENSOR_MODE_PULSE</tt></td>	<td>counts number of boolean periods
+<tr><td><tt>SENSOR_MODE_PERCENT</tt></td>	<td>value from 0 to 100
+<tr><td><tt>SENSOR_MODE_FAHRENHEIT</tt></td>	<td>degrees F  - RCX only
+<tr><td><tt>SENSOR_MODE_CELSIUS</tt></td>	<td>degrees C - RCX only
+<tr><td><tt>SENSOR_MODE_ROTATION</tt></td>	<td>rotation (16 ticks per revolution) - RCX only
+</table>
+
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>When using the RCX, it is common to set both the type and mode at the same time.  The <tt><A href="#setsensor">SetSensor</A></tt> function makes this process a little easier by providing a single function to call and a set of standard type/mode combinations.
+<br>&nbsp;
+<table border cellspacing=0 cellpadding=3 >
+<tr><th>Sensor Configuration</th> <th>Type</th> <th>Mode</th>
+<tr><td><tt>SENSOR_TOUCH</tt></td>	<td><tt>SENSOR_TYPE_TOUCH</tt></td>	<td><tt>SENSOR_MODE_BOOL</tt>
+<tr><td><tt>SENSOR_LIGHT</tt></td>	<td><tt>SENSOR_TYPE_LIGHT</tt></td>	<td><tt>SENSOR_MODE_PERCENT</tt>
+<tr><td><tt>SENSOR_ROTATION</tt></td>	<td><tt>SENSOR_TYPE_ROTATION</tt></td>	<td><tt>SENSOR_MODE_ROTATION</tt>
+<tr><td><tt>SENSOR_CELSIUS</tt></td>	<td><tt>SENSOR_TYPE_TEMPERATURE</tt></td>	<td><tt>SENSOR_MODE_CELSIUS</tt>
+<tr><td><tt>SENSOR_FAHRENHEIT</tt></td>	<td><tt>SENSOR_TYPE_TEMPERATURE</tt></td>	<td><tt>SENSOR_MODE_FAHRENHEIT</tt>
+<tr><td><tt>SENSOR_PULSE</tt></td>	<td><tt>SENSOR_TYPE_TOUCH</tt></td>	<td><tt>SENSOR_MODE_PULSE</tt>
+<tr><td><tt>SENSOR_EDGE</tt></td>	<td><tt>SENSOR_TYPE_TOUCH</tt></td>	<td><tt>SENSOR_MODE_EDGE</tt>
+</table>
+
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The RCX provides a boolean conversion for all sensors - not just touch sensors.  This boolean conversion is normally based on preset thresholds for the raw value. 
+<ul>
+<li>
+A "low" value (less than 460) is a boolean value of 1.&nbsp;&nbsp;</li>
+
+<li>
+A high value (greater than 562) is a boolean value of 0.&nbsp;&nbsp;</li>
+</ul>
+This conversion can be modified: a <i>slope value</i> between 0 and 31
+may be added to a sensor's mode when calling <tt><A href="#setsensormode">SetSensorMode</A></tt>.
+If the sensor's value changes more than the slope value during a certain
+time (3ms), then the sensor's boolean state will change.&nbsp; This allows
+the boolean state to reflect rapid changes in the raw value.&nbsp;&nbsp;
+<ul>
+<li>
+A rapid increase will result in a boolean value of 0.</li>
+
+<li>
+A rapid decrease is a boolean value of 1.</li>
+</ul>
+Even when a sensor is configured for some other mode (i.e. <tt>SENSOR_MODE_PERCENT</tt>),
+the boolean conversion will still be carried out.
+
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>&nbsp;</td>
+<td>On the Scout, <tt>SENSOR_3</tt> refers to the built-in light sensor.  Reading the light sensor's value (with <tt>SENSOR_3</tt>) will return one of three levels: 0 (dark), 1 (normal), or 2 (bright).  The sensor's raw value can be read with <tt><A href="#sensorvalueraw">SensorValueRaw</A></tt>(<tt>SENSOR_3</tt>), but bear in mind that brighter light will result in a lower raw value.  The conversion of the sensor's raw value (between 0 and 1023) to one of the three levels depends on three parameters: lower limit, upper limit, and hysteresis.  The lower limit is the smallest (brightest) raw value that is still considered normal.  Values below the lower limit will be considered bright.  The upper limit is the largest (darkest) raw value that is considered normal.  Values about this limit are considered dark.
+Hysteresis can be used to prevent the level from changing when the raw value hovers near one of the limits.  This is accomplished by making it a little harder to leave the dark and bright states than it is to enter them.  Specifically, the limit for moving from normal to bright will be a little lower than the limit for moving from bright back to normal.  The difference between these two limits is the amount of hysteresis.  A symmetrical case holds for the transition between normal and dark.
+
+
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetSensor'></A><font color=#CC6666><b>SetSensor(sensor, configuration)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the type and mode of the given sensor to the specified configuration, which must be a special constant containing both type and mode information.
+
+<blockquote><pre>SetSensor(SENSOR_1, SENSOR_TOUCH);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetSensorType'></A><font color=#CC6666><b>SetSensorType(sensor, type)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set a sensor's type, which must be one of the predefined sensor type constants.
+
+<blockquote><pre>SetSensorType(SENSOR_1, SENSOR_TYPE_TOUCH);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetSensorMode'></A><font color=#CC6666><b>SetSensorMode(sensor, mode)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set a sensor's mode, which should be one of the predefined sensor mode constants.  A slope parameter for boolean conversion, if desired, may be added to the mode (RCX only).
+
+<blockquote><pre>SetSensorMode(SENSOR_1, SENSOR_MODE_RAW); <font color="#009900">// raw mode</font>
+<br>SetSensorMode(SENSOR_1, SENSOR_MODE_RAW + 10); <font color="#009900">// slope 10</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='ClearSensor'></A><font color=#CC6666><b>ClearSensor(sensor)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Clear the value of a sensor - only affects sensors that are configured to measure a cumulative quantity such as rotation or a pulse count.
+
+
+<blockquote><pre>ClearSensor(SENSOR_1);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetSensorLowerLimit'></A><font color=#CC6666><b>SetSensorLowerLimit(value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the light sensor's lower limit.  Value may be any expression.
+
+<blockquote><pre>SetSensorLowerLimit(100);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetSensorUpperLimit'></A><font color=#CC6666><b>SetSensorUpperLimit(value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the light sensor's upper limit.  Value may be any expression.
+
+<blockquote><pre>SetSensorUpperLimit(900);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetSensorHysteresis'></A><font color=#CC6666><b>SetSensorHysteresis(value)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the light sensor's hysteresis.  Value may be any expression.
+
+<blockquote><pre>SetSensorHysteresis(20);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='CalibrateSensor'></A><font color=#CC6666><b>CalibrateSensor()</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Reads the current value of the light sensor, then sets the upper and lower limits to 12.5% above and below the current reading, and sets the hysteresis to 3.12% of the reading.
+
+<blockquote><pre>CalibrateSensor();
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>VALUES / QUERIES</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SensorValue'></A><font color=#999900><b>SensorValue(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Returns the processed sensor reading for sensor n, where n is 0, 1, or 2.  This is the same value that is returned by the sensor names (e.g. <tt>SENSOR_1</tt>).
+
+<blockquote><pre>x = SensorValue(0); <font color="#009900">// read sensor 1</font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SensorType'></A><font color=#999900><b>SensorType(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Returns the configured type of sensor n, which must be 0, 1, or 2.  Only the RCX has configurable sensors types, other targets will always return the pre-configured type of the sensor.
+
+<blockquote><pre>x = SensorType(0);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SensorMode'></A><font color=#999900><b>SensorMode(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td BGCOLOR=#00CC00>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Returns the current sensor mode for sensor n, which must be 0, 1, or 2.
+
+<blockquote><pre>x = SensorMode(0);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SensorValueBool'></A><font color=#999900><b>SensorValueBool(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Returns the boolean value of sensor n, which must be 0, 1, or 2.  Boolean conversion is either done based on preset cutoffs, or a slope parameter specified by calling <tt><A href="#setsensormode">SetSensorMode</A></tt>.
+
+<blockquote><pre>x = SensorValueBool(0);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SensorValueRaw'></A><font color=#999900><b>SensorValueRaw(n)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td BGCOLOR=#CC66CC>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Returns the raw value of sensor n, which must be 0, 1, or 2.  Raw values may range from 0 to 1023.
+
+
+<blockquote><pre>x = SensorValueRaw(0);
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+</body>
+</html>

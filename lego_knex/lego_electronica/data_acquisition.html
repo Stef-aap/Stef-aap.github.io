@@ -1,0 +1,427 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>Data_acquisition</title>
+</head>
+<body text="#000000" bgcolor="#FFFF00" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER><a name="top"></a><a href="../lego_mindstorms_knex_index.html">Lego-Knex</a>
+<br><a href="../../robbert/robbert_home.html">Robbert</a>
+<br><a href="../../mattijs/mattijs_home.html">Mattijs</a>
+<br><a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height=18 width=29></a></td>
+
+<td ALIGN=CENTER><b><font size=+3>Lego Data Acquisition</font></b>
+<br><font size=+2>Stef Mientki</font>
+<br><font size=-1>april, 2001</font></td>
+
+<td></td>
+</tr>
+</table>
+
+<p><a href="mindscope.html">MindScope</a>
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=LEFT VALIGN=TOP><b><font color="#3333FF">Goal&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Creating an scope for watching sensors, actuators and global variables
+of the RCX, during normal execution of programs. The scope was inspired
+by "<a href="http://www.plazaearth.com/usr/gasperi/mrsensor.htm">Mr. Sensor</a>"
+from <i>Michael Gasperi</i>. From his webpage you can download the sources
+(Visual Basic) but an executable is not available.
+<br>The values are read from the IR-tower and displayed on the PC-screen
+.
+<br>From readings and some simpel tests, the most difficult part will be
+the relative high troughput.
+<p><b><font color="#3333FF">Conditions</font></b>
+<br>- RIS 1.5, NQC and RCXcc
+<br>- Program will be written in Delphi
+<br>- use spirit.ocx, unless ...</td>
+
+<td ALIGN=LEFT VALIGN=TOP><b><font color="#3333FF">Intended Specifications&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>- at least 4 channels
+<br>- at least 100 Hz throughput
+<br>- both x-t and x-y display
+<br>- cursor measurements in recording
+<br>- incorporate it as a module in RCXcc</td>
+</tr>
+</table>
+
+<p><a name="the following different basic datatransfer"></a><b><font color="#3333FF">The
+following different basic datatransfer protocols can be distingushed:&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<ol>
+<li>
+Polling the RCX (via Spirit.ocx or direct opcode)</li>
+
+<li>
+RCX sends uncontroled his databytes to the PC</li>
+
+<li>
+RCX gathers data in de datalog and sends the datalog to the PC when it's
+full</li>
+</ol>
+<a name="1) polling"></a><b><font color="#3333FF">1) Polling&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>This is the slowest method, but the error rate will be low or even
+zero.
+<br>The other advantage is that no program-code has to be downloaded and
+full control over the RCX is possible..
+<br><a name="2) direct sending"></a><b><font color="#3333FF">2) Direct
+Sending&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>This is one of the fastest ways. The increase in speed can be derived
+by several means: only 1 way communication, ignoring packet bytes and inverse
+bytes and going to 4800 Baud transmission.
+<br>The drawback is that you can't control the RCX anymore during the receiving
+of data, because sending data to the RCX will mixup with the received data.
+One way to overcome this drawback, is letting the RCX send blocks of data
+(as much as is needed for one display) and then communicate with the RCX
+to stop or to continue. To instruct the RCX to send serial data a smal
+task has to be downloaded and started. In general this will be no problem,
+because the RCX can handle 10 tasks.
+<br><a name="3) datalog"></a><b><font color="#3333FF">3) Datalog&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>This method could be a little faster than direct sending, but it's
+not
+contineously. After the datalog is full, all the data must be sent to the
+PC and no sampling can occure.
+<br>This method also needs a little program to be downloaded.
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=LEFT VALIGN=TOP><b><font color="#3333FF">Continuous Polling&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>through spirit.ocx
+<br>10*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; VAR0&nbsp;&nbsp;&nbsp; 108 msec
+<br>100*&nbsp;&nbsp;&nbsp; VAR0&nbsp;&nbsp;&nbsp; 108 msec
+<br>500*&nbsp;&nbsp;&nbsp; VAR0&nbsp;&nbsp;&nbsp; 108 msec
+<br>100*&nbsp;&nbsp;&nbsp; MotorStatus / Sensor Rawvalue/ Light sensor
+in % / Temperature sensor in Celcius
+<p>also varied :
+<br>programs running or not,&nbsp;
+<br>pushing the control switches on the RCX,
+<br>polling for different sources,
+<br>conclusion: it doesn't matter at all what you or the RCX is doing.
+<p>So this is very stable: <b><font color="#3333FF">ALWAYS 108 msec per
+sample</font></b>
+<br>(too slow for the ultimate goal)
+<p>Using the same polling mechanism, direct on the RS232 port (so without
+using spirit.ocx) the time is slightly shorter <b><font color="#3333FF">106
+msec</font></b>. The advantage of not using the spirit.ocx are, a faster
+reaction if the RCX doesn't reply and not that terrible error message 22.
+<p>These results are to be expected (if you know the opcodes and the serial
+packet structure), 11 bytes to send and 11 bytes on reply, while 2400 Baud
+gives a upper limit of about 240 bytes a second.</td>
+
+<td ALIGN=LEFT VALIGN=TOP><b><font color="#3333FF">Delphi testprogram&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p>deltat:=now;
+<br>for i:=1 to N do
+<br>&nbsp;&nbsp;&nbsp; poll(RCX_src_VAR,0);
+<br>deltat:=(now-deltat)/N;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=LEFT VALIGN=TOP><b><font color="#3333FF">Direct Sending&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p>the first rough estimations (no packet-info, no inverted bytes, 2400
+Baud)
+<br>1 channel
+<br>2 channels&nbsp;&nbsp;&nbsp; 35..40 Hz
+<br>3 channels&nbsp;
+<br>4 channels&nbsp;&nbsp;&nbsp; 20 Hz</td>
+
+<td ALIGN=LEFT VALIGN=TOP><b><font color="#3333FF">NQC testprogram&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>task test_var0event()
+<br>{
+<br>&nbsp; x1=12336;
+<br>&nbsp; x2=12337;
+<br>&nbsp; x3=12338;
+<br>&nbsp; x4=12339;
+<br>&nbsp; SetSerialComm(SERIAL_COMM_DEFAULT);
+<br>&nbsp; SetSerialPacket(SERIAL_PACKET_DEFAULT);
+<br>&nbsp; while (true)
+<br>&nbsp; {
+<br>&nbsp;&nbsp;&nbsp; x2=x2+1;&nbsp; //for counting the throughput
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(0,x1);
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(1,x1 / 256);
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(2,x2);
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(3,x2 / 256);
+<br>&nbsp;&nbsp;&nbsp; //SetSerialData(4,x3);
+<br>&nbsp;&nbsp;&nbsp; //SetSerialData(5,x3 / 256);
+<br>&nbsp;&nbsp;&nbsp; //SetSerialData(6,x4);
+<br>&nbsp;&nbsp;&nbsp; //SetSerialData(7,x4 / 256);
+<br>&nbsp;&nbsp;&nbsp; SendSerial(0,4);
+<br>&nbsp; }&nbsp;
+<br>}</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td>strange, but this is faster
+<br>1 channel, 300 points in 9.5 seconds&nbsp; (30 Hz)
+<br>2 channels, 300 points in 17 seconds
+<br>3 channels, 300 points in 24 seconds
+<br>4 channels, 300 points in 31 seconds</td>
+
+<td>than this !!
+<p>2 channels 300 points in 19 seconds</td>
+</tr>
+
+<tr>
+<td>int x;
+<br>&nbsp; SetSerialComm(SERIAL_COMM_DEFAULT);
+<br>&nbsp; SetSerialPacket(SERIAL_PACKET_DEFAULT);
+<p>&nbsp; SetSerialData(0,0xAA);
+<br>&nbsp; repeat (100)
+<br>&nbsp; {
+<br>&nbsp;&nbsp;&nbsp; x=SENSOR_1;
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(1,(x &amp; 0x7F));
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(2,((x / 128) &amp; 0x7F));
+<br>&nbsp;&nbsp;&nbsp; x=SENSOR_2;
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(3,(x &amp; 0x7F));
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(4,((x / 128) &amp; 0x7F));
+<br>&nbsp;&nbsp;&nbsp; SendSerial(0,5);
+<br>&nbsp; }</td>
+
+<td>int x;
+<br>&nbsp; SetSerialComm(SERIAL_COMM_DEFAULT);
+<br>&nbsp; SetSerialPacket(SERIAL_PACKET_DEFAULT);
+<p>&nbsp; repeat (100)
+<br>&nbsp; {
+<br>&nbsp;&nbsp;&nbsp; x=SENSOR_1;
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(0,(x &amp; 0x7F)|0x80);
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(1,(x / 128) &amp; 0x7F);
+<br>&nbsp;&nbsp;&nbsp; x=SENSOR_2;
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(2,x &amp; 0x7F);
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(3,(x / 128) &amp; 0x7F);
+<br>&nbsp;&nbsp;&nbsp; SendSerial(0,4);
+<br>&nbsp; }</td>
+</tr>
+</table>
+I'd expected that increasing the Baudrate to 4800 would almost double the
+speed, but it didn't: 2 channels, 300 points in 15 seconds, so that's a
+lot of trouble for a small improvement.
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td>1 channel, 300 points in 6 seconds (50&nbsp; Hz / channel)
+<br>2 channels, 300 points in 9 seconds (33 Hz / channel)
+<br>3 channels, 300 points in 13 seconds (23&nbsp; Hz / channel)
+<br>4 channels, 300 points in 17 seconds (18&nbsp; Hz / channel)</td>
+
+<td>task BEER2()
+<br>{
+<br>int x;
+<br>&nbsp; SetSerialComm(SERIAL_COMM_DEFAULT);
+<br>&nbsp; //SetSerialPacket(SERIAL_PACKET_DEFAULT);
+<br>&nbsp; SetSerialPacket(SERIAL_PACKET_RCX);
+<br>&nbsp;&nbsp;
+<br>&nbsp; SetSerialData(0,0xAA);
+<br>&nbsp; repeat (100)
+<br>&nbsp; {
+<br>&nbsp;&nbsp;&nbsp; x=SENSOR_1;
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(1,x);
+<br>&nbsp;&nbsp;&nbsp; x=x/256;
+<br>&nbsp;&nbsp;&nbsp; SetSerialData(2,x);
+<br>&nbsp;&nbsp;&nbsp; SendSerial(0,3);
+<br>&nbsp; }
+<br>}</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td><b><font color="#3333FF">Using Datalog</font></b>
+<p>300 samples
+<br>1 channel&nbsp;&nbsp;&nbsp; 2680 msec ==> 8.93 msec = 111 Hz
+<br>2 channels&nbsp;&nbsp;&nbsp; 3570 mesc ==> 11.9 msec = 84 Hz
+<br>3 channels&nbsp;&nbsp;&nbsp; 4450 msec ==> 14.8 msec = 67 Hz
+<br>4 channels&nbsp;&nbsp;&nbsp; 3560 msec ==> 17.8 msec = 56 Hz
+<br>(max datalog approx 1000 or 1024 ??,
+<br>therefor only 200 samples @ 4 channels)
+<br>&nbsp;
+<p><b><font color="#3333FF">Datalog with inline code</font></b>
+<br>300 samples
+<br>1 channel&nbsp;&nbsp;&nbsp; 890 msec ==> 2.97 msec = 337 Hz</td>
+
+<td><b><font color="#3333FF">NQC testprogram</font></b>
+<br>&nbsp; CreateDatalog(602);
+<br>&nbsp; AddToDatalog(FastTimer(0));
+<br>&nbsp; repeat (300)
+<br>&nbsp; {
+<br>&nbsp;&nbsp;&nbsp; AddToDatalog(SENSOR_1);
+<br>&nbsp;&nbsp;&nbsp; AddToDatalog(SENSOR_2);
+<br>&nbsp; }
+<br>&nbsp; AddToDatalog(FastTimer(0));&nbsp;
+<p><b><font color="#3366FF">Remarks</font></b>
+<br>while loop with separate counter is just as fast.
+<br>&nbsp; while (x&lt;300)
+<br>&nbsp; {
+<br>&nbsp;&nbsp;&nbsp; AddToDatalog(SENSOR_1);
+<br>&nbsp;&nbsp;&nbsp; x++;
+<br>&nbsp; }
+<p>The next loop is very slow
+<br>&nbsp; while (x++&lt;300)
+<br>&nbsp; {
+<br>&nbsp;&nbsp;&nbsp; AddToDatalog(SENSOR_1);
+<br>&nbsp;}</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p>FROM RCX2.NQH
+<br>#if __RCX==2
+<br>&nbsp;// serial communication sources
+<br>&nbsp;#define SerialPacket() @(0x210010)
+<br>&nbsp;#define SerialComm() @(0x210011)
+<br>&nbsp;#define SerialData(n) @(0x210000 + (n)) // data for SendSer
+<p>&nbsp;void SetSerialPacket(const int &amp;v)&nbsp; { Set(SerialPacket(),
+v); }
+<br>&nbsp;void SetSerialComm(const int &amp;v)&nbsp; { Set(SerialComm(),
+v); }
+<br>&nbsp;void SetSerialData(const int n, const int &amp;v) { Set(SerialData(n),
+v); }
+<p>&nbsp;// values for SerPacket
+<br>&nbsp;#define SERIAL_PACKET_DEFAULT 0 // raw serial, no checksum, no
+preamble
+<br>&nbsp;#define SERIAL_PACKET_PREAMBLE 1
+<br>&nbsp;#define SERIAL_PACKET_NEGATED 2 // includes checksum
+<br>&nbsp;#define SERIAL_PACKET_CHECKSUM 4 // use this for checksum w/o
+negated
+<br>&nbsp;#define SERIAL_PACKET_RCX&nbsp; (SERIAL_PACKET_PREAMBLE + SERIAL_PACKET_NEGATED)
+<p>&nbsp;// values for SerComm
+<br>&nbsp;#define SERIAL_COMM_DEFAULT&nbsp; 0
+<br>&nbsp;#define SERIAL_COMM_4800&nbsp; 1 // default is 2400 baud
+<br>&nbsp;#define SERIAL_COMM_76KHZ&nbsp; 2 // default is 38kHz
+<br>&nbsp;#define SERIAL_COMM_DUTY25&nbsp; 4 // default is 50% duty cycle
+<p>&nbsp;void SendSerial(const int first, const int count) { asm { 0xc2,
+first, count }; }
+<p>&nbsp;void InternalMessage(const int m) { asm { 0xf7, m }; }
+<br>#endif
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="faster communication"></a><b><font color="#3333FF">Faster communication&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>At this moment the main cause of the slow data-acquisition seems to
+be the data-transfers via the spirit.ocx.
+<br>Due to the enormous overhead in the normal data transfers between IR-tower
+and RCX and because the communication is not bi-directional, we'll have
+to work around the spirit.ocx and implement a fast serial transfer protocol
+using direct opcode transfers.
+<p>For basic testing of a serial port, I used a homebrew testprogram <a href="../../download/comtest.exe">TestCom.exe</a>
+(ugly, but every commport parameter can be set on the mainform, hex, decimal
+or ascii sending / receiving, no help but it's simple)
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" >
+<tr>
+<td>form Kekoa Proudfoot on his <a href="http://graphics.Stanford.EDU/~kekoa/rcx/">RCX
+internals</a> page
+<br>unfortunately nothing about serial communication at 4800 Hz</td>
+</tr>
+
+<tr>
+<td>"The RTS/CTS signals are not used for flow control. Instead, they are
+used by the PC to check whether or not the transceiver is connected.
+<br>The transceiver wires CTS and RTS together; the PC checks for the transceiver
+by asserting and deasserting RTS. If it sees that CTS tracks
+<br>RTS, then it assumes that the device sitting on the serial port is
+the transceiver."
+<br>Basic packet format
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Immediately
+after packet header is opcode byte
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Remainder is data for opcode
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+PC sends query opcode
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+RCX reply opcode is always ~query opcode
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+RCX completely ignores messages that have invalid packet checksums
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Messages sent by PC seem to alternate between having 0x08 set and not set
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+This 0x08 bit is a sequence bit only in one special case
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+RCX never executes same exact opcode twice in a row
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Second and beyond are dropped
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+But the same reply that was sent the first time is sent again
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Toggle 0x08 bit to make sure same opcode twice in a row is accepted
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Sometimes packets start with aa ff 00 instead of 55 ff 00
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Sometimes packets start with stranger things too
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Strange packet headers are most likely due to receiver bias and timing
+errors
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Special packet data 01 02 03 04 ff fe fd fc sent when RCX is not listening
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Tower echos commands sent by PC
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Sometimes an ff appears a few seconds after a message is received
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Chris Osborn explained that ff is caused by tower powering down
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Confirmed this observation</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p>Thanks to the discussion with <i>James Matthews</i> who also has written
+a good and simple overview of the basics in "<a href="http://www.generation5.org/aisolutions/rob08.shtml">LEGO
+IR Protocol in C++</a>", made the implementation a lot easier.
+<br>&nbsp;
+<p>battery data $30 / $38 (or do you have to toggle the third bit all the
+time ??
+<br>first time
+<br>&nbsp;&nbsp;&nbsp; $55&nbsp; $FF&nbsp; $00&nbsp; $30&nbsp; $CF&nbsp;
+$30&nbsp; $CF
+<br>reply
+<br>&nbsp;&nbsp;&nbsp; $55&nbsp; $FF&nbsp; $00&nbsp; $CF&nbsp; $30 (B1
+~B1&nbsp; B2 ~B2)&nbsp; C ~C
+<p>second time
+<br>&nbsp;&nbsp;&nbsp; $55&nbsp; $FF&nbsp; $00&nbsp; $38&nbsp; $C7&nbsp;
+$38&nbsp; $C7
+<br>reply
+<br>&nbsp;&nbsp;&nbsp; $55&nbsp; $FF&nbsp; $00&nbsp; $CF&nbsp; $30 (B1
+~B1&nbsp; B2 ~B2)&nbsp; C ~C
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="ir-tower"></a><b><font color="#3333FF">IR-tower&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><a href="ir_tower_japan.html">japan translation</a>
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="rcxcc modifications"></a><b><font color="#3333FF">RCXcc modifications&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>
+<hr WIDTH="100%">
+<br>MainUnit.Pas
+<br>function CompileIt(download:boolean): boolean;
+<br>{modification by Stef Mientki, 22-04-2001,
+<br>to get RCX2.0 commands
+<br>nqc -Trcx2 -d foo.nqc}
+<br>commandstr:=commandstr+' -Trcx2';
+<br>
+<hr WIDTH="100%">
+<br>Shuffle puzzle revealed
+<br>
+<hr WIDTH="100%">
+<br>Added to edit menu
+<br>Copy selection as plain text to clipboard
+<br>
+<hr WIDTH="100%">
+<br>&nbsp;
+<p><b><font color="#3333FF">Spirit.ocx,&nbsp; BAD / Missing&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>getsensormode (poll(11,x)) geeft de sensormode*32 terug !!!
+</body>
+</html>

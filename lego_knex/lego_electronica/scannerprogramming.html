@@ -1,0 +1,314 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META name="generator" CONTENT="Microsoft Word 97">
+   <META name="generator" CONTENT="Mozilla/4.01 [de] (Win95; I) [Netscape]">
+   <TITLE>Scanner Programming</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#F1DF89" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#FF0000"><FONT SIZE=+3>Programming
+the Scanner</FONT></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#006600"><FONT SIZE=+2>1.
+RCX-Code</FONT></FONT></FONT>
+
+<P>###define sceptre = 1
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+readData = 2
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+turn = 3
+<BR>&nbsp;
+<BR>selectprgm(slot_5)
+<BR>&nbsp;
+
+<P>beginoftask(main)
+<BR>&nbsp;
+<BR>&nbsp; SetSensorType(sensor_1,switch_type) {right}
+<BR>&nbsp; SetSensorType(sensor_2,switch_type)&nbsp; {left}
+<BR>&nbsp; SetSensorType(sensor_3,light_type)
+<BR>&nbsp; SetSensorMode(sensor_1,bool_mode,0)
+<BR>&nbsp; SetSensorMode(sensor_2,bool_mode,0)
+<BR>&nbsp; SetSensorMode(sensor_3,raw_mode,0)
+<BR>&nbsp;&nbsp; setvar(sceptre,con,2)&nbsp;&nbsp;&nbsp; {switch 2 has
+the sceptre}
+<BR>&nbsp;&nbsp; setvar(readData,con,0) {readData not enabled}
+<BR>&nbsp;&nbsp; setvar(turn,con,0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0=RCX,
+1=Computer}
+<BR>&nbsp;
+<BR>&nbsp;&nbsp; setpower(motor_B+motor_C,con,7)
+<BR>&nbsp;&nbsp; setfwd(motor_b)
+<BR>&nbsp; starttask(task_1)&nbsp;&nbsp; {reading-task}
+<BR>&nbsp;
+<BR>{........................reset head.......................................}
+<BR>&nbsp;&nbsp; setrwd(motor_c)&nbsp;&nbsp; {go right}
+<BR>&nbsp;&nbsp; if(senval,sensor_1,eq,con,0)&nbsp; {1} {left extrem or
+midth position}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; on(motor_c)
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while(senval,sensor_1,eq,con,0)
+{wait until contact}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait(con,1)
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; endwhile()
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; off(motor_c)
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; playsystemsound(beep_sound)
+<BR>&nbsp;&nbsp;&nbsp; endif()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{1} {now right extrem position}
+
+<P>{........................prepare reading...............................}
+<BR>&nbsp;&nbsp; wait(con,5)
+<BR>&nbsp;&nbsp; setfwd(motor_c)&nbsp;&nbsp; {go left}
+<BR>&nbsp;&nbsp; setvar(readData,con,1)&nbsp; {allow reading}
+<BR>&nbsp;&nbsp; on(motor_c)
+<BR>&nbsp;&nbsp; wait(con,15)&nbsp;&nbsp; {away from switch}
+<BR>&nbsp;&nbsp; starttask(task_2)&nbsp;&nbsp; {right switch task activated}
+<BR>&nbsp;&nbsp; starttask(task_3)&nbsp;&nbsp; {left switch task activated}
+<BR>endoftask()
+
+<P>{-------------------------------------------------------------------------------}
+<BR>beginoftask(task_1)&nbsp;&nbsp; {light_sensor&nbsp; reading and storing}
+<BR>loop(con,forever)
+<BR>&nbsp;if(var,readData,eq,con,1)
+<BR>&nbsp;
+<BR>&nbsp; datalogNext(senval,sensor_3)
+<BR>&nbsp;endif()
+<BR>endloop()
+<BR>endoftask()
+<BR>{-------------------------------------------------------------------------------}
+<BR>beginoftask(task_2)&nbsp; {right switch}
+<BR>&nbsp;loop(con,forever)
+<BR>&nbsp; if(senval,sensor_1,eq,con,1)
+<BR>&nbsp;&nbsp;&nbsp; if(var,sceptre,eq,con,1)&nbsp;&nbsp; {switch 1 has
+sceptre}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {stop motor_C, alterdir, on motor_c)}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setvar(sceptre,con,2)&nbsp;&nbsp;
+{sceptre passes to switch 2}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setfwd(motor_c)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{go to the left}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setvar(readData,con,1)&nbsp;
+{allow reading}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; on(motor_c)
+<BR>&nbsp;&nbsp;&nbsp; endif()
+<BR>&nbsp; endif()
+<BR>&nbsp;endloop()
+<BR>endoftask()
+<BR>{-------------------------------------------------------------------------------}
+<BR>beginoftask(task_3)&nbsp;&nbsp;&nbsp; {left switch}
+<BR>loop(con,forever)
+<BR>&nbsp; if(senval,sensor_2,eq,con,1)
+<BR>&nbsp;&nbsp;&nbsp; if(var,sceptre,eq,con,2)&nbsp;&nbsp; {switch 2 has
+sceptre}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {stop motor_C, stop reading, allow upload
+(turn=1),
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; advance paper,
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait until turn back to
+RCX, alterdir, on motor_c)}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setvar(readData,con,0)&nbsp;
+{forbide reading}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setvar(sceptre,con,1)&nbsp;&nbsp;
+{sceptre passes to switch 1}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gosub(1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{.......}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setrwd(motor_c)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{go to the right}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; on(motor_c)
+<BR>&nbsp;&nbsp;&nbsp; endif()
+<BR>&nbsp; endif()
+<BR>&nbsp;endloop()
+<BR>endoftask()
+
+<P>{--------------------------------------------------------------------------------}
+<BR>beginofsub(1)
+<BR>&nbsp; off(motor_c)
+<BR>&nbsp; setvar(turn,con,1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{computer's turn}
+<BR>&nbsp; on(motor_b)&nbsp;&nbsp;&nbsp; {advance paper}
+<BR>&nbsp; wait(con,8)
+<BR>&nbsp; off(motor_b)
+<BR>&nbsp;&nbsp; while(var,turn,eq,con,1)&nbsp;&nbsp;&nbsp; {wait until
+RCX's turn}
+<BR>&nbsp;&nbsp; wait(con,1)
+<BR>&nbsp;&nbsp; endwhile()
+<BR>endofsub()
+<BR>
+<HR>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#006600"><FONT SIZE=+2>2.
+Delphi-program-source</FONT></FONT></FONT>
+
+<P>unit scanner1;
+
+<P>interface
+
+<P>uses
+<BR>&nbsp; Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+Dialogs,
+<BR>&nbsp; ExtCtrls,spirit, OleCtrls, StdCtrls;
+
+<P>type
+<BR>&nbsp; TForm1 = class(TForm)
+<BR>&nbsp;&nbsp;&nbsp; Spirit1: TSpirit;
+<BR>&nbsp;&nbsp;&nbsp; Timer1: TTimer;
+<BR>&nbsp;&nbsp;&nbsp; Image1: TImage;
+<BR>&nbsp;&nbsp;&nbsp; Edit1: TEdit;
+<BR>&nbsp;&nbsp;&nbsp; Edit2: TEdit;
+<BR>&nbsp;&nbsp;&nbsp; Edit3: TEdit;
+<BR>&nbsp;&nbsp;&nbsp; Label1: TLabel;
+<BR>&nbsp;&nbsp;&nbsp; Label2: TLabel;
+<BR>&nbsp;&nbsp;&nbsp; Label3: TLabel;
+<BR>&nbsp;&nbsp;&nbsp; Edit4: TEdit;
+<BR>&nbsp;&nbsp;&nbsp; Label4: TLabel;
+<BR>&nbsp;&nbsp;&nbsp; procedure FormCreate(Sender: TObject);
+<BR>&nbsp;&nbsp;&nbsp; procedure FormClose(Sender: TObject; var Action:
+TCloseAction);
+<BR>&nbsp;&nbsp;&nbsp; procedure Timer1Timer(Sender: TObject);
+<BR>&nbsp; private
+<BR>&nbsp;&nbsp;&nbsp; { Private declarations }
+<BR>&nbsp; public
+<BR>&nbsp;&nbsp;&nbsp; { Public declarations }
+<BR>&nbsp; end;
+
+<P>var
+<BR>&nbsp; Form1: TForm1;
+
+<P>implementation
+
+<P>const xlower=100;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xupper=660;
+
+<P>var turn,uploads,iLower,Iupper:integer;
+<BR>&nbsp;&nbsp;&nbsp; data:variant;
+<BR>&nbsp;&nbsp;&nbsp; calc,alpha,a,b:real;
+<BR>&nbsp;&nbsp;&nbsp; colour:integer;
+<BR>&nbsp;&nbsp;&nbsp; lines,posx:integer;
+<BR>{$R *.DFM}
+
+<P>procedure TForm1.FormCreate(Sender: TObject);
+<BR>begin
+<BR>image1.picture.bitmap.height:=2000;
+<BR>image1.picture.bitmap.width:=1000;
+<BR>image1.picture.bitmap.canvas.pen.width:=4;
+<BR>image1.picture.bitmap.canvas.brush.color:=clNavy;
+<BR>image1.picture.bitmap.canvas.rectangle(0,0,image1.picture.bitmap.width,
+<BR>&nbsp;&nbsp;&nbsp; image1.picture.bitmap.height);
+<BR>a:=255/(690-750);&nbsp;&nbsp; {white=690, black=750&nbsp; raw}&nbsp;&nbsp;&nbsp;
+{255=white 0=black}
+<BR>b:=-a*750;
+<BR>&nbsp; lines:=0;
+<BR>spirit1.initcomm;
+<BR>spirit1.setdatalog(0);
+<BR>if spirit1.setdatalog(500) then MessageDlg('ok size', mtinformation,&nbsp;
+[mbOk], 0);
+<BR>timer1.enabled:=true;
+<BR>&nbsp;
+
+<P>spirit1.setvar(5,2,0); {turn set to RCX}
+<BR>end;
+
+<P>procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+<BR>begin
+<BR>image1.picture.bitmap.savetofile('BMPScannix.bmp');
+<BR>spirit1.closecomm;
+<BR>end;
+
+<P>procedure TForm1.Timer1Timer(Sender: TObject);
+<BR>var idx,iCounter:integer;
+<BR>begin
+<BR>&nbsp;turn:=spirit1.poll(0,5);
+
+<P>&nbsp;if turn=1 then&nbsp;&nbsp;&nbsp;&nbsp; {1=COMPUTER 0=rcx}
+<BR>&nbsp;&nbsp;&nbsp; begin
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; timer1.enabled:=false;&nbsp; {no new event
+until new datalog}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; lines:=lines+1;
+
+<P>&nbsp;&nbsp;&nbsp;&nbsp; data:=spirit1.uploadDatalog(0,1);&nbsp; {get
+the size of the datalog}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if varIsarray(data) then&nbsp; iUpper:=data[2,0]
+else exit;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; edit1.text:=inttostr(iUpper);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if iupper=0 then
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+MessageDlg('iUpper=0', mtinformation,&nbsp; [mbOk], 0);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+exit;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alpha:=(Xupper-100)/iUpper;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uploads:=trunc(iUpper/50);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (iupper mod 50)=0 then uploads:=uploads-1;
+
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; image1.picture.bitmap.canvas.
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; moveto(XLower,100+lines*image1.picture.bitmap.canvas.pen.width);
+<BR>&nbsp;
+
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for icounter:=0 to uploads do
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iLower:=iCounter*50;
+
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If IUpper&lt;=50 then
+data:=spirit1.uploaddatalog(iLower,iUpper) else
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data:=spirit1.uploadDatalog(iLower,50);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iUpper:=iUpper-50;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+edit2.text:=inttostr(iupper);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+edit3.text:=inttostr(ilower);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if varIsarray(data) then
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for idx:=VararraylowBound(data,2)
+to VarArrayHighBound(data,2) do
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+begin
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+edit4.text:=inttostr(idx);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+calc:=a*data[2,idx]+b;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+colour:=trunc(calc);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if colour&lt;0 then colour:=0;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if colour>255 then colour:=255;
+
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+calc:=alpha*(ilower+idx);
+
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+image1.picture.bitmap.canvas.pen.color:=RGB(colour,colour,colour);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+posx:=xLower+trunc(calc);
+
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+image1.picture.bitmap.canvas.lineto(posx,100+lines*
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+image1.picture.bitmap.canvas.pen.width);
+
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+end; {for idx}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+end else MessageDlg('oh no datalog', mterror,&nbsp; [mbOk], 0);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end; {for icounter}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; with spirit1 do
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setdatalog(0);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{clear datalog}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setdatalog(500);
+
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setvar(5,2,0);&nbsp;&nbsp;&nbsp;&nbsp;
+{var5=turn: 0=RCX 1=Computer}
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; messagebeep(0);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timer1.enabled:=true;
+<BR>&nbsp;&nbsp;&nbsp; end;
+<BR>end;
+
+<P>end.
+<BR>
+<HR>
+<BR><FONT FACE="Arial,Helvetica">Download&nbsp; <A href="pscanner.exe">PScanner.exe</A></FONT>
+<BR>
+<HR>
+<CENTER></CENTER>
+
+<CENTER><A href="scannermain.html"><IMG src="arrowleftgreen.jpg" ALT="Page précédente" BORDER=0 HEIGHT=24 WIDTH=24></A></CENTER>
+
+</BODY>
+</HTML>

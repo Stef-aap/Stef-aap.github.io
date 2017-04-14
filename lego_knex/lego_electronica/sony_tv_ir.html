@@ -1,0 +1,399 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>sony_tv_ir</title>
+</head>
+<body text="#000000" bgcolor="#FFFF00" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER><a name="top"></a><a href="../lego_mindstorms_knex_index.html">Lego-Knex</a>
+<br><a href="../../robbert/robbert_home.html">Robbert</a>
+<br><a href="../../mattijs/mattijs_home.html">Mattijs</a>
+<br><a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height=18 width=29></a></td>
+
+<td ALIGN=CENTER><b><font size=+3>Mindstorms&nbsp; Sony TV-IR</font></b>
+<br><font size=+2>Stef Mientki</font>
+<br><font size=-1>august 2001</font></td>
+
+<td></td>
+</tr>
+</table>
+
+<p>with PIC program I measured (key program-2), zeroes and ones detected:
+<blockquote>FA 31 84 32 42 32 42 32 40 32 40 31 41 31</blockquote>
+Sony TV-remote
+<br>first waiting for long high seems to be ok
+<br>logic-0 =&nbsp;&nbsp; $44-high&nbsp;&nbsp; and&nbsp;&nbsp; $30-low
+<br>logic-1 =&nbsp;&nbsp; $88-high&nbsp;&nbsp; and&nbsp;&nbsp; $30-low
+<p>key program 2 ==>&nbsp; 10000...
+<br>&nbsp;
+<p>treshold = 30
+<p>JVC &lt;&lt;,> >>
+<br>&nbsp;C2 E0 00 00 11 2B 77 24 73 24 1D
+<br>&nbsp;C2 30 00 00 11 2B 77 24 75 24 1D
+<br>&nbsp;C2 60 00 00 11 2B 77 24 74 24 1D
+<br>&nbsp;
+<p>SONY 1,2,3
+<br>&nbsp;80 88 00 00 0D B4 32 3F 1F 2B 32
+<br>&nbsp;80 88 00 00 0D B3 33 3F 1E 2A 33
+<br>&nbsp;C0 88 00 00 0D B2 33 40 1E 2A 33
+<br>&nbsp;C0 88 00 00 0D B2 34 40 1E 2A 33
+<br>&nbsp;A0 88 00 00 0D B2 34 41 1E 2B 32
+<br>&nbsp;A0 88 00 00 0D B4 31 41 1D 2B 31
+<p>AKAI 1,2,3
+<br>&nbsp;48 F7 01 7E 20 FA 0A 26 78 26 31
+<br>&nbsp;48 F7 01 7E 20 FA 0A 26 79 26 31
+<br>&nbsp;48 F7 41 3E 20 FA 0A 26 79 26 31
+<br>&nbsp;48 F7 41 3E 20 FA 0A 26 79 26 31
+<br>&nbsp;48 F7 21 5E 20 FA 0A 26 79 26 31
+<br>&nbsp;48 F7 21 5E 20 FA 0A 26 79 26 31
+<br>&nbsp;
+<p>SONY treshold 40 is te hoog + addition low $10
+<br>&nbsp;80 00 00 00 0D B2 34 00 00 2B 1E
+<br>&nbsp;C0 00 00 00 0D B4 31 5A 31 2C 1E
+<br>&nbsp;80 00 00 00 0D B2 33 00 00 2B 1E
+<br>&nbsp;
+<p>SONU 1,2,3 treshold 40 + no addition low $10
+<br>&nbsp;80 88 00 00 0D B4 21 3F 0E 2B 22
+<br>&nbsp;80 88 00 00 0D B3 23 40 0E 2C 21
+<br>&nbsp;C0 88 00 00 0D B3 22 42 0D 2B 22
+<br>&nbsp;C0 88 00 00 0D B2 24 40 0E 2B 22
+<br>&nbsp;A0 88 00 00 0D B4 22 41 0D 2B 22
+<br>&nbsp;A0 88 00 00 0D B3 23 40 0E 2A 22
+<p>JVC strange !!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+xx
+<br>&nbsp;C2 E0 80 00 11 2B 67 24 2F 24 20
+<br>&nbsp;C2 E0 80 00 11 2C 66 24 2F 24 20
+<br>&nbsp;C2 30 80 00 11 2B 67 24 2F 24 20
+<br>&nbsp;C2 30 80 00 11 2C 66 24 2F 24 20
+<br>&nbsp;C2 60 80 00 11 2B 67 24 2F 24 20
+<br>&nbsp;C2 60 80 00 11 2B 67 25 2F 24 20
+<p>AKAI
+<br>&nbsp;48 F7 01 7E 20 FA FA 26 69 26 21
+<br>&nbsp;48 F7 01 7E 20 FA FA 26 69 26 21
+<br>&nbsp;48 F7 41 3E 20 FA FA 26 69 26 21
+<br>&nbsp;48 F7 41 3E 20 FA FA 26 69 26 21
+<br>&nbsp;48 F7 21 5E 20 FA FA 26 69 26 21
+<br>&nbsp;48 F7 21 5E 20 FA FA 26 69 26 21
+<br>&nbsp;
+<br>&nbsp;
+<p>A lot of information from <a href="http://www.gis.net/~dnegro/IR/">Dave
+Negro</a>. and his <a href="http://www.gis.net/~dnegro/IR/REMOTES/SONY.HTML">Sony
+Page</a>, but all others are there to, here a <a href="http://www.gis.net/~dnegro/IR/REMOTES/TABLE.HTML">quick
+overview</a>.
+<br><a href="http://cgl.bu.edu/GC/shammi/ir/">An analytical study of IR
+signals used by a SONY remote control</a>
+<br>&nbsp;
+<p><font face="Arial,Helvetica">******************************************************************************</font>
+<br><font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+TECHNICAL INFO from <a href="http://www.gis.net/~dnegro/IR/">Dave Negro</a></font>
+<br><font face="Arial,Helvetica">******************************************************************************</font>
+<br><tt>Code length:&nbsp;&nbsp;&nbsp; 12 bits (15 bits for some videocamera
+functions)</tt>
+<br><tt>Carrier:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+40kHz</tt>
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++--------+</tt>
+<br><tt>Header:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +--+..</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4T&nbsp;&nbsp;&nbsp; T</tt>
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++----+</tt>
+<br><tt>1 is coded:&nbsp; |&nbsp;&nbsp;&nbsp; |</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ..+&nbsp;&nbsp;&nbsp;
++--+..</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2T&nbsp; T</tt>
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++--+</tt>
+<br><tt>0 is coded:&nbsp; |&nbsp; |</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ..+&nbsp;
++--+..</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+T&nbsp; T</tt>
+<p><tt>T = 550us approx</tt>
+<p><tt>Space between data: 25ms</tt>
+<p><tt>data: hhhhxxxxxxyyyyyy</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+^</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LSB</tt>
+<p><tt>xxxxxx command</tt>
+<br><tt>yyyyyy address ( the number of the apparatus )</tt>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="sony tv-ir"></a><b><font face="Arial,Helvetica"><font color="#3333FF">Sony
+TV-IR&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><font face="Arial,Helvetica">Measurements were done with the <a href="http://people.a2000.nl/rwvgesse//Uirt.htm">UIRT
+from Ruud van Gessel</a>.</font>
+<p><font face="Arial,Helvetica">I couldn't get the DLL from Ruud van Gessel
+working with Delphi-5. I translated the header files both with Pascal and
+Cdecl declarations. Naming of the functions in the DLL wasn't possible,
+probably due to the name-mangling from the C-compiler. So I called the
+functions by index, which resulted in function 1: access violation, and
+the other functions (2 and 3) didn't do much.</font>
+<p><font face="Arial,Helvetica">So I wrote his DLL code in plain Delphi,
+using CPDRV commport driver.</font>
+<br><font face="Arial,Helvetica">And this seems to work, at least for the
+slow UIR mode and with a little imagination also for the fast mode.</font>
+<p><font face="Arial,Helvetica">In the measurements below, chan and volume
+could be exchanged, I'm not sure anymore.</font>
+<p><font face="Arial,Helvetica">Below the UIR mode, both in slow and fast
+RS232-mode.</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">The results of both are quiet stable,
+but I don't understand the coding scheme, and why is slow and fast serial
+different.</font>
+<br><font face="Arial,Helvetica">It seems that in the fast RS232 mode,
+the msb is always 1 or is it coincidence ?</font>
+<table BORDER WIDTH="100%" >
+<tr>
+<td><font face="Arial,Helvetica">Key</font></td>
+
+<td><font face="Arial,Helvetica">Code</font></td>
+
+<td><font face="Arial,Helvetica">UIR (9600 Baud)</font></td>
+
+<td><font face="Arial,Helvetica">UIR (155kBaud)&nbsp;&nbsp; ($20)</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">1</font>
+<br><font face="Arial,Helvetica">2</font>
+<br><font face="Arial,Helvetica">3</font>
+<br><font face="Arial,Helvetica">4</font>
+<br><font face="Arial,Helvetica">5</font>
+<br><font face="Arial,Helvetica">6</font>
+<br><font face="Arial,Helvetica">7</font>
+<br><font face="Arial,Helvetica">8</font>
+<br><font face="Arial,Helvetica">9</font>
+<br><font face="Arial,Helvetica">0</font>
+<p><font face="Arial,Helvetica">chan+</font>
+<br><font face="Arial,Helvetica">chan--</font>
+<br><font face="Arial,Helvetica">vol+</font>
+<br><font face="Arial,Helvetica">vol-</font></td>
+
+<td><font face="Arial,Helvetica">#080</font>
+<br><font face="Arial,Helvetica">#081</font>
+<br><font face="Arial,Helvetica">#082</font>
+<br><font face="Arial,Helvetica">#083</font>
+<br><font face="Arial,Helvetica">#084</font>
+<br><font face="Arial,Helvetica">#085</font>
+<br><font face="Arial,Helvetica">#086</font>
+<br><font face="Arial,Helvetica">#087</font>
+<br><font face="Arial,Helvetica">#088</font>
+<br><font face="Arial,Helvetica">#089</font>
+<p><font face="Arial,Helvetica">#090</font>
+<br><font face="Arial,Helvetica">#091</font>
+<br><font face="Arial,Helvetica">#092</font>
+<br><font face="Arial,Helvetica">#093</font></td>
+
+<td><font face="Arial,Helvetica">19 00 02 A0 00 E0</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 00 CA</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 00 EA</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 00 E2</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 80 E2</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 80 EA</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 80 CA</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 80 E0</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 A0 E0</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 A0 CA</font>
+<p><font face="Arial,Helvetica">19 00 02 A0 28 EA</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 28 E2</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 28 E0</font>
+<br><font face="Arial,Helvetica">19 00 02 A0 28 CA</font></td>
+
+<td><font face="Arial,Helvetica">E7 80 83 F0 80 F0&nbsp;</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 80 EF&nbsp;</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 80 FF&nbsp;</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 80 F3&nbsp;</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 C0 F3&nbsp;</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 C0 FF&nbsp;</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 C0 EF</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 C0 FF&nbsp;</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 C0 FF&nbsp;</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 F0 EF&nbsp;</font>
+<p><font face="Arial,Helvetica">E7 80 83 F0 BC FF&nbsp;</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 BC F3&nbsp;</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 BC F0&nbsp;</font>
+<br><font face="Arial,Helvetica">E7 80 83 F0 BC EF</font></td>
+</tr>
+</table>
+
+<p><font face="Arial,Helvetica">The raw mode in fast&nbsp; RS232 mode&nbsp;</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">If you interpret $E7 as a logic "1" it
+looks quiet good, exceopt for key 1 (code $080).</font>
+<br><font face="Arial,Helvetica">But knowing that the basic timing of the
+sony = 550 usec, you should get values of $16 and $2C.</font>
+<br><font face="Arial,Helvetica">So it's not only the msb that's always
+set, what else ?</font>
+<br><font face="Arial,Helvetica">And the last byte should be $FF&nbsp;
+!?</font>
+<table BORDER WIDTH="100%" >
+<tr>
+<td><font face="Arial,Helvetica">Key</font></td>
+
+<td><font face="Arial,Helvetica">Code</font></td>
+
+<td><font face="Arial,Helvetica">RAW (155kBAUD)&nbsp; ($21)</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">1</font>
+<br><font face="Arial,Helvetica">2</font>
+<br><font face="Arial,Helvetica">3</font>
+<br><font face="Arial,Helvetica">4</font>
+<br><font face="Arial,Helvetica">5</font>
+<br><font face="Arial,Helvetica">6</font>
+<br><font face="Arial,Helvetica">7</font>
+<br><font face="Arial,Helvetica">8</font>
+<br><font face="Arial,Helvetica">9</font>
+<br><font face="Arial,Helvetica">0</font>
+<p><font face="Arial,Helvetica">chan+</font>
+<br><font face="Arial,Helvetica">chan--</font>
+<br><font face="Arial,Helvetica">vol+</font>
+<br><font face="Arial,Helvetica">vol-</font></td>
+
+<td><font face="Arial,Helvetica">#080</font>
+<br><font face="Arial,Helvetica">#081</font>
+<br><font face="Arial,Helvetica">#082</font>
+<br><font face="Arial,Helvetica">#083</font>
+<br><font face="Arial,Helvetica">#084</font>
+<br><font face="Arial,Helvetica">#085</font>
+<br><font face="Arial,Helvetica">#086</font>
+<br><font face="Arial,Helvetica">#087</font>
+<br><font face="Arial,Helvetica">#088</font>
+<br><font face="Arial,Helvetica">#089</font>
+<p><font face="Arial,Helvetica">#090</font>
+<br><font face="Arial,Helvetica">#091</font>
+<br><font face="Arial,Helvetica">#092</font>
+<br><font face="Arial,Helvetica">#093</font></td>
+
+<td><tt>80 EE E3 FC 8F 8E 8F FC 8F 8E 8F FC 8F FC E3 FC 8F E7 E3 FC E3
+FC 8F FC E3 FC</tt>
+<br><tt>80 B8 8F E7 8F FC 8F FC 8F FC E3 FC 8F FC 8F FC 8F E7 8F FC 8F
+FC 8F FC 8F FC</tt>
+<br><tt>80 B8 8F FC 8F E7 8F FC 8F FC 8F FC 8F FC 8F FC 8F E7 8F FC 8F
+FC 8F FC 8F FC</tt>
+<br><tt>80 B8 8F E7 8F E7 8F FC 8F FC 8F FC 8F FC 8F FC 8F E7 8F FC 8F
+FC 8F FC 8F FC</tt>
+<br><tt>80 B8 8F FC 8F FC 8F E7 8F FC 8F FC 8F FC 8F FC 8F E7 8F FC 8F
+FC 8F FC 8F FC</tt>
+<br><tt>80 B8 8F E7 8F FC 8F E7 8F FC 8F FC 8F FC 8F FC E3 E7 8F FC 8F
+FC 8F FC 8F FC</tt>
+<br><tt>80 B8 8F FC 8F E7 8F E7 8F FC 8F FC 8F FC 8F FC 8F E7 8F FC 8F
+FC 8F FC 8F FC</tt>
+<br><tt>80 B8 8F E7 8F E7 8F E7 E3 FC 8F FC 8F FC 8F FC 8F E7 8F FC 8F
+FC 8F FC 8F FC</tt>
+<br><tt>80 B8 8F FC 8F FC 8F FC 8F E7 8F FC 8F FC 8F FC 8F E7 8F FC 8F
+FC 8F FC 8F FC</tt>
+<br><tt>80 B8 8F E7 8F FC 8F FC 8F E7 8F FC 8F FC 8F FC 8F E7 8F FC 8F
+FC 8F FC 8F FC</tt>
+<p><tt>80 B8 8F FC 8F 9C 8F FC 8F FC 8F E7 8F FC 8F FC 8F E7 8F FC 8F FC
+8F FC 8F FC</tt>
+<br><tt>80 B8 8F E7 8F E7 8F FC 8F FC 8F E7 8F FC 8F FC 8F E7 8F FC 8F
+FC E3 FC 8F FC</tt>
+<br><tt>80 B8 8F FC 8F FC 8F FC 8F FC 8F E7 8F FC 8F FC 8F E7 8F FC 8F
+FC 8F FC 8F FC</tt>
+<br><tt>80 B8 8F E7 8F FC 8F FC 8F FC 8F E7 8F FC 8F FC 8F E7 8F FC 8F
+FC 8F FC E3 FC</tt></td>
+</tr>
+</table>
+
+<p><font face="Arial,Helvetica">The structured mode:</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">Seems reasonable stable, but</font>
+<br><font face="Arial,Helvetica">byte 1 $80, is this Checksum error ?</font>
+<br><font face="Arial,Helvetica">byte 2 should be the number of databytes,
+and $1E = 30 decimal, so where are they ?</font>
+<table BORDER WIDTH="100%" >
+<tr>
+<td><font face="Arial,Helvetica">Key</font></td>
+
+<td><font face="Arial,Helvetica">Code</font></td>
+
+<td><font face="Arial,Helvetica">Structured (115kBaud)&nbsp; $22</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">1</font>
+<br><font face="Arial,Helvetica">2</font>
+<br><font face="Arial,Helvetica">3</font>
+<br><font face="Arial,Helvetica">4</font>
+<br><font face="Arial,Helvetica">5</font>
+<br><font face="Arial,Helvetica">6</font>
+<br><font face="Arial,Helvetica">7</font>
+<br><font face="Arial,Helvetica">8</font>
+<br><font face="Arial,Helvetica">9</font>
+<br><font face="Arial,Helvetica">0</font>
+<p><font face="Arial,Helvetica">chan+</font>
+<br><font face="Arial,Helvetica">chan--</font>
+<br><font face="Arial,Helvetica">vol+</font>
+<br><font face="Arial,Helvetica">vol-</font></td>
+
+<td><font face="Arial,Helvetica">#080</font>
+<br><font face="Arial,Helvetica">#081</font>
+<br><font face="Arial,Helvetica">#082</font>
+<br><font face="Arial,Helvetica">#083</font>
+<br><font face="Arial,Helvetica">#084</font>
+<br><font face="Arial,Helvetica">#085</font>
+<br><font face="Arial,Helvetica">#086</font>
+<br><font face="Arial,Helvetica">#087</font>
+<br><font face="Arial,Helvetica">#088</font>
+<br><font face="Arial,Helvetica">#089</font>
+<p><font face="Arial,Helvetica">#090&nbsp;&nbsp;&nbsp; ch+</font>
+<br><font face="Arial,Helvetica">#091&nbsp;&nbsp;&nbsp; ch-</font>
+<br><font face="Arial,Helvetica">#092&nbsp;&nbsp;&nbsp; vol+</font>
+<br><font face="Arial,Helvetica">#093&nbsp;&nbsp;&nbsp; vol-</font></td>
+
+<td><font face="Arial,Helvetica">80 1E 7F 9E FE 9F BB 80 E0 80 80 80 80
+80 80 80 80 80 80 FF 78 F0 86 E0 8F BB 80 E0 EC 80 8F FF&nbsp;</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE BB 9F FE FE 80 80 80 80
+80 80 80 80 80 FC 78 F0 BB 80 E0 86 E0 8F EC 80 8F FF&nbsp;</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE 9F BB 86 E0 80 80 80 80
+80 80 80 80 80 80 FB 78 F0 FF 80 E3 F6 80 83 EC 80 8F F8&nbsp;</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE BB 9F F8 FE 80 80 80 80
+80 80 80 80 80 FE 78 F0 F6 80 83 FF 80 E3 EC 80 8F F8&nbsp;</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE 9F BB 98 E0 80 80 80 80
+80 80 80 80 80 80 E7 78 F0 FF 80 E3 F6 80 83 EC 80 8F F8&nbsp;</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE BB 9F E6 FE 80 80 80 80
+80 80 80 80 80 FC 78 F0 F6 80 83 FF 80 E3 EC 80 8F F8&nbsp;</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE 9F EE 9E E0 80 80 80 80
+80 80 80 80 80 80 FC 78 F0 F8 80 8C DE 80 F0 F6 80 8F BF&nbsp;</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE BB 9F E0 FE 80 80 80 80
+80 80 80 80 80 FE 78 F0 DF 80 F0 3F F0 8C EC 80 8F BF</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE 9F BB E0 E0 80 80 80 80
+80 80 80 80 80 80 DF 78 F0 FF 80 E3 F6 80 83 EC 80 8F F8&nbsp;</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE BB 9F 9E FE 80 80 80 80
+80 80 80 80 80 DC 78 E0 F6 80 83 FF 80 E3 EC 80 8F F8&nbsp;</font>
+<p><font face="Arial,Helvetica">80 1E 7F 9E FE 9F BB 86 F8 80 80 80 80
+80 80 80 80 80 80 FE 78 E0 F8 80 8C DF 80 F0 F6 80 8F BC&nbsp;</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE BB 9F F8 9E 80 80 80 80
+80 80 80 80 80 78 F0 DF 80 F0 FC 80 8C EC 80 8F BC&nbsp;</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE 9F EE 80 F8 80 80 80 80
+80 80 80 80 80 80 FF 78 F0 FF 80 E3 F3 80 83 EC 80 8F FB&nbsp;</font>
+<br><font face="Arial,Helvetica">80 1E 7F 9E FE BB 9F FE 9E 80 80 80 80
+80 80 80 80 80 FF 78 F0 F6 80 83 FF 80 E3 EC 80 8F F8</font></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p><font face="Arial,Helvetica">Commands&nbsp;</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><font face="Arial,Helvetica">$20 + CS ,&nbsp; sets the UIRT in UIR,
+but returns $EC</font>
+<br><font face="Arial,Helvetica">$21 + CS ,&nbsp; sets the UIRT in RAW,
+but returns $EC</font>
+<br><font face="Arial,Helvetica">$22 + CS ,&nbsp; sets the UIRT in STRUCT,
+but returns $EC</font>
+<br><font face="Arial,Helvetica">$23 + CS ,&nbsp; (version), returns&nbsp;
+$E0 $E0 $FF</font>
+<br>&nbsp;
+<br>&nbsp;
+</body>
+</html>

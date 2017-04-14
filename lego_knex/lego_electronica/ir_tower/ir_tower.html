@@ -1,0 +1,821 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE>IR_tower_japan</TITLE>
+	<META name="generator" CONTENT="StarOffice 7  (Win32)">
+	<META name="author" CONTENT="Stef Mientki">
+	<META name="created" CONTENT="20041231;16335464">
+	<META name="changedby" CONTENT="Stef Mientki">
+	<META name="changed" CONTENT="20041231;16444487">
+	<STYLE>
+	<!--
+		TD P { color: #000000 }
+		P { color: #000000 }
+		BLOCKQUOTE { color: #000000 }
+		TH P { color: #000000 }
+		A:link { color: #0000ee }
+		A:visited { color: #551a8b }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#0000ee" VLINK="#551a8b" BGCOLOR="#ffff00" DIR="LTR">
+<P STYLE="margin-bottom: 0in">&nbsp; 
+</P>
+<TABLE WIDTH=100% CELLPADDING=2 CELLSPACING=2>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><A name="top"></A><A href="../../lego_mindstorms_knex_index.html">Lego-Knex</A>
+			<BR><A href="./d:/data_wwwx/robbert/robbert_home.html">Robbert</A>
+			<BR><A href="./d:/data_wwwx/mattijs/mattijs_home.html">Mattijs</A>
+			<BR><FONT COLOR="#0000ee"><A href="mailto:s.mientki@ids.kun.nl"><FONT COLOR="#0000ee"><IMG src="mail.gif" name="graphic1" ALIGN=BOTTOM WIDTH=29 HEIGHT=18 BORDER=1></FONT></A></FONT><A href="mailto:s.mientki@ids.kun.nl">
+			</A>
+			</P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><B><FONT SIZE=6>Mindstorms IR-communication</FONT></B>
+			<BR><FONT SIZE=5>Stef Mientki</FONT> <BR><FONT SIZE=2>may 2001</FONT></P>
+		</TD>
+		<TD>
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">In this
+document I've gathered information about the communication between PC
+and RCX.</FONT> <BR><FONT FACE="Arial, Helvetica">There's a lot you
+can find on the web, but it's all incomplete, just as this document
+will also be incomplete.</FONT> <BR>&nbsp; 
+</P>
+<TABLE COLS=3 WIDTH=100% BORDER=1 CELLPADDING=2 CELLSPACING=2>
+	<TR>
+		<TD>
+			<P><FONT COLOR="#3333ff"><FONT FACE="Arial, Helvetica"><B>Protocols</B></FONT></FONT></P>
+		</TD>
+		<TD>
+			<P><FONT COLOR="#3333ff"><FONT FACE="Arial, Helvetica"><B>Hardware</B></FONT></FONT></P>
+		</TD>
+		<TD>
+			<P><FONT COLOR="#3333ff"><FONT FACE="Arial, Helvetica"><B>Links</B></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD VALIGN=TOP>
+			<P><FONT FACE="Arial, Helvetica"><A href="#summary">Summary</A>
+			</FONT><BR><FONT FACE="Arial, Helvetica"><A href="#introduction">Introduction</A>
+			</FONT><BR><FONT FACE="Arial, Helvetica"><A href="#command level">Command
+			Level</A> </FONT><BR><FONT FACE="Arial, Helvetica"><A href="#packet level">Packet
+			Level</A> </FONT><BR><FONT FACE="Arial, Helvetica"><A href="#rs232 level">RS232
+			level</A> </FONT><BR><FONT FACE="Arial, Helvetica"><A href="#transmission level">Transmission
+			level</A> </FONT>
+			</P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica"><A href="#schematics">Schematics</A>
+			</FONT><BR><FONT FACE="Arial, Helvetica"><A href="#keeping ir-tower">Keep
+			tower alive</A> </FONT><BR><FONT FACE="Arial, Helvetica"><A href="#ir-tower without a">Tower
+			without batteries</A> </FONT>
+			</P>
+			<P><A href="#design by john barnes">Great design from John Barnes</A>
+			<BR><A href="#hardwire ir-signals to rcx">Direct Connection to RCX</A>
+			<BR><FONT FACE="Arial, Helvetica"><A href="#some notes">Some notes
+			from others</A> </FONT>
+			</P>
+		</TD>
+		<TD VALIGN=TOP>
+			<P><FONT FACE="Arial, Helvetica"><A href="http://graphics.stanford.edu/~kekoa/rcx/#Opcodes">Opcodes</A>
+			by Kekoa Proudfoot</FONT> <BR><FONT FACE="Arial, Helvetica"><A href="http://graphics.stanford.edu/~kekoa/rcx/#Protocol">RS232</A>
+			by Kekoa Proudfoot</FONT> <BR><FONT FACE="Arial, Helvetica"><A href="http://www.lirc.org/receivers.html">LIRC
+			Linux IR Remote Control</A> </FONT><BR><FONT FACE="Arial, Helvetica"><A href="http://www.vishay.com/temporary/datasheets/optoelectronics/photomodules/tsop11...html">TSOP11
+			</A>(IR-receiver)</FONT> <BR><FONT FACE="Arial, Helvetica"><A href="http://www.gis.net/~dnegro/IR/">General
+			Info</A> from Dave Negro<BR><A href="http://web.media.mit.edu/~ayb/irx/irx2/">IRx
+			from MIT</A></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P><A name="summary"></A><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">Summary&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic2" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A><BR><FONT FACE="Arial, Helvetica">Communication is done in a
+master-slave mode, whereby the RCX is slave (except for messages).</FONT>
+<BR><FONT FACE="Arial, Helvetica">Datatransfers are normally
+transported in packages, with leader, trailer and checksums. (Can be
+changed).</FONT> <BR><FONT FACE="Arial, Helvetica">RTS pin of the
+IR-tower must be high for both sending and receiving data.</FONT>
+<BR><FONT FACE="Arial, Helvetica">DTR pin of the IR-tower is not
+used.</FONT> <BR><FONT FACE="Arial, Helvetica">Normal Baudrate is
+2400 Baud, 8 databits, 1 stopbit, odd parity. Baudrate can be doubled
+to 4800 Baud.</FONT> <BR><FONT FACE="Arial, Helvetica">Standard IR
+freqeuncy is 38 kHz, which can be doubled.</FONT> <BR><FONT FACE="Arial, Helvetica">If
+tower is alive, receiver sometimes fetches lots of data which isn't
+there.</FONT> <BR><FONT FACE="Arial, Helvetica">There's a lot of
+discussion about <A href="#blowing up the ir-led's">blowing up the
+IR-LED's</A> .</FONT> 
+</P>
+<P><A name="introduction"></A><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">Introduction&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic3" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A><BR><FONT FACE="Arial, Helvetica">In the communication between PC
+and RCX the following communication levels can be distinguished:</FONT>
+</P>
+<OL>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">command
+	level</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">packet
+	level</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">RS232
+	level</FONT> 
+	</P>
+	<LI><P><FONT FACE="Arial, Helvetica">transmission level (modulation
+	/ wavelength)</FONT> 
+	</P>
+</OL>
+<P><A name="command level"></A><BR><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">Command
+level&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic4" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A><BR><FONT FACE="Arial, Helvetica">At the command level you can
+give commands to the RCX (using i.e. NQC or Spirit.OCX) or receive
+requested information from the RCX.</FONT> <BR><FONT FACE="Arial, Helvetica">There
+exists the following basic commands to an RCX</FONT> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">Immediate
+	commands (including information requests)</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">Download
+	commands</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">Messages
+	(coming from another RCX)</FONT> 
+	</P>
+	<LI><P><FONT FACE="Arial, Helvetica">Remote Control Commands</FONT> 
+	</P>
+</UL>
+<P><FONT FACE="Arial, Helvetica">Of course there are also commands
+you can give to the software interface (like &quot;TowerAlive&quot;
+in Spirit.ocx), but they don't result in a communication between PC
+and RCX.</FONT> <BR><FONT FACE="Arial, Helvetica">From the RCX to the
+PC, the following basic information can be transported</FONT> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">Replies
+	upon PC-requests (including datalog dumps)</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">Free
+	dumps (which are initiated by the RCX itself)</FONT> 
+	</P>
+	<LI><P><FONT FACE="Arial, Helvetica">Messages (meant for other
+	RCX's)</FONT> 
+	</P>
+</UL>
+<P><BR><FONT FACE="Arial, Helvetica">A <U><I>message</I></U> is just
+an immediate command &quot;F7&quot; followed by the message number
+and transmitted in the standard packet format,</FONT> <BR><FONT FACE="Arial, Helvetica">so
+message 3 is sent as</FONT> <BR>&nbsp;&nbsp;&nbsp;&nbsp; <FONT FACE="Arial, Helvetica">55
+FF 00 F7 08 03 FC FA 05</FONT> <BR><FONT FACE="Arial, Helvetica">Message
+0 is discouraged, according to Dave Baum.</FONT> <BR>&nbsp; 
+</P>
+<P><FONT FACE="Arial, Helvetica">A <U><I>remote control command</I></U>
+is just an immediate command &quot;D2&quot; followed by 2 arguments,
+with some special rules:</FONT> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">it's
+	a normal direct command with the code 0xD2 with 2 arguments (page 61
+	of RCX 2.0 Command Overview)</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">In
+	the arguments you may only set 1 bit, so only one command at a time
+	can be given (if you set more than 1 bit in the arguments, only the
+	least significant bit is executed)</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">toggling
+	of bit 3 of the command (when repeating the same command) is not
+	necessary</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">a
+	motor command can be given at any time</FONT> 
+	</P>
+	<LI><P><FONT FACE="Arial, Helvetica">all other commands must be
+	preceeded by a motor command or a command with both arguments 0</FONT>
+		</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><A name="remote control codes"></A><BR><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">Remote
+Control Codes&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic5" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A>
+</P>
+<TABLE COLS=3 WIDTH=100% BORDER=1 CELLPADDING=2 CELLSPACING=2>
+	<TR>
+		<TD>
+			<P><BR>
+			</P>
+		</TD>
+		<TD COLSPAN=2>
+			<P><FONT FACE="Arial, Helvetica">must be preceeded by a motor
+			command or a remote command with arguments 00 00</FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">00 00 = pre-message for all
+			except motor commands</FONT> <BR><FONT FACE="Arial, Helvetica">00
+			08 = Motor A forwards</FONT> <BR><FONT FACE="Arial, Helvetica">00
+			40 = Motor A backwards</FONT> <BR><FONT FACE="Arial, Helvetica">00
+			10 = Motor B forwards</FONT> <BR><FONT FACE="Arial, Helvetica">00
+			80 = Motor B backwards</FONT> <BR><FONT FACE="Arial, Helvetica">00
+			20 = Motor C forwards</FONT> <BR><FONT FACE="Arial, Helvetica">01
+			00 = Motor C backwards</FONT></P>
+		</TD>
+		<TD VALIGN=TOP>
+			<P><FONT FACE="Arial, Helvetica">02 00 = Select Program 1 and Run
+			it</FONT> <BR><FONT FACE="Arial, Helvetica">04 00 = Select Program
+			2 and Run it</FONT> <BR><FONT FACE="Arial, Helvetica">08 00 =
+			Select Program 3 and Run it</FONT> <BR><FONT FACE="Arial, Helvetica">10
+			00 = Select Program 4 and Run it</FONT> <BR><FONT FACE="Arial, Helvetica">20
+			00 = Select Program 5 and Run it</FONT> 
+			</P>
+			<P><FONT FACE="Arial, Helvetica">40 00 = Stop Program and all
+			motors</FONT></P>
+		</TD>
+		<TD VALIGN=TOP>
+			<P><FONT FACE="Arial, Helvetica">00 01 = Message 1</FONT> <BR><FONT FACE="Arial, Helvetica">00
+			02 = Message 2</FONT> <BR><FONT FACE="Arial, Helvetica">00 04 =
+			Message 3</FONT> 
+			</P>
+			<P><FONT FACE="Arial, Helvetica">80 00 = play Remote Sound</FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P><BR>&nbsp; 
+</P>
+<P><A name="packet level"></A><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">Packet
+Level&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic6" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A><BR><FONT FACE="Arial, Helvetica">In normal communication all
+information is transported in a packet.</FONT> <BR><FONT FACE="Arial, Helvetica">Every
+command or every complete download is packed in a packet.s</FONT>
+<BR><FONT FACE="Arial, Helvetica">The packet consists of</FONT> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">a
+	header, always 55 FF 00 (in receiving the first byte &quot;55&quot;
+	isn't always reliable)</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">the
+	databytes, where each databyte is followed by it's complement. So if
+	you've to send &quot;55 F7&quot;, you would have to send &quot;55 AA
+	F7 08&quot;</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">the
+	checksum, that is the sum over all real databytes. Also the checksum
+	is followed by its complement</FONT> 
+	</P>
+	<LI><P><FONT FACE="Arial, Helvetica">RCX never executes same exact
+	opcode twice in a row, therefor every command has 2 occurences, one
+	with the third bit set and the other with third bit reset. You've to
+	toggle this third bit if you want a command sent twice.</FONT> 
+	</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><A name="rs232 level"></A><BR><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">RS232
+level&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic7" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A><BR><FONT FACE="Arial, Helvetica">from Kekoa Proudfoot: &quot;Bit
+encoding is 2400 baud, NRZ, 1 start, 8 data, odd parity, 1stop bit.&quot;</FONT>
+<BR>&nbsp; 
+</P>
+<TABLE BORDER=0 CELLPADDING=2 CELLSPACING=2>
+	<TR>
+		<TH WIDTH=10%>
+			<P ALIGN=CENTER><FONT COLOR="#3333ff"><FONT FACE="Arial, Helvetica"><B>PC</B></FONT></FONT></P>
+		</TH>
+		<TH WIDTH=10%>
+			<P ALIGN=CENTER><FONT COLOR="#3333ff"><FONT FACE="Arial, Helvetica"><B>IR-tower&nbsp;</B></FONT></FONT></P>
+		</TH>
+		<TH WIDTH=15%>
+			<P ALIGN=LEFT><FONT COLOR="#3333ff"><FONT FACE="Arial, Helvetica"><B>name</B></FONT></FONT></P>
+		</TH>
+		<TH WIDTH=20%>
+			<P ALIGN=LEFT><FONT COLOR="#3333ff"><FONT FACE="Arial, Helvetica"><B>Description</B></FONT></FONT></P>
+		</TH>
+		<TD>
+			<P><FONT COLOR="#3333ff"><FONT FACE="Arial, Helvetica"><B>Notes</B></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">1</FONT></P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">1</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">CD</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">Carrier Detect</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">not connected</FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">2</FONT></P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">3</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">RD</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">Receive Data</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">RCX==&gt;PC</FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">3</FONT></P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">2</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">TD</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">Transmit Data</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">PC==&gt;RCX</FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">4</FONT></P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">4</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">DTR</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">Data Terminal Ready&nbsp;</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">connected, but not used</FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">5</FONT></P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">5</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">SG</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">Signal Ground</FONT></P>
+		</TD>
+		<TD>
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">6</FONT></P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">6</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">DSR</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">Data Set Ready</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">not connected</FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD VALIGN=TOP>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">7</FONT></P>
+		</TD>
+		<TD VALIGN=TOP>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">8</FONT></P>
+		</TD>
+		<TD VALIGN=TOP>
+			<P><FONT FACE="Arial, Helvetica">RTS</FONT></P>
+		</TD>
+		<TD VALIGN=TOP>
+			<P><FONT FACE="Arial, Helvetica">Ready To Send</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">must be high to receive or send
+			data</FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">8</FONT></P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">7</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">CTS</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">Clear To Send</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">used to detect if tower is
+			connected to PC,</FONT> <BR><FONT FACE="Arial, Helvetica">because
+			it's connected in the IR-tower to RTS</FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">9</FONT></P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><FONT FACE="Arial, Helvetica">9</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">RI</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">Ring Indicator</FONT></P>
+		</TD>
+		<TD>
+			<P><FONT FACE="Arial, Helvetica">not connected</FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P><BR>&nbsp; 
+</P>
+<P><A name="transmission level"></A><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">Transmission
+level&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic8" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A><BR><FONT FACE="Arial, Helvetica">from Kekoa: &quot;A '0' is
+coded as a 417us pulse of 38kHz IR, a '1' bit is 417us of nothing.&quot;</FONT>
+<BR><FONT FACE="Arial, Helvetica">This can be changed to 76 kHz
+and/or 25% duty cycle.</FONT> <BR><FONT FACE="Arial, Helvetica">Current
+through 2 IR diodes on the PC side is 10 mA (short range) or 100 mA
+(long range)</FONT> <BR><FONT FACE="Arial, Helvetica">I found that
+it's slightly different:</FONT> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">Startbit
+	is &quot;1&quot;, but always give a 417 us IR puls</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">Databits
+	&quot;0&quot; gives 417 us IR puls,&nbsp; &quot;1&quot; gives 417 us
+	of nothing</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">Parity
+	bit (data = $A1 generates 417 us IR puls)</FONT> 
+	</P>
+	<LI><P><FONT FACE="Arial, Helvetica">1 stopbits generate no IR</FONT>
+		</P>
+</UL>
+<P><A name="design by john barnes"></A><BR><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">Design
+by John Barnes&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic9" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A>
+</P>
+<P>This is simple and good design posted by John Barnes at the lugnet
+group,&nbsp; which I quote her with his permission. The design is far
+more easy (and understandable) then the circuit from Lego. <BR>John
+Barnes says: 
+</P>
+<BLOCKQUOTE>&quot;This IR Tower design &ldquo;scavenges&rdquo; power
+from the RS232 port. For ease of construction, I put the power supply
+components on a small piece of perf board in the DB9 connector shell
+and the rest in a hollowed out brick. I used an old piece of 4
+conductor mouse cable between the bnck and the connector.
+Functionally is is very simple. On the transmit side, the TXD signal
+from the PC &ldquo;un-resets&rdquo; the 555 which then makes the
+required 38KHz signal which is emitted by the IR LED - use a high
+efficiency type. On the receive side, the hard work is done by the IR
+detector chip, use Panasonic PNA4602 or PNA4612 removed from it&rsquo;s
+metal shell (obtainable from Digikey). Overall, note that the
+apparent common ground line is in fact derived from the negative most
+output from the RS232 signals. If you use a &lsquo;scope to check the
+thing out, don&rsquo;t attach the probe&rsquo;s ground pigtail to
+this line, you&rsquo;ll lose half the supply voltage. This design is
+only intended to provide 4 &ndash; 8 inches of operating range. It
+can be very useful in multiple RCX environments where you want to
+minimise interference to other RCXs. I have downloaded the firmware
+using this tower as a form of validation.&quot;</BLOCKQUOTE>
+<P>It's possible to extend the range of this design by lowering the
+value of R6 and by adding more IR diodes in series. <BR>For instance
+a normal desktop computer can deliver about 20 mA from it's serial
+port. 
+</P>
+<P>John Barnes about this suggestion: 
+</P>
+<BLOCKQUOTE>And adding IR LEDs in series is the best remedy if you
+have the volts to drive 'em. You cannot lower R6 too far, the CMOS
+555 won't supply all that much current. And the non-CMOS version
+won't run in the 50:50 mode as shown. A simply transistor used as a
+buffer with the LEDs being returned to the high side would give you
+all sort of power if a true powered tower were required.</BLOCKQUOTE>
+<P><BR><IMG src="irtower_jb.gif" name="graphic10" ALIGN=BOTTOM WIDTH=956 HEIGHT=486 BORDER=0>
+<BR>&nbsp; <BR>&nbsp; 
+</P>
+<P><A name="schematics"></A><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">Schematics&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic11" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A>
+</P>
+<P><FONT FACE="Arial, Helvetica">Schematics by Mark Bellis</FONT></P>
+<P><IMG src="rcx_ir_txrx_circuit2.gif" name="graphic28" ALIGN=LEFT WIDTH=945 HEIGHT=584 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P><FONT FACE="Arial, Helvetica">Schematics by John Barnes</FONT> <BR><FONT COLOR="#0000ee"><A href="legoirt.gif"><FONT COLOR="#0000ee"><IMG src="legoirt.jpg" name="graphic12" ALIGN=BOTTOM WIDTH=834 HEIGHT=353 BORDER=1></FONT></A></FONT><A href="legoirt.gif">
+</A><BR><FONT FACE="Arial, Helvetica">(click on image to enlarge)</FONT>
+</P>
+<P><FONT FACE="Arial, Helvetica">Schematics by Hiroki Shirakawa</FONT>
+<BR><IMG src="ir_tower.gif" name="graphic13" ALIGN=BOTTOM WIDTH=571 HEIGHT=315 BORDER=0>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">About the
+schematics,</FONT> <BR><FONT FACE="Arial, Helvetica">I think the
+mosfet in the power supply line drawn by John is a voltage regulator,
+because the absolute maximum ratings of the IR-receiver (TSOP1138)
+specifies 6 Volts (although the limitation could also be done by the
+zener and the transistor, which would be bad). According to John
+Barnes the mosfet and surrounding circuit act's as an linear voltage
+regulator and the specs of this voltage regulator (low drop) are
+quiet good so he even used it in some of his last designs.</FONT>
+<BR><FONT FACE="Arial, Helvetica">The missing circles in John's
+shematics are probably double diodes, of which only 1 is used, see
+the drawing of Hiroki.</FONT> <BR><FONT FACE="Arial, Helvetica">In
+John's schematic the capacitors at the RS232 connector are missing.</FONT>
+<BR>&nbsp; <BR>&nbsp; <BR>&nbsp; 
+</P>
+<TABLE COLS=2 WIDTH=100% BORDER=1 CELLPADDING=2 CELLSPACING=2>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><A name="keeping ir-tower"></A><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">Keeping
+			IR-tower alive&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic14" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+			</A>
+			</P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><A name="ir-tower without a"></A><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">IR-tower
+			without a battery&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic15" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+			</A>
+			</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><IMG src="keeping_tower_alive.jpg" name="graphic16" ALIGN=BOTTOM WIDTH=281 HEIGHT=105 BORDER=0>
+			<BR><FONT FACE="Arial, Helvetica">This idea came from John Barnes,
+			who suggested to use the DTR pin (he had a very good photo too,
+			but I lost it). I prefer the RTS pin, because when using orginal
+			software (RIS or spirit.ocx) the tower acts just as before and
+			only with my own software I have fully control of the &quot;stay
+			alive&quot; feature.</FONT></P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><IMG src="power_from_rs232.jpg" name="graphic17" ALIGN=BOTTOM WIDTH=279 HEIGHT=180 BORDER=0>
+			<BR><FONT FACE="Arial, Helvetica">How much current you can draw
+			from this cirquit is depending on the RS232 port of your computer.
+			<B><FONT COLOR="#3333ff">My maximum was 20 mA</FONT></B>, so I can
+			only use the short range.</FONT> <BR><FONT FACE="Arial, Helvetica"><B><FONT COLOR="#3333ff">For
+			laptops this probably won't work</FONT></B>, John Barnes has some
+			experience with it and says &quot;the RS232 outputs barely conform
+			to the RS232 standard. And they absolutely do not have enough
+			capacity to power anything. I suspect most computers which use the
+			charge pump type RS232 transceivers will suffer from this
+			problem.&quot;</FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P ALIGN=CENTER><IMG src="tower_without_batt2.jpg" name="graphic18" ALIGN=BOTTOM WIDTH=320 HEIGHT=240 BORDER=0>
+			<BR><FONT FACE="Arial, Helvetica">Keep alive and powering from
+			RS232</FONT></P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><IMG src="tower_without_batt1.jpg" name="graphic19" ALIGN=BOTTOM WIDTH=320 HEIGHT=240 BORDER=0>
+			<BR><FONT FACE="Arial, Helvetica">Keep alive and powering from
+			RS232</FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD COLSPAN=2>
+			<P ALIGN=CENTER><IMG src="irtmod.jpg" name="graphic20" ALIGN=BOTTOM WIDTH=480 HEIGHT=360 BORDER=0>
+			<BR><FONT FACE="Arial, Helvetica">Keep alive from John Barnes</FONT>
+			<BR><FONT FACE="Arial, Helvetica">The diode is a standard 1N4148
+			or 1N914 type. It goes from pin 4 on the</FONT> <BR><FONT FACE="Arial, Helvetica">DB9
+			to the 330k resistor that drives the power on circuitry.</FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0in"><BR>&nbsp; <BR>&nbsp; 
+</P>
+<TABLE WIDTH=100% BORDER=1 CELLPADDING=2 CELLSPACING=2>
+	<TR>
+		<TD>
+			<P><A name="hardwire ir-signals to rcx"></A><B><FONT COLOR="#3333ff">Hardwire
+			IR-signals to RCX&nbsp;</FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic21" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+			</A>
+			</P>
+			<P>Design from <A href="mailto:peterbalch@compuserve.com">Peter
+			Balch</A> , how found out how to connect RS232 signals direct to
+			the RCX. <BR>I don't think it's necessary to remove the IR diodes
+			and it would be very nice if also the IR-detector could stay in
+			function. 
+			</P>
+			<P>The transmitter and receiver components are at the front of the
+			RCX: <BR>Unsolder them and put them somewhere safe. <BR>Now solder
+			a stereo coax cable to the pads. I used one from an old pair of
+			earphones: <BR>&nbsp;</P>
+		</TD>
+		<TD>
+			<P ALIGN=CENTER><IMG src="rcx_no_mod.jpg" name="graphic22" ALIGN=BOTTOM WIDTH=112 HEIGHT=90 BORDER=0>
+						</P>
+		</TD>
+	</TR>
+</TABLE>
+<TABLE WIDTH=100% BORDER=1 CELLPADDING=2 CELLSPACING=2>
+	<TR>
+		<TD>
+			<P>Any small signal transistors will do. I used a BC639 and BC640
+			but they're overkill for a job like this. The transistors invert
+			the signals and advust the voltage levels. The 100n on the signal
+			from the RCX smooths out the 30kHz signal which is (normally)
+			modulating the IR signal. 
+			</P>
+			<P>You can use either the 9-pin (female) or 25-pin (female)
+			connector depending on what your PC wants. <BR>&nbsp;</P>
+		</TD>
+		<TD>
+			<P><IMG src="rcx_wired.jpg" name="graphic23" ALIGN=BOTTOM WIDTH=631 HEIGHT=264 BORDER=0>
+						</P>
+		</TD>
+	</TR>
+</TABLE>
+<P>&gt; Why did you remove the IR diodes ?<BR><BR>The IR LEDs are
+pulsed on and off at 30kHz - that's on top of the<BR>2400bps<BR>serial
+signal. I had to remove that 30kHz signal. <BR><BR>That's what the
+100nF (on the base of the transistor) is for. <BR><BR>The
+time-constant of the 100nF and the 470R has to be just right.
+If<BR>the<BR>100nF is too big, the 2400bps deteriorates. If the 100nF
+is too small,<BR>the<BR>30kHz gets thorugh to the PC and confuses its
+UART.<BR><BR>The RCX pulls the base of the transistor down and the
+470R pulls it up.<BR>If<BR>I'd left in the IR LEDs, they would also
+pull up the base of the<BR>transistor. I wasn't sure how that would
+affect the time-constant.<BR><BR>I dare say you could get it to work.
+Leave the IR LEDs in and remove<BR>the<BR>470R. Then adjust the 100nF
+value until you get reliable comms with the<BR>PC.<BR><BR>&gt; It
+would even be nicer, if also the IR-sensor could be left in
+place,<BR>but<BR>I don't know the Lego circuit.<BR><BR>Neither do I.
+I assumed that the IR receiver would be driving its<BR>output<BR>both
+high and low (rather than a pullup or pulldown resistor). I<BR>removed
+it<BR>so that my circuit didn't have to fight with it. Try leaving it
+in and<BR>see<BR>what happens.<BR><BR>Peter</P>
+<P>&nbsp; <BR>&nbsp; <BR>&nbsp; 
+</P>
+<P><A name="blowing up the ir-led's"></A><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">Blowing
+up the IR-LED's&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic24" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A><BR><FONT FACE="Arial, Helvetica">A lot of people reported blown
+IR-LED's, which could be caused by the wrong modifications.</FONT>
+<BR><FONT FACE="Arial, Helvetica">Hiroki Shirakawa and I measured the
+peak current through the IR-diodes with fresh battery, long range
+output, during normal Lego transfers (data in packets) and we
+measured both 100 mA peak current. Realizing that the overal duty
+cycle is 25% (0.5 because of 38 kHz modulation and 0.5 because of
+balanced databits in the packet) it's not possible to blow the
+IR-LEDs !!!</FONT> <BR><FONT FACE="Arial, Helvetica">However,
+theoretically it could be possible, some remarks:</FONT> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">The
+	current through the IR-LEDs is limited by a 5.6 Ohm resistor and the
+	internal impedance of the 9V battery</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">Typical
+	values for an IR-LED (from SFH485) forward voltage 1.5V, (worst 1.8V
+	@ 100 mA)</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">If
+	the current through the LED is increased, the forward voltage also
+	increases (worst 3V @ 1A)</FONT> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">9V
+	block alkaline batteries are specified to 100 mA max</FONT> 
+	</P>
+	<LI><P><FONT FACE="Arial, Helvetica">the 38 kHz oscillator is
+	started and stopped by every bit change, this is not a good idea</FONT>
+		</P>
+</UL>
+<P><BR><FONT FACE="Arial, Helvetica">Resuming I think it's possible
+to burn out the IR-LEDs if you're doing one or more of the following
+things:</FONT> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="Arial, Helvetica">connecting
+	an external power supply, with a higher voltage and/or a lower
+	internal impedance</FONT> 
+	</P>
+	<LI><P><FONT FACE="Arial, Helvetica">running software that doesn't
+	do bit balancing (the 38 kHz oscillator in the IR tower could start
+	slow)</FONT> 
+	</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><A name="some notes"></A><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#3333ff">Some
+notes from others&nbsp;</FONT></FONT></B><FONT COLOR="#0000ee"><A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic25" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A>
+</P>
+<HR>
+<P><FONT FACE="Arial, Helvetica">from <A href="http://www.crynwr.com/lego-robotics/">Lego
+MindStorms Internals&nbsp;</A> </FONT><FONT COLOR="#0000ee">
+<A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic26" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A>
+</P>
+<BLOCKQUOTE><FONT FACE="Arial, Helvetica">Peter Middlestorb reports
+that a learning remote does indeed work. He used a Casio Model 1174
+CMD-40 watch.</FONT> 
+</BLOCKQUOTE>
+<BLOCKQUOTE><FONT FACE="Arial, Helvetica">Robert Eddings says that
+the OmniRemote successfully learned and played back the Lego
+mindstorms command codes. He has a page</FONT> <BR><FONT FACE="Arial, Helvetica">with
+a trained OmniRemote.</FONT> 
+</BLOCKQUOTE>
+<BLOCKQUOTE><FONT FACE="Arial, Helvetica">Kekoa writes:</FONT> <BR><FONT FACE="Arial, Helvetica">The
+scheme used to transmit data results in an equal number of zero bits
+and one bits, allowing a receiver to compensate for a constant</FONT>
+<BR><FONT FACE="Arial, Helvetica">signal bias (caused by ambient
+light) simply by subtracting the average signal value. Note that the
+header also has an equal number of ones</FONT> <BR><FONT FACE="Arial, Helvetica">and
+zeros; this warms up the receiver before the real data arrives.</FONT>
+</BLOCKQUOTE>
+<BLOCKQUOTE><FONT FACE="Arial, Helvetica">The data portion of each
+message starts with an opcode. An opcode is either a request (PC to
+RCX) or a reply (RCX to PC). Requests have</FONT> <BR><FONT FACE="Arial, Helvetica">0x80
+clear, replies have 0x80 set. The reply corresponding to a given
+request is the request's complement and vice-versa. Opcodes seem to</FONT>
+<BR><FONT FACE="Arial, Helvetica">come in pairs; that is, there are
+two opcodes to specify each request, and there are two opcodes to
+specify each reply. These &quot;dual&quot; of a</FONT> <BR><FONT FACE="Arial, Helvetica">given
+request or reply opcode is the exclusive or of that opcode with 0x08.</FONT>
+</BLOCKQUOTE>
+<BLOCKQUOTE><FONT FACE="Arial, Helvetica">Example:</FONT> 
+</BLOCKQUOTE>
+<BLOCKQUOTE><FONT FACE="Arial, Helvetica">Op 0x10 Alive Request / Op
+0xef Alive Response</FONT> <BR><FONT FACE="Arial, Helvetica">Op 0x18
+Alive Request / Op 0xe7 Alive Response</FONT> <BR><FONT FACE="Arial, Helvetica">0x10
+and 0xef are complements</FONT> <BR><FONT FACE="Arial, Helvetica">0x18
+and 0xe7 are complements</FONT> <BR><FONT FACE="Arial, Helvetica">0x10
+and 0x18 differ only in 0x08 bit</FONT> <BR><FONT FACE="Arial, Helvetica">0xef
+and 0xe7 differ only in 0x08 bit</FONT></BLOCKQUOTE>
+<HR>
+<P><FONT FACE="Arial, Helvetica">form <A href="http://www.geocities.co.jp/Technopolis/6264/mindstorms/">Hiroki
+Shirakawa&nbsp;</A> </FONT><FONT COLOR="#0000ee">
+<A href="#top"><FONT COLOR="#0000ee"><IMG src="top_page.gif" name="graphic27" ALIGN=BOTTOM WIDTH=13 HEIGHT=14 BORDER=1></FONT></A></FONT><A href="#top">
+</A><BR>&nbsp; 
+</P>
+<BLOCKQUOTE><FONT FACE="Arial, Helvetica">In the first place, why
+being the infrared ray?</FONT> <BR><FONT FACE="Arial, Helvetica">Is
+because efficiency is better than the general visible photodiode. In
+addition,&nbsp; responsiveness calls and it seems that (rate of
+reaction is fast and) for the sake of, high speed can do
+communication.</FONT> 
+</BLOCKQUOTE>
+<BLOCKQUOTE><FONT FACE="Arial, Helvetica">Why oscillating?</FONT>
+<BR><FONT FACE="Arial, Helvetica">Rather than the infrared ray diode,
+making light up with direct voltage source,&nbsp; because the one
+which was blinked with pulse drive can allow big electric current,
+because you can obtain big high output, is.</FONT> 
+</BLOCKQUOTE>
+<BLOCKQUOTE><FONT FACE="Arial, Helvetica">Why 38 [ the kHz ] being?</FONT>
+<BR><FONT FACE="Arial, Helvetica">30 - When it oscillates with the
+60kHz, is because the occasion where it detects &amp; expands with
+the receptor, noise is easy to grasp little.&nbsp;&nbsp;&nbsp;&nbsp;
+In other words, it probably means that those which radiate with 30 -
+the 60kHz are little in the natural world and home.</FONT> 
+</BLOCKQUOTE>
+<BLOCKQUOTE><FONT FACE="Arial, Helvetica">Concerning the method of
+taking power source from the RS-23C2c port.</FONT> <BR><FONT FACE="Arial, Helvetica">The
+experiment which takes the power source of the IR Transmitter from
+the serial port of my PC compatible machine was done. As a result, as
+a power source from the 4th pin sufficient voltage * electric current
+it was found that it can come off. Speaking concretely, about
+10V/50mA electric power it seems that can come off. Most, you think
+in this there is a difference due to the manufacturer of the
+motherboard but. Therefore with saying, everyone who reads this page
+remodels directly please do not do kind of that. While +10V has come
+out of the 4th pin, while operating the software and the like of RIS
+attachment, it seems that is limited. Usually -10V, or it has become
+the 0V. Because is, when the 4th pin the + terminal is made to
+short-circuit simply, very much it is dangerous.The electric power
+which it stabilizes if the remodelling method which can come off is
+recognized, we inform. In addition, &quot;it succeeded in remodelling
+already! When &quot; with the person who says is, please communicate
+by all means.</FONT></BLOCKQUOTE>
+<P><BR><BR>
+</P>
+</BODY>
+</HTML>

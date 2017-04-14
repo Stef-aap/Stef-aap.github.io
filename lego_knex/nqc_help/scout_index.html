@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+  <meta name="keywords" content="NQC,NQC API,Mindstorms,Lego Mindstorms">
+  <TITLE>Scout Index - NQC API</TITLE>
+</HEAD>
+<BODY BGCOLOR='#f8f8f8'>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH='100%' >
+<tr>
+<td WIDTH='33%'><a href='http://www.enteract.com/~dbaum/nqc/'>
+<img src='nqc.gif' height=35 width=90 align='middle' alt='NQC' border=0></a></td>
+<td ALIGN=CENTER WIDTH='34%' BGCOLOR=#CC66CC><font color="#FFFFFF"><b><font size=+2>Scout Index</font></b></td><td ALIGN=RIGHT WIDTH='33%'>
+<a href='index.html'>Contents</a> | <a href='master_index.html'>Master Index</a></td>
+</tr>
+</table>
+<center>
+</center>
+<table align=center width=65%>
+<tr><td align=center><a href='#sensors'>Sensors</a> | <a href='#outputs'>Outputs</a> | <a href='#sound'>Sound</a> | <a href='#timers'>Timers</a> | <a href='#communication'>Communication</a> | <a href='#counters'>Counters</a> | <a href='#access'>Access&nbsp;Control</a> | <a href='#events'>Events</a> | <a href='#features'>Misc.&nbsp;Features</a> </table>
+<br><center><font color=#CC6666>Functions / Commands</font> are in 
+<font color=#CC6666>red</font>.
+<font color=#999900>Values / Queries</font> are in 
+<font color=#999900>tan</font>.</center>
+<table align=center BORDER=0 CELLSPACING=0 cellpadding=2>
+
+<tr><td align=center colspan=3><a name='sensors'></a><br>&nbsp;<b>SENSORS</b><br><hr>
+<tr><td valign=top><A href='sensors.html#ClearSensor' style='color: #CC6666'>ClearSensor()</A><td>&nbsp;<td>Clear the value of a sensor.
+<tr><td valign=top><A href='sensors.html#SetSensorLowerLimit' style='color: #CC6666'>SetSensorLowerLimit()</A><td>&nbsp;<td>Set the light sensor's lower limit.
+<tr><td valign=top><A href='sensors.html#SetSensorUpperLimit' style='color: #CC6666'>SetSensorUpperLimit()</A><td>&nbsp;<td>Set the light sensor's upper limit.
+<tr><td valign=top><A href='sensors.html#SetSensorHysteresis' style='color: #CC6666'>SetSensorHysteresis()</A><td>&nbsp;<td>Set the light sensor's hysteresis.
+<tr><td valign=top><A href='sensors.html#CalibrateSensor' style='color: #CC6666'>CalibrateSensor()</A><td>&nbsp;<td>Reads the current value of the light sensor.
+<tr><td valign=top><A href='sensors.html#SensorValue' style='color: #999900'>SensorValue()</A><td>&nbsp;<td>Returns the processed sensor reading for sensor n.
+<tr><td valign=top><A href='sensors.html#SensorType' style='color: #999900'>SensorType()</A><td>&nbsp;<td>Returns the configured type of sensor n.
+<tr><td valign=top><A href='sensors.html#SensorValueRaw' style='color: #999900'>SensorValueRaw()</A><td>&nbsp;<td>Returns the raw value of sensor n.
+
+<tr><td align=center colspan=3><a name='outputs'></a><br>&nbsp;<b>OUTPUTS</b><br><hr>
+<tr><td valign=top><A href='outputs.html#SetOutput' style='color: #CC6666'>SetOutput()</A><td>&nbsp;<td>Set the outputs to the specified mode.
+<tr><td valign=top><A href='outputs.html#SetDirection' style='color: #CC6666'>SetDirection()</A><td>&nbsp;<td>Set the outputs to the specified direction.
+<tr><td valign=top><A href='outputs.html#SetPower' style='color: #CC6666'>SetPower()</A><td>&nbsp;<td>Sets the power level of the specified outputs.
+<tr><td valign=top><A href='outputs.html#On' style='color: #CC6666'>On()</A><td>&nbsp;<td>Turn specified outputs on.
+<tr><td valign=top><A href='outputs.html#Off' style='color: #CC6666'>Off()</A><td>&nbsp;<td>Turn specified outputs off.
+<tr><td valign=top><A href='outputs.html#Float' style='color: #CC6666'>Float()</A><td>&nbsp;<td>Make outputs float.
+<tr><td valign=top><A href='outputs.html#Fwd' style='color: #CC6666'>Fwd()</A><td>&nbsp;<td>Set outputs to forward direction.
+<tr><td valign=top><A href='outputs.html#Rev' style='color: #CC6666'>Rev()</A><td>&nbsp;<td>Set outputs to reverse direction.
+<tr><td valign=top><A href='outputs.html#Toggle' style='color: #CC6666'>Toggle()</A><td>&nbsp;<td>Flip the direction of the outputs.
+<tr><td valign=top><A href='outputs.html#OnFwd' style='color: #CC6666'>OnFwd()</A><td>&nbsp;<td>Set outputs to forward direction and turn them on.
+<tr><td valign=top><A href='outputs.html#OnRev' style='color: #CC6666'>OnRev()</A><td>&nbsp;<td>Set outputs to reverse direction and turn them on.
+<tr><td valign=top><A href='outputs.html#OnFor' style='color: #CC6666'>OnFor()</A><td>&nbsp;<td>Turn outputs on for a specified amount of time.
+<tr><td valign=top><A href='outputs.html#SetGlobalOutput' style='color: #CC6666'>SetGlobalOutput()</A><td>&nbsp;<td>Disable or re-enable outputs depending on the mode parameter.
+<tr><td valign=top><A href='outputs.html#SetGlobalDirection' style='color: #CC6666'>SetGlobalDirection()</A><td>&nbsp;<td>Reverses or restores the directions of outputs.
+<tr><td valign=top><A href='outputs.html#SetMaxPower' style='color: #CC6666'>SetMaxPower()</A><td>&nbsp;<td>Sets the maximum power level allowed for the outputs.
+<tr><td valign=top><A href='outputs.html#OutputStatus' style='color: #999900'>OutputStatus()</A><td>&nbsp;<td>Returns the current output setting for motor n.
+<tr><td valign=top><A href='outputs.html#GlobalOutputStatus' style='color: #999900'>GlobalOutputStatus()</A><td>&nbsp;<td>Returns the current global output setting for motor n.
+
+<tr><td align=center colspan=3><a name='sound'></a><br>&nbsp;<b>SOUND</b><br><hr>
+<tr><td valign=top><A href='sound.html#PlaySound' style='color: #CC6666'>PlaySound()</A><td>&nbsp;<td>Plays one of the 6 preset RCX sounds.
+<tr><td valign=top><A href='sound.html#PlayTone' style='color: #CC6666'>PlayTone()</A><td>&nbsp;<td>Plays a single tone of the specified frequency and duration.
+<tr><td valign=top><A href='sound.html#MuteSound' style='color: #CC6666'>MuteSound()</A><td>&nbsp;<td>Stops all sounds and tones from being played.
+<tr><td valign=top><A href='sound.html#UnmuteSound' style='color: #CC6666'>UnmuteSound()</A><td>&nbsp;<td>Restores normal operation of sounds and tones.
+<tr><td valign=top><A href='sound.html#SelectSounds' style='color: #CC6666'>SelectSounds()</A><td>&nbsp;<td>Selects which group of system sounds should be used.
+
+<tr><td align=center colspan=3><a name='timers'></a><br>&nbsp;<b>TIMERS</b><br><hr>
+<tr><td valign=top><A href='timers.html#ClearTimer' style='color: #CC6666'>ClearTimer()</A><td>&nbsp;<td>Reset the specified timer to 0.
+<tr><td valign=top><A href='timers.html#Timer' style='color: #999900'>Timer()</A><td>&nbsp;<td>Return the current value of specified timer (in 100ms resolution).
+
+<tr><td align=center colspan=3><a name='communication'></a><br>&nbsp;<b>COMMUNICATION</b><br><hr>
+<tr><td valign=top><A href='communication.html#ClearMessage' style='color: #CC6666'>ClearMessage()</A><td>&nbsp;<td>Clear the message buffer.
+<tr><td valign=top><A href='communication.html#SendMessage' style='color: #CC6666'>SendMessage()</A><td>&nbsp;<td>Send an IR message.
+<tr><td valign=top><A href='communication.html#SetTxPower' style='color: #CC6666'>SetTxPower()</A><td>&nbsp;<td>Set the power level for IR transmission.
+<tr><td valign=top><A href='communication.html#SendVLL' style='color: #CC6666'>SendVLL()</A><td>&nbsp;<td>Sends a Visible Light Link (VLL) command.
+<tr><td valign=top><A href='communication.html#Message' style='color: #999900'>Message()</A><td>&nbsp;<td>Returns the most recently received message.
+
+<tr><td align=center colspan=3><a name='counters'></a><br>&nbsp;<b>COUNTERS</b><br><hr>
+<tr><td valign=top><A href='counters.html#ClearCounter' style='color: #CC6666'>ClearCounter()</A><td>&nbsp;<td>Reset counter n to 0.
+<tr><td valign=top><A href='counters.html#IncCounter' style='color: #CC6666'>IncCounter()</A><td>&nbsp;<td>Increment counter n by 1.
+<tr><td valign=top><A href='counters.html#DecCounter' style='color: #CC6666'>DecCounter()</A><td>&nbsp;<td>Decrement counter n by 1.
+<tr><td valign=top><A href='counters.html#Counter' style='color: #999900'>Counter()</A><td>&nbsp;<td>Return the current value of counter n.
+
+<tr><td align=center colspan=3><a name='access'></a><br>&nbsp;<b>ACCESS CONTROL</b><br><hr>
+<tr><td valign=top><A href='access.html#SetPriority' style='color: #CC6666'>SetPriority()</A><td>&nbsp;<td>Set a task's priority to p.
+
+<tr><td align=center colspan=3><a name='events'></a><br>&nbsp;<b>EVENTS</b><br><hr>
+<tr><td valign=top><A href='events.html#Event' style='color: #CC6666'>Event()</A><td>&nbsp;<td>Manually triggers the specified events.
+<tr><td valign=top><A href='events.html#SetSensorClickTime' style='color: #CC6666'>SetSensorClickTime()</A><td>&nbsp;<td>Set the click time used to generate events from the light sensor.
+<tr><td valign=top><A href='events.html#SetCounterLimit' style='color: #CC6666'>SetCounterLimit()</A><td>&nbsp;<td>Set the limit for counter n.
+<tr><td valign=top><A href='events.html#SetTimerLimit' style='color: #CC6666'>SetTimerLimit()</A><td>&nbsp;<td>Set the limit for timer n.
+<tr><td valign=top><A href='events.html#ActiveEvents' style='color: #999900'>ActiveEvents()</A><td>&nbsp;<td>Return the set of events that have been triggered for a given task.
+<tr><td valign=top><A href='events.html#CurrentEvents' style='color: #999900'>CurrentEvents()</A><td>&nbsp;<td>Return the set of events that have been triggered for the active task.
+
+<tr><td align=center colspan=3><a name='features'></a><br>&nbsp;<b>MISC. FEATURES</b><br><hr>
+<tr><td valign=top><A href='features.html#Wait' style='color: #CC6666'>Wait()</A><td>&nbsp;<td>Make a task sleep for specified amount of time (in 100ths of a second).
+<tr><td valign=top><A href='features.html#StopAllTasks' style='color: #CC6666'>StopAllTasks()</A><td>&nbsp;<td>Stop all currently running tasks.
+<tr><td valign=top><A href='features.html#SetSleepTime' style='color: #CC6666'>SetSleepTime()</A><td>&nbsp;<td>Set the sleep timeout the requested number of minutes (which must be a constant).
+<tr><td valign=top><A href='features.html#SleepNow' style='color: #CC6666'>SleepNow()</A><td>&nbsp;<td>Force the device to go to sleep.
+<tr><td valign=top><A href='features.html#SetScoutRules' style='color: #CC6666'>SetScoutRules()</A><td>&nbsp;<td>Set the various rules used by the scout in stand-alone mode.
+<tr><td valign=top><A href='features.html#SetScoutMode' style='color: #CC6666'>SetScoutMode()</A><td>&nbsp;<td>Put the scout into stand-alone (0) or power (1) mode.
+<tr><td valign=top><A href='features.html#SetEventFeedback' style='color: #CC6666'>SetEventFeedback()</A><td>&nbsp;<td>Set which events should be accompanied by audio feedback.
+<tr><td valign=top><A href='features.html#SetLight' style='color: #CC6666'>SetLight()</A><td>&nbsp;<td>Control the Scout's LED.
+<tr><td valign=top><A href='features.html#Random' style='color: #999900'>Random()</A><td>&nbsp;<td>Return a random number between 0 and n.
+<tr><td valign=top><A href='features.html#ScoutRules' style='color: #999900'>ScoutRules()</A><td>&nbsp;<td>Return current setting for one of the rules.
+<tr><td valign=top><A href='features.html#EventFeedback' style='color: #999900'>EventFeedback()</A><td>&nbsp;<td>Return the set of events that have audio feedback.
+</table>
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+</body>
+</html>

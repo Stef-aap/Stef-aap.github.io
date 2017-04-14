@@ -1,0 +1,506 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>Touch_sensor</title>
+</head>
+<body text="#000000" bgcolor="#FFFF00" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER><a name="top"></a><a href="../lego_mindstorms_knex_index.html">Lego-Knex</a>
+<br><a href="../../robbert/robbert_home.html">Robbert</a>
+<br><a href="../../mattijs/mattijs_home.html">Mattijs</a>
+<br><a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height=18 width=29></a></td>
+
+<td ALIGN=CENTER><b><font size=+3>Lego Left-Right Touch Sensor</font></b>
+<br><font size=+2>van Mattijs, Stef en Robbert Mientki</font>
+<br><font size=-1>januari 2001</font></td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td>
+<center><b><font color="#000099">Nederlands</font></b></center>
+</td>
+
+<td>
+<center><b><font color="#000099">English</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td>Het idee is oorspronkelijk bedacht en gepubliceerd door Dennis Clark,
+<a href="http://www.verinet.com/~dlc/projects/botproj.htm#whisker">whisker
+bumper</a>, zeer gaaf en goedkoop, wie heeft er nog meer van dat soort
+ideeen ?
+<p>We hebben het idee verder uitgewerkt en aangepast aan de de Lego steen
+en Lego Mindstorms.
+<br>De sensor wordt gemonteerd in een "zesje", dat voorzien van 2 simpele
+schroeven een standaard Lego aansluiting heeft verkregen.
+<br>Door de toevoeging van 2 weerstanden, kunnen de linkse en rechtse sensor
+apart worden uitgelezen op 1 RCX sensor ingang.</td>
+
+<td>The original idea was borrowed from Dennis Clark, <a href="http://www.verinet.com/~dlc/projects/botproj.htm#whisker">whisker
+bumper</a>, very cool and very cheap, that's what we need more of.
+<br>&nbsp;
+<p>We modified the concept and adapted it to the Lego bricks and Lego Mindstorms.
+<br>Mounting the sensor in a 2*3 brick, with simple screws as a lego compatible
+connector.
+<br>Adding two resistors, so it can sense the left and right whisker separatly
+on 1 RCX sensor input.</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td>
+<center><b><font color="#000000">Nederlands</font></b></center>
+</td>
+
+<td>&nbsp;</td>
+
+<td>
+<center><b><font color="#000000">English</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td>De benodigde materialen:
+<br>- 1 "zesje"
+<br>- 1 "plaatje-zesje"
+<br>- 2 schroeven en moeren m3, lengte 3 mm
+<br>- 1 pinheader, 5-pins, haaks
+<br>- 1 weerstand 47 kOhm
+<br>- 1 weerstand 100 kOhm
+<br>- 20 cm verenstaal draad of pianosnaar doorsnede 0.8 mm (je kunt zelfs
+bowden-kabel=binnenkabel van een fietsrem gebruiken)</td>
+
+<td>
+<center><img src="touch_sensor2.jpg" height=111 width=228></center>
+</td>
+
+<td>The necessairy materials:
+<br>- 1 brick 2*3, normal height
+<br>- 1 brick 2*3, height 1/3
+<br>- 2 screws and nuts m3, length 3 mm
+<br>- 1 PCB pinheader, 5-pins, 90 degrees
+<br>- 1 resistor 47 kOhm
+<br>- 1 resistor 100 kOhm
+<br>- 20 cm spring wire ? (steel wire from which spiral springs are made).
+You can also use piano wire or bowden cable (inner wire of bicycle brake
+cable.</td>
+</tr>
+
+<tr>
+<td>Waarom een "zesje" (3*2 steen) ?
+<br>A: een "viertje is te klein"
+<br>C: een "achtje" heeft geen ribben tussen de wand en de buitenste cilinders,
+die nodig zijn om de draad te fixeren.
+<br>B: perfect dus</td>
+
+<td>
+<center><img src="touch_sensor1.jpg" height=150 width=234></center>
+</td>
+
+<td>Why a 3*2 brick ?
+<br>A: the 2*2 brick is just to small
+<br>C: the 4*2 brick is missing the ribs between the wall and the outer
+cylinders, which are needed to fixate the wire.
+<br>B: just perfect</td>
+</tr>
+
+<tr>
+<td>Verwijder 2 noppen diagonaal, zoals op de foto. (Hier worden straks
+de schroeven in gemonteerd die dienen als electrische lego-compatibele
+connector)</td>
+
+<td>
+<center><img src="touch_sensor3.jpg" height=120 width=156></center>
+</td>
+
+<td>Remove the two nibs from the top of the brick as shown on the photo.
+(This is where the screws will be inserted)&nbsp;</td>
+</tr>
+
+<tr>
+<td>Verwijder de cilinder aan de zijde waar de 2 noppen zijn verwijderd
+en de bijbehorende ribben.</td>
+
+<td>
+<center><img src="touch_sensor4.jpg" height=117 width=152></center>
+</td>
+
+<td>Remove the cylinder and the ribs on the side where the 2 nibs were
+removed.</td>
+</tr>
+
+<tr>
+<td>Het bovenste deel van de overblijvende cilinder moet nu worden verwijderd,
+zover totdat de hoogte van de cilinder gelijk is aan de hoogte van de ribben.
+<p>Dit kan op de volgende manier, pak een grote boor (bv 8 mm) en draai
+handmatig het bovenste deel weg. Snij nu met een scherp mes het laatste
+stukje mooi vlak.</td>
+
+<td>
+<center><img src="touch_sensor5.jpg" height=103 width=147>
+<p><img src="touch_sensor6.jpg" height=139 width=134><img src="touch_sensor8.jpg" height=115 width=155></center>
+</td>
+
+<td>Remove the upper part of the other cylinder so far, till the height
+of the cylinder is equal to the height of the ribs.
+<p>This can be done by a large drill, just rotating it with your hand.
+After the largest part is removed, cut the resting parts with a sharp knife.</td>
+</tr>
+
+<tr>
+<td>Steek nu nog een kwart van de cilinder weg (zoals aangegeven op de
+foto), anders is er onvoldoende ruimte voor de moer.</td>
+
+<td>
+<center><img src="touch_sensor9.jpg" height=100 width=132></center>
+</td>
+
+<td>Cut away one quarter of the cylinder (as shown on the photo), otherwise
+the nut will not fit.</td>
+</tr>
+
+<tr>
+<td>Boor nu 2 gaten van 3 mm in de kopse kant (zie foto). De gaten komen
+op ongeveer halve hoogte (niet kritisch) en op een onderlinge hart-op-hart
+afstand van 3*2.54 mm = 7.62 mm, dit moet zo nauwkeurig mogelijk gebeuren.
+Als mal voor het boren kan handig gebruik worden gemaakt van een stukje
+voorgeboorde printplaat, de gaatjes zitten hier precies op een onderlinge
+afstand van 2.54 mm.
+<p>Er moeten tevens 2 inkepingen in de ribben worden gemaakt, net naast
+de cilinder, waar straks de voeldraad in wordt gefixeerd. De diepte is
+niet zo kritisch want de draden worden toch gelijmd.</td>
+
+<td>
+<center><img src="touch_sensor10.jpg" height=104 width=179><img src="touch_sensor11.jpg" height=151 width=143>
+<p><img src="touch_sensor17.jpg" height=109 width=137></center>
+</td>
+
+<td>Drill 2 holes of 3 mm in the short side of the brick (see picture).
+The holes are placed at about half height (not critical) and the spacing
+between the holes should be exactly 3*2.54 mm = 7.62 mm. You can use a
+small piece of pre-drilled printed cirquit board as a template (the distance
+between the holes is exactly 2.54 mm.
+<p>You have to make a cut into the ribs, just besides the cylinder (see
+photo), this is to fasten the sensor wires. The depht of the cuts is not
+very important, becuase the wires will be glued.</td>
+</tr>
+
+<tr>
+<td>Buig de voeldraad in een U-vorm, zodat deze precies in past binnen
+de lego-steen.
+<br>Buig nu het einde van de U zoals op de foto, zodat de volesprieten
+op ongeveer halve hoogte komen als de U op de bodem van de steen ligt.</td>
+
+<td>
+<center><img src="touch_sensor13.jpg" height=179 width=252></center>
+</td>
+
+<td>Bend the sense wire in a U-shape, so that it fits firmly in the brick.
+<br>Bend the end of the U-shape as shown on the picture, to get the sense
+wires at half height when the U-shape is on the bottom of the brick.</td>
+</tr>
+
+<tr>
+<td>Nu minstens 1 schroef op lengte maken (3 mm). De schroef in hoek mag
+langer zijn.
+<br>De koppen van de schroeven precies op de juiste maat vijlen (zie <a href="connectors.html">connector</a>),
+let daarbij zowel op de diameter als op de hoogte.
+<br>Van de moer die in de hoek komt, moet 1 schuine punt worden afgevijld,
+zoals getoond op de foto.</td>
+
+<td>
+<center><img src="touch_sensor7.jpg" height=110 width=122></center>
+</td>
+
+<td>Make at least 1 screw at the right length (3 mm). The screw in the
+corner may be left u litle bit longer. Polish the head of the screws until
+they match the lego nibs exactly (see <a href="connectors.html">connector</a>).&nbsp;
+<br>From 1 nut jou hef 2 cut off 1corner,otherwise it wil not fit in the
+corner of the brick (see picture).</td>
+</tr>
+
+<tr>
+<td>Monteer eerst de middelste schroef, monteer hier meteen een korte electrische
+draad mee.
+<br>Met de schroef in de hoek wordt de voeldraad vastgezet, zodoende de
+mechanische en elektrische bevestiging gecombineerd.</td>
+
+<td ALIGN=CENTER><img src="touch_sensor16.jpg" height=143 width=237></td>
+
+<td>First mount the inner screw together with a small electrical wire.
+<br>With the corner srew the sense wire is fixed and the eklectrical connection
+is made.</td>
+</tr>
+
+<tr>
+<td>Hier is te zien, dat ook ik het schroefje te lang had, je kunt hier
+echter de draad nog vrij goed corrigeren.</td>
+
+<td>
+<center><img src="touch_sensor15.jpg" height=143 width=234></center>
+</td>
+
+<td>Here I had to correct the sense wire, because it was touching the inner
+screw.</td>
+</tr>
+
+<tr>
+<td></td>
+
+<td>&nbsp;</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Lijm de pinheader vast, probeer deze zo goed mogelijk te positioneren.</td>
+
+<td>
+<center><img src="touch_sensor19.jpg" height=124 width=180>
+<p><img src="touch_sensor18.jpg" height=119 width=191></center>
+</td>
+
+<td>Fix the pinheader by glueing it to the brick.</td>
+</tr>
+
+<tr>
+<td>En nu maar wachten tot de lijm droog is (ik had de verkeerde lijm gebruikt).</td>
+
+<td>
+<center><img src="golfball.gif" height=54 width=64></center>
+</td>
+
+<td>Now wait till the glue has hardened (I used the wrong glue).</td>
+</tr>
+
+<tr>
+<td>Monteer de weerstanden, zoals getoond op de foto.</td>
+
+<td>
+<center><img src="touch_sensor20.jpg" height=145 width=204></center>
+</td>
+
+<td>Mount the resistors as shown in the picture.</td>
+</tr>
+
+<tr>
+<td>Buig de voelsprieten in de gewenste vorm.
+<br>Buig het eind van om tot een oogje, want het draad is erg scherp.</td>
+
+<td>
+<center><img src="touch_sensor21.jpg" height=90 width=136>
+<p><img src="touch_sensor22.jpg" height=164 width=262></center>
+</td>
+
+<td>Bend the sense wire in the shape you like. Make a loop at the end of
+the sense wire because it's very sharp.</td>
+</tr>
+
+<tr>
+<td>BELANGRIJK:
+<br>Nu alles vastzit en de kap erop gelijmd gaat worden, is dit de laatste
+kans om de gevoeligheid van de sensor in te stellen. De voelsprieten kunnen
+weliswaar niet meer verbogen worden (men kan er gewoonweg niet bij) maar
+de pinheader pennen kunnen nog enigzins worden bijgebogen. Sluit de sensor
+aan op de RCX en uitproberen maar.
+<br>Als men tevreden is over het resultaat, is het verstandig de helft
+waarin de weerstanden zich bevinden geheel te vullen met lijm, zodat alles
+goed gefixeerd blijft.
+<br>Door bijvoorbeeld lucifers naast de kontakten te lijmen kan een nog
+stabielere opstelling worden verkregen.</td>
+
+<td>
+<center><img src="touch_sensor19.jpg" height=124 width=180></center>
+</td>
+
+<td>IMPORTANT:
+<br>Before glueing the lid on it, this is the last chance to corrrect the
+sensitivity of the sensor. Although it's not possible to bend the sense
+wire, you still can adjust the pinheader pins a little bit.
+<br>Connect the sensor to the RCX and correct till you're satisfied.
+<br>You can now fill the compartiment with the resistors with glue if you
+like, it increase the stability of the sensor.
+<br>You can even glue matches just besides the contacts to get an even
+more stable switch.</td>
+</tr>
+
+<tr>
+<td>De deksel passend maken en vastlijmen.</td>
+
+<td>
+<center><img src="touch_sensor23.jpg" height=140 width=182></center>
+</td>
+
+<td>Adjust the lid and glue it together.</td>
+</tr>
+
+<tr>
+<td>Weerstand Rechts = 47 kOhm
+<br>Weerstand Links = 100 kOhm
+<table BORDER COLS=3 WIDTH="100%" >
+<tr>
+<td><b>kontakt</b></td>
+
+<td>
+<center><b>%</b></center>
+</td>
+
+<td>
+<center><b>RAW</b></center>
+</td>
+</tr>
+
+<tr>
+<td>geen</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>1023</center>
+</td>
+</tr>
+
+<tr>
+<td>links</td>
+
+<td>
+<center>14</center>
+</td>
+
+<td>
+<center>930</center>
+</td>
+</tr>
+
+<tr>
+<td>rechts</td>
+
+<td>
+<center>28</center>
+</td>
+
+<td>
+<center>844</center>
+</td>
+</tr>
+
+<tr>
+<td>links+rechts</td>
+
+<td>
+<center>38</center>
+</td>
+
+<td>
+<center>779</center>
+</td>
+</tr>
+</table>
+switch type = none or switch
+<br>RAW = theoretisch = gemeten
+<br>% = gemeten
+<p>Deze sensor kan ook direct worden gebruikt in de RCX command center,
+door hem te programmeren als licht-sensor, hij geeft dan dezelfde waarden
+als de %-kolom.</td>
+
+<td>
+<center><img src="touch_sensor24.jpg" height=148 width=220></center>
+</td>
+
+<td>Resistor Right = 47 kOhm
+<br>Resistor Left = 100 kOhm
+<table BORDER COLS=3 WIDTH="100%" >
+<tr>
+<td><b>contact</b></td>
+
+<td>
+<center><b>%</b></center>
+</td>
+
+<td>
+<center><b>RAW</b></center>
+</td>
+</tr>
+
+<tr>
+<td>none</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>1023</center>
+</td>
+</tr>
+
+<tr>
+<td>left</td>
+
+<td>
+<center>14</center>
+</td>
+
+<td>
+<center>930</center>
+</td>
+</tr>
+
+<tr>
+<td>right</td>
+
+<td>
+<center>28</center>
+</td>
+
+<td>
+<center>844</center>
+</td>
+</tr>
+
+<tr>
+<td>left+right</td>
+
+<td>
+<center>38</center>
+</td>
+
+<td>
+<center>779</center>
+</td>
+</tr>
+</table>
+switch type = none or switch
+<br>RAW = theoretical = measured
+<br>% = measured
+<p>This sensor can be used directly from the RCX command center, by programming
+it as a light sensor, giving the same values as in the %-column.</td>
+</tr>
+
+<tr>
+<td COLSPAN="3">
+<center><b>The final result</b>, thanks to Dennis Clark for his idea of
+the <a href="http://www.verinet.com/~dlc/projects/botproj.htm#whisker">whisker
+bumper.</a></center>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

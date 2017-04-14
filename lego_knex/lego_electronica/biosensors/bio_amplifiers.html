@@ -1,0 +1,114 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>Bio_amplifiers</title>
+</head>
+<body text="#000000" bgcolor="#FFFF00" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER><a name="top"></a><a href="../../lego_mindstorms_knex_index.html">Lego-Knex</a>
+<br><a href="../../../robbert/robbert_home.html">Robbert</a>
+<br><a href="../../../mattijs/mattijs_home.html">Mattijs</a>
+<br><a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height=18 width=29></a></td>
+
+<td ALIGN=CENTER><b><font size=+3>Mindstorms Bio-Amplifier</font></b>
+<br><font size=+2>Stef Mientki</font>
+<br><font size=-1>august 2001</font></td>
+
+<td ALIGN=CENTER><a href="#general">General Idea</a>
+<br><a href="#the">Version 1</a>
+<br><a href="#building instructions">Building Instructions</a>
+<br><a href="#example: ecg cable">Example ECG</a></td>
+</tr>
+</table>
+
+<p><a name="general"></a><b><font color="#3333FF">General Idea&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>The idea was to build a universal bio amplifier, capable of measuring
+all kind of physiological signals, just be connecting a different sensor-cable
+(with a few passive components).
+<br>Therefor, the sensor interface must at least have the following general
+properties:
+<ol>
+<li>
+measuring small electrical signals, picked up with electrodes from the
+skin</li>
+
+<li>
+measure resistance or even better conductance (for skin conductance)</li>
+
+<li>
+measure (full) sensor-bridges (pressure sensor for instance)</li>
+
+<li>
+rectifying and filtering the signal (for EMG to reduce sample frequency)</li>
+</ol>
+The current design satisfies conditions 1 through 3, but the lineairity
+isn't good enough for bridge measuremnts over the full range. Probably
+the lineairity can be improved by incorporating a voltage to current converter
+into the summing end amplifier.
+<br>For condition 4 I've now ideas yet.
+<br>&nbsp;
+<p><a name="the"></a><b><font color="#3333FF">The design version 1&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>The design is straight forward, U1A, U1D and U1B forms an standard
+instrumentation amplifier (with a high CMRR=Common Mode Rejection Ratio).
+<br>The differential gain of this instrumentation amplifier is 2*R5/R4.
+By putting a low resistor between the gain connectors GAIN1 and GAIN2 (that
+is parallel to R4) you can reach a quiet high differential gain (i.e. 1
+kOhm gives a gain of 2,000). It's also possible to put a frequency dependant
+network between the gain terminals (resistor in series with a capacitor,
+to get a low cutoff freqeuncy).
+<br>The common mode gain is always 1.
+<p>If you want a high cutoff frequency, you can place equal capacitors
+parallel to R9 and R10 (i.e. 47 nF gives a high cutoff of about 30 Hz).
+<p>With U1C a stable reference voltage is created, which is used for a
+number of reasons.
+<br>First the output stage is set to 2V (if no differential mode signal
+is present).
+<br>Second the inputs of the instrumentation amplifier is biased at 2Volts.
+<br>Third this voltage can be used to feed sensor bridges or perform resistance
+measurements.
+<p>The connector is rotation sensitive, because there are only diodes in
+the positive power supply line. I put the amplifier in/on a 4*2 brick,
+which has a female Lego connector and therefor can plugged right on the
+RCX, so rotation isn't a problem for me.
+<p><img src="exg_amplifier.gif" height=576 width=906>
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="building instructions"></a><b><font color="#3333FF">Building
+instructions&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<ul>
+<li>
+To realize the high CMRR (common mode rejection ratio) it's necessairy
+to build the input-stage as symmetrical as possible (because also parasitic
+capacities should be equal).</li>
+
+<li>
+R5 and R6 should preferable have 1% tolerance (or less) and come from the
+same production batch</li>
+
+<li>
+You can use other opamps, the most important parameter in this design are
+a low bias and offset current.</li>
+</ul>
+
+<center><img src="exg_amplifier3.gif" height=216 width=287></center>
+The bio-amplifier build on an experimental board mounted on a <a href="../connectors.html#very easy female lego">very
+simple femal Lego connector</a>, so it fits directly to the RCX.
+<p><a name="example: ecg cable"></a><b><font color="#3333FF">Example: ECG
+cable&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>For measuring the Electro CardioGram (ECG), the following cable + adapter
+is used.
+<br>Gain is set to 2000 by resistor R1.
+<br>Here a low cuttoff frequency is realized by C1 and C2.
+<br>For the cable it's best to use twin shielded audiocable, as shown in
+the diagram below.
+<br>More information about the <a href="ecg_sensor.html">ECG sensor</a>.
+<p><img src="ecg_sensor.gif" height=215 width=694>
+<br>&nbsp;
+<br>&nbsp;
+</body>
+</html>

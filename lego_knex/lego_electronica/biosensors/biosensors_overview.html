@@ -1,0 +1,191 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>Biosensors_overview</title>
+</head>
+<body text="#000000" bgcolor="#FFFF00" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER><a name="top"></a><a href="../../lego_mindstorms_knex_index.html">Lego-Knex</a>
+<br><a href="../../../robbert/robbert_home.html">Robbert</a>
+<br><a href="../../../mattijs/mattijs_home.html">Mattijs</a>
+<br><a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height=18 width=29></a></td>
+
+<td ALIGN=CENTER><b><font size=+3>Mindstorms BioSensors</font></b>
+<br><font size=+2>Stef Mientki</font>
+<br><font size=-1>august&nbsp; 2001</font></td>
+
+<td></td>
+</tr>
+</table>
+
+<p><b><font face="Arial,Helvetica"><font color="#FF0000">Warning 1</font></font></b>
+<br><font face="Arial,Helvetica">Always operate the RCX with batteries,
+never use a mains adapter because there's a serious risk of electrocution.</font>
+<p><b><font face="Arial,Helvetica"><font color="#FF0000">Warning 2</font></font></b>
+<br><font face="Arial,Helvetica">Don't draw diagnostic conclusions, because
+the quality of the sensors is in general not accurate enough.</font>
+<p><b><font face="Arial,Helvetica"><font color="#FF0000">Warning 3</font></font></b>
+<br><font face="Arial,Helvetica">Don't scrub the skin before applying electrodes
+(although all electrode suppliers will advise you to do), it gives unnessairy
+risk of skin damage and all sensor-electronics are designed in such a way
+that there's no need for it.</font>
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica"><font color="#3333FF">ECG</font></font></b>
+<p><a href="ecg_sensor.html"><img src="heartpmp.gif" height=92 width=97></a></center>
+</td>
+
+<td><b><font face="Arial,Helvetica"><font color="#3333FF">Electro CardioGram&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">The ECG measures the electric activity
+of the heart. On the left is an animated picture of the propagation of
+the electrical activity through the heart.</font>
+<br><font face="Arial,Helvetica">You can easily detect heartrate from the
+ECG.</font>
+<br><font face="Arial,Helvetica">A trained doctor can recognize all kind
+off heart defects on the base of very small deviations in the registered
+signals. The proposed RCX <a href="ecg_sensor.html">ECG-sensor</a> isn't
+sensititive enough to display these small deviations.</font>
+<p><font face="Arial,Helvetica">By placing the electrodes on different
+places around the heart, you can focus on the electrical activity of the
+different parts of the heart.</font></td>
+</tr>
+
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica"><font color="#3333FF">BP</font></font></b>
+<p><img src="bloeddruk.gif" height=87 width=80></center>
+</td>
+
+<td><b><font face="Arial,Helvetica"><font color="#3333FF">Blood Pressure&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica">This is probably the mostly measured physiological
+parameter.</font>
+<br><font face="Arial,Helvetica">On the left is an animated picture of
+the time dependant bloodpressure curve. In general only the maximum bloodpressure
+(systole) and the minimum bloodpressure (diastole) is measured.</font>
+<p><font face="Arial,Helvetica">Because this sensor requires pneumatics
+(probably with buffering), a pressure sensor en maybe a&nbsp; soundsensor
+it's a nice challenge to build it with Lego Mindstorms. With these basic
+elements it must be possible to build an automatic bloodpressure monitor,
+which periodically measures the systolic, diastolic and mean bloodpressure.</font>
+<p><font face="Arial,Helvetica">A second challenge might be to measure
+the complete bloodpressure curve with the same hardware, but with more
+sophisticated software (as <a href="http://www.dynapulse.com/">Dynapulse</a>
+does).</font>
+<br>&nbsp;</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER><b><font face="Arial,Helvetica"><font color="#3333FF">BloodFlow</font></font></b></td>
+
+<td><b><font face="Arial,Helvetica"><font color="#3333FF">BloodFlow&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><font face="Arial,Helvetica">If you measure the bloodflow, you will
+see a curve which is very identical to the bloodpressure curve shown above.
+The main difference is that with bloodflow you cann't measure absolute
+values, only relative changes in time. The advantage is it simplicity and
+ease of use, you measure on a lot of different places, must common places
+are fingers, earlobe and fronthead.</font>
+<p><font face="Arial,Helvetica">Bloodflow can be measured by a reflective
+light sensor. Red and IR light can penetrate the skin and will reflect
+on blood (that's why blood is red). It should be a quiet simple sensor
+which can also be used as a general purpose refelective light sensor, which
+could even be better in determining colors than the standard mindstroms
+light sensor.</font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER><b><font face="Arial,Helvetica"><font color="#3333FF">SaO2</font></font></b>
+<p><img src="nellcor_ds-100a.gif" height=115 width=85></td>
+
+<td VALIGN=TOP><b><font face="Arial,Helvetica"><font color="#3333FF">Oxygen
+Saturation&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><font face="Arial,Helvetica">By using a reflective light sensor with
+the 2 specific lightcolors, you can determine the percentage oxygen in
+the blood.</font>
+<br><font face="Arial,Helvetica">The SaO2 is normally slightly below 100%
+and will only deviate from that value under extreme conditions (severe
+injuries, surgery and so on).</font>
+<br><font face="Arial,Helvetica">Although it may be an interesting technical
+challenge to build such a sensor it has no application in normal live.</font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER><b><font face="Arial,Helvetica"><font color="#3333FF">SC</font></font></b></td>
+
+<td><b><font face="Arial,Helvetica"><font color="#3333FF">Skin Conductance&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><font face="Arial,Helvetica">(other names: GSR=Galvanic Skin Response,
+EDA =ElectroDermal Activity, SCR=Skin Conductance Respons, SCL=Skin Conductance
+Level)</font>
+<p><font face="Arial,Helvetica">Although there's no complete understanding
+of this parameter, the general thesis states that it measures mainly the
+filling of the sweet glands and therefor it measures the activity of the
+sympathetic nerve system. Thereby reflecting both physiological and emotional
+activity. It's often used in biofeedback systems for relaxation.</font>
+<p><font face="Arial,Helvetica">There's no proof of whatsoever that SC
+can be used as a lie-detector !!!</font>
+<p><font face="Arial,Helvetica">Michael Gasperi has designed a too <a href="http://www.plazaearth.com/usr/gasperi/gsr.htm">simple
+SCL meter</a>, but his idea of the electrodes could work quiet well. The
+important design parameters are: first the drive voltage must be &lt;=0.5
+Volt, secondly you must measure conductance instead of resistance and third
+you need to evaluate the fluctuations in time (because it's totally relative).</font>
+<p><font face="Arial,Helvetica">I suppose that you can measure SC with
+the ECG-sensor and a simple adapter-cable.</font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER><b><font face="Arial,Helvetica"><font color="#3333FF">EOG</font></font></b></td>
+
+<td><b><font face="Arial,Helvetica"><font color="#3333FF">Electro OculoGram&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><font face="Arial,Helvetica">The eye is an electrical dipol. By placing
+electrodes horizontal or vertical around the eye you can determine the
+direction
+in which the eye is pointed.</font>
+<p><font face="Arial,Helvetica"><a href="http://sun11.ukl.uni-freiburg.de/aug/iscev/standards/eog.html">uni-freiburg</a></font>
+<br><font face="Arial,Helvetica"><a href="http://www.cmplx.cse.nagoya-u.ac.jp/research/interface/ohp/eog/ppframe.htm">human
+interface coarse</a></font>
+<br><font face="Arial,Helvetica"><a href="http://www.psylab.com/html/default_emgstartle.html">startle
+blink from psylab</a></font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER><b><font face="Arial,Helvetica"><font color="#3333FF">Respiration</font></font></b></td>
+
+<td><b><font face="Arial,Helvetica"><font color="#3333FF">Respiration&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER><b><font face="Arial,Helvetica"><font color="#3333FF">EMG</font></font></b></td>
+
+<td><b><font face="Arial,Helvetica"><font color="#3333FF">Eletro MyoGram&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><font face="Arial,Helvetica">The EMG measures the electrical activity
+of the muscles.</font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER><b><font face="Arial,Helvetica"><font color="#3333FF">EEG</font></font></b></td>
+
+<td><b><font face="Arial,Helvetica"><font color="#3333FF">Electro EncephaloGram&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><font face="Arial,Helvetica">The EEG represents the electrical activity
+of the brain.</font>
+<br><font face="Arial,Helvetica">Because of the low signal levels (&lt;0,1
+mVolt) and the special preparation of the electrodes is not easy to measure
+this signal with the RCX. Thereby is the interpretation of the signal very
+difficult.</font></td>
+</tr>
+</table>
+
+</body>
+</html>

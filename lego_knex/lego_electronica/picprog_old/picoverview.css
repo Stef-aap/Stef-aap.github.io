@@ -1,0 +1,100 @@
+@media all {
+   A {
+          font-family: inherit;
+          font-size: inherit;
+     }
+
+   A:active {
+          font-family: inherit;
+          font-size: inherit;
+            }
+
+   A:link {
+          font-family: inherit;
+          font-size: inherit;
+          }
+
+   A:visited {
+          font-family: inherit;
+          font-size: inherit;
+             }
+
+   BODY {
+          font-family: "Arial", "Times New Roman";
+          font-size: medium;
+          background-color: #bca1ff;
+        }
+
+   P {
+          font-family: "Arial", "Times New Roman";
+          font-size: medium;
+     }
+
+   H1 {
+          font-family: "Comic Sans MS", "Kidprint";
+          font-size: x-large;
+          margin-bottom: -1%;
+      }
+
+   H2 {
+          font-family: "Comic Sans MS", "Kidprint";
+          font-size: x-large;
+          margin-top: -1%;
+      }
+
+   H3 {
+          font-family: "Arial", "Times New Roman";
+          font-size: xx-small;
+          font-weight: lighter;
+          margin-top: 0%;
+          margin-bottom: -1%;
+      }
+
+   H4 {
+      }
+
+   H5 {
+      }
+
+   H6 {
+      }
+
+   LI {
+      }
+
+   DL {
+      }
+
+   DT {
+      }
+
+   DD {
+      }
+
+   TABLE {
+          font-family: "Arial", "Times New Roman";
+          font-size: medium;
+         }
+
+   .MAIL {
+         }
+
+   .MAIL:link {
+              }
+
+   .MAIL AAP {
+             }
+
+   .MAIL:before {
+          content: "before";
+                }
+
+   .MAIL:after {
+          content: "after";
+               }
+
+   #IM {
+          content: "beertjes";
+       }
+
+}

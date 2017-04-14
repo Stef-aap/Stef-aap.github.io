@@ -1,0 +1,92 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Mark & Rhoda Rajcok">
+   <title>Overview - NQC API</title>
+</head>
+<body>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH="100%" >
+<tr>
+<td WIDTH="33%"><a href="http://www.enteract.com/~dbaum/nqc/"><img src="nqc.gif" height=35 width=90 align=middle alt='NQC' border=0></a>
+</td>
+
+<td ALIGN=CENTER WIDTH="34%">
+<center><b><font size=+2>API Overview</font></b></center>
+</td>
+
+<td ALIGN=RIGHT WIDTH="33%"><a href='index.html'>Contents</a>
+| <a href='main_index.html'>Main Index</a></td>
+</tr>
+</table>
+
+<center><table BORDER=0 CELLSPACING=2 CELLPADDING=2 >
+<tr>
+<td ALIGN=CENTER BGCOLOR=#00CC00><font color="#FFFFFF">&nbsp;<A href='cybermaster_index.html' style='color: white'>CyberMaster</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#CC66CC><font color="#FFFFFF">&nbsp;<A href='scout_index.html' style='color: white'>Scout</A>&nbsp;</font></td>
+</tr>
+</table></center>
+
+<blockquote>The NQC API defines a set of functions,
+values, constants, and macros that provide access to various capabilities
+of the target such as 
+<a href="sensors.html">sensors</a>, 
+<a href="outputs.html">outputs</a>,
+<a href="sound.html">sound</a>,
+<a href="timers.html">timers</a>,
+and <a href="communication.html">communication</a>.</blockquote>
+
+<blockquote>
+<blockquote>
+<li>
+A <font color='#CC6666'>function</font> is something that can be called
+as a statement. Typically is takes some action or configures some parameter.</li>
+
+<li>
+<font color='#999900'>Values</font> represent some parameter or quantity and can be used in expressions.</li>
+
+<li>
+Constants are symbolic names for values that have special meanings for
+the target. Often, a set of constants will be used in conjunction with
+a function. For example, the <tt><A href="sound.html#playsound">PlaySound()</A></tt> function takes a single
+argument which determines which sound is to be played. Constants, such
+as <tt>SOUND_UP</tt>, are defined for each sound.</li>
+</blockquote>
+Some features are only available on certain targets. This document uses
+<i>target color bars</i> to distinguish the targets where appropriate.
+A color-key is shown at the top of every page. Here is an example of
+something pertaining to the RCX2 and both the RCX and RCX2:
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 >
+<tr>
+<td>&nbsp;</td>
+
+<td BGCOLOR="#3366FF">&nbsp;</td>
+
+<td></td>
+
+<td>Since the RCX2 is a superset of RCX features, all RCX features work
+with both the original firmware and the 2.0 firmware (RXC2).</td>
+</tr>
+
+<tr>
+<td BGCOLOR="#33CCFF">&nbsp;</td>
+
+<td BGCOLOR="#3366FF">&nbsp;</td>
+
+<td></td>
+
+<td>You can upgrade your RCX's firmware to 2.0 by 
+<a href="http://mindstorms.lego.com/sdk2/">downloading
+the 2.0 firmware</a> from Lego's website. (Note that the last time I tried
+it, I needed to use Internet Explorer and not Netscape Navigator.)</td>
+</tr>
+</table>
+
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+<br>&nbsp;
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>Errors_DM</title>
+</head>
+<body text="#000000" bgcolor="#00CC00" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<b>Win2000 , WinXP debugging/corrections by Dave Mumert</b>
+<p><b><font color="#000000"><font size=+1>Unsolved problems / bugs</font></font></b>
+<br>
+<hr WIDTH="100%">
+<br>tab only contains filename (without the path).
+<br>This will gives problems if 2 files are opened with the same name but
+a different location
+<br>
+<hr WIDTH="100%">
+<br>The list of open files under the Window menu item is duplicated.
+<br>(it shows the list twice)
+<br><b>I can't reproduce this error</b>
+<br>
+<hr WIDTH="100%">
+<br>The Project Overview window does not get filled in until you click
+on it
+<br><b>I can't reproduce this error</b>
+<br>
+<hr WIDTH="100%">
+<br><b>Warning:&nbsp; if projectfile contains a section with an empty name</b>
+<br>If, for some reason, the projectgroup contains an empty section, all
+following sections can not be read !!
+<br>(Empty section can be detected (under win98 at least), but can't be
+removed, so this has to be done by an ASCII reader/writer)
+<br>Probably detection of sections with empty names will give problems
+under win-NT versions)
+<br>
+<hr WIDTH="100%">
+<br>&nbsp;
+<p><b><font size=+1>Solved problems/bugs</font></b>
+<br>
+<hr WIDTH="100%"><b>1.&nbsp; Erasing a section with the name being an empty
+string in a ini-file:</b>
+<br>&nbsp;&nbsp;&nbsp; replace this:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+erasesection(old_project_name);
+<br>&nbsp;&nbsp;&nbsp; by this:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+If old_project_name &lt;> '' then erasesection(old_project_name);
+<br>All files checked, following files were changed:
+<br>&nbsp;&nbsp;&nbsp; New_projectgroup.pas
+<br>&nbsp;&nbsp;&nbsp; Include_tree.pas
+<br>
+<hr WIDTH="100%">
+<br><b>2.&nbsp; DOS programs need short 8.3 filenames.</b>
+<br>&nbsp;&nbsp;&nbsp; use:&nbsp; function ExtractShortPathname(const Filename:
+string): string;
+<br>Checked and changed:
+<br>&nbsp;&nbsp;&nbsp; Editor.pas,&nbsp; routine CompileIt
+<br>Probably there aren't any other locations, except launching a DOS programmer.
+Will be checked later.
+<hr WIDTH="100%">
+<br><b>3.&nbsp; Calling refresh_filetab in mainunit.formactivate</b>
+<br>&nbsp; removed, routine "open_new_editor" now adds new filetab and
+sets this filetab active
+<hr WIDTH="100%">
+<br><b>4.&nbsp; Moving the projectmanager from one panel directly to the
+other panel,
+</b>(also WIN98)
+<br>contents of projectgroup and libraries disappeared. Problem was caused
+by the fact that inbetween the mainform became active.
+<br>Changed
+<br>&nbsp;&nbsp;&nbsp; Mainunit.formactivate (now filling of lists only
+done the first time)
+<br>
+<hr WIDTH="100%">
+<br><b>5.&nbsp; Add a project with a blank path give an error </b>(also
+WIN98)
+<br>Changed
+<br>&nbsp;&nbsp;&nbsp; Line 108 of New_Project_groupfrom:
+<br>&nbsp;&nbsp;&nbsp; if (ShowModal = mrOK) and (edit_prog_path.text &lt;>
+'') then
+<br>
+<hr WIDTH="100%">
+<br><b>6.&nbsp; If the jal-file was in a very long path, DOS-line became
+too long
+</b>(also WIN98)
+<br>&nbsp;&nbsp;&nbsp; The full path to the JAL file does not need to be
+included in the command line,
+<br>&nbsp;&nbsp;&nbsp; because you have changed to the directory where
+the JAL file resides.
+<hr WIDTH="100%">
+<br><b>7. Doubleclick on the treeview of a project could generate exceptions,</b>
+<br>&nbsp;&nbsp;&nbsp;&nbsp; if TreeView1.Selected = nil then Exit;&nbsp;&nbsp;
+// added to correct error
+<hr WIDTH="100%">
+<br><b>8. It may be better to pre-select the main JAL file after any changes.</b>
+<br>
+<hr WIDTH="100%">
+<br>&nbsp;
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>Light_sensor</title>
+</head>
+<body text="#000000" bgcolor="#FFFF00" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER><a name="top"></a><a href="../lego_mindstorms_knex_index.html">Lego-Knex</a>
+<br><a href="../../robbert/robbert_home.html">Robbert</a>
+<br><a href="../../mattijs/mattijs_home.html">Mattijs</a>
+<br><a href="mailto:s.mientki@ids.kun.nl"><img src="mail.gif" height=18 width=29></a></td>
+
+<td ALIGN=CENTER><b><font size=+3>Lego Light Sensing</font></b>
+<br><font size=+2>Stef Mientki</font>
+<br><font size=-1>march 2001</font></td>
+
+<td></td>
+</tr>
+</table>
+
+<p><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p>Just some notes about light sensing.
+<p>The Lego light sensor has been diassembled by the Japanese <a href="http://www.geocities.co.jp/Technopolis/6264/mindstorms/lightsensor.html">Sasuraibito</a>,
+translation can be done by <a href="http://babel.altavista.com/translate.dyn">http://babel.altavista.com/translate.dyn</a>
+(works great even on links).
+<p><a href="http://www.plazaearth.com/usr/gasperi/light.htm">Michael Gasperi</a>
+also translated and interpreted the Japanese webpage.
+<br>A small correction to his interpretation: transitors 15 and 17 are
+just to compensate that the opamp LM358 not really can deal with input
+voltages down to 0 Volt (despite what the specifications say).
+<p>Another (short) disassembly report is written by <a href="http://www.crynwr.com/lego-robotics/light-sensor.html">Frank
+Angeli</a>. He reports a fantastic improvent by removing the LED, this
+has been reported in newsgroups before.
+<p><a href="http://www.mop.no/~simen/legoproxi.htm">Simen Svale Skogsrud</a>
+used the main IR port to build a Lego Proximity Detector.
+<p>General information about photo-transistors can be found at <a href="http://www.infineon.com/cmc_upload/0/000/010/220/app50.pdf">IL300
+application note</a> (Infineon, formal Siemens),
+<br>also HP has some nice sites.
+<p>Ideas:
+<ul>
+<li>
+just pulse the LED during measurement, you can increase the power may be
+by a factor 10</li>
+
+<li>
+do some code detection, so you can determine by software if the LED is
+on/off</li>
+
+<li>
+use a sensor with a day-light filter</li>
+</ul>
+
+</body>
+</html>

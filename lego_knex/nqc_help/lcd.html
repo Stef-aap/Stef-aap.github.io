@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+  <meta name="keywords" content="NQC,NQC API,Mindstorms,Lego Mindstorms">
+  <TITLE>LCD Display - NQC API</TITLE>
+</HEAD>
+<BODY BGCOLOR='#f8f8f8'>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=2 WIDTH='100%' >
+<tr>
+<td WIDTH='33%'><a href='http://www.enteract.com/~dbaum/nqc/'>
+<img src='nqc.gif' height=35 width=90 align='middle' alt='NQC' border=0></a>&nbsp;<a href='#overview'>Overview</a></td>
+<td ALIGN=CENTER WIDTH='34%' ><b><font size=+2>LCD Display</font></b></td><td ALIGN=RIGHT WIDTH='33%'>
+<a href='index.html'>Contents</a> | <a href='master_index.html'>Master Index</a></td>
+</tr>
+</table>
+<center>
+<table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+</tr>
+</table>
+</center>
+<br><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SelectDisplay' style='color: #CC6666'>SelectDisplay()</A>
+<td>&nbsp;<td>Select a display mode.
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td valign=top><A href='#SetUserDisplay' style='color: #CC6666'>SetUserDisplay()</A>
+<td>&nbsp;<td>Set the LCD display to continuously monitor the specified value.
+</table>
+<p><b><font size=+1>VALUES / QUERIES</font></b>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+</table>
+<p><A name='overview'></a><b><font size=+1>OVERVIEW</font></b><br>&nbsp;
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The RCX has seven different display modes as shown below.  The RCX defaults to <tt>DISPLAY_WATCH</tt>.  
+<br>&nbsp;
+<table border cellspacing=0 cellpadding=3 >
+<tr><td>Mode</th> <th>LCD Contents
+<tr><td><tt>DISPLAY_WATCH</tt></td>	<td>show the system "watch"
+<tr><td><tt>DISPLAY_SENSOR_1</tt></td>	<td>show value of sensor 1
+<tr><td><tt>DISPLAY_SENSOR_2</tt></td>	<td>show value of sensor 2
+<tr><td><tt>DISPLAY_SENSOR_3</tt></td>	<td>show value of sensor 3
+<tr><td><tt>DISPLAY_OUT_A</tt></td>	<td>show setting for output A
+<tr><td><tt>DISPLAY_OUT_B</tt></td>	<td>show setting for output B
+<tr><td><tt>DISPLAY_OUT_C</tt></td>	<td>show setting for output C
+</table>
+
+
+<br>&nbsp;
+</table>
+<table BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The RCX2 adds an eighth display mode - <tt>DISPLAY_USER</tt>.  User display mode continuously reads a source value and updates the display.  It can optionally display a decimal point at any position within the number.  This allows the display to give the illusion of working with fractions even though all values are stored internally as integers.  For example, the following call will set the user display to show the value 1234 with two digits appearing after the decimal point, resulting in "12.34" appearing on the LCD.
+<pre>   SetUserDisplay(1234, 2);
+</pre>
+The following short program illustrates the update of the user display:
+<pre>   task main()
+   {
+      ClearTimer(0);
+      SetUserDisplay(Timer(0), 0);
+      until(false);
+   }
+</pre>
+Because the user display mode continuously updates the LCD, there are certain restrictions on the source value.  If a variable is used it must be assigned to a global storage location.  The best way to ensure this is to make the variable a global one.  There can also be some strange side effects.  For example, if a variable is being displayed and later used as the target of a calculation, it is possible for the display to show some intermediate results of the calculation:
+<pre>   int x;
+   task main()
+   {
+      SetUserDisplay(x, 0);
+      while(true)
+      {
+         <font color="#009900">// display may briefly show 1!</font>
+         x = 1 + Timer(0);
+      }
+   }
+</pre>
+
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>FUNCTIONS / COMMANDS</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+<tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SelectDisplay'></A><font color=#CC6666><b>SelectDisplay(mode)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td BGCOLOR=#33CCFF>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Select a display mode.
+
+<blockquote><pre>SelectDisplay(DISPLAY_SENSOR_1);	<font color="#009900">// view sensor 1 </font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td><A name='SetUserDisplay'></A><font color=#CC6666><b>SetUserDisplay(value, precision)</b></font></td>
+<td align=right><a href='#overview'>Overview</a> | <a href='#'>Top</a></td></tr><tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td BGCOLOR=#3366FF>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<td>&nbsp;</td><td colspan=2><br>Set the LCD display to continuously monitor the specified value.  Precision specifies the number of digits to the right of the decimal point.  A precision of zero shows no decimal point.
+
+<blockquote><pre>SetUserDisplay(Timer(0), 0); <font color="#009900">// view timer 0 </font>
+<br></pre></blockquote>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan=3><hr SIZE=1 NOSHADE WIDTH='100%'></td>
+</tr>
+</table>
+<br>&nbsp;
+<table width=100%>
+<tr>
+<td><b><font size=+1>VALUES / QUERIES</font></b>
+<td align=right><table BORDER=0 CELLSPACING=2 CELLPADDING=2>
+<tr>
+<td ALIGN=CENTER BGCOLOR=#33CCFF><font color="#FFFFFF">&nbsp;<A href='rcx_index.html' style='color: white'>RCX</A>&nbsp;</font></td>
+<td ALIGN=CENTER BGCOLOR=#3366FF><font color="#FFFFFF">&nbsp;<A href='rcx2_index.html' style='color: white'>RCX2</A>&nbsp;</font></td>
+</tr>
+</table>
+</table>
+<br><table width=100% BORDER=0 CELLSPACING=0>
+</table>
+<p>
+<font size=-1><a href="mailto:rhoraj@bigfoot.com?subject=nqc html documentation&body=mark,">Comments</a></font>
+</body>
+</html>
