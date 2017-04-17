@@ -1,0 +1,139 @@
+<HTML><HEAD><TITLE>Design Devices</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>september 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, Design devices by DLL</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>General characteristics of a device DLL</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Pascal style calling is used&nbsp;</LI>
+<LI>Only procedures are used and no functions&nbsp;</LI>
+<LI>Parameter types are restricted to integer-32, null-terminated string, ...&nbsp;</LI>
+<LI>Calling is done through names and therefor, procedure names must be all in UPPERCASE&nbsp;</LI>
+<LI>The device's form should be a MDI-child&nbsp;</LI>
+<LI>every device type has an unique ID-number, DLL-devices must have an ID-number between 1024 and 2047&nbsp;</LI>
+<LI>communication initialized by the DLL from DLL to JALss should be done through predefinied messages&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A class=RVTS4 href="jalss_devices_pic.html">PIC-devices</A></P>
+<P>Divider / Counters</P>
+<P><A class=RVTS4 href="http://www.carlo-kok.com/">Innerfuse Pascal Script</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>JALss is basically a simple logic simulator, with some restricted possibilities to simulate analog signals.</P>
+<P>It doesn't simulate high resolution time simulation, so for instance rise and fall times of digital signals is not taken into account.</P>
+<P>Because all devices will be run from the same master clock, low resolution timing aspects are included (all devices know the frequency of the master clock).</P>
+<P>All devices are operated in a full clock synchronuous mode, and are controlled by the same master clock.</P>
+<P>Therefor every device has 2 execution phases:</P>
+<P>&nbsp;&nbsp;&nbsp; 1. execute_1 :&nbsp; reading of the inputs (while maintaining the outputs untouched)</P>
+<P>&nbsp;&nbsp;&nbsp; 2. execute_2 :&nbsp; generating the output, based on the previous fetched input signals</P>
+<P>Functional behaviour of a device can be implemented in one of the two execution phases.</P>
+<P>To improve simulation speed, there are 2 execution list: a fast execution list and a slow execution list. The speed ratio of the 2 execution lists can be set by the user and is known to all device. Each device is added to one of these lists and it will informed on which list it resides.</P>
+<P>There is a third execution list, called static list, which is only executed once after a general reset.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="basic_outlines"></A>
+<SPAN class=RVTS2>Basic Outlines&nbsp;</SPAN><IMG width=14 height=14 src="top_page.gif"></P>
+<P>Device = an object of which the most important properties are IO-pins and an execute methode</P>
+<P>PIC = just a device + as major extra feature that the internal registers are accesible (but maybe that should also yield for some other devices ?)</P>
+<P>SCOPE = a device + as major extra feature that it can connect not only to single IO-pins, but also to (nibbles), bytes and words (maybe this should also yields for some other devices ?)</P>
+<P>MAIN PROGRAM : connects all the devices together and calls the execute methods off all devices</P>
+<P>EXECUTE&nbsp; method, to resolve problems in the ordering of the calculations of the different devices, 2 phases are introduces</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; execute_1 = read the input pins, calculate (but not connect to the output pins) the result</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; execute_2 = transport the result to the output pins</P>
+<P>SPEED, to optimize speed the following features are implemented</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. the mainprogram will implement 2 execution lists, one list that will execute always and one that will execute sometimes</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. devices that use intensive graphical procedures (or other time consuming actions) should implement 2 execute methodes fast and slow.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The control of fast / slow must be possible from within the mainprogram</P>
+<P>ERRORS, devices should get a possibility to report errors (executing errors, not connected input pins, ...)</P>
+<P>SETTINGS, devices should get a possibility to easy store their settings through the mainprogram</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="global_overview_of_the_inheritance_of"></A>
+<SPAN class=RVTS2>Global overview of the inheritance of objects&nbsp;</SPAN><IMG width=14 height=14 src="top_page.gif"></P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>TPIC_16F628</P>
+<P>and all other 14 bit cores</P></TD>
+<TD valign=top>
+<P>Adds all the typical features of the 16F628,</P>
+<P>specially the property REGS</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>TPIC_14_CORE</P>
+<P>and all kind of other processor cores</P></TD>
+<TD valign=top>
+<P>Base for all 14 bit PIC cores (and maybe SX ?)</P>
+<P>adds the in detail extended method execute_command</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>TPIC_CORE</P>
+<P>and all kind of other devices</P></TD>
+<TD valign=top>
+<P>Base for all PIC types,</P>
+<P>adds basic PIC features, like accumulator, program counter, etc.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>TDEVICE</P></TD>
+<TD valign=top>
+<P>Base of all devices,</P>
+<P>adds a number of IO-pins to the device,</P>
+<P>adds basic methods like execute_command and device_rest</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>TIO_PIN</P></TD>
+<TD valign=top>
+<P>Definies the basic properties of a physical pin on every device</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>At first sight it seems logical to use Tcomponent as the baseclass, but besides the owner it doesn't add much necessary functionality. (name for instance must be a valid Delphi name and for this purpose a user name (possible with spaces) is wanted).</P>
+</BODY></HTML>

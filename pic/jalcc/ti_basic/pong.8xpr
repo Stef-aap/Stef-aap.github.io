@@ -1,0 +1,92 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 10/17/05, 16:06
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 68 03 0D 00 57 03 <pp> <progname>  00 00 57 03 55 03
+; program name: PONG
+; file is NOT protected
+
+; unkown codes are inserted as "%%HH%%"
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+11->dim(^lpONG
+Clrhome
+Output(1,3,"^o -pONG- ^o"
+Output(2,1,"VALENCE SOFTWARE"
+Output(3,3,"HIGH SCORES"
+Output(4,1,"1.      6.      2.      7.      3.      8.      4.      9.      5.     10."
+Output(4,3,^lpONG(1)
+Output(5,3,^lpONG(2)
+Output(6,3,^lpONG(3)
+Output(7,3,^lpONG(4)
+Output(8,3,^lpONG(5)
+Output(4,11,^lpONG(6)
+Output(5,11,^lpONG(7)
+Output(6,11,^lpONG(8)
+Output(7,11,^lpONG(9)
+Output(8,11,^lpONG(10)
+Pause
+Clrhome
+Output(1,13,"/"
+Output(2,13,"/ p"
+Output(3,13,"/ O"
+Output(4,13,"/ N"
+Output(5,13,"/ G"
+Output(6,13,"/"
+Output(7,13,"/"
+Output(8,13,"/"
+0->Z
+(-)1->E
+(-)1->F
+8->C
+5->A
+8->B
+0->S
+0->K
+While K!=45
+  If K=105:Pause
+  If K=24 and C!=1:C-1->C
+  If K=26 and C!=11:C+1->C
+  Output(1,B," "
+  Output(A,B," "
+  E+A->A
+  F+B->B
+  If A=1:1->E
+  If A=8 and C=B:(-)1->E
+  If A=8 and C+1=B:(-)1->E
+  If B!=C and B!=C+1:1->Z
+  If Z=1 and A=8:Goto D
+  0->Z
+  If A=8:1+S->S
+  If B=2:1->F
+  If B=12:(-)1->F
+  If B=1 or B=13:F+2->F
+  If F=3:(-)1->F
+  If C!=11 and C!=1:Output(8,C-1," -- "
+  If C=11:Output(8,C-1," --"
+  If C=1:Output(8,C,"-- "
+  Output(1,B,"-"
+  If A=8:(-)1->E
+  If A=8:7->A
+  Output(A,B,"^o"
+  0->T
+  While T<5
+    T+1->T
+  End
+  Getkey->K
+  If S<10:Output(7,15,S
+  If S>9:Output(7,14,S
+End
+Lbl D
+Output(A,B,"^o"
+Output(4,3,"GAME OVER"
+S->^lpONG(11)
+SortD(^lpONG
+DelVar A
+DelVar B
+DelVar C
+DelVar E
+DelVar F
+DelVar Z
+DelVar S

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Circuit Editor</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="1" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Brick Circuit Design&nbsp; </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; ( august 2009 )</span></p>
+<p><span class=rvts10>Application Designer</span> / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p><br></p>
+<div><table width="100%" border=1 style="border-width : 0px" cellpadding=5 cellspacing=0 style="background-color: #d4d0c8;">
+<tr valign=top>
+<td width=502 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; background-color: #ffffd4;">
+<p>Circuit Designer is a simple object drawing canvas, specially suited for electronic circuits, Finite State Machine, flow charts etc.</p>
+<p><br></p>
+<p>If the drawing contains connected electrical objects, you can feed (multiple) input signals into the circuit and the Bricks outputs netlists and responses.</p>
+<p><br></p>
+<p>For Finite State Machine and Flow Charts, the Brick can generate the corresponding program code ( At the moment this is not realized, but implementations for Python, Delphi and JAL are expected soon, and it should be easy to extend that to any language)</p>
+<p><br></p>
+</td>
+<td width=259 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-left: none; background-color: #ffffd4;">
+<p class=rvps3><img width=259 height=303 alt="" hspace=1 vspace=1 src="pw_circuit_editor_img8.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Here the code editor with it's component libraries. For the moment the general picture library of PyLab_Works is used. These pictures should be ordered in some categories, but dpon't know yet how to realize that in the most simple way, without redundancy. </p>
+<p><br></p>
+<p><img width=774 height=676 alt="" hspace=1 vspace=1 src="pw_circuit_editor_img7.png"></p>
+<p><br></p>
+<p>When selecting a component, 4 corner anchors appear, giving you a fast way to rotate, mirror the component and set its labels. </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=201 height=156 alt="" src="pw_circuit_editor_img4.png"></p>
+<p><br></p>
+<p>Editing of the parameters of a component:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=294 height=156 alt="" src="pw_circuit_editor_img5.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Creating Components</span></p>
+<p>At the moment each component is stored in a separate file. A component file and can be of any size and of any graphical type, preferable one that supports transparency. You can use any pixel editor, preferable one that really supports transparency (Paint and Paint Shop Pro 5 DON'T). Because of the simple approach, you can even cut a drawing from an existing datasheet.&nbsp; An good icon editor is often quit comfortable, because it's specially made to create these kind of small pictures. I like IconEditor Pro V7:</p>
+<p><br></p>
+<p><img width=587 height=490 alt="" src="pw_circuit_editor_img3.png"></p>
+<p><br></p>
+<p>A connection point is made automatically, for each black point on one of the four borders.</p>
+<p><br></p>
+<p>The labels are placed automatically, depending on the rotation of the component. If the component has no rotation or 180 degrees, the labels are place just right next to the component, at the top and the bottom, so keep some white space at the right of a component.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=238 height=119 alt="" src="pw_circuit_editor_img2.png"></p>
+<p><br></p>
+<p>If the component is rotated 90 or 270 degrees, the labels are placed on the right half, within the height of the component.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=250 height=114 alt="" src="pw_circuit_editor_img1.png"></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

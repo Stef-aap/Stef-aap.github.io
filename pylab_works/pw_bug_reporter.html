@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Bug Reporter&nbsp; </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts1>&nbsp;&nbsp; </span><span class=rvts8>(februari 2010)</span></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Bug Reporter is a module, which gives the users an easy way to report bugs, by collecting all relevant data, and preparing an email to the author of the program. Bug Reporter also allows the user to ignore each bug, either for this session or for ever. Most non-GUI programs can't be continued, but with GUI programs the program can be continued, although the results might be unpredictable. The ideas for this module comes from <a class=rvts4 href="http://www.madshi.net/madExceptDescription.htm">madExcept</a> , a crash reporter for Delphi, C, C++.</p>
+<p><br></p>
+<p><span class=rvts2>Some features</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>multi-language, currently the following languages are available : US, NL </li>
+<li>very easy to integrate in any program, also a non GUI-program ( although Bug Reporter itself requires wxPython). </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><span class=rvts2>Some future plans</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>better email facility </li>
+<li>integration of winpdb to automatically insert breakpoints at lines with exception </li>
+<li>decoding of received data, with automatic source code jump </li>
+<li>datetime stamp for each error </li>
+<li>datetime stamps for each source file </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><span class=rvts2>Bug Discovered</span></p>
+<p>When an error occurs, the following dialog (or a simpler one, with just the error tab) will appear, and the user has the possibility to send a crash report to the author, and decide if the program should be continued, aborted or restarted. The user can also determine if he doesn't wants to see this error again, either in this session only or even in all future sessions (the latter requires sending of an Crash Report)</p>
+<p><br></p>
+<p><img width=669 height=364 alt="" src="pw_bug_reporter_img1.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Using</span></p>
+<p>Using Bug reporter is very simple (see picture below):</p>
+<p><span class=rvts10>line 371</span>: start the exception hook, you only need to specify the mail-address.</p>
+<p>Note that the exception hook is created before the wx.App is created, so it will also catch errors in the creation of My_Test_Form. In the latter case Except_Handling will create it's own GUI-loop and in this case it's not possible ( and also not meaningful) to continue the program if indeed an error occurs in the My_Test_Form creation.</p>
+<p><span class=rvts10>line 373</span>: at any moment in your program, you can extend the extra information text, that will be sent by the email. So you add extra information about the version, the classes created / used, methods called etc.</p>
+<p><br></p>
+<p><img width=594 height=219 alt="" src="pw_bug_reporter_img2.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>System Information</span></p>
+<p>At the moment the following system information is collected, and send as information with the email:</p>
+<p><br></p>
+<p><img width=669 height=364 alt="" src="pw_bug_reporter_img3.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Always Ignore</span></p>
+<p>This is a list of errors, maintained in a file, located in the main path, with the name of the main file but with the extension ".tb_cfg" </p>
+<p><br></p>
+
+</body></html>

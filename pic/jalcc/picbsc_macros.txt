@@ -1,0 +1,2 @@
+P PIC "Type"\=FREQ "Frequency(kHz)"\=OSCILLATOR "RC/Xtal"\>"Program Body"\<END\=
+P_ something else\=

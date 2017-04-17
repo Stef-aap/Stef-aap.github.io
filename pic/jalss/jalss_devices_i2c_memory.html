@@ -1,0 +1,91 @@
+<HTML><HEAD><TITLE>I2C memory</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>March 2003</SPAN></P>
+<P><SPAN class=RVTS1>JALss, I2C memory</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=375 valign=top>
+<P><SPAN class=RVTS2>I2C memory</SPAN><IMG width=14 height=14 src="top_page.gif"></P>
+<P>The device performs the most important properties of the I2C EEprom. The types from 16*8 (24LC00)&nbsp; uptill 32k*8 (24LC256) are supported.</P>
+<P>Write time is fully implemented and is depending on device and the page(s) to be written. Implementation is worst case, which means 0, 5, 10 msec / page, which can be selected from the list.</P>
+<P>All different access methods (although if look well, there are only 2 !!) are implemented.</P>
+<P>Not implemented is the minimal timing requirement of the clock and data lines. Though the relative timing of clock and data is implemented (for example, data must be stable during the whole positive clock period).</P>
+<P>f there's a filename on startup, the data from this file is loaded into memory. If there's a filename on closing the device/program the data in eeprom will be stored in the file. The dataformat is a normal textfile, just like the layout of the HEX memory view.</P></TD>
+<TD width=354 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=363 height=228 src="device_i2c_mem1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>- other eeprom sizes</P>
+<P>- write protect pin, available on some devices</P></TD>
+</TR>
+<TR valign=top>
+<TD width=30 valign=middle>
+<P>V0.1</P></TD>
+<TD valign=middle>
+<P>Original Release</P>
+<P>All Modes (including 2 bytes with page boundery crossing) are tested, except "current read".</P>
+<P>All tests are done on 24LC32 (4k*8)</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=234 valign=middle>
+<P>In this page you can view the memory contents, either in HEX or ASCII.</P>
+<P>In Hex mode, if a place is empty ($FF) then nothing is shown.</P></TD>
+<TD width=495 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=514 height=180 src="device_i2c_mem2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=460 valign=middle>
+<P>You can see upto 200 consecutive commands in this window.</P>
+<P>A new sequence of 200 can be started by pressing the clear button.</P>
+<P>Start = I2C start signal (data goes low, while clock is high)</P>
+<P>End = I2C end signal (data goes high, while clock is high)</P>
+<P>C = command received</P>
+<P>H = high address part</P>
+<P>L = low address part</P>
+<P>W = byte written in memory</P>
+<P>R = byte read from memory</P>
+<P>written = data is really written (write time has passed)</P></TD>
+<TD width=288 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=302 height=164 src="device_i2c_mem3.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>I2C Timing&nbsp;</SPAN><IMG width=14 height=14 src="top_page.gif"></P>
+<P>Below the I2C protocol, taken from the 24LC32 memory.</P>
+<P>In fact there are only 2 sequences, one for reading and one for writing.</P>
+<P>Multibyte read and write takes place as long as there is an aknowledge and no stop signal.</P>
+<P>After each read or write the internal addresspointer is incremented.</P>
+<P>&nbsp;<IMG width=749 height=314 src="device_i2c_mem4.gif"></P>
+</BODY></HTML>

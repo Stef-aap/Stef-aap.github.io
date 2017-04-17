@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>GUI Controls Build</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="320" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>GUI Controls Building&nbsp; </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; ( march 2009 )</span></p>
+<p>Application Designer / Domain Expert / <span class=rvts10>Control Designer / Core Developer</span></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Controls are the basic GUI building blocks used in Bricks, they perform the interaction between the Brick and the user. Control classes are detected automatically and therefor they should always reside in a file with a name starting with "control_" which should be located in the directory "PyLab_Works/controls/", and the name of a control class should always start with "t_C_". Besides that, control classes should always be a subclass of "PG.My_Control_Class".</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Simplest Control</span></p>
+<p>Let's first look at the most simple control currently available, e.g. the Static_Text, just a static text label.&nbsp; The control is derived from wx.Static_Text and PG.My_Control_Class, in this order, so that the properties and the methods of wx.Static_Text will yield (as far as they exists), instead of the ( sometimes dummy ) properties and methods of PG.My_Control_Class. The first thing to do in the __init__ method, is always to generate the PG.My_Control_Class instance, because this will generate all necessary attributes (like self.Dock, self.X ) from the input parameters ( see below for all the available properties and methods )</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=521 height=177 alt="" src="pw_gui_controls_build_img1.png"></p>
+<p><br></p>
+<p>Using this Control in a Brick, like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=512 height=68 alt="" src="pw_gui_controls_build_img2.png"></p>
+<p><br></p>
+<p>will result in a GUI-interface, like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=87 height=34 alt="" src="pw_gui_controls_build_img3.png"></p>
+<p><br></p>
+<p>As you can see, positioning, scaling, alternate coloring, etc. are all done by the wrapper methods. Also saving and reloading of the settings is done by the wrappers.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Data transport between Brick and Controls</span></p>
+<p>Looking at the schematic below, shows that the communication between a GUI-control at it's parent Brick is always done through the Par-array of the Brick. If a control acts on the same Par as an input (e.g. Par [2] and Control [1]), the input is automatically passed to the control and the control decides what value will be passed to the Brick. A Control can also have extra parameters (e.g.Par [3] - Control [2] or Par[4] - Control [2] ), to exchange information between the Brick and the Control. Notice that the numbering starts at "1", which is done to get a human representation in the Brick Definitions. Don't bother with the complex numbering for the controls, because they'll see a zero-based Par-array, only containing the elements that concerns them.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=498 height=385 alt="" src="pw_bricks_controls_img35.png"></p>
+<p><br></p>
+<p>Each control has at least 1 Par associated, but each control can ask for more Par's&nbsp; (so called Extra-Pars, through _EP_Add) to communicate with the Brick. The control can decide for each control if it's a relative simple parameter or a (special) dictionary. Within the control the Par's are available through the P-array, which is simply zero-based, and has exactly the amount of elements as the number of Par's the control has asked for. </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Properties &amp; Methods</span></p>
+<p>In the lists below, for clarity "self" is replaced by the object's base name. The first item in the comment, between brackets is the default value.</p>
+<p><br></p>
+<p><span class=rvts10>Brick</span></p>
+<p><span class=rvts11>&nbsp; Brick.Control_Defs [ CD0, .. ]&nbsp; </span># Array of pointers to the definition of each Control</p>
+<p><span class=rvts11>&nbsp; Brick.Control_Pane&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># AUI pane, containing the GUI-Controls</p>
+<p><span class=rvts11>&nbsp; Brick.GUI_Controls [ C0, .. ]&nbsp;&nbsp; </span># Array of pointers to the GUI-Controls</p>
+<p><span class=rvts11>&nbsp; Brick.Diagnostic_Mode</span></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11>&nbsp; </span><span class=rvts10>CD[0]</span> = super_object ()</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].Brick&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># For easy accessing the Brick</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].GUI_Control&nbsp;&nbsp;&nbsp; </span># For easy accessing the associated Control</p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># Control-Type</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].Caption&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># ('') Label in the upper left corner</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># In some cases e.g. Buttons, this is a list with the Buttons captions</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].Initial_Value&nbsp; </span># Default / Initial Value</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].Input_Channel&nbsp; </span># (None) The index of the Brick's input [1..], to which the control is connected</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].NewLine&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># (True) The next control (if any) will be placed on a new line</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp; just for some specific controls, in comment some controls that use these. See the specific control for a more extensive explanation.</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].Range&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># Radio_Buttons, Slider</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].Value&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># ???</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].NCol&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># Radio_Buttons</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].Log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># Slider: Linear / Logarithmic<span class=rvts11>&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; CD[0].Format&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># Slider</p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts10>GUI_Control</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].Brick&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # </span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].CD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># The Control_Description of this control</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].Dock&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># The control Pane on which the control is placed</p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].TopFrame&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># The application Frame</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].Caption&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># (None) Caption of the AUI Frame</p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].Test&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># (False) If True this Control will run in Test-Mode </p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].Ini&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>#</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># Left-Top of this Control</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].Y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># Left-Top of this Control</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].IniSection&nbsp;&nbsp;&nbsp; </span>#</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].EP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># [ None&nbsp; ]&nbsp; Don't use this !!</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].EP_IsDict&nbsp;&nbsp;&nbsp;&nbsp; </span># [ False ]&nbsp; Don't use this !!</p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].P&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># This is thé array to get into contact with the Bricks Par-array</p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11>&nbsp; methods</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].Load_Settings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].Save_Settings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].Display_Label&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # ???</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].Kill&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].SetValue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].GetValue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].SetPosition&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].SetSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].GetSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].SetForegroundColour #</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0].SetToolTipString&nbsp;&nbsp;&nbsp; #</span></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11>&nbsp; event handlers</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0]._On_Event&nbsp;&nbsp;&nbsp; </span># Bounded to all kinds of events</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; C[0]._On_Size&nbsp;&nbsp;&nbsp;&nbsp; </span>#</p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts10>Control Pane</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Pane.Brick&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>#</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Pane.CD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># points to the Bricks Control_Defs</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Pane.GUI_Controls&nbsp; </span>#</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Pane.x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># during building, the current left top for the next control</p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Pane.y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span># during building, the current left top for the next control</p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts2>Control Methods</span></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts10>Positioning and Sizing</span></p>
+<p>SetPos, SetSize, GetSize</p>
+<p><br></p>
+<p>Override the GetSize method:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=506 height=91 alt="" src="pw_gui_controls_build_img11.png"></p>
+<p><br></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts10>Control.SetValue, Control.GetValue</span></p>
+<p>If the base control has a different naming for these functionalities ( like ColourPicker ) or if special processing is needed ( like validation ) these methods should be implemented.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=503 height=141 alt="" src="pw_gui_controls_build_img8.png"></p>
+<p><br></p>
+<p>In case only the name differs, it's often more convenient to just redirect the methods:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=402 height=53 alt="" src="pw_gui_controls_build_img7.png">&nbsp; </p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts10>Control.SetForegroundColour</span></p>
+<p>Subsequent controls are alternate colored, so it become's more clear which elements belong to which control (like a label telling the meaning of a slider). If the control has more than 1 widget, you've to implement this method and step through all the controls to give them the right color.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=454 height=87 alt="" src="pw_gui_controls_build_img4.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Control.Save_Settings,&nbsp; Control.Load_Settings</span></p>
+<p>If the control settings are completely definied by the SetValue / GetValue values, then there's no need to implement this method. But if the control wants to save / restore some extra settings, than it has to implement this method.</p>
+<p><span class=rvts3>Does it has to store GetValue ????</span></p>
+<p><br></p>
+<p>By defining self.Type&nbsp; ( default None ), </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=201 height=22 alt="" hspace=1 vspace=1 src="pw_gui_controls_build_img13.png"></p>
+<p><br></p>
+<p>SetValue (and maybe other methods in the future) assures the correct type.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=325 height=36 alt="" hspace=1 vspace=1 src="pw_gui_controls_build_img14.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Control.Kill</span></p>
+<p>This method is called when the control is being destroyed. In general there's no need to implement this method. But some controls ( like Scene_VPython) need special processing before they are killed, in that case this method might be implemented.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=292 height=48 alt="" src="pw_gui_controls_build_img6.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Control Test Methods</span></p>
+<p>There's a control manager available, in which you can easily build and test individual controls. For complex controls it's difficult to create the necessary input signals, therefore each control has 3 dummy test methods (Test1, Test2, Test3), which can be overriden by the control implementation. Here an example that generates a few real-time signal to test the scope plot. The doc test is important because it's assigned to the Test-Keys as a tooltip.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=461 height=214 alt="" src="pw_gui_controls_build_img12.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Control Events</span></p>
+<p>In PG.My_Control_Class a lot of events are already bound (see actual code in PG for a complete list). If an event-type is missing, it's best to add it in PG.My_Control_Class, so it will be available for future use.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=560 height=127 alt="" src="pw_gui_controls_build_img9.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Main Menu Bindings</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Claiming a statusbar field</span></p>
+<p>It's possible to claim one or more fields in the statusbar of the application. In the creation of a control we can ask for the next free field of the statusbar, like this:</p>
+<p><br></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; # we want a StatusBar Field</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; self.My_StatusBar_Field = len ( Frame.StatusBar_Controls )</span></p>
+<p><span class=rvts11>&nbsp;&nbsp;&nbsp; Frame.StatusBar_Controls.append ( self )</span></p>
+<p><br></p>
+<p>And if want to change "our" statusbar field:</p>
+<p><br></p>
+<p><span class=rvts11>&nbsp;&nbsp; self.Frame.StatusBar.SetStatusText( 'CE modified', self.My_StatusBar_Field )</span></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts11><br></span></p>
+<p><span class=rvts2>Pane </span></p>
+<p><br></p>
+<p><span class=rvts10>Brick_2_Control</span></p>
+<p>If an input of a Brick changes, the Brick will call this method to transport the input value to the control.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=563 height=331 alt="" src="pw_gui_controls_build_img10.png"></p>
+
+</body></html>

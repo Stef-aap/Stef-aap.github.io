@@ -1,0 +1,331 @@
+-- -----------------------------------------------------------------------------
+-- <title DAC1220
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- Library for the control of the DAC1220 (20 bit DAC)
+-- with slight modifications also usable for the DAC1221 (16 bit DAC, 3V !!)
+--
+-- Hardware settings should be done through a local copy of DAC1220_LIBS_INS
+--
+-- Data is transported through the variable
+--   DAC1220_dir = DAC1220_dir3 . DAC1220_dir2 . DAC1220_dir1
+--
+-- <non-tag
+-- procedures
+--   DAC1220_reset        hardware reset, calibrate, set normal mode
+--   DAC1220_calibrate    calibrate, set normal mode
+--   DAC1220_sleep        put DAC in sleep
+--   DAC1220_wakeup       wakeup DAC
+--   DAC1220_read_cmd     read both command registers (debugging)
+--   DAC1220_set_DAC_24   set 20 bits DAC value
+--   DAC1220_set_DAC_16   set 16 bits DAC value
+--   DAC1220_read_DAC_24  read Data Input Registers
+--
+-- <Version: 1.0  29-02-2002, Stef Mientki
+--   -  orginal release
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- <Example DAC1220
+; -- make local copy of DAC1220_LIBS_INS, edit paramaters, include in main program
+;    include dac1220_libs_ins
+;
+; -- reset DAC (multiple SPI devices assumed, so CS must be controled)
+;    CS_DAC0 = low
+;    DAC1220_reset
+;    CS_DAC0 = high
+;
+; -- set a 20 bit DAC value (from x = X3 . x2 . x1 )
+;    DAC1220_dir3 = x3
+;    DAC1220_dir2 = x2
+;    DAC1220_dir1 = x1
+;    CS_DAC0 = low
+;    DAC1220_set_DAC_24
+;    CS_DAC0 = high
+;
+; -- set a 16 bit DAC value (from x = x3 . x2 )
+;    DAC1220_dir3 = x3
+;    DAC1220_dir2 = x2
+;    CS_DAC0 = low
+;    DAC1220_set_DAC_16
+;    CS_DAC0 = high
+-- -----------------------------------------------------------------------------
+
+-- <code
+
+
+
+-- -----------------------------------------------------------------------------
+-- first test DAC clockfrequency
+-- -----------------------------------------------------------------------------
+if DAC1220_Fin < 1_200_000 then
+  pragma error   -- clock frequency of DAC possible too low for this routines
+                 -- especially t9 .. t11 and t15 should be checked
+end if
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- test if SPI baudrate not too high
+-- -----------------------------------------------------------------------------
+if baudrate > DAC1220_Fin / 10 then
+  pragma error   -- Baudrate too high for the DAC clock frequency
+end if
+-- -----------------------------------------------------------------------------
+
+
+
+-- general delay routines
+include delay_20Mc
+
+
+-- all SPI routines
+include rs232_hw
+
+
+
+-- definitions of the DATA registers, to be filled by the user
+var volatile byte DAC1220_dir3  -- MSB
+var volatile byte DAC1220_dir2
+var volatile byte DAC1220_dir1  -- LSB
+
+
+-- 100 * Txin in [ usec], for calculating reset pulses
+const _DAC1220_Txin_100 = ( 100 * 1_000_000 ) / DAC1220_Fin
+
+
+-- DAC1220, first MSB downto LSB
+-- that's opposite to Tx of 16F628
+-- so for all commands all bits must be swapped
+
+-- next constants are used to compute command register CMR1 through ORRING
+-- already reversed
+const _DAC1220_ADPT   = 0b_0001_0001
+const _DAC1220_CALPIN = 0b_0001_0010
+const _DAC1220_SH     = 0b_0001_0100
+const _DAC1220_CRST   = 0b_010100000
+
+-- next constants are used to compute command register CMR0 through ORRING
+-- already reversed
+const _DAC1220_RES    = 0b_0000_0001
+const _DAC1220_CLR    = 0b_0000_0010
+const _DAC1220_DF     = 0b_0000_0100
+const _DAC1220_DISF   = 0b_0000_1000
+const _DAC1220_BD     = 0b_0001_0000
+const _DAC1220_MSB    = 0b_0010_0000
+
+-- constants for mode, should be ORRED to command register CMR0
+-- already reversed
+const _DAC1220_mode_normal   = 0b_0000_0000
+const _DAC1220_mode_self_cal = 0b_1000_0000
+const _DAC1220_mode_sleep    = 0b_0100_0000
+
+
+
+-- INSTRUCTION REGISTER
+-- already reversed                                                        (nr of bytes+normal code)
+const byte DAC1220_ins_write_data_24       = 0b_0000_0010  -- (3) 0b_0100_0000
+const byte DAC1220_ins_write_data_16       = 0b_0000_0100  -- (2) 0b_0010_0000
+const byte DAC1220_ins_write_cmd           = 0b_0010_0100  -- (2) 0b_0010_0100
+const byte DAC1220_ins_write_cmd2          = 0b_1010_0000  -- (1) 0b_0000_0101
+const byte DAC1220_ins_write_offset        = 0b_0001_0010  -- (3) 0b_0100_1000
+const byte DAC1220_ins_write_fullscale     = 0b_0011_0010  -- (3) 0b_0100_1100
+
+const _DAC1220_read = 1
+const byte DAC1220_ins_read_data_24        = DAC1220_ins_write_data_24   | _DAC1220_read
+const byte DAC1220_ins_read_data_16        = DAC1220_ins_write_data_16   | _DAC1220_read
+const byte DAC1220_ins_read_cmd            = DAC1220_ins_write_cmd       | _DAC1220_read
+const byte DAC1220_ins_read_offset         = DAC1220_ins_write_offset    | _DAC1220_read
+const byte DAC1220_ins_read_fullscale      = DAC1220_ins_write_fullscale | _DAC1220_read
+
+
+
+-- Here command registers is constructed from the user settings
+var volatile byte DAC1220_cmr1 = 0
+var volatile byte DAC1220_cmr0 = 0  -- contains all bits except mode
+                                     
+if DAC1220_ADPT   then DAC1220_cmr1 = DAC1220_cmr1 | _DAC1220_ADPT   end if
+if DAC1220_CALPIN then DAC1220_cmr1 = DAC1220_cmr1 | _DAC1220_CALPIN end if
+if DAC1220_SH     then DAC1220_cmr1 = DAC1220_cmr1 | _DAC1220_SH     end if
+if DAC1220_CRST   then DAC1220_cmr1 = DAC1220_cmr1 | _DAC1220_CRST   end if
+if DAC1220_RES    then DAC1220_cmr0 = DAC1220_cmr0 | _DAC1220_RES    end if
+if DAC1220_CLR    then DAC1220_cmr0 = DAC1220_cmr0 | _DAC1220_CLR    end if
+if DAC1220_DF     then DAC1220_cmr0 = DAC1220_cmr0 | _DAC1220_DF     end if
+if DAC1220_DISF   then DAC1220_cmr0 = DAC1220_cmr0 | _DAC1220_DISF   end if
+if DAC1220_BD     then DAC1220_cmr0 = DAC1220_cmr0 | _DAC1220_BD     end if
+if DAC1220_MSB    then DAC1220_cmr0 = DAC1220_cmr0 | _DAC1220_MSB    end if
+
+
+
+-- -----------------------------------------------------------------------------
+-- Read 24 bits DAC value into DAC1220_dir
+-- -----------------------------------------------------------------------------
+procedure DAC1220_read_DAC_24 is
+  spi_send_hw ( DAC1220_ins_read_data_24 )
+  spi_read_hw ( DAC1220_dir3 )
+  spi_read_hw ( DAC1220_dir2 )
+  spi_read_hw ( DAC1220_dir1 )
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- SET DAC with the (new) 16-bit value from DAC1220_dir
+-- -----------------------------------------------------------------------------
+procedure DAC1220_set_DAC_16 is
+  spi_send_hw ( DAC1220_ins_write_data_16 )
+  spi_send_hw ( DAC1220_dir3 )
+  spi_send_hw ( DAC1220_dir2 )
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- SET DAC with the (new) 24-bit value from DAC1220_dir
+-- -----------------------------------------------------------------------------
+procedure DAC1220_set_DAC_24 is
+  spi_send_hw ( DAC1220_ins_write_data_24 )
+  spi_send_hw ( DAC1220_dir3 )
+  spi_send_hw ( DAC1220_dir2 )
+  spi_send_hw ( DAC1220_dir1 )
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- read command registers from DAC
+-- -----------------------------------------------------------------------------
+procedure DAC1220_read_cmd 
+ ( byte out cmr1, byte out cmr0 ) is
+  spi_send_hw ( DAC1220_ins_read_cmd )
+  spi_read_hw ( cmr1 )
+  spi_read_hw ( cmr0 )
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- wake up DAC en set into normal mode
+-- -----------------------------------------------------------------------------
+procedure DAC1220_wakeup is
+  spi_send_hw ( DAC1220_ins_write_cmd2 )
+  spi_send_hw ( DAC1220_cmr0 | _DAC1220_mode_normal )
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- put DAC into sleep mode
+-- -----------------------------------------------------------------------------
+procedure DAC1220_sleep is
+  spi_send_hw ( DAC1220_ins_write_cmd2 )
+  spi_send_hw ( DAC1220_cmr0 | _DAC1220_mode_sleep )
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- Starts the calibration cycle (and transports complete command register)
+-- wait till it's finished
+-- after which normal mode will be set
+-- -----------------------------------------------------------------------------
+procedure DAC1220_calibrate is
+var byte _DAC1220_N
+  -- now do a selfcalibration
+  spi_send_hw ( DAC1220_ins_write_cmd )
+  spi_send_hw ( DAC1220_cmr1 )
+  spi_send_hw ( DAC1220_cmr0 | _DAC1220_mode_self_cal )
+
+
+  -- wait till finished 1200 cycli maximum
+  const _DAC1220_N1 = ( 120 * 1_000_000 ) / DAC1220_Fin
+  if _DAC1220_N1 <= 255 then
+    _DAC1220_N = _DAC1220_N1
+    delay_10uS ( _DAC1220_N )
+  else
+    const _DAC1220_N2 = ( 12 * 100_000 ) / DAC1220_Fin
+    if _DAC1220_N2 <= 255 then
+      _DAC1220_N = _DAC1220_N2
+      delay_1ms ( _DAC1220_N )
+    else
+      pragma error -- DAC clock too low
+    end if
+  end if
+
+  -- enter normal mode
+  spi_send_hw ( DAC1220_ins_write_cmd2 )
+  spi_send_hw ( DAC1220_cmr0 | _DAC1220_mode_normal )
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- This procedure is able to reset the DAC in case the power-ON reset fails
+--    see page 10 of documentation
+-- After reset, the calibration cycle is started
+-- and then the normal mode will be entered
+-- -----------------------------------------------------------------------------
+procedure DAC1220_reset is
+  -- must generate special sequence on the SPI clock line
+  -- _DAC1220_RST2 is made larger then necessary, for easier scope measurements
+  const _DAC1220_RST1 = (  650 * _DAC1220_Txin_100 ) / 1000
+  const _DAC1220_RST2 = (   50 * _DAC1220_Txin_100 ) / 1000
+  const _DAC1220_RST3 = ( 1400 * _DAC1220_Txin_100 ) / 1000
+  const _DAC1220_RST4 = ( 2200 * _DAC1220_Txin_100 ) / 1000
+  
+  if ( _DAC1220_RST1 > 255 ) | ( _DAC1220_RST2 > 255 ) |
+     ( _DAC1220_RST3 > 255 ) | ( _DAC1220_RST4 > 255 ) then
+    pragma error -- DAC Clockfrequency is too low for this routine
+  elsif ( _DAC1220_RST1 == 0 ) | ( _DAC1220_RST2 == 0 ) |
+        ( _DAC1220_RST3 == 0 ) | ( _DAC1220_RST4 == 0 ) then
+    pragma error -- DAC Clockfrequency is too high for this routine
+  else
+    SPEN = low                     -- disable SPI mode
+    DAC1220_clock_dir = output     -- be sure to set output mode
+    
+    DAC1220_clock = high
+    delay_10uS ( _DAC1220_RST1 )
+    DAC1220_clock = low
+    delay_10uS ( _DAC1220_RST2 )
+    DAC1220_clock = high
+    delay_10uS ( _DAC1220_RST3 )
+    DAC1220_clock = low
+    delay_10uS ( _DAC1220_RST2 )
+    DAC1220_clock = high
+    delay_10uS ( _DAC1220_RST4 )
+    DAC1220_clock = low
+    delay_10uS ( 100)             -- to be sure
+    SPEN = high                    -- enable SPI mode again
+
+;erbij gezet, anders wordt ie in de simulator niet herkend
+delay_100ms
+    -- now calibrate and goto into normal mode
+    DAC1220_calibrate
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- initialization
+-- -----------------------------------------------------------------------------
+-- calibrate can't be done here, because there could be more than 1 SPI
+-- device to calibrate, in which case CS must be controled
+
+
+

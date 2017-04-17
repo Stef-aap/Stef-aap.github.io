@@ -1,0 +1,519 @@
+-- -----------------------------------------------------------------------------
+-- <title RS232-stepper
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- this library should be used in the following way
+--    INCLUDE stepper_RS232_INS
+--    copy stepper_RS232_INS in the project directory
+--    edit the parameters in this local copy of stepper_RS232_INS
+--
+-- <non-tag
+-- procedure SPI_init is
+
+-- <Version: 1.0  24-08-2002   Stef Mientki
+--    - orginal release
+-- --------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- <Example RS232-stepper
+; -- define the number of motors [1..2]
+; -- defining only motor 1 decreases the amount of program code
+; const stepper_Nmotors = 2
+;
+; -- define hardware position of motor 1
+; var volatile byte _stepper1_port     is port_b_high
+; var volatile byte _stepper1_port_dir is port_b_high_direction
+;
+; -- define hardware position of motor 1
+; -- if only 1 motor is used, just make the next variables equal to the first motor
+; var volatile byte _stepper2_port     is port_a_low
+; var volatile byte _stepper2_port_dir is port_a_low_direction
+;
+; include stepper_RS232
+
+
+
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+
+;include RS232_hw_ins
+include stepper
+
+var volatile bit  stepper_button_control_enabled = false
+var volatile byte _stepper_timeout_counter
+var volatile bit  _asynch_read_timeout           = false
+
+-- -----------------------------------------------------------------------------
+-- code $00 .. $7F controls motor1
+-- code $80 .. $FF controls motor2
+--
+-- every command byte (not the data bytes) is echoed inverted
+-- multi-byte data is received and transmitted LS-byte first
+-- position and steps are always specified in half-steps,
+-- even when motor is running at full steps
+--
+-- -----------------------------------------------------------------------------
+-- $00 not used
+-- $01 start running soft (with acceleration)
+-- $02 start running direct
+-- $03 stop soft (with deceleration)
+-- $04 stop direct
+-- $05 set direction forward
+-- $06 set direction backward
+-- $07 set full-step, leave forced windings unchanged
+-- $08 set half-step
+-- $09 set fullstep, force 1-winding
+-- $0A set fullstep, force 2-windings
+-- $0B set fullstep, no force windings
+
+-- $10 hello
+-- $11 disable button-control
+-- $12 enable button-control
+
+-- $20 power on
+-- $21 power off
+-- $22 set acceleration on
+-- $23 set acceleration off
+-- $24 define origin at current location
+
+-- commands $30 .. $3F all require an extra 1-byte integer to receive (LSByte first)
+-- $30 <1 byte> set speed by defining TMR0 preset value
+-- $31 <1 byte> set speed from table [ 0 .. _stepper_max_speed_index + 1 ]
+
+-- commands $40 .. $4F all require an extra 4-bytes integer to receive (LSByte first)
+-- $40 <4 bytes> goto half-step position N
+-- $41 <4 bytes> do N steps more
+
+-- commands $50 .. $5F all return a 4-bytes integer
+-- $50 get position
+-- $51 get target
+-- $52 get steps togo
+
+-- status of motors, if only 1 motor available only the status of 1 motor is returned,
+-- if 2 motors are available, then first the status of motor2 is given
+-- $60 get current speed of both motors(timer preset value)
+-- $61 get current status of both motors
+--    bit-0 = stepper_forward
+--    bit-1 = stepper_full_steps
+--    bit-2 = stepper_full_force_1_winding
+--    bit-3 = stepper_full_force_2_winding
+--    bit-4 = stepper_accelerate_on
+--    bit-5 = _stepper_not_decelerating
+-- $62 get accelaration table
+--    _stepper_max_speed_index
+--    _tmr0_preset
+--    accelaration [0]
+--    repeat[0]
+--    accelaration [1]
+--    repeat[1]
+--    ...
+--    accelaration [_stepper_max_speed_index]
+--    repeat[_stepper_max_speed_index]
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure stepper_rs232 is
+var byte x
+var bit msb_x at x : 7
+var byte motor
+var bit lsb_motor at motor : 0
+var byte value
+var volatile byte rec_x
+var byte t1, t2, t3, t4
+var bit t1_0 at t1 : 0
+var bit t1_1 at t1 : 1
+var bit t1_2 at t1 : 2
+var bit t1_3 at t1 : 3
+var bit t1_4 at t1 : 4
+var bit t1_5 at t1 : 5
+
+  if asynch_read_hw (x) then
+
+    -- first echo the byte
+    asynch_send_hw (! x)
+    
+    -- determine which motor is selected
+    if msb_x then motor = 2 else motor = 1 end if
+    
+    -- strip off the motornr from the command
+    x = x & 0x7F
+    
+    -- soft start
+    if    x == 1 then
+      stepper_run_continuous_smooth (motor)
+      
+    -- direct start
+    elsif x == 2 then
+      stepper_run_continuous (motor)
+
+    -- soft stop
+    elsif x == 3 then
+      stepper_stop_smooth (motor)
+
+    -- direct stop
+    elsif x == 4 then
+      stepper_stop (motor)
+
+    -- NOTE:
+    -- here the "compiler directive" stepper_Nmotors is used
+    -- as an extra element in the comparison, reducing code-size
+    -- when only 1 motor is used
+    -- forward
+    elsif x == 5 then
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        stepper2_forward = true
+      else stepper1_forward = true
+      end if
+
+    -- backward
+    elsif x == 6 then
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        stepper2_forward = false
+      else stepper1_forward = false
+      end if
+
+    -- full-step
+    elsif x == 7 then
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        stepper2_full_steps = true
+      else stepper1_full_steps = true
+      end if
+
+    -- half-step
+    elsif x == 8 then
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        stepper2_full_steps = false
+      else stepper1_full_steps = false
+      end if
+
+    -- force 1-winding in full-step mode
+    elsif x == 9 then
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        stepper2_full_force_1_winding = true
+        stepper2_full_force_2_winding = false
+      else
+        stepper1_full_force_1_winding = true
+        stepper1_full_force_2_winding = false
+      end if
+
+    -- force 2-winding2 in full-step mode
+    elsif x == 0x0A then
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        stepper2_full_force_2_winding = true
+        stepper2_full_force_1_winding = false
+      else
+        stepper1_full_force_2_winding = true
+        stepper1_full_force_1_winding = false
+      end if
+
+    -- no force windings in full-step mode
+    elsif x == 0x0B then
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        stepper2_full_force_1_winding = false
+        stepper2_full_force_2_winding = false
+      else
+        stepper1_full_force_1_winding = false
+        stepper1_full_force_2_winding = false
+      end if
+
+    -- disable button control
+    elsif x == 0x11 then
+      stepper_button_control_enabled = false
+      stepper1_accelerate_on = false
+      
+    -- enable button control
+    elsif x == 0x12 then
+      stepper1_accelerate_on = false
+      stepper_button_control_enabled = true
+
+    -- power on
+    elsif x == 0x20 then
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        _get_stepper_value ( _stepper2_index, value )
+        _stepper2_port = value
+      else
+        _get_stepper_value ( _stepper1_index, value )
+        _stepper1_port = value
+      end if
+
+    -- power off
+    elsif x == 0x21 then
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        _stepper2_port = 0
+      else
+        _stepper1_port = 0
+      end if
+      
+    -- acceleration on
+    elsif x == 0x22 then
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        stepper2_accelerate_on = true
+      else
+        stepper1_accelerate_on = true
+      end if
+
+    -- acceleration off
+    elsif x == 0x23 then
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        stepper2_accelerate_on = false
+      else
+        stepper1_accelerate_on = false
+      end if
+      
+    -- define origin at current location
+    elsif x == 0x24 then
+      stepper_set_null(motor)
+
+    -- all communication requiring 1 byte extra to receive
+    elsif (x >= 0x30) & (x <= 0x3F) then
+      x = x - 0x30
+      _asynch_read_timeout = false
+      while (! asynch_read_hw (t1)) & (! _asynch_read_timeout) loop end loop
+      if ! _asynch_read_timeout then
+        -- set speed
+        if x == 0 then
+          if (stepper_Nmotors == 2) & (! lsb_motor) then
+            _stepper2_period_preset = t1
+          else
+            _stepper1_period_preset = t1
+          end if
+          
+        -- set speed from table
+        elsif x == 1 then
+          if t1 > _stepper_max_speed_index then t1 = _stepper_max_speed_index end if
+          stepper_acc1(t1,t2)
+          if (stepper_Nmotors == 2) & (! lsb_motor) then
+            _stepper2_index = t1
+            _stepper2_period_preset = t2
+          else
+            _stepper1_index = t1
+            _stepper1_period_preset = t2
+          end if
+        end if
+      end if
+      
+    -- all communicatione requiring 4 bytes extra to receive
+    elsif (x >= 0x40) & (x <= 0x41) then
+      x = x - 0x40
+      _asynch_read_timeout = false
+      while (! asynch_read_hw (t1)) & (! _asynch_read_timeout) loop end loop
+      if ! _asynch_read_timeout then
+        while ! asynch_read_hw (t2) & (! _asynch_read_timeout) loop end loop
+      end if
+      if ! _asynch_read_timeout then
+        while ! asynch_read_hw (t3) & (! _asynch_read_timeout) loop end loop
+      end if
+      if ! _asynch_read_timeout then
+        while ! asynch_read_hw (t4) & (! _asynch_read_timeout) loop end loop
+      end if
+      if ! _asynch_read_timeout then
+        -- goto half-step position
+        if    x == 0 then stepper_run_into (motor, t1, t2, t3, t4)
+
+        -- do N steps more
+        elsif x == 1 then stepper_do_steps (motor, t1, t2, t3, t4)
+        end if
+      end if
+
+    
+    -- get current position
+    elsif (x >= 0x50) & (x <= 0x52) then
+      x = x - 0x50
+      
+      -- interrupts must be disabled,
+      -- because some multi-byte variables could be changed by interrpt
+      T0IE = false
+      
+      if (stepper_Nmotors == 2) & (! lsb_motor) then
+        if x == 0 then
+;;;;;          <;mac> byte4_assign  t = stepper2_pos
+    t1 = stepper2_pos1
+    t2 = stepper2_pos2
+    t3 = stepper2_pos3
+    t4 = stepper2_pos4
+;;;;;<;/mac>
+        elsif x == 1 then
+;;;;;          <;mac> byte4_assign  t = _stepper2_target_pos
+    t1 = _stepper2_target_pos1
+    t2 = _stepper2_target_pos2
+    t3 = _stepper2_target_pos3
+    t4 = _stepper2_target_pos4
+;;;;;<;/mac>
+        elsif x == 2 then
+          if stepper1_forward then
+;;;;;            <;mac> byte4_SUB  t = stepper2_pos, _stepper2_target_pos
+      Y1 = stepper2_pos1
+      Y2 = stepper2_pos2
+      Y3 = stepper2_pos3
+      Y4 = stepper2_pos4
+      X1 = _stepper2_target_pos1
+      X2 = _stepper2_target_pos2
+      X3 = _stepper2_target_pos3
+      X4 = _stepper2_target_pos4
+      byte4_sub
+      t1 = Y1
+      t2 = Y2
+      t3 = Y3
+      t4 = Y4
+;;;;;<;/mac>
+          else
+;;;;;            <;mac> byte4_SUB  t = _stepper2_target_pos, stepper2_pos
+      Y1 = _stepper2_target_pos1
+      Y2 = _stepper2_target_pos2
+      Y3 = _stepper2_target_pos3
+      Y4 = _stepper2_target_pos4
+      X1 = stepper2_pos1
+      X2 = stepper2_pos2
+      X3 = stepper2_pos3
+      X4 = stepper2_pos4
+      byte4_sub
+      t1 = Y1
+      t2 = Y2
+      t3 = Y3
+      t4 = Y4
+;;;;;<;/mac>
+          end if
+        end if
+      else
+        if x == 0 then
+;;;;;          <;mac> byte4_assign  t = stepper1_pos
+    t1 = stepper1_pos1
+    t2 = stepper1_pos2
+    t3 = stepper1_pos3
+    t4 = stepper1_pos4
+;;;;;<;/mac>
+        elsif x == 1 then
+;;;;;          <;mac> byte4_assign  t = _stepper1_target_pos
+    t1 = _stepper1_target_pos1
+    t2 = _stepper1_target_pos2
+    t3 = _stepper1_target_pos3
+    t4 = _stepper1_target_pos4
+;;;;;<;/mac>
+        elsif x == 2 then
+          if stepper1_forward then
+;;;;;            <;mac> byte4_SUB  t = stepper1_pos, _stepper1_target_pos
+      Y1 = stepper1_pos1
+      Y2 = stepper1_pos2
+      Y3 = stepper1_pos3
+      Y4 = stepper1_pos4
+      X1 = _stepper1_target_pos1
+      X2 = _stepper1_target_pos2
+      X3 = _stepper1_target_pos3
+      X4 = _stepper1_target_pos4
+      byte4_sub
+      t1 = Y1
+      t2 = Y2
+      t3 = Y3
+      t4 = Y4
+;;;;;<;/mac>
+          else
+;;;;;            <;mac> byte4_SUB  t = _stepper1_target_pos, stepper1_pos
+      Y1 = _stepper1_target_pos1
+      Y2 = _stepper1_target_pos2
+      Y3 = _stepper1_target_pos3
+      Y4 = _stepper1_target_pos4
+      X1 = stepper1_pos1
+      X2 = stepper1_pos2
+      X3 = stepper1_pos3
+      X4 = stepper1_pos4
+      byte4_sub
+      t1 = Y1
+      t2 = Y2
+      t3 = Y3
+      t4 = Y4
+;;;;;<;/mac>
+          end if
+        end if
+      end if
+      -- enable interrupts again
+      T0IE = true
+      asynch_send_hw (t1)
+      asynch_send_hw (t2)
+      asynch_send_hw (t3)
+      asynch_send_hw (t4)
+
+    -- get current speed of both motors(timer preset value)
+    elsif x == 0x60 then
+      if stepper_Nmotors == 2 then
+        if stepper2_status != _stepper_status_stopped then
+          t1 = _stepper2_period_preset
+        else
+          t1 = 0
+        end if
+        asynch_send_hw(t1)
+      else
+        if stepper1_status != _stepper_status_stopped then
+          t1 = _stepper1_period_preset
+        else
+          t1 = 0
+        end if
+      end if
+      asynch_send_hw(t1)
+
+    -- get current status of both motors
+    elsif x == 0x61 then
+      if stepper_Nmotors == 2 then
+        t1_0 = stepper2_forward
+        t1_1 = stepper2_full_steps
+        t1_2 = stepper2_full_force_1_winding
+        t1_3 = stepper2_full_force_2_winding
+        t1_4 = stepper2_accelerate_on
+        t1_5 = _stepper2_not_decelerating
+        asynch_send_hw(t1)
+      end if
+      t1_0 = stepper1_forward
+      t1_1 = stepper1_full_steps
+      t1_2 = stepper1_full_force_1_winding
+      t1_3 = stepper1_full_force_2_winding
+      t1_4 = stepper1_accelerate_on
+      t1_5 = _stepper1_not_decelerating
+      asynch_send_hw(t1)
+
+    -- get accelaration table
+    elsif x == 0x62 then
+      asynch_send_hw(_stepper_max_speed_index)
+      asynch_send_hw(_tmr0_preset)
+      t2 = 0
+      for (_stepper_max_speed_index + 1) loop
+        stepper_acc1 (t2,t1)
+        asynch_send_hw(t1)
+        stepper_acc1N (t2,t1)
+        asynch_send_hw(t1)
+        t2 = t2 + 1
+      end loop
+
+    end if
+
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- interrupt routine to detect timeout of a asynch receive
+-- -----------------------------------------------------------------------------
+procedure _stepper_asynch_timeout is
+;;;;;<;mac> interrupt_sub _stepper_asynch_timeout, T0IF, 3
+;;;;;<;/mac>
+  if ! _asynch_read_timeout then
+    _stepper_timeout_counter = _stepper_timeout_counter + 1
+  else
+  end if
+  if _stepper_timeout_counter == 0 then
+    _asynch_read_timeout = true
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+

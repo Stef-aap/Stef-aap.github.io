@@ -1,0 +1,590 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>Fysio Flex System,  ...</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">MPT + knoppenkast
+onder NeuroPsycho</font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#FFFF00">fingertapping
+onder NeuroPsycho</font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#FFFF00">&nbsp; pnr: 010703</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><font face="Arial,Helvetica"><font color="#000000"><a href="#inleiding">Inleiding</a></font></font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Voorstudie</font></font></b></td>
+</tr>
+</table>
+
+<p><a name="inleiding"></a><b><font face="Arial,Helvetica"><font color="#000099">Inleiding&nbsp;</font></font></b><a href="#top"><img src="i|/sjabloon/algemeen/gif/top_page.gif" NOSAVE height=14 width=14></a>
+<br>Doel van deze voorstudie is te komen tot goed gedefini&euml;erde specificaties
+en test-specificaties voor het onderbrengen van de MPT in de TestOrganizer
+en het algemeen beschikbaar maken van de bijbehorende knoppenkast als extra
+invoer apparaat voor de NeuroPsychologische Testmodule. Door deze uitgebreidere
+voorstudie en meer aandacht in de definitie fase, hopen we een betere en
+duidelijker afstemming te verkijgen van elkaars verwachtingen en beter
+te kunnen voldoen aan de afgesproken levertijden.
+<br>De eerste opzet van deze specificaties zijn tot stand gekomen in een
+overleg, waarin hebben deelgenomen Ria ter Winkel, Ben Maassen, Gert van
+Voorst en Stef Mientki.
+<p>Tegelijkertijd is (via Gijs Bleijenberg) de vraag gekomen om te bekijken
+of tegelijkertijd de implementatie van een fingertapping taak binnen de
+NeuroPsychologische module kan worden gerealiseerd, omdat dit veel overeenkomsten
+met de MPT taak zou hebben. De wensen hiervan zijn in een gesprek tussenSieberen
+van der Werf en Stef Mientki naar voren gekomen.
+<p>De testspecificaties zijn slechts globaal opgenomen, daar voorkomen
+moet worden dat de ontwerper gebiased wordt. Parallel aan het ontwerp proces
+zullen de testspecificaties (door een ander dan de ontwerper) worden gedetailleerd.
+De testset zal worden bewaard, om bij de volgende uitbreidingen van het
+programma wederom te worden gebruikt, aangevuld met specifieke nieuwe testen.
+Op deze wijze kan "opwaartse compatibiliteit" beter worden gewaarborgd.
+Voor de huidige NeuroPsycho test zou eigenlijk nu nog achteraf een testset
+moet worden gemaakt. Het voorstel is om hiervoor de eerste testen ontwikkeld
+door Ben Maassen en een door de Instrumentele Dienst te ontwikkelen demo-test
+(die alle mogelijkheden toont) te gebruiken.
+<p>Omdat gebleken is dat er op de diverse plaatsen verschillende kreten
+voor gelijke begrippen worden gebruikt, is als eerste een definitie van
+de begrippen gegeven. Deze begrippen zullen vanaf nu ook in de onderlinge
+communicatie en in de handleiding van de TestOrganizer worden gebruikt.
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="definities"></a><b><font face="Arial,Helvetica"><font color="#000099">Definities&nbsp;</font></font></b><a href="#top"><img src="i|/sjabloon/algemeen/gif/top_page.gif" NOSAVE height=14 width=14></a>
+<br><font face="Arial,Helvetica"><font color="#000000">Voor patient mag
+ook proefpersoon worden gelezen.</font></font>
+<table BORDER WIDTH="100%" >
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><b><font face="Arial,Helvetica"><font color="#000099">Batterij</font></font></b></td>
+
+<td><font face="Arial,Helvetica">Een verzameling van 1 of meer Testen.</font>
+<blockquote><font face="Arial,Helvetica">Binnen de TestOrganizer kunnen
+de afzonderlijke testen binnen een batterij, conditioneel worden afgenomen,
+d.w.z. resultaten van reeds afgenomen testen binnen deze batterij kunnen
+worden gebruikt voor het al dan niet afnemen van volgende testen binnen
+deze batterij.</font></blockquote>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><b><font face="Arial,Helvetica"><font color="#000099">Test</font></font></b></td>
+
+<td><font face="Arial,Helvetica">Een verzameling van 1 of meer items.</font>
+<blockquote><font face="Arial,Helvetica">Voorbeeld: SCL-90 (bij de vragenlijst
+module)</font></blockquote>
+</td>
+</tr>
+
+<tr>
+<td><b><font face="Arial,Helvetica"><font color="#000099">Oefening</font></font></b></td>
+
+<td><font face="Arial,Helvetica">In feite een gewone test, echter er worden
+geen resultaten bewaard, bedoeld om de patient te laten wennen aan de testomgeving.</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><b><font face="Arial,Helvetica"><font color="#000099">Item</font></font></b></td>
+
+<td><font face="Arial,Helvetica">Het afzonderlijke elementen binnen een
+Test.</font>
+<blockquote><font face="Arial,Helvetica">In het algemeen, geldt dat het
+resultaat van 1 item 1 antwoord of&nbsp; resultaat oplevert.</font>
+<br><font face="Arial,Helvetica">Voorbeelden:</font>
+<br><font face="Arial,Helvetica">1 vraag binnen de vragenlijst SCL-90</font>
+<br><font face="Arial,Helvetica">1 lamp/knop combinatie binnen een MPT
+test</font></blockquote>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><b><font face="Arial,Helvetica"><font color="#000099">Itemregel</font></font></b></td>
+
+<td><font face="Arial,Helvetica">Het kleinst onderscheidbare element binnen
+1 item</font>
+<blockquote><font face="Arial,Helvetica">Voorbeeld:&nbsp;</font>
+<br><font face="Arial,Helvetica">een regel binnen een NeuroPsychologische
+Test,&nbsp;</font>
+<br><font face="Arial,Helvetica">zoals "toon rood vierkantje rechtboven"</font>
+<br><font face="Arial,Helvetica">en "wacht op een toets van het toetsenbord"</font></blockquote>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><b><font face="Arial,Helvetica"><font color="#000099">Subschaal</font></font></b></td>
+
+<td><font face="Arial,Helvetica">Een beoordelings variabele binnen 1 test,
+waarop de antwoorden van de items in deze test scoren.</font></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><b><font face="Arial,Helvetica"><font color="#000099">Norm</font></font></b></td>
+
+<td><font face="Arial,Helvetica">Een set criteria (voor 1 test), waaraan
+de afzonderlijke subschalen binnen een test moeten voldoen, om tot een
+bepaalde patient-qualificatie te komen</font></td>
+</tr>
+</table>
+
+<p><a name="mpt-taak"></a><b><font face="Arial,Helvetica"><font color="#000099">MPT-taak&nbsp;</font></font></b><a href="#top"><img src="i|/sjabloon/algemeen/gif/top_page.gif" NOSAVE height=14 width=14></a>
+<br><font face="Arial,Helvetica">De MPT taak is een reactietijd test, waarbij
+de patient zo snel mogelijk een specifieke knop moet indrukken zodra een
+bepaald lampje gaat branden. Hiervoor wordt een speciale knoppenkast gebruikt,
+met 1 centrale knop en 5 knoppen in een ruime cirkel er omheen geplaatst.
+Iedere knop bevat een lampje, dat afzonderlijk door de computer kan worden
+aangestuurd.</font>
+<br><font face="Arial,Helvetica">De moeilijkheidsgraad van de opdracht
+kan worden gevarieerd door de opdracht ingewikkelder te maken, bijvoorbeeld
+eerst "druk op de knop waarvan het lampje gaat branden" en vervolgens "druk
+op de knop 2 plaatsen links van het lampje.</font>
+<p><font face="Arial,Helvetica">Het afnemen van een <b>MPT-taak</b> bestaat
+altijd uit een vaste <b>serie testen</b>, waarbij iedere test wordt voorafgegaan
+door tenminste het 1 keer doorlopen van een <b>oefening</b>.</font>
+<br><font face="Arial,Helvetica">De testen zijn ontwikkeld voor rechtshandige
+patienten, bij <b>linkshandige</b> patienten dienen de knoppen en lampjes
+gespiegeld te worden (rondom de vertikale as).</font>
+<p><font face="Arial,Helvetica"><b><font color="#000099">Een item</font></b>
+binnen een MPT-test ziet er bijvoorbeeld als volgt uit:</font>
+<ol>
+<li>
+<font face="Arial,Helvetica">laat de lamp in de central knop branden</font></li>
+
+<li>
+<font face="Arial,Helvetica">wacht totdat de patient de centrale knop indrukt</font></li>
+
+<li>
+<font face="Arial,Helvetica">wacht een pseudo-random tijd of totdat de
+centrale knop wordt losgelaten ("EARLY")</font></li>
+
+<li>
+<font face="Arial,Helvetica">laat het lampje van de doelknop aangaan, hierop
+moet de patient zo snel mogelijk reageren door het loslaten van de centrale
+knop en het indukken van de gewenste knop</font></li>
+
+<li>
+<font face="Arial,Helvetica">wacht op het loslaten van de centrale knop</font></li>
+
+<li>
+<font face="Arial,Helvetica">wacht op het indrukken van de doelknop (of
+een andere knop, hetgeen dan weliswaar fout is, maar het einde van het
+item aangeeft)</font></li>
+</ol>
+<font face="Arial,Helvetica">Het <b><font color="#000099">resultaat van
+een item</font></b> bestaat dus uit de volgende onderdelen:</font>
+<ul>
+<li>
+<font face="Arial,Helvetica">"EARLY" als de centrale knop te vroeg is losgelaten</font></li>
+
+<li>
+<font face="Arial,Helvetica">de reactietijd benodigd voor het loslaten
+van de centrale knop</font></li>
+
+<li>
+<font face="Arial,Helvetica">"ERROR" als een andere dan de doelknop wordt
+ingedrukt</font></li>
+
+<li>
+<font face="Arial,Helvetica">de reaktietijd benodigd voor het indrukken
+van de doelknop (gerekend vanaf doellamp branden of gerekend vanaf loslaten
+centrale toets ???)</font></li>
+</ul>
+<font face="Arial,Helvetica">Van een test worden tot nu toe niet de <b><font color="#000099">ruwe
+scores bewaard</font></b>, maar worden de samengevatte resultaten bewaard,
+dit zijn:</font>
+<ul>
+<li>
+<font face="Arial,Helvetica">het aantal goede items, waarbij de correcte
+toets is ingedrukt en de centrale knop niet te vroeg is losgelaten ("GOED")</font></li>
+
+<li>
+<font face="Arial,Helvetica">het aantal items, waarbij een foute toets
+is ingedrukt ("ERROR")</font></li>
+
+<li>
+<font face="Arial,Helvetica">het aantal items, waarbij de centrale knop
+te vroeg is losgelaten ("EARLY")</font></li>
+
+<li>
+<font face="Arial,Helvetica">gemiddelde reactietijd van het loslaten van
+centrale toets (alleen over de goeden)</font></li>
+
+<li>
+<font face="Arial,Helvetica">standaard deviatie van de reactietijd van
+het loslaten van de centrale toets (alleen over de goeden)</font></li>
+
+<li>
+<font face="Arial,Helvetica">gemiddelde reactietijd (gerekend vanaf ...???)
+van het indrukken van de doeltoets (alleen over de goeden)</font></li>
+
+<li>
+<font face="Arial,Helvetica">standaard deviatie van de reaktietijd (gerekend
+vanaf ...???) van het indrukken van de doeltoets (alleen over de goeden)</font></li>
+</ul>
+
+<p><br><font face="Arial,Helvetica">Tijdens de afname van een test, worden
+de resultaten in een <b><font color="#000099">tabelvorm op het beeldscherm</font></b>
+afgebeeld. Dit is niet bedoeld voor de patient, maar voor de testleider,
+om de uitvoering van de test te volgen en zonodig de patient te instrueren.
+Ook moet de testleider de test kunnen afbreken.</font>
+<p><font face="Arial,Helvetica">In het <b><font color="#000099">patientrapport</font></b>
+worden de samengevatte resultaten van de afzonderlijke testen opgenomen.</font>
+<p><font face="Arial,Helvetica">Voor groepsonderzoek worden de samengevatte
+resultaten van een complete batterij op 1 regel weggeschreven in een voor
+<b><font color="#000099">SPSS
+leesbaar bestand</font></b>.</font>
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="specificaties knoppenkast onder de neuropsycho"></a><font face="Arial,Helvetica"><b><font color="#000099">Specificaties
+knoppenkast</font></b> onder de NeuroPsycho module van de TestOrganizer&nbsp;</font><a href="#top"><img src="i|/sjabloon/algemeen/gif/top_page.gif" NOSAVE height=14 width=14></a>
+<br><font face="Arial,Helvetica">De knoppenkast wordt als een algemeen
+invoer/stimulus apparaat toegevoegd aan de NeuroPsycho module.</font>
+<br><font face="Arial,Helvetica">Daartoe zullen de volgende type itemregels
+(welke kunnen worden gebruikt als een element van een item) worden toegevoegd</font>
+<ol>
+<li>
+<font face="Arial,Helvetica">Zet op tijdstip ... de lampen ... aan (er
+kunnen dus meerdere lampen tegelijkertijd worden aangezet)</font></li>
+
+<li>
+<font face="Arial,Helvetica">Wacht op het indrukken van toets, waarbij
+de toetsen ... (kan dus meerdere zijn) goed zijn en waarbij de overige
+toetsen fout zijn, maar wel de wachtlus be&euml;indigen</font></li>
+
+<li>
+<font face="Arial,Helvetica">Wacht een pseudo-random tijd, dit type itemregel
+bestaat reeds, maar wordt uitgebreid met de optie eveneens te stoppen (met
+een foutmelding "EARLY") als een verandering van 1 van de knoppen optreedt.</font></li>
+
+<li>
+<font face="Arial,Helvetica">Wacht op het loslaten van toets ... (slechts
+1 toets)</font></li>
+
+<li>
+<font face="Arial,Helvetica">Indien is opgegeven dat de patient linkshandig
+is, zullen alle knoppen en lampen door de software automatisch worden gespiegeld.</font></li>
+
+<li>
+<font face="Arial,Helvetica">De reactietijden worden gemeten met een nauwkeurigheid
+beter dan 10 msec</font></li>
+</ol>
+
+<p><br><a name="testmethoden knoppenkast"></a><b><font face="Arial,Helvetica"><font color="#000099">Testmethoden
+knoppenkast&nbsp;</font></font></b><a href="#top"><img src="i|/sjabloon/algemeen/gif/top_page.gif" NOSAVE height=14 width=14></a>
+<br><font face="Arial,Helvetica">Bij de eerste 5 specificaties worden een
+aantal karakteristieke patronen getest.</font>
+<br><font face="Arial,Helvetica">Testspecificatie 6 wordt gemeten middels
+een externe hulpschakeling op een standaard Pentium-II, 200 MHz (de langzaamste
+machine die momenteel nog te vinden is), gemiddelde, standaarddeviatie
+en extrema over een 100-tal metingen zal worden bepaald.</font>
+<br><font face="Arial,Helvetica">Alle uitgevoerde testen worden expliciet
+gedocumenteerd.</font>
+<br>&nbsp;
+<p><a name="specificaties mpt onder de neuropsycho module van"></a><font face="Arial,Helvetica"><b><font color="#000099">Specificaties
+MPT</font></b> onder de NeuroPsycho module van de TestOrganizer&nbsp;</font><a href="#top"><img src="i|/sjabloon/algemeen/gif/top_page.gif" NOSAVE height=14 width=14></a>
+<ol>
+<li>
+<font face="Arial,Helvetica">Het afnemen van een groep testen (tezamen
+een MPT taak geheten) wordt binnen de TestOrganizer verzorgt middels een
+batterrij. Hiervoor worden dus geen speciale extra voorzieningen aangebracht.</font></li>
+
+<li>
+<font face="Arial,Helvetica">Het voorafgaand aan een test tenminste 1-maal
+afnemen van een oefening, is eveneens reeds in de NeuroPsycho module gerealiseerd
+(huidige bug wordt opgelost).</font></li>
+
+<li>
+<font face="Arial,Helvetica">Een test of oefening kan worden afgebroken
+door de testleider</font></li>
+
+<li>
+<font face="Arial,Helvetica">De gemeten tijden worden gemeten met een nauwkeurigheid
+van beter dan 10 msec, alle resultaten worden afgerond op 10 msec (dit
+zal voor alle testelementen binnen de NeuroPsycho modulen gaan gelden)</font></li>
+
+<li>
+<font face="Arial,Helvetica">De gemeten tijden kunnen worden gemeten t.o.v.
+ieder willekeurig element (of vaste tijd vanaf het begin van het item)
+in het item. Hiertoe wordt een nieuw type itemregel toegevoegd aan de NeuroPsycho
+module: "zet de reaktieteller nu (of op een vaste tijd na de start van
+het item) op 0". Alle tijden worden vervolgens gemeten met deze reaktieteller.</font></li>
+
+<li>
+<font face="Arial,Helvetica">Tijdens de afname worden de ruwe resultaten
+in een tabel op het scherm getoond. Mogelijk dat dit een nieuw type itemregel
+oplevert, dat ook gebruikt kan worden als feedback mechanisme in andere
+NeuroPsycho tests, dit is echter geen doel op zich.</font></li>
+
+<li>
+<font face="Arial,Helvetica">De ruwe resultaten van een test (itemscore)
+worden bewaard in een gecodeerd bestand dat enkel door de TestOrganizer
+kan en mag worden benaderd.</font></li>
+
+<li>
+<font face="Arial,Helvetica">In het patient rapport worden de samengevatte
+resultaten van de afzonderlijke testen opgenomen.</font></li>
+
+<li>
+<font face="Arial,Helvetica">Middels de standaard export functie in de
+TestOrganizer kunnen op de gebruikelijke manier de samengevatte resultaten
+van groepen van patienten naar een tab-delimited (in te lezen door SPSS)
+bestand worden weggeschreven. De samengevatte resultaten van 1 MPT-taak,
+bestaande uit meerdere MPT-testen, verschijnen dus in meerder bestanden.
+De oude situatie waarbij de resultaten van alle testen binnen 1 MPT-taak
+op 1 regel worden weergegeven, wordt dus niet gerealiseerd. In feite is
+dit de al eerder gewenste "SPSS-merging" waarbij een onderzoeker kan opgeven
+welke testen van welke patienten naar SPSS worden ge&euml;xporteerd. Het
+is dus zinvoller dit als een apart item voor de gehele TestOrganizer op
+te lossen.</font></li>
+
+<li>
+<font face="Arial,Helvetica">Het ruwe resultaat van 1 item bestaat uit
+een globale beoordeling "GOED / FOUT / EARLY" en tenminste 2 reactie tijden,
+de reactietijd voor het loslaten en de reactietijd voor het indrukken.</font></li>
+
+<li>
+<font face="Arial,Helvetica">Er wordt geen automatisch vertaalprogramma
+gemaakt, om oude testen automatisch te vertalen. Oude testen worden bij
+de start van het project verzameld door Medische Psychologie en door de
+Instrumentele Dienst 1-malig vertaald naar testen die door de NeuroPsycho
+module kunnen worden verwerkt. Testen worden in een gecodeerde vorm opgeslagen
+in een bestand en kunnen alleen ingevoerd en/of gewijzigd worden middels
+de NeuroPsycho module van de TestOrganizer.</font></li>
+
+<li>
+<font face="Arial,Helvetica">Er zal geen import functie komen voor het
+importeren van oude MPT testresultaten in de TestOrganizer</font></li>
+</ol>
+
+<p><br><a name="resterende onduidelijkheden mpt"></a><font face="Arial,Helvetica">Resterende
+<b><font color="#000099">onduidelijkheden
+MPT&nbsp;</font></b></font><a href="#top"><img src="i|/sjabloon/algemeen/gif/top_page.gif" NOSAVE height=14 width=14></a>
+<ul>
+<li>
+<font face="Arial,Helvetica">Het startpunt van de reactietijdmeting is
+niet bekend (dit is enkel van belang voor het vertalenvan de oude testen,
+omdat voor nieuwe testen ieder willekeurig startmoment kan worden genomen)</font></li>
+
+<li>
+<font face="Arial,Helvetica">getals notatie in Nederlandse of Angel-Saksische
+notatie ?? Ons voorstel is Angel-Saksich, immers in wetenschappelijke artikelen
+is dit de enige toegepaste methode.</font></li>
+</ul>
+
+<p><br><a name="testmethoden mpt"></a><b><font face="Arial,Helvetica"><font color="#000099">Testmethoden
+MPT&nbsp;</font></font></b><a href="#top"><img src="i|/sjabloon/algemeen/gif/top_page.gif" NOSAVE height=14 width=14></a>
+<ul>
+<li>
+<font face="Arial,Helvetica"><font color="#000000">alle specificatie worden
+doorlopen en expliciet gedocumenteerd</font></font></li>
+
+<li>
+<font face="Arial,Helvetica"><font color="#000000">er wordt een demo-test
+gemaakt, waarin alle nieuwe mogelijkheden van de NeuroPsycho test worden
+getoond</font></font></li>
+
+<li>
+<font face="Arial,Helvetica"><font color="#000000">Alle oude testen worden
+na vertaling getest</font></font></li>
+
+<li>
+<font face="Arial,Helvetica"><font color="#000000">scherm lay-outs worden
+voorgelegd aan Ria ter Winkel</font></font></li>
+
+<li>
+<font face="Arial,Helvetica"><font color="#000000">SPSS export wordt getest
+in SPSS-versie-10</font></font></li>
+</ul>
+
+<p><br><a name="specificaties fingertapping test onder de"></a><font face="Arial,Helvetica"><b><font color="#000099">Specificaties
+fingertapping</font></b> test onder de NeuroPsycho module van de TestOrganizer&nbsp;</font><a href="#top"><img src="i|/sjabloon/algemeen/gif/top_page.gif" NOSAVE height=14 width=14></a>
+<br><font face="Arial,Helvetica">Bij de fingertapping taak wordt aan de
+patient de opdracht gegegeven, om in bijvoorbeeld 30 seconden, zo vaak
+mogelijk een bepaalde toets in te drukken. Een test bestaat dan uit enkele
+van dit soort opdrachten, in het algemeen zowel voor de dominante als de
+niet-dominante hand. Het doel is te bekijken hoe het verloop van de snelheid
+is als functie van de tijd. Het gewenste resultaat van 1 item zou moeten
+bestaan uit zowel de statistische gegevens over dit item, en alle ruwe
+interval tijden. Eventueel nog aangevuld met gemiddelden en standard deviation
+over segmenten van bijvoorbeeld 3..5 seconden. Liefst nog aangevuld met
+een grafische weergave van de interval-tijd als functie van de tijd.</font>
+<br><font face="Arial,Helvetica">Als feedback (tijdens de testafname) zou
+voor de testleider de gegevens over de 3 seconden segmenten als getallen
+of grafisch zichtbaar moeten zijn.</font>
+<p><font face="Arial,Helvetica">De wezenlijke verschillen met de huidige
+NeuroPsycho mogelijkheden zijn</font>
+<ul>
+<li>
+<font face="Arial,Helvetica">1 item geeft veel uitkomsten</font></li>
+
+<li>
+<font face="Arial,Helvetica">er is feedback noodzakelijk</font></li>
+
+<li>
+<font face="Arial,Helvetica">gemiddelde en standaard deviatie moeten berekend
+worden per item , i.p.v per test.</font></li>
+
+<li>
+<font face="Arial,Helvetica">ruwe meetresultaten moeten kunnen worden ge&euml;xporteerd</font></li>
+</ul>
+
+<p><br><a name="testmethoden fingertapping"></a><b><font face="Arial,Helvetica"><font color="#000099">Testmethoden
+fingertapping&nbsp;</font></font></b><a href="#top"><img src="i|/sjabloon/algemeen/gif/top_page.gif" NOSAVE height=14 width=14></a>
+<br><font face="Arial,Helvetica">Alle uitgevoerde testen worden expliciet
+gedocumenteerd.</font>
+<br>&nbsp;
+<br>&nbsp;
+<p><a name="uitbreidingen neuropsycho als gevolg mpt"></a><b><font color="#000099">Uitbreidingen
+NeuroPsycho als gevolg MPT en fingertapping</font></b>
+<br><font face="Arial,Helvetica">Naast een ander opslag, noodzakelijk om
+meerdere resultaten per item te kunnen opslaan,&nbsp; worden de volgende
+(algemeen toepasbare) type itemregels aan de NeuroPsycho module toegevoegd:</font>
+<br><font face="Arial,Helvetica"></font>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica"><font color="#000099">Het nieuwe
+type itemregel</font></font></b></center>
+</td>
+
+<td><b><font face="Arial,Helvetica"><font color="#000099">De instelbare
+variabelen</font></font></b></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial,Helvetica"><font color="#000099">zet lampen op
+knoppenkast aan/uit</font></font></b></td>
+
+<td><font face="Arial,Helvetica">begin tijdstip</font>
+<br><font face="Arial,Helvetica">eind tijdstip</font>
+<br><font face="Arial,Helvetica">van iedere lamp of hij aan of uit moet
+zijn</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial,Helvetica"><font color="#000099">wacht op het
+indrukken van een toets op de knoppenkast</font></font></b></td>
+
+<td><font face="Arial,Helvetica">begin tijdstip</font>
+<br><font face="Arial,Helvetica">gewenste toets(en)</font>
+<br><font face="Arial,Helvetica">maximale respons tijd</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial,Helvetica"><font color="#000099">wacht op loslaten
+van een toets op de knoppenkast</font></font></b></td>
+
+<td><font face="Arial,Helvetica">begin tijdstip</font>
+<br><font face="Arial,Helvetica">betreffende toets</font>
+<br><font face="Arial,Helvetica">maximale responstijd</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial,Helvetica"><font color="#000099">wacht bepaalde
+tijd&nbsp;</font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#000099">en stop ook als
+de toestand van een van de knoppen van de knoppenkast wijzigt</font></font></b></td>
+
+<td><font face="Arial,Helvetica">tijdsduur</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial,Helvetica"><font color="#000099">reset reactietijd-teller</font></font></b><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica">(om oude NeuroPsycho testen gewoon te laten
+werken, wordt de reactieteller standaard aan het begin van ieder item gereset,
+daarnaast zullen een aantal reeds aanwezige "wacht op event" commando's
+eveneens de reactietijd-teller resetten, m.a.w. alle oude NeuroPsycho toetsen
+blijven normaal werken)</font></td>
+
+<td><font face="Arial,Helvetica">begin tijdstip</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial,Helvetica"><font color="#000099">start display
+memo</font></font></b><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica">(het memo wordt bovenop alle andere items
+getoond, zodat het altijd zichtbaar is, itemregels kunnen hun resultaat
+aan het memo toevoegen. Belangrijk biezonderheid is dat het memo over meerdere
+items kan bestaan, zelfs de gehele test)</font></td>
+
+<td><font face="Arial,Helvetica">begin tijdstip</font>
+<br><font face="Arial,Helvetica">achtergrond kleur</font>
+<br><font face="Arial,Helvetica">letterfont</font>
+<br><font face="Arial,Helvetica">positie en grootte op het scherm</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial,Helvetica"><font color="#000099">stop display
+memo</font></font></b></td>
+
+<td><font face="Arial,Helvetica">begin tijdstip</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica"></font></td>
+
+<td><font face="Arial,Helvetica"></font></td>
+</tr>
+
+<tr>
+<td COLSPAN="2">
+<center><b><font face="Arial,Helvetica"><font color="#000099">Uitbreidingen
+type itemregels noodzakelijk voor fingertapping</font></font></b></center>
+</td>
+</tr>
+
+<tr>
+<td><b><font face="Arial,Helvetica"><font color="#000099">fingertapping</font></font></b><font face="Arial,Helvetica"></font>
+<p><font face="Arial,Helvetica">(de fingertapping itemregel type signaleert
+enkel de toestaanslagen van de gewenste toets. Over de ingestelde subperiode
+wordt het resultaat naar het memo verzonden (indien aanwezig) aan het eind
+van de itemregel wordt het totale resultaat vermeld in het memo)</font>
+<br><font face="Arial,Helvetica">Een item met fingertapping zou er als
+volgt uit kunnen zien, ten opzichte van de MPT wordt er slechts 1 object
+aan de itemtypes toegevoegd.</font>
+<blockquote><font face="Arial,Helvetica">= start display memo</font>
+<br><font face="Arial,Helvetica">= wacht op "enter" van toetsenbord (start
+door de testleider)</font>
+<br><font face="Arial,Helvetica">= toon een groen vierkant op het beeldscherm
+(ten teken aan de patient)</font>
+<br><font face="Arial,Helvetica">= <b><font color="#000099">doe tapping</font></b>,
+21 seconden, met subperiode van 3 sec, op middentoets met dominante hand
+(in feite gelijk aan een wachtlus, tussen resultaten worden getoond in
+memo)</font>
+<br><font face="Arial,Helvetica">= toon een rood vierkant teneinde de test
+klaar is</font>
+<br><font face="Arial,Helvetica">= einde item</font></blockquote>
+<font face="Arial,Helvetica">Bij tapping moet echter met name nog naar
+de opslag van de grote hoeveelheid resultaten per item gekeken worden.</font></td>
+
+<td><font face="Arial,Helvetica">duur van het item</font>
+<br><font face="Arial,Helvetica">dominant / niet-dominant</font>
+<br><font face="Arial,Helvetica">duur van een subperiode</font>
+<br><font face="Arial,Helvetica">gewenste toets</font></td>
+</tr>
+</table>
+<font face="Arial,Helvetica"></font>
+<br><font face="Arial,Helvetica"></font>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p>
+<hr WIDTH="100%"><font size=-2>&copy; Copyright Instrumentele Dienst, 2001</font>
+<br><a href="mailto:id.postbus@ids.kun.nl"><img src="i|/sjabloon/algemeen/gif/mail.gif" NOSAVE height=18 width=29></a><font size=-2>
+SM, last updated 19-02-2001&nbsp;</font><a href="#top"><img src="i|/sjabloon/algemeen/gif/top_page.gif" NOSAVE height=14 width=14></a>
+</body>
+</html>

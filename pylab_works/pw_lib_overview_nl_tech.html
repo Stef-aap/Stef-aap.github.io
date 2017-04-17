@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+  <html><head><title>GUI Controls</title>
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <style type="text/css"><!--
+  body {
+    margin: 5px 5px 5px 5px;
+    background-color: #ffffd4; )
+  }
+  --></style>
+  <link type="text/css" href="rvf.css" rel="stylesheet">
+
+  <body>
+  <p><span class=rvts1>Bibliotheek Overzicht&nbsp; </span>
+     <img width=32 height=32 alt="" src="vippi_bricks_323.png"></p>
+  <p>Gegenereerd op 2008-07-18,&nbsp;&nbsp;&nbsp;&nbsp; taal = NL,&nbsp;&nbsp;&nbsp;&nbsp; switches = Technical</p>
+  <p>Dit overzicht is automatisch gegenereerd door PyLab_Works vanuit de locale bron bestanden.</p>
+  <p><br></p>
+  <hr noshade size=1>
+  <p><span class=rvts2>Bibliotheek Bestanden</span>&nbsp;&nbsp;&nbsp;&nbsp;(Beschikbare Talen)</p><p>&nbsp;&nbsp;&nbsp;&nbsp; brick_Electronics&nbsp;&nbsp;&nbsp;&nbsp;  ( US )</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; brick_Image_Processing&nbsp;&nbsp;&nbsp;&nbsp;  ( US )</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; brick_Math&nbsp;&nbsp;&nbsp;&nbsp;  ( US, NL )</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; brick_Media&nbsp;&nbsp;&nbsp;&nbsp;  ( US, NL )</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; brick_Plotting&nbsp;&nbsp;&nbsp;&nbsp;  ( US, NL )</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; brick_Python&nbsp;&nbsp;&nbsp;&nbsp;  ( US )</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; brick_Shapes&nbsp;&nbsp;&nbsp;&nbsp;  ( US )</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; brick_dBase&nbsp;&nbsp;&nbsp;&nbsp;  ( US )</p>
+<p><br></p><hr noshade size=1>  <p><span class=rvts2>IO-Types</span></p><p>Number must still be changed to real type "TIO_NUMBER" </p><p>&nbsp;&nbsp;&nbsp;&nbsp;0 : Number</p><p>&nbsp;&nbsp;&nbsp;&nbsp;1 : List</p><p>&nbsp;&nbsp;&nbsp;&nbsp;2 : Array</p><p>&nbsp;&nbsp;&nbsp;&nbsp;3 : wx.Image</p><p>&nbsp;&nbsp;&nbsp;&nbsp;4 : CallBack</p><p>&nbsp;&nbsp;&nbsp;&nbsp;5 : String / StringList</p><p>&nbsp;&nbsp;&nbsp;&nbsp;6 : TreeList</p><p>&nbsp;&nbsp;&nbsp;&nbsp;7 : GridData</p><p><br></p><hr noshade size=1>  <p><span class=rvts2>GUI Controls</span></p><p>&nbsp;&nbsp;&nbsp;&nbsp; - Still to Implement</p><p><br></p>
+  <p><span class=rvts2><hr noshade size=1>brick_Electronics</span></p><p> Icon = people-581.png</p><p> Color = (180, 180, 50, 255)</p><p><br></p>
+  <p><span class=rvts2>Switch_Single</span></p>
+<p>One Pole Switch</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Output, (If the Switch is down, connection is made between Input and Output.), Number</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Button</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>LED</span></p>
+<p>Displays a LED</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Current In, type = Number, Required</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - LED</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2><hr noshade size=1>brick_Image_Processing</span></p><p>This is the description of the complete library.
+Line 2 of ... </p><p> Icon = camera_edit.png</p><p> Color = (50, 180, 180, 255)</p><p><br></p>
+  <p><span class=rvts2>Read</span></p>
+<p>Reads an image from a file.
+Images of the following types are accepted:
+ANI, BMP, CUR, GIF, ICO, IFF, JPG, PCX, PNG, PNM, TIF, XPM </p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Image, (Image read from the file.), wx.Image</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Open File Dialog ( including ODBC databases )</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Rotate</span></p>
+<p>Rotates an Image counter clockwise.
+The rotation angle (in degrees) and the interpolation are either taken from
+the internal GUI controls, or from the external signals,
+whichever has been changed last.</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Image, (Accepts images of the type wx.Image:
+), type = wx.Image, Required</p><p> &nbsp; &nbsp; - Rotation [degrees], (The rotation angle is taken modulo 360 degrees.
+If this input signal is not present,
+the rotation angle is taken from  the internal GUI.), type = Number</p><p> &nbsp; &nbsp; - Interpolation, (If False, faster calculation,
+If True, better quality.), type = Number</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Image, (Rotated image in the same format as the input.), wx.Image</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Multiple Slider ( also float / log scale </p><p> &nbsp; &nbsp; - Radiobox ( also multi-column )</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Show</span></p>
+<p>Shows the image at input[1]</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Image In, type = wx.Image, Required</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Image</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2><hr noshade size=1>brick_Math</span></p><p>Bibliotheek met basis rekenfuncties</p><p> Icon = brick_math_icon.PNG</p><p> Color = (200, 0, 200, 255)</p><p><br></p>
+  <p><span class=rvts2>addition</span></p>
+<p>Telt 2 getallen bij elkaar op</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Eerste getal, type = Number</p><p> &nbsp; &nbsp; - Tweede getal, type = Number</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Som, Number</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Numeric_Display</span></p>
+<p>Toont een getal</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Weer te geven getal, type = Number</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Numerical Display</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Numeric_Control</span></p>
+<p>De gebruiker kan hier een getal invullen</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Getal, Number</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - simple Edit box</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2><hr noshade size=1>brick_Media</span></p><p>Media Library.
+Line 2 of ... </p><p> Icon = camera_edit.png</p><p> Color = (250, 150, 90, 255)</p><p><br></p>
+  <p><span class=rvts2>Play_Sound</span></p>
+<p>Plays a wav file</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - FileName or Stream, type = Array, Required</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Multiple Slider ( also float / log scale </p><p> &nbsp; &nbsp; - Button</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2><hr noshade size=1>brick_Plotting</span></p><p>This is the description of the complete library.
+Line 2 of ... </p><p> Icon = camera_edit.png</p><p> Color = (250, 150, 90, 255)</p><p><br></p>
+  <p><span class=rvts2>HTML</span></p>
+<p>Toont een HTML pagina.</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - HTML</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>MatPlot_2D</span></p>
+<p>Shows the image at input[1]</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Signal 1, type = Array, Required</p><p> &nbsp; &nbsp; - Signal 2, type = Array</p><p> &nbsp; &nbsp; - Signal 3, type = Array</p><p> &nbsp; &nbsp; - Signal 4, type = Array</p><p> &nbsp; &nbsp; - Signal 5, type = Array</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - MatPlot</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>PyPlot_XT</span></p>
+<p>No description available</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Signal 1, type = Array, Required</p><p> &nbsp; &nbsp; - Signal 2, type = Array</p><p> &nbsp; &nbsp; - Signal 3, type = Array</p><p> &nbsp; &nbsp; - Signal 4, type = Array</p><p> &nbsp; &nbsp; - Signal 5, type = Array</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - PyPlot</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Scene_2D</span></p>
+<p>No description available</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Signaal - 1, type = String / StringList, Required</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - 2D Scene</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>PyPlot_Signal</span></p>
+<p>No description available</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Signal, type = Array, Required</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Signal + Parameters, Array</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - simple Edit box</p><p> &nbsp; &nbsp; - Color Picker</p><p> &nbsp; &nbsp; - Spin Button</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Generator</span></p>
+<p>Generator as used in electronics workplaces.
+Generates a signal 100 samples ???
+All basic signals have a separate output.
+The frequency, duty-cycle, amplitude and offset can be either
+be set by a control or by an input signal (for modulation),
+and apply to all output signals.</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Frequency [Hz], (Can be used for frequency modulation (FM)), type = Number</p><p> &nbsp; &nbsp; - Amplitude [V], (Can be used for amplitude modulation (AM)), type = Number</p><p> &nbsp; &nbsp; - Offset [V], type = Number</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Sine Wave, Array</p><p> &nbsp; &nbsp; - Square Wave, Array</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Multiple Slider ( also float / log scale </p><p> &nbsp; &nbsp; - Radiobox ( also multi-column )</p><p> &nbsp; &nbsp; - Multiple Slider ( also float / log scale </p><p> &nbsp; &nbsp; - Multiple Slider ( also float / log scale </p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>ADC</span></p>
+<p>AD converter,
+supports several AD converters (works only under Windows).</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Start/Stop, (Can be used to start/stop the ADC immediately), type = CallBack</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Signals, Array</p><p> &nbsp; &nbsp; - Signal Names, Array</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - ADC</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>BP_Analysis</span></p>
+<p>Rotates an Image counter clockwise.
+The rotation angle (in degrees) and the interpolation are either taken from
+the internal GUI controls, or from the external signals,
+whichever has been changed last.</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Raw Bloodpressure, (Accepts a single bloodpressure signal
+or a multi channel Signal.), type = Array, Required</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Analyzed Signals, (PDias, MAP, PSys, HR, RR-interval, Onset_Dias), Array</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Spin Button</p><p> &nbsp; &nbsp; - Multiple Slider ( also float / log scale </p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Scope_Display</span></p>
+<p>No description available</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Signals 1, (Signalen die op de oscilloscoop worden weergegeven.), type = Array, Required</p><p> &nbsp; &nbsp; - Signals 2, (Signalen die op de oscilloscoop worden weergegeven.), type = Array</p><p> &nbsp; &nbsp; - Signals 3, (Signalen die op de oscilloscoop worden weergegeven.), type = Array</p><p> &nbsp; &nbsp; - Signals 4, (Signalen die op de oscilloscoop worden weergegeven.), type = Array</p><p> &nbsp; &nbsp; - Signals 5, (Signalen die op de oscilloscoop worden weergegeven.), type = Array</p><p> &nbsp; &nbsp; - Signals 6, (Signalen die op de oscilloscoop worden weergegeven.), type = Array</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Start / Stop, (Kan gebruikt worden om een AD converter te besturen.), CallBack</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - ScopePlot</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Scope_Hist_Display</span></p>
+<p>No description available</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Signalen1, (Signalen die op de oscilloscoop worden weergegeven.), type = Array, Required</p><p> &nbsp; &nbsp; - Signalen2, (Signalen die op de oscilloscoop worden weergegeven.), type = Array</p><p> &nbsp; &nbsp; - Signalen3, (Signalen die op de oscilloscoop worden weergegeven.), type = Array</p><p> &nbsp; &nbsp; - Signalen4, (Signalen die op de oscilloscoop worden weergegeven.), type = Array</p><p> &nbsp; &nbsp; - Signalen5, (Signalen die op de oscilloscoop worden weergegeven.), type = Array</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Scope History</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Code_Editor</span></p>
+<p>"""Scintilla Code Editor."""</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - IN[1], type = Number</p><p> &nbsp; &nbsp; - IN[2], type = Number</p><p> &nbsp; &nbsp; - IN[3], type = Number</p><p> &nbsp; &nbsp; - All IN, type = List</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - OUT[1], Array</p><p> &nbsp; &nbsp; - OUT[2], Array</p><p> &nbsp; &nbsp; - OUT[3], Array</p><p> &nbsp; &nbsp; - OUT[4], Array</p><p> &nbsp; &nbsp; - OUT[5], String / StringList</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Code Editor (Scintilla)</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Signal_Workbench</span></p>
+<p>Signal WorkBench.
+bla bla ... </p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - IN[1], type = Number</p><p> &nbsp; &nbsp; - IN[2], type = Number</p><p> &nbsp; &nbsp; - IN[3], type = Number</p><p> &nbsp; &nbsp; - All IN, type = List</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - OUT[1], Array</p><p> &nbsp; &nbsp; - OUT[2], Array</p><p> &nbsp; &nbsp; - OUT[3], Array</p><p> &nbsp; &nbsp; - OUT[4], Array</p><p> &nbsp; &nbsp; - OUT[5], Array</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Signal WorkBench</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>STD_Viewer</span></p>
+<p>Can catch stdout and/or stderr messages,
+settings can be toggled</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - StdOut / StdErr Viewer</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Code_Slider</span></p>
+<p>Sliders for Code Generator.</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Slider Value 1, Number</p><p> &nbsp; &nbsp; - Slider Value 2, Number</p><p> &nbsp; &nbsp; - Slider Value 3, Number</p><p> &nbsp; &nbsp; - All Sliders, List</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Multiple Slider ( also float / log scale </p><p> &nbsp; &nbsp; - Multiple Slider ( also float / log scale </p><p> &nbsp; &nbsp; - Multiple Slider ( also float / log scale </p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Read_Sound</span></p>
+<p>Reads an image from a file.
+Images of the following types are accepted:
+ANI, BMP, CUR, GIF, ICO, IFF, JPG, PCX, PNG, PNM, TIF, XPM </p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Bestandsnaam, (Het plaatje), Array</p><p> &nbsp; &nbsp; - Geluid, (Het geluidsfragment), Array</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Open File Dialog ( including ODBC databases )</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Input_Selector</span></p>
+<p>Keuze schakelaar</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - IN[1], type = Array, Required</p><p> &nbsp; &nbsp; - IN[2], type = Array</p><p> &nbsp; &nbsp; - IN[3], type = Array</p><p> &nbsp; &nbsp; - IN[4], type = Array</p><p> &nbsp; &nbsp; - IN[5], type = Array</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Geselecteerd Signaal, (Het geselecteerde signaal dat op de uitgang zal worden geplaatst.), Array</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Spin Button</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>_Play_Sound</span></p>
+<p>Plays a wav file</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - FileName or Stream, type = Array, Required</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Multiple Slider ( also float / log scale </p><p> &nbsp; &nbsp; - Button</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>BTC</span></p>
+<p>BTC is een ...</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Input Stream, type = Array, Required</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Output_Stream, Array</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - simple Edit box</p><p> &nbsp; &nbsp; - simple Edit box</p><p> &nbsp; &nbsp; - simple Edit box</p><p> &nbsp; &nbsp; - simple Edit box</p><p> &nbsp; &nbsp; - Button</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2><hr noshade size=1>brick_Python</span></p><p> Icon = python.png</p><p> Color = (180, 50, 180, 255)</p><p><br></p>
+  <p><span class=rvts2>For_Loop</span></p>
+<p>Basic Python Syntax</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Start Value, type = Number</p><p> &nbsp; &nbsp; - End Value, type = Number</p><p> &nbsp; &nbsp; - Step Size, type = Number</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Current Value, Number</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Static Text</p><p> &nbsp; &nbsp; - Spin Button</p><p> &nbsp; &nbsp; - Spin Button</p><p> &nbsp; &nbsp; - Spin Button</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>dummy1</span></p>
+<p>No description available</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>dummy2</span></p>
+<p>No description available</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>dummy3</span></p>
+<p>No description available</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2><hr noshade size=1>brick_Shapes</span></p><p><br></p>
+  <p><span class=rvts2>Simplest</span></p>
+<p>No description available</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>Rectangle</span></p>
+<p>No description available</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2><hr noshade size=1>brick_dBase</span></p><p> Icon = camera_edit.png</p><p> Color = (200, 80, 180, 255)</p><p><br></p>
+  <p><span class=rvts2>dBase</span></p>
+<p>Reads an image from a file.
+Images of the following types are accepted:
+ANI, BMP, CUR, GIF, ICO, IFF, JPG, PCX, PNG, PNM, TIF, XPM </p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - SQL, (SQL query), type = String / StringList</p><p> &nbsp; &nbsp; - SQL, (SQL query), type = String / StringList</p><p> &nbsp; &nbsp; - SQL, (SQL query), type = String / StringList</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Meta Data, (Tables, Views, etc), TreeList</p><p> &nbsp; &nbsp; - Data, (Data result form the SQL query), GridData</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Radiobox ( also multi-column )</p><p> &nbsp; &nbsp; - Open File Dialog ( including ODBC databases )</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>dB_Tree</span></p>
+<p>Reads an image from a file </p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Tree Elements, (Might be nested list, ....), type = TreeList</p><p><span class=rvts3>Uitgangen : </span></p><p> &nbsp; &nbsp; - Data, (Data of Tables, Views, etc), String / StringList</p><p> &nbsp; &nbsp; - MetaData, (Data of Tables, Views, etc), GridData</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Tree</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p><p><br></p>
+  <p><span class=rvts2>dB_Grid</span></p>
+<p>No description available</p><p><span class=rvts3>Ingangen : </span></p><p> &nbsp; &nbsp; - Grid Elements, type = GridData, Required</p><p><span class=rvts3>GUI Controls : </span></p><p> &nbsp; &nbsp; - Grid</p><p><span class=rvts3>Methods : </span></p><p> &nbsp; &nbsp; - Generate_Output_Signals</p></body></html>

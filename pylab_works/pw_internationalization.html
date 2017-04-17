@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>PyLab Works, Internationalization</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>april 2008</span></p>
+<p><span class=rvts1>Internationalization </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts1>&nbsp; </span></p>
+<p><br></p>
+<p>Application Designer / <span class=rvts10>Domain Expert</span> / Control Designer / Core Developer</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>As text is an important factor in presenting domain knowledge, internationalization is of great importance. The standard way of implementing internationalization (in wxPython) is the use of Il8N, Il10N. After downloading the manual I was surprised how complex it was (200 page manual). As "simplicity" goes before "perfect" in my designs, I developed a much simpler way, not as perfect as Il8N, Il10N, but good enough and much simpler. There's even a big disadvantage in using Il8N, Il10N, as the source string is stored as the key of the database, changing the source string will make it unfindable for all other languages. It's not necessary to write the texts in a source file in US-English (the default standard), but you can write texts in any language, as long as you use only one language per file / module.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>History</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=1 valign=top><br>
+</td>
+<td width=755 valign=top>
+<p class=rvps2><span class=rvts2>Future Ideas</span></p>
+</td>
+<td width=1 valign=top><br>
+</td>
+</tr>
+</table>
+</div>
+<p><img width=13 height=13 alt="" src="pw_download_history_img2.gif">&nbsp; <span class=rvts3>new:</span> selecting a second preferred language, that will be invoked it the primary language string can not be found. </p>
+<p><img width=13 height=13 alt="" src="pw_download_history_img2.gif">&nbsp; <span class=rvts3>improvement:</span> available languages should not be stored in language_support </p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=1 valign=top><br>
+</td>
+<td width=755 valign=top>
+<p class=rvps2><span class=rvts2>V1.1&nbsp; released 18-07-2008</span></p>
+</td>
+<td width=1 valign=top><br>
+</td>
+</tr>
+</table>
+</div>
+<p><img width=13 height=13 alt="" src="pw_download_history_img2.gif">&nbsp; <span class=rvts3>improvement:</span> Translation through Babel Fish done with LXML instead of BeatifulSoup </p>
+<p><img width=13 height=13 alt="" src="pw_download_history_img2.gif">&nbsp; <span class=rvts3>improvement:</span> Translation moved to a separate thread</p>
+<p><img width=13 height=13 alt="" src="pw_download_history_img2.gif">&nbsp; <span class=rvts3>improvement:</span> Autocompletion in translation disabled</p>
+<p><img width=13 height=13 alt="" src="pw_download_history_img2.gif">&nbsp; <span class=rvts3>improvement:</span> Sources and Babel Fish follows Translation, also when navigation with keyboard</p>
+<p><img width=13 height=13 alt="" src="pw_download_history_img2.gif">&nbsp; <span class=rvts3>improvement:</span> Keywords in Translation editor cleared</p>
+<p><img width=13 height=13 alt="" src="pw_download_history_img2.gif">&nbsp; <span class=rvts3>bugfix:</span> Tripple quoted strings on more lines were not correctly read / written</p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=1 valign=top><br>
+</td>
+<td width=755 valign=top>
+<p class=rvps2><span class=rvts2>V1.0&nbsp; released 10-04-2008</span></p>
+</td>
+<td width=1 valign=top><br>
+</td>
+</tr>
+</table>
+</div>
+<p><img width=13 height=13 alt="" src="pw_download_history_img2.gif">&nbsp; <span class=rvts3>orginal release</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Cookbook</span></p>
+<p>There's just one thing to remember: just wrap every string in a function call to underscore, with an extra first parameter of zero. So instead of writing:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <span class=rvts10>print&nbsp; "helllo"</span></p>
+<p><br></p>
+<p>write:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp; <span class=rvts10>print&nbsp;&nbsp; _(0, "hello" )</span></p>
+<p><br></p>
+<p>Now PyLab_Works will try to find a translation in the selected language, if not found the original text is used. Translations that are not found, are logged in a log-file. PyLab_Works will also replace the zero with an unique integer number that serves as a reference for the other languages.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Translation Tool</span></p>
+<p>With the Translation tool it's easy to make a&nbsp; translation of the strings in one or more files, and also to test the original files for strings and see if these strings are made multi-lingual.</p>
+<p><br></p>
+<p>After opening a Python source-file, the source file is loaded in the top editor, and the translated strings are displayed in the bottom editor. The 2 editors are synchronized, so selecting a line in the translation editor, will show the source string highlighted in the top editor. All strings in the source editor will have a gray background color, so you can easily find strings that are not multi-lingual and modify them into multi-lingual strings. At the bottom are a series of buttons, which will only be enabled if meaningful in that situation. The statusbar displays the state of the translation ( Conflicts Detected / Zeros Found / Translation ), and the modifications of source file and translated strings. As far as possible, changed files are automatically saved.</p>
+<p>The language button will popup a list of all available languages (except "US", because that's the base language. If the desired language is not listed, just add the language in the file language_support.py, to </p>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=325 height=25 alt="" src="pw_internationalization_img10.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=556 height=459 alt="" src="pw_internationalization_img5.png"></p>
+<p><br></p>
+<p>The first action after opening a source file the sourcefile is checked for conflicts, i.e. multi-lingual strings that are different and have the same ID-nr (unequal zero). The conflicts (probably introduced by copy and paste) can't be solved automatically, because the program can't judge which of the 2 strings is the oldest, and therefor may have already translations to other languages. After solving the conflicts, by changing one or more of the conflicting string IDs into "0", press the "Save Source" button, so the source will be saved and the source file will be automatically rechecked.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=556 height=459 alt="" src="pw_internationalization_img6.png"></p>
+<p><br></p>
+<p>The next the program performs is the presence of zero IDs. If found they are listed in the second editor and the renumber buttons become available. In general you will press "Auto Number Zeros", which will fill all zero IDs with a unique number, save the modified source file and start a recheck (which of course is OK now).</p>
+<p>There is also a possibility, to renumber all multi-ligual strings in the source file, so all strings get an ordered number. But if there are already translations of this source file, they are all lost !! Therefor this action is protected by a confirmation question.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=552 height=457 alt="" src="pw_internationalization_img8.png"></p>
+<p><br></p>
+<p>After conflicts and zeros are solved the translation will be loaded. Now just edit all the translation strings.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=555 height=450 alt="" src="pw_internationalization_img9.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Behind the scenes</span></p>
+<p>Here is the state machine, used to create the program.</p>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=619 height=635 alt="" src="pw_internationalization_img2.png"></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

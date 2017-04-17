@@ -1,0 +1,94 @@
+-- -----------------------------------------------------------------------------
+-- demo program to shows the use of sound and music routines
+-- Author : Stef Mientki
+-- Version: 1.0  11-04-2002  orginal release
+-- -----------------------------------------------------------------------------
+
+include 16F628_defs
+include delay_20mc
+include play_music1_ins
+
+
+pin_a0_direction = output
+var byte demo = 0
+sound_pause = 0
+
+forever loop
+    play_music_mode_interrupt = false
+    play_song
+        pin_a0 = ! pin_a0        -- show user song is playing
+
+;for 10 loop
+;    play_tone_and_wait ( 40 , 255 )
+;end loop
+
+;    play_music_mode_interrupt = true
+;    play_song
+;    while song_playing loop
+;        pin_a0 = ! pin_a0        -- show user song is playing
+;    end loop
+    delay_100ms (50)
+end loop
+-- -----------------------------------------------------------------------------
+-- MAIN PROGRAM LOOP
+-- -----------------------------------------------------------------------------
+forever loop
+
+  -- DEMO-0 plays a song in non interrupted mode
+  if demo == 0 then
+    play_music_mode_interrupt = false
+    play_song
+
+
+  -- DEMO-1 plays a song in interrupted mode
+  -- while playing the song, a LED on RA0 is toggled
+  elsif demo == 1 then
+    play_music_mode_interrupt = true
+    play_song
+    while song_playing loop
+        pin_a0 = ! pin_a0        -- show user song is playing
+    end loop
+
+
+  -- DEMO-2 plays a number of songs in non interrupted mode
+  -- for songs which can be divided into couplets,
+  -- non-interrupted mode is somewhat more easier
+  elsif demo == 2 then
+    play_music_mode_interrupt = false
+    for 2 loop play_tune ( 0 ) end loop
+    play_tune ( 1 )
+    for 2 loop play_tune ( 2 ) end loop
+    play_tune ( 3 )
+
+  -- DEMO-3 plays 1 fixed tone and waits till it finished
+  else
+    play_tone_and_wait ( 40 , 100 )
+
+  end if
+
+  -- goto the next demo, after 3 seconds
+  demo = demo + 1
+  demo = demo & 3
+  delay_100ms ( 30 )
+  
+end loop
+-- -----------------------------------------------------------------------------
+
+;;;;;<;mac> interrupt_prio _TMR0_interrupt 20  ;increase priority
+;;;;;<;/mac>
+;;;;;<;mac> interrupt_main                     ;generate total interrupt routine
+procedure xzxzxzxz is
+pragma interrupt
+  if t0if then 
+     _tmr0_interrupt   ;priority=20
+  end if
+end procedure
+;;;;;<;/mac>
+
+
+-- these functions have to be declared here, to prevent compiler errors,
+-- due to the fact these routines are only called from the ISR
+-- if the routine is not called somewhere else,
+-- compiler error NULL pointer occures
+;_get_next_tone_and_duration
+

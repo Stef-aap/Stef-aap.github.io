@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="keywords" content="Lego; Mindstorms; PIC; JAL; JALcc; Robotics">
+  <meta name="author" content="Stef Mientki">
+  <title>Pic_header</title>
+  <link rel="STYLESHEET" type="text/css" href="styles.txt" title="none">
+
+<style>
+a {font-family:verdana;font-size:12px}
+.topic {font-size:12px;color:#005500;margin-bottom:2px;cursor:pointer}
+.level {margin-left:10px}
+div {margin-bottom:4px}
+img {margin-right:2px}
+</style>
+
+<script language="JavaScript">
+  function Toggle(node) {
+	// Unfold the branch if it isn't visible
+	  if (node.nextSibling.style.display == 'none')	{
+ 		// Change the image (if there is an image)
+		  if (node.childNodes.length > 0) {
+			  if (node.childNodes.item(0).tagname == "IMG") {
+				  node.childNodes.item(0).src = "minus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = '';
+	  }
+	  // Collapse the branch if it IS visible
+	  else {
+		// Change the image (if there is an image)
+		  if (node.childNodes.length > 0)	{
+        if (node.childNodes.item(0).tagname == "IMG") {
+   				node.childNodes.item(0).src = "plus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = 'none';
+	  }
+  }
+
+  function collapse(pId) {
+  var node
+    node=document.getElementById(pId)
+    node.childNodes.item(0).src = "plus.gif"
+    node.nextSibling.style.display = 'none'
+
+  }
+
+  function main() {
+    collapse("ID1") 
+    collapse("ID2")
+    collapse("ID3")
+    collapse("ID4")
+    collapse("ID5")
+    collapse("ID6")
+    collapse("ID7")
+    collapse("ID8")
+    collapse("ID9")
+    collapse("ID10")
+    collapse("ID11")
+    collapse("ID12")
+    collapse("ID13")
+    collapse("ID14")
+    collapse("ID15")
+    collapse("ID16")
+    collapse("ID17")
+    collapse("ID18")
+    collapse("ID19")
+    collapse("ID20")
+    collapse("ID21")
+    collapse("ID22")
+    collapse("ID23")
+    collapse("ID24")
+    collapse("ID25")
+    collapse("ID26")
+    collapse("ID27")
+    collapse("ID28")
+    collapse("ID29")
+    collapse("ID30")
+    collapse("ID31")
+    collapse("ID32")
+    collapse("ID33")
+    collapse("ID34")
+    collapse("ID35")
+    collapse("ID36")
+    collapse("ID37")
+    collapse("ID38")
+    collapse("ID39")
+    collapse("ID40")
+  }
+</script>
+
+
+</head>
+<body>
+
+<body text="#000000" vlink="#5584aa" link="#006699" bgcolor="white" onload="main()">
+
+<table cellspacing="0" cellpadding="15" width="100%" height="88%">
+<tbody><tr><td class="bodyline" bgcolor="#ffffff" valign="top">
+
+<div><img src="dot.gif"><a href="projects/jal_tips.html" target="a">Undocumented JAL</a></div>
+<div><img src="dot.gif"><a href="projects/jal_var_declaration.html" target="a">JAL VAR declaration </a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID0"><img src="minus.gif">other compilers</a><div class="level">
+<div><img src="dot.gif"><a href="http://www.casadeyork.com/robot/picbsc/" target="a">PICbsc</a></div>
+<div><img src="dot.gif"><a href="http://www.pas2pic.tk/" target="a">Pas2PIC</a></div>
+<div><img src="dot.gif"><a href="http://web.gramlich.net/projects/ucl/v1/index.html" target="a">µCL</a></div>
+<div><img src="dot.gif"><a href="http://www.myke.com/mbaspg1.htm" target="a">Basic87x</a></div>
+<div><img src="dot.gif"><a href="http://www.xcprod.com/titan/XCSB/index.html" target="a">XCSB - BASIC</a></div>
+<div><img src="dot.gif"><a href="http://www.picant.com/p2c/p.html" target="a">P2C Pascal</a></div>
+<div><img src="dot.gif"><a href="http://www.ccsinfo.com/picc.shtml" target="a">CCS</a></div>
+<div><img src="dot.gif"><a href="http://panda.bg.univ.gda.pl/~janusz/software.html#mediumc" target="a">MediumC</a></div>
+<div><img src="dot.gif"><a href="http://www.picemulator.com/download.shtml" target="a">PICEMU</a></div>
+<div><img src="dot.gif"><a href="http://www.picbasic.org/proton_plus.php" target="a">Proton PICBASIC</a></div>
+<div><img src="dot.gif"><a href="http://www.oopic.com/" target="a">OOPic</a></div>
+</div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID1"><img src="minus.gif">WebRing</a><div class="level">
+<div><img src="dot.gif"><a href="http://www.100acre.org/elec/nokia_lcd/" target="a">Andre</a></div>
+<div><img src="dot.gif"><a href="http://www.vandam.tk/" target="a">Bert</a></div>
+<div><img src="dot.gif"><a href="http://www.geocities.com/g13685/Jal_Ring.html" target="a">Ian</a></div>
+<div><img src="dot.gif"><a href="http://www.terra.es/personal8/japus12/main.html" target="a">Javi</a></div>
+<div><img src="dot.gif"><a href="http://jb.fullenwarth.free.fr/" target="a">Jean-Bernard</a></div>
+<div><img src="dot.gif"><a href="http://www.remember.ro/" target="a">Mihai</a></div>
+<div><img src="dot.gif"><a href="http://thor.prohosting.com/mwrey40/index.htm" target="a">Mike</a></div>
+<div><img src="dot.gif"><a href="http://perso.wanadoo.fr/udev/" target="a">Nicolas</a></div>
+<div><img src="dot.gif"><a href="http://www.geocities.com/fun_4_me_now20012000/pulser_page.html" target="a">Rick</a></div>
+<div><img src="dot.gif"><a href="http://users.skynet.be/langewouters/electronics.html" target="a">Thomas</a></div>
+<div><img src="dot.gif"><a href="http://www.geocities.com/vsurducan/electro/PIC/pic.htm" target="a">Vasile</a></div>
+<div><img src="dot.gif"><a href="http://home.hiwaay.net/~bvwelch/jalne2k/" target="a">William</a></div>
+<div><img src="dot.gif"><a href="http://www.voti.nl/jal/" target="a">Wouter</a></div>
+<div><img src="dot.gif"><a href="http://www.wahoo-wa.net/PICprojects/index.html" target="a">special [k]</a></div>
+<div><img src="dot.gif"><a href="http://www22.brinkster.com/zagi911/main.htm" target="a">tornado</a></div>
+<div><img src="dot.gif"><a href="http://www.piclist.com/techref/piclist/jal/index.htm" target="a">piclist</a></div>
+</div>
+<div><img src="dot.gif"><a href="http://sourceforge.net/projects/jal" target="a">JAL download</a></div>
+<div><img src="dot.gif"><a href="http://groups.yahoo.com/group/jallist" target="a">JAL-list</a></div>
+<div><img src="dot.gif"><a href="http://www.piclist.com/techref/piclist/jal/index.htm" target="a">JAL-piclist</a></div>
+<div><img src="dot.gif"><a href="http://www.potemkin.org/faq" target="a">Massimo FAQ</a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID2"><img src="minus.gif">JAL manual</a><div class="level">
+<div><img src="dot.gif"><a href="jal/pragma.html" target="a">Pragma's</a></div>
+<div><img src="dot.gif"><a href="jal/quick.html" target="a">Quick reference</a></div>
+<div><img src="dot.gif"><a href="jal/random.html" target="a">Random3</a></div>
+<div><img src="dot.gif"><a href="jal/serial.html" target="a">Serial</a></div>
+<div><img src="dot.gif"><a href="jal/stats.html" target="a">Statements</a></div>
+<div><img src="dot.gif"><a href="jal/sub.html" target="a">Subprograms</a></div>
+<div><img src="dot.gif"><a href="jal/summary.html" target="a">Summary</a></div>
+<div><img src="dot.gif"><a href="jal/sx.html" target="a">SX</a></div>
+<div><img src="dot.gif"><a href="jal/target.html" target="a"> target specification files</a></div>
+<div><img src="dot.gif"><a href="jal/title.html" target="a">JAL manual</a></div>
+<div><img src="dot.gif"><a href="jal/types.html" target="a">Types</a></div>
+<div><img src="dot.gif"><a href="jal/vars.html" target="a">Variables</a></div>
+<div><img src="dot.gif"><a href="jal/e0001.jal" target="a">e0001</a></div>
+<div><img src="dot.gif"><a href="jal/e0002.jal" target="a">e0002</a></div>
+<div><img src="dot.gif"><a href="jal/e0003.jal" target="a">e0003</a></div>
+<div><img src="dot.gif"><a href="jal/e0004.jal" target="a">e0004</a></div>
+<div><img src="dot.gif"><a href="jal/e0005.jal" target="a">e0005</a></div>
+<div><img src="dot.gif"><a href="jal/e1008.jal" target="a">e1008</a></div>
+<div><img src="dot.gif"><a href="jal/jal.doc" target="a">jal</a></div>
+<div><img src="dot.gif"><a href="jal/e1008.tcl" target="a">e1008</a></div>
+<div><img src="dot.gif"><a href="jal/16x84.html" target="a">16x84</a></div>
+<div><img src="dot.gif"><a href="jal/basics.html" target="a">Basics</a></div>
+<div><img src="dot.gif"><a href="jal/cio.html" target="a">cio</a></div>
+<div><img src="dot.gif"><a href="jal/codegen.html" target="a">Code generation</a></div>
+<div><img src="dot.gif"><a href="jal/compiler.html" target="a">Compiler</a></div>
+<div><img src="dot.gif"><a href="jal/const.html" target="a">Constants</a></div>
+<div><img src="dot.gif"><a href="jal/exa.html" target="a">Examples</a></div>
+<div><img src="dot.gif"><a href="jal/exp.html" target="a">Expressions</a></div>
+<div><img src="dot.gif"><a href="jal/hd44780.html" target="a">Libraries - hd447804, hd447808</a></div>
+<div><img src="dot.gif"><a href="jal/i2c.html" target="a">libraries - i2c</a></div>
+<div><img src="dot.gif"><a href="jal/index.html" target="a">JAL manual</a></div>
+<div><img src="dot.gif"><a href="jal/interval.html" target="a">library - interval</a></div>
+<div><img src="dot.gif"><a href="jal/intro.html" target="a">Introduction</a></div>
+<div><img src="dot.gif"><a href="jal/jascii.html" target="a">library - jascii</a></div>
+<div><img src="dot.gif"><a href="jal/jdelay.html" target="a">library - jdelay</a></div>
+<div><img src="dot.gif"><a href="jal/jlib.html" target="a">library - jlib</a></div>
+<div><img src="dot.gif"><a href="jal/jpic.html" target="a">library - jpic</a></div>
+<div><img src="dot.gif"><a href="jal/jprint.html" target="a">libraries - jprint</a></div>
+<div><img src="dot.gif"><a href="jal/jseven.html" target="a">library - jseven</a></div>
+<div><img src="dot.gif"><a href="jal/jstepper.html" target="a">library - jstepper</a></div>
+<div><img src="dot.gif"><a href="jal/lang.html" target="a">Language</a></div>
+<div><img src="dot.gif"><a href="jal/lib.html" target="a">libraries</a></div>
+<div><img src="dot.gif"><a href="jal/literals.html" target="a">Literals</a></div>
+<div><img src="dot.gif"><a href="jal/lm75.html" target="a">libraries - lm75</a></div>
+<div><img src="dot.gif"><a href="jal/manual.html" target="a">Contents</a></div>
+<div><img src="dot.gif"><a href="jal/notes.html" target="a">Relase notes</a></div>
+</div>
+<div></div>
+
+</td></tr><tr></tr>
+</tbody></table>
+<form name=search method="post" target="a" action=search.php>
+  <input name=query length=40
+    <?if (isset($query))
+     echo("value=\"".htmlspecialchars($query)."\"");?>
+  <input type=submit value='search'><br>
+  <input type=radio checked=true name=m value=and>All words<br>
+  <input type=radio name=m value=or>At least one word
+ </input>
+</form>
+</body></html>

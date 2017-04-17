@@ -1,0 +1,27 @@
+[version]
+update=6
+
+[downloads]
+n=3
+memo=http://oase.uci.kun.nl/%7Emientki/pic/download/jalcc_update_memo.txt
+download_1=http://oase.uci.kun.nl/%7Emientki/pic/download/volatile.html
+fileto_1=aap1.txt
+name_1=JALcc version 1.1
+update_1=2
+download_2=http://oase.uci.kun.nl/%7Emientki/pic/download/bit_cals.jal
+fileto_2=aap2.txt
+size_2=2000
+name_2=XCSB version 3.2.0
+update_2=4
+download_3=http://oase.uci.kun.nl/%7Emientki/pic/download/bit_cals.jal
+fileto_3=aap3.txt
+size_3=2000
+name_3=XCSB version 3.2.0
+update_3=5
+
+[program]
+program=D:\Data_actueel\D7_test_browser\Test_browser.exe
+paramcount=1
+paramstr_1=D:\data_www\pic\jalcc\demo.ini
+update=6
+

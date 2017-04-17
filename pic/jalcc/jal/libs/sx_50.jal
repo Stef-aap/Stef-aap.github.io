@@ -1,0 +1,9 @@
+pragma name sx_50
+pragma target chip        SX
+pragma target clock       50_000_000
+pragma target osc         hs
+pragma target watchdog    off
+pragma target powerup     on
+pragma target protection  off
+
+include jpic

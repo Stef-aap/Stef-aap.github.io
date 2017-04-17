@@ -1,0 +1,71 @@
+<HTML><HEAD><TITLE>JALcc and other compilers</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Propellor Clock</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>Seeing some beatiful examples, this seemed to be a nice holliday project for me and my kids (10,14).</P>
+<P>To get some idea, here are the significant examples:</P>
+<P>&nbsp;&nbsp;&nbsp; The "orginal" by Bob Blick (1996):&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="http://www.bobblick.com/techref/projects/propclock/propclock.html">Propeller Clock</A></P>
+<P>&nbsp;&nbsp;&nbsp; The JAL version of Thomas Dobbelaere:&nbsp;&nbsp;<A class=RVTS4 href="http://users.pandora.be/ranzigen/td_circuits/pic_jal/magische_boodschap/magische_boodschap.html">* Magische boodschap *</A></P>
+<P>&nbsp;&nbsp;&nbsp; The LEGO version of Andy:&nbsp;&nbsp;<A class=RVTS4 href="http://www.feertech.com/andy/picclock.html">Andy's Personal Page</A></P>
+<P>&nbsp;&nbsp;&nbsp; Some beatiful examples (especially see the last movi):&nbsp;<A class=RVTS4 href="http://www.ispf.de/propclock/">untitled</A></P>
+<P>&nbsp;&nbsp;&nbsp; The future device from Kris: ...</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Some suggestions</SPAN></P>
+<P>When starting with such a device, as we did (with some low brightness diffuse LEDs), it's difficult to track down the problems. So here are some suggestions to get started more easily.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>take very bright LEDs&nbsp;</LI>
+<LI>create a good smooth black background&nbsp;</LI>
+<LI>first test everything in a rotating flat plane (so you can see everything, with a cilinder you only see a small part)&nbsp;</LI>
+<LI>start with simple (not animated) shapes&nbsp;</LI>
+<LI>make the rotating part as symetrical as possible, so it'll be balanced at any speed&nbsp;&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Mechanical Construction</SPAN></P>
+<P>Here you can see the first mechanical construction. The motor at the bottom is driving the rotating arm, while the second motor on the arm is used as a generator, to supply power to the PIC. Although this seems a nice solution to transfer power over the rotating construction, and it also works, it's not advisable. When the LEDs are on, the power drawn from the generator is so high that the torque is too high. It will destroy the motor at the bottom.&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=410 height=307 src="dscn1432.jpg"><IMG width=410 height=307 src="dscn1433.jpg"></P>
+<P>&nbsp;&nbsp;</P>
+<P>So in second instance we decided to simply place a battery box on the moving arm.</P>
+<P>On the left the LEDs are lying down, which is the way to start (you can see the whole display field).</P>
+<P>On the right the LEDs are standing up, which is the final state and gives the best (undistorted) display.</P>
+<P>&nbsp;<IMG width=410 height=307 src="dscn1435.jpg"><IMG width=410 height=307 src="dscn1429.jpg"></P>
+<P>&nbsp;&nbsp;</P>
+<P>By mounting black paper as a background, the visibility improves significant.</P>
+<P>&nbsp;<IMG width=410 height=307 src="dscn1436.jpg"><IMG width=410 height=307 src="dscn1438.jpg"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The speed with this configuration is about 250 .. 300 rpm. Too slow to make a nice movie, but fast enough to get a good visual picture.</P>
+<P>And here some static pictures</P>
+<P><IMG width=219 height=216 src="dscn1469.jpg">&nbsp;<IMG width=410 height=307 src="dscn1465.jpg">&nbsp;<IMG width=320 height=227 src="dscn1457.jpg"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Electronic circuit</SPAN></P>
+<P>The electronic circuit is very straight forward. You can take a smaller PIC, we've taken a 16F876 because it has a nice bootloader, so (re-)programming the device is very convenient.</P>
+<P>If you want to get the power from a motor acting as generator, it's better to replace the diode + voltage regulator by a 5V1 zener diode.</P>
+<P>A very dimmed LED is handy to check if the polarity is right (with the Lego connnectors you cann't determine the polarity from the connector).</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Software</SPAN></P>
+<P>For the PIC program we used JAL. The data to be displayed is placed in the data-eeprom, so even with small PICs (that cann't hold a bootloader) it's possible to change the text/graphics to be displayed without reprogramming the PIC.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Tools</SPAN></P>
+<P>character /graphics generator</P>
+<P>DataBooter</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Other Links</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+</BODY></HTML>

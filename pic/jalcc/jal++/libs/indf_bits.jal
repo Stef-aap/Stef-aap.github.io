@@ -1,0 +1,153 @@
+--
+-- name    : indf.jal
+-- author  : Javier Martínez
+-- date    : 14-11-2001
+-- purpose : indf procedures 
+--
+-- 21-dec-2001 : pos -> 0..7
+-- 
+-- In this file: 
+--	High_Address in [0..1]   0=banks0-1 1=banks2-3 
+--      Low_Address  in [0..255]
+--      Data         in [0..255]
+--      Position     in [0..7]   0=LSBit 7=MSBit       
+--      Result       out [False,True]     
+-- 
+--      Real address = 0x100 * High_Address + Low_Address
+--      Real address in [0..511]
+-- 
+-- Byte oriented procedures:
+-- 
+--       _file_get ( byte in High_Address , 
+--                   byte in Low_Address , 
+--                   byte out Data )
+--
+--       _file_put ( byte in High_Address , 
+--                   byte in Low_Address , 
+--                   byte in Data )
+--
+-- Bit oriented procedures:
+-- 
+--       _file_bit_set ( byte in High_Address , 
+--                       byte in Low_Address , 
+--                       byte in Position )
+--
+--       _file_bit_clear ( byte in High_Address , 
+--                         byte in Low_Address , 
+--                         byte in Position )
+--
+--       _file_bit_Get ( byte in High_Address , 
+--                       byte in Low_Address , 
+--                       byte in Position
+--                       bit out Result )
+--
+
+-- include 16F877_20
+-- include jpic
+
+
+procedure _file_get( byte in Haddr , byte in Laddr , byte out data ) is begin 
+var volatile bit local_irp
+var volatile bit HAddr0 at Haddr : 0
+   local_irp = IRP
+   IRP = HAddr0
+   fsr = Laddr
+   data = INDF
+   IRP = local_irp
+end procedure
+
+procedure _file_put( byte in Haddr , byte in Laddr , byte in data ) is begin 
+var volatile bit local_irp
+var volatile bit HAddr0 at Haddr : 0
+   local_irp = IRP
+   IRP = HAddr0
+   fsr = Laddr
+   INDF = data
+   IRP = local_irp
+end procedure
+
+procedure _file_bit_set ( byte in Haddr , byte in Laddr , byte in pos ) is begin 
+var volatile bit local_irp
+var volatile bit HAddr0 at Haddr : 0
+var volatile byte temp1 , temp2
+   local_irp = IRP
+   IRP = HAddr0
+   fsr = Laddr
+   temp1 = INDF
+   temp2 = 0x01
+   c = low
+   temp2 = temp2 << ( pos )
+   temp1 = temp1 | temp2
+   INDF = temp1
+   IRP = local_irp
+end procedure
+
+procedure _file_bit_clear ( byte in Haddr , byte in Laddr , byte in pos ) is begin 
+var volatile bit local_irp
+var volatile bit HAddr0 at Haddr : 0
+var volatile byte temp1 , temp2
+   local_irp = IRP
+   IRP = HAddr0
+   fsr = Laddr
+   temp1 = INDF
+   temp2 = 0xFE
+   c = high
+   temp2 = temp2 << ( pos )
+   temp1 = temp1 & temp2
+   INDF = temp1
+   IRP = local_irp
+end procedure
+
+procedure _file_bit_get ( byte in Haddr , byte in Laddr , byte in pos , bit out result ) is begin 
+var volatile bit local_irp
+var volatile bit HAddr0 at Haddr : 0
+var volatile byte temp1 , temp2
+   result = false
+   local_irp = IRP
+   IRP = HAddr0
+   fsr = Laddr
+   temp1 = INDF
+   temp2 = 0x01
+   C = low
+   temp2 = temp2 << ( pos )
+   temp1 = temp1 & temp2
+   if temp1 != 0 then 
+    result = high
+   end if
+   IRP = local_irp
+end procedure
+
+
+
+;var byte ha,la,d
+;var bit bitres
+
+
+-- Real_address=0x195 Data=0x043
+; ha = 0x01
+; la = 0x95
+; d  = 0x43
+
+; _file_put ( ha , la , d )
+; d = 0
+; _file_get ( ha , la , d )
+; pragma test assert d == 0x43
+
+
+-- Real_address=0x195 Bit_0=low
+; _file_bit_clear ( ha , la , 0x01 )
+
+
+-- Real_address=0x195 Bit_0=high
+; _file_bit_set ( ha , la , 0x03 )
+; bitres = low
+
+
+-- Real_address=0x195 Result=Bit_3
+; _file_bit_get ( ha , la , 0x02 , bitres )
+; pragma test assert bitres == high
+
+
+-- Real_address=0x195 Result=Bit_1
+; _file_bit_get ( ha , la , 0x00 , bitres )
+; pragma test assert bitres == low

@@ -1,0 +1,365 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en"><html><head>
+  
+  <link rel="STYLESHEET" type="text/css" href="picoverview.css" title="none">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><meta name="author" content="Stef Mientki"><meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]"><title>RCX_remote_control</title></head><body>
+
+
+
+
+
+                   
+   
+   
+   
+&nbsp;
+<table width="100%">
+
+<tbody><tr>
+<td align="center"><br>
+</td>
+
+<td align="center"><b><font size="+3">Mindstorms &amp; PICs</font></b>
+<br><b><font size="+2">RCX&nbsp; remote control</font></b>
+<br>Stef Mientki
+<br><font size="-1">23 december&nbsp; 2001</font></td>
+
+<td><br>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<p><font face="Arial,Helvetica">Inspired by some applications of the 16F84
+PIC, we came up with the idea to make a IR-module, which is capable of
+doing all the InfraRed tasks we could imagine with the RCX.</font>
+<br><font face="Arial,Helvetica">Until now we've build a RCX remote control
+unit, with some advantages over the standard Lego remote control.</font>
+<br><font face="Arial,Helvetica">A lot of time was spent in selecting /
+developing the right tools to control the PICs. Having the right tools
+and understanding them, you can quiet easy and very fast create all kinds
+of electronics with PICs (not only for the RCX). Still remains, using PICs
+is not for beginners in electronics, you need to have some knowhow of electronics
+to read the manuals (some IO-pins are quiet complex) and some experience
+in programming (for instance a language like NQC).</font>
+</p>
+<p>ERATTA: in the version before 23-12-2001, the program data and clock
+lines on the PIC were exchanged.
+</p>
+<p><a name="advantages over the lego remote control"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Advantages
+over the Lego remote control&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+</p>
+<ul>
+
+<li>
+<font face="Arial,Helvetica">Motor control is done by immediate commands
+instead of remote commands, so pushing a key ones, keeps the motor running.
+But by changing the software you can do it the Lego-way.</font></li>
+
+<li>
+<font face="Arial,Helvetica">There are 2 potmeters added to control the
+speed of the motors (A+C and B, but by changing the software you can choose
+other combinations or even go upto 4 potmeters)</font></li>
+
+<li>
+<font face="Arial,Helvetica">The device is re-programmable by a simple
+programmer (which even can be build in the remote controller)</font></li>
+
+<li>
+<font face="Arial,Helvetica">A lot of other things can be done with the
+same hardware, see <a href="#future%20posibilities">future posibilities</a></font></li>
+</ul>
+
+
+<p><br><a name="disadvantages"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Disadvantages&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+</p>
+<ul>
+
+<li>
+<font face="Arial,Helvetica">You have to build it yourself</font></li>
+</ul>
+
+
+<p><br><a name="future posibilities"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Future
+Posibilities&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<br><font face="Arial,Helvetica">By (almost) no hardware extensions, just
+by downloading other software you can give the device more and / or other
+functionality.</font>
+</p>
+<ul>
+
+<li>
+<font face="Arial,Helvetica">Using it as a serial IR-tower to program /
+control / read the RCX . Maybe it's even possible to connect both standard
+IR tower and the device decribed here to the same serial port for a widther
+range.</font></li>
+
+<li>
+<font face="Arial,Helvetica">Infrared repeater, to enlarge the transmission
+region</font></li>
+
+<li>
+<font face="Arial,Helvetica">RCX responder, a stand alone device capable
+of detecting RCX-messages and responding with another RCX-message</font></li>
+
+<li>
+<font face="Arial,Helvetica">Shooting target, with 2 or more (visible?)
+light diodes produce a beep when the target is hit</font></li>
+
+<li>
+<font face="Arial,Helvetica">Infrared buoy, which sometimes sends IR signals,
+so the RCX must try to locate the buoy</font></li>
+
+<li>
+<font face="Arial,Helvetica">Receiving and decoding IR signals from audio
+/ video remote controls</font></li>
+
+<li>
+<font face="Arial,Helvetica">Encoder and transmittor for audio / video
+remote IR-signals (so your PC can control audio and video equipment)</font></li>
+
+<li>
+<font face="Arial,Helvetica">Connected as an sensor to the RCX, so on the
+one hand the RCX can control audio and video systems and on the other hand
+the RCX&nbsp; can react on standard remote control units</font></li>
+</ul>
+
+<a name="some reallife pictures"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Some
+Real life Pictures&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<table border="1" cols="3" width="100%">
+
+<tbody><tr>
+<td>
+<center><img src="remote_photo1.jpg" height="232" width="113">
+<br><font face="Arial,Helvetica">The total remote control. As you can see
+I haven't found a good enclosure for it. Also I'm looking for a good place
+for the potmeters.</font></center>
+</td>
+
+<td><img src="remote_photo2.jpg" border="0" height="240" width="320">
+<br><font face="Arial,Helvetica">The electronics around the PIC, including
+fast serial port and NOP programmer. Take some more space than I used,
+otherwise testing is quiet difficult.</font></td>
+
+<td>
+<center><img src="remote_photo6.jpg" border="0" height="187" width="226">
+<br><font face="Arial,Helvetica">The matrix diodes are placed on the backside.</font></center>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<br>
+&nbsp;
+<br>
+&nbsp;
+<table border="1" width="100%">
+
+<tbody><tr>
+<td valign="top"><a name="hardware"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Hardware&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<p><font face="Arial,Helvetica">The circuit on the right shows the basic
+remote control.&nbsp;</font>
+</p><p><font face="Arial,Helvetica">The lines going out of the diagram can
+be omitted, they are for other devices like the programmer, fast serial
+communication and IR-receiver. Before you decide to build this circuit,
+look at those extra interfaces first, because they can be added by almost
+no extra energy and costs.</font>
+</p><p><font face="Arial,Helvetica">D11 and R6 should not be mounted if you
+include the programmer in the circuit.</font>
+</p><p><font face="Arial,Helvetica">D20 has 2 functions, protecting the circuit
+against the wrong polarity. The second function (only if programmer is
+included) is to prevent current flowing through the zenerdiode D7 (see
+programmer)</font>
+</p><p><font face="Arial,Helvetica">D12 and D13 are of course the IR-leds.</font></p></td>
+
+<td><img src="remote_hw1.jpg" border="0" height="442" width="610"></td>
+</tr>
+</tbody>
+</table>
+
+
+<br>
+&nbsp;
+<br>
+&nbsp;
+<table border="1" width="100%">
+
+<tbody><tr>
+<td valign="top"><a name="key codes"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Key
+codes&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<p><font face="Arial,Helvetica">The keycodes depends on the physical layout
+of the key and diode placing.</font>
+<br><font face="Arial,Helvetica">I found it quiet difficult to give the
+exact schematic without errors.</font>
+<br><font face="Arial,Helvetica">Therefore a more convenient way is to
+mount the keys and diodes and run the program with the serial debugger,
+and you'll find the right key codes.</font></p></td>
+
+<td><img src="remote_matrix_code.jpg" height="136" width="132"></td>
+</tr>
+</tbody>
+</table>
+
+
+<br>
+&nbsp;
+<br>
+&nbsp;
+<table border="1" width="100%">
+
+<tbody><tr>
+<td><a name="the jal files in the"></a><b><font face="Arial,Helvetica"><font color="#3333ff">The
+JAL files in the project&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<br>&nbsp;
+<table width="100%">
+<tbody><tr>
+<td><font face="Arial,Helvetica">RCX_Remote&nbsp;</font></td>
+
+<td><font face="Arial,Helvetica">The main program, see below</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">16F628_inc</font></td>
+
+<td><font face="Arial,Helvetica">a file containing the pic definitions,
+automatically generated from the microchip INC-file.</font></td>
+</tr>
+
+<tr>
+<td><a href="../download/jal_libs/indf_bits.jal"><font face="Arial,Helvetica">indf_bits</font></a></td>
+
+<td><font face="Arial,Helvetica">a number of routines written by Javier
+Mart&iacute;nez (thanks to Javi)&nbsp; to address higher banks</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">rs232_hw</font></td>
+
+<td><font face="Arial,Helvetica">library that contains RS232 routines (it's
+just a start)</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">scan_matrix</font></td>
+
+<td><font face="Arial,Helvetica">library to scan extended key matrices</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">scan_pots</font></td>
+
+<td><font face="Arial,Helvetica">library to scan potmeters</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">16F628_spec</font></td>
+
+<td><font face="Arial,Helvetica">library, containing all the special control
+functions of this type of PIC (just a start)</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial,Helvetica">RCX</font></td>
+
+<td><font face="Arial,Helvetica">library wich contains all RCX constants
+and routines to send RCX IR-signals (receiving routines still to come)</font></td>
+</tr>
+</tbody></table>
+
+<p><font face="Arial,Helvetica">A more extended decription of the library
+files can be found <a href="jal_libraries.html">here</a>.</font></p></td>
+
+<td><img src="remote_projectgroup.jpg" border="0" height="192" width="170"></td>
+</tr>
+</tbody>
+</table>
+
+
+<br>
+&nbsp;
+<br>
+&nbsp;
+<table border="1" width="100%">
+
+<tbody><tr>
+<td valign="top"><a name="the main program: rcx_remote1"></a><b><font face="Arial,Helvetica"><font color="#3333ff">The
+main program: RCX_remote1</font></font></b>
+<p><font face="Arial,Helvetica">On the right is the start of the main program.</font>
+<br><font face="Arial,Helvetica">If you're familiar with NQC, you can see
+the close resmblance.</font>
+</p><p><font face="Arial,Helvetica">The first key that is decoded, results
+in a motor command, which is not done as a remote command but as a normal
+immediate command, therfore it's somewhat more complicated than the other
+(remote) commands, shown below.</font>
+</p><p><img src="remote_mainprog2.jpg" height="58" width="399">
+</p><p><font face="Arial,Helvetica">For JAL and JALcc, <a href="../pic_overview.html">start
+here</a>.</font></p></td>
+
+<td align="center" valign="top"><img src="remote_mainprog.jpg" border="0" height="257" width="428"></td>
+</tr>
+</tbody>
+</table>
+
+
+<br>
+&nbsp;
+<p><a name="hardware extra's"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Hardware
+extra's&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<table border="1" width="100%">
+<tbody><tr>
+<td valign="top"><a name="ir -receiver"></a><b><font face="Arial,Helvetica"><font color="#3333ff">IR
+-receiver&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<p><font face="Arial,Helvetica">Isn't this simple, so at least keep room
+for it.</font>
+</p><center>
+<p><img src="remote_hw_ir_receiver.jpg" height="108" width="128"></p></center>
+
+<p><br></p></td>
+
+<td><a name="the nop programmer"></a><b><font face="Arial,Helvetica"><font color="#3333ff">The
+NOP programmer&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<br><font face="Arial,Helvetica"><font color="#000000">See for more information
+<a href="../picprog/picprogrammer_hardware.html">programmer
+hardware</a></font></font>
+<br><img src="../picprog/programmer_hw1.jpg" name="graphic14" border="0" height="432" width="437" alt=""></td>
+</tr>
+</tbody></table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table border="1" width="100%">
+<tbody><tr>
+<td valign="top"><a name="fast serial interface"></a><b><font face="Arial,Helvetica"><font color="#3333ff">Fast
+Serial Interface&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<p><font face="Arial,Helvetica">The advantage of a fast serial port for
+debugging is that it hardly affects the speed of the program to be tested
+and it can be very fast, so a lot of information can be transfered.</font>
+</p><p><font face="Arial,Helvetica">You'll also need the fast serial port if
+you want to transmit IR signals form an audio/video IR-remote to your PC.</font>
+</p><p><font face="Arial,Helvetica">The uart output of the 16F628 is inverted.
+Although it's possible to invert the transmit signal by only one transistor,
+it has the disadvantage that such a one transistor design will consume
+a lot of power even when no RS232 connector is connected and the circuit
+is supplied from a battery.</font>
+</p><p><font face="Arial,Helvetica">So this circuit is designed to invert the
+transmit signal with a minimum of power lost.</font></p></td>
+
+<td align="center" valign="CENTER"><img src="../picprog/programmer_fast_rs232.jpg" height="214" width="477" alt=""></td>
+</tr>
+</tbody></table>
+
+<br>&nbsp;
+</p>
+<p><a name="all the schematics together"></a><b><font face="Arial,Helvetica"><font color="#3333ff">All
+the schematics together&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14"></a>
+<br><font face="Arial,Helvetica">Here the full blown circuit with all the
+extra's I've build,</font>
+<br><font face="Arial,Helvetica">.... and still there are IO-pins free
+for potmeters or other devices.</font>
+<br><a href="remote_hw_full.jpg"><img src="remote_hw_full.jpg" height="588" width="942"></a>
+<br>(click to enlarge)
+</p>
+<br>
+</body></html>

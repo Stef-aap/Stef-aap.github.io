@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Brick Dock-Viewer</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p><span class=rvts1>Html / pdf / ... Viewer </span><img width=33 height=32 alt="" src="pw_controls_manager_img1.ico"><span class=rvts8>&nbsp; ( december 2008 )</span></p>
+<p><span class=rvts10>Application Designer</span> / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Making a general viewer, that can view several standard documents, like web-pages / local html-files / pdf-files / chm-files, is very easy under Windows, but almost impossible under other Operating Systems. Besides that we want to view full blown html-pages (that can't be viewed with wx.html.HtmlWindow) and we want to view html pages with widgets (which can only be viewed with wx.html.HtmlWindow).</p>
+<p>The problem might be largely solved, as soon as webkit is integrated in wxPython (at this moment I read that there are already alpha versions available).</p>
+<p><br></p>
+<p>The basic solution chosen at this moment is, we place both a wx.html.HtmlWindow and a activeX-IE component together on one panel. Make them both full blown, and use one of the two, depending on the contents, while making the other invisible. For non-Windows OS, we try to display as much as possible on wx.html.HtmlWindow, and everything that doesn't fit, will be sent to the default browser. For non-Windows OS, we could improve the behavior by adding more (external) controls for other document types, like pdf-files and chm-files.</p>
+<p><br></p>
+<p><span class=rvts2>Top Level: URL_Viewer</span></p>
+<p>At the top level, we have a viewer with navigation buttons, that can display a whole range of files: html (+ frames, +CSS), html-widgets, websites, pdf, MS-office-documents, pdf, ... at least this yields for the Windows Operating System. When used in another OS, it will use the default browser for files that can't be displayed with wx.html.HtmlWindow. So in that case the capabilities of the default browser will determine if a document can be viewed or not. The combobox keeps track of the history and is automatically saved and restored.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=674 height=404 alt="" src="pw_html_viewer_img1.png"></p>
+<p><br></p>
+<p><span class=rvts2>Low Level</span></p>
+<p>At the low level, we've for all OS's two different viewers available, which on Windows both points to iewin.IEHtmlWindow, but for other OS's points either to the internal viewer or to the external default browser.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=480 height=141 alt="" src="pw_html_viewer_img3.png"></p>
+<p><br></p>
+<p>By always using IEHtmlWindow or IEHtmlWindow_Ext, we can make the program OS independent.</p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

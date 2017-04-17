@@ -1,0 +1,41 @@
+<HTML><HEAD><TITLE>fastreport_application</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #BCCDF5;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P>Nesting of user definied macros is not allowed&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Static strings</SPAN></P>
+<P>If strings are limited to static objects (constants), the problem of dynamic storage is bypassed.</P>
+<P>The typical constructions needed are:</P>
+<P>&nbsp;<IMG width=347 height=144 src="jalcc_macro_try_img6.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Example: Display_String_at_Pos</SPAN></P>
+<P>Supposing you've a procedure, in this case even definied as a pseudo-var,</P>
+<P>called LCD_char, that writes a character to the display at the current cursor position,</P>
+<P>and increments the cursor afterwards.</P>
+<P>LCD_set_cursor is a normal JAL-procedure, that sets the cursor at the specified position.</P>
+<P>Then the macro to display at some position of the display could look like this:</P>
+<P>&nbsp;<IMG width=522 height=120 src="jalcc_macro_try_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Example: Wait_for_String</SPAN></P>
+<P>In this example we want to wait for a specific string from some kind of terminal.</P>
+<P>&nbsp;<IMG width=550 height=156 src="jalcc_macro_try_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>It's possible to make it even more universal,</P>
+<P>by passing the getchar function as a parameter.</P>
+<P>&nbsp;<IMG width=554 height=160 src="jalcc_macro_try_img5.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>To make it even more universal, we define a "global-compiler-constant"&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp; %A% = getchar</P>
+<P>..&gt; picture here</P>
+</BODY></HTML>

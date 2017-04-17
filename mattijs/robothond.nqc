@@ -1,0 +1,65 @@
+task main ()
+{
+  SetSensor (SENSOR_3, SENSOR_TOUCH);
+  SetSensorMode (SENSOR_3, SENSOR_MODE_RAW);
+  SetSensor (SENSOR_2, SENSOR_LIGHT);
+  SetSensorMode (SENSOR_3, SENSOR_MODE_RAW);
+  start hond;
+  start bal;
+}
+
+task bal ()
+{
+  while (true)
+  {
+    while (SENSOR_2>32)
+    {
+      PlaySound (SOUND_DOUBLE_BEEP);
+      Wait(100);
+    }
+  }
+}
+
+
+
+task hond ()
+{
+  OnFwd (OUT_A);
+  OnFwd (OUT_C);
+  while (true)
+  {
+    if (SENSOR_3>975)
+    {
+      OnFwd (OUT_A+OUT_C);
+
+    }
+    else
+    {
+      if (SENSOR_3>885)
+      {
+        OnRev (OUT_A);
+        OnFwd (OUT_C);
+      }
+      else
+      {
+        if (SENSOR_3>810)
+        {
+          OnFwd (OUT_A);
+          OnRev (OUT_C);
+        }
+        else
+        {
+          OnRev (OUT_A);
+          OnRev (OUT_C);
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+

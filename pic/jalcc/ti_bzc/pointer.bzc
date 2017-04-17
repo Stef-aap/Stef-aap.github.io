@@ -1,0 +1,22 @@
+#include <asmlib.h>
+
+START
+	STRING text = "Hello World!"
+	INT a
+	INT b
+
+	cls
+	printf num text
+	printf num &a
+		
+	a = text
+	b = &a
+
+	printf num b
+	printf num (getint b)
+	
+	printf str (getint b)
+	printf char (get (getint b + 11))
+END
+	
+	

@@ -1,0 +1,35 @@
+0
+19_200
+0
+0
+0
+0
+20_000_000
+;******  formulas for 16F877 ***********, using
+;****** B = Baudrate
+;****** T = Xtal frequency
+
+;******  Baudrate generation (with BRGH=1), SPBRG=
+round((T/ ( 16 * B ) ) -1)=64
+;******  Baudrate deviation in %
+100*(T/(16*(round((T/ ( 16 * B ) ) -1)+1)) -B)/B=0.1602564103
+
+
+;******  Baudrate generation (with BRGH=0), SPBRG=
+round((T/ ( 64 * B ) ) -1)=15
+;******  Baudrate deviation in %
+100*(T/(64*(round((T/ ( 64 * B ) ) -1)+1)) -B)/B=1.725260417
+
+2000000/(64*12)=2604.166667
+
+
+4667/667=6.997001499
+5*666=3330
+
+2^14=16384
+
+273*227/1000=61.971
+68/0.1=680
+68/0.01=6800
+62/0.05=1240
+

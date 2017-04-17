@@ -1,0 +1,197 @@
+<HTML><HEAD><TITLE>(not) blinking a LED</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>december, 2004</SPAN></P>
+<P><SPAN class=RVTS1>How to (not) blink a LED in JAL</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Even a simply program, like how to blink a single LED with JAL, can give a lot of trouble to newbies. To show some basic fundamentals we'll start with a syntactical correct program of 7 lines, that also contains about 7 practical errors/problems. This page is not written to discourage you to use JAL, but just to help you to discover the wrong first steps you could make. JAL is a beautiful language, and if you understand everthing on this page, you can create almost anything you want with JAL.</P>
+<P>At the end is an "advanced section", discussing fast-io, io in combination with interrupts, mixed shadowed and direct IO.</P>
+<P>&nbsp;&nbsp;</P>
+<P>If you fully understand what is written on this page (whether you agree or not with everything detail on this page), and you still need more functionality, you should read more about using interrupts (I think Vasile has something on interrupts on his site). And last but not least if you need more speed, you should learn assembler which can be fully embedded in JAL.</P>
+<P>&nbsp;&nbsp;</P>
+<P>For these examples I downloaded the latest JAL version (4.60), including all the standard libraries. (After reading this page back I saw that my compiler was still set to 4.59, but that doesn't influence the results).</P>
+<P>The goal is to blink a LED, that's connected with a series resistor between ground and an IO-pin of the 16F877 or 16F876.</P>
+<P>Personally I never use these libraries and so here's my first advice from these examples "don't rely on these libraries and collect your own set of libraries".</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Not blinking LED 1</SPAN></P>
+<P>The problem in the first program is very obvious, because it's indicated by the compiler.</P>
+<P>The compiler cann't find the library file "16F876_20.jal", although the library path is correctly specified.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=425 height=300 src="examples_jal_blinking_led_img1.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>If we look into the a similar file, like "16F877_20.JAL" it's clear that these statements has nothing todo with a library file, but contains essential settings for an individual project, which the designer should be aware of. Don't bother about these statements for the moment, but don't forget to look into them in the near future.</P>
+<P>&nbsp;&nbsp;</P>
+<P>For this moment we simply solve the problem by changing line 2 to "include 16F877_20".</P>
+<P>&nbsp;&nbsp;</P>
+<P>Is this allowed ?&nbsp; The answer is "Yes, if and only if you're using the correct set of libraries".</P>
+<P>The only thing the compiler is concerned with, is the size of codeROM and the size of the register-RAM (at least that yields for the "16F"-series). A very handy trick, you don't have to understand right now, but again you should remember for future use, is to tell the compiler you're dealing with a 16F628 instead of a 16F877, code will be reduced by at least a factor 2, and even more important speed will be increased with an equal amount.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Not blinking LED 2</SPAN></P>
+<P>In this example, the code compiles ok, but the LED will not blink.</P>
+<P>If you are a beginner, you'll probably never find out by yourself, why this program isn't working, because this problem is caused by an error in JLIB.</P>
+<P>Setting of the direction of the E-port, is implemented wrong in JLIB. So we can simply "solve" the problem by choosing another IO port.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=433 height=299 src="examples_jal_blinking_led_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Not blinking LED 3&nbsp;</SPAN></P>
+<P>We changed the connection of the LED to IO-pin A4. To change the IO-pin, we had to change 2 lines: line 8 and line 12. This is a very fundamental problem !! On it's own it has nothing to do with the fact that the LED is blinking or not. But from my experience as a problem solver and designer, I can assure you that this phenomene, which is a form of REDUNDANCY, is THE MOST often seen cause of hard to detect problems in software. Unfortunatly JAL is not able to solve this problem, but using JALcc macros, you can solve the problem.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><IMG width=434 height=332 src="examples_jal_blinking_led_img15.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Not blinking LED 4</SPAN></P>
+<P>First we try to solve the redundancy problem as good as possible in JAL</P>
+<P>In the image below, holding line 11 and 12 close together, doesn't solve the redundancy problem but at least makes it easier to detect problems concerning redundancy.</P>
+<P>A good rule in software to remember "there should never be an explicit constant in your program, except in the definition part". "Pin_A4" is an explicit constant, "LED" is just a link to a constant. This rule not only prevents a number of potential errors but also makes the program better readable for yourself and for outsiders !!</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=437 height=429 src="examples_jal_blinking_led_img17.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Not blinking LED 5</SPAN>&nbsp;&nbsp;</P>
+<P>Now the next problem is that pin A4 on most 16F-series PIC is a special pin, with a open drain output, or in other words it can only draw current to ground (and not to Vcc). So again we solve this by choosing another IO-pin, in this case RA2.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=433 height=426 src="examples_jal_blinking_led_img18.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Blinking LED 1</SPAN></P>
+<P>Now another problem is that the A-port of a 16F877 is default set as an analog input port. That should sound familiar to you, if you've read the PIC manual carefully (which, I've to admit, is very borring).</P>
+<P>Ofcourse you can discuss about the next point, but in my opinion at this moment (and sometimes I've a different opinion !!), a good library should initialize the A-port to normal digital IO operation. To solve this problem with the standard JAL-libraries, for the moment we add a call to "disable_a_d_functions", like is shown in line 9.</P>
+<P>But this is a bad solution !&nbsp; Why ?&nbsp; Because now the functional program code has become device dependant. If I want to use the code on a PIC without AD-converter, I've to remove line 9.</P>
+<P>&nbsp;&nbsp;</P>
+<P>And now the LED should finally blink !!&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><IMG width=436 height=455 src="examples_jal_blinking_led_img7.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Blinking LED 2</SPAN></P>
+<P>There's one final misunderstanding that has to be discussed: the Read - Modify - Write problem.</P>
+<P>When using only JAL (and no assembler), the Read - Modify - Write problem is no issue !!</P>
+<P>Still want to know more, see the advanced section below.</P>
+<P>&nbsp;&nbsp;</P>
+<P>So the next code is PERFECT !!</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=414 height=79 src="examples_jal_blinking_led_img2.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The next code is also OK, but it uses unnecessary code-space (and time) in lines 21 and 23.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=425 height=106 src="examples_jal_blinking_led_img5.gif"></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS2>Blinking LED 3</SPAN></P>
+<P>And now the "perfect" (at least in my opinion, at this very moment) program to blink a LED. The picture is taken from JALcc V1.0, which is expected to be released in januari 2005. The previous versions of JALcc also support the here used JALcc macros. (btw. the uggly colors used here are only used during the development)</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><IMG width=637 height=578 src="examples_jal_blinking_led_img14.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The main characteristics of this program are</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>there's no definition file used, but all essential parameters are set in lines 2,3&nbsp;</LI>
+<LI>the functional code is fully device independant, just by changing line 12, the program will run on any io-pin of 12F-series, 16F-series&nbsp;</LI>
+<LI>the program doesn't contain redundant information, the connection of the LED is only done in line 19&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>Now let's take a closer look at some details of the program</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>line 2 specifies the target chip. Although we want to use a 16F877 (8k memory), we fool the compiler here by telling the compiler that we want code for a 16F628 (2k memory). Compare the codesize with the previous examples.&nbsp;</LI>
+<LI>line 3 definies the clock speed, which is needed in JAL libraries, for all kind of delay routines, baudrate generators and timer routines.&nbsp;</LI>
+<LI>line 4, specifying the kind of oscillator used, is only there because the compiler wants it, but fuses are evaluated wrong by the compiler&nbsp;</LI>
+<LI>therefore we define the fuses ourselfs in line 8&nbsp;</LI>
+<LI>line 11, JRTL is included, which should always be done, because this library contains some essential compiler extensions&nbsp;</LI>
+<LI>line 12, there's no include of a handmade JPIC file, but an include of the file "16f877_inc.jal". This file is generated by JALcc, directly from the orginal Microchip inc-file (athough the microchip inc-files also contains sometimes errors !!)&nbsp;</LI>
+<LI>line 19, this is the only place where the LED is "connected" to a specific IO-port, so redundacy.&nbsp;</LI>
+<LI>line 20, specifies the LED-pin as an output, without specifying the exact location of the LED-pin.&nbsp;</LI>
+<LI>line 28, because the library has no delay of 1 sec, I use the 100msec delay.&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS1>Advanced Section</SPAN></P>
+<P>In this section, some JAL internals will be discussed, using IO outputs in combination with interrupts and mixed shadowed and unbuffered output control.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Read-Modify-Write problem</SPAN></P>
+<P>The read-modify-write problem (RMW) only occures when you write to single IO-pins. This problem is caused by the mechanism&nbsp; used for setting or clearing a single bit.</P>
+<P>When setting or clearing a bit in a register (IO-port is also just a register), the register is completly read, the bit is modified and the value is written back into the register.</P>
+<P>Now suppose you have just changed all bits of portA from low to high.</P>
+<P>Shortly after this statement, you want bit2 of portA to go low again.</P>
+<P>Now suppose bit0 of portA is heavily loaded (with a large capacitor, long lines, ...), so it will not have reached a high state.</P>
+<P>What happens:</P>
+<P>&nbsp;- port is read as 0b_1111_1110</P>
+<P>&nbsp;- clear bit 2 will lead to 0b_1111_1010</P>
+<P>&nbsp;- port is set back to 0b_1111_1010</P>
+<P>So by clearing bit 2 you've an unwanted effect on bit 0 too !!</P>
+<P>The solution to this is shadowing: manipulate the single bit in a normal register and as a last IO-action copy the shadow register to the real IO-port. All normal JAL libraries use this shadow technic.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Assembler port output</SPAN></P>
+<P>It's interesting to see what code is generated by the JAL-compiler, to see how we can optimize this code if we are short of speed and to see what problems might occure when using io-ports in interrupts.</P>
+<P>Depending on the code memory size, the following code is generated for the statement "portA = 0x54"</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp; asm1&nbsp;&nbsp;&nbsp;<IMG width=441 height=168 src="examples_jal_blinking_led_img19.gif">&nbsp; 16F628 code</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp; asm2&nbsp;&nbsp;&nbsp;<IMG width=447 height=227 src="examples_jal_blinking_led_img20.gif">&nbsp; 16F877 code</P>
+<P>&nbsp;&nbsp;</P>
+<P>So for all 16F series a lot of speed can be gained by writing a few assembler instructions</P>
+<P>(it's important to realize, that when you're writing at the JAL-level, bank0 is always the active bank. And so all JAL variables are in bank0 too.)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp; asm3&nbsp;&nbsp;&nbsp;<IMG width=379 height=90 src="examples_jal_blinking_led_img24.gif">&nbsp; code for 16F628 and 16F877</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Assembler pin-IO</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp; asm 4&nbsp;&nbsp;<IMG width=460 height=152 src="examples_jal_blinking_led_img22.gif">&nbsp; 16F628 code</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp; asm5&nbsp;&nbsp;&nbsp;<IMG width=431 height=212 src="examples_jal_blinking_led_img23.gif">&nbsp; 16F877 code</P>
+<P>Now for all 16F devices speed can be gained thorugh embedded assembler,</P>
+<P>just 1 instruction if no shadowing is needed and 3 instructions with full shadowing</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp; asm6&nbsp;&nbsp;&nbsp;<IMG width=315 height=108 src="examples_jal_blinking_led_img25.gif">&nbsp;code for 16F628 and 16F877</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>IO-port writing and Interrupts</SPAN></P>
+<P>Using the same IO-ports/pins for writing, both in the normal code and in interrupts will cause problems.</P>
+<P>Looking at the assembler code above, here are the critical points, where it goes wrong when an interrupt occures that manipulates the shadow register too</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asm1: between line 31 and 34</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asm2: between line 51 and 61</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asm3: between line 20 and 24</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asm4: between line 32 and 33</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asm5: between line 47 and 48</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asm6: between line 32 and 33</P>
+<P>To solve this problem we should add disable interrupts before doing IO on such a port</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=456 height=77 src="examples_jal_blinking_led_img27.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The disadvantage of this method is that it adds 10 (16F628) upto 14 (16F877) instructions to a simple IO statement.</P>
+<P>Another approach is to use direct IO (without shadow register), both in the normal program and in the interrupt. This method is very fast (no interrupt disabling necessary), has no problems with mixed normal/interrupt use, but may cause problems due to the read-modify-write issue.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Mixed shadowed and direct IO</SPAN></P>
+<P>You can use direct and shadowed IO both at the same time, as long as you ensure that after doing direct IO, the shadow buffer is updated.</P>
+<P>Direct bit manipulation</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=525 height=140 src="examples_jal_blinking_led_img29.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Direct port manipulation</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=531 height=186 src="examples_jal_blinking_led_img30.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Fast IO-pulses</SPAN></P>
+<P>For fast bit manipulation, interrupts should always be disabled.</P>
+<P>&nbsp;&nbsp;</P>
+<P>When there's no danger for the RMW problem, the following code will generate a positive puls of about 200 ns (@20 MHz)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=451 height=77 src="examples_jal_blinking_led_img31.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>When RMW-issue might be a problem, the next code can be used, which will produce a positive puls of about 600 ns (@20 MHz). By using a double buffer, we can shorten the pulse to about 400 ns (@20 MHz).</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=452 height=137 src="examples_jal_blinking_led_img32.gif"></P>
+</BODY></HTML>

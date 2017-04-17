@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Debugging</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="123" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Debugging &amp; Testing </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp; (march 2009)</span></p>
+<p>Application Designer / <span class=rvts10>Domain Expert</span> / <span class=rvts10>Control Designer / Core Developer</span></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>PyLab_Works and it's associated programs have many logging, debugging and testing tools, some are always present, some must be switched on explicitly by command line flags and a few other mechanisms.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>exprint</span>, print procedure with traceback </li>
+<li><span class=rvts10>Debug(file) flag</span>, if set, will display all kinds of intermediate results </li>
+<li><span class=rvts10>Main exception capture</span>, will capture final exceptions not caught internally </li>
+<li><span class=rvts10>State Machine debugging</span>, a special module which gives only detailed information about the running Bricks and their communication </li>
+<li><span class=rvts10>Test Runs</span>, most modules can run as a main file. In general the main file has several test cases, which can be selected by the command line flags. There's also a possibility to run a whole bunch of files. And all tests can be started from the launch center. </li>
+<li><span class=rvts10>Control Manager</span>, to test and debug individual controls </li>
+<li><span class=rvts10>Real time debuggers</span>, most useful as a brick itself. Both pdb and rpdb are supported. </li>
+<li><span class=rvts10>Dedicated Brick loggers</span>, ... </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>ToDo</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>add main exception capture to all main modules </li>
+<li>extend main exception capture to display more deeply nested items </li>
+<li>take over the stdout / stderr in main exception capture </li>
+<li>extend main exception capture with a lot of system information </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>exprint = Print + TraceBack</span></p>
+<p>You can use the exprint procedure just as the print procedure (remember the print statement is obsolete from Python version 2.6 ), but the exprint procedure will add full traceback information (first caller at the top).</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=391 height=231 alt="" src="pw_debugging_img6.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Debug(file) Flag</span></p>
+<p>Through the function pd (info_line)&nbsp; in the module General_Globals, debug information will be shown in the stdout and / or a log file with the name _pd_FileName. There's a special function pd_Module (__file__) which should be placed at the end of every module, to log the order of the imports of PyLab_Works own files.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=228 height=54 alt="" src="pw_debugging_img5.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Main Exception Capture</span></p>
+<p>All main programs have an exception capture on the outer most statement. This exception capture should never occur, but if it does, it gives detailed information about the exception. from all error lines, specified in the traceback, the exception capture tries to evaluate the values, and in case of list, tuples, dict, etc it tries to calculate the length / keys, before calculating the final value. This is very convenient way to see what goes wrong e.g. in case of an index out of range error.</p>
+<p><br></p>
+<p><img width=710 height=138 alt="" src="pw_debugging_img2.png"></p>
+<p>....</p>
+<p><img width=709 height=274 alt="" src="pw_debugging_img3.png"></p>
+<p><br></p>
+<p>The main exception capture is inserted with:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=476 height=91 alt="" src="pw_debugging_img4.png"></p>
+<p><br></p>
+
+</body></html>

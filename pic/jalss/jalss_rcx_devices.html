@@ -1,0 +1,234 @@
+<HTML><HEAD><TITLE>RCX device</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>September 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, RCX device</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;</SPAN></P>
+<P>This is preliminary information, giving some information about my plans to inplement and RCX-device in JALss.</P>
+<P>(modifications to&nbsp;<A class=RVTS4 href="virtual_rcx_in_bricxcc.html">Bricxcc</A>)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=538 valign=top>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>In JALss you can simulate the (partial) behaviour of one or more RCX devices, including sensors and actuactors, on a PC. It's not the intension of this simulator the mechanical dynamics of robots, but a simple car driving in a room with obstacles (like the picture below) must be possible.</P>
+<P>To be compatible with Lego-environements, the functional layout of JALss is based on BricksCC.</P>
+<P>When this projects succeed, we should ask John Hanssen to make a one-touch-button "compile-simulate-debug"&nbsp; ;-)</P>
+<P>On the right an already real picture of how the RCX-device will probably look in JALss, the background image is taken (with permission) from&nbsp;&nbsp;<A class=RVTS4 href="mailto:bbagnall@mts.net">Brian Bagnall</A>&nbsp; (who rendered this image) and can also be seen at the site of&nbsp;&nbsp;<A class=RVTS4 href="http://simlink.sourceforge.net/screenshots.html">Andy Gombos.</A></P>
+<P>&nbsp;<IMG width=383 height=316 src="dev_rcx_car_lr1.gif"></P></TD>
+<TD width=191 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=205 height=323 src="dev_rcx_brick.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=513 height=101 valign=middle>
+<P><SPAN class=RVTS2>BricxCC and the virtual RCX</SPAN></P>
+<P>Start JALss first, then start Bricxcc, so Bricxcc can find (one of) the virtual RCXs.</P>
+<P>With the direct control of Bricxcc, you can control the virtual RCX.</P>
+<P>With the joystick of Bricxcc it's also possible to control the virtual RCX, but the left mouse clicks don't work well (right mouse clciks are ok).</P>
+<P>...&nbsp;</P></TD>
+<TD width=230 height=101 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=406 valign=top>
+<P><SPAN class=RVTS2>Advantages of a simulator</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>you can look "into" the RCX, and watch the internal variables and states you can just run the "final" program and focus on a small part of the program by breakpoints and single stepping&nbsp;</LI>
+<LI>you don't need a real RCX, just a PC to build, test and debug&nbsp;</LI>
+<LI>you can test your homebuild sensors without building them&nbsp;</LI>
+<LI>you don't need expensive equipment like a scope to see the electrical signals at in and output&nbsp;</LI>
+<LI>you can define electro-mechanical disturbances (like the bouncing of touchsensors)&nbsp;</LI>
+<LI>it could improve your insight in the internals of hardware and software, especially for the non-electronic educated&nbsp; under us&nbsp;</LI>
+<LI>...&nbsp;&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+</TD>
+<TD rowspan=3 width=337 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=340 height=409 src="device_scope_1.gif"></P></TD>
+</TR>
+<TR valign=top>
+<TD width=406 valign=top>
+<P>Disadvantages of a simulator</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>the simulation is always limited, due to implementation and bugs&nbsp;</LI>
+<LI>it's less fun to bump into a virtual wall then a real wall&nbsp;</LI>
+<LI>...&nbsp;&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+</TD>
+</TR>
+<TR valign=top>
+<TD width=406 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><A name="sensor_input"></A>
+<SPAN class=RVTS2>Sensor Input&nbsp;&nbsp;&nbsp;</SPAN><IMG width=14 height=14 src="top_page.gif"></P>
+<P>The sensor signals can be seen on one of the build in scopes, as shown on the right.</P>
+<P>The 3 upper traces shows the the 3 sensors as a function of time, while the lowest trace shows a dummy motor signal, so you can compare the relative timing of these signals.</P>
+<P>At the left of each signal the following information is displayed (taken the upper-trace as an example):</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sens-1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : the name of the sensor</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 512&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : the raw value</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : the sensor mode</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : the sensor value in "real world value"</P>
+<P>There's also an extra connection pin for each sensor (not shown in the picture on the right), taht can be used to watch the internally sampled signal on an external scope.</P>
+<P>On the right there's a panel with test sensors, which will be visible (and can be controled)&nbsp; in all the views of the RCX. This gives the ability to the test a program with different sensors, without the need to make the real connections to the RCX. The test-sensors can only simulate a pure resistive component.</P>
+<P>With the switch button, you can connect / disconnect the test-sensor. The resistor value of the sensor can be edited in the edit-field, or set in a rough and fast way trough the trackbar. The trackbar can only set the resistor value between 100 and 100 kOhm (it's position behaves logarithmic) , while the edit-field has no limitations.</P>
+<P>Pressing the puls-button will momentary (a random time between 0 and 500 msec)&nbsp; toggle the setting of the switch.</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>The sensor output is simulated by the circuit on the right.</P>
+<P>In the passive period only a pull-up resistor to +5V is active.</P>
+<P>While in the active period also a 300 Ohm pullup to Vbattery is switch on.</P>
+<P>The real measurement is done in the passive periods.</P>
+<P>More detailed information about the RCX internals can be found&nbsp;<A class=RVTS4 href="../../lego_knex/lego_electronica/rcx_inside.html">here</A>.</P></TD>
+<TD valign=middle>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="../../lego_knex/lego_electronica/rcx_inside.html"><IMG width=183 height=222 src="../../lego_knex/lego_electronica/sensor_input.gif"></A></P></TD>
+</TR>
+</TABLE>
+</P></TD>
+<TD width=443 valign=middle>
+<P>&nbsp;<IMG width=443 height=350 src="rcx_sensor_display1.gif"></P>
+<P>Sensor 1 is set as a passive sensor in Boolean mode. The raw value of 512 (caused by a resistor of 10 kOhm) could either be zero or one, because of the 45 / 55% hysteresis.</P>
+<P>Sensor 2 is set as an active sensor in Celcius temperature mode, indicating it's almost freezing. It's of course not advisible to set the sensor in active mode for measuring temperature, because it will heat up the sensor. But on the other hand this is maybe a way to measure air-speed !</P>
+<P>Sensor 3 is set as an active sensor in Fahrenheit temperature mode.</P>
+<P>In this case the trackbar slider was moved from the right to the left, reflecting a sharp decrease in resistance.&nbsp; This tracks demonstrates clearly the effect on the voltage at the RCX terminals, both in the active and the passive periods.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=484 valign=top>
+<P><A name="motor_output"></A>
+<SPAN class=RVTS2>Motor Output</SPAN>&nbsp;&nbsp;<A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The motor output signals can be monitored on the build-in scope. The shown signals are a quiet&nbsp; realistic simulation of the real signals measured with an oscilloscope.</P>
+<P>If an impedance R&lt;=100 Ohm is connected, it's assumed to be a motor, so noise is added to the signal, simulating the generated EMK from the motor.</P>
+<P>Also the mechanical load on the motor is indicated by the voltage drop in the inactive periods. The internal resistance of the motor outputs is 10 Ohm in active periods and 10 kOhm in inactive periods.</P>
+<P>The incorrect things in the motor signals are: the frequency of the noise is not synchronuous with the motor speed, the shape of the noise is not correct, the amplitude of the noise stays constant, while it should increase with increasing mechanical load, the high frequency glitches due to the voltage switching on an induction are not shown.</P>
+<P>Upper trace shows the motor signal of motor-A, which is switched on, in the forward direction with a motor-power of 0.&nbsp; The mechanical load on the motor is very light, which can ve seen from the only slight drop of the motor voltage in the inactive periods. If the motor was mechanically totally unloaded, the output voltage would be at Vbattery the whole time., despite the motor-power of 0.</P>
+<P>The next trace shows motor-B (forward, at power=1), which is mechanically more heavily loaded.</P>
+<P>The third trace shows motor-C which is mechanical very heavy loaded, in this case it's even possible the motor isn't rotating anymore.</P></TD>
+<TD width=259 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=288 height=350 src="rcx_motor_display1.gif"></P></TD>
+</TR>
+<TR valign=top>
+<TD width=484 valign=top>
+<P>When connecting a resitive load &gt;100 Ohm, a totally different signal will appear.</P>
+<P>The signal shows an RC-curve (exponential decay) which is calculated from the external connected resistor and the internal capacitor (100 nF, measured through RC-curves).</P>
+<P>The traces shows to motor output&nbsp; with different resistive loads.</P>
+<P>&nbsp;&nbsp;&nbsp; motor-A&nbsp; :&nbsp; 2.5 MOhm</P>
+<P>&nbsp;&nbsp;&nbsp; motor-B&nbsp; :&nbsp; 100 kOhm</P>
+<P>&nbsp;&nbsp;&nbsp; motor-C&nbsp; :&nbsp; 10 kOhm</P>
+<P>The timebase can be set at the bottom, to 1 ms/div (as shown) or more compressed to 8 ms/div (8ms is one full motor cycle). When the timebase is set to 8 msec/div, the sense signal will disappear.</P>
+<P>The fourth trace shows symbolic a sensor signal, to make a comparison in time between motor and sensor signals.</P></TD>
+<TD width=259 valign=top>
+<P>&nbsp;<IMG width=286 height=350 src="rcx_motor_display2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=590 valign=top>
+<P><A name="sound"></A>
+<SPAN class=RVTS2>Sound&nbsp;&nbsp;</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The PC-speaker is used as the sound simulation device. Due to the limitations of win-NT systems (NT, 2000, XP) it's not possible to implement the "SoundMute" function and also it's not possible not play tones at the simulation speed. So sounds are always played and systemsounds or individual notes are always played in realtime. So if the simulation runs slow (due to other devices in the circuit), the individual notes are played in realtime, introducing larger gaps between the individual tones.</P>
+<P>All sounds are recorded in a listbox, so they can be playbacked in realtime.</P>
+<P>The first column contains the frequency in Hertz, the second column the duration of the sound in msec and the third column contains the starttime in msec. (In the example on the right, the realtime is not correctly shown, but it's compressed by a factor 10). Systemsounds (0..6) are indicated by a frequency between 0 and 6 and a duration of 0.</P>
+<P>By pressing the "Play" button, the selected lines will be played (as a whole) in realtime.</P>
+<P>By pressing the "Delete" key, the selected lines will be removed from the list.</P></TD>
+<TD width=153 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=146 height=195 src="rcx_sound.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=422 valign=top>
+<P><A name="code"></A>
+<SPAN class=RVTS2>Code Window&nbsp;</SPAN>&nbsp;<A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>In the code window you can see the Lego assembler code (with real NQC variable names), you can control the simulation and see task priorities and activities.</P>
+<P>You can watch the assembler of 2 tasks simultaneously. With the blue separation bar you divide the window to your needs.</P>
+<P>When the simulator is not running, the highlighted lines in the code-windows, shows the next instruction that will be executed.</P>
+<P>On the right you can see there are 3 tasks, task 0 and 1 are stopped=red and task 2 is running=green.&nbsp; There is a third color,&nbsp; suspended=yellow.</P>
+<P>The priority of the tasks is symbolized by the height of the bars.</P>
+<P>Selecting the task of which the code is displayed in the upper code window, can either be selected by the upper spin-control or by pressing with the left mousekey on one of the taskbars.</P>
+<P>The lower code window, lower spin-control of right mousekey.</P>
+<P>Then right below, you see the standard simulator controls + 2 extra simulator buttons, marked with "1". These special marked buttons will assure that a single step or a loop is done in the time parameters of the RCX (and not any other CPU somewhere in the simulation). For more information see ...</P>
+<P>Then one other important control trick: when the simulation is not running, as soon as you press anything on the code tab, focus is always shifted to a central control.</P>
+<P>This central control enables you to single step this RCX by pressing the spacebar.</P></TD>
+<TD width=321 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=369 height=351 src="rcx_code.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>The information below this line is just for my personal use.</P>
+<HR noshade size=1>
+<P>Design of the motor output Timing</P>
+<P>Looking with a scope on the motor ports and sensor ports (in active mode), you'll find that 2 complete motor periods equals 5 sensor readings, they are perfectly synchronuous. Some drawings of earlier measurements can be found&nbsp;<A class=RVTS4 href="../../lego_knex/lego_electronica/rcx_inside.html">here</A>.</P>
+<P>The Puls Width Modulation (PWM) divides 1 motor period into 8 equal sections. So we've to find the "kleinste gemene veelvoud" ("smallest common multiple" ??) of 5 and 16, which is obvious 80. There is still one other consideration, the sensor value is read in about 100 usec (probably it's exactly 1/32 of the sensor period, which is about 3 msec). So using a time resulotion of 100 usec (which is standard available in JALss) will do quiet nice.</P>
+<P>In that case a motor period will be 8 msec (in real it's 7.5 msec) and a sensor period will be 3.2 mec (in real 3 msec). If necessary it's possible to increase the time resolution, but in the case of the RCX having the highest clock-frequency it's a waste of computing time.</P>
+<P>Impedance</P>
+<P>This is not an easy part, because a motor will behave like an inductor and will generate voltage, depending on the mechanical load.</P>
+<P>So here I've made some simplications, based on measurements with both pure resistive load and the lego-motor as a load.</P>
+<P>With a resistor of 100 kOhm, a full exponential curve is drawn in about 6 msec. So the time-constant is estimated at 3 msec, yielding a capacitor inside the motor output of 30 nF.</P>
+<P>With the motor connector you'll see almost a perfect DC voltage, approximately&nbsp; equal to the battery voltage. When a mechanical load is attached, a perfect square wave shows up (besides the high frequency glitches), where the voltage in the inactive periods drops towards zero. The voltage drop is depending on the mechanical load, the higher the load, the more deeper the drop.</P>
+<P>Based on the above measurements I've implemented 2 algoritmes, one for a motor load and one for a resistive load.</P>
+<P>With the given time-constant it seems that a pure resistive load of 3 MOhm can be just seen. So we choose 3 MOhm as the maximum resistive load, even when there's no connection at all to the motor-output. Below 1000 Ohm,&nbsp; no change can be seen, so 1000 Ohm will be the lowest resistive impedance. It's logical that with a motor load, the impedance will be in the same order of magnitude, so changing from resistive and motor will have an equal impact on the signals. So the motor will have an impedance of 3 MOhm when mechanical unloaded and an impedance of 1000 Ohm when mechanical full loaded (even mechanical stopped). The real impedance of the motor is of course much lower.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Software Interface</P>
+<P>at p99, the 60 msec (BRAKE) is explained when switching direction, this only yields for the statement "SetDirection" !!</P>
+<P>For each motor RIS2.0 has 2 registers&nbsp; 3[0..2] = "Motor Status" and 17[0..2] = "Global Motor Status".</P>
+<P>Both registers have the same bit definition</P>
+<P>2-0 = power</P>
+<P>3&nbsp;&nbsp;&nbsp; = direction (1=forward)</P>
+<P>5-4 = remote command overlay ???</P>
+<P>6&nbsp;&nbsp;&nbsp; = brake=1 / float=0&nbsp; (this bit has no meaning in the Global-Motor-Status</P>
+<P>7&nbsp;&nbsp;&nbsp; = on=1 / off=0</P>
+<P>OnOffFLoat ($21, p27)</P>
+<P>2-0 = motorlist</P>
+<P>7-6 = Float=0 / Off=1 / On=2</P>
+<P>SetFwdSetRwdRewDir ($E1, p38)&nbsp;&nbsp; sets MOTOR-STATUS</P>
+<P>2-0 = motorlist</P>
+<P>7-6 = Backwards=0 / Reverse=1 / Forwards=2</P>
+<P>SetNormSetInvAltDir ($77, p43)&nbsp; sets GLOBAL-MOTOR-STATUS</P>
+<P>2-0 = motorlist</P>
+<P>7-6 = Backwards=0 / Reverse=1 / Forwards=2</P>
+<P>SetPower ($13, p64), motor-list, source, index&nbsp;&nbsp; sets MOTOR-STATUS</P>
+<P>SetMaxPower ($13, p64), motor-list, source, index&nbsp; sets GLOBAL-MOTOR-STATUS</P>
+<P>Switching the motor direction, passes a brake-state of 60 msec (8 full motor cycles, 8*7.5=60)</P>
+</BODY></HTML>

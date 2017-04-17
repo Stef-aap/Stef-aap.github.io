@@ -1,0 +1,208 @@
+
+body {
+  font-family   : 'Trebuchet MS', sans-serif;
+  margin-left   : 20px ;
+  margin-right  : 20px ;
+  margin-top    : 0px  ;
+  margin-bottom : 0px  ;
+
+  padding-left   : 0px ;
+  padding-right  : 0px ;
+  padding-top    : 0px ;
+  padding-bottom : 0px ;
+}
+
+p {
+  margin-top    : 0.2em;
+  margin-bottom : 0.9em;
+}
+
+.compact {
+ font-family : 'Arial' ;
+ font-size   : 8pt     ;
+ font-style  : normal  ;
+ font-weight : normal  ;
+ color       : #000000 ;
+ line-height : 5  !important   ;
+}
+
+/* Geeft problemen binnen code mirror
+pre {
+  line-height : 20%;
+}
+*/
+pre.aap {
+white-space: pre-wrap      ;  /* css-3 */
+white-space: -moz-pre-wrap ;  /* Mozilla, since 1999 */
+white-space: -pre-wrap     ;  /* Opera 4-6 */
+white-space: -o-pre-wrap   ;  /* Opera-7 */
+word-wrap  : break-word    ;  /* IE 5.5+ */
+width      : 99%           ;  /* not sure this is good */
+margin     : 0px;
+}
+
+tr {
+  height: 20px;
+  }
+
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+    font-family: 'Trebuchet MS', sans-serif;
+    /* background-color: #f2f2f2; */
+    font-weight: normal;
+    color: #20435c;
+
+  border-bottom: 1px solid #ccc;
+
+  margin-left   : -20px ;
+  margin-right  : -20px ;
+  margin-top    : -10px ;
+  margin-bottom :  10px ;
+
+  padding-left   : 15px ;
+  padding-right  : 15px ;
+  padding-top    : 15px ;
+  padding-bottom :  0px ;
+}
+
+tt.klass {
+  display: block;
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color : #ecf0f3 ;
+  /*font-weight      : bold ;*/
+  padding-top      : 2px ;    /* to prevent spaces if multiline */
+  padding-bottom   : 2px ;    /* to prevent spaces if multiline */
+
+  border-bottom: 1px solid #ccc;
+
+  margin-left   : -20px ;
+  margin-right  : -20px ;
+  margin-top    :  10px ;
+  margin-bottom :  10px ;
+
+  padding-left   : 15px ;
+  padding-right  : 15px ;
+}
+tt.method {
+  display: block;
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color : #ecf0f3 ;
+  /*font-weight      : bold ;*/
+  padding-top      : 2px ;    /* to prevent spaces if multiline */
+  padding-bottom   : 2px ;    /* to prevent spaces if multiline */
+
+  border-bottom: 1px solid #ccc;
+
+  margin-top    :  10px ;
+  margin-bottom :  0px ;
+
+  padding-left   : 15px ;
+  padding-right  : 15px ;
+}
+tt.function {
+  display: block;
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color : #ecf0f3 ;
+  /*font-weight      : bold ;*/
+  padding-top      : 2px ;    /* to prevent spaces if multiline */
+  padding-bottom   : 2px ;    /* to prevent spaces if multiline */
+
+  border-bottom: 1px solid #ccc;
+
+  margin-left   : -20px ;
+  margin-right  : -20px ;
+  margin-top    :  10px ;
+  margin-bottom :  10px ;
+
+  padding-left   : 15px ;
+  padding-right  : 15px ;
+}
+
+div.note-title {
+  background-color: #eee ;
+  border-left   : 1px solid #ccc;
+  border-right  : 1px solid #ccc;
+  border-top    : 1px solid #ccc;
+  padding-left  : 10px;
+  padding-top   :  5px;
+}
+
+div.note {
+  background-color: #eee;
+  border-left   : 1px solid #ccc;
+  border-right  : 1px solid #ccc;
+  border-bottom : 1px solid #ccc;
+  padding-left  : 10px;
+  padding-bottom:  5px;
+  margin-bottom : 10px;
+}
+
+.example {
+  margin-bottom : -15px;   /* make spcae between title and CodeMirror smaller */
+}
+
+CodeMirror {
+  font-family   : 'Courier', monospace;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+
+.Python_Result {
+  width            : 100%;
+  background-color : #eee;
+  border           : 3px solid #ccc;
+  margin-top       : 10px;
+  margin-bottom    : 10px;
+  padding          :  5px;
+}
+
+.completions {
+  position: absolute;
+  z-index: 10;
+  overflow: hidden;
+  -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+  -moz-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+  box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+}
+
+.completions select {
+  background: #fafafa;
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: monospace;
+}
+.CodeMirror {
+        border: 1px solid #eee;
+      }
+
+.CodeMirror-scroll {
+        height: auto;
+        overflow-y: hidden;
+        overflow-x: auto;
+      }
+
+/* ******************************** */
+/* Breakpoint line backgrund colors */
+/* ******************************** */
+.line_current {
+  background : #FF0000 !important;
+}
+.line_bp {
+  background : #39F1A1 !important;
+}
+.line_bp_dis {
+  background : #FFDDDD !important;
+}
+.line_bpc {
+  background : #9CBEFC !important;
+}
+.line_bpc_dis {
+  background : #DCEEFF !important;
+}

@@ -1,0 +1,166 @@
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+-- define the 6-LED device on J3
+;;;;;<;mac> RPD_LED6       LED = J3
+var volatile bit LED1 is J3L1
+var volatile bit LED2 is J3L2
+var volatile bit LED3 is J3L3
+var volatile bit LED4 is J3R1
+var volatile bit LED5 is J3R2
+var volatile bit LED6 is J3R3
+J3L1_direction = output
+J3L2_direction = output
+J3L3_direction = output
+J3R1_direction = output
+J3R2_direction = output
+J3R3_direction = output
+;;;;;<;/mac>
+
+-- define 1 motor with feedback
+-- on the right half of J4
+;;;;;<;mac> RPD_motor_L272    motorE = J4R
+var volatile bit motorE_potm is J4R1
+var volatile bit motorE_Hbridge_1 is J4R2
+var volatile bit motorE_Hbridge_2 is J4R3
+J4R1_direction = input
+J4R2_direction = output
+J4R3_direction = output
+;;;;;<;/mac>
+
+-- define 2 motors with feedback on J1
+;;;;;<;mac> RPD_motor_L293    motorAB = J1
+var volatile bit motorAB_potm_L is J1L1
+var volatile bit motorAB_Hbridge_L1 is J1L2
+var volatile bit motorAB_Hbridge_L2 is J1L3
+var volatile bit motorAB_potm_R is J1R1
+var volatile bit motorAB_Hbridge_R1 is J1R2
+var volatile bit motorAB_Hbridge_R2 is J1R3
+J1L1_direction = input
+J1L2_direction = output
+J1L3_direction = output
+J1R1_direction = input
+J1R2_direction = output
+J1R3_direction = output
+;;;;;<;/mac>
+
+-- define a LCD display on J11
+;;;;;<;mac> RPD_LCD           LCD = J11
+var volatile bit HD44780_Enable_pin is J11L1
+var volatile bit HD44780_Enable_direction is J11L1_direction
+var volatile bit HD44780_DataCmd_pin is J11R1
+var volatile bit HD44780_DataCmd_direction is J11R1_direction
+var volatile bit HD44780_b4_pin is J11L2
+var volatile bit HD44780_b4_direction is J11L2_direction
+var volatile bit HD44780_b5_pin is J11L3
+var volatile bit HD44780_b5_direction is J11L3_direction
+var volatile bit HD44780_b6_pin is J11R3
+var volatile bit HD44780_b6_direction is J11R3_direction
+var volatile bit HD44780_b7_pin is J11R2
+var volatile bit HD44780_b7_direction is J11R2_direction
+const HD44780_multiplexed_output = false
+const LCD_number_of_display_lines      = 2
+const LCD_number_of_display_characters = 16
+include rpd_hd44780_4_ins
+;;;;;<;/mac>
+
+
+-- connect
+--    5 motors all with feedback
+--    6 indication LEDs
+--    1 LCD
+;;;;;<;mac> RPD_motor_L293    motorAB = J1
+var volatile bit motorAB_potm_L is J1L1
+var volatile bit motorAB_Hbridge_L1 is J1L2
+var volatile bit motorAB_Hbridge_L2 is J1L3
+var volatile bit motorAB_potm_R is J1R1
+var volatile bit motorAB_Hbridge_R1 is J1R2
+var volatile bit motorAB_Hbridge_R2 is J1R3
+J1L1_direction = input
+J1L2_direction = output
+J1L3_direction = output
+J1R1_direction = input
+J1R2_direction = output
+J1R3_direction = output
+;;;;;<;/mac>
+;;;;;<;mac> RPD_motor_L293    motorCD = J3
+var volatile bit motorCD_potm_L is J3L1
+var volatile bit motorCD_Hbridge_L1 is J3L2
+var volatile bit motorCD_Hbridge_L2 is J3L3
+var volatile bit motorCD_potm_R is J3R1
+var volatile bit motorCD_Hbridge_R1 is J3R2
+var volatile bit motorCD_Hbridge_R2 is J3R3
+J3L1_direction = input
+J3L2_direction = output
+J3L3_direction = output
+J3R1_direction = input
+J3R2_direction = output
+J3R3_direction = output
+;;;;;<;/mac>
+;;;;;<;mac> RPD_motor_L272    motorE = J4R
+var volatile bit motorE_potm is J4R1
+var volatile bit motorE_Hbridge_1 is J4R2
+var volatile bit motorE_Hbridge_2 is J4R3
+J4R1_direction = input
+J4R2_direction = output
+J4R3_direction = output
+;;;;;<;/mac>
+;;;;;<;mac> RPD_LED6          LED = J9
+var volatile bit LED1 is J9L1
+var volatile bit LED2 is J9L2
+var volatile bit LED3 is J9L3
+var volatile bit LED4 is J9R1
+var volatile bit LED5 is J9R2
+var volatile bit LED6 is J9R3
+J9L1_direction = output
+J9L2_direction = output
+J9L3_direction = output
+J9R1_direction = output
+J9R2_direction = output
+J9R3_direction = output
+;;;;;<;/mac>
+;;;;;<;mac> RPD_LCD           LCD = J11
+var volatile bit HD44780_Enable_pin is J11L1
+var volatile bit HD44780_Enable_direction is J11L1_direction
+var volatile bit HD44780_DataCmd_pin is J11R1
+var volatile bit HD44780_DataCmd_direction is J11R1_direction
+var volatile bit HD44780_b4_pin is J11L2
+var volatile bit HD44780_b4_direction is J11L2_direction
+var volatile bit HD44780_b5_pin is J11L3
+var volatile bit HD44780_b5_direction is J11L3_direction
+var volatile bit HD44780_b6_pin is J11R3
+var volatile bit HD44780_b6_direction is J11R3_direction
+var volatile bit HD44780_b7_pin is J11R2
+var volatile bit HD44780_b7_direction is J11R2_direction
+const HD44780_multiplexed_output = false
+const LCD_number_of_display_lines      = 2
+const LCD_number_of_display_characters = 16
+include rpd_hd44780_4_ins
+;;;;;<;/mac>
+
+
+-- main program loop: walking LEDs
+const byte delay = 5
+forever loop
+  LED6 = off
+  LED1 = on
+  delay_100ms(delay)
+  LED1 = off
+  LED2 = on
+  delay_100ms(delay)
+  LED2 = off
+  LED3 = on
+  delay_100ms(delay)
+  LED3 = off
+  LED4 = on
+  delay_100ms(delay)
+  LED4 = off
+  LED5 = on
+  delay_100ms(delay)
+  LED5 = off
+  LED6 = on
+  delay_100ms(delay)
+end loop
+

@@ -1,0 +1,125 @@
+<HTML><HEAD><TITLE>Battery Tester</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>2003</SPAN></P>
+<P><SPAN class=RVTS1>Battery Tester</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>PIC Battery Tester</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>PIC 12F675 programmed in JAL (<A class=RVTS4 href="../../download/battery_tester.zip">sources</A>)&nbsp;</LI>
+<LI>The battery under test is used as the power source&nbsp;</LI>
+<LI>Both 1.5V types and 1.2V types can be tested&nbsp;</LI>
+<LI>Measures downto 0.6 Volt&nbsp;</LI>
+<LI>Discharging can be logged through the RS232 port&nbsp;</LI>
+</UL>
+<P>october 2003, Robbert Mientki &amp; Stef Mientki</P></TD>
+<TD valign=middle>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>NiCd 1,2V</P></TD>
+<TD valign=middle>
+<P>Alkaline 1.5V</P></TD>
+</TR>
+<TR valign=top>
+<TD rowspan=6 valign=middle>
+<P>&nbsp;<IMG width=28 height=41 src="lamp3.bmp"></P></TD>
+<TD valign=middle>
+<P>-</P></TD>
+<TD valign=middle>
+<P>&gt; 0.6</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&gt; 0.6</P></TD>
+<TD valign=middle>
+<P>&gt; 0.75</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&gt; 0.8</P></TD>
+<TD valign=middle>
+<P>&gt; 0.95</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&gt; 0.95</P></TD>
+<TD valign=middle>
+<P>&gt; 1.15</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&gt; 1.1</P></TD>
+<TD valign=middle>
+<P>&gt; 1.35</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&gt; 1.2</P></TD>
+<TD valign=middle>
+<P>&gt; 1.5</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;<IMG width=685 height=280 src="dscn0865.jpg"></P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Our old battery tester, which was produced around 1950, by one of the few Dutch battery firms "De Witte Kat".&nbsp; Batteries form this brand are still sold in the Netherlands, but are now produced by Varta.</P>
+<P>If you've a little experience, it's remarkable how accurate you can measure the quality of a battery with this simple device. The bulb is the standard bulb that was used in all Dutch bikes until about 1990 (6V / 3W), coated with a red transparent paint.</P></TD>
+<TD valign=middle>
+<P>The new battery tester (2003), build round a PIC12F675&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>The schematic is quiet straight forward.&nbsp;</SPAN></P>
+<P>The most difficult part is the step-up-converter, fortunatly we had one lying around (the round circle with the 3 connections at the right-bottom part of the circuit. At the bottom of this page there's are a few circuits of a step-up converters with conventional components.</P>
+<P>Another problem we had was a correct startup of the PIC, specially at low battery voltages (we go to 0.6 Volt). Trying to invoke the watchdog even made a worse. The solution with the 3 resistors (8 Ohm, 1k, 10k) around the step-up converter works almost always (remember that each PIC pin (except programming) has a protection diode to Vdd). To make it even more reliable we added a hard reset in the software (goto 0x00), each 10 seconds.</P>
+<P>The 5-pole connector makes it possible to re-program the PIC, by disconnecting the largest part of the circuit and connecting a programmer to the PIC.</P>
+<P>GP4 and GP5 each control 2 LEDS.</P>
+<P>&nbsp;&nbsp;&nbsp; When the pin is programmed as an input, none of the LEDs will light.</P>
+<P>&nbsp;&nbsp;&nbsp; Making the pin a low output, will light the upper LED</P>
+<P>&nbsp;&nbsp;&nbsp; Making the pin a high output, will light up the lower LED</P>
+<P>GP0, drives A0 and the RS232 output. Because RS232 transmission is done at 115_200 Baud, it won't influence the LED. The other way around, if the LED A0 is active, the RS232 transmission will consist of 2 bytes, the measured voltage, followed by a zero byte, so that's very easy to ignore.</P>
+<P>Why not used GP3 ?&nbsp;&nbsp; Simply because it can only be used as a digital input pin.</P>
+<P>The AD-conversion is done, against a reference voltage of 1.2 or 1,.5 Volt, set by the switch for NiCd / Alkaline batteries.</P>
+<P>The FET inverts and level-shift the RS232 signal and is completly powered by the RS232 line itself. Because no other devices draw power from the RS232-lines, this is completly legal and should work on all RS232 ports. The relative high baudrate of 115_200 should not be a problem as long as the programmer conserves the calibration words of the 12F675.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=729 height=434 src="battery_tester_schema.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=700 height=525 src="dscn0861.jpg"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Feed a LED from an empty Battery</SPAN></P>
+<P>We've build this circuit and simulated it in SwitcherCad, circuit can be found&nbsp;<A class=RVTS4 href="zaklamp.asc">here</A>.</P>
+<P>The practical circuit performs as the simulation predicts, so it's easy to optimize. The internal resistance of the "empty" battery is quiet varying property, measured over different batteries.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=512 height=384 src="switch.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=716 height=454 src="simulatie.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>From&nbsp;&nbsp;<A class=RVTS4 href="http://www.belza.cz/measure/batm.htm">http://wwwbelza.cz</A></P>
+<P>&nbsp;<IMG width=635 height=306 src="batm-sch.gif"></P>
+</BODY></HTML>

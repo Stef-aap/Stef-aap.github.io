@@ -1,0 +1,62 @@
+-- "comment"\=
+const "name" = "value"\=
+const bit "name" = "value"\=
+const byte "name" = "value"\=
+
+var bit "name"\=
+var bit "name" = "value"\=
+var bit volatile "name" at "location"\=
+var byte "name"\=
+var byte "name" = "value"\=
+var byte volatile "name" at "location"\=
+-
+if "condition" then\>"body"\<end if\=
+if "condition" then\>"body"\<else\>"body"\<end if\=
+if "condition" then\>"body"\<elsif "condition" then\>"body"\<else\>"body"\<end if\=
+
+for "number" loop\>"body"\<end loop\=
+forever loop\>"body"\<end loop\=
+while "condition" loop\>"body"\<end loop\=
+-
+const usart_asynch = true\=const baudrate     = "baudrate"\=asynch_send_hw ( "byte to send" )\=asynch_read_hw ( "byte received" )\=
+const usart_asynch = false\=const baudrate     = "baudrate"\=SPI_send_hw ( "byte to send" )\=SPI_read_hw ( "byte received" )\=
+-
+const usart_asynch = true\=
+const baudrate     = "baudrate"\=
+SPI_init\=
+asynch_init_hw\=
+asynch_disable_hw\=
+asynch_send_hw ( "byte to send" )\=
+asynch_read_hw ( "byte received" )\=
+-
+|
+procedure "name" is\>"body"\<end procedure\=
+procedure "name" ( byte in out "name" = "value") is\>"body"\<end procedure\=
+return
+
+function "name" return byte is\>"body"\<end function\=
+function "name" ( byte in out "name" = "value") return byte is\>"body"\<end function\=
+return "value"\=
+
+procedure "name"'put (byte in out "name" = "value") is\>"body"\<end procedure\=
+function "name"'get (byte in out "name" = "value") return byte is\>"body"\<end procedure\=
+-
+pragma name "filename"\=
+pragma target chip	"16F84"\=
+pragma target clock	"10_000_000"\=
+pragma target osc	"HS"\=
+pragma target watchdog	"off"\=
+pragma target steftets	"welles"\=
+pragma target powerup	"on"\=
+pragma target protection	"off"\=
+-
+pragma error\=
+pragma test catch "number"\=
+pragma test assert "condition"\=
+pragma test done\=
+-
+
+asm "assembler"\=
+assembler\>"body"\<end assembler\=
+bank "?"\=
+page "?"\=

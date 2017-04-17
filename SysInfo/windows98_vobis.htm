@@ -1,0 +1,1379 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <meta name="AUTHOR" content="stef mientki">
+   <meta name="CREATED" content="20010904;23165273">
+   <meta name="CHANGED" content="20010904;23184143">
+   <title>windows98</title>
+<style>
+	<!--
+		TD P { color: #000000 }
+		P { color: #000000 }
+		A:link { color: #0000ee }
+		A:visited { color: #551a8b }
+	-->
+	</style>
+</head>
+<body text="#000000" bgcolor="#9ACCF1" link="#0000EE" vlink="#551A8B">
+
+<div style="margin-bottom: 0cm; "><a NAME="Windows"></a><b><font face="Arial, Helvetica"><font color="#000099">Windows
+98 Installatie (stef home)&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic1" BORDER=1 height=14 width=14></a></div>
+
+<br>&nbsp;
+<br>&nbsp;
+<table CELLSPACING=2 CELLPADDING=2 COLS=5 WIDTH="100%" >
+<tr>
+<td><b><font face="Arial, Helvetica"><font color="#000099">Basics</font></font></b></td>
+
+<td><b><font face="Arial, Helvetica"><font color="#000099">Main</font></font></b></td>
+
+<td><b><font face="Arial, Helvetica"><font color="#000099">Utilities</font></font></b></td>
+
+<td><b><font face="Arial, Helvetica"><font color="#000099">Sys Utils</font></font></b></td>
+
+<td><b><font face="Arial, Helvetica"><font color="#000099">Verzamelingen</font></font></b></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Windows 98</font>
+<br><font face="Arial, Helvetica"><a href="#Browser">Netscape 4.7</a></font>
+<br><font face="Arial, Helvetica">Outlook</font>
+<br><font face="Arial, Helvetica">IE</font></td>
+
+<td><font face="Arial, Helvetica">Delphi</font>
+<br><font face="Arial, Helvetica">Word</font>
+<br><font face="Arial, Helvetica">Excel</font>
+<br><font face="Arial, Helvetica">Powerpoint</font></td>
+
+<td><font face="Arial, Helvetica"><a href="#WebUtilities">Web Utils</a></font>
+<br><font face="Arial, Helvetica"><a href="#CD%20burning">CD Burn</a> (Nero)</font></td>
+
+<td><font face="Arial, Helvetica"><a href="#X-setup">X-setup 5.7</a></font>
+<br><font face="Arial, Helvetica"><a href="#Tweak%20UI">Tweak UI98</a></font>
+<br><font face="Arial, Helvetica"><a href="#EzyRegSet">EzyRegSet</a></font>
+<br><font face="Arial, Helvetica"><a href="#Printflder">Printflder</a></font></td>
+
+<td><font face="Arial, Helvetica"><a href="#Verzamelingen">Icons</a></font></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<p>Het systeem bevat een slecht werkende windows, maar die wil ik nog niet
+kwijt.
+<br>Met PM de volgende instelling realiseren:
+<ul>
+<li>
+De slechte windows neemt iets minder dan de helft van de primaire partitie
+in beslag</li>
+
+<li>
+De rest van de primaire partitie is leeg (meer dan de helft dus).</li>
+
+<li>
+Nu een kopie van de actieve partitie maken (in de primaire partitie)</li>
+
+<li>
+Deze kopie activeren, zodat het eerste deel van de partitie gepoetst kan
+worden, want win98 laat zich alleen op het eerste deel van de primaire
+partitie installeren.</li>
+
+<li>
+Eerste partitie poetsen in FAT (geen FAT32), want dan kan met een windows
+opstartflop geboot worden vanaf floppy (anders gebeuren er hele vreemde
+dingen (C-schijf helemaal niet zichtbaar, D-schijf is C-schijf geworden,
+..)</li>
+
+<li>
+Windows 98 installeren.</li>
+
+<li>
+PM&nbsp; installeren&nbsp; pw=&nbsp; PM400EICD-891043&nbsp; op de C-schijf
+(zodat iedere boot sector zijn PM heeft, waarschijnlijk is er dan geen
+enkele behoefte meer aan bootmagic ?? (bootmagic vindt het namelijk erg
+vervelend als er secties opnieuw gefornatteerd zijn danwel bootmagic vaker
+voorkomt)</li>
+
+<li>
+met PM de eerste partitie terugzetten van FAT naar FAT32</li>
+</ul>
+Windows Installatie
+<ul>
+<li>
+verloopt redelijk probleemloos (behalve soundcard, hiervoor moet tot 2
+keer toe, na het opstarten een driver voor de soundboostar worden geinstalleerd)</li>
+
+<li>
+internet instellingen worden na afloop van windows installatie automatisch
+gevraagd</li>
+
+<li>
+internet instellingen:&nbsp;&nbsp; LAN, proxy&nbsp; 10.0.0.1&nbsp; port
+6588&nbsp; (rest wordt niet ingevuld)</li>
+
+<li>
+extra drivers: ATI video card</li>
+</ul>
+
+<p><br>My Computer / Control Panel / Network
+<br>&nbsp;
+<table BORDER WIDTH="100%" >
+<tr>
+<td>De volgende elementen zijn geinstalleerd
+<br>Client MS
+<br>Dial-up adapter
+<br>Ethernet adapter
+<br>TCP/IP -> Dial-up
+<br><b><font color="#3333FF">TCP/IP -> Ethernet</font></b>
+<br>File and printersharing
+<p>Windows LOGON !!!! (password free)
+<br>File Sharing&nbsp;</td>
+
+<td>properties TCP/IP
+<br>IPadress 10.0.0.2
+<br>subnet 255.255.255.0
+<br>gateway 10.0.0.1
+<br>Bindings&nbsp; X=client MS
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X=file and printer sharing
+<p>DNS
+<blockquote>Enable
+<br>host= catv8113
+<br>domain= extern.kun.nl
+<br>servers= 131.174.60.21
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+131.174.64.5</blockquote>
+</td>
+</tr>
+</table>
+
+<p>Netscape
+<br>&nbsp;server 10.0.0.1 (IN+OUT) / pop3
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<ul>
+<li>
+Zipdrive + run drivespace once</li>
+
+<li>
+Scanner (bij de nieuwe driver mag de scanner al aangesloten zijn)</li>
+
+<li>
+Office 97 + proof</li>
+
+<li>
+Sophos</li>
+
+<li>
+NIET Zonealarm, deze moet namelijk weer verwijderd worden, waardoor dial-up
+adapter verdwijnt (dus dan opnieuw win98 installeren)</li>
+
+<li>
+Netwerk printer installeren (instellen autopower on/off, papersize=A4)</li>
+
+<li>
+NERO5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1500-1000-0162-0206-2883-3756</li>
+
+<li>
+PSP</li>
+
+<li>
+WINZIP</li>
+
+<li>
+StarOffice</li>
+
+<li>
+SSSpider (eerst sysstemdatum 5 jaar vooruit zetten)+ ADaware</li>
+
+<li>
+Copernic&nbsp;&nbsp; (instellen:&nbsp; proxy&nbsp; 10.0.0.1&nbsp; port
+6588)</li>
+
+<li>
+</li>
+
+<li>
+Mappen op desktop Birgit, Robbert+Mattijs, Systeem , Stef</li>
+
+<li>
+spelletjes KLOK op desktop</li>
+
+<li>
+adresboek Birgit</li>
+
+<li>
+</li>
+
+<li>
+rescue floppies van Win98 + PM</li>
+</ul>
+
+<br>&nbsp;
+<br>&nbsp;
+<p><a NAME="Windows 98 installatie (ongeveer 30"></a><b><font face="Arial, Helvetica"><font color="#000099">Windows
+98 installatie (ongeveer 30 minuten)</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic2" BORDER=1 height=14 width=14></a>
+<ul>
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">2* startup
+floppy maken (i.v.m. slechte kwaliteit floppies)</font></div>
+
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">D ver leeg
+maken</font></div>
+
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">alles van
+C naar D kopieren (vergeet de ROOT niet), 1 file kan niet worden meegenomen
+c:\windows\...386... deze moet geexcluded worden anders stopt copy proces</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">restart,
+wijzig BIOS door DEL, boot := A,C</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">start with
+CD-ROM support&nbsp; (F=CDROM1, G=CDROM2 (R/W)</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">format C:</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">sys C:</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">restart</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">F:</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">setup, start
+pas na een aantal malen reboot, foutmelding " at least ... bytes nodig
+voor setup"&nbsp; ???</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">als gevraagd
+wordt, wederom een startup disk aanmaken</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">er ontstaan
+omdat bepaalde files van C (komend van A?) niet goed uitgepakt kunnen worden,
+lijkt echter door te gaan</font>
+<p><font face="Arial, Helvetica">restart, wijzig BIOS door DEL, boot :=
+C,A</font></ul>
+<a NAME="Drive Letters goed zetten"></a>
+<br><b><font face="Helvetica, Arial, sans-serif"><font color="#000099">Drive
+Letters goed zetten&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic3" BORDER=1 height=14 width=14></a>
+<ul>
+<div style="margin-bottom: 0cm; "><font face="Helvetica, Arial, sans-serif">Drive
+letters goed zetten (zodat ruimte voor ZIP op E:)</font></div>
+
+<div style="margin-bottom: 0cm; "><font face="Helvetica, Arial, sans-serif">&nbsp;&nbsp;&nbsp;
+Control Panel / System / Device Manager / CDROM / ... / properties / ...
+instellen</font></div>
+
+
+<p style="margin-bottom: 0cm; "><font face="Helvetica, Arial, sans-serif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CDROM1 = F</font>
+
+<p style="margin-bottom: 0cm; "><font face="Helvetica, Arial, sans-serif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CDROM2 = G</font>
+<p><font face="Helvetica, Arial, sans-serif">restart</font></ul>
+
+<div style="line-height: 100%; "><a NAME="StarOffice_5.2"></a><b><font face="Helvetica, Arial, sans-serif"><font color="#000099">StarOffice
+5.2</font></font></b></div>
+
+<div style="line-height: 100%; "><font face="Helvetica, Arial, sans-serif">aap684&nbsp;
+/&nbsp; aapbeer</font></div>
+
+<br>&nbsp;
+<br>&nbsp;
+
+<p style="line-height: 100%; "><a NAME="Proxy (AnalogX)"></a>
+<br><b><font color="#000099">Proxy (AnalogX)&nbsp;</font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic4" BORDER=1 height=14 width=14></a>
+<br>Bij clients, alle news en mail-servers "10.0.0.1" opgeven.
+<br><img SRC="test_bmp.gif" NAME="Graphic5" BORDER=0 height=213 width=361>
+<br>&nbsp;
+<br>&nbsp;
+<p><a NAME="ZIP installeren"></a><b><font face="Arial, Helvetica"><font color="#000099">ZIP
+installeren&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic6" BORDER=1 height=14 width=14></a>
+<ul>
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">niet via
+flop maar vanaf disk (betere versie + er is geen ZIP TOOLS disk nodig)</font></div>
+
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">D:\CDROMs\Naar
+CD-ROM\Drivers en patches\iomega250\win9x_iom113_en.exe</font></div>
+
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">ZIP wordt
+nu op E: geinstalleerd</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">parallel
+poort accelerator draaien</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">drivespace
+/ mount E / auto mount voortaan</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">verwijder
+refresh (plaats bij opstarten iedere keer een verwijzing naar ZIP op desktop)</font>
+<p><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; C:\WINDOWS\Start Menu\Programs\StartUp\refresh...</font></ul>
+<a NAME="Wacom Pen Tablet"></a><b><font face="Arial, Helvetica"><font color="#000099">Wacom
+Pen Tablet&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic7" BORDER=1 height=14 width=14></a>
+<ul>
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">installeren
+van versie 4.51 vanaf bijgeleverde CDROM (let op USB versie)</font></div>
+<font face="Arial, Helvetica">Er wordt helaas ook acrobat reader 4.05 geinstalleerd
+(als je niet goed oplet)</font></ul>
+<a NAME="LogiTech Mouse"></a>
+<br><b><font face="Arial, Helvetica"><font color="#000099">LogiTech Mouse&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic8" BORDER=1 height=14 width=14></a>
+<ul>
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">mouse driver
+via control panel / ... werkt slecht,</font></div>
+
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">dus gewoon
+van disk draaien:</font></div>
+
+<p><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; D:\CDROMs\Naar CD-ROM\Drivers
+en patches\LogiTech Mousdriver V7.0\setup.exe</font></ul>
+<a NAME="ATI grafische kaart"></a>
+<br><b><font face="Arial, Helvetica"><font color="#000099">ATI grafische
+kaart&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic9" BORDER=1 height=14 width=14></a>
+<ul>
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">eerst display
+drivers</font></div>
+
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">D:\CDROMs\Naar
+CD-ROM\Drivers en patches\ATI ragII+ video card driver\w82420en.exe</font></div>
+
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">en dan pas
+de video player</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">D:\CDROMs\Naar
+CD-ROM\Drivers en patches\ATI ragII+ video card driver\w8pl52en.exe</font>
+<p><font face="Arial, Helvetica">gek genoeg bevat de video driver oudere
+DLL's</font></ul>
+<a NAME="Soundcard"></a>
+<br><b><font color="#000099">Soundcard&nbsp;</font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic10" BORDER=1 height=14 width=14></a>
+<br>windows installeert automatisch een soundcard, die in de hardware devices
+met een geel vraagteken staat en ook niet&nbsp; werkt
+<ul>
+<div style="margin-bottom: 0cm; ">Verwijder de door windows geinstalleerde
+componenten</div>
+
+<div style="margin-bottom: 0cm; ">restart, windows constateert nu nieuwe
+hardware</div>
+
+
+<p style="margin-bottom: 0cm; ">windows mag zelf zoeken, maar de officiele
+drivers installeren
+
+<p style="margin-bottom: 0cm; ">&nbsp;&nbsp;&nbsp; D:\CDROMs\Naar CD-ROM\Drivers
+en patches\Sound Boostar 16-32 3D\...
+<p>restart en de soundcard lijkt perfect geinstalleerd</ul>
+<a NAME="Printer Canon BJC250"></a>
+<br><b><font face="Arial, Helvetica"><font color="#000099">Printer Canon
+BJC250&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic11" BORDER=1 height=14 width=14></a>
+<ul>
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">My Computer
+/ Control Pnal / Printers / Add Printer / Have disk</font></div>
+
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;
+D:\CDROMs\Naar CD-ROM\Drivers en patches\Canon BJC250</font></div>
+
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">Nu moet de
+printer aangezet worden om de instellingen goed te kunnen zetten, anders
+treedt een foutmelding op</font>
+<p><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+..properties / control / auto power off = enable 1 minute</font></ul>
+<a NAME="Modem en internet connectie"></a>
+<br><b><font face="Arial, Helvetica"><font color="#000099">Modem en internet
+connectie&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic12" BORDER=1 height=14 width=14></a>
+<ul>
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">Desktop
+/ connect to the internet / alles invullen wat langs komt</font></div>
+
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">zie " kabel
+modem installatie in windows 95/98"</font></div>
+
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">nu moet internet
+explorer het doen</font>
+<p><font face="Arial, Helvetica">verwijder eerste item van de desktop</font></ul>
+<a NAME="WINZIP 6.1"></a>
+<br><b><font face="Arial, Helvetica"><font color="#000099">WINZIP 6.1&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic13" BORDER=1 height=14 width=14></a>
+<ul>
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">D:\CDROMs\Naar
+CD-ROM\WinZip 6.1\setup.exe</font></div>
+<font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; had versie 8.0 moeten
+zijn ??</font></ul>
+
+<table BORDER CELLSPACING=2 CELLPADDING=2 WIDTH="100%" >
+<caption><tbody>
+<br></tbody></caption>
+
+<tr>
+<td><a NAME="Delphi 5"></a><b><font color="#000099">Delphi 5&nbsp;</font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic14" BORDER=1 height=14 width=14></a></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>draai vanaf CDROM install.exe / Delphi (only)&nbsp;
+<br>&nbsp;&nbsp;&nbsp; er treedt een vreemde foutmelding op</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>Update Package draaien
+<p>sdas</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER CELLSPACING=2 CELLPADDING=2 WIDTH="100%" >
+<caption><tbody>
+<br></tbody></caption>
+
+<tr>
+<td><a NAME="Windows 98"></a><b><font face="Arial, Helvetica"><font color="#000099">Windows
+98&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic15" BORDER=1 height=14 width=14></a></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial, Helvetica"><font color="#000099">Desktop</font></font></b>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; mappen herstellen</font></td>
+
+<td><font face="Arial, Helvetica">c:\windows\desktop\...</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial, Helvetica">Startmenu</font></b>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; instellen</font></td>
+
+<td><font face="Arial, Helvetica">small icons</font>
+<br><font face="Arial, Helvetica">NOT always on top</font></td>
+</tr>
+
+<tr>
+<td><b>Toetsenbord</b></td>
+
+<td>My Computer / Control Panel / Keyboard&nbsp;
+<br>&nbsp;&nbsp;&nbsp; language = Dutch&nbsp;
+<br>&nbsp;&nbsp;&nbsp; dubbelklikken om layout in te stellen op "United
+States International"</td>
+</tr>
+
+<tr>
+<td><b><font face="Arial, Helvetica">Smooth Scroll Popup's</font></b>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; uitschakelen</font></td>
+
+<td><font face="Arial, Helvetica">Desktop / properties / effects / animate
+OFF</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial, Helvetica">Explorer Settings</font></b>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; verbeteren</font></td>
+
+<td><font face="Arial, Helvetica">Explorer / View / Explorer Options /&nbsp;</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; General / Classic
+Style</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; View</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+remember ..</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+show all ..</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+not hide extensions ..</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">My Documents</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; hernoemen naar</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+C:\Temp</font></td>
+
+<td><font face="Arial, Helvetica">gewoon in de explorer de map hernoemen</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial, Helvetica">Desktop</font></b></td>
+
+<td><font face="Arial, Helvetica">altijd bereikbaar via Windows-D</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial, Helvetica">Quick Launch Bar</font></b>
+<br><font face="Arial, Helvetica">Icon bar, links onder</font></td>
+
+<td><font face="Arial, Helvetica">Werkt alleen als IE 4.0 of hoger is ge&iuml;nstalleerd
+rn geenabled.</font>
+<br><font face="Arial, Helvetica">Enable en disable via&nbsp;</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; Tweak UI</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+IE4</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+IE4 enabled (ON)</font>
+<br><font face="Arial, Helvetica">worden opgeborgen in</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; C:\WINDOWS\Application
+Data\Microsoft\Internet Explorer\Quick Launch\...</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial, Helvetica">Favorites</font></b>
+<br><font face="Arial, Helvetica">kan eenvoudig worden ingesteld via</font>
+<br><font face="Arial, Helvetica">Explorer</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; favorites</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+organize favorites&nbsp;</font></td>
+
+<td><font face="Arial, Helvetica">Ook te bereiken via</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; c:\windows\favorites</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial, Helvetica">Send to</font></b></td>
+
+<td><font face="Arial, Helvetica">te bereiken via</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; c:\windows\sendto</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">geen <b>filepath in caption</b></font></td>
+
+<td><font face="Arial, Helvetica">Op zich is een filename met fullpath
+wel leuk, maar als een window geminimaliseerd wordt, is in de taskbar geen
+zinnige informatie meet te herkennen, dus zonder path, instellen via</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; Explorer</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+view</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+folder options</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+view</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+files and folders</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+display full path in title bar</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP><font face="Arial, Helvetica">Extra items in <b>file/popup</b></font>
+<br><font face="Arial, Helvetica">registry</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; hkey_classes_root</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+*</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+shell</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"copy to" bijvoorbeeld</font></td>
+
+<td><font face="Arial, Helvetica">komt dan ook nog voor in</font>
+<br><font face="Arial, Helvetica">registry</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; hkey_local_machine</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+software</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+classes</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+*</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+shell</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"copy to" bijvoorbeeld</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica"><a href="http://members.aol.com/axcel216/">Axcel216</a></font>
+<br><font face="Arial, Helvetica"><a href="registry.htm">Registry Info</a></font></td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER CELLSPACING=2 CELLPADDING=2 WIDTH="100%" >
+<caption><tbody>
+<br></tbody></caption>
+
+<tr>
+<td><a NAME="Windows Utilities"></a><b><font color="#000099">Windows Utilities&nbsp;</font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic16" BORDER=1 height=14 width=14></a></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>QuickTime V4.0&nbsp;
+<br>Quick Time V3.0&nbsp;
+<br>Quick Time V2.0</td>
+
+<td>V 4.0 (diverse programma's hebben nog steeds V 2 / V 3 nodig, bv MindStorms
+installeert deze versie)&nbsp;
+<br>&nbsp;&nbsp;&nbsp; D:\CDROMs\Naar CD-ROM\Quicktime\QuickTimeInstaller.exe&nbsp;
+<br>dit is geen echt programma, maar haalt de versie van het net,&nbsp;
+<br>UK versie downloaden lukt niet&nbsp;
+<br>US versie lukt wel</td>
+</tr>
+
+<tr>
+<td>DirectX V8.0</td>
+
+<td>&nbsp;&nbsp;&nbsp; D:\CDROMs\Naar CD-ROM\Directx\DX80eng.exe&nbsp;
+<br>LET OP, kan niet ge-de-installeerd worden !!</td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER CELLSPACING=2 CELLPADDING=2 WIDTH="100%" >
+<caption><tbody>
+<br></tbody></caption>
+
+<tr>
+<td><a NAME="Browser"></a><b><font face="Arial, Helvetica"><font color="#000099">Browser
+&amp; html-editor&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic17" BORDER=1 height=14 width=14></a>
+<br><b><font face="Arial, Helvetica"><font color="#000099">Netscape 4.7</font></font></b></td>
+
+<td><font face="Arial, Helvetica">Bestanden (from netscape ftp)</font>
+<br><font face="Arial, Helvetica">w/system-2.nri</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Belangrijkste instelling om te voorkomen
+dat automatisch mail wordt ontvangen en verwijderd van server</font>
+<br><font face="Arial, Helvetica">Edit</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; Preferences</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Mail &amp; Newsgroups</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Mailservers</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Incoming mail servers</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+edit</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+general</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+check for mail every (OFF)</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+pop</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+leave messages on server (ON)</font></td>
+
+<td VALIGN=TOP><font face="Arial, Helvetica">cb32d47.exe (base install)</font>
+<br><font face="Arial, Helvetica"><b>cc32d47.exe</b> (complete install)</font>
+<br><font face="Arial, Helvetica">cck32d47.exe (custumization kit)</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Belangrijkste nadeel van Netscape 4.7
+is dat deze niet meerdere pop-3 mailservers ondersteunt.</font>
+<br><font face="Arial, Helvetica">Kwa snelheid en integratie van de wysiwyg
+html-editor is het de fraaiste.</font>
+<br><font face="Arial, Helvetica">Frontpage, explorer en outlook zij nagenoeg
+geheel los staande programma's. Een zeer groot nadeel van explorer is dat
+frames (bijna) onmogelijk geedit kunnen worden.</font>
+<br><font face="Arial, Helvetica">Netscape 6 (de opvolger) is ongetiegelijk
+traag</font></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER CELLSPACING=2 CELLPADDING=2 WIDTH="100%" >
+<caption><tbody>
+<br></tbody></caption>
+
+<tr>
+<td><a NAME="Mail"></a><b><font face="Arial, Helvetica"><font color="#000099">Mail
+Client&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic18" BORDER=1 height=14 width=14></a></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Outlook Express</font></td>
+
+<td><font face="Arial, Helvetica">V 4 ondersteunt geen multiple mailboxen,&nbsp;</font>
+<br><font face="Arial, Helvetica">V 5 vereist IE5, traag, bovendien ingewikkeld
+proces om identy te switchen</font>
+<br><font face="Arial, Helvetica">Adres book</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; C:\WINDOWS\Application
+Data\Microsoft\Address Book\*.wab</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Foxmail</font></td>
+
+<td><font face="Arial, Helvetica">V 2.1 zeer mooi, wel multiple mailboxen,
+maar geen multiple afzenders</font>
+<br><font face="Arial, Helvetica">V 3 schijnt al 1.5 jaar aangekondigd
+(is wel al heel lang in chinees verkrijgbaar).</font>
+<br><font face="Arial, Helvetica">Hoewel dood eind, kan ik deze waarschijnlijk
+meerdere malen installeren, waardoor ik meerdere afzenders kan creeeren</font>
+<br><font face="Arial, Helvetica">Wel import van outlook (netscape ?)</font>
+<br><font face="Arial, Helvetica">LET OP: er moet zender SMPT server gebruikt
+worden voor alle accounts !</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Phoenix</font></td>
+
+<td><font face="Arial, Helvetica">V 0.92, mooi (incl Delphi-3 sources)
+maar al 1.5 jaar geen ontwikkeling meer, lijkt dus dood eind</font>
+<br><font face="Arial, Helvetica">er is al een iets nieuwere versie,</font>
+<br><font face="Arial, Helvetica">een probleem lijkt ook dat ie niet automatisch
+mail op haalt, mogelijk een foute instelling</font>
+<br><font face="Arial, Helvetica">Geen import van outlook of netscape</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Eudora</font></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Netscape Messenger</font></td>
+
+<td><font face="Arial, Helvetica">V 4.7 ondersteunt geen multiple mailboxen</font>
+<br><font face="Arial, Helvetica">V 6 is tergend traag</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Pegasus</font></td>
+
+<td><font face="Arial, Helvetica">Zeer uitgebreid, maar veel te moeilijk</font></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER CELLSPACING=2 CELLPADDING=2 COLS=5 WIDTH="100%" >
+<caption><tbody>
+<br></tbody></caption>
+
+<tr>
+<td><font face="Arial, Helvetica">Mail Accounts</font></td>
+
+<td><b><font face="Arial, Helvetica"><font color="#000099">Stef</font></font></b></td>
+
+<td><b><font face="Arial, Helvetica"><font color="#000099">Birgit</font></font></b></td>
+
+<td><b><font face="Arial, Helvetica"><font color="#000099">Robbert</font></font></b></td>
+
+<td><b><font face="Arial, Helvetica"><font color="#000099">Mattijs</font></font></b></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Mailserver Incoming</font></td>
+
+<td><font face="Arial, Helvetica">mailserver.uci.kun.nl</font></td>
+
+<td><font face="Arial, Helvetica">pop.edu.han.nl</font></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Mailserver Outgoing</font>
+<br><font face="Arial, Helvetica">(hoeft maar 1)</font></td>
+
+<td><font face="Arial, Helvetica">mailserver.uci.kun.nl</font></td>
+
+<td><font face="Arial, Helvetica">smpt.edu.han.nl</font></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">MailServerType</font></td>
+
+<td><font face="Arial, Helvetica">Pop3</font></td>
+
+<td><font face="Arial, Helvetica">Pop3</font></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Loginname</font></td>
+
+<td><font face="Arial, Helvetica">m571023</font></td>
+
+<td><font face="Arial, Helvetica">Birgit.RateringArntz</font></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Password</font></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Leave mail on server</font></td>
+
+<td><font face="Arial, Helvetica">YES</font></td>
+
+<td><font face="Arial, Helvetica">NO</font></td>
+
+<td><font face="Arial, Helvetica">NO</font></td>
+
+<td><font face="Arial, Helvetica">NO</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER CELLSPACING=2 CELLPADDING=2 WIDTH="100%" >
+<caption><tbody>
+<br></tbody></caption>
+
+<tr>
+<td><a NAME="WebUtilities"></a><b><font face="Arial, Helvetica"><font color="#000099">WebUtilities&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic19" BORDER=1 height=14 width=14></a></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><b>DAP</b></td>
+
+<td>Download accelerator&nbsp;
+<br>&nbsp;&nbsp;&nbsp; D:\CDROMs\Naar CD-ROM\Web Hulpprogramma's\Download_accelarator\dap4.exe</td>
+</tr>
+
+<tr>
+<td><b><font face="Arial, Helvetica">SSspider</font></b></td>
+
+<td><font face="Arial, Helvetica">Uitstekende zoekmachine, die ook sorteert
+en vooral dubbele weggooit.</font>
+<br><font face="Arial, Helvetica">Helaas 1 maand trial, gewoon opnieuw
+installeren, na eerst een uninstall uitgevoerd te hebben.</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; D:\CDROMs\Naar CD-ROM\Web
+Hulpprogramma's\SSspider\SSSpider_download.exe</font>
+<br><font face="Arial, Helvetica">Vergeet niet TSADBOT te verwijderen (via
+ADaware)</font>
+<p><font face="Arial, Helvetica">Zijn activiteit is te zien via</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; Start</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+run</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+msconfig</font></td>
+</tr>
+
+<tr>
+<td><b><font face="Arial, Helvetica">ADaware</font></b></td>
+
+<td><font face="Arial, Helvetica">Scant disks en registry op spyware en
+kan deze verwijderen, lijkt goed te werken.</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; D:\CDROMs\Naar CD-ROM\Web
+Hulpprogramma's\ADaware\aaw40.exe</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">Ash10.zip</font></td>
+
+<td><font face="Arial, Helvetica">Onderdrukt reclame popup's, werking ??</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER CELLSPACING=2 CELLPADDING=2 COLS=1 WIDTH="100%" >
+<caption><tbody>
+<br></tbody></caption>
+
+<tr>
+<td><a NAME="CD burning"></a><b><font color="#000099">CD burning&nbsp;</font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic20" BORDER=1 height=14 width=14></a>
+<br>Nero 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1500-1000-0162-0206-2883-3756</td>
+</tr>
+
+<tr>
+<td>Installeer alleen burning software,&nbsp;
+<br>RW-CD's geven nogal problemen</td>
+</tr>
+
+<tr>
+<td>Als per ongeluk packet writing is geinstalleerd, is deze lastig te
+verwijderen, ga als volgt te werk&nbsp;
+<br>Un&iuml;nstall nero, (packet writing blijft nog staan)&nbsp;
+<br>&nbsp;&nbsp;&nbsp; Install Nero (zonder packet writing, waardoor packet
+writing verdwijnt)</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER CELLSPACING=2 CELLPADDING=2 WIDTH="100%" >
+<caption><tbody>
+<br></tbody></caption>
+
+<tr>
+<td><a NAME="X-setup"></a><b><font face="Arial, Helvetica"><font color="#000099">X-setup
+5.7&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic21" BORDER=1 height=14 width=14></a>
+<br><font face="Arial, Helvetica">van <a href="http://www.xteq.com/">Xteq
+Systems</a></font></td>
+
+<td><font face="Arial, Helvetica">"The mother of all tweakers"</font>
+<br><font face="Arial, Helvetica">met diverse plugins, deze worden opgeborgen
+in</font>
+<br><font face="Arial, Helvetica">c:\program files\x_setup\plugins\*.xpl</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><a NAME="Tweak UI"></a><b><font face="Arial, Helvetica"><font color="#000099">Tweak
+UI</font></font></b></td>
+
+<td><font face="Arial, Helvetica">Eenvoudige tweaker voor de meest voorkomende
+instellingen, gemakkelijker te bedienen dan X-setup met minder risico</font>
+<br><font face="Arial, Helvetica">Tweak98 van powertoys,</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; selfextracting to
+temp file</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+run *.inf</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><a NAME="EzyRegSet"></a><b><font face="Arial, Helvetica"><font color="#000099">EzyRegSet</font></font></b></td>
+
+<td><font face="Arial, Helvetica">lijkt een beetje op X-setup, echter beperkter
+maar overzichterlijker</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><a NAME="Printflder"></a><b><font face="Arial, Helvetica"><font color="#000099">Printflder</font></font></b></td>
+
+<td><font face="Arial, Helvetica">Om een directory listing te printen via
+rechter muisklik</font>
+<br><font face="Arial, Helvetica">plaats een aantal vervelende "extra's"
+in popup (copy filename etc),</font>
+<br><font face="Arial, Helvetica">deze zijn de registry eenvoudig te vewijderen
+via</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; registry</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+hkey_classes_root</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+*</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+shell</font>
+<br><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"copy filename"</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">TweakAll2</font></td>
+
+<td><font face="Arial, Helvetica">niet geinstalleerd, voegt weinig toe
+aan X-setup</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+<p><a NAME="Lego MindStorms"></a><b><font face="Arial, Helvetica"><font color="#000099">Lego
+MindStorms&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic22" BORDER=1 height=14 width=14></a>
+<ul><font face="Arial, Helvetica">QuickTime V 2 en QuickTime V 3 moeten
+geinstalleerd worden (QuickTime V 4 is onvoldoende)</font></ul>
+<a NAME="Matlab"></a><b><font face="Arial, Helvetica"><font color="#000099">Matlab&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic23" BORDER=1 height=14 width=14></a>
+<ul>
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">wat lullig,
+matlab kan niet eens lange bestandsnamen aan, dus installeren op</font></div>
+
+<div style="margin-bottom: 0cm; "><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;
+c:\progra~1\matlab\...</font></div>
+
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">release 11,
+product id-nr =</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp;
+11-14392-06459-18263-14537</font>
+
+<p style="margin-bottom: 0cm; "><font face="Arial, Helvetica">na opstarten
+matlab:</font>
+<p><font face="Arial, Helvetica">&nbsp;&nbsp;&nbsp; file / set path / d:\data_matlab\...</font></ul>
+<a NAME="Acrobat Reader"></a>
+<br><b><font face="Arial, Helvetica"><font color="#000099">Acrobat Reader&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic24" BORDER=1 height=14 width=14></a>
+<br>&nbsp;
+<br>&nbsp;
+<p><a NAME="Paint Shop Pro"></a><b><font face="Arial, Helvetica"><font color="#000099">Paint
+Shop Pro&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic25" BORDER=1 height=14 width=14></a>
+<br>&nbsp;
+<br>&nbsp;
+
+<p style="margin-bottom: 0cm; "><a NAME="Verzamelingen"></a><b><font face="Arial, Helvetica"><font color="#000099">Verzamelingen&nbsp;</font></font></b><a href="#top"><img SRC="top_page.gif" NAME="Graphic26" BORDER=1 height=14 width=14></a>
+<br>&nbsp;
+<table BORDER CELLSPACING=2 CELLPADDING=2 COLS=5 WIDTH="99%" >
+<caption><tbody>
+<br></tbody></caption>
+
+<tr>
+<td><font face="Arial, Helvetica">D:\<b><font color="#000099">Icons</font></b></font></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica">myicons.zip</font></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td><font face="Arial, Helvetica"><font color="#000000">C,D verzameld in</font></font>
+<br><font face="Arial, Helvetica"><font color="#000000">all_icons.zip</font></font></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+</body>
+</html>

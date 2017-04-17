@@ -1,0 +1,11 @@
+;<mac> def_I2C_begin
+;<mac> def_I2C  24LC64,  $A0, 2, 100
+;<mac> def_I2C  24LC32a, $A0, 2, 400
+;<mac> def_I2C  24LC32b, $A0, 2, 400
+;<mac> def_I2C  PCF8574, $40, 0, 100
+;<mac> def_I2C  CMPS03,  $C0, 1, 100
+;<mac> def_I2C_end
+include i2c_glib
+
+
+

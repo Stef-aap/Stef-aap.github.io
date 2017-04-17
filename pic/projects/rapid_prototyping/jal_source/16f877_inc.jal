@@ -1,0 +1,1561 @@
+-- This file is automatic generated from P16F877.INC
+--
+-- configuration according definitions SM, (see JAL_var_declarations)
+-- date = 16-9-2003 11:17:23
+--
+-- Port literals can be generated in both MPlab and JAL notation.
+--    i.e.  PORTA  and PORT_A
+-- All 8 bits in the available ports are derived,
+-- which does not mean they all exists.
+--
+-- Bit literals can be generated in both MPlab (as proposed by Wouter)
+-- and old JAL notation.
+--    i.e.  _STATUS_C  and STATUS_C
+--
+-- RAM and Configuration bits are ignored at this moment,
+--   (RAM is used to determine the number of ram banks)
+-- (but they can simply be added if meaningfull).
+
+-- ------------------------------------------------------------------
+-- Special Function Registers in BANK=0 of P16F877
+-- ------------------------------------------------------------------
+var volatile byte INDF        at 0x00
+const  LOW_INDF                = 0x00
+const HIGH_INDF                = 0
+var volatile byte TMR0        at 0x01
+const  LOW_TMR0                = 0x01
+const HIGH_TMR0                = 0
+var volatile byte PCL         at 0x02
+var volatile byte _PCL        at 0x82
+var volatile byte __PCL       at 0x102
+var volatile byte ___PCL      at 0x182
+const  LOW_PCL                 = 0x02
+const HIGH_PCL                 = 0
+var volatile byte STATUS      at 0x03
+var volatile byte _STATUS     at 0x83
+var volatile byte __STATUS    at 0x103
+var volatile byte ___STATUS   at 0x183
+const  LOW_STATUS              = 0x03
+const HIGH_STATUS              = 0
+var volatile byte FSR         at 0x04
+var volatile byte _FSR        at 0x84
+var volatile byte __FSR       at 0x104
+var volatile byte ___FSR      at 0x184
+const  LOW_FSR                 = 0x04
+const HIGH_FSR                 = 0
+var volatile byte PORTA       at 0x05
+const  LOW_PORTA               = 0x05
+const HIGH_PORTA               = 0
+var volatile byte PORTB       at 0x06
+const  LOW_PORTB               = 0x06
+const HIGH_PORTB               = 0
+var volatile byte PORTC       at 0x07
+const  LOW_PORTC               = 0x07
+const HIGH_PORTC               = 0
+var volatile byte PORTD       at 0x08
+const  LOW_PORTD               = 0x08
+const HIGH_PORTD               = 0
+var volatile byte PORTE       at 0x09
+const  LOW_PORTE               = 0x09
+const HIGH_PORTE               = 0
+var volatile byte PCLATH      at 0x0A
+const  LOW_PCLATH              = 0x0A
+const HIGH_PCLATH              = 0
+var volatile byte INTCON      at 0x0B
+var volatile byte _INTCON     at 0x8B
+var volatile byte __INTCON    at 0x10B
+var volatile byte ___INTCON   at 0x18B
+const  LOW_INTCON              = 0x0B
+const HIGH_INTCON              = 0
+var volatile byte PIR1        at 0x0C
+const  LOW_PIR1                = 0x0C
+const HIGH_PIR1                = 0
+var volatile byte PIR2        at 0x0D
+const  LOW_PIR2                = 0x0D
+const HIGH_PIR2                = 0
+var volatile byte TMR1L       at 0x0E
+const  LOW_TMR1L               = 0x0E
+const HIGH_TMR1L               = 0
+var volatile byte TMR1H       at 0x0F
+const  LOW_TMR1H               = 0x0F
+const HIGH_TMR1H               = 0
+var volatile byte T1CON       at 0x10
+const  LOW_T1CON               = 0x10
+const HIGH_T1CON               = 0
+var volatile byte TMR2        at 0x11
+const  LOW_TMR2                = 0x11
+const HIGH_TMR2                = 0
+var volatile byte T2CON       at 0x12
+const  LOW_T2CON               = 0x12
+const HIGH_T2CON               = 0
+var volatile byte SSPBUF      at 0x13
+const  LOW_SSPBUF              = 0x13
+const HIGH_SSPBUF              = 0
+var volatile byte SSPCON      at 0x14
+const  LOW_SSPCON              = 0x14
+const HIGH_SSPCON              = 0
+var volatile byte CCPR1L      at 0x15
+const  LOW_CCPR1L              = 0x15
+const HIGH_CCPR1L              = 0
+var volatile byte CCPR1H      at 0x16
+const  LOW_CCPR1H              = 0x16
+const HIGH_CCPR1H              = 0
+var volatile byte CCP1CON     at 0x17
+const  LOW_CCP1CON             = 0x17
+const HIGH_CCP1CON             = 0
+var volatile byte RCSTA       at 0x18
+const  LOW_RCSTA               = 0x18
+const HIGH_RCSTA               = 0
+var volatile byte TXREG       at 0x19
+const  LOW_TXREG               = 0x19
+const HIGH_TXREG               = 0
+var volatile byte RCREG       at 0x1A
+const  LOW_RCREG               = 0x1A
+const HIGH_RCREG               = 0
+var volatile byte CCPR2L      at 0x1B
+const  LOW_CCPR2L              = 0x1B
+const HIGH_CCPR2L              = 0
+var volatile byte CCPR2H      at 0x1C
+const  LOW_CCPR2H              = 0x1C
+const HIGH_CCPR2H              = 0
+var volatile byte CCP2CON     at 0x1D
+const  LOW_CCP2CON             = 0x1D
+const HIGH_CCP2CON             = 0
+var volatile byte ADRESH      at 0x1E
+const  LOW_ADRESH              = 0x1E
+const HIGH_ADRESH              = 0
+var volatile byte ADCON0      at 0x1F
+const  LOW_ADCON0              = 0x1F
+const HIGH_ADCON0              = 0
+
+-- ------------------------------------------------------------------
+-- Special Function Registers in BANK=1 of P16F877
+-- ------------------------------------------------------------------
+var volatile byte _OPTION_REG at 0x81
+const  LOW_OPTION_REG          = 0x81
+const HIGH_OPTION_REG          = 0
+var volatile byte _TRISA      at 0x85
+const  LOW_TRISA               = 0x85
+const HIGH_TRISA               = 0
+var volatile byte _TRISB      at 0x86
+const  LOW_TRISB               = 0x86
+const HIGH_TRISB               = 0
+var volatile byte _TRISC      at 0x87
+const  LOW_TRISC               = 0x87
+const HIGH_TRISC               = 0
+var volatile byte _TRISD      at 0x88
+const  LOW_TRISD               = 0x88
+const HIGH_TRISD               = 0
+var volatile byte _TRISE      at 0x89
+const  LOW_TRISE               = 0x89
+const HIGH_TRISE               = 0
+var volatile byte _PIE1       at 0x8C
+const  LOW_PIE1                = 0x8C
+const HIGH_PIE1                = 0
+var volatile byte _PIE2       at 0x8D
+const  LOW_PIE2                = 0x8D
+const HIGH_PIE2                = 0
+var volatile byte _PCON       at 0x8E
+const  LOW_PCON                = 0x8E
+const HIGH_PCON                = 0
+var volatile byte _SSPCON2    at 0x91
+const  LOW_SSPCON2             = 0x91
+const HIGH_SSPCON2             = 0
+var volatile byte _PR2        at 0x92
+const  LOW_PR2                 = 0x92
+const HIGH_PR2                 = 0
+var volatile byte _SSPADD     at 0x93
+const  LOW_SSPADD              = 0x93
+const HIGH_SSPADD              = 0
+var volatile byte _SSPSTAT    at 0x94
+const  LOW_SSPSTAT             = 0x94
+const HIGH_SSPSTAT             = 0
+var volatile byte _TXSTA      at 0x98
+const  LOW_TXSTA               = 0x98
+const HIGH_TXSTA               = 0
+var volatile byte _SPBRG      at 0x99
+const  LOW_SPBRG               = 0x99
+const HIGH_SPBRG               = 0
+var volatile byte _ADRESL     at 0x9E
+const  LOW_ADRESL              = 0x9E
+const HIGH_ADRESL              = 0
+var volatile byte _ADCON1     at 0x9F
+const  LOW_ADCON1              = 0x9F
+const HIGH_ADCON1              = 0
+
+-- ------------------------------------------------------------------
+-- Special Function Registers in BANK=2 of P16F877
+-- ------------------------------------------------------------------
+var volatile byte __EEDATA    at 0x10C
+const  LOW_EEDATA              = 0x0C
+const HIGH_EEDATA              = 1
+var volatile byte __EEADR     at 0x10D
+const  LOW_EEADR               = 0x0D
+const HIGH_EEADR               = 1
+var volatile byte __EEDATH    at 0x10E
+const  LOW_EEDATH              = 0x0E
+const HIGH_EEDATH              = 1
+var volatile byte __EEADRH    at 0x10F
+const  LOW_EEADRH              = 0x0F
+const HIGH_EEADRH              = 1
+
+-- ------------------------------------------------------------------
+-- Special Function Registers in BANK=3 of P16F877
+-- ------------------------------------------------------------------
+var volatile byte ___EECON1   at 0x18C
+const  LOW_EECON1              = 0x8C
+const HIGH_EECON1              = 1
+var volatile byte ___EECON2   at 0x18D
+const  LOW_EECON2              = 0x8D
+const HIGH_EECON2              = 1
+
+-- ------------------------------------------------------------------
+-- PORTA pins
+-- ------------------------------------------------------------------
+var volatile bit  pin_a0 at PORTA : 0
+var volatile bit  pin_a1 at PORTA : 1
+var volatile bit  pin_a2 at PORTA : 2
+var volatile bit  pin_a3 at PORTA : 3
+var volatile bit  pin_a4 at PORTA : 4
+var volatile bit  pin_a5 at PORTA : 5
+var volatile bit  pin_a6 at PORTA : 6
+var volatile bit  pin_a7 at PORTA : 7
+
+-- ------------------------------------------------------------------
+-- PORTB pins
+-- ------------------------------------------------------------------
+var volatile bit  pin_b0 at PORTB : 0
+var volatile bit  pin_b1 at PORTB : 1
+var volatile bit  pin_b2 at PORTB : 2
+var volatile bit  pin_b3 at PORTB : 3
+var volatile bit  pin_b4 at PORTB : 4
+var volatile bit  pin_b5 at PORTB : 5
+var volatile bit  pin_b6 at PORTB : 6
+var volatile bit  pin_b7 at PORTB : 7
+
+-- ------------------------------------------------------------------
+-- PORTC pins
+-- ------------------------------------------------------------------
+var volatile bit  pin_c0 at PORTC : 0
+var volatile bit  pin_c1 at PORTC : 1
+var volatile bit  pin_c2 at PORTC : 2
+var volatile bit  pin_c3 at PORTC : 3
+var volatile bit  pin_c4 at PORTC : 4
+var volatile bit  pin_c5 at PORTC : 5
+var volatile bit  pin_c6 at PORTC : 6
+var volatile bit  pin_c7 at PORTC : 7
+
+-- ------------------------------------------------------------------
+-- PORTD pins
+-- ------------------------------------------------------------------
+var volatile bit  pin_d0 at PORTD : 0
+var volatile bit  pin_d1 at PORTD : 1
+var volatile bit  pin_d2 at PORTD : 2
+var volatile bit  pin_d3 at PORTD : 3
+var volatile bit  pin_d4 at PORTD : 4
+var volatile bit  pin_d5 at PORTD : 5
+var volatile bit  pin_d6 at PORTD : 6
+var volatile bit  pin_d7 at PORTD : 7
+
+-- ------------------------------------------------------------------
+-- PORTE pins
+-- ------------------------------------------------------------------
+var volatile bit  pin_e0 at PORTE : 0
+var volatile bit  pin_e1 at PORTE : 1
+var volatile bit  pin_e2 at PORTE : 2
+;var volatile bit  pin_e3 at PORTE : 3
+;var volatile bit  pin_e4 at PORTE : 4
+;var volatile bit  pin_e5 at PORTE : 5
+;var volatile bit  pin_e6 at PORTE : 6
+;var volatile bit  pin_e7 at PORTE : 7
+
+-- ------------------------------------------------------------------
+-- STATUS associated bits
+-- ------------------------------------------------------------------
+var volatile bit  IRP    at STATUS : 7
+var volatile bit  RP1    at STATUS : 6
+var volatile bit  RP0    at STATUS : 5
+var volatile bit  NOT_TO at STATUS : 4
+var volatile bit  NOT_PD at STATUS : 3
+var volatile bit  Z      at STATUS : 2
+var volatile bit  DC     at STATUS : 1
+var volatile bit  C      at STATUS : 0
+
+-- ------------------------------------------------------------------
+-- INTCON associated bits
+-- ------------------------------------------------------------------
+var volatile bit  GIE  at INTCON : 7
+var volatile bit  PEIE at INTCON : 6
+var volatile bit  T0IE at INTCON : 5
+var volatile bit  INTE at INTCON : 4
+var volatile bit  RBIE at INTCON : 3
+var volatile bit  T0IF at INTCON : 2
+var volatile bit  INTF at INTCON : 1
+var volatile bit  RBIF at INTCON : 0
+
+-- ------------------------------------------------------------------
+-- PIR1 associated bits
+-- ------------------------------------------------------------------
+var volatile bit  PSPIF  at PIR1 : 7
+var volatile bit  ADIF   at PIR1 : 6
+var volatile bit  RCIF   at PIR1 : 5
+var volatile bit  TXIF   at PIR1 : 4
+var volatile bit  SSPIF  at PIR1 : 3
+var volatile bit  CCP1IF at PIR1 : 2
+var volatile bit  TMR2IF at PIR1 : 1
+var volatile bit  TMR1IF at PIR1 : 0
+
+-- ------------------------------------------------------------------
+-- PIR2 associated bits
+-- ------------------------------------------------------------------
+var volatile bit  EEIF   at PIR2 : 4
+var volatile bit  BCLIF  at PIR2 : 3
+var volatile bit  CCP2IF at PIR2 : 0
+
+-- ------------------------------------------------------------------
+-- T1CON associated bits
+-- ------------------------------------------------------------------
+var volatile bit  T1CKPS1    at T1CON : 5
+var volatile bit  T1CKPS0    at T1CON : 4
+var volatile bit  T1OSCEN    at T1CON : 3
+var volatile bit  NOT_T1SYNC at T1CON : 2
+var volatile bit  T1INSYNC   at T1CON : 2
+var volatile bit  T1SYNC     at T1CON : 2
+var volatile bit  TMR1CS     at T1CON : 1
+var volatile bit  TMR1ON     at T1CON : 0
+
+-- ------------------------------------------------------------------
+-- T2CON associated bits
+-- ------------------------------------------------------------------
+var volatile bit  TOUTPS3 at T2CON : 6
+var volatile bit  TOUTPS2 at T2CON : 5
+var volatile bit  TOUTPS1 at T2CON : 4
+var volatile bit  TOUTPS0 at T2CON : 3
+var volatile bit  TMR2ON  at T2CON : 2
+var volatile bit  T2CKPS1 at T2CON : 1
+var volatile bit  T2CKPS0 at T2CON : 0
+
+-- ------------------------------------------------------------------
+-- SSPCON associated bits
+-- ------------------------------------------------------------------
+var volatile bit  WCOL  at SSPCON : 7
+var volatile bit  SSPOV at SSPCON : 6
+var volatile bit  SSPEN at SSPCON : 5
+var volatile bit  CKP   at SSPCON : 4
+var volatile bit  SSPM3 at SSPCON : 3
+var volatile bit  SSPM2 at SSPCON : 2
+var volatile bit  SSPM1 at SSPCON : 1
+var volatile bit  SSPM0 at SSPCON : 0
+
+-- ------------------------------------------------------------------
+-- CCP1CON associated bits
+-- ------------------------------------------------------------------
+var volatile bit  CCP1X  at CCP1CON : 5
+var volatile bit  CCP1Y  at CCP1CON : 4
+var volatile bit  CCP1M3 at CCP1CON : 3
+var volatile bit  CCP1M2 at CCP1CON : 2
+var volatile bit  CCP1M1 at CCP1CON : 1
+var volatile bit  CCP1M0 at CCP1CON : 0
+
+-- ------------------------------------------------------------------
+-- RCSTA associated bits
+-- ------------------------------------------------------------------
+var volatile bit  SPEN    at RCSTA : 7
+var volatile bit  RX9     at RCSTA : 6
+var volatile bit  RC9     at RCSTA : 6
+var volatile bit  NOT_RC8 at RCSTA : 6
+var volatile bit  RC8_9   at RCSTA : 6
+var volatile bit  SREN    at RCSTA : 5
+var volatile bit  CREN    at RCSTA : 4
+var volatile bit  ADDEN   at RCSTA : 3
+var volatile bit  FERR    at RCSTA : 2
+var volatile bit  OERR    at RCSTA : 1
+var volatile bit  RX9D    at RCSTA : 0
+var volatile bit  RCD8    at RCSTA : 0
+
+-- ------------------------------------------------------------------
+-- CCP2CON associated bits
+-- ------------------------------------------------------------------
+var volatile bit  CCP2X  at CCP2CON : 5
+var volatile bit  CCP2Y  at CCP2CON : 4
+var volatile bit  CCP2M3 at CCP2CON : 3
+var volatile bit  CCP2M2 at CCP2CON : 2
+var volatile bit  CCP2M1 at CCP2CON : 1
+var volatile bit  CCP2M0 at CCP2CON : 0
+
+-- ------------------------------------------------------------------
+-- ADCON0 associated bits
+-- ------------------------------------------------------------------
+var volatile bit  ADCS1    at ADCON0 : 7
+var volatile bit  ADCS0    at ADCON0 : 6
+var volatile bit  CHS2     at ADCON0 : 5
+var volatile bit  CHS1     at ADCON0 : 4
+var volatile bit  CHS0     at ADCON0 : 3
+var volatile bit  GO       at ADCON0 : 2
+var volatile bit  NOT_DONE at ADCON0 : 2
+var volatile bit  GO_DONE  at ADCON0 : 2
+var volatile bit  ADON     at ADCON0 : 0
+
+-- ------------------------------------------------------------------
+-- OPTION_REG associated bits
+-- ------------------------------------------------------------------
+var volatile bit  _NOT_RBPU at _OPTION_REG : 7
+const  _b_NOT_RBPU           =  1 << 7
+var volatile bit  _INTEDG   at _OPTION_REG : 6
+const  _b_INTEDG             =  1 << 6
+var volatile bit  _T0CS     at _OPTION_REG : 5
+const  _b_T0CS               =  1 << 5
+var volatile bit  _T0SE     at _OPTION_REG : 4
+const  _b_T0SE               =  1 << 4
+var volatile bit  _PSA      at _OPTION_REG : 3
+const  _b_PSA                =  1 << 3
+var volatile bit  _PS2      at _OPTION_REG : 2
+const  _b_PS2                =  1 << 2
+var volatile bit  _PS1      at _OPTION_REG : 1
+const  _b_PS1                =  1 << 1
+var volatile bit  _PS0      at _OPTION_REG : 0
+const  _b_PS0                =  1 << 0
+
+-- ------------------------------------------------------------------
+-- TRISE associated bits
+-- ------------------------------------------------------------------
+var volatile bit  _IBF     at _TRISE : 7
+const  _b_IBF               =  1 << 7
+var volatile bit  _OBF     at _TRISE : 6
+const  _b_OBF               =  1 << 6
+var volatile bit  _IBOV    at _TRISE : 5
+const  _b_IBOV              =  1 << 5
+var volatile bit  _PSPMODE at _TRISE : 4
+const  _b_PSPMODE           =  1 << 4
+var volatile bit  _TRISE2  at _TRISE : 2
+const  _b_TRISE2            =  1 << 2
+var volatile bit  _TRISE1  at _TRISE : 1
+const  _b_TRISE1            =  1 << 1
+var volatile bit  _TRISE0  at _TRISE : 0
+const  _b_TRISE0            =  1 << 0
+
+-- ------------------------------------------------------------------
+-- PIE1 associated bits
+-- ------------------------------------------------------------------
+var volatile bit  _PSPIE  at _PIE1 : 7
+const  _b_PSPIE            =  1 << 7
+var volatile bit  _ADIE   at _PIE1 : 6
+const  _b_ADIE             =  1 << 6
+var volatile bit  _RCIE   at _PIE1 : 5
+const  _b_RCIE             =  1 << 5
+var volatile bit  _TXIE   at _PIE1 : 4
+const  _b_TXIE             =  1 << 4
+var volatile bit  _SSPIE  at _PIE1 : 3
+const  _b_SSPIE            =  1 << 3
+var volatile bit  _CCP1IE at _PIE1 : 2
+const  _b_CCP1IE           =  1 << 2
+var volatile bit  _TMR2IE at _PIE1 : 1
+const  _b_TMR2IE           =  1 << 1
+var volatile bit  _TMR1IE at _PIE1 : 0
+const  _b_TMR1IE           =  1 << 0
+
+-- ------------------------------------------------------------------
+-- PIE2 associated bits
+-- ------------------------------------------------------------------
+var volatile bit  _EEIE   at _PIE2 : 4
+const  _b_EEIE             =  1 << 4
+var volatile bit  _BCLIE  at _PIE2 : 3
+const  _b_BCLIE            =  1 << 3
+var volatile bit  _CCP2IE at _PIE2 : 0
+const  _b_CCP2IE           =  1 << 0
+
+-- ------------------------------------------------------------------
+-- PCON associated bits
+-- ------------------------------------------------------------------
+var volatile bit  _NOT_POR at _PCON : 1
+const  _b_NOT_POR           =  1 << 1
+var volatile bit  _NOT_BO  at _PCON : 0
+const  _b_NOT_BO            =  1 << 0
+var volatile bit  _NOT_BOR at _PCON : 0
+const  _b_NOT_BOR           =  1 << 0
+
+-- ------------------------------------------------------------------
+-- SSPCON2 associated bits
+-- ------------------------------------------------------------------
+var volatile bit  _GCEN    at _SSPCON2 : 7
+const  _b_GCEN              =  1 << 7
+var volatile bit  _ACKSTAT at _SSPCON2 : 6
+const  _b_ACKSTAT           =  1 << 6
+var volatile bit  _ACKDT   at _SSPCON2 : 5
+const  _b_ACKDT             =  1 << 5
+var volatile bit  _ACKEN   at _SSPCON2 : 4
+const  _b_ACKEN             =  1 << 4
+var volatile bit  _RCEN    at _SSPCON2 : 3
+const  _b_RCEN              =  1 << 3
+var volatile bit  _PEN     at _SSPCON2 : 2
+const  _b_PEN               =  1 << 2
+var volatile bit  _RSEN    at _SSPCON2 : 1
+const  _b_RSEN              =  1 << 1
+var volatile bit  _SEN     at _SSPCON2 : 0
+const  _b_SEN               =  1 << 0
+
+-- ------------------------------------------------------------------
+-- SSPSTAT associated bits
+-- ------------------------------------------------------------------
+var volatile bit  _SMP          at _SSPSTAT : 7
+const  _b_SMP                    =  1 << 7
+var volatile bit  _CKE          at _SSPSTAT : 6
+const  _b_CKE                    =  1 << 6
+var volatile bit  _D            at _SSPSTAT : 5
+const  _b_D                      =  1 << 5
+var volatile bit  _I2C_DATA     at _SSPSTAT : 5
+const  _b_I2C_DATA               =  1 << 5
+var volatile bit  _NOT_A        at _SSPSTAT : 5
+const  _b_NOT_A                  =  1 << 5
+var volatile bit  _NOT_ADDRESS  at _SSPSTAT : 5
+const  _b_NOT_ADDRESS            =  1 << 5
+var volatile bit  _D_A          at _SSPSTAT : 5
+const  _b_D_A                    =  1 << 5
+var volatile bit  _DATA_ADDRESS at _SSPSTAT : 5
+const  _b_DATA_ADDRESS           =  1 << 5
+var volatile bit  _P            at _SSPSTAT : 4
+const  _b_P                      =  1 << 4
+var volatile bit  _I2C_STOP     at _SSPSTAT : 4
+const  _b_I2C_STOP               =  1 << 4
+var volatile bit  _S            at _SSPSTAT : 3
+const  _b_S                      =  1 << 3
+var volatile bit  _I2C_START    at _SSPSTAT : 3
+const  _b_I2C_START              =  1 << 3
+var volatile bit  _R            at _SSPSTAT : 2
+const  _b_R                      =  1 << 2
+var volatile bit  _I2C_READ     at _SSPSTAT : 2
+const  _b_I2C_READ               =  1 << 2
+var volatile bit  _NOT_W        at _SSPSTAT : 2
+const  _b_NOT_W                  =  1 << 2
+var volatile bit  _NOT_WRITE    at _SSPSTAT : 2
+const  _b_NOT_WRITE              =  1 << 2
+var volatile bit  _R_W          at _SSPSTAT : 2
+const  _b_R_W                    =  1 << 2
+var volatile bit  _READ_WRITE   at _SSPSTAT : 2
+const  _b_READ_WRITE             =  1 << 2
+var volatile bit  _UA           at _SSPSTAT : 1
+const  _b_UA                     =  1 << 1
+var volatile bit  _BF           at _SSPSTAT : 0
+const  _b_BF                     =  1 << 0
+
+-- ------------------------------------------------------------------
+-- TXSTA associated bits
+-- ------------------------------------------------------------------
+var volatile bit  _CSRC    at _TXSTA : 7
+const  _b_CSRC              =  1 << 7
+var volatile bit  _TX9     at _TXSTA : 6
+const  _b_TX9               =  1 << 6
+var volatile bit  _NOT_TX8 at _TXSTA : 6
+const  _b_NOT_TX8           =  1 << 6
+var volatile bit  _TX8_9   at _TXSTA : 6
+const  _b_TX8_9             =  1 << 6
+var volatile bit  _TXEN    at _TXSTA : 5
+const  _b_TXEN              =  1 << 5
+var volatile bit  _SYNC    at _TXSTA : 4
+const  _b_SYNC              =  1 << 4
+var volatile bit  _BRGH    at _TXSTA : 2
+const  _b_BRGH              =  1 << 2
+var volatile bit  _TRMT    at _TXSTA : 1
+const  _b_TRMT              =  1 << 1
+var volatile bit  _TX9D    at _TXSTA : 0
+const  _b_TX9D              =  1 << 0
+var volatile bit  _TXD8    at _TXSTA : 0
+const  _b_TXD8              =  1 << 0
+
+-- ------------------------------------------------------------------
+-- ADCON1 associated bits
+-- ------------------------------------------------------------------
+var volatile bit  _ADFM  at _ADCON1 : 7
+const  _b_ADFM            =  1 << 7
+var volatile bit  _PCFG3 at _ADCON1 : 3
+const  _b_PCFG3           =  1 << 3
+var volatile bit  _PCFG2 at _ADCON1 : 2
+const  _b_PCFG2           =  1 << 2
+var volatile bit  _PCFG1 at _ADCON1 : 1
+const  _b_PCFG1           =  1 << 1
+var volatile bit  _PCFG0 at _ADCON1 : 0
+const  _b_PCFG0           =  1 << 0
+
+-- ------------------------------------------------------------------
+-- EECON1 associated bits
+-- ------------------------------------------------------------------
+var volatile bit  ___EEPGD at ___EECON1 : 7
+const  _b_EEPGD             =  1 << 7
+var volatile bit  ___WRERR at ___EECON1 : 3
+const  _b_WRERR             =  1 << 3
+var volatile bit  ___WREN  at ___EECON1 : 2
+const  _b_WREN              =  1 << 2
+var volatile bit  ___WR    at ___EECON1 : 1
+const  _b_WR                =  1 << 1
+var volatile bit  ___RD    at ___EECON1 : 0
+const  _b_RD                =  1 << 0
+
+-- ------------------------------------------------------------------
+-- register bank selection
+-- ------------------------------------------------------------------
+
+procedure bank_0 is
+  asm bcf STATUS, RP0
+  asm bcf STATUS, RP1
+end procedure
+
+
+;procedure bank_1 is
+;   if ( target_chip == pic_16f877 ) | ( target_chip == pic_16f628 ) then
+;      asm bsf status, 5
+;      asm bcf status, 6
+;   end if
+;   asm bank 1
+;end procedure
+procedure bank_1 is
+  asm bsf STATUS, RP0
+  asm bcf STATUS, RP1
+end procedure
+
+procedure bank_2 is
+  asm bcf STATUS, RP0
+  asm bsf STATUS, RP1
+end procedure
+
+procedure bank_3 is
+  asm bsf STATUS, RP0
+  asm bsf STATUS, RP1
+end procedure
+
+
+-- -----------------------------------------------------------------------------
+-- clear bank0, should be placed in INC-file
+-- -----------------------------------------------------------------------------
+  assembler
+  local next
+	  bcf 		 IRP			   ;be sure bank0/1
+    movlw		 0x20				 ;
+    movwf		 FSR				 ;WAS movfw !!
+  next:			 						 ;
+  	clrf		 INDF				 ;
+  	incf		 FSR,f			 ;
+  	btfss		 FSR,7			 ;
+  	goto		 next				 ;
+  end assembler
+-- -----------------------------------------------------------------------------
+
+
+-- ------------------------------------------------------------------
+-- Port and pin directions
+-- ------------------------------------------------------------------
+
+const bit input           = on
+const bit output          = off
+const byte all_input      = 0b_1111_1111
+const byte all_output     = 0b_0000_0000
+
+-- shadows of the actual tris values
+var byte trisa_shadow
+var byte trisb_shadow
+var byte trisc_shadow
+var byte trisd_shadow
+var byte trise_shadow
+
+-- Bring the applicable trisX values in accordance
+-- with the power-on hardware defaults.
+   trisa_shadow = all_input
+   trisb_shadow = all_input
+   trisc_shadow = all_input
+   trisd_shadow = all_input
+   trise_shadow = 0x0F ;all_input
+   
+;DIT LIJKT BETER !!
+;bank_1
+;asm movfw 0x9
+;asm movwf trise_shadow
+;bank_0
+
+procedure _trisa_flush is
+    asm movfw trisa_shadow
+;		asm bsf RP0
+    bank_1
+    asm movwf  0x5
+;    asm bcf RP0
+    bank_0
+end procedure
+
+procedure _trisb_flush is
+    asm movfw trisb_shadow
+    bank_1
+    asm movwf  0x6
+    bank_0
+end procedure
+
+procedure _trisc_flush is
+    asm movfw trisc_shadow
+    bank_1
+    asm movwf  0x7
+    bank_0
+end procedure
+
+procedure _trisd_flush is
+    asm movfw trisd_shadow
+    bank_1
+    asm movwf  0x8
+    bank_0
+end procedure
+
+procedure _trise_flush is
+    asm movfw trise_shadow
+    bank_1
+    asm movwf  0x9
+    bank_0
+end procedure
+
+var byte port_a_direction at trisa_shadow
+procedure port_a_direction'put ( byte in x at trisa_shadow) is
+  _trisa_flush
+end procedure
+
+var byte port_b_direction at trisb_shadow
+procedure port_b_direction'put ( byte in x at trisb_shadow) is
+  _trisb_flush
+end procedure
+
+var byte port_c_direction at trisc_shadow
+procedure port_c_direction'put ( byte in x at trisc_shadow) is
+  _trisc_flush
+end procedure
+
+var byte port_d_direction at trisd_shadow
+procedure port_d_direction'put ( byte in x at trisd_shadow) is
+  _trisd_flush
+end procedure
+
+;var byte port_e_direction at trise_shadow
+;procedure port_e_direction'put ( byte in x at trise_shadow) is
+;  _trise_flush
+;end procedure
+var byte port_e_direction at trise_shadow
+procedure port_e_direction'put( byte in x ) is
+   var byte c at trise_shadow = ( trise_shadow & 0xF0 ) | ( x & 0x0F )
+   _trise_flush
+end procedure
+
+var bit pin_a0_direction at trisa_shadow : 0
+var bit pin_a1_direction at trisa_shadow : 1
+var bit pin_a2_direction at trisa_shadow : 2
+var bit pin_a3_direction at trisa_shadow : 3
+var bit pin_a4_direction at trisa_shadow : 4
+var bit pin_a5_direction at trisa_shadow : 5
+var bit pin_a6_direction at trisa_shadow : 6
+var bit pin_a7_direction at trisa_shadow : 7
+
+procedure pin_a0_direction'put( bit in d at trisa_shadow : 0 ) is
+   _trisa_flush
+end procedure
+
+procedure pin_a1_direction'put( bit in d at trisa_shadow : 1 ) is
+   _trisa_flush
+end procedure
+
+procedure pin_a2_direction'put( bit in d at trisa_shadow : 2 ) is
+   _trisa_flush
+end procedure
+
+procedure pin_a3_direction'put( bit in d at trisa_shadow : 3 ) is
+   _trisa_flush
+end procedure
+
+procedure pin_a4_direction'put( bit in d at trisa_shadow : 4 ) is
+   _trisa_flush
+end procedure
+
+procedure pin_a5_direction'put( bit in d at trisa_shadow : 5 ) is
+   _trisa_flush
+end procedure
+
+procedure pin_a6_direction'put( bit in d at trisa_shadow : 6 ) is
+   _trisa_flush
+end procedure
+
+procedure pin_a7_direction'put( bit in d at trisa_shadow : 7 ) is
+   _trisa_flush
+end procedure
+
+var bit pin_b0_direction at trisb_shadow : 0
+var bit pin_b1_direction at trisb_shadow : 1
+var bit pin_b2_direction at trisb_shadow : 2
+var bit pin_b3_direction at trisb_shadow : 3
+var bit pin_b4_direction at trisb_shadow : 4
+var bit pin_b5_direction at trisb_shadow : 5
+var bit pin_b6_direction at trisb_shadow : 6
+var bit pin_b7_direction at trisb_shadow : 7
+
+procedure pin_b0_direction'put( bit in d at trisb_shadow : 0 ) is
+   _trisb_flush
+end procedure
+
+procedure pin_b1_direction'put( bit in d at trisb_shadow : 1 ) is
+   _trisb_flush
+end procedure
+
+procedure pin_b2_direction'put( bit in d at trisb_shadow : 2 ) is
+   _trisb_flush
+end procedure
+
+procedure pin_b3_direction'put( bit in d at trisb_shadow : 3 ) is
+   _trisb_flush
+end procedure
+
+procedure pin_b4_direction'put( bit in d at trisb_shadow : 4 ) is
+   _trisb_flush
+end procedure
+
+procedure pin_b5_direction'put( bit in d at trisb_shadow : 5 ) is
+   _trisb_flush
+end procedure
+
+procedure pin_b6_direction'put( bit in d at trisb_shadow : 6 ) is
+   _trisb_flush
+end procedure
+
+procedure pin_b7_direction'put( bit in d at trisb_shadow : 7 ) is
+   _trisb_flush
+end procedure
+
+var bit pin_c0_direction at trisc_shadow : 0
+var bit pin_c1_direction at trisc_shadow : 1
+var bit pin_c2_direction at trisc_shadow : 2
+var bit pin_c3_direction at trisc_shadow : 3
+var bit pin_c4_direction at trisc_shadow : 4
+var bit pin_c5_direction at trisc_shadow : 5
+var bit pin_c6_direction at trisc_shadow : 6
+var bit pin_c7_direction at trisc_shadow : 7
+
+procedure pin_c0_direction'put( bit in d at trisc_shadow : 0 ) is
+   _trisc_flush
+end procedure
+
+procedure pin_c1_direction'put( bit in d at trisc_shadow : 1 ) is
+   _trisc_flush
+end procedure
+
+procedure pin_c2_direction'put( bit in d at trisc_shadow : 2 ) is
+   _trisc_flush
+end procedure
+
+procedure pin_c3_direction'put( bit in d at trisc_shadow : 3 ) is
+   _trisc_flush
+end procedure
+
+procedure pin_c4_direction'put( bit in d at trisc_shadow : 4 ) is
+   _trisc_flush
+end procedure
+
+procedure pin_c5_direction'put( bit in d at trisc_shadow : 5 ) is
+   _trisc_flush
+end procedure
+
+procedure pin_c6_direction'put( bit in d at trisc_shadow : 6 ) is
+   _trisc_flush
+end procedure
+
+procedure pin_c7_direction'put( bit in d at trisc_shadow : 7 ) is
+   _trisc_flush
+end procedure
+
+var bit pin_d0_direction at trisd_shadow : 0
+var bit pin_d1_direction at trisd_shadow : 1
+var bit pin_d2_direction at trisd_shadow : 2
+var bit pin_d3_direction at trisd_shadow : 3
+var bit pin_d4_direction at trisd_shadow : 4
+var bit pin_d5_direction at trisd_shadow : 5
+var bit pin_d6_direction at trisd_shadow : 6
+var bit pin_d7_direction at trisd_shadow : 7
+
+procedure pin_d0_direction'put( bit in d at trisd_shadow : 0 ) is
+   _trisd_flush
+end procedure
+
+procedure pin_d1_direction'put( bit in d at trisd_shadow : 1 ) is
+   _trisd_flush
+end procedure
+
+procedure pin_d2_direction'put( bit in d at trisd_shadow : 2 ) is
+   _trisd_flush
+end procedure
+
+procedure pin_d3_direction'put( bit in d at trisd_shadow : 3 ) is
+   _trisd_flush
+end procedure
+
+procedure pin_d4_direction'put( bit in d at trisd_shadow : 4 ) is
+   _trisd_flush
+end procedure
+
+procedure pin_d5_direction'put( bit in d at trisd_shadow : 5 ) is
+   _trisd_flush
+end procedure
+
+procedure pin_d6_direction'put( bit in d at trisd_shadow : 6 ) is
+   _trisd_flush
+end procedure
+
+procedure pin_d7_direction'put( bit in d at trisd_shadow : 7 ) is
+   _trisd_flush
+end procedure
+
+var bit pin_e0_direction at trise_shadow : 0
+var bit pin_e1_direction at trise_shadow : 1
+var bit pin_e2_direction at trise_shadow : 2
+;var bit pin_e3_direction at trise_shadow : 3
+;var bit pin_e4_direction at trise_shadow : 4
+;var bit pin_e5_direction at trise_shadow : 5
+;var bit pin_e6_direction at trise_shadow : 6
+;var bit pin_e7_direction at trise_shadow : 7
+
+;procedure pin_e0_direction'put( bit in d at trise_shadow : 0 ) is
+;   _trise_flush
+;end procedure
+;
+;procedure pin_e1_direction'put( bit in d at trise_shadow : 1 ) is
+;   _trise_flush
+;end procedure
+;
+;procedure pin_e2_direction'put( bit in d at trise_shadow : 2 ) is
+;   _trise_flush
+;end procedure
+;
+;procedure pin_e3_direction'put( bit in d at trise_shadow : 3 ) is
+;   _trise_flush
+;end procedure
+;
+;procedure pin_e4_direction'put( bit in d at trise_shadow : 4 ) is
+;   _trise_flush
+;end procedure
+;
+;procedure pin_e5_direction'put( bit in d at trise_shadow : 5 ) is
+;   _trise_flush
+;end procedure
+;
+;procedure pin_e6_direction'put( bit in d at trise_shadow : 6 ) is
+;   _trise_flush
+;end procedure
+;
+;procedure pin_e7_direction'put( bit in d at trise_shadow : 7 ) is
+;   _trise_flush
+;end procedure
+
+procedure port_a_low_direction'put( byte in d ) is
+   var byte a at trisa_shadow = ( trisa_shadow & 0xF0 ) | ( d & 0x0F )
+   _trisa_flush
+end procedure
+procedure port_a_high_direction'put( byte in d ) is
+   var byte a at trisa_shadow = ( trisa_shadow & 0x0F ) | ( ( d & 0x0F ) << 4 )
+   _trisa_flush
+end procedure
+
+procedure port_b_low_direction'put( byte in d ) is
+   var byte a at trisb_shadow = ( trisb_shadow & 0xF0 ) | ( d & 0x0F )
+   _trisb_flush
+end procedure
+procedure port_b_high_direction'put( byte in d ) is
+   var byte a at trisb_shadow = ( trisb_shadow & 0x0F ) | ( ( d & 0x0F ) << 4 )
+   _trisb_flush
+end procedure
+
+procedure port_c_low_direction'put( byte in d ) is
+   var byte a at trisc_shadow = ( trisc_shadow & 0xF0 ) | ( d & 0x0F )
+   _trisc_flush
+end procedure
+procedure port_c_high_direction'put( byte in d ) is
+   var byte a at trisc_shadow = ( trisc_shadow & 0x0F ) | ( ( d & 0x0F ) << 4 )
+   _trisc_flush
+end procedure
+
+procedure port_d_low_direction'put( byte in d ) is
+   var byte a at trisd_shadow = ( trisd_shadow & 0xF0 ) | ( d & 0x0F )
+   _trisd_flush
+end procedure
+procedure port_d_high_direction'put( byte in d ) is
+   var byte a at trisd_shadow = ( trisd_shadow & 0x0F ) | ( ( d & 0x0F ) << 4 )
+   _trisd_flush
+end procedure
+
+procedure port_e_low_direction'put( byte in d ) is
+   var byte a at trise_shadow = ( trise_shadow & 0xF0 ) | ( d & 0x0F )
+   _trise_flush
+end procedure
+;procedure port_e_high_direction'put( byte in d ) is
+;   var byte a at trise_shadow = ( trise_shadow & 0x0F ) | ( ( d & 0x0F ) << 4 )
+;   _trise_flush
+;end procedure
+
+function port_a_low_direction'get return byte is
+   var byte a at trisa_shadow
+   return a & 0x0F
+end function
+function port_a_high_direction'get return byte is
+   var byte a at trisa_shadow
+   return a >> 4
+end function
+
+function port_b_low_direction'get return byte is
+   var byte a at trisb_shadow
+   return a & 0x0F
+end function
+function port_b_high_direction'get return byte is
+   var byte a at trisb_shadow
+   return a >> 4
+end function
+
+function port_c_low_direction'get return byte is
+   var byte a at trisc_shadow
+   return a & 0x0F
+end function
+function port_c_high_direction'get return byte is
+   var byte a at trisc_shadow
+   return a >> 4
+end function
+
+function port_d_low_direction'get return byte is
+   var byte a at trisd_shadow
+   return a & 0x0F
+end function
+function port_d_high_direction'get return byte is
+   var byte a at trisd_shadow
+   return a >> 4
+end function
+
+function port_e_low_direction'get return byte is
+   var byte a at trise_shadow
+   return a & 0x0F
+end function
+;function port_e_high_direction'get return byte is
+;   var byte a at trise_shadow
+;   return a >> 4
+;end function
+
+-- port and pin value
+var byte _port_a_buffer
+var byte _port_b_buffer
+var byte _port_c_buffer
+var byte _port_d_buffer
+var byte _port_e_buffer
+
+procedure _port_a_flush is
+  var volatile byte port_a at 0x05 = _port_a_buffer
+end procedure
+
+procedure _port_b_flush is
+  var volatile byte port_b at 0x06 = _port_b_buffer
+end procedure
+
+procedure _port_c_flush is
+  var volatile byte port_c at 0x07 = _port_c_buffer
+end procedure
+
+procedure _port_d_flush is
+  var volatile byte port_d at 0x08 = _port_d_buffer
+end procedure
+
+procedure _port_e_flush is
+  var volatile byte port_e at 0x09 = _port_e_buffer
+end procedure
+
+procedure port_a'put( byte in x at _port_a_buffer ) is
+   _port_a_flush
+end procedure
+procedure porta'put( byte in x at _port_a_buffer ) is
+   _port_a_flush
+end procedure
+
+procedure port_b'put( byte in x at _port_b_buffer ) is
+   _port_b_flush
+end procedure
+procedure portb'put( byte in x at _port_b_buffer ) is
+   _port_b_flush
+end procedure
+
+procedure port_c'put( byte in x at _port_c_buffer ) is
+   _port_c_flush
+end procedure
+procedure portc'put( byte in x at _port_c_buffer ) is
+   _port_c_flush
+end procedure
+
+procedure port_d'put( byte in x at _port_d_buffer ) is
+   _port_d_flush
+end procedure
+procedure portd'put( byte in x at _port_d_buffer ) is
+   _port_d_flush
+end procedure
+
+procedure port_e'put( byte in x at _port_e_buffer ) is
+   _port_e_flush
+end procedure
+procedure porte'put( byte in x at _port_e_buffer ) is
+   _port_e_flush
+end procedure
+
+procedure port_a_low'put( byte in x ) is
+   _port_a_buffer = ( _port_a_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_a_flush
+end procedure
+function port_a_low'get return byte is
+   return porta & 0x0F
+end function
+
+procedure port_a_high'put( byte in x ) is
+   _port_a_buffer = ( _port_a_buffer & 0x0F ) | ( x << 4 )
+   _port_a_flush
+end procedure
+function port_a_high'get return byte is
+   return porta >> 4
+end function
+
+procedure port_b_low'put( byte in x ) is
+   _port_b_buffer = ( _port_b_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_b_flush
+end procedure
+function port_b_low'get return byte is
+   return portb & 0x0F
+end function
+
+procedure port_b_high'put( byte in x ) is
+   _port_b_buffer = ( _port_b_buffer & 0x0F ) | ( x << 4 )
+   _port_b_flush
+end procedure
+function port_b_high'get return byte is
+   return portb >> 4
+end function
+
+procedure port_c_low'put( byte in x ) is
+   _port_c_buffer = ( _port_c_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_c_flush
+end procedure
+function port_c_low'get return byte is
+   return portc & 0x0F
+end function
+
+procedure port_c_high'put( byte in x ) is
+   _port_c_buffer = ( _port_c_buffer & 0x0F ) | ( x << 4 )
+   _port_c_flush
+end procedure
+function port_c_high'get return byte is
+   return portc >> 4
+end function
+
+procedure port_d_low'put( byte in x ) is
+   _port_d_buffer = ( _port_d_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_d_flush
+end procedure
+function port_d_low'get return byte is
+   return portd & 0x0F
+end function
+
+procedure port_d_high'put( byte in x ) is
+   _port_d_buffer = ( _port_d_buffer & 0x0F ) | ( x << 4 )
+   _port_d_flush
+end procedure
+function port_d_high'get return byte is
+   return portd >> 4
+end function
+
+procedure port_e_low'put( byte in x ) is
+   _port_e_buffer = ( _port_e_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_e_flush
+end procedure
+function port_e_low'get return byte is
+   return porte & 0x0F
+end function
+
+procedure port_e_high'put( byte in x ) is
+   _port_e_buffer = ( _port_e_buffer & 0x0F ) | ( x << 4 )
+   _port_e_flush
+end procedure
+function port_e_high'get return byte is
+   return porte >> 4
+end function
+
+
+procedure pin_a0'put( bit in x at _port_a_buffer : 0 ) is
+  _port_a_flush
+end procedure
+
+procedure pin_a1'put( bit in x at _port_a_buffer : 1 ) is
+  _port_a_flush
+end procedure
+
+procedure pin_a2'put( bit in x at _port_a_buffer : 2 ) is
+  _port_a_flush
+end procedure
+
+procedure pin_a3'put( bit in x at _port_a_buffer : 3 ) is
+  _port_a_flush
+end procedure
+
+procedure pin_a4'put( bit in x at _port_a_buffer : 4 ) is
+  _port_a_flush
+end procedure
+
+procedure pin_a5'put( bit in x at _port_a_buffer : 5 ) is
+  _port_a_flush
+end procedure
+
+procedure pin_a6'put( bit in x at _port_a_buffer : 6 ) is
+  _port_a_flush
+end procedure
+
+procedure pin_a7'put( bit in x at _port_a_buffer : 7 ) is
+  _port_a_flush
+end procedure
+
+
+procedure pin_b0'put( bit in x at _port_b_buffer : 0 ) is
+  _port_b_flush
+end procedure
+
+procedure pin_b1'put( bit in x at _port_b_buffer : 1 ) is
+  _port_b_flush
+end procedure
+
+procedure pin_b2'put( bit in x at _port_b_buffer : 2 ) is
+  _port_b_flush
+end procedure
+
+procedure pin_b3'put( bit in x at _port_b_buffer : 3 ) is
+  _port_b_flush
+end procedure
+
+procedure pin_b4'put( bit in x at _port_b_buffer : 4 ) is
+  _port_b_flush
+end procedure
+
+procedure pin_b5'put( bit in x at _port_b_buffer : 5 ) is
+  _port_b_flush
+end procedure
+
+procedure pin_b6'put( bit in x at _port_b_buffer : 6 ) is
+  _port_b_flush
+end procedure
+
+procedure pin_b7'put( bit in x at _port_b_buffer : 7 ) is
+  _port_b_flush
+end procedure
+
+
+procedure pin_c0'put( bit in x at _port_c_buffer : 0 ) is
+  _port_c_flush
+end procedure
+
+procedure pin_c1'put( bit in x at _port_c_buffer : 1 ) is
+  _port_c_flush
+end procedure
+
+procedure pin_c2'put( bit in x at _port_c_buffer : 2 ) is
+  _port_c_flush
+end procedure
+
+procedure pin_c3'put( bit in x at _port_c_buffer : 3 ) is
+  _port_c_flush
+end procedure
+
+procedure pin_c4'put( bit in x at _port_c_buffer : 4 ) is
+  _port_c_flush
+end procedure
+
+procedure pin_c5'put( bit in x at _port_c_buffer : 5 ) is
+  _port_c_flush
+end procedure
+
+procedure pin_c6'put( bit in x at _port_c_buffer : 6 ) is
+  _port_c_flush
+end procedure
+
+procedure pin_c7'put( bit in x at _port_c_buffer : 7 ) is
+  _port_c_flush
+end procedure
+
+
+procedure pin_d0'put( bit in x at _port_d_buffer : 0 ) is
+  _port_d_flush
+end procedure
+
+procedure pin_d1'put( bit in x at _port_d_buffer : 1 ) is
+  _port_d_flush
+end procedure
+
+procedure pin_d2'put( bit in x at _port_d_buffer : 2 ) is
+  _port_d_flush
+end procedure
+
+procedure pin_d3'put( bit in x at _port_d_buffer : 3 ) is
+  _port_d_flush
+end procedure
+
+procedure pin_d4'put( bit in x at _port_d_buffer : 4 ) is
+  _port_d_flush
+end procedure
+
+procedure pin_d5'put( bit in x at _port_d_buffer : 5 ) is
+  _port_d_flush
+end procedure
+
+procedure pin_d6'put( bit in x at _port_d_buffer : 6 ) is
+  _port_d_flush
+end procedure
+
+procedure pin_d7'put( bit in x at _port_d_buffer : 7 ) is
+  _port_d_flush
+end procedure
+
+
+procedure pin_e0'put( bit in x at _port_e_buffer : 0 ) is
+  _port_e_flush
+end procedure
+
+procedure pin_e1'put( bit in x at _port_e_buffer : 1 ) is
+  _port_e_flush
+end procedure
+
+procedure pin_e2'put( bit in x at _port_e_buffer : 2 ) is
+  _port_e_flush
+end procedure
+
+;procedure pin_e3'put( bit in x at _port_e_buffer : 3 ) is
+;  _port_e_flush
+;end procedure
+;
+;procedure pin_e4'put( bit in x at _port_e_buffer : 4 ) is
+;  _port_e_flush
+;end procedure
+;
+;procedure pin_e5'put( bit in x at _port_e_buffer : 5 ) is
+;  _port_e_flush
+;end procedure
+;
+;procedure pin_e6'put( bit in x at _port_e_buffer : 6 ) is
+;  _port_e_flush
+;end procedure
+;
+;procedure pin_e7'put( bit in x at _port_e_buffer : 7 ) is
+;  _port_e_flush
+;end procedure
+
+--
+-- indirect file routines are included
+-- so aliases or pseudo variables can be declared
+-- of all special function registers
+-- for this
+--   INDF.JAL of Javier Martínez, 14-11-2001 is used
+--
+include indf_bits
+--
+
+procedure OPTION_REG'put( byte in x ) is
+  _file_put( high_OPTION_REG, low_OPTION_REG, x )
+end procedure
+function OPTION_REG'get return byte is
+var byte x
+  _file_get( high_OPTION_REG, low_OPTION_REG, x )
+  return x
+end function
+
+procedure TRISA'put( byte in x ) is
+  _file_put( high_TRISA, low_TRISA, x )
+end procedure
+function TRISA'get return byte is
+var byte x
+  _file_get( high_TRISA, low_TRISA, x )
+  return x
+end function
+
+procedure TRISB'put( byte in x ) is
+  _file_put( high_TRISB, low_TRISB, x )
+end procedure
+function TRISB'get return byte is
+var byte x
+  _file_get( high_TRISB, low_TRISB, x )
+  return x
+end function
+
+procedure TRISC'put( byte in x ) is
+  _file_put( high_TRISC, low_TRISC, x )
+end procedure
+function TRISC'get return byte is
+var byte x
+  _file_get( high_TRISC, low_TRISC, x )
+  return x
+end function
+
+procedure TRISD'put( byte in x ) is
+  _file_put( high_TRISD, low_TRISD, x )
+end procedure
+function TRISD'get return byte is
+var byte x
+  _file_get( high_TRISD, low_TRISD, x )
+  return x
+end function
+
+procedure TRISE'put( byte in x ) is
+  _file_put( high_TRISE, low_TRISE, x )
+end procedure
+function TRISE'get return byte is
+var byte x
+  _file_get( high_TRISE, low_TRISE, x )
+  return x
+end function
+
+procedure PIE1'put( byte in x ) is
+  _file_put( high_PIE1, low_PIE1, x )
+end procedure
+function PIE1'get return byte is
+var byte x
+  _file_get( high_PIE1, low_PIE1, x )
+  return x
+end function
+
+procedure PIE2'put( byte in x ) is
+  _file_put( high_PIE2, low_PIE2, x )
+end procedure
+function PIE2'get return byte is
+var byte x
+  _file_get( high_PIE2, low_PIE2, x )
+  return x
+end function
+
+procedure PCON'put( byte in x ) is
+  _file_put( high_PCON, low_PCON, x )
+end procedure
+function PCON'get return byte is
+var byte x
+  _file_get( high_PCON, low_PCON, x )
+  return x
+end function
+
+procedure SSPCON2'put( byte in x ) is
+  _file_put( high_SSPCON2, low_SSPCON2, x )
+end procedure
+function SSPCON2'get return byte is
+var byte x
+  _file_get( high_SSPCON2, low_SSPCON2, x )
+  return x
+end function
+
+procedure PR2'put( byte in x ) is
+  _file_put( high_PR2, low_PR2, x )
+end procedure
+function PR2'get return byte is
+var byte x
+  _file_get( high_PR2, low_PR2, x )
+  return x
+end function
+
+procedure SSPADD'put( byte in x ) is
+  _file_put( high_SSPADD, low_SSPADD, x )
+end procedure
+function SSPADD'get return byte is
+var byte x
+  _file_get( high_SSPADD, low_SSPADD, x )
+  return x
+end function
+
+procedure SSPSTAT'put( byte in x ) is
+  _file_put( high_SSPSTAT, low_SSPSTAT, x )
+end procedure
+function SSPSTAT'get return byte is
+var byte x
+  _file_get( high_SSPSTAT, low_SSPSTAT, x )
+  return x
+end function
+
+procedure TXSTA'put( byte in x ) is
+  _file_put( high_TXSTA, low_TXSTA, x )
+end procedure
+function TXSTA'get return byte is
+var byte x
+  _file_get( high_TXSTA, low_TXSTA, x )
+  return x
+end function
+
+procedure SPBRG'put( byte in x ) is
+  _file_put( high_SPBRG, low_SPBRG, x )
+end procedure
+function SPBRG'get return byte is
+var byte x
+  _file_get( high_SPBRG, low_SPBRG, x )
+  return x
+end function
+
+procedure ADRESL'put( byte in x ) is
+  _file_put( high_ADRESL, low_ADRESL, x )
+end procedure
+function ADRESL'get return byte is
+var byte x
+  _file_get( high_ADRESL, low_ADRESL, x )
+  return x
+end function
+
+procedure ADCON1'put( byte in x ) is
+  _file_put( high_ADCON1, low_ADCON1, x )
+end procedure
+function ADCON1'get return byte is
+var byte x
+  _file_get( high_ADCON1, low_ADCON1, x )
+  return x
+end function
+
+procedure EEDATA'put( byte in x ) is
+  _file_put( high_EEDATA, low_EEDATA, x )
+end procedure
+function EEDATA'get return byte is
+var byte x
+  _file_get( high_EEDATA, low_EEDATA, x )
+  return x
+end function
+
+procedure EEADR'put( byte in x ) is
+  _file_put( high_EEADR, low_EEADR, x )
+end procedure
+function EEADR'get return byte is
+var byte x
+  _file_get( high_EEADR, low_EEADR, x )
+  return x
+end function
+
+procedure EEDATH'put( byte in x ) is
+  _file_put( high_EEDATH, low_EEDATH, x )
+end procedure
+function EEDATH'get return byte is
+var byte x
+  _file_get( high_EEDATH, low_EEDATH, x )
+  return x
+end function
+
+procedure EEADRH'put( byte in x ) is
+  _file_put( high_EEADRH, low_EEADRH, x )
+end procedure
+function EEADRH'get return byte is
+var byte x
+  _file_get( high_EEADRH, low_EEADRH, x )
+  return x
+end function
+
+procedure EECON1'put( byte in x ) is
+  _file_put( high_EECON1, low_EECON1, x )
+end procedure
+function EECON1'get return byte is
+var byte x
+  _file_get( high_EECON1, low_EECON1, x )
+  return x
+end function
+
+procedure EECON2'put( byte in x ) is
+  _file_put( high_EECON2, low_EECON2, x )
+end procedure
+function EECON2'get return byte is
+var byte x
+  _file_get( high_EECON2, low_EECON2, x )
+  return x
+end function
+
+-- some standard intializations
+-- set all interrupt sources disabled
+INTCON = 0

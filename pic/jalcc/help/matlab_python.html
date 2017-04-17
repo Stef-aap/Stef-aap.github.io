@@ -1,0 +1,1472 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="122" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>december 2006</span></p>
+<p><span class=rvts1>MatLab - Python</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p><br></p>
+<p><br></p>
+<p>This document describes my experiences (with simple Scientific math), going from MatLab to Python. In this document it's assumed that always NumPy and SciPy are used, so we have the same basic computational elements. Although both programs look very similar, there are some small differences which are very important to notice.</p>
+<p><br></p>
+<p><span class=rvts2>General Feeling</span></p>
+<p>This is a list of feelings (sometimes facts) about my first contact with Python, coming from MatLab. After writing it down in this list, an item it is never changed (it should represent the "first feeling"), but instead a remark is added when later on in time, the feeling/fact was incorrect.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Python has a much smaller footprint and starts much faster </li>
+<li>The documentation and help-files are much better in Python. Most docs, cookbooks etc can easily be found on the web (without the very annoying MatLab log in !!) </li>
+<li>The support in newsgroups for Python is much better, the people there, really try to help you instead of redirecting to whole bulk of data, in which the information is hidden. The traffic on the Python newsgroups is somewhat larger, then on the MatLab newsgroup. There's also no spam on the Python list, as there's much spam on the MatLab newsgroup. (SciLab newsgroup has much lower traffic.) </li>
+<li>The Python books are much better, just compare the basic MatLab manual "Using MatLab, version 5" with the basic Phyton manual "Learning Python, O'Reilly" </li>
+<li>MatLab is a scientific programming language only, Python is a general purpose programming language, which can do almost everything </li>
+<li>Python is open source, MatLab is very expensive (outside an educational institute). A very important consequence is that you can traceback (and change) every detail in Python. Look in MatLab newsgroup how often someone wants to know (for some very legitimate reason) how a certain function performs it's calculation, and gets the official answer form Mathworks: "the only way to read and edit the built-in functions like FFT is to get a job with The MathWorks." </li>
+<li>New versions of MatLab are full of bugs, Python is not. </li>
+<li>Installation of MatLab is very simple, and looks very complex for Python. By using the "Enthought" edition, installing Python is a s simple as MatLab. </li>
+<li>Uncertain what the far future for Python will be: Guido van Rossum has taken a job at Google end 2005, but he still is the "manager" of Python, Version 3000 announced, with good new features, but no backward compatibility (stepwise: depreciation warnings / error). </li>
+<li>Python doesn't have the annoying whitespace in the command window (look at the screenshots below). For large arrays Python even has an option to only show the "corners" of a multi-dimensional array. </li>
+<li>The "workspace" of MatLab is a great feature, it's global, easy to dig into the most complex variable. I miss that in my first steps in Python. </li>
+<li>Module Import and Parameter passing to functions are very obscure in Python !!!! ???? But I'm beginning to see some light ... </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Similarity</span></p>
+<p>The similarity between MatLab and Python is sometimes very large, but beware of the small details !!</p>
+<p>Here an example of a "chunked" filter (a filter that processes a continuous real-time signal in blocks), notice the slight difference in array indices !! Because I want to show the similarity, all comment was removed from the examples below.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=510 height=90 alt="" src="matlab_python_img18.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=605 height=89 alt="" src="matlab_python_img17.png"></p>
+<p><br></p>
+<p>Now when we put both code snippets in a procedure and we look at the function call:</p>
+<p><br></p>
+<p><img width=701 height=37 alt="" src="matlab_python_img23.png"></p>
+<p><br></p>
+<p><img width=691 height=42 alt="" src="matlab_python_img22.png"></p>
+<p><br></p>
+<p>And finally let's take a look at the function itself:</p>
+<p><br></p>
+<p><img width=748 height=107 alt="" src="matlab_python_img25.png"></p>
+<p><br></p>
+<p><img width=574 height=122 alt="" src="matlab_python_img24.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Type</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Remarks</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>simple var</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>A = 5.2 * pi ;</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>A = 5.2 * pi</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>integer-4</p>
+<p>arbritary long integer</p>
+<p>float-8</p>
+<p>complex-2*8</p>
+<p>IMMUTABLE</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>strings</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>S1 = 'aap' ;</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>S1 = 'aap'</p>
+<p>S2 = "aap"</p>
+<p>DOC_S = """this is doc"""</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>C-type backslash chars</p>
+<p>IMMUTABLE</p>
+<p>accessed by Index</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>list</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>--</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>L1 = [ ]</p>
+<p>L2 = [ 2, 'hello', 45 ]</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>heterogeneous collection</p>
+<p>MUTABLE</p>
+<p>accessed by Index </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>tuple</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>cell-array</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>T1 = ( )</p>
+<p>T2 = ( 2, 'hello', 45 )</p>
+<p>T3 = 3, 'hello', 45</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>heterogeneous collection</p>
+<p>IMMUTABLE</p>
+<p>accessed by Index </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>dictionary</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>-</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>D1 = { }</p>
+<p>D2 = { 'aap' : 1, 'beer': 2 }</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>heterogeneous collection</p>
+<p>MUTABLE</p>
+<p>accessed by key (or value)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>array</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>A1 = [ 1, 2 ] ;</p>
+<p>A2 = zeros ( 100 ) ;</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>A1 = array ( [ 1, 2 ] )</p>
+<p>A2 = zeros ( 100 )</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>homogeneous collection of any type</p>
+<p>highly MUTABLE</p>
+<p>accessed by index</p>
+<p>Many types, </p>
+<p>Bool, (U)INT-8,16,32,64 </p>
+<p>Float/Complex-32,64,96</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>sparse</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>+</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>+</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>only useful if array contains many zeros</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>All sequence types are nestable (without any depth restriction), for list, tuple, dictionary, array:</p>
+<p>&nbsp;&nbsp;&nbsp; L3 = [ 2, 'hello', [ 45, 'aap', [ 2, 4 ] ] ]</p>
+<p>&nbsp;&nbsp;&nbsp; T3 = ( 2, 'hello', ( 45, 'aap', ( 2, 4 ) ) )</p>
+<p>&nbsp;&nbsp;&nbsp; D3 = { 'aap' : 1, coala: { 'beer': 2 } }</p>
+<p>&nbsp;&nbsp;&nbsp; A3 = array ( [ [ 1, 2 ] , [&nbsp; 4, 5 ] ] )</p>
+<p>or even in every random combination / nesting:</p>
+<p>&nbsp;&nbsp;&nbsp; R3 = [ 2, 'hello', ( 45, 'aap', [ 2, 4 ], { 'aap' : 1, coala: { 'beer': 2 } } ) ]</p>
+<p><br></p>
+<p><span class=rvts10>List and Tupple</span> are different in their <span class=rvts10>mutability</span> and therefore also their <span class=rvts10>methods differ</span>.</p>
+<p><br></p>
+<p><span class=rvts10>MUTABLE</span>: </p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>the variable <span class=rvts10>can not</span> be changed in-place</li>
+<li>the variable is <span class=rvts10>passed by value</span> to a function</li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>IMMUTABLE</span>:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>the variable <span class=rvts10>can</span> be changed in-place</li>
+<li>the variable is <span class=rvts10>passed by reference</span> to a function</li>
+</ul>
+<p><br></p>
+<p>In older documents there's sometimes made a distinct between numpy.array( ), numpy.ndarray( ) and scipy.array( ), this difference doesn't exists anymore.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Differences</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=168 height=14 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+<td width=190 height=14 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+<td width=12 height=14 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 height=14 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+<td width=203 height=14 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}">
+<p>Global Variables</p>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}">
+<p>Local Variables</p>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}">
+<p>$2500</p>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}">
+<p>FREE</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}">
+<p>not OOP</p>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}">
+<p>Object Oriented Programming</p>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}">
+<p>Just Math</p>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}">
+<p>Math + </p>
+<p>general programming</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}">
+<p>1 function / file</p>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}">
+<p>unlimited</p>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}">
+<p>only simple / fixed embedding</p>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}">
+<p>both embedding + encapsulation are promoted and well supported</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}">
+<p>3..7 times faster</p>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}">
+<p>footprint 110 MB</p>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}">
+<p>footprint 10 MB</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}">
+<p>master-pupil help</p>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}">
+<p>real help until it's solved</p>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}">
+<p>"only available, if you work at MatLab"</p>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}">
+<p>Everything is traceable and open</p>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=middle style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=168 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=190 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=12 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=159 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=203 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts2>Array Indices, Slices</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>array indices starts at 1</p>
+<p><img width=204 height=108 alt="" src="matlab_python_img4.png"></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>array indices starts at 0</p>
+<p><br></p>
+<p><img width=153 height=67 alt="" src="matlab_python_img3.png"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>slices includes the last index</p>
+<p><img width=225 height=170 alt="" src="matlab_python_img2.png"></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>slices excludes the last index</p>
+<p><br></p>
+<p><img width=217 height=87 alt="" src="matlab_python_img1.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>import scipy</p>
+<p>import pylab</p>
+<p>phi = range(100)</p>
+<p>r=phi #sin(cos(tan(phi)))</p>
+<p>pylab.polar(phi,r)</p>
+<p>pylab.show()</p>
+<p><br></p>
+<p><a name="imports"></a>
+<span class=rvts2>Imports</span></p>
+<p>This is one of the most difficult to understand features of Phyton. </p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=162 valign=top>
+<p>The file/module test_import:</p>
+<p><img width=163 height=49 alt="" src="matlab_python_img6.png"></p>
+</td>
+<td width=457 valign=top><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=162 valign=top>
+<p><img width=348 height=129 alt="" src="matlab_python_img7.png"></p>
+</td>
+<td width=457 valign=top>
+<p>This seems the most unambiguous solution.</p>
+<p>The disadvantage is that you always have to reference the object.</p>
+<p><br></p>
+<p><img width=39 height=20 alt="" src="matlab_python_img8.png"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=162 valign=top>
+<p><img width=337 height=142 alt="" src="matlab_python_img14.png"></p>
+</td>
+<td width=457 valign=top>
+<p>Unambigious solution, with short object reference.</p>
+<p><br></p>
+<p><img width=35 height=17 alt="" src="matlab_python_img13.png"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=162 valign=top>
+<p><img width=349 height=141 alt="" src="matlab_python_img9.png"></p>
+</td>
+<td width=457 valign=top>
+<p>This is the most easy solution.</p>
+<p><br></p>
+<p><img width=36 height=19 alt="" src="matlab_python_img10.png"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=162 valign=top>
+<p><img width=339 height=155 alt="" src="matlab_python_img11.png"></p>
+</td>
+<td width=457 valign=top>
+<p>The most universal solution, but quit ambiguous.</p>
+<p><br></p>
+<p><img width=40 height=20 alt="" src="matlab_python_img12.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Functions</span></p>
+<p>Another almost impossible to understand Python feature&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=173 valign=top style="{background-color: #ffffd4;}">
+<p><img width=186 height=157 alt="" src="matlab_python_img5.png"></p>
+</td>
+<td width=430 valign=top style="{background-color: #ffffd4;}">
+<p># create function</p>
+<p># x=simple var, thus local, it doesn't change anything in outside world !!!!</p>
+<p># y=complex and will therefor change the outside world</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p># as you can see</p>
+<p>#&nbsp;&nbsp;&nbsp; xx is left unmodified</p>
+<p>#&nbsp;&nbsp;&nbsp; yy is changed by the function call</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Elements</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Lists</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Arrays</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Tuples</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Types</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>bool_</p>
+<p>uint8</p>
+<p>uint16</p>
+<p>uint32</p>
+<p>uint64</p>
+<p>int8</p>
+<p>int16</p>
+<p>int32</p>
+<p>int64</p>
+<p>float32</p>
+<p>float64</p>
+<p>float96</p>
+<p>complex64</p>
+<p>complex128</p>
+<p>complex192</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Arrays</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Creation</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>100 numbers equally spaced from 3..10</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>A = array ( [&nbsp; 1, 2, 3, 4 ] )</p>
+<p>B = array ( [ (1, 2, 3 ) , ( 11, 12, 13 ) ] )</p>
+<p>C = array ( [ ] )</p>
+<p>D = zeros ( 4 )</p>
+<p>E = ones ( ( 3,4 ) )</p>
+<p>E = ones ( 3, dtype = int )</p>
+<p>F = linspace ( 3, 10, 100 )</p>
+<p>G = random ( ( 2, 3 ) )</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Dimensions</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>B.ndim&nbsp;&nbsp;&nbsp;&nbsp; =&gt; 2</p>
+<p>B.shape&nbsp;&nbsp; =&gt; ( 2, 3)</p>
+<p>len( B )&nbsp;&nbsp;&nbsp;&nbsp; =&gt; 2</p>
+<p>size(B)&nbsp;&nbsp;&nbsp;&nbsp; =&gt; 6</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Type</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>B.dtype&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&gt; dtype('&lt;i4')</p>
+<p>B.itemsize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&gt; 4</p>
+<p>B.dtype.name&nbsp; =&gt; 'int32'</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Speed</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>right index first: [0,0], [0,1] ...</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>NO COPY !!</p>
+<p>A and B are different names for the same object !!</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>A = ones ( 4 )</p>
+<p>B = A</p>
+<p>B = ones ( 3 )</p>
+<p>A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&gt; array ( [ 1, 1, 1 ] )</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>VIEW or SHALLOW COPY</p>
+<p>B can't change properties of A</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>A = ones ( 4 )</p>
+<p>B = A . view ( )</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>(DEEP) COPY</p>
+<p>this is a real copy</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>A = ones ( 4 )</p>
+<p>B = A . copy ( )</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Array Concatenate</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>concatenate</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>r_</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>c_</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>hstack</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>vstack</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Elements</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Colors</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b&nbsp; : blue</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; g&nbsp; : green</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r&nbsp; : red</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c&nbsp; : cyan</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m&nbsp; : magenta</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y&nbsp; : yellow</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; k&nbsp; : black</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; w&nbsp; : white</p>
+<p><br></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Arrays</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Tuples</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Elements</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Lists</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Arrays</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Tuples</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Elements</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Lists</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Arrays</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Tuples</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Elements</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Lists</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Arrays</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p>Tuples</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Comparison</span></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Simulation</span></p>
+<p>&nbsp; <a class=rvts4 href="http://simpy.sourceforge.net/index.html">SimPy Home</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.nelsim.com/scriptsim/python_man.html">ScriptSim Verilog PLI Python Interface Language Reference Manual</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.linuxjournal.com/article/7542">MyHDL a Python-Based Hardware Description Language Linux Journal</a></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Links</span></p>
+<p>&nbsp; <a class=rvts4 href="http://37mm.no/mpy/matlab-python-xref.pdf">matlab-python-xref.pdf (applicationpdf Object)</a></p>
+<p>&nbsp; <a class=rvts4 href="http://37mm.no/mpy/matlab-numpy.html">NumPy for MATLAB users</a></p>
+<p><br></p>
+<p><br></p>
+<p>In &lt;d2b4$4593df5a$d443bb3a$12073@news.speedlinq.nl&gt;, Stef Mientki wrote:</p>
+<p><br></p>
+<p>&gt; &gt; I want to return a "simple" variable from a function, not using the</p>
+<p>&gt; &gt; function result.</p>
+<p><br></p>
+<p>Why?</p>
+<p><br></p>
+<p>&gt; &gt; The code below is from O'Reilly, "Learning Python", and there seems no</p>
+<p>&gt; &gt; way to return a simple var like "z" in the example below. Is that true ?</p>
+<p><br></p>
+<p>To return objects the ``return`` statement is used.</p>
+<p><br></p>
+<p>&gt; &gt; def some_function (z, y):</p>
+<p>&gt; &gt;&nbsp;&nbsp;&nbsp; z = 2</p>
+<p>&gt; &gt;&nbsp;&nbsp;&nbsp; y[2] = 'global ?'</p>
+<p><br></p>
+<p>Add:</p>
+<p>&nbsp;&nbsp;&nbsp; return z</p>
+<p><br></p>
+<p>The string content seems to be a question.&nbsp; No `y` is not global here but</p>
+<p>you modify the content of the object that's bound to the local name `y`. </p>
+<p>Modifying an object is different from binding a name to a new object.</p>
+<p>``y = ['uno', 'dos', 'tres']`` would not be visible outside the function.</p>
+<p><br></p>
+<p>&gt; &gt; x = 5</p>
+<p>&gt; &gt; y = [1,2,3,4]</p>
+<p>&gt; &gt; print x,y</p>
+<p>&gt; &gt; some_function(x,y)</p>
+<p><br></p>
+<p>Change to:</p>
+<p><br></p>
+<p>x = some_function(x, y)</p>
+<p><br></p>
+<p>Ciao,</p>
+<p><br></p>
+<p><br></p>
+<p>How about restructuring your function like this:</p>
+<p><br></p>
+<p>def some_function( z,y ):</p>
+<p>&nbsp; z = 2</p>
+<p>&nbsp; y[2] = 'global ?'</p>
+<p>&nbsp; return z</p>
+<p><br></p>
+<p>And then you'll have to react to the returning variable, like this in</p>
+<p>your code:</p>
+<p><br></p>
+<p>x = 5</p>
+<p>y = [1,2,3,4]</p>
+<p>print x,y</p>
+<p>print some_function( x, y )</p>
+<p>print x,y</p>
+<p><br></p>
+<p>Now, it appears like you want some_function() to change x and y.&nbsp; It</p>
+<p>doesn't really work that way.&nbsp; You'd have to either pass the variables</p>
+<p>by reference into the function, or overwrite the existing values with</p>
+<p>whatever the function returns.&nbsp; That might be beyond your scope now though.</p>
+<p><br></p>
+<p>Keep plugging, and welcome to Python!</p>
+<p><br></p>
+<p><br></p>
+<p>On Thu, 2006-12-28 at 16:14 +0100, Stef Mientki wrote:</p>
+<p><br></p>
+<p>Please reset your brain and read</p>
+<p>http://effbot.org/zone/python-objects.htm , paying particular attention</p>
+<p>to the section called "Assignment".</p>
+<p><br></p>
+<p>You should also think long and hard about *why* you want to return a</p>
+<p>value from a function by modifying an input parameter instead of just</p>
+<p>using the return statement. The "return by modifying an input parameter"</p>
+<p>approach comes from C where that's the only way to return more than one</p>
+<p>value from a function. In Python, no such crutch is necessary or</p>
+<p>desirable.</p>
+<p><br></p>
+<p>With this in mind, the following quote seems appropriate:</p>
+<p>"Trying to write C code using Python isn't going to be fun or</p>
+<p>productive." -- Grant Edwards, comp.lang.python, 13 Sep 2006.</p>
+<p><br></p>
+<p>Hope this helps,</p>
+<p><br></p>
+<p>Carsten.</p>
+<p><br></p>
+<p>On Thu, 2006-12-28 at 15:28 +0000, Paul Hummer wrote:</p>
+<p>&gt; &gt; You'd have to either pass the variables by reference into the function, [...]</p>
+<p><br></p>
+<p>In Python, all function calls are call by reference. Period. The key</p>
+<p>difference between Python and other programming languages is in the</p>
+<p>behavior of the assignment statement.</p>
+<p><br></p>
+<p>To paraphrase http://effbot.org/zone/python-objects.htm :</p>
+<p><br></p>
+<p>In C/C++, assignments modify objects by copying the value from the right</p>
+<p>hand side into the memory allocated to the object on the left hand side.</p>
+<p><br></p>
+<p>In Python, assignments modify namespaces by making the name on the left</p>
+<p>hand side become a reference to the object on the right hand side. It is</p>
+<p>irrelevant whether the name referred to some other object before the</p>
+<p>assignment, and it is irrelevant whether that object is mutable or not.</p>
+<p><br></p>
+<p>The only way to achieve call-by-reference-like behavior in the</p>
+<p>"assignment modifies objects" sense is by passing a reference to a</p>
+<p>mutable object and then invoking the object's methods to mutate it.</p>
+<p>Maybe that's what you meant, but that wasn't clear from what you said.</p>
+<p><br></p>
+<p>-Carsten</p>
+<p><br></p>
+<p><br></p>
+<p>&gt; You should also think long and hard about *why* you want to return a</p>
+<p>&gt; value from a function by modifying an input parameter instead of just</p>
+<p>&gt; using the return statement. The "return by modifying an input parameter"</p>
+<p>&gt; approach comes from C where that's the only way to return more than one</p>
+<p>&gt; value from a function. In Python, no such crutch is necessary or</p>
+<p>&gt; desirable.</p>
+<p>&gt;&nbsp;&nbsp; </p>
+<p>Nobody mentioned the term for this. When a function changes its parameters or its environment, then it is called a "side effect" and generally it is considered harmful in all modern languages. ("Function" here refers to a piece of code that is used to calculate one or more values and provide these values to the caller.)</p>
+<p><br></p>
+<p>So you are trying to create a function that has a side effect. You should not do this, unless you have a really good reason.</p>
+<p><br></p>
+<p>Regards,</p>
+<p><br></p>
+<p>&nbsp; Laszlo</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

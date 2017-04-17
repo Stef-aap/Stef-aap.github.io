@@ -1,0 +1,281 @@
+-- -----------------------------------------------------------------------------
+-- <title DAC TLV5638
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki  
+-- -----------------------------------------------------------------------------
+-- <Description
+-- Library for the control of the DAC TLV5638 (2 channel 12 bits DAC)
+--  SPI control through both USART and MSSP are supported.
+--
+-- <non-tag
+-- procedures
+--   DAC_TLV5638_init      set speed, power, Vref
+--	 DAC_TLV5638_set_AB 	 set both DACs with new value
+--
+-- Data is transported through the variable
+--   DAC_TLV5638_A_MSB, DAC_TLV5638_A_, DAC_TLV5638_B_MSB, DAC_TLV5638_B_LSB
+--
+-- <Version: 1.3    ,03-09-2004 , Stef Mientki
+--    - uses 1 register less
+--		- testroutine added, generates 2 different sawtooths
+--
+-- <Version: 1.2    ,07-07-2004 , Stef Mientki
+--		- pin names changed, so macro pin definitions can be used
+--		- CS pin will be set automatically to output
+--
+-- <Version: 1.1    ,10-2-2004 , Stef Mientki
+--   - if controled by MSSP, SPI settings are done before every DAC writing,
+-- 	 	 so these DACs can be used on the same SPI bus with devices that has other
+--		 SPI bus settings
+--
+-- <Version: 1.0    ,25-09-2003, Stef Mientki
+--   orginal release
+--   tested: only control through MSSP-device
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- <Example DAC_TLV5638
+;
+; -- this DAC must have CS toggled, so define the CS-pin
+; <mac> io_pin  DAC_TLV5638_CS = pin_E0
+;
+; -- define speed and Vref of the DAC, and the PIC device for SPI-communication
+; -- define the DA converter settings
+; const DAC_TLV_5638_fastmode = true
+; const DAC_TLV_5638_Vref		 = 2      -- 0 = external
+;																			-- 1 = 1.024 Volt
+;																			-- 2 = 2.048 Volt
+; const DAC_TLV5638_spi_usart = false  -- false = MSSP is used
+;																			-- true  = USART is used
+;
+;
+; -- include the DAC library
+; include DAC_TLV5638
+;
+;
+; -- init DAC and turn it on
+;    DAC_TLV5638_init ( on )   -- with power on
+;
+;
+;  -- write both channels to DAC, first fill globalvariables, then call set_AB
+;  DAC_TLV5638_A_MSB = ...
+;  DAC_TLV5638_A_LSB = ...
+;  DAC_TLV5638_B_MSB = ...
+;  DAC_TLV5638_B_LSB = ...
+;  DAC_TLV5638_set_AB
+;
+;
+;  -- turn DAC off
+;  DAC_TLV5638_init ( off )  
+-- -----------------------------------------------------------------------------
+
+-- <code
+-- -----------------------------------------------------------------------------
+-- needed library files
+-- -----------------------------------------------------------------------------
+-- all SPI routines
+include rs232_hw
+include master_sync_ser_port
+-- for reversing bits
+include bit_calcs
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- definitions of the DATA registers, to be filled by the user
+-- -----------------------------------------------------------------------------
+var volatile byte DAC_TLV5638_A_MSB
+var volatile byte DAC_TLV5638_A_LSB
+var volatile byte DAC_TLV5638_B_MSB
+var volatile byte DAC_TLV5638_B_LSB
+
+var volatile byte SSPSTAT_old
+var volatile byte SSPCON_old
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Sets CS to the DAC,
+-- but first sets the SPI-mode in the correct way
+-- there are 2 correct ways:
+--   CKE = CKP = 1
+--   CKE = CKP = 0
+-- -----------------------------------------------------------------------------
+procedure DAC_TLV5638_set_CS is
+  SSPSTAT_old = SSPSTAT
+  SSPSTAT = SSPSTAT | 0b_1100_0000  ;(SMP=1), CKE=1
+  SSPCON_old = SSPCON
+  SSPCON = SSPCON | 0b_0001_0000		;CKP=1
+  DAC_TLV5638_CS_pin = low
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- clear CS to the DAC
+-- and restore the old SPI settings
+-- -----------------------------------------------------------------------------
+procedure DAC_TLV5638_clear_CS is
+  DAC_TLV5638_CS_pin = high
+  SSPSTAT = SSPSTAT_old
+  SSPCON = SSPCON_old
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- SET DAC control register
+-- speed and Vref are set through the constants
+--    const DAC_TLV_5638_fastmode = true
+--    const DAC_TLV_5638_Vref			= 2     -- 0 = external
+-- 	    																	-- 1 = 1.024 Volt
+--  		  																-- 2 = 2.048 Volt
+-- power = on / off, (NOTE, different from the final bit transport !!)
+-- -----------------------------------------------------------------------------
+procedure DAC_TLV5638_init 
+  (bit in power)  is
+var byte lsb, msb
+  msb = 0b_1001_0000  -- always power on
+  if DAC_TLV_5638_fastmode then msb = msb | 0x40 end if
+  if ! power 							 then msb = msb | 0x20 end if
+  lsb = DAC_TLV_5638_Vref
+  
+  -- speed + all other settings will be sent to DAC
+  if DAC_TLV5638_spi_usart then
+    DAC_TLV5638_CS_pin = low
+    reverse_bits ( msb )
+    spi_send_hw  ( msb )
+    reverse_bits ( lsb )
+    spi_send_hw  ( lsb )
+	  -- no wait required, because SPI_SEND_HW already waits
+    DAC_TLV5638_CS_pin = high
+  else
+    DAC_TLV5638_set_CS
+	  spi_send_mssp ( msb )
+	  spi_send_mssp ( lsb )
+    spi_mssp_wait_until_ready
+    DAC_TLV5638_clear_CS 
+	end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- SET both DACs with the (new) 12-bit value from globals
+--      DAC_TLV5638_A_MSB , DAC_TLV5638_A_LSB
+--      DAC_TLV5638_B_MSB , DAC_TLV5638_B_LSB
+-- (bits 15..12 are ignored)
+-- power bit will always be 0 = normal operation
+-- speed bit will be set according to the global DAC_TLV_5638_fastmode
+--
+-- this device only seems to work, when
+--    * control bytes are sent first
+--		* CS is toggled in between all commands
+-- -----------------------------------------------------------------------------
+procedure DAC_TLV5638_set_AB is
+var byte lsb, msb, MSBA, MSBB
+  msb = 0b_1001_0000  -- always power on
+  if DAC_TLV_5638_fastmode then
+    msb = msb | 0x40
+    MSBA = ( DAC_TLV5638_A_MSB & 0x0F ) | 0b_1100_0000
+    MSBB = ( DAC_TLV5638_B_MSB & 0x0F ) | 0b_0101_0000
+  else
+    MSBA = ( DAC_TLV5638_A_MSB & 0x0F ) | 0b_1000_0000
+    MSBB = ( DAC_TLV5638_B_MSB & 0x0F ) | 0b_0001_0000
+  end if
+
+  -- if USART is used for SPI
+  if DAC_TLV5638_spi_usart then
+    lsb = DAC_TLV_5638_Vref
+
+    DAC_TLV5638_CS_pin = low
+    reverse_bits ( msb )
+	  spi_send_hw ( msb )
+    reverse_bits ( lsb )
+	  spi_send_hw ( lsb )
+	  -- no wait required, because SPI_SEND_HW already waits
+    DAC_TLV5638_CS_pin = high
+
+    DAC_TLV5638_CS_pin = low
+    reverse_bits ( MSBB )
+    spi_send_hw  ( MSBB )
+    lsb = DAC_TLV5638_B_LSB
+    reverse_bits ( lsb )
+	  spi_send_hw  ( lsb )
+    DAC_TLV5638_CS_pin = high
+    
+    DAC_TLV5638_CS_pin = low
+    reverse_bits ( MSBA )
+	  spi_send_hw  ( MSBA )
+	  lsb = DAC_TLV5638_A_LSB
+    reverse_bits ( lsb )
+	  spi_send_hw  ( lsb )
+    DAC_TLV5638_CS_pin = high
+    
+  -- if MSSP is used for SPI
+  else
+    DAC_TLV5638_set_CS
+	  spi_send_mssp ( msb )
+	  spi_send_mssp ( DAC_TLV_5638_Vref )
+    spi_mssp_wait_until_ready
+    DAC_TLV5638_clear_CS 
+
+    DAC_TLV5638_set_CS 
+	  spi_send_mssp ( MSBB )
+	  spi_send_mssp ( DAC_TLV5638_B_LSB )
+    spi_mssp_wait_until_ready
+    DAC_TLV5638_clear_CS 
+
+    DAC_TLV5638_set_CS 
+	  spi_send_mssp ( MSBA )
+	  spi_send_mssp ( DAC_TLV5638_A_LSB )
+    spi_mssp_wait_until_ready
+    DAC_TLV5638_clear_CS 
+	end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Test routine, produces 2 different saw-tooths
+--   output A (pin 4) rising sawtooth
+--   output B (pin 7) falling sawtooth
+-- -----------------------------------------------------------------------------
+procedure DAC_TLV5638_test is
+var byte x1,x2
+	DAC_TLV5638_A_MSB = 0
+	DAC_TLV5638_A_LSB = 0
+	DAC_TLV5638_B_MSB = 0
+	DAC_TLV5638_B_LSB = 0
+  forever loop
+    DAC_TLV5638_A_LSB = DAC_TLV5638_A_LSB + 16;
+    if DAC_TLV5638_A_LSB == 0 then DAC_TLV5638_A_MSB = DAC_TLV5638_A_MSB + 1 end if
+    ; note that clipping is done in routine set_AB
+    DAC_TLV5638_B_LSB = DAC_TLV5638_B_LSB - 16;
+    if DAC_TLV5638_B_LSB == 240 then DAC_TLV5638_B_MSB = DAC_TLV5638_B_MSB - 1 end if
+    DAC_TLV5638_set_AB
+
+		-- delay loop
+		x1 = 1    
+    while (x1 + x2) != 0 loop
+      x1 = x1 + 1
+      if x1 == 0 then x2 = x2 + 1 end if
+    end loop
+  end loop
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- initialization
+-- -----------------------------------------------------------------------------
+  DAC_TLV5638_CS_direction = output
+  DAC_TLV5638_init ( off ) -- start with power off for the moment
+-- -----------------------------------------------------------------------------
+
+
+

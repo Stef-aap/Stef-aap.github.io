@@ -1,0 +1,79 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.61 [en] (Win98; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>Subschaal Scores, Design&amp;Test</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><font face="Arial,Helvetica"><a href="indexd.html">Indexd</a></font></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">Vragenlijst
+Design &amp; Test</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><b><font face="Arial,Helvetica"><font color="#000099">&nbsp;</font></font></b></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Subschaal
+Scores</font></font></b></td>
+</tr>
+</table>
+
+<p>Het editen gebeurt in het aparte form <b>scores.pas</b>.
+<p><b>procedure edit_scores(vraag,subvraag,maxantw:integer);</b>
+<p>Het editten kan op 2 manieren geschieden,
+<ul>
+<li>
+middels de formule <b>a+bX</b>, waarbij X voor het antwoordnummer staat
+(a,b zijn willekeurige getallen, positief/negatief, geheel/real)</li>
+
+<li>
+middels een waarde voor ieder antwoord, mocht het zo zijn dat de ingeveulde
+waarde volgens een formule interpreteerbaar zijn, dan wordt uiteindelijk
+de formule bewaard.</li>
+</ul>
+Bij het editen in het grid, wordt de enter toets afgevangen, teneinde deze
+een zo logisch mogelijk gedrag te laten vertonen. Dat wil zeggen, als in
+de formule velden <b>a+bX</b> wordt geedit, loopt het focus naar het volgende
+veld binnen de formules. Als niet-lineaire waarden worden geedit, loopt
+het focus naar het volgende veld binnen deze niet-lineaire waarden.
+<p><a name="interne datastructuur"></a><b><font color="#000099">Interne
+datastructuur</font></b>
+<br>Als interne structuur wordt in stringlist in de inifile vorm gebruikt.
+<br>Deze structuur biedt enerzijds onbegrensde mogelijkheden, zonder onnodige
+ruimte in te nemen.
+<p><b>&nbsp;&nbsp;&nbsp; tvl(vlist.items[question_nr-1]).subschalen :tstringlist</b>
+<br>&nbsp;
+<p>Bijv: vraag 4, subvraag 1 (default bij eenvoudige vragen), subschaal
+moeheid, a=1, b=0
+<blockquote>1 moeheid=1 0</blockquote>
+Bijv: vraag 4, subschaal claustrofobie, antwoord1=1. antwoord2=2, antwoord3=7,
+antwoord4=11
+<blockquote>1 claustrofobie=0 0 1 2 7 11</blockquote>
+Bijv. vraag 5 (blokvraag), subvraag 2, subschaal moeheid, a=1, b=0
+<blockquote>2 moeheid=1 0</blockquote>
+<a name="fileopslag"></a><b><font color="#000099">Fileopslag</font></b>
+<br>lineaire weging:
+<br>&nbsp;&nbsp;&nbsp; &lt;subvraag>&nbsp; &lt;subschaal> = &lt;a>&nbsp;
+&lt;b>
+<br>random weging:
+<br>&nbsp;&nbsp;&nbsp; &lt;subvraag>&nbsp; &lt;subschaal> = 0&nbsp; 0&nbsp;
+&lt;ar[1]>&nbsp; &lt;ar[2]> ...
+<p>voorbeeld:
+<br>&nbsp;&nbsp;&nbsp; 1 moeheid=0.1 0
+<br>&nbsp;&nbsp;&nbsp; 1 claustrofobie=2 0
+<br>&nbsp;&nbsp;&nbsp; 1 Coaltjes=0 0 1 1 1 0 0 0 0 0
+<br>&nbsp;
+<p>
+<hr WIDTH="100%">
+<br><font size=-1>&copy; Copyright Instrumentele Dienst</font>
+<br><font size=-2>SM, 15-12-1999</font>
+</body>
+</html>

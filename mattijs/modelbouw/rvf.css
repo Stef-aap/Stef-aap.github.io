@@ -1,0 +1,139 @@
+/*----------Text Styles----------*/
+HR { color: #000000}
+BODY, TABLE /* Normal */
+{
+ font-size: 10pt;
+ font-family: 'Arial';
+ font-style: normal;
+ font-weight: normal;
+ color: #000000;
+ text-decoration: none;
+}
+SPAN.RVTS1 /* Heading */
+{
+ font-size: 20pt;
+ font-weight: bold;
+ color: #0000FF;
+}
+SPAN.RVTS2 /* Subheading */
+{
+ font-size: 14pt;
+ font-weight: bold;
+ color: #000080;
+}
+SPAN.RVTS3 /* Courier */
+{
+ font-family: 'Courier New';
+ font-style: italic;
+ color: #800000;
+}
+A.RVTS4, SPAN.RVTS4 /* Jump Arial */
+{
+ color: #008000;
+ text-decoration: underline;
+}
+A.RVTS4:hover { color: #FF0000; }
+A.RVTS5, SPAN.RVTS5 /* Colored Jump Times */
+{
+ font-size: 12pt;
+ font-family: 'Times New Roman';
+ color: #FFFFFF;
+ background-color: #408080;
+ text-decoration: underline;
+}
+A.RVTS5:hover { color: #FFFFCE; background-color: #0000FF; }
+SPAN.RVTS6 /* Symbols */
+{
+ font-family: 'Symbol';
+ font-weight: bold;
+ color: #804000;
+}
+SPAN.RVTS7 /* Subscript */
+{
+ font-size: 9pt;
+ vertical-align: sub;
+}
+SPAN.RVTS8 /* Superscript */
+{
+ font-size: 9pt;
+ vertical-align: super;
+}
+SPAN.RVTS9 /* Vector */
+{
+ font-size: 12pt;
+ font-weight: bold;
+ text-decoration: overline;
+}
+SPAN.RVTS10 /* Window Caption */
+{
+ font-style: italic;
+ font-weight: bold;
+ color: #FFFFFF;
+}
+SPAN.RVTS11 /* Unicode */
+{
+ font-family: 'Arial Unicode MS';
+}
+SPAN.RVTS12 /* Fixed Font */
+{
+ font-family: 'Courier New';
+}
+/*----------Para Styles----------*/
+P,UL,OL /* Left */
+{
+ text-align: left;
+ text-indent: 0px;
+ padding: 0px 0px 0px 0px;
+ margin: 0px 0px 0px 0px;
+}
+.RVPS1 /* Left Indent */
+{
+ margin: 0px 0px 0px 50px;
+}
+.RVPS2 /* Centered */
+{
+ text-align: center;
+}
+.RVPS3 /* Right */
+{
+ text-align: right;
+}
+.RVPS4 /* Justify */
+{
+ text-align: justify;
+ text-indent: 30px;
+}
+.RVPS5 /* Framed */
+{
+ text-align: center;
+ border-color: #000000;
+ border-style: solid;
+ border-width: 1px;
+ background: #C0C0C0;
+ padding: 2px 2px 2px 2px;
+ margin: 3px 3px 3px 3px;
+}
+.RVPS6 /* Window Caption */
+{
+ text-align: center;
+ border-color: #000000;
+ border-style: double;
+ border-width: 2px;
+ border-bottom: none;
+ background: #000080;
+ padding: 5px 5px 10px 5px;
+ margin: 5px 5px 0px 5px;
+}
+.RVPS7 /* Window Workspace */
+{
+ text-align: center;
+ border-color: #000000;
+ border-style: double;
+ border-width: 2px;
+ border-top: none;
+ background: #C0C0C0;
+ padding: 10px 5px 5px 5px;
+ margin: 0px 5px 5px 5px;
+}
+STYLESET{set: 1;}
+BODY{background-color: #FFFFFF;}

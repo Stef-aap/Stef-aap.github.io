@@ -1,0 +1,36 @@
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+-- define a PS2 Keyboard on J1L
+-- at the moment only J1L is supported,
+-- because we need interrupt on rising edge
+;;;;;<;mac> RPD_PS2_KeyBoard    KB = J1L
+  pragma error  ;UNKNOWN MACRO
+;;;;;<;/mac>
+
+-- including of PS2_lib is already done by RPD_PS2_KeyBoard
+-- but JALcc can't generate the interrupt macros,
+-- so temporary we include it here manual
+include PS2_lib
+
+-- generate ISR from all libraries
+;;;;;<;mac> interrupt_main
+procedure xzxzxzxz is
+pragma interrupt
+  if intf then 
+     isr_ps2   ;priority=5
+  end if
+end procedure
+;;;;;<;/mac>
+
+-- main program,
+-- receive data from PS2 keyboard / mouse
+-- and send it to the RS232 port
+forever loop
+  if PS2_valid_data then
+    asynch_send_hw (PS2_data)
+    PS2_valid_data = false
+  end if
+end loop

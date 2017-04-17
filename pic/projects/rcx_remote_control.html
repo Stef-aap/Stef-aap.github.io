@@ -1,0 +1,234 @@
+<HTML><HEAD><TITLE>RCX_remote_control</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>November 2002</SPAN></P>
+<P><SPAN class=RVTS1>RCX remote control 2</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P>For older versions see:&nbsp;<A class=RVTS4 href="rcx_remote_control1.html">version 1</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>Inspired by some applications of the 16F84 PIC, we came up with the idea to make a IR-module, which is capable of doing all the InfraRed tasks we could imagine with the RCX.</P>
+<P>Until now we've build a RCX remote control unit, with some advantages over the standard Lego remote control.</P>
+<P>A lot of time was spent in selecting / developing the right tools to control the PICs. Having the right tools and understanding them, you can quiet easy and very fast create all kinds of electronics with PICs (not only for the RCX). Still remains, using PICs is not for beginners in electronics, you need to have some knowhow of electronics to read the manuals (some IO-pins are quiet complex) and some experience in programming (for instance a language like NQC).</P>
+<P>ERATTA: in the version before 23-12-2001, the program data and clock lines on the PIC were exchanged.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="advantages over the lego remote control"></A>
+<SPAN class=RVTS2>Advantages over the Lego remote control&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Motor control is done by immediate commands instead of remote commands, so pushing a key ones, keeps the motor running. But by changing the software you can do it the Lego-way.&nbsp;</LI>
+<LI>There are 2 potmeters added to control the speed of the motors (A+C and B, but by changing the software you can choose other combinations or even go upto 4 potmeters)&nbsp;</LI>
+<LI>The device is re-programmable by a simple programmer (which even can be build in the remote controller)&nbsp;</LI>
+<LI>A lot of other things can be done with the same hardware, see&nbsp;<A class=RVTS4 href="#future%20posibilities">future posibilities</A></LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="disadvantages"></A>
+<SPAN class=RVTS2>Disadvantages</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>You have to build it yourself&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="future posibilities"></A>
+<SPAN class=RVTS2>Future Posibilities</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>By (almost) no hardware extensions, just by downloading other software you can give the device more and / or other functionality.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Using it as a serial IR-tower to program / control / read the RCX . Maybe it's even possible to connect both standard IR tower and the device decribed here to the same serial port for a widther range.&nbsp;</LI>
+<LI>Infrared repeater, to enlarge the transmission region&nbsp;</LI>
+<LI>RCX responder, a stand alone device capable of detecting RCX-messages and responding with another RCX-message&nbsp;</LI>
+<LI>Shooting target, with 2 or more (visible?) light diodes produce a beep when the target is hit&nbsp;</LI>
+<LI>Infrared buoy, which sometimes sends IR signals, so the RCX must try to locate the buoy&nbsp;</LI>
+<LI>Receiving and decoding IR signals from audio / video remote controls&nbsp;</LI>
+<LI>Encoder and transmittor for audio / video remote IR-signals (so your PC can control audio and video equipment)&nbsp;</LI>
+<LI>Connected as an sensor to the RCX, so on the one hand the RCX can control audio and video systems and on the other hand the RCX&nbsp; can react on standard remote control units&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="some reallife pictures"></A>
+<SPAN class=RVTS2>Some Real life Pictures</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>&nbsp;&nbsp;<IMG width=113 height=232 src="remote_photo1.jpg"></P>
+<P>The total remote control. As you can see I haven't found a good enclosure for it. Also I'm looking for a good place for the potmeters.</P></TD>
+<TD width=100 valign=middle>
+<P>&nbsp;<IMG width=320 height=240 src="remote_photo2.jpg"></P>
+<P>The electronics around the PIC, including fast serial port and NOP programmer. Take some more space than I used, otherwise testing is quiet difficult.</P></TD>
+<TD width=100 valign=middle>
+<P>&nbsp;<IMG width=226 height=187 src="remote_photo6.jpg"></P>
+<P>The matrix diodes are placed on the backside.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=275 valign=top>
+<P><A name="hardware"></A>
+<SPAN class=RVTS2>Hardware</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The circuit on the right shows the basic remote control.&nbsp;</P>
+<P>The lines going out of the diagram can be omitted, they are for other devices like the programmer, fast serial communication and IR-receiver. Before you decide to build this circuit, look at those extra interfaces first, because they can be added by almost no extra energy and costs.</P>
+<P>D11 and R6 should not be mounted if you include the programmer in the circuit.</P>
+<P>D20 has 2 functions, protecting the circuit against the wrong polarity. The second function (only if programmer is included) is to prevent current flowing through the zenerdiode D7 (see programmer)</P>
+<P>D12 and D13 are of course the IR-leds.</P></TD>
+<TD width=653 valign=middle>
+<P>&nbsp;&nbsp;<IMG width=613 height=459 src="remote_hw1.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=641 valign=top>
+<P><A name="key codes"></A>
+<SPAN class=RVTS2>Key codes</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The keycodes depends on the physical layout of the key and diode placing.</P>
+<P>I found it quiet difficult to give the exact schematic without errors.</P>
+<P>Therefore a more convenient way is to mount the keys and diodes and run the program with the serial debugger, and you'll find the right key codes.</P></TD>
+<TD width=297 valign=middle>
+<P class=RVPS2>&nbsp;<IMG width=132 height=136 src="remote_matrix_code.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=617 valign=middle>
+<P><A name="the jal files in the"></A>
+<SPAN class=RVTS2>The JAL files in the project</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>RCX_Remote&nbsp;</P></TD>
+<TD valign=middle>
+<P>The main program, see below</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>16F628_inc</P></TD>
+<TD valign=middle>
+<P>a file containing the pic definitions, automatically generated from the microchip INC-file.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P><A class=RVTS4 href="../download/jal_libs/indf_bits.jal">indf_bits</A></P></TD>
+<TD valign=middle>
+<P>a number of routines written by Javier Martínez (thanks to Javi)&nbsp; to address higher banks</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>rs232_hw</P></TD>
+<TD valign=middle>
+<P>library that contains RS232 routines (it's just a start)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>scan_matrix</P></TD>
+<TD valign=middle>
+<P>library to scan extended key matrices</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>scan_pots</P></TD>
+<TD valign=middle>
+<P>library to scan potmeters</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>16F628_spec</P></TD>
+<TD valign=middle>
+<P>library, containing all the special control functions of this type of PIC (just a start)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>RCX</P></TD>
+<TD valign=middle>
+<P>library wich contains all RCX constants and routines to send RCX IR-signals (receiving routines still to come)</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>A more extended decription of the library files can be found&nbsp;<A class=RVTS4 href="jal_libraries.html">here</A>.</P></TD>
+<TD width=321 valign=middle>
+<P class=RVPS2>&nbsp;<IMG width=170 height=192 src="remote_projectgroup.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><A name="the main program: rcx_remote1"></A>
+<SPAN class=RVTS2>The main program: RCX_remote1</SPAN></P>
+<P>On the right is the start of the main program.</P>
+<P>If you're familiar with NQC, you can see the close resmblance.</P>
+<P>The first key that is decoded, results in a motor command, which is not done as a remote command but as a normal immediate command, therfore it's somewhat more complicated than the other (remote) commands, shown below.</P>
+<P>&nbsp;<IMG width=399 height=58 src="remote_mainprog2.jpg"></P>
+<P>For JAL and JALcc,&nbsp;<A class=RVTS4 href="../pic_overview.html">start here</A>.</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;<IMG width=428 height=257 src="remote_mainprog.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="hardware extra's"></A>
+<SPAN class=RVTS2>Hardware extra's</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=376 valign=top>
+<P><A name="ir -receiver"></A>
+<SPAN class=RVTS2>IR -receiver</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P>Isn't this simple, so at least keep room for it.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS2>&nbsp;<IMG width=128 height=108 src="remote_hw_ir_receiver.jpg"></P></TD>
+<TD width=562 valign=middle>
+<P><A name="the nop programmer"></A>
+The NOP programmer&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>See for more information&nbsp;<A class=RVTS4 href="../picprog/picprogrammer_hardware.html">programmer hardware</A></P>
+<P>&nbsp;<IMG width=439 height=437 src="programmer_hw1.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=483 valign=top>
+<P><A name="fast serial interface"></A>
+<SPAN class=RVTS2>Fast Serial Interface</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The advantage of a fast serial port for debugging is that it hardly affects the speed of the program to be tested and it can be very fast, so a lot of information can be transfered.</P>
+<P>You'll also need the fast serial port if you want to transmit IR signals form an audio/video IR-remote to your PC.</P>
+<P>The uart output of the 16F628 is inverted. Although it's possible to invert the transmit signal by only one transistor, it has the disadvantage that such a one transistor design will consume a lot of power even when no RS232 connector is connected and the circuit is supplied from a battery.</P>
+<P>So this circuit is designed to invert the transmit signal with a minimum of power lost.</P></TD>
+<TD width=455 valign=middle>
+<P class=RVPS2>&nbsp;<IMG width=477 height=214 src="../picprog/programmer_fast_rs232.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="all the schematics together"></A>
+<SPAN class=RVTS2>All the schematics together</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Here the full blown circuit with all the extra's I've build,</P>
+<P>.... and still there are IO-pins free for potmeters or other devices.</P>
+<P>&nbsp;&nbsp;<IMG width=952 height=594 src="remote_hw_full.jpg"></P>
+<P>(click to enlarge)&nbsp;</P>
+<P>&nbsp;</P>
+</BODY></HTML>

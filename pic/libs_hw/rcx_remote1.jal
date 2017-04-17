@@ -1,0 +1,239 @@
+
+-- --------------------------------------------------------------------
+-- 16F628_DEFS.JAL
+-- This file is best inserted in the main program,
+-- so the typical hardware parameters can be set
+--
+-- This part is ugly and too long, it must be reduced some time
+-- --------------------------------------------------------------------
+--
+-- include automatic translation of mikrochips file 16F628.inc
+-- it also includes INDF.JAL
+-- and does some special actions,
+--   like all ports are input and disable all interrupts
+include 16F628_inc
+--
+-- for debugging facilities set constant DEBUG to true
+const debug = false
+-- only include if debug mode (saves memory)
+const usart_asynch = true      ;true = RS232, false = SPI
+const baudrate     = 115_200   ;Baudrate
+include RS232_hw
+--
+--
+--
+pragma target chip        16F628
+pragma target clock       20_000_000
+pragma target osc         hs
+-- pragma target watchdog    off
+-- pragma target powerup     on
+-- pragma target protection  off
+--
+pragma target fuses       0x3F22
+-- --------------------------------------------------------------------
+-- word  cpd lvp boden mclr pwrt wdt osc         observation
+-- 3FC1  off on  on    io   off  off xt
+-- 3FD0  off on  on    io   off  off intrc+io
+-- 3FF0  off on  on    mclr off  off intrc+io
+-- 3F22  off off off   mclr off  off hs
+-- 3F62  off off on    mclr off  off hs          default
+-- -------------------------------------------------------------
+--
+-- pic 16F62x
+-- RA2 / AN2   / Vref     1 === 18   RA1 / AN1
+-- RA3 / AN3   / CMP1     2 === 17   RA0 / AN0
+-- RA4 / TOCK1 / CMP2     3 === 16   RA7 / OSC1 / CLKIN
+-- RA5 / -MCLR / THV      4 === 15   RA6 / OSC2 / CLKOUT
+-- Vss                    5 === 14   VDD
+-- RB0 / INT              6 === 13   RB7 / T1OSI
+-- RB1 / RX    / DT       7 === 12   RB6 / T1OSO / T1CK1
+-- RB2 / TX    / CK       8 === 11   RB5
+-- RB3 / CCP1             9 === 10   RB4 / PGM
+-- include jpic_basic
+-- include 16F628_spec
+-- --------------------------------------------------------------------
+-- END OF 16F628_DEFS.JAL
+-- --------------------------------------------------------------------
+
+
+
+-- --------------------------------------------------------------------
+-- SCAN_MATRIX_INS.JAL
+-- This file is best inserted in the main program,
+-- so the typical hardware parameters can be set
+-- --------------------------------------------------------------------
+--
+-- define the number of total scanlines (2 ... 5)
+const byte key_nr_scanlines = 5
+--
+-- define the port where scanlines resides
+-- (all scan lines must be on the same port)
+var volatile byte key_port is PORTB
+--
+-- define the pinnumbers where the scanlines are
+-- always define the maximum number of pins,
+-- don't worry if you have less scanlines,
+-- only the active scanlines will be affected
+const key_scanpin_1 = 0
+const key_scanpin_2 = 4
+const key_scanpin_3 = 5
+const key_scanpin_4 = 7
+const key_scanpin_5 = 6
+--
+-- the scanmatrix must have pull-up resistors at all lines
+-- the user must set the pull-ups active
+-- if portB is used you can use the next statement
+  OPTION_REG = OPTION_REG & 0x7F
+--
+-- here the real matrix routines are automatic included
+include scan_matrix
+-- --------------------------------------------------------------------
+-- END OF SCAN_MATRIX_INS.JAL
+-- --------------------------------------------------------------------
+
+
+
+include scan_pots
+-- --------------------------------------------------------------------
+-- connect the power level of the motors to the 2 potmeters
+-- --------------------------------------------------------------------
+var byte RCX_motor_power_A is potmeter1
+var byte RCX_motor_power_B is potmeter2
+var byte RCX_motor_power_C is potmeter1
+-- --------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- RCX_INS.JAL must be inserted into the user program
+-- version 0.0
+--
+-- this library implements an interrupt routine
+-- -----------------------------------------------------------------------------
+var volatile bit IR_out is pin_a4           -- IR diode
+var volatile bit IR_dir is pin_a4_direction -- to set it as an ouput
+const bit        IR_off =  high             -- IR diodes between IO and +5V
+                                            -- if IR diodes between IO and GND
+                                            -- then set IR_off = low
+-- now insert automatically RCX.JAL
+include RCX
+-- -----------------------------------------------------------------------------
+-- end of RCX_INS.JAL
+-- -----------------------------------------------------------------------------
+
+
+
+-- --------------------------------------------------------------------
+-- THE MAIN PROGRAM
+--
+-- at this moment most commands are orginal RCX-remote commands
+-- except for the motor control commands (keys and potmeters) which are
+-- normal immediate RCX-commands.
+-- The advantage of the normal RCX commands is that they are shorter/faster
+-- and you don't have to wait for a reply.
+-- --------------------------------------------------------------------
+var byte key = 0
+forever loop
+
+  -- first scan keybord
+  scan_keymatrix_ext ( key )
+  -- if no (different) key pressed, scan potmeter
+  if key == 0 then scan_2_pots ( key ) end if
+
+  -- if a different key was pressed, execute the command
+  if key != 0 then
+asynch_send_hw(key)
+    -- motor A forward
+    if key == 4 then
+      RCX_motor_A_on = RCX_motor_on
+      RCX_motor_A_direction = RCX_motor_forward
+      RCX_motor_power = RCX_motor_power_A
+      RCX_update_motor (motor_A)
+
+    -- motor A backward
+    elsif key == 16 then
+      RCX_motor_A_on = RCX_motor_on
+      RCX_motor_A_direction = RCX_motor_backward
+      RCX_motor_power = RCX_motor_power_A
+      RCX_update_motor (motor_A)
+
+
+    -- motor B forward
+    elsif key == 21 then
+      RCX_motor_B_on = RCX_motor_on
+      RCX_motor_B_direction = RCX_motor_forward
+      RCX_motor_power = RCX_motor_power_B
+      RCX_update_motor (motor_B)
+
+    -- motor B backward
+    elsif key == 6 then
+      RCX_motor_B_on = RCX_motor_on
+      RCX_motor_B_direction = RCX_motor_backward
+      RCX_motor_power = RCX_motor_power_B
+      RCX_update_motor (motor_B)
+
+    -- motor C forward
+    elsif key == 3 then
+      RCX_motor_C_on = RCX_motor_on
+      RCX_motor_C_direction = RCX_motor_forward
+      RCX_motor_power = RCX_motor_power_C
+      RCX_update_motor (motor_C)
+
+    -- motor C backward
+    elsif key == 11 then
+      RCX_motor_C_on = RCX_motor_on
+      RCX_motor_C_direction = RCX_motor_backward
+      RCX_motor_power = RCX_motor_power_C
+      RCX_update_motor (motor_C)
+
+    -- first potmeter, controls power of moter A+C,
+    -- motors must be ON, otherwise nothing happens
+    elsif ( key >= 0x80 ) & ( key < 0x90 ) then
+      RCX_motor_list = motor_A | motor_C
+      RCX_motor_power = key & 7
+      RCX_send_command_and_wait ( RCX_cmd_motor_power )
+      
+    -- second potmeter, controls power of moter B,
+    -- motors must be ON, otherwise nothing happens
+    elsif key >= 0x90 then
+      RCX_motor_list = motor_B
+      RCX_motor_power = key & 7
+      RCX_send_command_and_wait ( RCX_cmd_motor_power )
+
+
+    elsif key == 24 then
+      RCX_send_command_and_wait ( RCX_remcmd_Prog1 )
+    elsif key == 12 then
+      RCX_send_command_and_wait ( RCX_remcmd_Prog2 )
+    elsif key == 8 then
+      RCX_send_command_and_wait ( RCX_remcmd_Prog3 )
+    elsif key == 9 then
+      RCX_send_command_and_wait ( RCX_remcmd_Prog4 )
+    elsif key == 17 then
+      RCX_send_command_and_wait ( RCX_remcmd_Prog5 )
+    elsif key == 2 then
+      -- to garantee, command needs Null command before
+      RCX_send_command_and_wait ( RCX_cmd_NULL )
+      RCX_send_command_and_wait ( RCX_remcmd_stop )
+
+    -- messages not tested yet
+    elsif key == 14 then
+      RCX_send_command_and_wait ( RCX_remcmd_mess1 )
+    elsif key == 22 then
+      RCX_send_command_and_wait ( RCX_remcmd_mess2 )
+    elsif key == 23 then
+      RCX_send_command_and_wait ( RCX_remcmd_mess3 )
+
+    -- elsif key == 18 then
+    -- for all other commands do remote sound
+    else
+      -- to garantee, remote sounds needs Null command before
+      RCX_send_command_and_wait ( RCX_cmd_NULL )
+      RCX_send_command_and_wait ( RCX_remcmd_sound )
+    end if
+  end if
+
+  -- now always delay some time
+  RCX_wait_for_respons
+
+end loop

@@ -1,0 +1,14 @@
+; define the hardware settings and
+; include all libraries
+include demo_settings
+
+; define the relevant IO-pins
+pin_C3_direction = output
+var bit LED is pin_C3
+
+; the main program
+forever loop
+  LED = ! LED      ; toggle the LED
+  delay_100ms(5)   ; wait half a period
+end loop           ; loop for inifinity
+

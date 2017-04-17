@@ -1,0 +1,505 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Debugger</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li class=rvps3><span class=rvts8>august 2008</span></li>
+</ul>
+<p><span class=rvts1>Editor / Debugger / IDE </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"></p>
+<p><br></p>
+<p><span class=rvts2>ToDo:</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>variable overview, add the type of the variable ? </li>
+<li>color the tab of the main file </li>
+<li>breakpoint synchronization after user changes the source </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Editor, Debugger</span></p>
+<p>You can choose between a simple internal debugger and the full blown external debugger: Winpdb. Both debuggers are based the wonderful debugger rpdb2, created by Nir Aides (who also wrote Winpdb). Below the simple builtin debugger is shown. </p>
+<p>On the left-top the flow control buttons (which all have accelerator keys, shown in the hint). Further on the left an overview of the normal local variables, their current value and their history. On the right the multi-tab editor, shown with bookmarks, breakpoints and current line. During breakpoints you can edit the source files, but the changes will only become active after a restart of the debugging process. On the bottom the standard log-command window. The log-command window is fully editable and be stored and reloaded. The log-command window accepts simple commands just like MatLab, e.g. "5+3", but also accepts full rpdb2 commands. Changes made to local variables will effect the current debug session immediately. </p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=619 height=265 alt="" src="pw_debug_img21.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=613 height=427 alt="" src="pw_debug_img5.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Controls and accelerator keys</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=79 valign=top>
+<p><img width=29 height=29 alt="" src="pw_debug_img6.png"><img width=30 height=30 alt="" src="pw_debug_img7.png"></p>
+</td>
+<td width=86 valign=top><br>
+</td>
+<td width=800 valign=top>
+<p>Enable / Disable all Breakpoints. Disabling, first saves the status of all Breakpoints and then disables all the Breakpoints.Enabling restores the previous situation (which is slightly different from winpdb, who enables all Breakpoints, regardless of they were on or off before disabling all Breakpoints)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=79 valign=top>
+<p><img width=31 height=29 alt="" src="pw_debug_img13.png"></p>
+</td>
+<td width=86 valign=top>
+<p>F9</p>
+</td>
+<td width=800 valign=top>
+<p>Stops a running debug-process.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=79 valign=top>
+<p><img width=31 height=29 alt="" src="pw_debug_img8.png"></p>
+</td>
+<td width=86 valign=top>
+<p>F9</p>
+</td>
+<td width=800 valign=top>
+<p>Starts a breaked debug-process.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=79 valign=top>
+<p><img width=30 height=28 alt="" src="pw_debug_img9.png"></p>
+</td>
+<td width=86 valign=top>
+<p>F8</p>
+</td>
+<td width=800 valign=top>
+<p>Single step the debug-process, not going into procedure calls.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=79 valign=top>
+<p><img width=33 height=28 alt="" src="pw_debug_img10.png"></p>
+</td>
+<td width=86 valign=top>
+<p>Ctrl-F8</p>
+</td>
+<td width=800 valign=top>
+<p>Single step the debug-process, and do enter into procedure calls</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=79 valign=top>
+<p><img width=32 height=29 alt="" src="pw_debug_img11.png"></p>
+</td>
+<td width=86 valign=top>
+<p>Shift-F9</p>
+</td>
+<td width=800 valign=top>
+<p>Restart</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=79 valign=top>
+<p><img width=30 height=29 alt="" src="pw_debug_img12.png"></p>
+</td>
+<td width=86 valign=top>
+<p>Alt-F9</p>
+</td>
+<td width=800 valign=top>
+<p>Start external winpdb. Before winpdb is launched (with the main-file), all modified editors are saved and the current working directory is set to the path of the main-file. You can have many external debug processes and one internal debug proces at the same time (with different versions of the source code).</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Autocompletion</span></p>
+<p><br></p>
+<p><span class=rvts10>AutoCompletion List starts upon</span></p>
+<div><table width=100 border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=137 valign=top>
+<p>A .. Z, a .. z</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=137 valign=top>
+<p>0 .. 9 </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=137 valign=top>
+<p>_</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=137 valign=top>
+<p>Left Arrow</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=137 valign=top>
+<p>Right Arrow</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=137 valign=top>
+<p>BackSpace</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts10>AutoCompletion List DOESN'T starts upon</span></p>
+<div><table width=100 border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=137 valign=top>
+<p>Up Arrow</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=137 valign=top>
+<p>Down Arrow</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts10>AutoCompletion is executed upon</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=91 valign=top style="background-color: #ffffd4;">
+<p>.</p>
+</td>
+<td width=569 valign=top style="background-color: #ffffd4;">
+<p>AutoCompletion + start next AutoCompletion List</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=91 valign=top style="background-color: #ffffd4;">
+<p>(</p>
+</td>
+<td width=569 valign=top style="background-color: #ffffd4;">
+<p>AutoCompletion + insert (</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=91 valign=top style="background-color: #ffffd4;">
+<p>Enter</p>
+</td>
+<td width=569 valign=top style="background-color: #ffffd4;">
+<p>AutoCompletion + insert space instead of EOL</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=91 valign=top style="background-color: #ffffd4;">
+<p>Dbl-Click</p>
+</td>
+<td width=569 valign=top style="background-color: #ffffd4;">
+<p>AutoCompletion</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts10>AutoCompletion is NOT executed upon</span></p>
+<div><table width=100 border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top>
+<p>Space</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top>
+<p>Tab</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Interactive Shell</span></p>
+<p>The Log-Command window can be used as an interactive shell. Text entered on the last line in the Log-Command window will always be evaluated as a command. Other text is assumed to be comment.</p>
+<p>Simple commands are evaluated in the namespace of the program debugged. If the internal debugger is not running, simple commands are evaluated in the session namespace (starts empty on start of the program).</p>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=155 height=133 alt="" src="pw_debug_img14.png"></p>
+<p><br></p>
+<p>Multi-line commands, which will have auto-indent feature, are evaluated after an empty line is added (press Enter twice).</p>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=244 height=111 alt="" src="pw_debug_img16.png"></p>
+<p><span class=rvts8><br></span></p>
+<p>Debugger commands can be launched by starting the last line with <span class=rvts10>"&gt;" or "."</span> :</p>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=513 height=165 alt="" src="pw_debug_img15.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Breakpoint Statemachine</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=322 height=486 alt="" src="pw_debug_img4.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>PDB Notes</span></p>
+<p>Starting pdb, the debugger is launched and will stop at a temporary breakpoint on the first line of the source file:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=563 height=86 alt="" src="pw_debug_img17.png"></p>
+<p><br></p>
+<p>Breakpoints use human line numbering, starting at 1.</p>
+<p>The line at the breakpoint is not yet executed.</p>
+<p><br></p>
+<p><img width=287 height=106 alt="" src="pw_debug_img19.png"><img width=495 height=73 alt="" src="pw_debug_img18.png"></p>
+<p><br></p>
+<p>Undocumented "whatis"</p>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=478 height=99 alt="" src="pw_debug_img20.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Random Notes</span></p>
+<p><br></p>
+<p>Python debugger: pdb, based on bdb + cmd</p>
+<p>WinPDB: much nicer / faster</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffff;">
+<p>Ctrl-1..9, 0</p>
+<p>Shft-Ctrl-1..9,0</p>
+</td>
+<td width=702 valign=top style="background-color: #ffffff;">
+<p>Goto BookMark 1..9, 0</p>
+<p>Toggle BookMark 1..9, 0 (or click on BookMark Margin)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffff;"><br>
+</td>
+<td width=702 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffff;"><br>
+</td>
+<td width=702 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffff;"><br>
+</td>
+<td width=702 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffff;"><br>
+</td>
+<td width=702 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffff;"><br>
+</td>
+<td width=702 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffff;"><br>
+</td>
+<td width=702 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffff;"><br>
+</td>
+<td width=702 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffff;"><br>
+</td>
+<td width=702 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffff;"><br>
+</td>
+<td width=702 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;"><br>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F1</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;">
+<p>NOT YET: context sensitive help</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F2</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F3 </p>
+<p>Shift+F3</p>
+<p>Ctrl + F3</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;">
+<p>NOT YET: Find Next (from search buffer) </p>
+<p>shift-F3 = Find Previous</p>
+<p>Jump to first error</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F4 </p>
+<p>Shift+F4</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;">
+<p>NOT YET: Find Next from word under cursor </p>
+<p>shift+F4 = Find Previous </p>
+<p>This is very handy, when tracing code in the High-Level-language &lt;--&gt; assembler listing.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F5</p>
+<p>Ctrl-F5</p>
+<p>Shift-F5</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;">
+<p>Toggle BreakPoint ( also Margin-LeftClick )</p>
+<p>Change BreakPoint Condition ( also Ctrl-Margin-LeftClick )</p>
+<p>Toggle Bookmark ( also Shift-Margin_LeftClick )</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F6</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F7</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;">
+<p>NOT YET: Toggle template window visibility</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F8</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;">
+<p>NOT YET: Jump to next field (mainly from template insertion)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F9</p>
+<p>Ctrl-F9</p>
+<p>Alt-F9</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;">
+<p>run</p>
+<p>NOT YET: run in debugger</p>
+<p>NOT YET: run in external WinPDB debugger</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F10</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F11</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="background-color: #ffffff;">
+<p>F12</p>
+</td>
+<td width=655 valign=top style="background-color: #ffffff;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>WinPDB, remarks</span></p>
+<p>started 12 august 2008</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>breakpoint condition: counter </li>
+<li>storage of breakpoints in the source directory, so I can carry it around </li>
+<li>step into: only my own source files </li>
+<li>when the&nbsp; to debug is started with:&nbsp;&nbsp;&nbsp;&nbsp; import rpdb2; rpdb2.start_embedded_debugger('aap'),&nbsp;&nbsp;&nbsp; then start a debugger, the following error messages appear (and there's only 1 bdb.py file on the system. </li>
+<li><img width=655 height=117 alt="" src="pw_debug_img1.png"><img width=719 height=124 alt="" src="pw_debug_img2.png"></li>
+<li>why not multiple tab source viewers ? </li>
+<li>why not let the user change the source files ? </li>
+<li>how to prevent the "ugly" black command window (DOS box).&nbsp; Commenting line 10391 in rpd2 doesn't help:&nbsp;&nbsp; if python_exec.endswith('w.exe'):&nbsp; python_exec = python_exec[:-5] + '.exe' </li>
+<li>rpd2 takes over the import !! </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Syntax Check</span></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://effbot.org/librarybook/py-compile.htm">The py_compile module</a></p>
+<p>30.8 py_compile -- Compile Python source files</p>
+<p>This module allows you to explicitly compile Python modules to bytecode. It behaves like Python’s import statement, but takes a file name, not a module name. Example: Using the py_compile module</p>
+<p># File: py-compile-example-1.py</p>
+<p>import py_compile</p>
+<p># explicitly compile this module</p>
+<p>py_compile.compile("py-compile-example-1.py")</p>
+<p>The compileall module can be used to compile all Python files in an entire directory tree.</p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.divmod.org/trac/wiki/DivmodPyflakes">DivmodPyflakes - Divmod - Trac</a></p>
+<p>Pyflakes is a simple program which checks Python source files for errors. It is similar to PyChecker in scope, but differs in that it does not execute the modules to check them.</p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://pychecker.sourceforge.net/">PyChecker a python source code checking tool</a></p>
+<p>PyChecker is a tool for finding bugs in python source code. It finds problems that are typically caught by a compiler for less dynamic languages, like C and C++. It is similar to lint. Because of the dynamic nature of python, some warnings may be incorrect; however, spurious warnings should be fairly infrequent.</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.logilab.org/project/pylint">pylint (analyzes Python source code looking for bugs and signs of poor quality.) (Logilab.org)</a></p>
+<p>analyzes Python source code looking for bugs and signs of poor quality. Pylint is a python tool that checks if a module satisfies a coding standard. Pylint can be seen as another PyChecker since nearly all tests you can do with PyChecker can also be done with Pylint. But Pylint offers some more features, like checking line-code's length, checking if variable names are well-formed according to your coding standard, or checking if declared interfaces are truly implemented, and much more (see the complete check list).</p>
+<p>The big advantage with Pylint is that it is highly configurable, customizable, and you can easily write a small plugin to add a personal feature.</p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://pygments.org/">Pygments — Python syntax highlighter</a></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

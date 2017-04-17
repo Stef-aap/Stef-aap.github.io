@@ -1,0 +1,166 @@
+
+
+-- ----------------------------------------------------------------------------
+-- constants, definining the positions of the animated characters in the
+-- character rom, must be in the range of [0..7]
+-- ----------------------------------------------------------------------------
+const byte LCD_animate1_pos = 2
+const byte LCD_animate2_pos = 3
+const byte LCD_animate3_pos = 4
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- here the strings of table 1 are definied
+-- maximum tablelength is 255
+-- every string is terminated with a NULL
+--   a slightly more efficient way is to use bit 7 as end of string,
+--   but there are 2 problems,
+--   1. JAL doesn't accept  "retlw  "t" + 0x80"
+--   2. the second half of the characterset (which contains some greek
+--      symbols, cann't be reached
+-- The length of each string must be declared just afterwards.
+-- ----------------------------------------------------------------------------
+;;;;;<;macro>
+;;;;;   stringtable  _string_table_1
+procedure _string_table_1 is
+   pragma jump_table
+   assembler
+     addwf PCL, f
+;;;;;     string0      "An Example"                              -- index 0
+     retlw      "A"
+     retlw      "n"
+     retlw      " "
+     retlw      "E"
+     retlw      "x"
+     retlw      "a"
+     retlw      "m"
+     retlw      "p"
+     retlw      "l"
+     retlw      "e"
+     retlw       0
+;;;;;     string0      "This is a long line, to test scrolling"  -- index 1
+     retlw      "T"
+     retlw      "h"
+     retlw      "i"
+     retlw      "s"
+     retlw      " "
+     retlw      "i"
+     retlw      "s"
+     retlw      " "
+     retlw      "a"
+     retlw      " "
+     retlw      "l"
+     retlw      "o"
+     retlw      "n"
+     retlw      "g"
+     retlw      " "
+     retlw      "l"
+     retlw      "i"
+     retlw      "n"
+     retlw      "e"
+     retlw      ","
+     retlw      " "
+     retlw      "t"
+     retlw      "o"
+     retlw      " "
+     retlw      "t"
+     retlw      "e"
+     retlw      "s"
+     retlw      "t"
+     retlw      " "
+     retlw      "s"
+     retlw      "c"
+     retlw      "r"
+     retlw      "o"
+     retlw      "l"
+     retlw      "l"
+     retlw      "i"
+     retlw      "n"
+     retlw      "g"
+     retlw       0
+;;;;;     string0      "Short"                                   -- index 2
+     retlw      "S"
+     retlw      "h"
+     retlw      "o"
+     retlw      "r"
+     retlw      "t"
+     retlw       0
+;;;;;     string0      "Animations"                              -- index 3
+     retlw      "A"
+     retlw      "n"
+     retlw      "i"
+     retlw      "m"
+     retlw      "a"
+     retlw      "t"
+     retlw      "i"
+     retlw      "o"
+     retlw      "n"
+     retlw      "s"
+     retlw       0
+;;;;;   stringtable_end
+   end assembler
+end procedure
+;;;;;<;/macro>
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- string-table 2
+-- ----------------------------------------------------------------------------
+procedure _string_table_2 is
+   pragma jump_table
+   assembler
+      addwf PCL, f
+        retlw   "h"  -- start of first string (index = 0)
+        retlw   "a"
+        retlw   "h"
+        retlw   "a"
+        retlw   0
+   end assembler
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- here the strings of the self generated characters are definied
+-- maximum tablelength is 255
+-- every character is definied by 8 words of 5 bits each
+-- ----------------------------------------------------------------------------
+procedure _string_table_character_generator is
+   pragma jump_table
+   assembler
+      addwf PCL, f
+        retlw   0b_00100  -- arrow up
+        retlw   0b_01110
+        retlw   0b_10101
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+
+        retlw   0b_00100  -- arrow down
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_10101
+        retlw   0b_01110
+        retlw   0b_00100
+
+
+   end assembler
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- here the actual LCD library is included
+-- ----------------------------------------------------------------------------
+include hd44780_4
+
+
+

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="140" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Bricks Signal Processing&nbsp; </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; ( august 2009 )</span></p>
+<p><span class=rvts10>Application Designer</span> / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Circuit Plots</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>This Brick can be used to show time signals, circuit characteristics and the effect of circuits on the time-signals. All 4 inputs are equal and accepts sequences of: signals, transfer functions, poles-zeros-gain representation and State-Space descriptions.</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=119 height=74 alt="" src="pw_bricks_signal_processing_img5.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Here you can see how the different signals can be attached. The Brick determines the type of the signal from the length of an input element.</p>
+<p><br></p>
+<p><img width=526 height=165 alt="" src="pw_bricks_signal_processing_img9.png"></p>
+<p><br></p>
+<p><img width=373 height=66 alt="" src="pw_bricks_signal_processing_img10.png"></p>
+<p><br></p>
+<p>The main window that's embedded in the application window, is mainly used to determine the settings of what is to be displayed and how things have to be displayed. The graphs them self are shown in stand alone windows, of the type Scope_Plot.</p>
+<p><br></p>
+<p><span class=rvts10>what is to be displayed</span></p>
+<p><img width=523 height=208 alt="" src="pw_bricks_signal_processing_img13.png"></p>
+<p>With the Refresh button is pressed all graph windows are recalculated. The refresh can also be done with F9 (except when editing a gridcell.</p>
+<p><br></p>
+<p><span class=rvts10>how should it be displayed</span></p>
+<p><img width=580 height=209 alt="" src="pw_bricks_signal_processing_img2.png"></p>
+<p>The table on the right specifies the properties of the window.</p>
+<p>The table on the left specifies, name, line color, lower and upper margins of the graph display. There are 2 sets of margins, if the second set is empty, only 1 graph display is shown, otherwise 2 graph displays are shown, each with its own corresponding margins (so you can automatically zoom into some details). The graph windows below, gives an example of the transfer function of a high-pass filter, where the second window is used to automatically zoom into the passband ripple.</p>
+<p><br></p>
+<p><span class=rvts10>The standalone graph window</span></p>
+<p><img width=309 height=282 alt="" src="pw_bricks_signal_processing_img14.png">&nbsp; <img width=307 height=283 alt="" src="pw_bricks_signal_processing_img4.png"></p>
+<p><span class=rvts10><br></span></p>
+<p><span class=rvts10>Signal Respons</span></p>
+<p>This action can generate a number of windows, depending on the number of signals and circuits. It basically shows:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>all signals together in 1 window </li>
+<li>1 window for each signal together with the signal respons of each circuit </li>
+</ul>
+<p>If there's just one signal or if there are no circuit descriptions, just one window is shown.</p>
+<p><span class=rvts10>Spectra</span></p>
+<p>Shows the spectra of each signal.</p>
+<p>This function should be extended with a window function to reduce leakage effects.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=373 height=330 alt="" src="pw_bricks_signal_processing_img16.png"></p>
+
+</body></html>

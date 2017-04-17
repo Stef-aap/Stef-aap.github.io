@@ -1,0 +1,40 @@
+#include <asmlib.h>
+
+STRING mes = "Hello World !!"
+
+//This is the Main program
+START
+  INT result
+
+  cls
+  locate 0 0
+  PRINTF mes
+
+; menu BZC "title",
+;  "Good"
+;  "Fantastic
+; end_menu
+ 
+  STRING mtitle = "BZC="
+  STRING mop1   = "Good"
+  STRING mop2   = "Fantastic"
+  MEM BZC 6  // ( 2 options + the title ) * 2
+  menuoption BZC 0 mtitle
+  menuoption BZC 1 mop1
+  menuoption BZC 2 mop2
+
+;  result = result*-1
+  
+  result = menu BZC 2  
+
+  _getKey
+  
+BYTE aap
+aap = 0-2
+  PRINTF aap
+;  EXIT
+END
+
+
+
+

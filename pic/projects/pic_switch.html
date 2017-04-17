@@ -1,0 +1,1051 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Pic_overview</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #efefef;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="177" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>April 2003</span></p>
+<p><span class=rvts1>Switches</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><a name="introduction"></a>
+<span class=rvts2>Introduction </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Often we're so creative in putting functionality into PIC's, that they always seems to have too little IO-pins. On the other hand, sometimes we've so little space that we want to use as little external components as possible. </p>
+<p>Other important parameters to choose for the optimal switch circuits are number of switches, kind of available IO-pins and the necessity of decoding multiple keys. </p>
+<p>On this page I've collected a number of circuits, concerning the connection of switches to PICs. </p>
+<p>If anyone has other ideas, I'm glad to put his or her idea (with a link) on this page. </p>
+<p>Also "inefficiënt" ideas are welcome !! You should realize how many people will come up with the same inefficiënt idea and will put a lot of energy in the design to discover what you already had discovered. </p>
+<p>To compare the performance of the different circuits, most circuits are compared with an standard matrix circuit having an equal amount of lines, that is having N rows and N columns. The following parameters are given </p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>#Nkeys = the formula to calculate the number of keys on the base of N </li>
+<li>N = 1 / 2 / 3 / 4&nbsp; ==&gt;&nbsp; 2 / 4 / 6 / 8 switches, the number of keys for different values of N. This line for instance means that for N=3,&nbsp; 6 switches can be connected. </li>
+<li>if multiple keys can be detected / decoded </li>
+</ul>
+<p>My favourites until now are <a class=rvts4 href="#extended%20matrix%20switch%20%282%29">Extended Matrix (2)</a> or <a class=rvts4 href="#use%20of%20analog%20comparator%20%282%29">Analog Comparator (2)</a> for many switches (depending on the available kind of ports) and <a class=rvts4 href="#special%201">Special (1)</a> for only a few switches. </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td valign=middle>
+<p>Basic (1 line)</p>
+</td>
+<td valign=middle>
+<p>Matrix</p>
+</td>
+<td valign=middle>
+<p>Special</p>
+</td>
+<td valign=middle>
+<p>RC-time</p>
+</td>
+<td valign=middle>
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=top>
+<p><a class=rvts4 href="#basic%20switch">Basic Switch</a></p>
+<p><a class=rvts4 href="#special%201">Special 1</a></p>
+</td>
+<td valign=top>
+<p><a class=rvts4 href="#basic%20matrx%20switch">Basic Matrix</a></p>
+<p><a class=rvts4 href="#extended%20matrix%20switch">Extended Matrix (1)</a></p>
+<p><a class=rvts4 href="#extended%20matrix%20switch%20%282%29">Extended Matrix (2)</a></p>
+</td>
+<td valign=top>
+<p><a class=rvts4 href="#use%20of%20analog%20comparator">Analog Comparator (1)</a></p>
+<p><a class=rvts4 href="#use%20of%20analog%20comparator%20%282%29">Analog Comparator (2)</a></p>
+<p><a class=rvts4 href="#4%20buttons%20/%207%20functions">2 IO-pins, 4 buttons</a></p>
+</td>
+<td valign=top>
+<p><a class=rvts4 href="#2%20buttons%20/%201-line%20/%20rc-time">2 buttons / 1 line</a></p>
+<p><a class=rvts4 href="#5%20buttons%20/%201-line%20/%20rc-time">5 buttons / 1 line</a></p>
+</td>
+<td valign=middle>
+<p>&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=571 valign=top>
+<p><a name="basic switch"></a>
+<span class=rvts2>Basic switch</span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>#NKeys = 2*N switches </p>
+<p>N = 1 / 2 / 3 / 4&nbsp; ==&gt;&nbsp; 2 / 4 / 6 / 8 switches </p>
+<p>Multiple keys can be decoded. </p>
+<p>If no internal pull-up resistor present, connect an external pull-up resistor (10 kOhm ... 100 kOhm). </p>
+<p>Debouncing should be done in software and or using a smitt-trigger input !&nbsp; </p>
+<p>In some documents it's suggested to use a capacitor across the switch to reduce debouncing, this will do only harm because the edges of the signals are made slower, which is bad for digital circuits.</p>
+</td>
+<td width=140 valign=middle>
+<p class=rvps3><img width=172 height=148 alt="" src="pic_switch1.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=369 valign=top>
+<p><a name="basic matrx switch"></a>
+<span class=rvts2>Basic Matrix Switch</span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>#NKeys = N*N switches </p>
+<p>N = 1 / 2 / 3 / 4&nbsp; ==&gt;&nbsp; 1 / 4 / 9 / 16 switches </p>
+<p>Multiple keys can be decoded. </p>
+<p>Pull-up or pull-down resistors are necessary, which are available on the B-port of post PIC-devices. </p>
+</td>
+<td width=342 valign=middle>
+<p class=rvps3><a href="pic_switch2.gif"><img width=350 height=279 alt="" src="pic_switch2.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=408 valign=top>
+<p><a name="extended matrix switch"></a>
+<span class=rvts2>Extended Matrix Switch (1)</span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>#NKeys = 2N * 2N - 2N&nbsp; switches </p>
+<p>N = 1 / 2 / 3 / 4&nbsp; ==&gt;&nbsp; 2 / 12 / 30 / 56 switches </p>
+<p>Multiple keys can not be decoded (just detected) </p>
+<p>Pull-up or pull-down resistors are necessary, which are available on the B-port of most PIC-devices. </p>
+<p>For N=1 (2 switches) multiple switches can be fully resolved (but in fact you'll have the same circuit as "Extended Matrix Switch (2)" ). </p>
+<p>For higher values of N, some multiple switch combinations can be resolved unambigious, others not. </p>
+<p>In general use this design only when there's only 1 keypress at a time. The software should then check if just one key is pressed, otherwise wait till only 1 key pressed. </p>
+<p>Below is another extended matrix which can resolve all multiple key combinations.</p>
+</td>
+<td width=303 valign=middle>
+<p class=rvps3><a href="pic_switch3.gif"><img width=347 height=333 alt="" src="pic_switch3.gif"></a></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=408 valign=top>
+<p>Decoding 1 x 1 </p>
+<div><table width=200 border=1 cellpadding=0 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td valign=middle>
+<p>&nbsp; </p>
+</td>
+<td valign=middle>
+<p>Ain = 0 </p>
+</td>
+<td valign=middle>
+<p>Bin = 0 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Aout = 0</p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+<td valign=middle>
+<p>0 =S2 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Bout = 0</p>
+</td>
+<td valign=middle>
+<p>0 = S1 </p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+</tr>
+</table>
+</div>
+<p class=rvps2>X = don't care, doesn't contain information</p>
+</td>
+<td width=303 valign=middle>
+<p class=rvps2><img width=110 height=84 alt="" src="pic_switch_m2b.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=419 valign=top>
+<p><a name="extended matrix switch (2)"></a>
+<span class=rvts2>Extended Matrix Switch (2)</span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>2N * 2N - 2N&nbsp; switches </p>
+<p>#NKeys = N = 1 / 2 / 3 / 4&nbsp; ==&gt;&nbsp; 2 / 12 / 30 / 56 switches </p>
+<p>Multiple keys can be unambigious decoded. </p>
+<p>Pull-up or pull-down resistors are necessary, which are available on the B-port of most PIC-devices. </p>
+<p>There's a <a class=rvts4 href="../download/jal_ext_matrix_decode.zip">JAL library</a> available, which is able to decode upto 5 lines (20 keys).</p>
+</td>
+<td width=292 valign=middle>
+<p class=rvps3><img width=395 height=223 alt="" src="pic_switch7.gif"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=419 valign=top>
+<p>full IO signals for 1 x 1 </p>
+<div><table width=250 border=1 cellpadding=0 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td valign=middle>
+<p>&nbsp; </p>
+</td>
+<td valign=middle>
+<p class=rvps2>Aout</p>
+</td>
+<td valign=middle>
+<p class=rvps2>Bout</p>
+</td>
+<td valign=middle>
+<p class=rvps2>Ain</p>
+</td>
+<td valign=middle>
+<p class=rvps2>Bin</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>no key</p>
+</td>
+<td valign=middle>
+<p class=rvps2>0 </p>
+<p class=rvps2>high</p>
+</td>
+<td valign=middle>
+<p class=rvps2>high </p>
+<p class=rvps2>0</p>
+</td>
+<td valign=middle>
+<p class=rvps2>X </p>
+<p class=rvps2>1</p>
+</td>
+<td valign=middle>
+<p class=rvps2>1 </p>
+<p class=rvps2>X</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>S1</p>
+</td>
+<td valign=middle>
+<p class=rvps2>0 </p>
+<p class=rvps2>high</p>
+</td>
+<td valign=middle>
+<p class=rvps2>high </p>
+<p class=rvps2>0</p>
+</td>
+<td valign=middle>
+<p class=rvps2>X </p>
+<p class=rvps2>0</p>
+</td>
+<td valign=middle>
+<p class=rvps2>1 </p>
+<p class=rvps2>X</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>S2</p>
+</td>
+<td valign=middle>
+<p class=rvps2>0 </p>
+<p class=rvps2>high</p>
+</td>
+<td valign=middle>
+<p class=rvps2>high</p>
+<p class=rvps2>0</p>
+</td>
+<td valign=middle>
+<p class=rvps2>X </p>
+<p class=rvps2>1</p>
+</td>
+<td valign=middle>
+<p class=rvps2>0 </p>
+<p class=rvps2>X</p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>S1+S2</p>
+</td>
+<td valign=middle>
+<p class=rvps2>0 </p>
+<p class=rvps2>high</p>
+</td>
+<td valign=middle>
+<p class=rvps2>high </p>
+<p class=rvps2>0</p>
+</td>
+<td valign=middle>
+<p class=rvps2>X </p>
+<p class=rvps2>0</p>
+</td>
+<td valign=middle>
+<p class=rvps2>0 </p>
+<p class=rvps2>X</p>
+</td>
+</tr>
+</table>
+</div>
+<p class=rvps2>high = high impedance with pullup (or "1") </p>
+<p class=rvps2>X= don't care (contains no information)</p>
+</td>
+<td width=292 valign=top>
+<p class=rvps2>Decoding 1 x 1 </p>
+<div><table width=200 border=1 cellpadding=0 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td height=16 valign=middle>
+<p>&nbsp; </p>
+</td>
+<td height=16 valign=middle>
+<p>Ain = 0 </p>
+</td>
+<td height=16 valign=middle>
+<p>Bin = 0 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Aout = 0</p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+<td valign=middle>
+<p>0 = S2 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Bout = 0</p>
+</td>
+<td valign=middle>
+<p>0 = S1 </p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+</tr>
+</table>
+</div>
+<p class=rvps2><img width=110 height=93 alt="" src="pic_switch_m2.gif"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=419 valign=top>
+<p>Decoding "1.5" x "1.5" </p>
+<div><table width=250 border=1 cellpadding=0 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td valign=middle>
+<p>&nbsp; </p>
+</td>
+<td valign=middle>
+<p>Ain = 0 </p>
+</td>
+<td valign=middle>
+<p>Bin = 0 </p>
+</td>
+<td valign=middle>
+<p>Cin = 0 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Aout = 0</p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+<td valign=middle>
+<p>0 = S3 </p>
+</td>
+<td valign=middle>
+<p>0 = S5 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Bout = 0</p>
+</td>
+<td valign=middle>
+<p>0 = S1 </p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+<td valign=middle>
+<p>0 = S6 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Cout = 0</p>
+</td>
+<td valign=middle>
+<p>0 = S2 </p>
+</td>
+<td valign=middle>
+<p>0 = S4 </p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+</tr>
+</table>
+</div>
+<p class=rvps2><img width=145 height=119 alt="" src="pic_switch_m3.gif"></p>
+</td>
+<td width=292 valign=top>
+<p class=rvps2>Decoding&nbsp; 2 x 2 </p>
+<div><table width=300 border=1 cellpadding=0 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td valign=middle>
+<p>&nbsp; </p>
+</td>
+<td valign=middle>
+<p>Ain = 0 </p>
+</td>
+<td valign=middle>
+<p>Bin = 0 </p>
+</td>
+<td valign=middle>
+<p>Cin = 0 </p>
+</td>
+<td valign=middle>
+<p>Din = 0 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Aout = 0</p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+<td valign=middle>
+<p>0 = S4 </p>
+</td>
+<td valign=middle>
+<p>0 = S7 </p>
+</td>
+<td valign=middle>
+<p>0 = S10 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Bout = 0</p>
+</td>
+<td valign=middle>
+<p>0 = S1 </p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+<td valign=middle>
+<p>0 = S8 </p>
+</td>
+<td valign=middle>
+<p>0 = S11 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Cout = 0</p>
+</td>
+<td valign=middle>
+<p>0 = S2 </p>
+</td>
+<td valign=middle>
+<p>0 = S5 </p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+<td valign=middle>
+<p>0 = S12 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Dout = 0</p>
+</td>
+<td valign=middle>
+<p>0 = S3 </p>
+</td>
+<td valign=middle>
+<p>0 = S6 </p>
+</td>
+<td valign=middle>
+<p>0 = S9 </p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+</tr>
+</table>
+</div>
+<p class=rvps2><img width=174 height=154 alt="" src="pic_switch_m4.gif"></p>
+</td>
+</tr>
+<tr valign=top>
+<td colspan=2 valign=middle>
+<div><table width="100%" border=0 cellpadding=1 cellspacing=2>
+<tr valign=top>
+<td valign=middle>
+<p>Decoding&nbsp; "2.5"&nbsp; x "2.5" </p>
+<div><table width=350 border=1 cellpadding=0 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td valign=middle>
+<p>&nbsp; </p>
+</td>
+<td valign=middle>
+<p>Ain = 0 </p>
+</td>
+<td valign=middle>
+<p>Bin = 0 </p>
+</td>
+<td valign=middle>
+<p>Cin = 0 </p>
+</td>
+<td valign=middle>
+<p>Din = 0 </p>
+</td>
+<td valign=middle>
+<p>Ein = 0 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Aout = 0</p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+<td valign=middle>
+<p>0 = S5 </p>
+</td>
+<td valign=middle>
+<p>0 = S9 </p>
+</td>
+<td valign=middle>
+<p>0 = S13 </p>
+</td>
+<td valign=middle>
+<p>0 = S17 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Bout = 0</p>
+</td>
+<td valign=middle>
+<p>0 = S1 </p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+<td valign=middle>
+<p>0 = S10 </p>
+</td>
+<td valign=middle>
+<p>0 = S14 </p>
+</td>
+<td valign=middle>
+<p>0 = S18 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Cout = 0</p>
+</td>
+<td valign=middle>
+<p>0 = S2 </p>
+</td>
+<td valign=middle>
+<p>0 = S6 </p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+<td valign=middle>
+<p>0 = S15 </p>
+</td>
+<td valign=middle>
+<p>0 = S19 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Dout = 0</p>
+</td>
+<td valign=middle>
+<p>0 = S3 </p>
+</td>
+<td valign=middle>
+<p>0 = S7 </p>
+</td>
+<td valign=middle>
+<p>0 = S11 </p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+<td valign=middle>
+<p>0 = S20 </p>
+</td>
+</tr>
+<tr valign=top>
+<td valign=middle>
+<p>Eout = 0</p>
+</td>
+<td valign=middle>
+<p>0 = S4 </p>
+</td>
+<td valign=middle>
+<p>0 = S8 </p>
+</td>
+<td valign=middle>
+<p>0 = S12 </p>
+</td>
+<td valign=middle>
+<p>0 = S16 </p>
+</td>
+<td valign=middle>
+<p>X </p>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td valign=middle>
+<p><img width=201 height=173 alt="" src="pic_switch_m5.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="99%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td valign=middle>
+<p><a name="interesting note by jim granville"></a>
+<span class=rvts2>Interesting note by Jim Granville</span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>Classic Keypad XY Matrix: requires N/2 Read and N/2 Write lines&nbsp; </p>
+<p>( square assumed ) - keys supported are N/2 * N/2&nbsp;&nbsp;&nbsp; ( X * Y ) </p>
+<p>'Self Matrix': Requires N lines with Read + Write ability </p>
+<p>( ie 'Standard issue' Open collector/Pullup pins on uC and PLD ) </p>
+<p> If you loose the mirror half of the self-matrix, then the diodes </p>
+<p>can be removed, and it qualifies as a button matrix&nbsp; </p>
+<p> It's just triangular, not rectangular.&nbsp; </p>
+<p> Total Self Matrix is N^2. </p>
+<p> Loose the diagonal (N^2)-N </p>
+<p> Loose mirror half ((N^2)-N)/2 </p>
+<p> N&nbsp; (((N^2) -N)&nbsp;&nbsp; /2)&nbsp; As MATRIX&nbsp; GainOF </p>
+<p>----+-----+----+------+--------+-------- </p>
+<p> 4&nbsp;&nbsp;&nbsp;&nbsp; 16&nbsp;&nbsp; 12&nbsp;&nbsp;&nbsp; 6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +2 </p>
+<p> 5&nbsp;&nbsp;&nbsp;&nbsp; 25&nbsp;&nbsp; 20&nbsp;&nbsp;&nbsp; 10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +4 </p>
+<p> 6&nbsp;&nbsp;&nbsp;&nbsp; 36&nbsp;&nbsp; 30&nbsp;&nbsp;&nbsp; 15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +6&nbsp; </p>
+<p> 7&nbsp;&nbsp;&nbsp;&nbsp; 49&nbsp;&nbsp; 42&nbsp;&nbsp;&nbsp; 21&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +9 </p>
+<p> 8&nbsp;&nbsp;&nbsp;&nbsp; 64&nbsp;&nbsp; 56&nbsp;&nbsp;&nbsp; 28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +12 </p>
+<p> 9&nbsp;&nbsp;&nbsp;&nbsp; 81&nbsp;&nbsp; 72&nbsp;&nbsp;&nbsp; 36&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +16 </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A&nbsp;&nbsp;&nbsp;&nbsp; B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (B-C)</p>
+</td>
+<td valign=top>
+<p>Column A is decode ability using diodes. </p>
+<p>Column B is decode ability using no diodes. </p>
+<p>And from this, it is appears only 50% diode coverage is possible,&nbsp; </p>
+<p>if you tolerate a dual-read + Sw to separate Polarised / Non polarised&nbsp; </p>
+<p>short. </p>
+<p>Key decode is only slightly more complex than a XY matrix, and </p>
+<p>within the realms of any uC, and probably PLDs. </p>
+<p>Assume Open drain, with pullup, 5 lines -&gt; 10 Buttons : </p>
+<p> Drive RW0 LOW, Encode [RW1.RW2.RW3.RW4] -&gt; 0.1.2.3 </p>
+<p> Drive RW1 LOW, Encode [RW2.RW3.RW4]&nbsp;&nbsp;&nbsp;&nbsp; -&gt; 4.5.6 </p>
+<p> Drive RW2 LOW, Encode [RW3.RW4]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; 7.8 </p>
+<p> Drive RW3 LOW, Encode [RW4]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; 9 </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=558 valign=middle>
+<p><a name="special 1"></a>
+<span class=rvts2>Special (1)</span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>4N switches </p>
+<p>#NKeys = N = 1 / 2 / 3 / 4&nbsp; ==&gt;&nbsp; 4 / 8 / 12 / 16 switches </p>
+<p>multiple keys cann't be detected. </p>
+<p>For N&lt;4 this circuit is even more effective than a normal matrix, </p>
+<p>but it needs a number of external resitors. </p>
+<p>The sensibility to noise of this cicuit is larger than other cicuits.. </p>
+<p>The port used must be able to act both as an input and output. </p>
+<p>The working is based on the parasitic capacitance of the port. </p>
+<p>Decoding is done as follows: </p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>set port to output high </li>
+<li>set port to input and read </li>
+<li>set port to output low </li>
+<li>set port to input and read </li>
+</ul>
+<p>If both readings were low, S2 is pressed </p>
+<p>If both readings were high, S1 is pressed </p>
+<p>If both readings were different nothing was pressed </p>
+<p>By choosing one of the resistors much larger than the other, you can determine which key has precendence if both keys are pressed.</p>
+</td>
+<td width=153 valign=middle>
+<p class=rvps3><a href="pic_switch4.gif"><img width=174 height=201 alt="" src="pic_switch4.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="97%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=249 valign=top>
+<p><a name="use of analog comparator"></a>
+Use of analog comparator <a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>#NKeys = 16*N switches </p>
+<p>N = 1 / 2 / 3 / 4&nbsp; ==&gt;&nbsp; 16 / 32 / 64 / 128 switches </p>
+<p>Multiple keys can not be detected and will give a strange result. </p>
+<p>This circuit can also be used to read a potmeter value (see the most right circuit). </p>
+<p>&nbsp; </p>
+<p>(the potmeter cicuit will be soon evaluated by me, and a JAL example will become available) </p>
+</td>
+<td width=440 valign=top>
+<p class=rvps3><a href="pic_switch5.gif"><img width=218 height=352 alt="" src="pic_switch5.gif"></a> __<a href="pic_potmeter.gif"><img width=153 height=196 alt="" src="pic_potmeter.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td valign=top>
+<p><a name="use of analog comparator (2)"></a>
+<span class=rvts2>Use of analog comparator (2)</span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>#NKeys = 16*N switches </p>
+<p>N = 1 / 2 / 3 / 4&nbsp; ==&gt;&nbsp; 16 / 32 / 64 / 128 switches </p>
+<p>In case of multiple keys, only the lowest key will be found.</p>
+</td>
+<td valign=middle>
+<p class=rvps2><a href="pic_switch6.gif"><img width=237 height=353 alt="" src="pic_switch6.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=311 valign=top>
+<p><a name="4 buttons / 7 functions"></a>
+<span class=rvts2>4 buttons / 7 functions</span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>An ingenius circuit designed by Vasile Surducan, on <a class=rvts4 href="http://www.geocities.com/vsurducan/electro/pic/auto.htm">his site</a> there's more information and a JAL program for the PIC16F84. </p>
+<p>I haven't studied the details of this circuit. </p>
+<p>&nbsp; </p>
+</td>
+<td width=400 valign=middle>
+<p class=rvps3><img width=406 height=399 alt="" src="4but.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=384 valign=top>
+<p><a name="2 buttons / 1-line / rc-time"></a>
+2 Buttons / 1-line / RC-time </p>
+<p>An idea of Colin Mitchell form <a class=rvts4 href="http://www4.tpg.com.au/users/talking/">Talking Electronics</a> . </p>
+<p>Click on the image to go to his site. </p>
+<p>The decoding is based on measering the RC-time of the resistor of 47k en the capacitor of 1 uF, which should give a shorter time than a single human touch of switch B. </p>
+<p>The circuit cann't handle multiple keys. </p>
+<p>Switch A will always produce a short puls, </p>
+<p>switch B will produce a long puls (as long as the key is pressed). </p>
+</td>
+<td width=327 valign=middle>
+<p class=rvps3><a href="http://www4.tpg.com.au/users/talking/library_button-to-2buttons-2.html"><img width=350 height=250 alt="" src="dia_2button_1line.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=272 valign=top>
+<p><a name="5 buttons / 1-line / rc-time"></a>
+<span class=rvts2>5 buttons / 1-line / RC-time</span></p>
+<p>Another idea of Colin Mitchell form <a class=rvts4 href="http://www4.tpg.com.au/users/talking/">Talking Electronics</a> . </p>
+<p>This circuit also relies on the different RC-times, depending on how many resistors are short circuited by a switch. </p>
+<p>The circuit cann't handle multiple keys. </p>
+<p>Click on the image to go to his site. </p>
+<p>You als can find the routines for the PIC16F84. </p>
+</td>
+<td width=439 valign=middle>
+<p class=rvps3><a href="http://www4.tpg.com.au/users/talking/library_button-to-carry-3.html"><img width=470 height=245 alt="" src="5switch_1line.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>From Dave Dilatush</span></p>
+<p>How about operating a keypad with nothing more than a single PIC A/D</p>
+<p>input pin?&nbsp; </p>
+<p>The diagram below shows how this can be done, by connecting the</p>
+<p>row/column lines of the keypad to resistors so that each key (the X's in</p>
+<p>the diagram below) results in a different resistance value.&nbsp; This</p>
+<p>resistance is connected, along with a load resistor (the 22K shown</p>
+<p>below), in a voltage divider between Vcc and ground; each key gives a</p>
+<p>different voltage, thus a different A/D reading.</p>
+<p>I didn't dream this up on my own, BTW, so I can't take "challenge"</p>
+<p>credit for it; I saw it about a year ago in the Design Ideas column in</p>
+<p>one of the electronics rags (either EDN or Electronic Design, I forget</p>
+<p>which).&nbsp; It should work, even if it is a little unusual...</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; X-------X-------X-------X----------+--Vcc&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; X-------X-------X-------X---4.7K---+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; X-------X-------X-------X---10K----+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; X-------X-------X-------X---15K----+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; 1.2K&nbsp;&nbsp;&nbsp; 2.4K&nbsp;&nbsp;&nbsp; 3.6K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; +-------+-------+-------+--&gt; To PIC A/D Input&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 22K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>Multiple keys pressed simultaneously is a problem with this design.&nbsp; </p>
+<p>For example, if you press the top left key in the diagram I posted then</p>
+<p>the output of the voltage divider is Vcc no matter what other keys you</p>
+<p>push.&nbsp; Pushing other combinations of keys together will give you odd</p>
+<p>voltage levels that could be misinterpreted, and I don't think any</p>
+<p>amount of A/D resolution could fix that, especially since the resistors</p>
+<p>themselves have tolerances and an allowance has to be made for that.</p>
+<hr noshade size=1>
+<p><span class=rvts2>from David Harris</span></p>
+<p>I was thinking.</p>
+<p>Can you add another IC??, or It must be with the PIC only?.</p>
+<p>I think that if you ad an 74LS138, you can scan 4 rows of the keyboard</p>
+<p>with only 2 pins on the IC and the extra cost is still very low (if this is</p>
+<p>the case :-)</p>
+<p>so we can imagine this:</p>
+<p>PIC&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp; DISPLAY&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp; 4x4 Keyb.</p>
+<p>--------------------------------------------------------</p>
+<p>RB0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; none</p>
+<p>RB1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R/S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; none</p>
+<p>RB2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D0&nbsp;&nbsp;&nbsp; (74LS138)</p>
+<p>RB3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D1&nbsp;&nbsp;&nbsp; (74LS138)</p>
+<p>RB4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B4</p>
+<p>RB5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B5</p>
+<p>RB6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B6</p>
+<p>RB7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B7</p>
+<p>R/W is not really needed (I am counting that you are trying to use an</p>
+<p>intelligent</p>
+<p>LCD) because R/W is only necessary to read the internal Ram or the status but</p>
+<p>if you calculate the time it will work perfect, I have several proyects</p>
+<p>working without</p>
+<p>using the R/W, just tied it to the Write level and that's all.</p>
+<p>The Rows controlled by 74LS138 must be feeded via resistor, at least 1K, to</p>
+<p>the</p>
+<p>push buttons, so when you set the RB4-7 to Outputs to control the display and</p>
+<p>someone push a button, nothing wrong will happens.</p>
+<p>now without the extra 138, I don't see how can you do that, the main problem</p>
+<p>is the E (Display enable), I can't imagine how to solve it in 8 bits</p>
+<p>without the</p>
+<p>138, sorry.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>some other unsorted newsgroups items from a discussion about 4*4 matrix </p>
+<hr noshade size=1>
+<p>&gt; With a 4 x 4 matrix of SPDT switches to work with?&nbsp; Show me. </p>
+<p>&nbsp; </p>
+<p> In theory, this is do-able : </p>
+<p> -----+---- R ----x-x-x-x </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +---- R/2---x-x-x-x </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +---- R/4---x-x-x-x </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +---- R/8---x-x-x-x </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | | | | </p>
+<p> ---+-------0-----+ | | | </p>
+<p>&nbsp;&nbsp;&nbsp; +----1R/32------+ | | </p>
+<p>&nbsp;&nbsp;&nbsp; +----2R/32--------+ | </p>
+<p>&nbsp;&nbsp;&nbsp; +----3R/32----------+ </p>
+<p> Bottom Row ==&nbsp; R/8, R/8+R/32, R/8+2R/32, R/8+3R/32, </p>
+<p> Next up is ==&nbsp; R/4, R/4+R/32, R/4+2R/32, R/4+3R/32, </p>
+<p> .. </p>
+<p> Top Row&nbsp;&nbsp;&nbsp; ==&nbsp;&nbsp; R, R+R/32, R+2R/32, R+3R/32, </p>
+<p> And this needs to resolve changes to R/32, or ~3%. </p>
+<p> Looks like 1% resistors, and maybe an EE calibrate mode, to </p>
+<p>align the ADC, and initial resistor values. </p>
+<p> In SMD devices, and working with just two values, </p>
+<p>this would be 15 resistors - similar to a 1 of 16 keypad, but </p>
+<p>with the advantage of just 2 stock values, and fewer pins on the keypad. </p>
+<p> Could suit the miniature uC, with ADC, like Cygnal C8051F33x, </p>
+<p>and ATTiny15... (etc) </p>
+<p>-jg </p>
+<hr noshade size=1>
+<p>"Stef Mientki" &lt;s.mientki@ids.kun.nl&gt; wrote in message </p>
+<p>&gt; </p>
+<p>... snip ... </p>
+<p>&gt; </p>
+<p>&gt; Ok, back to technics, for use with the Lego robot (yes toys&nbsp; !) I collected </p>
+<p>&gt; some ideas (not all of my own ;-) here </p>
+<p>&gt; </p>
+<p>http://baserv.uci.kun.nl/~smientki/Lego_Knex/Lego_electronica/PicProg/Pic_switch.htm </p>
+<p>*Very* interesting page.&nbsp; I especially like the triangular </p>
+<p>matrix.&nbsp; The techniques are quite general, and are not PIC </p>
+<p>specific. </p>
+<p>In the sloppy analog theme, if a cheap 1:2:4 ratio current source </p>
+<p>were available, then switching into a common load resistor would </p>
+<p>give 3 switches (in any combination) per input line.&nbsp; Even 1:2:4:8 </p>
+<p>might be possible, for 4 switches, but I would consider it snaky. </p>
+<p>The current sources can be built from a matched transistor set, </p>
+<p>with common base.&nbsp; If well enough matched they can have common </p>
+<p>emitters, and only the transistor collector size matters.&nbsp; This is </p>
+<p>the current mirror scheme used in linear IC's. </p>
+<p>Example: </p>
+<p>&nbsp;&nbsp; 1 ma&nbsp; ----------- S1 ---------+------&gt;&nbsp;&nbsp; 0, 0.5, 1.0, 1.5, </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0, 2.5, 3.0, 3.5 V </p>
+<p>&nbsp;&nbsp; 2 ma&nbsp; ----------- S2 ---------+ </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | </p>
+<p>&nbsp;&nbsp; 4 ma&nbsp; ----------- S3 ---------+---- 500 ohms -----&lt; GND </p>
+<p>I used this scheme almost 40 years ago to read out 2421 weighted </p>
+<p>decimal registers on a single line.&nbsp; You can multiplex multiple </p>
+<p>readouts by enabling one of the sets of current generators.&nbsp; So a </p>
+<p>custom chip, using 2 inputs to select 1 of 4 generators, having 4 </p>
+<p>* 3 = 12 output pins, could decode 12 switches into 1 input line. </p>
+<p>Total CPU pin usage = 3. However the current generator mechanism </p>
+<p>adds too much cost and wiring for todays usage. </p>
+<p>-- </p>
+<p>Chuck F (cbfalconer@yahoo.com) (cbfalconer@XXXXworldnet.att.net) </p>
+<p>&nbsp;&nbsp; Available for consulting/temporary embedded and systems. </p>
+<p>&nbsp;&nbsp; (Remove "XXXX" from reply address. yahoo works unmodified) </p>
+<p>&nbsp;&nbsp; mailto:uce@ftc.gov&nbsp; (for spambots to harvest) </p>
+<hr noshade size=1>
+<p>"Cass" &lt;cassegrainian@galaxycorp.com&gt; wrote in </p>
+<p>news:9uu2jr$okj$0@dosa.alt.net: </p>
+<p>&gt; I am looking for a decoder for a 4 by 4 keypad.&nbsp; All I can find is a </p>
+<p>&gt; 74C922 and can't even find much on that. </p>
+<p>&gt; Is there a newer, better chip out for this kind of a function?&nbsp; I don't </p>
+<p>&gt; want to implement the decoding by using a PIC or use 8 pins of a port. </p>
+<p>I'm surprised nobody suggested a DTFM encoder and an ADC pin... </p>
+<p>Jeff. </p>
+<p>&nbsp; </p>
+<p>-----=&nbsp; Posted via Newsfeeds.Com, Uncensored Usenet News&nbsp; =----- </p>
+<p>http://www.newsfeeds.com - The #1 Newsgroup Service in the World! </p>
+<p> Check out our new Unlimited Server. No Download or Time Limits! </p>
+<p>-----==&nbsp; Over 80,000 Newsgroups - 19 Different Servers!&nbsp; ==----- </p>
+<hr noshade size=1>
+<p>Roger Johansson wrote: </p>
+<p>&gt; </p>
+<p>&gt; William L. Bahn wrote: </p>
+<p>&gt; </p>
+<p>&gt; &gt; Or, if you have a fast enough processor relative to your scanning period, </p>
+<p>&gt; &gt; you can play a game (but it requires quite a few passives though probably </p>
+<p>&gt; &gt; not more than a conventional technique would). You can place a different </p>
+<p>&gt; &gt; resistor (or capacitor) at each switch and then use the two wires apply a </p>
+<p>&gt; &gt; step input and measure the time constant (or a time measurement related to </p>
+<p>&gt; &gt; the time constant). There are a number of problems with this approach </p>
+<p>&gt; </p>
+<p>&gt; I have thought about this lately. Most switches are too expensive, heavy and </p>
+<p>&gt; big, so I have thought about how the modern machines have developed. </p>
+<p>&gt; </p>
+<p>&gt; Today most machines have as few buttons as possible, and most buttons have </p>
+<p>&gt; multiple purposes.&nbsp; Multi-position switches are too expensive, only the </p>
+<p>&gt; cheap push-button type is used. </p>
+<p>&gt; </p>
+<p>&gt; I thought about using a pot as a switch, a step pot for volume control even </p>
+<p>&gt; has distinct mechanical positions. A row of comparators could tell which </p>
+<p>&gt; position the switch is in and give steering signals to the rest of the </p>
+<p>&gt; circuitry. </p>
+<p>&gt; </p>
+<p>&gt; Or a cpu could use an A/D function to decide what position the pot is in, to </p>
+<p>&gt; give the intended function. </p>
+<p>--- </p>
+<p>It's _much_ easier to use a detented rotary switch with quadrature </p>
+<p>output and a momentary pushbutton switch on the shaft than to screw </p>
+<p>around with what will eventually become noisy and unreliable. </p>
+<p>Just as an aside,on one of our products I used a single 4X4 keypad to </p>
+<p>input A-Z, 0-9, up/down vertical scroll, left/right horizontal scroll, </p>
+<p>unconditional jump to a menu, and an ENTER function. </p>
+<p>--- </p>
+<p>John Fields </p>
+<p>Professional circuit designer </p>
+<hr noshade size=1>
+<p>I read in sci.electronics.design that John Fields &lt;jfields@austininstrum </p>
+<p>ents.com&gt; wrote (in &lt;3C14D8DA.7369EC47@austininstruments.com&gt;) about '4 </p>
+<p>X 4 matrix keypad decoder', on Mon, 10 Dec 2001: </p>
+<p>&gt;Just as an aside,on one of our products I used a single 4X4 keypad to </p>
+<p>&gt;input A-Z, 0-9, up/down vertical scroll, left/right horizontal scroll, </p>
+<p>&gt;unconditional jump to a menu, and an ENTER function. </p>
+<p>Well, just for the record, if you dedicate one row to be 'golden keys' - </p>
+<p>mode setters, and allow anything from one to four to be pressed </p>
+<p>simultaneously, you get 4! x 12 = 288 possible functions. I suppose the </p>
+<p>real maximum number requires more buttons pressed simultaneously than </p>
+<p>most people have fingers. And a pad with 'only' 24 modes is not suitable </p>
+<p>for human beings, anyway. (;-) </p>
+<p>-- </p>
+<p>Regards, John Woodgate, OOO - Own Opinions Only. http://www.jmwa.demon.co.uk </p>
+<p>After swimming across the Hellespont, I felt like a Hero. </p>
+<p>&nbsp; </p>
+<p>I'm surprised noone has suggested using E-Lab's EDE1144 4x4 matrix keyboard </p>
+<p>encoder chip! </p>
+<p>It's real close to being a 923 clone. Seems to be a c84 'in disguise'. </p>
+<p>I've used the 923 for years, but was always 'upset' over the price,esp. when </p>
+<p>converted to CDN funds! </p>
+<p>&nbsp; </p>
+<p>-- </p>
+<p> Jay </p>
+<p> from Greensville, Ontario </p>
+<p>"Jeffrey A. Wormsley" &lt;jwormsley@debitek.com&gt; wrote in message </p>
+<p>news:Xns91736466A921Djwormsleyatdebitekdo@128.242.172.154... </p>
+<p>&gt; "Cass" &lt;cassegrainian@galaxycorp.com&gt; wrote in </p>
+<p>&gt; news:9uu2jr$okj$0@dosa.alt.net: </p>
+<p>&gt; </p>
+<p>&gt; &gt; I am looking for a decoder for a 4 by 4 keypad.&nbsp; All I can find is a </p>
+<p>&gt; &gt; 74C922 and can't even find much on that. </p>
+<p>&gt; &gt; Is there a newer, better chip out for this kind of a function?&nbsp; I don't </p>
+<p>&gt; &gt; want to implement the decoding by using a PIC or use 8 pins of a port. </p>
+<p>&gt; </p>
+<p>&gt; I'm surprised nobody suggested a DTFM encoder and an ADC pin... </p>
+<p>&gt; </p>
+<p>&gt; Jeff. </p>
+<p>&gt; </p>
+<hr noshade size=1>
+</body></html>

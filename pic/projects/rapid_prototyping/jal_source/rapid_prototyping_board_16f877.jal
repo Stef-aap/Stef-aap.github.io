@@ -1,0 +1,239 @@
+-- -----------------------------------------------------------------------------
+-- <title Rapid Prototyping Board, 16F877 pin assignments
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2005 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- -----------------------------------------------------------------------------
+-- Defines all IO pins of the rapid prototyping board for the 16F877
+--
+-- <Version: 1.0  17-07-2005,  Stef Mientki
+--   - orginal release
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+-- do all standard inclusions
+include jrtl
+include 16F877_DEFS
+
+-- Constants must be declared by the user
+const usart_asynch = true      ;true = RS232, false = SPI
+const baudrate           = 115_200 ;1_250_000 ;115_200
+-- Here all the routines are made available
+-- and the initialization is called based upon the above parameters
+-- Because the hardware USART is used no pin declarations are needed
+include rs232_hw
+
+include delay_20mc
+
+
+-- define the AD converter settings
+;      // In case of No Vref, 1, (3), 5, 6, 8
+;      // 1 = A0 = left part of J1
+;      // 3 = A0,A1=J1,  A3=J3R/J4L
+;      // 5 = A0,A1=J1,  A2,A3=J3,   A5=J8R/J9L
+;      // 6 = A0,A1=J1,  A2,A3=J3,   A5,E0=J9
+;      // 8 = A0,A1=J1,  A2,A3=J3,   A5,E0=J9    E1,E2=J11
+const PIC_ADC_Nchan           = 5        ;number of selected channels
+const PIC_ADC_NVref           = 0        ;number of external references
+const PIC_ADC_Rsource         = 10_000   ;maximum source resistance (max recommended = 10 kOhm)
+const PIC_ADC_high_resolution = true     ;true = high resolution = 10 bits
+include pic_adc
+PIC_ADC_init
+
+
+var bit missing_rapid_prototyping_pin
+-- J1
+var volatile bit J1L1 is pin_A0
+var volatile bit J1L2 is pin_B0
+var volatile bit J1L3 is pin_B1
+
+var volatile bit J1R1 is pin_A1
+var volatile bit J1R2 is pin_B2
+var volatile bit J1R3 is pin_B3  ;if LVP is enabled, B3 doesn't behave normal !!
+
+var volatile bit J1L1_direction is pin_A0_direction
+var volatile bit J1L2_direction is pin_B0_direction
+var volatile bit J1L3_direction is pin_B1_direction
+var volatile bit J1R1_direction is pin_A1_direction
+var volatile bit J1R2_direction is pin_B2_direction
+var volatile bit J1R3_direction is pin_B3_direction
+
+-- J2
+var volatile bit J2L1 is pin_A1
+var volatile bit J2L2 is pin_B2
+var volatile bit J2L3 is pin_B3
+
+var volatile bit J2R1 is pin_A2
+var volatile bit J2R2 is pin_B4
+var volatile bit J2R3 is pin_B5
+
+var volatile bit J2L1_direction is pin_A1_direction
+var volatile bit J2L2_direction is pin_B2_direction
+var volatile bit J2L3_direction is pin_B3_direction
+var volatile bit J2R1_direction is pin_A2_direction
+var volatile bit J2R2_direction is pin_B4_direction
+var volatile bit J2R3_direction is pin_B5_direction
+
+-- J3
+var volatile bit J3L1 is pin_A2
+var volatile bit J3L2 is pin_B4
+var volatile bit J3L3 is pin_B5
+
+var volatile bit J3R1 is pin_A3
+var volatile bit J3R2 is pin_B6
+var volatile bit J3R3 is pin_B7
+
+var volatile bit J3L1_direction is pin_A2_direction
+var volatile bit J3L2_direction is pin_B4_direction
+var volatile bit J3L3_direction is pin_B5_direction
+var volatile bit J3R1_direction is pin_A3_direction
+var volatile bit J3R2_direction is pin_B6_direction
+var volatile bit J3R3_direction is pin_B7_direction
+
+-- J4
+var volatile bit J4L1 is pin_A3
+var volatile bit J4L2 is pin_B6
+var volatile bit J4L3 is pin_B7
+
+var volatile bit J4R1 is pin_A4   ; Open Collector !!
+var volatile bit J4R2 is pin_C0
+var volatile bit J4R3 is pin_C1
+
+var volatile bit J4L1_direction is pin_A3_direction
+var volatile bit J4L2_direction is pin_B6_direction
+var volatile bit J4L3_direction is pin_B7_direction
+var volatile bit J4R1_direction is pin_A4_direction
+var volatile bit J4R2_direction is pin_C0_direction
+var volatile bit J4R3_direction is pin_C1_direction
+
+-- J5
+var volatile bit J5L1 is pin_A4
+var volatile bit J5L2 is pin_C0
+var volatile bit J5L3 is pin_C1
+
+var volatile bit J5R1 is missing_rapid_prototyping_pin
+var volatile bit J5R2 is pin_C2
+var volatile bit J5R3 is pin_C3
+
+var volatile bit J5L1_direction is pin_A4_direction
+var volatile bit J5L2_direction is pin_C0_direction
+var volatile bit J5L3_direction is pin_C1_direction
+var volatile bit J5R1_direction is missing_rapid_prototyping_pin
+var volatile bit J5R2_direction is pin_C2_direction
+var volatile bit J5R3_direction is pin_C3_direction
+
+-- J6
+var volatile bit J6L1 is missing_rapid_prototyping_pin
+var volatile bit J6L2 is pin_C2
+var volatile bit J6L3 is pin_C3
+
+var volatile bit J6R1 is missing_rapid_prototyping_pin
+var volatile bit J6R2 is pin_C4
+var volatile bit J6R3 is pin_C5
+
+var volatile bit J6L1_direction is missing_rapid_prototyping_pin
+var volatile bit J6L2_direction is pin_C2_direction
+var volatile bit J6L3_direction is pin_C3_direction
+var volatile bit J6R1_direction is missing_rapid_prototyping_pin
+var volatile bit J6R2_direction is pin_C4_direction
+var volatile bit J6R3_direction is pin_C5_direction
+
+-- J7
+var volatile bit J7L1 is missing_rapid_prototyping_pin
+var volatile bit J7L2 is pin_C4
+var volatile bit J7L3 is pin_C5
+
+var volatile bit J7R1 is missing_rapid_prototyping_pin    ;MCLR
+var volatile bit J7R2 is pin_C6    ;Tx
+var volatile bit J7R3 is pin_C7    ;Rx
+
+var volatile bit J7L1_direction is missing_rapid_prototyping_pin
+var volatile bit J7L2_direction is pin_C4_direction
+var volatile bit J7L3_direction is pin_C5_direction
+var volatile bit J7R1_direction is missing_rapid_prototyping_pin
+var volatile bit J7R2_direction is pin_C6_direction
+var volatile bit J7R3_direction is pin_C7_direction
+
+-- J8
+var volatile bit J8L1 is missing_rapid_prototyping_pin    ;MCLR
+var volatile bit J8L2 is pin_C6
+var volatile bit J8L3 is pin_C7
+
+var volatile bit J8R1 is pin_A5
+var volatile bit J8R2 is pin_D0
+var volatile bit J8R3 is pin_D1
+
+var volatile bit J8L1_direction is missing_rapid_prototyping_pin
+var volatile bit J8L2_direction is pin_C6_direction
+var volatile bit J8L3_direction is pin_C7_direction
+var volatile bit J8R1_direction is pin_A5_direction
+var volatile bit J8R2_direction is pin_D0_direction
+var volatile bit J8R3_direction is pin_D1_direction
+
+-- J9
+var volatile bit J9L1 is pin_A5
+var volatile bit J9L2 is pin_D0
+var volatile bit J9L3 is pin_D1
+
+var volatile bit J9R1 is pin_E0
+var volatile bit J9R2 is pin_D2
+var volatile bit J9R3 is pin_D3
+
+var volatile bit J9L1_direction is pin_A5_direction
+var volatile bit J9L2_direction is pin_D0_direction
+var volatile bit J9L3_direction is pin_D1_direction
+var volatile bit J9R1_direction is pin_E0_direction
+var volatile bit J9R2_direction is pin_D2_direction
+var volatile bit J9R3_direction is pin_D3_direction
+
+-- J10
+var volatile bit J10L1 is pin_E0
+var volatile bit J10L2 is pin_D2
+var volatile bit J10L3 is pin_D3
+
+var volatile bit J10R1 is pin_E1
+var volatile bit J10R2 is pin_D4
+var volatile bit J10R3 is pin_D5
+
+var volatile bit J10L1_direction is pin_E0_direction
+var volatile bit J10L2_direction is pin_D2_direction
+var volatile bit J10L3_direction is pin_D3_direction
+var volatile bit J10R1_direction is pin_E1_direction
+var volatile bit J10R2_direction is pin_D4_direction
+var volatile bit J10R3_direction is pin_D5_direction
+
+-- J11
+var volatile bit J11L1 is pin_E1
+var volatile bit J11L2 is pin_D4
+var volatile bit J11L3 is pin_D5
+
+var volatile bit J11R1 is pin_E2
+var volatile bit J11R2 is pin_D6
+var volatile bit J11R3 is pin_D7
+
+var volatile bit J11L1_direction is pin_E1_direction
+var volatile bit J11L2_direction is pin_D4_direction
+var volatile bit J11L3_direction is pin_D5_direction
+var volatile bit J11R1_direction is pin_E2_direction
+var volatile bit J11R2_direction is pin_D6_direction
+var volatile bit J11R3_direction is pin_D7_direction
+
+-- J12
+var volatile bit J12L1 is pin_E2
+var volatile bit J12L2 is pin_D6
+var volatile bit J12L3 is pin_D7
+
+var volatile bit J12R1 is missing_rapid_prototyping_pin
+var volatile bit J12R2 is missing_rapid_prototyping_pin
+var volatile bit J12R3 is missing_rapid_prototyping_pin
+
+var volatile bit J12L1_direction is pin_E2_direction
+var volatile bit J12L2_direction is pin_D6_direction
+var volatile bit J12L3_direction is pin_D7_direction
+var volatile bit J12R1_direction is missing_rapid_prototyping_pin
+var volatile bit J12R2_direction is missing_rapid_prototyping_pin
+var volatile bit J12R3_direction is missing_rapid_prototyping_pin
+
+

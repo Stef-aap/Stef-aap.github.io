@@ -1,0 +1,39 @@
+#include <asmlib.h>
+
+FUNCTION count
+
+START
+  STRING mtitle = "Test Menu:"
+  STRING mop1   = "Count"
+  STRING mop2   = "Exit"
+  MEM mymenu 6		// ( 2 options + the title ) * 2
+  INT result
+
+  menuoption mymenu 0 mtitle
+  menuoption mymenu 1 mop1
+  menuoption mymenu 2 mop2
+  
+  LOOP
+    result = menu mymenu 2
+    IF result == 1 THEN
+      cls
+      count
+      sleep 2
+      cls
+    ELSE
+      sleep 5
+      cls
+      EXIT
+    ENDIF
+  ENDLOOP
+END
+
+FSTART count
+  INT i
+
+  FOR i = 100 TO 0 BACK
+    locate 0 NumRight
+    PRINTF i
+  NEXT
+FEND
+

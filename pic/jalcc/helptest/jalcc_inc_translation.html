@@ -1,0 +1,249 @@
+<HTML><HEAD><TITLE>Auto INC 2 JAL translation</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS7>september 2004</SPAN></P>
+<P><SPAN class=RVTS1>JALcc,&nbsp; INC to JAL translation</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>This module translates the microchip inc-files to JAL-files (JPIC equivalent).</P>
+<P>Although this program is not meant as a stand-alone program, it's released as a stand-alone program, due to the current discussion in the JALlist. Eur van Andel is momentary busy writing universal JPIC14 files, so watch his messages too.</P>
+<P>The stand-alone program can be found here&nbsp;&nbsp;<A class=RVTS4 href="../download/inc2jal.zip">inc2jal.zip (800k)</A></P>
+<P>The program is very large, because it's in fact a complete JALcc, but only the inc-translation window is shown.</P>
+<P>For some common PIC types, you can find some examples of translated files here:</P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="../download/jal_libs/12f675_sm_inc.jal">12f675_sm_inc.jal</A></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="../download/jal_libs/16f628_inc.jal">16f628_inc.jal</A></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="../download/jal_libs/16f877_inc.jal">16f877_inc.jal</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>27-september-2004 (JALcc V028)</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>"port_A" removed&nbsp;</LI>
+<LI>portA and pin_A0 put procedures optimized&nbsp;</LI>
+<LI>_trisA_Flush procedures optimized&nbsp;</LI>
+<LI>_trisE_Flush bug fixed&nbsp;</LI>
+<LI>all higher bank registers optimized (not through indf.jal anymore)&nbsp;</LI>
+<LI>all settings blocked (so only 1 output format is available)&nbsp;</LI>
+<LI>individual bits of registers in bank0, are available in 2 notations&nbsp;</LI>
+<LI>Revision History of inc file is included as comment&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P><SPAN class=RVTS2>New</SPAN></P>
+<P>-- port_A removed&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>procedure porta'put( byte in x at _port_a_buffer ) is</P>
+<P>&nbsp;&nbsp; asm movwf porta</P>
+<P>end procedure&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>procedure pin_a0'put( bit in x at _port_a_buffer : 0 ) is</P>
+<P>&nbsp; asm movf&nbsp; _port_a_buffer,w</P>
+<P>&nbsp; asm movwf porta</P>
+<P>end procedure</P></TD>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P><SPAN class=RVTS2>Old</SPAN></P>
+<P>procedure port_a'put( byte in x at _port_a_buffer ) is</P>
+<P>&nbsp;&nbsp; _port_a_flush</P>
+<P>end procedure</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>procedure porta'put( byte in x at _port_a_buffer ) is</P>
+<P>&nbsp;&nbsp; _port_a_flush</P>
+<P>end procedure</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>procedure pin_a0'put( bit in x at _port_a_buffer : 0 ) is</P>
+<P>&nbsp; _port_a_flush</P>
+<P>end procedure</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P><SPAN class=RVTS2>New</SPAN></P>
+<P>procedure _trisa_flush is</P>
+<P>&nbsp;&nbsp;&nbsp; asm movfw trisa_shadow</P>
+<P>&nbsp;&nbsp;&nbsp; asm bsf RP0</P>
+<P>&nbsp;&nbsp;&nbsp; asm movwf&nbsp; _TRISA</P>
+<P>&nbsp;&nbsp;&nbsp; asm bcf RP0</P>
+<P>end procedure</P></TD>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P><SPAN class=RVTS2>Old</SPAN></P>
+<P>procedure _trisa_flush is</P>
+<P>&nbsp;&nbsp;&nbsp; asm movfw trisa_shadow</P>
+<P>&nbsp;&nbsp;&nbsp; bank_1</P>
+<P>&nbsp;&nbsp;&nbsp; asm movwf&nbsp; _TRISA</P>
+<P>&nbsp;&nbsp;&nbsp; bank_0</P>
+<P>end procedure&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P><SPAN class=RVTS2>New</SPAN></P>
+<P>procedure _trisE_flush is</P>
+<P>&nbsp; assembler</P>
+<P>&nbsp;&nbsp;&nbsp; movfw&nbsp;&nbsp; trisE_shadow</P>
+<P>&nbsp;&nbsp;&nbsp; andlw&nbsp;&nbsp; 0x0F</P>
+<P>&nbsp;&nbsp;&nbsp; movwf&nbsp;&nbsp; trisE_shadow</P>
+<P>&nbsp;&nbsp;&nbsp; bsf&nbsp;&nbsp;&nbsp;&nbsp; RP0</P>
+<P>&nbsp;&nbsp;&nbsp; movfw&nbsp;&nbsp; _TRISE</P>
+<P>&nbsp;&nbsp;&nbsp; andlw&nbsp;&nbsp; 0xF0</P>
+<P>&nbsp;&nbsp;&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; RP0</P>
+<P>&nbsp;&nbsp;&nbsp; iorwf&nbsp;&nbsp; trisE_shadow,f</P>
+<P>&nbsp;&nbsp;&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; RP0</P>
+<P>&nbsp;&nbsp;&nbsp; movfw&nbsp;&nbsp; trisE_shadow</P>
+<P>&nbsp;&nbsp;&nbsp; bsf&nbsp;&nbsp;&nbsp;&nbsp; RP0</P>
+<P>&nbsp;&nbsp;&nbsp; movwf&nbsp;&nbsp; _TRISE</P>
+<P>&nbsp;&nbsp;&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; RP0</P>
+<P>&nbsp; end assembler</P>
+<P>end procedure</P></TD>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P><SPAN class=RVTS2>Old</SPAN></P>
+<P>procedure _trise_flush is</P>
+<P>&nbsp;&nbsp;&nbsp; asm movfw trise_shadow</P>
+<P>&nbsp;&nbsp;&nbsp; bank_1</P>
+<P>&nbsp;&nbsp;&nbsp; asm movwf&nbsp; 0x9</P>
+<P>&nbsp;&nbsp;&nbsp; bank_0</P>
+<P>end procedure</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P><SPAN class=RVTS2>New</SPAN></P>
+<P>procedure TRISA'put( byte in x ) is</P>
+<P>&nbsp; asm&nbsp; bsf&nbsp; RP0</P>
+<P>&nbsp; asm&nbsp; movwf&nbsp; _TRISA</P>
+<P>&nbsp; asm&nbsp; bcf&nbsp; RP0</P>
+<P>end procedure</P>
+<P>function TRISA'get return byte is</P>
+<P>var byte x</P>
+<P>&nbsp; asm&nbsp; bsf&nbsp; RP0</P>
+<P>&nbsp; asm&nbsp; movwf&nbsp; _TRISA</P>
+<P>&nbsp; asm&nbsp; bcf&nbsp; RP0</P>
+<P>&nbsp; asm&nbsp; movwf&nbsp; x</P>
+<P>&nbsp; return x</P>
+<P>end function</P></TD>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P><SPAN class=RVTS2>Old</SPAN></P>
+<P>procedure TRISA'put( byte in x ) is</P>
+<P>&nbsp; _file_put( high_TRISA, low_TRISA, x )</P>
+<P>end procedure</P>
+<P>function TRISA'get return byte is</P>
+<P>var byte x</P>
+<P>&nbsp; _file_get( high_TRISA, low_TRISA, x )</P>
+<P>&nbsp; return x</P>
+<P>end function</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Individual Bits (bank0), have 2 notations</SPAN></P>
+<P>-- ------------------------------------------------------------------</P>
+<P>-- STATUS associated bits</P>
+<P>-- ------------------------------------------------------------------</P>
+<P>var volatile bit&nbsp; IRP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at STATUS : 7</P>
+<P>var volatile bit&nbsp; STATUS_IRP&nbsp;&nbsp;&nbsp; at STATUS : 7</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS2>Old doc, to be reviewed</SPAN></P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>INC2JAL.exe<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>press OPEN&nbsp;</LI>
+<LI>select the INC file to be translated&nbsp;</LI>
+<LI>checking JAL NOTATION will generate also the old JAL notations (i.e. "port_a")&nbsp;</LI>
+<LI>press START&nbsp;</LI>
+<LI>now the right window contains the translation, you can edit this window before saving&nbsp;</LI>
+<LI>press SAVE, to store the translation&nbsp;</LI>
+<LI>press READY to stop the program&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+</TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=608 height=372 src="jal_inc6.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Here the registers are translated both in MPLAB and old JAL notation.</P>
+<P>MPLAB notation is according to the proposal of Wouter van Ooijen (13-11-2001), the official MPLAB name (in uppercase) preceeded by a underscore.</P>
+<P>Old JAL notation is just the register name in uppercase.</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=392 height=161 src="jal_inc1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Ports in old JAL notation, which is special case.</P></TD>
+<TD valign=middle>
+<P class=RVPS2>&nbsp;<IMG width=266 height=73 src="jal_inc2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Bits, both in MPLAB notation and old JAL notation</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=369 height=297 src="jal_inc3.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Another exception,</P>
+<P>TRISA, etc which are official MPLAB definitions, are used in old JAL notation as a shadow variable.</P>
+<P>So here I changed the name in TRISA_SHADOW</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=404 height=280 src="jal_inc4.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Use of INC-files&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Still wrestling with the optimal solution.</P>
+<P>I'm now using/testing the following construction:</P>
+<P>16F628_defs.jalFile which is not included but inserted. In this way you have control over all hardware parameters. It also includes all necessary files.</P>
+<P>(I'm searching for a "smart" insert, which tracks my changes, so when using another device, I only have to change the defs-file).16F628_inc.jalThe automatic translated INC file (with old JAL notations)JPIC_basic.jalAll that was in JPIC.JAL, except the things that now are in 16F628_inc.jal.16F628_spec.jalAll special features of the specific device,...</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=407 height=442 src="jal_inc5.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+</BODY></HTML>

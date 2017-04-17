@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>JALcc SourceCode exporting of frogg3.8xpr</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="generator" content="SynEdit HTML exporter" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+.ti841-command { color: #0000FF; }
+.ti841-comment { color: #808080; font-style: italic; }
+.ti841-constant { color: #008000; }
+.ti841-declaration { color: #00FF00; }
+.ti841-field { color: #800000; font-style: italic; }
+.ti841-identifier { }
+.ti841-number { color: #FF0000; }
+.ti841-preprocessor { color: #FF00FF; font-weight: bold; }
+.ti841-reservedword { font-weight: bold; }
+.ti841-space { }
+.ti841-string { color: #FF0000; }
+.ti841-symbol { }
+-->
+</style>
+</head>
+<body>
+<pre>
+<code><span style="font: 10pt Courier New;"><span class="ti841-identifier"><A href="frogg3.8xpr">download&nbsp;frogg3.8xpr</A>
+</span><span class="ti841-comment">; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 08/26/06, 14:35
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 05 0D 00 2B 05 &lt;pp&gt; &lt;progname&gt;  00 00 2B 05 29 05
+; program name: FROGGER
+; file is NOT protected
+
+; unkown codes are inserted as &quot;%%HH%%&quot;
+; where &quot;HH&quot; is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+
+
+;*******************************************
+;*******************************************
+; C = frog X-position
+; D = direction of bottom car
+; E = direction of upper car
+; F = direction of lower raft
+; G = direction of upper raft
+; I = countdown timer
+; J = x-position of leftside of bottom car
+; K = x-position of leftside of upper car
+; L = position of the lower raft
+; N = Number of lives
+; O = finish flag, 0=Running, 1=Error, 2=Win
+; P = position of the upper raft
+; R = frog Y-position
+; S = Score
+;*******************************************
+
+
+</span><span class="ti841-command">repeat</span><span class="ti841-space"> </span><span class="ti841-reservedword">N</span><span class="ti841-symbol">&lt;</span><span class="ti841-number">0
+</span><span class="ti841-space">  </span><span class="ti841-command">Clrhome
+
+</span><span class="ti841-space">  </span><span class="ti841-comment">; let user select the desired level
+</span><span class="ti841-space">  </span><span class="ti841-comment">; easier level means more lives
+</span><span class="ti841-space">  </span><span class="ti841-number">6</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">  </span><span class="ti841-command">Menu</span><span class="ti841-symbol">(</span><span class="ti841-string">&quot;  DIFFICULTY   &quot;</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;VERY EASY&quot;</span><span class="ti841-symbol">,</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;EASY&quot;</span><span class="ti841-symbol">,</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;NORMAL&quot;</span><span class="ti841-symbol">,</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;HARD&quot;</span><span class="ti841-symbol">,</span><span class="ti841-number">4</span><span class="ti841-symbol">)
+  </span><span class="ti841-command">Lbl</span><span class="ti841-space"> </span><span class="ti841-number">1
+</span><span class="ti841-space">    </span><span class="ti841-reservedword">N</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">  </span><span class="ti841-command">Lbl</span><span class="ti841-space"> </span><span class="ti841-number">2
+</span><span class="ti841-space">    </span><span class="ti841-reservedword">N</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">  </span><span class="ti841-command">Lbl</span><span class="ti841-space"> </span><span class="ti841-number">3
+</span><span class="ti841-space">    </span><span class="ti841-reservedword">N</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">  </span><span class="ti841-command">Lbl</span><span class="ti841-space"> </span><span class="ti841-number">4
+
+
+</span><span class="ti841-space">  </span><span class="ti841-comment">; initialize car direction
+</span><span class="ti841-space">  </span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">D
+</span><span class="ti841-space">  (-)</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">E
+
+</span><span class="ti841-space">  </span><span class="ti841-comment">; initialize raft direction
+</span><span class="ti841-space">  </span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">F
+</span><span class="ti841-space">  (-)</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">G
+
+</span><span class="ti841-space">  </span><span class="ti841-comment">; initialize score
+</span><span class="ti841-space">  </span><span class="ti841-number">0</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">S
+
+</span><span class="ti841-space">  </span><span class="ti841-comment">; repeat until all lives are gone
+</span><span class="ti841-space">  </span><span class="ti841-command">Repeat</span><span class="ti841-space"> </span><span class="ti841-reservedword">N</span><span class="ti841-symbol">=</span><span class="ti841-number">0
+</span><span class="ti841-space">    </span><span class="ti841-comment">; initialize frog position
+</span><span class="ti841-space">    </span><span class="ti841-number">7</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">R
+</span><span class="ti841-space">    </span><span class="ti841-number">8</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">C
+
+</span><span class="ti841-space">    </span><span class="ti841-comment">; display the water
+</span><span class="ti841-space">    </span><span class="ti841-command">For</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">,</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-number">16
+</span><span class="ti841-space">      </span><span class="ti841-command">For</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">P</span><span class="ti841-symbol">,</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-number">3
+</span><span class="ti841-space">        </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">P</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;(-)
+</span><span class="ti841-space">      </span><span class="ti841-command">End
+</span><span class="ti841-space">    </span><span class="ti841-command">End
+
+</span><span class="ti841-space">    </span><span class="ti841-comment">; generate random positions of afloats and cars
+</span><span class="ti841-space">    </span><span class="ti841-command">RandInt</span><span class="ti841-symbol">(</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-number">14</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">L
+</span><span class="ti841-space">    </span><span class="ti841-command">randInt</span><span class="ti841-symbol">(</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-number">14</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">P
+</span><span class="ti841-space">    </span><span class="ti841-command">randInt</span><span class="ti841-symbol">(</span><span class="ti841-number">4</span><span class="ti841-symbol">,</span><span class="ti841-number">12</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">J
+</span><span class="ti841-space">    </span><span class="ti841-command">randInt</span><span class="ti841-symbol">(</span><span class="ti841-number">4</span><span class="ti841-symbol">,</span><span class="ti841-number">12</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">K
+
+</span><span class="ti841-space">    </span><span class="ti841-comment">; output the number of lives in &quot;N&quot;
+</span><span class="ti841-space">    </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">8</span><span class="ti841-symbol">,</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;pi=
+</span><span class="ti841-space">    </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">8</span><span class="ti841-symbol">,</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">    </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">8</span><span class="ti841-symbol">,</span><span class="ti841-number">11</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">S
+
+</span><span class="ti841-space">    </span><span class="ti841-comment">; initialize count down counter
+</span><span class="ti841-space">    </span><span class="ti841-number">99</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">I
+
+</span><span class="ti841-space">    </span><span class="ti841-comment">; reset error flag
+</span><span class="ti841-space">    </span><span class="ti841-number">0</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">O
+
+</span><span class="ti841-space">    </span><span class="ti841-comment">; repeat untill Loose, Win or TimeOut
+</span><span class="ti841-space">    </span><span class="ti841-command">repeat</span><span class="ti841-space"> </span><span class="ti841-reservedword">O</span><span class="ti841-symbol">!=</span><span class="ti841-number">0
+</span><span class="ti841-space">      </span><span class="ti841-comment">; display Countdown timer
+</span><span class="ti841-space">      </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">8</span><span class="ti841-symbol">,</span><span class="ti841-number">7</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">I
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; Get user input
+</span><span class="ti841-space">      </span><span class="ti841-comment">; if no key pressed, nothing todo with frog
+</span><span class="ti841-space">      </span><span class="ti841-command">Getkey</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">M
+
+</span><span class="ti841-space">      </span><span class="ti841-command">if</span><span class="ti841-space"> </span><span class="ti841-reservedword">M</span><span class="ti841-symbol">!=</span><span class="ti841-number">0</span><span class="ti841-symbol">:</span><span class="ti841-command">then
+</span><span class="ti841-space">        </span><span class="ti841-comment">; remove the frog at position &quot;R,C&quot;
+</span><span class="ti841-space">        </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">C</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot; ;
+</span><span class="ti841-space">        </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">M</span><span class="ti841-symbol">=</span><span class="ti841-number">24</span><span class="ti841-symbol">:</span><span class="ti841-reservedword">C</span><span class="ti841-symbol">-(</span><span class="ti841-reservedword">C</span><span class="ti841-symbol">!=</span><span class="ti841-number">2</span><span class="ti841-symbol">)-&gt;</span><span class="ti841-reservedword">C
+</span><span class="ti841-space">        </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">M</span><span class="ti841-symbol">=</span><span class="ti841-number">25</span><span class="ti841-symbol">:</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">R
+</span><span class="ti841-space">        </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">M</span><span class="ti841-symbol">=</span><span class="ti841-number">26</span><span class="ti841-symbol">:</span><span class="ti841-reservedword">C</span><span class="ti841-symbol">+(</span><span class="ti841-reservedword">C</span><span class="ti841-symbol">!=</span><span class="ti841-number">15</span><span class="ti841-symbol">)-&gt;</span><span class="ti841-reservedword">C
+</span><span class="ti841-space">        </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">M</span><span class="ti841-symbol">=</span><span class="ti841-number">34</span><span class="ti841-symbol">:</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">+(</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">!=</span><span class="ti841-number">7</span><span class="ti841-symbol">)-&gt;</span><span class="ti841-reservedword">R
+</span><span class="ti841-space">        </span><span class="ti841-comment">; draw the frog
+</span><span class="ti841-space">        </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">C</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;pi
+</span><span class="ti841-space">      </span><span class="ti841-command">End
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; if at one of the ends, reverse direction
+</span><span class="ti841-space">      </span><span class="ti841-comment">; by doing this before remove one end of the car
+</span><span class="ti841-space">      </span><span class="ti841-comment">; no special actions for first and last position are necessary
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">J</span><span class="ti841-symbol">=</span><span class="ti841-number">13</span><span class="ti841-symbol">:(-)</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">D
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">J</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">D
+</span><span class="ti841-space">      </span><span class="ti841-comment">; remove one pixel at the backside of the car
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">D</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">6</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">J</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot; ;
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">D</span><span class="ti841-symbol">=(-)</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">6</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">J</span><span class="ti841-symbol">+</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot; ;
+</span><span class="ti841-space">      </span><span class="ti841-reservedword">J</span><span class="ti841-symbol">+</span><span class="ti841-reservedword">D</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">J
+</span><span class="ti841-space">      </span><span class="ti841-comment">; draw car completely
+</span><span class="ti841-space">      </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">6</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">J</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;OOOO
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; draw upper car
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">K</span><span class="ti841-symbol">=</span><span class="ti841-number">13</span><span class="ti841-symbol">:(-)</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">E
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">K</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">E
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">E</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">5</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">K</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot; ;
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">E</span><span class="ti841-symbol">=(-)</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">5</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">K</span><span class="ti841-symbol">+</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot; ;
+</span><span class="ti841-space">      </span><span class="ti841-reservedword">K</span><span class="ti841-symbol">+</span><span class="ti841-reservedword">E</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">K
+</span><span class="ti841-space">      </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">5</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">K</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;OOOO
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; draw upper water
+</span><span class="ti841-space">      </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">P</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;(-)
+</span><span class="ti841-space">      </span><span class="ti841-command">if</span><span class="ti841-space"> </span><span class="ti841-reservedword">P</span><span class="ti841-symbol">=</span><span class="ti841-number">2</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-reservedword">P</span><span class="ti841-symbol">=</span><span class="ti841-number">15</span><span class="ti841-symbol">:(-)</span><span class="ti841-reservedword">G</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">G
+</span><span class="ti841-space">      </span><span class="ti841-reservedword">P</span><span class="ti841-symbol">+</span><span class="ti841-reservedword">G</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">P
+</span><span class="ti841-space">      </span><span class="ti841-command">if</span><span class="ti841-space"> </span><span class="ti841-reservedword">not</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">=</span><span class="ti841-number">2</span><span class="ti841-symbol">):</span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">P</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot; ;
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; draw lower water
+</span><span class="ti841-space">      </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;(-)
+</span><span class="ti841-space">      </span><span class="ti841-command">if</span><span class="ti841-space"> </span><span class="ti841-reservedword">L</span><span class="ti841-symbol">=</span><span class="ti841-number">2</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-reservedword">L</span><span class="ti841-symbol">=</span><span class="ti841-number">15</span><span class="ti841-symbol">:(-)</span><span class="ti841-reservedword">F</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">F
+</span><span class="ti841-space">      </span><span class="ti841-reservedword">L</span><span class="ti841-symbol">+</span><span class="ti841-reservedword">F</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">L
+</span><span class="ti841-space">      </span><span class="ti841-command">if</span><span class="ti841-space"> </span><span class="ti841-reservedword">not</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">=</span><span class="ti841-number">3</span><span class="ti841-symbol">):</span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot; ;
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; widen the capture of the afloat
+</span><span class="ti841-space">      </span><span class="ti841-comment">; with one pixel to the left and one pixel to the right
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">R</span><span class="ti841-symbol">=</span><span class="ti841-number">3</span><span class="ti841-space"> </span><span class="ti841-reservedword">and</span><span class="ti841-space"> (</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">&lt;=</span><span class="ti841-reservedword">C</span><span class="ti841-space"> </span><span class="ti841-reservedword">and</span><span class="ti841-space"> </span><span class="ti841-reservedword">C</span><span class="ti841-symbol">&lt;=</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">):</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">C
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">R</span><span class="ti841-symbol">=</span><span class="ti841-number">2</span><span class="ti841-space"> </span><span class="ti841-reservedword">and</span><span class="ti841-space"> (</span><span class="ti841-reservedword">P</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">&lt;=</span><span class="ti841-reservedword">C</span><span class="ti841-space"> </span><span class="ti841-reservedword">and</span><span class="ti841-space"> </span><span class="ti841-reservedword">C</span><span class="ti841-symbol">&lt;=</span><span class="ti841-reservedword">P</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">):</span><span class="ti841-reservedword">P</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">C
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; because the X-position can be slightly changed
+</span><span class="ti841-space">      </span><span class="ti841-comment">; we have to redraw the frog
+</span><span class="ti841-space">      </span><span class="ti841-comment">; (it takes to long to wait for a redraw after reading the keys)
+</span><span class="ti841-space">      </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">C</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;pi
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; update countdown timer
+</span><span class="ti841-space">      </span><span class="ti841-reservedword">I</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">I
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; Loosing by a car crash
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> (</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">=</span><span class="ti841-number">6</span><span class="ti841-space"> </span><span class="ti841-reservedword">and</span><span class="ti841-space"> (</span><span class="ti841-reservedword">J</span><span class="ti841-symbol">&lt;=</span><span class="ti841-reservedword">C</span><span class="ti841-space"> </span><span class="ti841-reservedword">and</span><span class="ti841-space"> </span><span class="ti841-reservedword">C</span><span class="ti841-symbol">&lt;=</span><span class="ti841-reservedword">J</span><span class="ti841-symbol">+</span><span class="ti841-number">3</span><span class="ti841-symbol">) </span><span class="ti841-reservedword">or</span><span class="ti841-space"> (</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">=</span><span class="ti841-number">5</span><span class="ti841-space"> </span><span class="ti841-reservedword">and</span><span class="ti841-space"> (</span><span class="ti841-reservedword">K</span><span class="ti841-symbol">&lt;=</span><span class="ti841-reservedword">C</span><span class="ti841-space"> </span><span class="ti841-reservedword">and</span><span class="ti841-space"> </span><span class="ti841-reservedword">C</span><span class="ti841-symbol">&lt;=</span><span class="ti841-reservedword">K</span><span class="ti841-symbol">+</span><span class="ti841-number">3</span><span class="ti841-symbol">):</span><span class="ti841-number">2</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">O
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; Loosing by falling into the water
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> (</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">=</span><span class="ti841-number">3</span><span class="ti841-space"> </span><span class="ti841-reservedword">and</span><span class="ti841-space"> </span><span class="ti841-reservedword">C</span><span class="ti841-symbol">!=</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">) </span><span class="ti841-reservedword">or</span><span class="ti841-space"> (</span><span class="ti841-reservedword">R</span><span class="ti841-symbol">=</span><span class="ti841-number">2</span><span class="ti841-space"> </span><span class="ti841-reservedword">and</span><span class="ti841-space"> </span><span class="ti841-reservedword">C</span><span class="ti841-symbol">!=</span><span class="ti841-reservedword">P</span><span class="ti841-symbol">):</span><span class="ti841-number">3</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">O
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; Loosing by timeout
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">I</span><span class="ti841-symbol">=</span><span class="ti841-number">0</span><span class="ti841-symbol">:</span><span class="ti841-number">4</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">O
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; Winning, we reached to upper side of the display
+</span><span class="ti841-space">      </span><span class="ti841-command">if</span><span class="ti841-space"> </span><span class="ti841-reservedword">R</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">O</span><span class="ti841-space"> </span><span class="ti841-comment">;Goto YW
+
+</span><span class="ti841-space">    </span><span class="ti841-command">End
+</span><span class="ti841-space">    </span><span class="ti841-comment">;*******************************************
+
+
+</span><span class="ti841-space">    </span><span class="ti841-command">Clrhome
+
+</span><span class="ti841-space">    </span><span class="ti841-command">if</span><span class="ti841-space"> </span><span class="ti841-reservedword">O</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-command">Then
+</span><span class="ti841-space">      </span><span class="ti841-command">Disp</span><span class="ti841-space"> </span><span class="ti841-string">&quot;CONGRATULATIONS!
+</span><span class="ti841-space">      </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">4</span><span class="ti841-symbol">,</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">I
+</span><span class="ti841-space">      </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">4</span><span class="ti841-symbol">,</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;*50=
+</span><span class="ti841-space">      </span><span class="ti841-command">Output</span><span class="ti841-symbol">(</span><span class="ti841-number">4</span><span class="ti841-symbol">,</span><span class="ti841-number">7</span><span class="ti841-symbol">,</span><span class="ti841-number">50I
+</span><span class="ti841-space">      </span><span class="ti841-comment">; calculate new score
+</span><span class="ti841-space">      </span><span class="ti841-reservedword">S</span><span class="ti841-symbol">+</span><span class="ti841-number">50I</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">S
+</span><span class="ti841-space">    </span><span class="ti841-command">End
+</span><span class="ti841-space">    </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">O</span><span class="ti841-symbol">=</span><span class="ti841-number">2</span><span class="ti841-symbol">:</span><span class="ti841-command">Disp</span><span class="ti841-space"> </span><span class="ti841-string">&quot;CRASH!
+</span><span class="ti841-space">    </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">O</span><span class="ti841-symbol">=</span><span class="ti841-number">3</span><span class="ti841-symbol">:</span><span class="ti841-command">Disp</span><span class="ti841-space"> </span><span class="ti841-string">&quot;BLUB...
+</span><span class="ti841-space">    </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">O</span><span class="ti841-symbol">=</span><span class="ti841-number">4</span><span class="ti841-symbol">:</span><span class="ti841-command">Disp</span><span class="ti841-space"> </span><span class="ti841-string">&quot;TIME UP!
+
+</span><span class="ti841-space">    </span><span class="ti841-command">Pause
+</span><span class="ti841-space">    </span><span class="ti841-command">Clrhome
+
+</span><span class="ti841-space">    </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">O</span><span class="ti841-symbol">!=</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-command">Then
+</span><span class="ti841-space">      </span><span class="ti841-reservedword">N</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">      </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">N</span><span class="ti841-symbol">=</span><span class="ti841-number">0</span><span class="ti841-symbol">:</span><span class="ti841-command">Then
+</span><span class="ti841-space">        </span><span class="ti841-command">Menu</span><span class="ti841-symbol">(</span><span class="ti841-string">&quot;  TRY AGAIN  &quot;</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;YES&quot;</span><span class="ti841-symbol">,</span><span class="ti841-number">8</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;NO&quot;</span><span class="ti841-symbol">,</span><span class="ti841-number">9
+</span><span class="ti841-space">        </span><span class="ti841-command">Lbl</span><span class="ti841-space"> </span><span class="ti841-number">8
+</span><span class="ti841-space">        </span><span class="ti841-command">Lbl</span><span class="ti841-space"> </span><span class="ti841-number">9
+</span><span class="ti841-space">          (-)</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">      </span><span class="ti841-command">End
+</span><span class="ti841-space">    </span><span class="ti841-command">End
+</span><span class="ti841-space">  </span><span class="ti841-command">End
+End
+
+
+</span><span class="ti841-comment">; finish the program
+</span><span class="ti841-command">Clrhome
+
+
+
+</span><span class="ti841-comment">;This looks nicer
+;*******************************************
+;  if M!=0:then
+;    ; remove the frog at position &quot;R,C&quot;
+;    Output(R,C,&quot; &quot;
+;
+;    ; get key and calculate new frog position
+;    If M=24:Then
+;      C-(C!=2)-&gt;C
+;    Else
+;      If M=25:Then
+;        R-1-&gt;R
+;      Else
+;        If M=26:Then
+;          C+(C!=15)-&gt;C
+;        Else
+;          If M=34:Then
+;            R+(R!=7)-&gt;R
+;          End
+;        End
+;      End
+;    End
+;
+;    ; if the grog is moved we need to draw it
+;    Output(R,C,&quot;pi&quot;
+;  End
+
+
+</span></span>
+</code></pre>
+</body>
+</html>

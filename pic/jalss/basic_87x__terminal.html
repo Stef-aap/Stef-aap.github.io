@@ -1,0 +1,455 @@
+<HTML><HEAD><TITLE>Basic 87x Terminal</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>July 2002</SPAN></P>
+<P><SPAN class=RVTS1>Basic87 Terminal</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>Basic87 Terminal is a terminal program which is special adapted to BASIC87x from&nbsp;<A class=RVTS4 href="http://www.myke.com/mbaspg1.htm">Myke Predko</A>.</P>
+<P>It's freeware and should run under win95, win98, winNT, win2000, winXP (winME is not garanteed).</P>
+<P><A class=RVTS4 href="#downloads">Downloads</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>Basic87 is a very good starting point for beginners in the field of PICs. It gives you the possibility to learn the inside of PICs, without the knowledge of assembler and without the necessity to handle complex IDEs like MPLAB.</P>
+<P>Writing larger programs is not easy with a normal terminal program, because you easy get lost in the single line editor. So I decided to write a simple editor, which can give you the complete overview of a program.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Basic87-Terminal consists of 3 windows and a number of&nbsp; "speed-buttons".</P>
+<P>The windows give you full control over your application, both by the basic terminal actions, but also by a full color-highligted editor (based on SynEdit).</P>
+<P>The speedbuttons perform some of the basic tasks, without the need of knowing the command abbreviations.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P><SPAN class=RVTS2>Editor Window</SPAN></P></TD>
+<TD valign=middle>
+<P><SPAN class=RVTS2>Terminal Window</SPAN></P></TD>
+<TD valign=middle>
+<P><SPAN class=RVTS2>Variables Window</SPAN></P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>This is a color-highlighted editor, where you can edit the full application and modify existing applications.</P></TD>
+<TD valign=middle>
+<P>This is a normal terminal window, just like HyperTerminal.</P>
+<P>You can type commands, statements and read the echoed messages.&nbsp;</P></TD>
+<TD valign=middle>
+<P>This window displays the current value of all variables</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=0 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=517 valign=middle>
+<P>&nbsp;<IMG width=537 height=356 src="terminal.gif"></P></TD>
+<TD width=230 valign=middle>
+<P><TABLE width=100% bgcolor=#EFEFEF border=0 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Program Control</P>
+<P>R = Reset</P>
+<P>&nbsp;&nbsp;&nbsp; = Single Step</P>
+<P>G = Run</P>
+<P>B = Toggle Breakpoint</P>
+<P>J = Skip Execution 1 line</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Edit</P>
+<P>&lt;statement&gt; = Insert</P>
+<P>C&nbsp; = Display current linenumber</P>
+<P>L&nbsp; = Display current Line</P>
+<P>A&nbsp; = Display complete Application</P>
+<P>?&lt;var&gt; = Display Variable</P>
+<P>W&nbsp; = Display all Variables</P>
+<P>#&nbsp; = Goto linenumber</P>
+<P>F&nbsp; = Goto end of application</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Misc</P>
+<P>D = Delete current line</P>
+<P>E = Erase whole application</P>
+<P>P = Ping</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=44 valign=middle>
+<P>&nbsp;<IMG width=19 height=20 src="fileopen.gif"></P></TD>
+<TD width=925 valign=middle>
+<P>Open File&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Open a file and put the contents in the editor window.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=43 valign=middle>
+<P>&nbsp;<IMG width=22 height=22 src="fileclose.gif"></P></TD>
+<TD width=926 valign=middle>
+<P>Save to File&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Store the contents of the editor window in a file.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=0 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=40 valign=middle>
+<P>&nbsp;<IMG width=25 height=21 src="reset.gif"></P></TD>
+<TD width=934 valign=middle>
+<P>Hardware Reset&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Performs a hardware reset of the basicPIC.&nbsp;</P>
+<P>(This requires that the MCLR-pin is connected to DTR of the RS232 port, see schematics)</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=46 valign=middle>
+<P>&nbsp;<IMG width=21 height=21 src="frompic.gif"></P></TD>
+<TD width=676 valign=middle>
+<P>Load from PIC&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Read the Basic program form the PIC and put it in the editor window.</P>
+<P>(The current content of the editor window is lost)</P>
+<P>Afterwards, all the variables are shown.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=47 valign=middle>
+<P>&nbsp;<IMG width=22 height=20 src="topic.gif"></P></TD>
+<TD width=675 valign=middle>
+<P>Download into PIC&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The contents of the editor window is downloaded into the basis-PIC.</P>
+<P>Before downloading, the basic-PIC is erased.</P>
+<P>Afterwards, all the variables are shown.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=47 valign=middle>
+<P>&nbsp;<IMG width=23 height=22 src="variables.gif"></P></TD>
+<TD width=675 valign=middle>
+<P>Get Variables&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Read all the variables and there value and display the in the variable window.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=50 valign=middle>
+<P>&nbsp;<IMG width=22 height=21 src="download_and_run.gif"></P></TD>
+<TD width=672 valign=middle>
+<P>Download &amp; Run&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The contents of the editor window is downloaded into the basis-PIC.</P>
+<P>Before downloading, the basic-PIC is erased.</P>
+<P>After downloading is completed, the current program in the basic-PIC is started.&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=50 valign=middle>
+<P>&nbsp;<IMG width=23 height=21 src="run.gif"></P></TD>
+<TD width=672 valign=middle>
+<P>Run&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Runs the current program in the basic-PIC, starting at the current position.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=48 valign=middle>
+<P>&nbsp;<IMG width=21 height=21 src="single_step.gif"></P></TD>
+<TD width=674 valign=middle>
+<P>Single Step&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Single Step the current program in the basic-PIC and</P>
+<P>display the variables after each step.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=46 valign=middle>
+<P>&nbsp;<IMG width=22 height=21 src="stop.gif"></P></TD>
+<TD width=676 valign=middle>
+<P>Stop&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Stops the current program in the basic-PIC.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=48 valign=middle>
+<P>&nbsp;<IMG width=22 height=21 src="settings.gif"></P></TD>
+<TD width=674 valign=middle>
+<P>Settings&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Change the settings and preferences of the terminal program.</P>
+<P>see below</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=0 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=41 valign=middle>
+<P>&nbsp;<IMG width=22 height=20 src="help.gif"></P></TD>
+<TD width=706 valign=middle>
+<P>Help&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Shows this page.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=0 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>&nbsp;<IMG width=23 height=22 src="erase.gif"></P></TD>
+<TD width=100 valign=middle>
+<P>Erase&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Erases the basic-PIC.</P>
+<P>This button is not necessary !?</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=top>
+<P class=RVPS2>&nbsp;<IMG width=23 height=19 src="basic87_red_angry_smiley.gif"></P></TD>
+<TD width=371 valign=top>
+<P class=RVPS2>Send email<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P class=RVPS2>This will launch your email program, so you can send errors and remarks.</P>
+<P class=RVPS2>The configuration files of this program will be automatically attached.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=top>
+<P><SPAN class=RVTS2>Code completion</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>is default used to generate the register definitions.</P>
+<P>For example you want to add the definition of TRISC, type a "T" or some more letters like "TRIS", then press ctrl-Spacebar.</P>
+<P>Now a list will appear as shown below.</P>
+<P>&nbsp;<IMG width=299 height=213 src="basic87x_completion1.gif"></P>
+<P>By selecting an item in the list and pressing Enter,</P>
+<P>the definition of the register will be inserted, as shown below.</P>
+<P>&nbsp;<IMG width=220 height=107 src="basic87x_completion2.gif"></P></TD>
+<TD width=100 valign=top>
+<P>You can use the code completion for other purposes or add code strings, by editing 2 text files.</P>
+<P>file:&nbsp; "b87_itemlist.txt"</P>
+<P>&nbsp;<IMG width=84 height=80 src="basic87x_completion3.gif"></P>
+<P>This files contains the list that will shown when pressing ctrl+Spacebar. It's best to place the items in the file in alphabetical order.</P>
+<P>file:&nbsp; "b87_insertlist.txt"</P>
+<P>&nbsp;<IMG width=188 height=81 src="basic87x_completion4.gif"></P>
+<P>This file contains the strings that will be substituted, when the user selects an item. (the order must be the same as the other file)</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=613 valign=middle>
+<P><SPAN class=RVTS2>Settings Commport</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>When the program is started the first time, or the selected commport is not available, the program will start with this window.</P>
+<P>It's only possible to select available commports.</P>
+<P>Normal Baudrate is 1200 Baud, but if you recompile the Basic87x sources higher baudrates must be possible.</P>
+<P>In the modified hardware, DTR is used to initiate a hardware reset from the terminal program. If using a MAX232 interface chip, DTR should be inverted.</P></TD>
+<TD width=334 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=367 height=258 src="settings_commport.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=562 valign=middle>
+<P><SPAN class=RVTS2>Editor Colors</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Select an element from the list, and the actual colors (FG=foreground, BG=background) are shown in the color table.</P>
+<P>By left-clicking on a color, the foreground color is changed,&nbsp;</P>
+<P>by right-clicking the background color of the selected element is changed.</P>
+<P>The text attributes of each element can be set by the controls on the right.</P>
+<P>With the FONT button, the overall font of the editor window can be changed.</P>
+<P>The editor window at the bottom (in which you can really edit) is to demonstrate the color and attribute settings.</P>
+<P>Commands, Reserved Words and Constants can be definied in the equally named tabs.</P>
+<P>Preprocessor and Spave are not used.</P></TD>
+<TD width=382 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=385 height=408 src="settings_colors.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=414 valign=middle>
+<P><SPAN class=RVTS2>Editor settings</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>A lot of settings, which might not be all usefull.</P>
+<P>Just try it, and see the result in the color tab.</P></TD>
+<TD width=399 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=412 height=349 src="settings_editor.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=495 valign=middle>
+<P><SPAN class=RVTS2>Reserved Words</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>These words are classified as "Reserved Words", you can change it in just what you like.</P></TD>
+<TD width=366 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=366 height=282 src="settings_reserved.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=499 valign=middle>
+<P><SPAN class=RVTS2>Commands</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Another group of words with separate attributes.</P></TD>
+<TD width=327 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=362 height=153 src="settings_commands.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=522 valign=middle>
+<P><SPAN class=RVTS2>Constants&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Another group of words with separate attributes.&nbsp;</P></TD>
+<TD width=339 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=361 height=175 src="settings_constants.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=394 valign=middle>
+<P><SPAN class=RVTS2>Hardware FET</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>This circuit can be used to supply 10..30 mA from the serial port, so for simple experiments, no external power supply is needed.</P>
+<P>On some labtops, this circuit will not deliver enough power.</P>
+<P>Power can be improved by increasing C1 and C2 upto 1000 uF.</P>
+<P>TxD and RxD are inverted, as with a normal MAX323. To use as little components, as necessary, DTR is not inverted.&nbsp;</P>
+<P>Terminal settings:</P>
+<P>&nbsp; DTR = inverted</P>
+<P>&nbsp; RTS&nbsp; will be held high by program</P>
+<P>BSP254A has the normal transistor connections:</P>
+<P>Looking at the bottom, following the right arc:</P>
+<P>Source - Gate - Drain</P>
+<P>Emitter - Base - Collector</P>
+<P>BSP254 has different connections !!</P></TD>
+<TD width=489 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=550 height=323 src="hw_fet.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=497 valign=middle>
+<P><SPAN class=RVTS2>Hardware USB</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Here a schematic with USBmod1 from Dontronics is given.</P>
+<P>The advantage of this circuit is that you don't need an external power supply. The USB port can deliver upto 100 mA from the USB interface. (If you add an eprom to the USB-module you can even draw upto 500 mA from the USB port)</P>
+<P>Terminal settings:</P>
+<P>&nbsp; DTR = NOT inverted</P></TD>
+<TD width=447 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=444 height=300 src="hw_usb.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><A name="some_ideas_to_improve_basic87x_"></A>
+<SPAN class=RVTS2>Some ideas to improve basic87x&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>the source contains a&nbsp; number of&nbsp; "BCF&nbsp; PIR1,RCIF"&nbsp; statements, which don't do anything&nbsp;</LI>
+<LI>3 seconds start delay should be enough&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="downloads"></A>
+<SPAN class=RVTS2>Downloads</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 style='{border-width : 0px}' cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=90 valign=top style='{border-width : 1px; }'>
+<P class=RVPS2>V 0.5</P>
+<P class=RVPS2>( .. kB)</P></TD>
+<TD width=879 valign=top style='{border-width : 1px; border-left: none; }'>
+<P>V0.5&nbsp; released ...</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">flicker in terminal window now is almost gone</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"></P></TD>
+</TR>
+<TR valign=top>
+<TD width=90 valign=top style='{border-width : 1px; border-top: none; }'>
+<P class=RVPS2><A class=RVTS4 href="../download/basic87x_04.zip">V 0.4</A></P>
+<P class=RVPS2>(390 kB)</P></TD>
+<TD width=879 valign=top style='{border-width : 1px; border-top: none; border-left: none; }'>
+<P>V0.4&nbsp; released&nbsp; 18-06-2003</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">email button, for reporting bugs, remarks</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">registers can be definied by autocompletion</P>
+<P>&nbsp;<IMG width=14 height=12 src="redarrow.gif">less flicker in terminal memo</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">asking for confirmation, when overwriting an existing file</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">button added to clear the terminal window</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">Scrollbars where not set correct, bug fixed</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">now compiled with D7</P></TD>
+</TR>
+<TR valign=top>
+<TD width=90 valign=middle style='{border-width : 1px; border-top: none; }'>
+<P class=RVPS2><A class=RVTS4 href="http://oase.uci.kun.nl/%7emientki/download/basic87x_02.zip">V 0.2</A></P>
+<P class=RVPS2>(325 kB)</P></TD>
+<TD width=879 valign=middle style='{border-width : 1px; border-top: none; border-left: none; }'>
+<P>20-05-2003, first release</P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

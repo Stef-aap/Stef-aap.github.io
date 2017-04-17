@@ -1,0 +1,70 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 11/14/05, 16:44
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 02 0D 00 20 02 <pp> <progname>  00 80 20 02 1E 02
+; program name: ABC
+; file is NOT protected
+
+; unkown codes are inserted as " %%HH%% "
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+:"ABC-Formula                           ;;004A 3E 2A    41    42    43 71    46    =BBBF    =6212    =BBBD    =5E80    =BBBC    =6216 
+Clrhome                                 ;;005E E1 
+Disp "AX^2+BX+C=0                       ;;0060 DE 2A    41    58 0D 70    42    58 70    43 6A 30 
+Prompt A,B,C                            ;;006D DD    41 2B    42 2B    43 
+B^2-4AC->D                              ;;0074    42 0D 71 34    41    43 04    44 
+PlotsOff:FnOff:clrdraw:AxesOff:ZStandard;;007D EA 3E 97 3E 85 3E =7E09 3E 86 
+
+If B>=0 and C>=0                        ;;0088 CE    42 6E 30 40    43 6E 30 
+  Text(0,1,A,"X^2+",B,"X+",C,"=0        ;;0091 93 30 2B 31 2B    41 2B 2A    58 0D 70 2A 2B    42 2B 2A    58 70 2A 2B    43 2B 2A 6A 30 
+
+Text(6,1,"A = ",A                       ;;00AB 93 36 2B 31 2B 2A    41 29 6A 29 2A 2B    41 
+Text(12,1,"B = ",B                      ;;00B9 93 31 32 2B 31 2B 2A    42 29 6A 29 2A 2B    42 
+Text(18,1,"C = ",C                      ;;00C8 93 31 38 2B 31 2B 2A    43 29 6A 29 2A 2B    43 
+
+If B<0 and C>=0                         ;;00D7 CE    42 6B 30 40    43 6E 30 
+  Text(0,1,A,"X^2-",(-)B,"X+",C,"=0     ;;00E0 93 30 2B 31 2B    41 2B 2A    58 0D 71 2A 2B B0    42 2B 2A    58 70 2A 2B    43 2B 2A 6A 30 
+
+If B>=0 and C<0                         ;;00FB CE    42 6E 30 40    43 6B 30 
+  Text(0,1,A,"X^2+",B,"X-",(-)C,"=0     ;;0104 93 30 2B 31 2B    41 2B 2A    58 0D 70 2A 2B    42 2B 2A    58 71 2A 2B B0    43 2B 2A 6A 30 
+
+If B<0 and C<0                          ;;011F CE    42 6B 30 40    43 6B 30 
+  Text(0,1,A,"X^2-",(-)B,"X-",(-)C,"=0  ;;0128 93 30 2B 31 2B    41 2B 2A    58 0D 71 2A 2B B0    42 2B 2A    58 71 2A 2B B0    43 2B 2A 6A 30 
+
+Text(12,29,B,"^2-4.",A,".",C,"=",D      ;;0144 93 31 32 2B 32 39 2B    42 2B 2A 0D 71 34 3A 2A 2B    41 2B 2A 3A 2A 2B    43 2B 2A 6A 2A 2B    44 
+
+If D<0:Then                             ;;0162 CE    44 6B 30 3E CF 
+  Text(47,1,"No Solutions               ;;0169 93 34 37 2B 31 2B 2A    4E    =BBBF 29    53    =BBBF    =BBBC    =5E80    =6224    =BBB8    =BBBF    =6202    =6234 
+  Goto 1                                ;;0186 D7 31 
+End                                     ;;0189 D4 
+
+((-)B-sqrt(D))/(2A)->E                  ;;018B 10 B0    42 71 BC    44 11 11 83 10 32    41 11 04    45 
+((-)B+sqrt(D))/(2A)->F                  ;;019B 10 B0    42 70 BC    44 11 11 83 10 32    41 11 04    46 
+Text(30,1,"X=                           ;;01AB 93 33 30 2B 31 2B 2A    58 6A 
+Text(24,6,(-)B,"-sqrt(",D,")            ;;01B5 93 32 34 2B 36 2B B0    42 2B 2A 71 BC 2A 2B    44 2B 2A 11 
+Line((-)7.5,0,(-)3,0                    ;;01C8 9C B0 37 3A 35 2B 30 2B B0 33 2B 30 
+Text(32,15,"2*",A                       ;;01D5 93 33 32 2B 31 35 2B 2A 32 82 2A 2B    41 
+Text(30,41,"= ",E                       ;;01E3 93 33 30 2B 34 31 2B 2A 6A 29 2A 2B    45 
+
+If D=0:Then                             ;;01F1 CE    44 6A 30 3E CF 
+  Goto 1                                ;;01F8 D7 31 
+Else                                    ;;01FB D0 
+  Text(47,1,"X=                         ;;01FD 93 34 37 2B 31 2B 2A    58 6A 
+  Text(41,6,(-)B,"+sqrt(",D,")          ;;0207 93 34 31 2B 36 2B B0    42 2B 2A 70 BC 2A 2B    44 2B 2A 11 
+  Line((-)7.53,(-)5.4,(-)3,(-)5.4       ;;021A 9C B0 37 3A 35 33 2B B0 35 3A 34 2B B0 33 2B B0 35 3A 34 
+  Text(49,15,"2*",A                     ;;022E 93 34 39 2B 31 35 2B 2A 32 82 2A 2B    41 
+  Text(47,41,"= ",F                     ;;023C 93 34 37 2B 34 31 2B 2A 6A 29 2A 2B    46 
+End                                     ;;024A D4 
+Lbl 1                                   ;;024C D6 31 
+Pause                                   ;;024F D8 
+ClrDraw:ZPrevious:AxesOn:Clrhome:FnOn   ;;0251 85 3E 8D 3E =7E08 3E E1 3E 96 
+DelVar ADelVar BDelVar CDelVar DDelVar EDelVar FDelVar Y;;025C =BB54    41 =BB54    42 =BB54    43 =BB54    44 =BB54    45 =BB54    46 =BB54    59 
+Stop                                    ;;0272 D9 
+
+
+
+
+
+

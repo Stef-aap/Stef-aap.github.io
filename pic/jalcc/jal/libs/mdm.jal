@@ -1,0 +1,396 @@
+-- --------------------------------------------------------------------------
+--
+-- interface for the Lascar Electronics MDM-1 display
+-- http://www.lascarelectronics.com
+--
+-- --------------------------------------------------------------------------
+--
+-- Copyright (C) 2002 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+-- --------------------------------------------------------------------------
+--
+-- the positions are numbered from left to right: 1 2 3 4 5
+-- the dots to the left of a digit are considered part of it,
+-- so digit 1 has no dots.
+--
+-- the interface can be used in a number of levels
+-- (mixing is not advised)
+--
+-- individual segments level:
+--    Switch the desired segments on or off, using either the mdm_segments_xy
+--    segment bytes conform lascar documentation (xy == 1a, 1b, 2a, 2b, etc),
+--    or the mdm_segment_x_y segments bits for the indiviual segments
+--    (x_y == 1_a, 1_b, 1_c, ... 1_r, 2_a, etc). Note that dummy variables 
+--    for the (non-existing) dots of segment 1 exist.
+--    Use mdm_update_from_segments to transfer the values to the display.
+--    
+-- individual positions level:
+--    Call the procedures mdm_write_p(p,c) or mdm_write_p(c) 
+--    (p== 1, 2, 3, 4, 5) to write char c to position x. 
+--
+-- TTY level:                                            
+--    Call mdm_clear to clear the display and set the (invisible)
+--    cursor to position 1. Call mdm_write to write a character to the
+--    current cursor position and update (increment) the cursor position.
+--    When writing would be off-display (6th position) the display content
+--    is shifted one position to the left before writing.
+--
+-- Call mdm_all(x) to set all segments (x = on or off).
+--
+-- For both individual positions and TTY level the display is by default
+-- updated automatically on each change. When this takes too much time
+-- mdm_auto_update can be cleared and mdm_update_from_segments must 
+-- be called explicitly to update the display.
+--
+-- For both individual positions and TTY level writing a '.' to a 
+-- position sets (only) the lower dot, a ':' sets the two middle dots, 
+-- a ';' sets all (three) dots, and a ',' clears the dots. Note that this
+-- applies to the dots to the left of the position. For mdm_write note
+-- that writing one of the mentioned characters does not cause scrolling,
+-- hence for instance writing '12:34' will have the intended effect.
+--
+-- When an ascii character is written codes the codes < 0x20 are used
+-- for some special characters (mdm_char_*). Lowercase and uppercase
+-- letters are displayed the same. The highest bit (values > 0x7F) is
+-- ignored.                              
+--
+-- Due to segment limitations a lot of characters need some imagination
+-- to be recognised. Most uppercase letters look much better than their
+-- lowercase equivalent. Very bad are: !#%{}~ and the ^ is upside down.
+--
+-- --------------------------------------------------------------------------
+--
+-- history
+-- 
+-- 23-06-2002 first release
+--
+-- --------------------------------------------------------------------------
+
+
+-- auto-update of the display on each ascii write?
+-- if set to false writes will be fast but
+--    mdm_update_from_segments must be called explicitly
+var bit mdm_auto_update = true
+
+-- digit segments values
+var byte mdm_segments_1a, mdm_segments_1b
+var byte mdm_segments_2a, mdm_segments_2b
+var byte mdm_segments_3a, mdm_segments_3b
+var byte mdm_segments_4a, mdm_segments_4b
+var byte mdm_segments_5a, mdm_segments_5b
+
+-- individual segment values
+var bit mdm_segment_1_a at mdm_segments_1a : 6
+var bit mdm_segment_1_b at mdm_segments_1a : 7
+var bit mdm_segment_1_c at mdm_segments_1a : 4
+var bit mdm_segment_1_d at mdm_segments_1a : 3
+var bit mdm_segment_1_e at mdm_segments_1a : 2
+var bit mdm_segment_1_f at mdm_segments_1a : 5
+var bit mdm_segment_1_g at mdm_segments_1b : 5
+var bit mdm_segment_1_h at mdm_segments_1b : 6
+var bit mdm_segment_1_i at mdm_segments_1b : 7
+var bit mdm_segment_1_j at mdm_segments_1a : 1
+var bit mdm_segment_1_k at mdm_segments_1b : 1
+var bit mdm_segment_1_l at mdm_segments_1b : 2
+var bit mdm_segment_1_m at mdm_segments_1b : 3
+var bit mdm_segment_1_n at mdm_segments_1b : 4
+var bit mdm_segment_1_o at mdm_segments_1a : 0
+var bit mdm_segment_1_r at mdm_segments_1b : 0
+--
+var bit mdm_segment_2_a at mdm_segments_2a : 6
+var bit mdm_segment_2_b at mdm_segments_2a : 7
+var bit mdm_segment_2_c at mdm_segments_2a : 4
+var bit mdm_segment_2_d at mdm_segments_2a : 3
+var bit mdm_segment_2_e at mdm_segments_2a : 2
+var bit mdm_segment_2_f at mdm_segments_2a : 5
+var bit mdm_segment_2_g at mdm_segments_2b : 5
+var bit mdm_segment_2_h at mdm_segments_2b : 6
+var bit mdm_segment_2_i at mdm_segments_2b : 7
+var bit mdm_segment_2_j at mdm_segments_2a : 1
+var bit mdm_segment_2_k at mdm_segments_2b : 1
+var bit mdm_segment_2_l at mdm_segments_2b : 2
+var bit mdm_segment_2_m at mdm_segments_2b : 3
+var bit mdm_segment_2_n at mdm_segments_2b : 4
+var bit mdm_segment_2_o at mdm_segments_2a : 0
+var bit mdm_segment_2_r at mdm_segments_2b : 0
+--
+var bit mdm_segment_3_a at mdm_segments_3a : 6
+var bit mdm_segment_3_b at mdm_segments_3a : 7
+var bit mdm_segment_3_c at mdm_segments_3a : 4
+var bit mdm_segment_3_d at mdm_segments_3a : 3
+var bit mdm_segment_3_e at mdm_segments_3a : 2
+var bit mdm_segment_3_f at mdm_segments_3a : 5
+var bit mdm_segment_3_g at mdm_segments_3b : 5
+var bit mdm_segment_3_h at mdm_segments_3b : 6
+var bit mdm_segment_3_i at mdm_segments_3b : 7
+var bit mdm_segment_3_j at mdm_segments_3a : 1
+var bit mdm_segment_3_k at mdm_segments_3b : 1
+var bit mdm_segment_3_l at mdm_segments_3b : 2
+var bit mdm_segment_3_m at mdm_segments_3b : 3
+var bit mdm_segment_3_n at mdm_segments_3b : 4
+var bit mdm_segment_3_o at mdm_segments_3a : 0
+var bit mdm_segment_3_r at mdm_segments_3b : 0
+--
+var bit mdm_segment_4_a at mdm_segments_4a : 6
+var bit mdm_segment_4_b at mdm_segments_4a : 7
+var bit mdm_segment_4_c at mdm_segments_4a : 4
+var bit mdm_segment_4_d at mdm_segments_4a : 3
+var bit mdm_segment_4_e at mdm_segments_4a : 2
+var bit mdm_segment_4_f at mdm_segments_4a : 5
+var bit mdm_segment_4_g at mdm_segments_4b : 5
+var bit mdm_segment_4_h at mdm_segments_4b : 6
+var bit mdm_segment_4_i at mdm_segments_4b : 7
+var bit mdm_segment_4_j at mdm_segments_4a : 1
+var bit mdm_segment_4_k at mdm_segments_4b : 1
+var bit mdm_segment_4_l at mdm_segments_4b : 2
+var bit mdm_segment_4_m at mdm_segments_4b : 3
+var bit mdm_segment_4_n at mdm_segments_4b : 4
+var bit mdm_segment_4_o at mdm_segments_4a : 0
+var bit mdm_segment_4_r at mdm_segments_4b : 0
+--
+var bit mdm_segment_5_a at mdm_segments_5a : 6
+var bit mdm_segment_5_b at mdm_segments_5a : 7
+var bit mdm_segment_5_c at mdm_segments_5a : 4
+var bit mdm_segment_5_d at mdm_segments_5a : 3
+var bit mdm_segment_5_e at mdm_segments_5a : 2
+var bit mdm_segment_5_f at mdm_segments_5a : 5
+var bit mdm_segment_5_g at mdm_segments_5b : 5
+var bit mdm_segment_5_h at mdm_segments_5b : 6
+var bit mdm_segment_5_i at mdm_segments_5b : 7
+var bit mdm_segment_5_j at mdm_segments_5a : 1
+var bit mdm_segment_5_k at mdm_segments_5b : 1
+var bit mdm_segment_5_l at mdm_segments_5b : 2
+var bit mdm_segment_5_m at mdm_segments_5b : 3
+var bit mdm_segment_5_n at mdm_segments_5b : 4
+var bit mdm_segment_5_o at mdm_segments_5a : 0
+var bit mdm_segment_5_r at mdm_segments_5b : 0
+
+-- flags for the individual dots                   
+-- note that the digit one does not have visible dots
+var bit mdm_segment_1_dot_low     at mdm_segments_1a : 0
+var bit mdm_segment_1_dot_middle  at mdm_segments_1b : 0
+--
+var bit mdm_segment_2_dot_low     at mdm_segments_2a : 0
+var bit mdm_segment_2_dot_middle  at mdm_segments_2b : 0
+--
+var bit mdm_segment_3_dot_low     at mdm_segments_3a : 0
+var bit mdm_segment_3_dot_middle  at mdm_segments_3b : 0
+--
+var bit mdm_segment_4_dot_low     at mdm_segments_4a : 0
+var bit mdm_segment_4_dot_middle  at mdm_segments_4b : 0
+--
+var bit mdm_segment_5_dot_low     at mdm_segments_5a : 0
+var bit mdm_segment_5_dot_middle  at mdm_segments_5b : 0
+
+-- some special characters
+const mdm_char_all_on  = 0
+const mdm_char_all_off = 1
+
+-- current position for mdm_write()
+var byte mdm_cursor_position
+
+-- LOAD,DATA & CLOCK use Portb,2,4,5 respectively
+var bit mdm_pin_load             is pin_b2
+var bit mdm_pin_data             is pin_b4
+var bit mdm_pin_clock            is pin_b5
+var bit mdm_pin_load_direction   is pin_b2_direction
+var bit mdm_pin_data_direction   is pin_b4_direction
+var bit mdm_pin_clock_direction  is pin_b5_direction
+
+-- shift byte x out to the display
+procedure mdm_output_byte( byte in n, byte in x ) is 
+   var bit x7 at x : 7
+   for n loop
+      mdm_pin_data = x7
+      mdm_pin_clock = high
+      x = x << 1
+      mdm_pin_clock = low
+   end loop
+end procedure
+
+-- update the display from the segment values
+procedure mdm_update_from_segments is 
+    mdm_output_byte( 8, mdm_segments_5a )
+    mdm_output_byte( 8, mdm_segments_4a )
+    mdm_output_byte( 8, mdm_segments_3a )
+    mdm_output_byte( 8, mdm_segments_2a )
+    mdm_output_byte( 8, mdm_segments_1a )    
+    mdm_output_byte( 3, 0x00 )     
+    mdm_pin_load = high
+    mdm_pin_load = low    
+    
+    mdm_output_byte( 8, mdm_segments_5b )
+    mdm_output_byte( 8, mdm_segments_4b )
+    mdm_output_byte( 8, mdm_segments_3b )
+    mdm_output_byte( 8, mdm_segments_2b )
+    mdm_output_byte( 8, mdm_segments_1b )
+    mdm_output_byte( 3, 0x20 )                    
+    mdm_pin_load = high    
+    mdm_pin_load = low
+end procedure 
+
+procedure mdm_all( bit in x ) is
+   var byte v
+   if x then 
+      v = 0b_1111_1111
+   else
+      v = 0b_0000_0000
+   end if
+   mdm_segments_1a = v
+   mdm_segments_1b = v
+   mdm_segments_2a = v
+   mdm_segments_2b = v
+   mdm_segments_3a = v
+   mdm_segments_3b = v
+   mdm_segments_4a = v
+   mdm_segments_4b = v
+   mdm_segments_5a = v
+   mdm_segments_5b = v   
+   if mdm_auto_update then 
+      mdm_update_from_segments
+   end if
+end procedure    
+
+-- the segment lookup tables
+include mdm_segs
+
+-- write ascii character c to position p
+procedure mdm_write_p( byte in p, byte in c ) is
+   var byte segments_a, segments_b  
+   
+   if p == 1 then 
+      segments_a = mdm_segments_1a
+      segments_b = mdm_segments_1b
+      
+   elsif p == 2 then 
+      segments_a = mdm_segments_2a
+      segments_b = mdm_segments_2b
+      
+   elsif p == 3 then 
+      segments_a = mdm_segments_3a
+      segments_b = mdm_segments_3b
+      
+   elsif p == 4 then 
+      segments_a = mdm_segments_4a
+      segments_b = mdm_segments_4b
+      
+   elsif p == 5 then 
+      segments_a = mdm_segments_5a
+      segments_b = mdm_segments_5b
+   end if
+   
+   -- "," == clear dots 
+   if c == "," then
+      segments_a = segments_a & ! 0b_0000_0001
+      segments_b = segments_b & ! 0b_0000_0001
+      
+   else               
+      c = c & 0b_0111_1111 -- tables are 128 entries only, so clear highest bit
+      var byte a =  mdm_lookup_a( c )  
+      var byte b =  mdm_lookup_b( c )  
+      
+      -- don't shift when writing the dots
+      if ( ( a | b ) & 0b_0000_0001 ) == 0 then
+         mdm_cursor_position = mdm_cursor_position + 1
+      end if
+                                                    
+      -- don't overwrite the dots                                              
+      segments_a = ( segments_a & 0b_0000_0001 ) | a
+      segments_b = ( segments_b & 0b_0000_0001 ) | b
+   end if   
+
+   if p == 1 then 
+      mdm_segments_1a = segments_a
+      mdm_segments_1b = segments_b
+      
+   elsif p == 2 then 
+      mdm_segments_2a = segments_a
+      mdm_segments_2b = segments_b
+      
+   elsif p == 3 then 
+      mdm_segments_3a = segments_a
+      mdm_segments_3b = segments_b
+      
+   elsif p == 4 then 
+      mdm_segments_4a = segments_a
+      mdm_segments_4b = segments_b
+      
+   elsif p == 5 then 
+      mdm_segments_5a = segments_a
+      mdm_segments_5b = segments_b
+   end if
+
+   if mdm_auto_update then 
+      mdm_update_from_segments
+   end if
+end procedure
+
+-- write ascii character c to the indicated position
+procedure mdm_write_1( byte in c ) is 
+   mdm_write_p( 1, c ) 
+end procedure
+procedure mdm_write_2( byte in c ) is 
+   mdm_write_p( 2, c ) 
+end procedure
+procedure mdm_write_3( byte in c ) is 
+   mdm_write_p( 3, c ) 
+end procedure
+procedure mdm_write_4( byte in c ) is 
+   mdm_write_p( 4, c ) 
+end procedure
+procedure mdm_write_5( byte in c ) is 
+   mdm_write_p( 5, c ) 
+end procedure 
+
+-- clear the display, set cursor position to 1
+procedure mdm_clear is
+   mdm_all( off )   
+   mdm_cursor_position = 1
+end procedure
+
+-- write acii character c to cursor position, reset by mdm_clear
+procedure mdm_write( byte in c ) is        
+   if mdm_cursor_position > 5 then
+      mdm_segments_1a = mdm_segments_2a
+      mdm_segments_1b = mdm_segments_2b
+      mdm_segments_2a = mdm_segments_3a
+      mdm_segments_2b = mdm_segments_3b
+      mdm_segments_3a = mdm_segments_4a
+      mdm_segments_3b = mdm_segments_4b
+      mdm_segments_4a = mdm_segments_5a
+      mdm_segments_4b = mdm_segments_5b
+      mdm_cursor_position = 5
+   end if
+   mdm_write_p( mdm_cursor_position, c )
+end procedure
+
+-- initialise the pin directions 
+procedure mdm_init is              
+   mdm_pin_load   = low
+   mdm_pin_data   = low
+   mdm_pin_clock  = low   
+   mdm_pin_load_direction   = output
+   mdm_pin_data_direction   = output
+   mdm_pin_clock_direction  = output
+end procedure
+
+-- init and clear the display
+mdm_init
+mdm_clear
+
+

@@ -1,0 +1,128 @@
+<HTML><HEAD><TITLE>Connections</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>May 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, Connections</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;</SPAN></P>
+<P>Making connections is somewhat peculiar, due to the internal realisation of the connections (the internal structure is chozen for an optimal combination of speed and modularity).</P>
+<P>The central point to start a new connection is always the input pin of an active device.</P>
+<P>Let's first take a look at the different kind of IO-pins</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=16 height=14 src="pin_digital_input.gif"></P></TD>
+<TD valign=middle>
+<P>Digital Input pin</P>
+<P>The pin is dark green when it's not connected.</P>
+<P>The pin is lime when it's connected to an output pin.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=14 height=13 src="pin_digital_output.gif"></P></TD>
+<TD valign=top>
+<P>Digital Output pin</P>
+<P>This pin is always Red</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>In principle only connections are valid, that connects an Input-pin to an Output-pin.</P>
+<P>It's logical that an Input-pin can only be connected to one output pin. So trying to connect an input pin to a second output pin, will disconnect the input pin from the first output pin.</P>
+<P>To connect / disconnect or reconnect an input pin, just click on it and a list of all available output pins in the circuit will be appear.</P>
+<P>Some devices (like the scope) will show up a much larger list of available outputs, because it also can connect to internal pins/bytes/words of some devices.</P>
+<P>Select the disered output pin from the list, double click on it (or press "select")&nbsp; and the connection is there,. The input pin will now light lime and when slowly moving the cursor on to the input pin, a hint will popup, showing the name of the connected output pin and the device that owns that output pin.</P>
+<P>An output can not be connected to any other pin. So clicking on an output pin will not generate any action.</P>
+<P>But there are more kinds of io-pins, here is the complete list:</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P class=RVPS2>&nbsp;<IMG width=16 height=14 src="pin_digital_input.gif"></P></TD>
+<TD valign=top>
+<P>Digital Input pin</P>
+<P>The pin is dark green when it's not connected.</P>
+<P>The pin is lime when it's connected to an output pin.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P class=RVPS2>&nbsp;<IMG width=14 height=13 src="pin_digital_output.gif"></P></TD>
+<TD valign=top>
+<P>Digital Output pin</P>
+<P>This pin is always Red</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P class=RVPS2>&nbsp;<IMG width=25 height=16 src="pin_digital_io.gif"></P></TD>
+<TD valign=top>
+<P>Bidirectional digital IO pin</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=28 height=13 src="pin_analog_io.gif"></P></TD>
+<TD valign=middle>
+<P>Bidirectional Analog IO pin</P>
+<P>In fact all analog pins are the same, that is they consist of ...</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P class=RVPS2>&nbsp;<IMG width=15 height=16 src="pin_analog_input.gif"></P></TD>
+<TD valign=top>
+<P>Analog Input pin</P>
+<P>The pin is dark blue when it's not connected.</P>
+<P>The pin is aqua when it's connected to an output pin.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P class=RVPS2>&nbsp;<IMG width=19 height=13 src="pin_analog_output.gif"></P></TD>
+<TD valign=top>
+<P>Analog Output pin</P>
+<P>This pin is always Yellow</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>Invisible Output pins</P>
+<P>These will just show up in the output list&nbsp; under static devices.</P>
+<P>Examples are Ground, Vpos, Rpullup, Rpulldown</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=395 valign=middle>
+<P>The diagram on the right indicates which IO-pin holds the information about a connection.</P>
+<P>examples:</P>
+<P>if a digital input port is connected to an digital output port, the input port notices the address of the output port.</P>
+<P>Some connections are mutual dependant, that is they both notice the address of each other.</P></TD>
+<TD width=334 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=308 height=304 src="connections1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=343 valign=middle>
+<P>prefered implementation of an interconnection between 2 analog-IO pins.</P></TD>
+<TD width=386 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=355 height=279 src="connection_calculations1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

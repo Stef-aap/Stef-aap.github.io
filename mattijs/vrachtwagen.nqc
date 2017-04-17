@@ -1,0 +1,45 @@
+task main()
+{
+SetPower(OUT_B,8);
+    SetSensor(SENSOR_3,SENSOR_TOUCH);
+  SENSOR_MODE_BOOL;
+
+    SetSensor(SENSOR_1,SENSOR_TOUCH);
+  SENSOR_MODE_BOOL;
+
+
+start car;
+}
+
+task car()
+{
+  while (true)
+  {
+    if (SENSOR_3==1)
+    {
+      OnFwd(OUT_B);
+    }
+    else
+    {
+      if (SENSOR_1==1)
+      {
+        OnRev(OUT_B);
+      }
+      else
+      {
+        Off(OUT_B);
+      }
+      
+    }
+    
+  
+    
+                     
+                 
+                     
+                          
+                             
+
+  }
+
+}

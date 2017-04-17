@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>volatile in JAL</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="180" /></head>
+<body>
+
+<p><span class=rvts1>Volatile</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Conclusion</span></p>
+<p>Because all PIC registers as well as all the indivudal bits ar declared volatile in the device library (e.g. JPIC.JAL), and the pJAL compiler supports implicit volatile inheritance, you should never worry about, nor use volatile. In JAL there was never a problem, because non-volatile optimization isn't implemented at all.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><a name="aap1"></a>
+<br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This note is an new attempt, to clearify the effects of the keyword <span class=rvts3>volatile</span> when used in programming languages, from the viewpoint of a programmer (and not from the viewpoint of a compiler builder). The effects of using or&nbsp; not-using <span class=rvts3>volatile</span> will be explained with a number of JAL examples (although most of the real effects can only be seen at the assembler/hardware level).</p>
+<p>For programmers that are non-C-programmers, <span class=rvts3>volatile</span><a name="aap2"></a>
+ is one of the most difficult to understand qualifiers. There are&nbsp; a number of reasons for this difficulty:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>for programmers, or in other words users of compilers, (and even more for hardware engineers and people with a background in chemistry), the word seems to mean exactly the opposite or inverse of what you would expect at first sight. (Declaring a variable <span class=rvts3>volatile</span>, makes the variable <span class=rvts3>less-volatile</span> in the compiler, or in other words, if you want to have a real, you&nbsp; must declare an integer) </li>
+<li>it's not a pure language element, but merely a compiler switch, to turn on/off certain compiler optimizations. Therefor the effects of using or not using <span class=rvts3>volatile</span> strongly depends on the exact type and even version of the compiler used. </li>
+<li>for current JAL users, it's even more difficult, because uptill now, <span class=rvts3>volatile</span> had no effect whatsoever, but will have full effect in the new pJAL compiler. </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Global effects</span></p>
+<p>Some global effects that can be observed, and might be caused by the omission of the keyword volatile at crucial places:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>programs that run fine with all compiler optimizations turned off, but which fails when one or more optimization switches are turned on </li>
+<li>programs that run fine, as long as all interrupts are disabled, but which fails when interrupts are enabled </li>
+<li>PIC registers (with special functions) that apperently can't remember what you've written into it </li>
+<li>loops that hangs forever </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Translations / definitions</span></p>
+<p>Here are some translations / definitions, which for some people will completly clearify the word <span class=rvts3>volatile,</span><a name="beertje"></a>
+ but for others these definitions will make it even more vague. E.G. for Pascal/Delphi programmers, the translation in just one word will clearify <span class=rvts3>volatile </span>completly, so other translations/definitions are very welcome !!</p>
+<p><span class=rvts3>Dutch</span>: veranderlijk, vluchtig</p>
+<p><span class=rvts3>Pascal/Delphi</span>: threadvar</p>
+<p><span class=rvts3>English dictonary</span>: "volatile liquid: a liquid that easily changes into gas or vapour"</p>
+<p><span class=rvts3>Wikipedia general</span>: Volatile is a word meaning, roughly, "temporary" or "fickle". It has specific meanings in several fields.</p>
+<p><span class=rvts3>Wikipedia computer hardware</span>: Volatile storage is a category of computer storage, which requires power to retain data.</p>
+<p><span class=rvts3>Wikipedia software</span>, a variable or object declared with the volatile keyword may be modified externally from the declaring object.</p>
+<p><span class=rvts3>ISO/IEC 9899:1999</span> (the latest C standard), section 6.7.3 paragraph 6: "An object that has volatile-qualified type may be modified in ways unknown to the implementation or have other unknown side effects.''</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Compiler behaviour</span></p>
+<p>When declaring a variable volatile, the compiler should perform the following actions</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>nothing may be optimized for this variable </li>
+<li>in any expression where this volatile variable is used, the variable is at most modified once </li>
+<li>in any expression this volatile variable is at most read once </li>
+</ul>
+<p>What is a compiler allowed to do, if a variable is not declared volatile</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>the compiler is allowed to remove all code, containing this non-volatile variable, if this non-volatile variable only appears on the left side of assignments in the whole program </li>
+<li>in expression, it's allowed to read and write the non-volatile variable more then once </li>
+</ul>
+<p>&nbsp; </p>
+<p><span class=rvts2>Inheritance</span></p>
+<p>To make it even more complex, should the effects caused by the volatile definition be inherited by subparts of the variable ?</p>
+<p>Or in other words, if a byte is declared volatile, should a single bit from that same byte also implictly be volatile ?</p>
+<p>To make it simple pJAL supports implicit inheritance, so nothing to worry about.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>For programmers / compiler builders, this inheritance is not so obvious. Most of then state that Structure and Unions ("IS"-construct) should have inheritance, but absolute pointers ("AT"-construct), should not. From a hardware point of view, I would compare it with the next example: suppose I've a PIC, now I glue the PIC with it's backside on my desk ("declare it volatile"), now if don't glue also the individual pins of the PIC to my desk ("not declaring then volatile"), the individual pins will vanish like snow in the sun.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts1>Examples</span></p>
+<p>Below are a number of examples, to show the effect of declaring a varaible volatile or not. If you've other examples, I'll gladly add them.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts2>writing to a register</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=252 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;JAL&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var&nbsp;&nbsp;&nbsp; byte&nbsp;&nbsp;&nbsp; portB&nbsp;&nbsp; at&nbsp;&nbsp;&nbsp; 0x0006</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; portB&nbsp; =&nbsp; 0xAA</p>
+<p>&lt;/JAL&gt;</p>
+</td>
+<td width=451 valign=top style="{background-color: #ffffe6;}">
+<p>Because the variable portB is not declared volatile, and the variable portB appears only on the left side of assignments, the compiler optimizer is allowed to stuff out both lines. So the output of portB will never be set.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=252 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;JAL&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var&nbsp;&nbsp;&nbsp; volatile&nbsp;&nbsp; byte&nbsp;&nbsp;&nbsp; portB&nbsp;&nbsp; at&nbsp;&nbsp;&nbsp; 0x0006</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; portB&nbsp; =&nbsp; 0xAA</p>
+<p>&lt;JAL&gt;</p>
+</td>
+<td width=451 valign=top style="{background-color: #ffffe6;}">
+<p>Now portB is declared volatile, the compiler is not allowed to stuff the second line.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=0 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid; background-color: #d4d0c8;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffcc99;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffcc99;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffcc99;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffcc99;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffcc99;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffcc99;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffcc99;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffcc99;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts2>Infinite loop</span></p>
+<p>Suppose we want to hold the program, until some port of the PIC has become all zero. To understand what happens, we've to realize what happens at the assembler level. In a PIC, calculations and comparisons are always done in just one register, called the accumulator, or in PIC terms the w-register. So for calculations or comparisons the first thing to do in assembler is to transport the value of the register to test to the accumulator.</p>
+<p>In the top row, the non-volatile example is given, on the left the JAL code entered by the programmer, on the right the pseudo-assembler code generated by the compiler. If you look at the pseudo-assembler code, it's quiet obvious that the loop is entered NEVER or ALWAYS.</p>
+<p>In the second row the volatile case is given, and in the pseudo-assembler code you can see that it does work as the programmer has meant it.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=348 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;JAL&gt; </p>
+<p>&nbsp;&nbsp;&nbsp; var&nbsp;&nbsp;&nbsp; byte&nbsp;&nbsp;&nbsp; portB&nbsp;&nbsp; at&nbsp;&nbsp;&nbsp; 0x0006&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; while&nbsp;&nbsp;&nbsp; portB&nbsp; !=&nbsp; 0&nbsp;&nbsp; loop </p>
+<p>&nbsp;&nbsp;&nbsp; end loop </p>
+<p>&lt;/JAL&gt;</p>
+</td>
+<td width=354 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;"assembler"&gt; </p>
+<p>&nbsp;&nbsp;&nbsp; accumulator&nbsp; =&nbsp; portB </p>
+<p>&nbsp;&nbsp;&nbsp; while&nbsp; accumulator&nbsp; !=&nbsp; 0&nbsp; loop </p>
+<p>&nbsp;&nbsp;&nbsp; end&nbsp; loop </p>
+<p>&lt;/"assembler"&gt;</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=348 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;JAL&gt; </p>
+<p>&nbsp;&nbsp;&nbsp; var&nbsp;&nbsp; volatile&nbsp;&nbsp; byte&nbsp;&nbsp;&nbsp; portB&nbsp;&nbsp; at&nbsp;&nbsp;&nbsp; 0x0006&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; while&nbsp;&nbsp;&nbsp; portB&nbsp; !=&nbsp; 0&nbsp;&nbsp; loop </p>
+<p>&nbsp;&nbsp;&nbsp; end loop </p>
+<p>&lt;/JAL&gt;&nbsp; </p>
+</td>
+<td width=354 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;"assembler"&gt; </p>
+<p>&nbsp;&nbsp;&nbsp; accumulator&nbsp; =&nbsp; portB </p>
+<p>&nbsp;&nbsp;&nbsp; while&nbsp; accumulator&nbsp; !=&nbsp; 0&nbsp; loop </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; accumulator&nbsp; =&nbsp; portB </p>
+<p>&nbsp;&nbsp;&nbsp; end&nbsp; loop </p>
+<p>&lt;/"assembler"&gt;</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Shifting a bit (1)</span></p>
+<p><a name="aap5"></a>
+When shifting a byte over more than 1 position, we've to realize that a PIC can only shift one position at a time. In the top row the non-volatile example is given, and if the PIC (interrupt, process completion) or the outside world can change the variable X too, the result is totally unpredictable.</p>
+<p><a name="aap59"></a>
+In the second row, the volatile case is given, you can clearly see that X is only read and written once, the PIC or outside world can still change te value in between, but after this piece of code the result is totally predictable.</p>
+<p>This is quiet a theoretical example, but if variable x is both used in normal program code and in the ISR (Interrupt Service Routine) it becomes a practical case. For that particular case there's a more convenient way to program it yourself and don't rely on the capabilities and/or settings of the compiler. This example is given in the third row. This example apperently shows that catching these events by yourself, makes the code just as small, but this is not true if x and gie are in different banks. An optimized compiler can do better, by always making use of a tempvar that's in the same bank as x.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=195 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;JAL&gt; </p>
+<p>&nbsp;&nbsp;&nbsp; var&nbsp; byte&nbsp; x </p>
+<p>&nbsp;&nbsp;&nbsp; x&nbsp; =&nbsp; x&nbsp; &lt;&lt;&nbsp; 2 </p>
+<p>&lt;/JAL&gt;</p>
+</td>
+<td width=408 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;"assembler"&gt; </p>
+<p>&nbsp;&nbsp;&nbsp; x&nbsp; =&nbsp; x&nbsp; &lt;&lt;&nbsp; 1 </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- here the PIC modifies X, trouble !! </p>
+<p>&nbsp;&nbsp;&nbsp; x&nbsp; =&nbsp; x&nbsp; &lt;&lt;&nbsp; 1</p>
+<p>&lt;/"assembler"&gt;</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=195 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;JAL&gt; </p>
+<p>&nbsp;&nbsp;&nbsp; var&nbsp; volatile&nbsp; byte&nbsp; x </p>
+<p>&nbsp;&nbsp;&nbsp; x&nbsp; =&nbsp; x&nbsp; &lt;&lt;&nbsp; 2 </p>
+<p>&lt;/JAL&gt;</p>
+</td>
+<td width=408 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;"assembler"&gt; </p>
+<p>&nbsp;&nbsp;&nbsp; accumulator&nbsp; =&nbsp; x&nbsp; &lt;&lt;&nbsp; 1 </p>
+<p>&nbsp;&nbsp;&nbsp; tempvar&nbsp; =&nbsp; accumulator </p>
+<p>&nbsp;&nbsp;&nbsp; accumulator&nbsp; =&nbsp; tempvar&nbsp; &lt;&lt;&nbsp; 1 </p>
+<p>&nbsp;&nbsp;&nbsp; x&nbsp; =&nbsp; accumulator </p>
+<p>&lt;/"assembler"&gt;</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=195 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;JAL&gt; </p>
+<p>&nbsp;&nbsp;&nbsp; var&nbsp; volatile&nbsp; byte&nbsp; x </p>
+<p>&nbsp;&nbsp;&nbsp; gie&nbsp; =&nbsp; false </p>
+<p>&nbsp;&nbsp;&nbsp; x&nbsp; =&nbsp; x&nbsp; &lt;&lt;&nbsp; 2 </p>
+<p>&nbsp;&nbsp;&nbsp; gie&nbsp; = true </p>
+<p>&lt;/JAL&gt;</p>
+</td>
+<td width=408 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;"assembler"&gt;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; gie&nbsp; =&nbsp; false</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x&nbsp; =&nbsp; x&nbsp; &lt;&lt;&nbsp; 1 </p>
+<p>&nbsp;&nbsp;&nbsp; x&nbsp; =&nbsp; x&nbsp; &lt;&lt;&nbsp; 1 </p>
+<p>&nbsp;&nbsp;&nbsp; gie&nbsp; =&nbsp; true</p>
+<p>&lt;/"assembler"&gt;</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Shifting a bit (2)</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffe6;}">
+<p>&lt;JAL&gt; </p>
+<p>procedure do_something (var byte in somevar) is </p>
+<p>&nbsp;&nbsp;&nbsp; var&nbsp; bit&nbsp;&nbsp; bit7&nbsp; at&nbsp;&nbsp; somevar : 7 </p>
+<p>&nbsp;&nbsp;&nbsp; somebit = high </p>
+<p>&lt;/JAL&gt;</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffe6;}">
+<p>???</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffe6;}">
+<p>&nbsp; </p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffe6;}">
+<p>&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts1>Unresolved issues</span></p>
+<p>just notes for discussion in alfa-testing</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts3>All procedures are threadsafe</span> does this mean that routines used in ISR (or all routines that are used in ISR <span class=rvts3>and</span> in normal program) make a shadow of all used to the procedure loacl variables ?</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>In pjal, the means the following:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3: ``it will only be read *once* in any expression'' but I've not implement that bit since on the PIC reading doesn't</p>
+<p>modify the value (i think).</p>
+<p>I thought there were a few bits, but I cann't find them. So maybe I'm wrong</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+
+</body></html>

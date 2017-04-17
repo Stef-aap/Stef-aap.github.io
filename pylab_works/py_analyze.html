@@ -1,0 +1,918 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Analyze Python</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>july 2008</span></p>
+<p><span class=rvts1>Analyze Python </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Inspect</span></p>
+<p><br></p>
+<p>&gt;&gt;&gt; getmembers (file_support, isfunction)</p>
+<p>[('File_Delete', &lt;function File_Delete at 0x02071E30&gt;),</p>
+<p>('File_Exists', &lt;function File_Exists at 0x02071DF0&gt;),</p>
+<p>('Find_Files', &lt;function Find_Files at 0x02071F30&gt;),</p>
+<p>('Find_Files_1', &lt;function Find_Files_1 at 0x02071EF0&gt;),</p>
+<p>('Force_Dir', &lt;function Force_Dir at 0x02071EB0&gt;),</p>
+<p>('Get_Absolute_Path', &lt;function Get_Absolute_Path at 0x02071CF0&gt;),</p>
+<p>('Get_Relative_Path', &lt;function Get_Relative_Path at 0x02071D70&gt;),</p>
+<p>('Main_Module_Filename', &lt;function Main_Module_Filename at 0x02071DB0&gt;),</p>
+<p>('Tree_Delete', &lt;function Tree_Delete at 0x02071E70&gt;),</p>
+<p>('_', &lt;function _ at 0x02071670&gt;)]</p>
+<p><br></p>
+<p>&gt;&gt;&gt; getmembers (file_support, isclass)</p>
+<p>[('test_class', &lt;class 'file_support.test_class'&gt;)]</p>
+<p><br></p>
+<p><br></p>
+<p>The <span class=rvts3>getmembers</span>() function retrieves the members of an object such as a class or module. The eleven functions whose names begin with ``is'' are mainly provided as convenient choices for the second argument to getmembers(). They also help you determine when you can expect to find the following special attributes: </p>
+<div><table width="100%" border=0 cellpadding=5 cellspacing=0 style="background-color: #ffffff;">
+<tr valign=top>
+<td width=72 valign=middle>
+<p class=rvps2><span class=rvts2>Type</span></p>
+</td>
+<td width=117 valign=middle>
+<p class=rvps2><span class=rvts2>Attribute</span></p>
+</td>
+<td width=393 valign=middle>
+<p class=rvps2><span class=rvts2>Description</span></p>
+</td>
+<td width=42 valign=middle>
+<p class=rvps2><span class=rvts2>Notes</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle>
+<p>module</p>
+</td>
+<td width=117 valign=middle>
+<p>__doc__</p>
+</td>
+<td width=393 valign=middle>
+<p>documentation string</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>__file__</p>
+</td>
+<td width=393 valign=middle>
+<p>filename (missing for built-in modules)</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle>
+<p>class</p>
+</td>
+<td width=117 valign=middle>
+<p>__doc__</p>
+</td>
+<td width=393 valign=middle>
+<p>documentation string</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>__module__</p>
+</td>
+<td width=393 valign=middle>
+<p>name of module in which this class was defined</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle>
+<p>method</p>
+</td>
+<td width=117 valign=middle>
+<p>__doc__</p>
+</td>
+<td width=393 valign=middle>
+<p>documentation string</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>__name__</p>
+</td>
+<td width=393 valign=middle>
+<p>name with which this method was defined</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>im_class</p>
+</td>
+<td width=393 valign=middle>
+<p>class object that asked for this method</p>
+</td>
+<td width=42 valign=middle>
+<p>(1)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>im_func</p>
+</td>
+<td width=393 valign=middle>
+<p>function object containing implementation of method</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>im_self</p>
+</td>
+<td width=393 valign=middle>
+<p>instance to which this method is bound, or <span class=rvts11>None</span></p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle>
+<p>function</p>
+</td>
+<td width=117 valign=middle>
+<p>__doc__</p>
+</td>
+<td width=393 valign=middle>
+<p>documentation string</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>__name__</p>
+</td>
+<td width=393 valign=middle>
+<p>name with which this function was defined</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>func_code</p>
+</td>
+<td width=393 valign=middle>
+<p>code object containing compiled function bytecode</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>func_defaults</p>
+</td>
+<td width=393 valign=middle>
+<p>tuple of any default values for arguments</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>func_doc</p>
+</td>
+<td width=393 valign=middle>
+<p>(same as __doc__)</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>func_globals</p>
+</td>
+<td width=393 valign=middle>
+<p>global namespace in which this function was defined</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>func_name</p>
+</td>
+<td width=393 valign=middle>
+<p>(same as __name__)</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle>
+<p>traceback</p>
+</td>
+<td width=117 valign=middle>
+<p>tb_frame</p>
+</td>
+<td width=393 valign=middle>
+<p>frame object at this level</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>tb_lasti</p>
+</td>
+<td width=393 valign=middle>
+<p>index of last attempted instruction in bytecode</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>tb_lineno</p>
+</td>
+<td width=393 valign=middle>
+<p>current line number in Python source code</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>tb_next</p>
+</td>
+<td width=393 valign=middle>
+<p>next inner traceback object (called by this level)</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle>
+<p>frame</p>
+</td>
+<td width=117 valign=middle>
+<p>f_back</p>
+</td>
+<td width=393 valign=middle>
+<p>next outer frame object (this frame's caller)</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>f_builtins</p>
+</td>
+<td width=393 valign=middle>
+<p>built-in namespace seen by this frame</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>f_code</p>
+</td>
+<td width=393 valign=middle>
+<p>code object being executed in this frame</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>f_exc_traceback</p>
+</td>
+<td width=393 valign=middle>
+<p>traceback if raised in this frame, or <span class=rvts11>None</span></p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>f_exc_type</p>
+</td>
+<td width=393 valign=middle>
+<p>exception type if raised in this frame, or <span class=rvts11>None</span></p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>f_exc_value</p>
+</td>
+<td width=393 valign=middle>
+<p>exception value if raised in this frame, or <span class=rvts11>None</span></p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>f_globals</p>
+</td>
+<td width=393 valign=middle>
+<p>global namespace seen by this frame</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>f_lasti</p>
+</td>
+<td width=393 valign=middle>
+<p>index of last attempted instruction in bytecode</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>f_lineno</p>
+</td>
+<td width=393 valign=middle>
+<p>current line number in Python source code</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>f_locals</p>
+</td>
+<td width=393 valign=middle>
+<p>local namespace seen by this frame</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>f_restricted</p>
+</td>
+<td width=393 valign=middle>
+<p>0 or 1 if frame is in restricted execution mode</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>f_trace</p>
+</td>
+<td width=393 valign=middle>
+<p>tracing function for this frame, or <span class=rvts11>None</span></p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle>
+<p>code</p>
+</td>
+<td width=117 valign=middle>
+<p>co_argcount</p>
+</td>
+<td width=393 valign=middle>
+<p>number of arguments (not including * or ** args)</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>co_code</p>
+</td>
+<td width=393 valign=middle>
+<p>string of raw compiled bytecode</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>co_consts</p>
+</td>
+<td width=393 valign=middle>
+<p>tuple of constants used in the bytecode</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>co_filename</p>
+</td>
+<td width=393 valign=middle>
+<p>name of file in which this code object was created</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>co_firstlineno</p>
+</td>
+<td width=393 valign=middle>
+<p>number of first line in Python source code</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>co_flags</p>
+</td>
+<td width=393 valign=middle>
+<p>bitmap: 1=optimized <span class=rvts11>|</span> 2=newlocals <span class=rvts11>|</span> 4=*arg <span class=rvts11>|</span> 8=**arg</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>co_lnotab</p>
+</td>
+<td width=393 valign=middle>
+<p>encoded mapping of line numbers to bytecode indices</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>co_name</p>
+</td>
+<td width=393 valign=middle>
+<p>name with which this code object was defined</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>co_names</p>
+</td>
+<td width=393 valign=middle>
+<p>tuple of names of local variables</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>co_nlocals</p>
+</td>
+<td width=393 valign=middle>
+<p>number of local variables</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>co_stacksize</p>
+</td>
+<td width=393 valign=middle>
+<p>virtual machine stack space required</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>co_varnames</p>
+</td>
+<td width=393 valign=middle>
+<p>tuple of names of arguments and local variables</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle>
+<p>builtin</p>
+</td>
+<td width=117 valign=middle>
+<p>__doc__</p>
+</td>
+<td width=393 valign=middle>
+<p>documentation string</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>__name__</p>
+</td>
+<td width=393 valign=middle>
+<p>original name of this function or method</p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=72 valign=middle><br>
+</td>
+<td width=117 valign=middle>
+<p>__self__</p>
+</td>
+<td width=393 valign=middle>
+<p>instance to which a method is bound, or <span class=rvts11>None</span></p>
+</td>
+<td width=42 valign=middle><br>
+</td>
+</tr>
+</table>
+</div>
+<p>Note:(1) </p>
+<p>Changed in version 2.2: im_class used to refer to the class that defined the method. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=141 valign=middle>
+<p><span class=rvts2>getmembers</span>(</p>
+</td>
+<td width=256 valign=middle>
+<p><span class=rvts3>object</span>[<span class=rvts3>, predicate</span>])</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return all the members of an object in a list of (name, value) pairs sorted by name. If the optional <span class=rvts3>predicate</span> argument is supplied, only members for which the predicate returns a true value are included. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=179 valign=middle>
+<p><span class=rvts2>getmoduleinfo</span>(</p>
+</td>
+<td width=64 valign=middle>
+<p><span class=rvts3>path</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return a tuple of values that describe how Python will interpret the file identified by <span class=rvts3>path</span> if it is a module, or <span class=rvts11>None</span> if it would not be identified as a module. The return tuple is <span class=rvts11>(</span><span class=rvts3>name</span><span class=rvts11>, </span><span class=rvts3>suffix</span><span class=rvts11>, </span><span class=rvts3>mode</span><span class=rvts11>, </span><span class=rvts3>mtype</span><span class=rvts11>)</span>, where <span class=rvts3>name</span> is the name of the module without the name of any enclosing package, <span class=rvts3>suffix</span> is the trailing part of the file name (which may not be a dot-delimited extension), <span class=rvts3>mode</span> is the open() mode that would be used (<span class=rvts11>'r'</span> or <span class=rvts11>'rb'</span>), and <span class=rvts3>mtype</span> is an integer giving the type of the module. <span class=rvts3>mtype</span> will have a value which can be compared to the constants defined in the <a class=rvts4 href="mk:@msitstore:p:/python/doc/python25.chm::/lib/module-imp.html">imp</a> module; see the documentation for that module for more information on module types. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=179 valign=middle>
+<p><span class=rvts2>getmodulename</span>(</p>
+</td>
+<td width=64 valign=middle>
+<p><span class=rvts3>path</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return the name of the module named by the file <span class=rvts3>path</span>, without including the names of enclosing packages. This uses the same algorithm as the interpreter uses when searching for modules. If the name cannot be matched according to the interpreter's rules, <span class=rvts11>None</span> is returned. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=115 valign=middle>
+<p><span class=rvts2>ismodule</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a module. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=102 valign=middle>
+<p><span class=rvts2>isclass</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a class. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=115 valign=middle>
+<p><span class=rvts2>ismethod</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a method. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=141 valign=middle>
+<p><span class=rvts2>isfunction</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a Python function or unnamed (lambda) function. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=154 valign=middle>
+<p><span class=rvts2>istraceback</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a traceback. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=102 valign=middle>
+<p><span class=rvts2>isframe</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a frame. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=90 valign=middle>
+<p><span class=rvts2>iscode</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a code. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=128 valign=middle>
+<p><span class=rvts2>isbuiltin</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a built-in function. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=128 valign=middle>
+<p><span class=rvts2>isroutine</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a user-defined or built-in function or method. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=243 valign=middle>
+<p><span class=rvts2>ismethoddescriptor</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a method descriptor, but not if ismethod() or isclass() or isfunction() are true. </p>
+<p>This is new as of Python 2.2, and, for example, is true of int.__add__. An object passing this test has a __get__ attribute but not a __set__ attribute, but beyond that the set of attributes varies. __name__ is usually sensible, and __doc__ often is. </p>
+<p>Methods implemented via descriptors that also pass one of the other tests return false from the ismethoddescriptor() test, simply because the other tests promise more - you can, e.g., count on having the im_func attribute (etc) when an object passes ismethod(). </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=218 valign=middle>
+<p><span class=rvts2>isdatadescriptor</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a data descriptor. </p>
+<p>Data descriptors have both a __get__ and a __set__ attribute. Examples are properties (defined in Python), getsets, and members. The latter two are defined in C and there are more specific tests available for those types, which is robust across Python implementations. Typically, data descriptors will also have __name__ and __doc__ attributes (properties, getsets, and members have both of these attributes), but this is not guaranteed. New in version 2.3. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=243 valign=middle>
+<p><span class=rvts2>isgetsetdescriptor</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a getset descriptor. </p>
+<p>getsets are attributes defined in extension modules via <span class=rvts11>PyGetSetDef</span> structures. For Python implementations without such types, this method will always return <span class=rvts11>False</span>. New in version 2.5. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=243 valign=middle>
+<p><span class=rvts2>ismemberdescriptor</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return true if the object is a member descriptor. </p>
+<p>Member descriptors are attributes defined in extension modules via <span class=rvts11>PyMemberDef</span> structures. For Python implementations without such types, this method will always return <span class=rvts11>False</span>. New in version 2.5. </p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>26.10.2 Retrieving source code </span></p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=90 valign=middle>
+<p><span class=rvts2>getdoc</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Get the documentation string for an object. All tabs are expanded to spaces. To clean up docstrings that are indented to line up with blocks of code, any whitespace than can be uniformly removed from the second line onwards is removed. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=154 valign=middle>
+<p><span class=rvts2>getcomments</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return in a single string any lines of comments immediately preceding the object's source code (for a class, function, or method), or at the top of the Python source file (if the object is a module). </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=102 valign=middle>
+<p><span class=rvts2>getfile</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return the name of the (text or binary) file in which an object was defined. This will fail with a TypeError if the object is a built-in module, class, or function. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=128 valign=middle>
+<p><span class=rvts2>getmodule</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Try to guess which module an object was defined in. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=179 valign=middle>
+<p><span class=rvts2>getsourcefile</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return the name of the Python source file in which an object was defined. This will fail with a TypeError if the object is a built-in module, class, or function. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=192 valign=middle>
+<p><span class=rvts2>getsourcelines</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return a <span class=rvts3>list of source lines</span> and <span class=rvts3>starting line number</span> for an object. The argument may be a module, class, method, function, traceback, frame, or code object. The source code is returned as a list of the lines corresponding to the object and the line number indicates where in the original source file the first line of code was found. An IOError is raised if the source code cannot be retrieved. </p>
+<div><table border=0 cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=128 valign=middle>
+<p><span class=rvts2>getsource</span>(</p>
+</td>
+<td width=90 valign=middle>
+<p><span class=rvts3>object</span>)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Return the text of the source code for an object. The argument may be a module, class, method, function, traceback, frame, or code object. The source code is returned as a single string. An IOError is raised if the source code cannot be retrieved. </p>
+
+</body></html>

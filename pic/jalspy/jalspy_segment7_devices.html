@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JALspy, 7-Segment Display</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="152" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>july 2007</span></p>
+<p><span class=rvts1>JALsPy, 7-Segment LED Device</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <a href="punthoofd.gif"><img width=16 height=17 alt="" src="punthoofd.gif"></a>&nbsp; <a class=rvts4 href="../jalcc/jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This document describes the creation of a somewhat more complex component: a multi-digit 7-segment LED Device. Although the resulting code is not much more than 100 lines, you'll need some basic understanding of the wxPython libraries. This document is not a perfect educational document on how to write a new component, it are just my notes during the stage when I created my first real new shape.</p>
+<p><br></p>
+<p>Because there's no standard shape that can be used for the 7-segment display, we'll need to derive a new visible component. So first we start looking for a ogl-shape, that we can use as a ancestor for our new component. In this case we simply take the Rectangle as the ancestor. Another thing to do, is to make an JALsPy device library for the 7-segment display. Let's start with the latter one, so we can easily test our newly created device.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=334 height=203 alt="" src="jalspy_segment7_devices_img2.png"></p>
+<p><br></p>
+<p>Isn't this very small ? </p>
+<p><span class=rvts10>Lines 4 .. 6</span>: the code to expose the newly created shape "Segment7Shape" as the new device "tSegment7" to JALsPy. </p>
+<p><span class=rvts10>Lines 9 .. 12</span>: code to run this library as a stand-alone test-program (not strictly needed)</p>
+<p>By giving this library the right name (starting with "device_") and placing it in the JALsPy directory, JALsPy will find this file and recognize "tSegment7" as a device. So you don't have to do anything extra to make the new device available in JALsPy !!</p>
+<p><br></p>
+<p>Next thing to do is to create the visible component. We already decided to derive it from Rectangle, so lookup the code of Rectangle and although there's more I don't understand than I do understand, I quickly see that the OnDraw method is the method that should be overridden. Even the code in this section is magic to me, but don't bother I'll just inherit the whole code and just add my extra code. After some fiddling with code, seeing all kind of beautiful drawings on the screen, I end up with this code:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=605 height=701 alt="" src="jalspy_segment7_devices_img3.png"></p>
+<p><br></p>
+<p>and before to explain some of the code let's first look at the result, by just running device_Segment7.py:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=374 height=220 alt="" src="jalspy_segment7_devices_img6.png"></p>
+<p><br></p>
+<p>Not too bad.</p>
+<p>So let's look at some of the code lines:</p>
+<p><span class=rvts10>Line 1 .. 3:</span> well line 1 and 2 are standard imports for all ogl-shapes, line 3 is not invented by me, but is directed by the debugger, when I ran the module the first time</p>
+<p><span class=rvts10>Line 5:</span> here we derive our new visual component from the Rectangle shape</p>
+<p><span class=rvts10>Line 7:</span> and here we're going to override the OnDraw method</p>
+<p><span class=rvts10>Line 8:</span> because I didn't understand completely what was done in the OnDraw event, and it couldn't heart to leave what was inside of that method, I just call the ancestors version of the OnDraw method, before I proceed with my own additions.</p>
+<p><span class=rvts10>Line 10,11:</span> copied from the ancestor, because that seems to be the way to get the coordinates of our rectangle</p>
+<p><br></p>
+<p>until now, I still haven't really created 1 line of original code, so let's start some creative activities:</p>
+<p><br></p>
+<p><span class=rvts10>Line 13,14:</span> I define some penwidth (pw) and the on/off colors of the segments (in a later stage of the development, these values should be set by the user)</p>
+<p><span class=rvts10>Line 16 .. 30:</span> Because I need to produce more than 1 digit display, I create a procedure ("Draw_Segment",&nbsp; wrong name) that will display all segments of 1 digit. For clarity, here only the code for the left segments is shown (line 29,30). And because changing a pen's color is rather inconvenient, we even create a small procedure for that "_ Segment"</p>
+<p><span class=rvts10>Line 38 .. 41:</span> we just give some random values to be displayed</p>
+<p>So that where about 30 lines of creative code, no magic, just plain Python !!</p>
+<p><br></p>
+<p>Now I forgot one very important line:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=375 height=27 alt="" src="jalspy_segment7_devices_img7.png"></p>
+<p><br></p>
+<p>this comment line is uncommented during development. The reason is that I don't know what methods and properties "dc" has, so by redefining it, the code-editor I use (PyScripter, but most code-editors will do that) will suggest all possibilities !!!</p>
+<p><br></p>
+<p>The best thing to do now, is to first optimize the visual shape and all it's flexibility. By doing this we get to know all user properties which we should expose later on.</p>
+<p>In my specific case, I want a fifth digit to be used as the day of the week, displayed with 7 LEDs above the normal digits. So after some extra code (about 10 lines) I get the following result:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=368 height=224 alt="" src="jalspy_segment7_devices_img8.png"></p>
+<p><br></p>
+<p>and for who's interested, here is the extra code</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=638 height=122 alt="" src="jalspy_segment7_devices_img9.png"></p>
+<p><br></p>
+<p>With this result I'm quit satisfied, ok maybe scaling should be a little better and of course colors should be improved, but that's much easier if we can use the properties editor of JALsPy itself. So let's add some user defined properties, the first extra parameter I'm going to add is the toggle flag that changes between the 2 display forms, with or without extra LEDs on the top.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=402 height=109 alt="" src="jalspy_segment7_devices_img10.png"></p>
+<p><br></p>
+<p>We have to override the initialization of the shape (line 17). Of course we want to keep all initialization of the base class, so we call it explicitly (line 18). Then we add our flag and give it a default value (line 20), of course we use "self" here, so all procedures in this class can reach this variable.</p>
+<p><br></p>
+<p>Next thing is to add the new flag to the device, like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=565 height=261 alt="" src="jalspy_segment7_devices_img12.png"></p>
+<p><br></p>
+<p><br></p>
+<p>Get_Extra_Properties is called by JALsPy whenever it needs them, e.g. when the user want to edit the properties of this device. Set_Extra_Properties is called when one of the parameters is changed by JALsPy. Now asking for the properties of the device, will show our extra added property "week LEDs, and by checking the checkbox, we see right away what the effect of that flag is. The parameters in both the methods should be in the same order. JALsPy also ensures that these settings are automatically stored and reloaded from the ini-file.</p>
+<p><br></p>
+<p><img width=400 height=400 alt="" src="jalspy_segment7_devices_img14.png">&nbsp; <img width=400 height=400 alt="" src="jalspy_segment7_devices_img15.png"></p>
+<p><span class=rvts8><br></span></p>
+<p><br></p>
+<p>Now we can add and test all other extra properties, we want to be able to set, and finally end up with the highlighted list in the picture below:</p>
+<p><br></p>
+<div><table width="100%" border=1 style="border-width : 0px" cellpadding=5 cellspacing=0 style="background-color: #d4d0c8;">
+<tr valign=top>
+<td width=202 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; background-color: #ffffd4;">
+<p><img width=200 height=531 alt="" hspace=1 vspace=1 src="jalspy_segment7_devices_img16.png"></p>
+</td>
+<td width=735 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-left: none; background-color: #ffffd4;">
+<p>Extra LEDs are the extra normal LEDs, that will appear on top of the digits. You can divide these extra LED's in two parts, the left N1 and the right N2, both these sets have their own on / off colors.</p>
+<p><br></p>
+<p>bla bla </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Debug Virtual Machine</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="225" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Debug Virtual Machine </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp; (january 2009)</span></p>
+<p>Application Designer / <span class=rvts10>Domain Expert</span> / <span class=rvts10>Control Designer / Core Developer</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>The Debug_Table is a convenient way to follow the flow of the data in relation to the execution of the virtual machine. For the moment the Debug_Table is created in the form of a html page, that can be viewed afterwards. In some cases it's more convenient to see the realtime data, which can easily be added. The Debug_Table and it's class definition can be found in PyLab_Works_Globals.</p>
+<p>The following flags are of special interest for Debug_Table</p>
+<p>&nbsp;&nbsp;&nbsp; -debugtable</p>
+<p>&nbsp;&nbsp;&nbsp; -vmdelayxxxx,&nbsp; where xxxx is delay in msec</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Example</span></p>
+<p>For the example we've chosen the very first example, rotating an image, because it's simple but yet shows most of the features.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=144 height=255 alt="" src="pw_debug_vm_img3.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=433 height=362 alt="" src="pw_debug_vm_img4.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Looking at the image below, the meaning of the <span class=rvts10>columns (name of the Brick)</span> is shown in the green bars, which are shown at regular intervals. The first column contains two numbers, the first one is just a line number for references, the <span class=rvts10>second number is the cycle counter</span> of the virtual machine.</p>
+<p>The red blocks are execute statements. The execute statements are only shown if the inputs or the parameters of the Brick have changed.</p>
+<p><br></p>
+<p><span class=rvts10>line 2</span>: here we see "Load General" which is the automatic loading of the saved parameters of each brick. We also can see that these parameters are send to the Parameter-array. Notice that sometimes the parameter array is loaded twice, which is perfectly normal, because the automatic loading not only send the value to the control, but also the parameter array. Now some controls (but not all) also trigger an event when their value is set. This event&nbsp; sends the value to the parameter. Another strange issue, the Brick Show loads a parameter, but doesn't have a explicit parameter, should be investigated further.</p>
+<p><br></p>
+<p><span class=rvts10>line 3</span>: execute Brick Load_File, it's very logical that this will be the first Brick that will perform some action. We see it calculates an output signal and send the output signal to all receivers, in this case only the Brick Rotate.</p>
+<p><br></p>
+<p><span class=rvts10>line 4</span>: The Brick Rotate receives a new input value. The value of the input signals is deliberately not shown, because it can easily be seen in the line above.</p>
+<p><br></p>
+<p><span class=rvts10>line 8</span>: Here we see the parameter of the Brick Rotate changing, due to movement of the slider by the user. Because in this demo the virtual machine runs slowly, we can get more than 1 parameter change, before the virtual machine can act on these changes.</p>
+<p><br></p>
+<p><span class=rvts10>line 15</span>: when the application closes, all the information stored in the buffer is dumped. Here we see that the automatic saving, saves the settings of each Brick.</p>
+<p><br></p>
+<p><img width=808 height=842 alt="" src="pw_debug_vm_img1.png"></p>
+<p><br></p>
+<p><span class=rvts2><br></span></p>
+<p><span class=rvts2>Current tags</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=149 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>In-3</span></p>
+</td>
+<td width=698 valign=top style="background-color: #ffffd4;">
+<p>The value of Input-3 has changed</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=149 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Load General</span></p>
+</td>
+<td width=698 valign=top style="background-color: #ffffd4;">
+<p>Automatic Loading of the parameters, by the parent class Brick</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=149 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Load ?????</span></p>
+</td>
+<td width=698 valign=top style="background-color: #ffffd4;">
+<p>Explicit Loading of the parameters, by the Brick itself</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=149 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Out-3</span></p>
+</td>
+<td width=698 valign=top style="background-color: #ffffd4;">
+<p>The value of Output-3 has changed</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=149 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Out-3 Send To</span></p>
+</td>
+<td width=698 valign=top style="background-color: #ffffd4;">
+<p>Send the changed value of Out-3 to all receivers</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=149 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Par-2</span></p>
+</td>
+<td width=698 valign=top style="background-color: #ffffd4;">
+<p>The value of Par-2 has changed. In most cases this happens when the user interacts with the GUI. It also happens when the initial settings of the Brick are loaded.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=149 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Save General</span></p>
+</td>
+<td width=698 valign=top style="background-color: #ffffd4;">
+<p>Automatic Saving of the parameters, by the parent class Brick</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=149 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Save ?????</span></p>
+</td>
+<td width=698 valign=top style="background-color: #ffffd4;">
+<p>Explicit Saving of the parameters, by the Brick itself</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Adding new tags</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=472 height=206 alt="" src="pw_debug_vm_img6.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Example 1</span></p>
+<p><span class=rvts10>too many output changes</span></p>
+<p><br></p>
+<p><img width=816 height=128 alt="" hspace=1 vspace=1 src="pw_debug_vm_img7.png"></p>
+<p><br></p>
+<p>caused by setting the output twice, like this:</p>
+<p><br></p>
+<p><img width=605 height=77 alt="" hspace=1 vspace=1 src="pw_debug_vm_img8.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><img width=816 height=181 alt="" hspace=1 vspace=1 src="pw_debug_vm_img9.png"></p>
+<p><br></p>
+<p>Caused by changing the output and setting the modified flag. The modified flag should only be used when a complex variable like a numpy array ( that is changed in place) is changed. In this case a list of numpy arrays is changed !!</p>
+<p><br></p>
+<p><img width=607 height=71 alt="" hspace=1 vspace=1 src="pw_debug_vm_img10.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Example 2</span></p>
+<p><span class=rvts10>Generating output signals, while there is no reason for, caused by incorrect or none change checking in the execute function.</span></p>
+<p><br></p>
+<p>Here Par-3 is changed by the user through the GUI. Because the signal generator ( AD Converter) is stopped (you don't see any activity there, there shouldn't be any signals OUT-1 in the BP_Analysis. </p>
+<p><br></p>
+<p><img width=819 height=174 alt="" hspace=1 vspace=1 src="pw_debug_vm_img13.png"></p>
+<p><br></p>
+<p>And if you look at the code, you see there's no checking at all.</p>
+<p><br></p>
+<p><img width=601 height=54 alt="" hspace=1 vspace=1 src="pw_debug_vm_img14.png"></p>
+<p><br></p>
+<p>The correct way is to set the output signal, only if the input signal has changed, like this</p>
+<p><br></p>
+<p><img width=599 height=73 alt="" hspace=1 vspace=1 src="pw_debug_vm_img12.png"></p>
+<p><br></p>
+<p>which will result in the normal patern.</p>
+<p><br></p>
+<p><img width=816 height=185 alt="" hspace=1 vspace=1 src="pw_debug_vm_img11.png"></p>
+
+</body></html>

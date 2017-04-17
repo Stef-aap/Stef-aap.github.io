@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JALfs LED Devices</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="110" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>june 2007</span></p>
+<p><span class=rvts1>JALsPy&nbsp;&nbsp; LED Devices</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <a href="punthoofd.gif"><img width=16 height=17 alt="" src="punthoofd.gif"></a>&nbsp; <a class=rvts4 href="../jalcc/jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>On this page we show how easy it is to create a new component for the JAL functional simulator. As an example we take a LED. The first choice we have to make, is what kind of mode we want to simulate the LED, we can create a component in one of the following modes:</p>
+<p><br></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>digital mode </li>
+<li>analog mode </li>
+<li>virtual mode </li>
+</ul>
+<p><br></p>
+<p>For a LED, the virtual mode is not very convenient. At this stage of the development, the analog mode only lives in my brain, so let's&nbsp; design a LED in the digital mode.</p>
+<p><br></p>
+<p>The first part is equal for all components, be sure everything is included and derive the new device from the base class. </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=493 height=207 alt="" src="jalfs_led_devices_img1.png"></p>
+<p><br></p>
+<p><span class=rvts10>line 4:</span> importing of "device" will ensure everything needed is available</p>
+<p><span class=rvts10>line 12:</span> define (not create)&nbsp; a new object, called "tLED", derived from "tDevice"</p>
+<p><br></p>
+<p>Now we have to define 2 procedures within this new class, with predefined names;</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=363 height=69 alt="" src="jalfs_led_devices_img2.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=492 height=72 alt="" src="jalfs_led_devices_img3.png"></p>
+<p><br></p>
+<p>In Object Oriented Programming (OOP), these procedures are called "methods" of the class.</p>
+<p>These two methods should always be available and should have predefined names so the main program can always use them. The first procedure "init" is called during creation of an instance (the real variable) of the class and the procedure "execute" is called to update the state of the device, which in case of a LED is when one or both of the connections changes.</p>
+<p><br></p>
+<p>Let's take a closer look at the "init" method.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=520 height=257 alt="" src="jalfs_led_devices_img4.png"></p>
+<p><br></p>
+<p><span class=rvts10>Line 20 .. 23:</span> the definitions of the IO-pins. For each pin we start with a name, we define the type of IO-pin and the start value. The next 2 values Voltage and R (Resistance), are the Thévenin definition of a linear 2-pole component. In fact these two constants are only needed for analog simulation, so strictly speaking we could just leave them out. Thévenin stated that each linear 2-pole can be replaced by an ideal Voltage-source in series with a resistor. As a LED is a passive element, the Voltage is of course 0. Although a LED is highly not-linear, for simplicity we assume that it draws a current of 20 mA at 3V, so that explains the value of the R-constant.</p>
+<p><span class=rvts10>line 27,28:</span> define the shape for the LED component. Here we've chozen a simple circle with a diameter of at least 30 pnt.</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=582 height=343 alt="" src="jalfs_led_devices_img5.png"></p>
+<p><br></p>
+<p><br></p>
+<p>And that's all there is !!</p>
+<p>No there's more, at least if you want it / need it / ...</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Multi-level device</span></p>
+<p>.... TODO ....</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Testing the device</span></p>
+<p>And here we are going to use another beautiful construction of Python, when you try to run a library file as the main file, you run a dedicated part of the code in the library file (usually shown at the bottom of the library file). So with adding just 1 line of code (line 69 in the picture below) we can fully test the component and especially it's GUI. The rest of the code shown in the figure is identical for each component.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=524 height=275 alt="" src="jalfs_led_devices_img7.png"></p>
+<p><br></p>
+<p>When you now run the library file, you get a small canvas (which is exactly the same canvas as in JALsPy !!) and can do small tests.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=404 height=322 alt="" hspace=1 vspace=1 src="jalfs_led_devices_img11.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

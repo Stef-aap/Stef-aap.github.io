@@ -1,0 +1,11 @@
+timer_config
+timer_read
+timer_start
+timer_stop
+timer_write 
+timer_countdown
+
+aap,var byte input, var byte outpur
+maar nog een regel
+synedit is een "behalbe gara"
+aap [beer coala]

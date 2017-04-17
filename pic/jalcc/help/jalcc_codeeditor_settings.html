@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Settings</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #efefef;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="17" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>January 2005</span></p>
+<p><span class=rvts1>CodeEditor Settings</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>You can enter the editor (and compiler) settings either through the mainmenu (Settings / ... Settings) or through the right mouse menu in the editor (Editor Settings). Depending on the filetype in the editor more or less tabs may be shown.</p>
+<p>In this chapter only the general settings are discussed, see the special code editors for the individual extra settings.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Visual appearance</span></p>
+<p>At the top-left there's a list with all the elements that are recognized. This lists may differ, depending on the filetype. Selecting an item in the list, will show the attributes (font, color) of the selected item. Changing can be done by clicking the appropriate attribute or color. The font is shared among all the items. When selecting a font, only the fonttype and fontsize are relevant, because the other font attributes are overridden by the attributes of the individual items.</p>
+<p>"Space" is a special item, which is the same as the general background. So when selecting space, all the attribute controls are made invisible.</p>
+<p>The background color can be setting, by pressing the panel "Background Color", this will popup the normal windows colordialog, so you add a subtle color to the background.</p>
+<p>When "Smart Tabs" is enabled, tabbing jumps to the next non-white space form the lines above and the tabs are implemented as intend.</p>
+<p>"Convert Tabs to Spaces" will convert all inserted tabs into spaces. Also on opening a file, tab-characters are replaced by spaces, if this option is set.</p>
+<p>"Tab Width" specifies the tabwidth, when smart tabs are disabled or when no non-white space is in the above lines.</p>
+<p>"Show Special Characters" will show all non-printable characters (like CR / LF).</p>
+<p>"Right Margin" specifies the position of theright margin, specified in characters. When you don't want to see the right margin, set the position to zero.</p>
+<p>The gutter is necessary if you want to use the special markers. Normal bookmarks (although not visible) still work when gutter is invisble.</p>
+<p>At the bottom you can set the color of the tab in the main program.</p>
+<p>In the middle, the preview editor is shown. The preview editor shows a standard text, you can edit the text to view highlighter effects, but changes are not stored. But you can supply your own example file, by putting the file in the main program directory, with the name "EDT_SAMP.&lt;ext&gt;" , where extension is the default extension for the selected application. So for JAL you should supply a file called "EDT_SAMP.JAL"</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=501 height=516 alt="" src="jalcc_codeeditor_settings_img1.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Templates </span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #808080; border-style: solid;">
+<tr valign=top>
+<td width=391 valign=top style="border-color: #808080; border-style: solid;">
+<p>Templates can be simply edit in the memo shown on the right. This is just a very simple texteditor like notepad. Each line represents 1 template. </p>
+<p>&nbsp;&nbsp; </p>
+<p>You can use the following codes to format the inserted text (these codes alos yields for macros) </p>
+<p>&nbsp; </p>
+<p> -&nbsp;&nbsp;&nbsp; A single - symbol means a horizontal separator</p>
+<p> |&nbsp;&nbsp;&nbsp; A single | symbol means a vertical separator</p>
+<p> \=&nbsp;&nbsp;&nbsp; Go to the next line</p>
+<p> \&gt;&nbsp;&nbsp;&nbsp; Go to the next line with an indentation</p>
+<p> \&lt;&nbsp;&nbsp;&nbsp; Go to the next line out of an intendation</p>
+<p>"name"&nbsp; Field to be inserted </p>
+<p>A template should always end with "\=" , otherwise the automatic insertion doesn't work correctly.</p>
+</td>
+<td width=417 valign=middle style="border-color: #808080; border-style: solid;">
+<p class=rvps3><img width=460 height=496 alt="" src="templates.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Macros</span></p>
+<p>You can add macros to&nbsp; &lt;Ctrl&gt;&lt;Alt&gt;&lt;X&gt;&nbsp; and&nbsp; &lt;Ctrl&gt;&lt;Alt&gt;&lt;Shift&gt;&lt;X&gt; , where &lt;X&gt; is a single letter 'A' .. 'Z'&nbsp; or digit '1' .. '9'.</p>
+<p>The formatting syntax is the same as shown above for templates.</p>
+<p>The macro must fit on a single line, and should start with character of digit you want for &lt;X&gt;.</p>
+<p>The shift is invoked by entering a underscore at the second position of a line. There must be at least 1 space between the &lt;X&gt; and the content of the macro (which is not part of the content of the macro).</p>
+<p>JALcc automatically orders the macros and will translate the &lt;X&gt; character to uppercase.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=578 height=154 alt="" src="jalcc_codeeditor_settings_img3.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Proposals</span></p>
+<p>The proposals can be edited here. They are not ordered, because order should be set by the user, to get the most significant items at the top.&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=214 height=231 alt="" src="jalcc_codeeditor_settings_img4.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>ShortStrings</span></p>
+<p>Shortstrings can be edited here.</p>
+<p>The word that should be typed by the user, should be placed on a new line, without any preceeding characters.</p>
+<p>The code that should be generated follows on the next lines, all preceeded by an equal sign ("=").</p>
+<p>Below is an example for the words "proc" and "bg".</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=284 height=240 alt="" src="jalcc_codeeditor_settings_img5.gif"></p>
+
+</body></html>

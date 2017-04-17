@@ -1,0 +1,207 @@
+<HTML><HEAD><TITLE>Wysiwyg Editor</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>December 2004</SPAN></P>
+<P><SPAN class=RVTS1>Wysiwyg Editor</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>The editor is a very simple wysiwyg editor, capable of handling HTML*, RTF, RVF and TXT files. The concept is specially designed to make a number of (reasonable looking) documents, all having an equal style, in a very easy way. To give an impression of the possibilities, this documentation and this website are completly made by the Wysiwyg Editor in JALcc.</P>
+<P>Therefor, instead of storing styles in each document, the styles are part of JALcc itself, and still can be controlled fully by the user. This may sound a bit weird, but if you're familiar with html-pages build with Cascade-stylesheets, you'll see the resemblance. Only the styleset is stored in the document. JALcc can store a number of different stylesets (definied by the user). By changing a styleset, all documents having that styleset, will change their appearance.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=557 height=373 src="punthoofd_editor.gif">&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>On the right of the editor window, are the textstyles of styleset 1 (spin button at the right-bottom corner).</P>
+<P>Below the editor window are the paragraph-styles, list-styles and some insertion tools.</P>
+<P>Besides these special buttons, the following control mechanism are available</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Full Drag &amp; Drop (see for more information&nbsp;<SPAN class=RVTS4>XXXXXX</SPAN>&nbsp;)&nbsp;</LI>
+<LI>Right Mouse / doule click button menu&nbsp;</LI>
+<LI>Special Keyboard keys&nbsp;</LI>
+<LI>Main program menu&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Drag &amp; Drop</SPAN></P>
+<P>For dropping items on a document, the following rules apply:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>HTML-files are inserted as (relative) links, with their title as the visible text (if the dropped HTML-file doesn't have a title, the filename is used)&nbsp;</LI>
+<LI>TXT-files are inserted as contents (in the current textstyle)&nbsp;</LI>
+<LI>CLIPBOARD is inserted as contents, both (formatted) text and graphics are supported. Formatting is done according to "the clossest match"&nbsp;</LI>
+<LI>URL(links) are inserted as (absolute) links&nbsp;</LI>
+<LI>GIF, JPEG, PNG are inserted as (relative) links&nbsp;</LI>
+<LI>BMP, WMF, ICO are first converted to PNG, and then inserted as (relative) links.&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>It may not always be clear what type of drop is used, so here the most common types of drops:</P>
+<P>Clipboard Dropping</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Copy / Cut / Paste / ^C / ^X / ^V uses the clipboard&nbsp;</LI>
+<LI>dragging a piece of text + graphics from a Word document, uses the clipboard&nbsp;</LI>
+</UL>
+<P>File / Link Dropping</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>dragging a (number of) file(s) from the explorer&nbsp;</LI>
+<LI>dragging the address from an HTML page&nbsp;</LI>
+<LI>dragging the URL-bar or URL-Icon from a browser&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>HTML files</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>remembers caret after closing&nbsp;</LI>
+<LI>html-files don't support tabs (they are replaced by spaces)&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>RTF formatting</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>always styleset 1 is used&nbsp;</LI>
+<LI>no title information&nbsp;</LI>
+<LI>not remembering caret after closing&nbsp;</LI>
+<LI>&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Mouse Actions</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=190 height=98 src="punthoofd_rm.gif">Right Mouse Menu</P>
+<P>DoubleClick: selects an item and displays "Edit Item Properties Dialog". Not sure this a good thing ??</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Special Keyboard Keys</SPAN></P>
+<P>In general all the special keys that modern editors have, are available.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctrl-S = save the file</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctrl-tab = tab</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctrl_Enter = insert pagebreak ??</P>
+<P>This part of the program may not be completly.</P>
+<P>Standard Clipboard combinations (both standard like Ctrl+C and alternative</P>
+<P>like Ctrl+Ins), undo (Ctrl+Z or Alt+Backspace), redo (Shift+Ctrl+Z or</P>
+<P>Shift+Alt+Backspace), new line inside the paragraph (Shift+Enter - if</P>
+<P>allowed).</P>
+<P>Delete word left (Ctrl+Backspace), go to the beginning (Ctrl+Home), to the</P>
+<P>end (Ctrl+End).</P>
+<P>In ReadOnly: tab (or ctrl+tab) goes to the next hyperlink, Enter executes</P>
+<P>the active hyperlink.</P>
+<P>When resizing table columns: press Ctrl to resize only column to the left</P>
+<P>(by default both columns to the left and to the right are resized)</P>
+<P>When resizing images: press Escape to cancel resize. Hold Ctrl for</P>
+<P>symmetrical resize. Hold Shift for proportional resize (resizing is always</P>
+<P>proportional when resizing by corner handles).</P>
+<P>When dragging in the same editor: press Escape to cancel. Press Ctrl to copy</P>
+<P>intead of move (when copying to a foreign application, that application</P>
+<P>controls a dragging mode itself, but generally Ctrl means copy).&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Main Program Menu</SPAN></P>
+<P>EDIT: has most commonly used actions, often also available by other means</P>
+<P>TABLE: special actions on tables (merge/split/add/remove cells/rows/columns)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Style Buttons (general)</SPAN></P>
+<P>The active stylebuttons, shows the actual style of the editor at the place of the caret or of the selection.</P>
+<P>By clicking on a style the actual style, at the place of the caret or the selection will be changed.</P>
+<P>With a RightMouse click on a style button, you can change the style definition of the selected style.</P>
+<P>Styles can also be changed through the main-menu (File / Styles...).</P>
+<P>Some textstyles have special meaning, like "jump or link style", see for more information "<SPAN class=RVTS4>Styles</SPAN>"</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>StyleSet</SPAN></P>
+<P>&nbsp;<IMG width=28 height=21 src="punthoofd_styleset.gif">&nbsp;Definies the styleset for this document.&nbsp;</P>
+<P>For HTML pages the styleset for all the html-files in the current path are set to the selected style.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Readonly</SPAN></P>
+<P>&nbsp;<IMG width=37 height=25 src="punthoofd_readonly.gif">&nbsp;by checking this checkbox, the file becomes readonly and all style buttons will disappear.</P>
+<P>If a document has been made readonly, it will stay readonly (also on subsequent opening), until the checkbox is cleared.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Align and Indent</SPAN></P>
+<P>&nbsp;<IMG width=121 height=24 src="punthoofd_align_controls.gif">&nbsp;the indention can be set for each styleset.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Boxed, windows</SPAN></P>
+<P>&nbsp;<IMG width=71 height=22 src="punthoofd_box_controls.gif">&nbsp;The first button draws a border around the selected (or new) paragraph.</P>
+<P>The second and third button, allows to create a windows caption (wc) and a windows workspace (ww).</P>
+<P>I'm not sure the latter 2 paragraph styles will be continiued.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Lists</SPAN></P>
+<P>&nbsp;<IMG width=49 height=23 src="punthoofd_list_controls.gif">&nbsp;The indention and styles of bullet and numerical liststyles can be definied for each styleset.</P>
+<P>For the moment, just one level of lists is supported.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Background Color</SPAN></P>
+<P>&nbsp;<IMG width=25 height=23 src="punthoofd_backgroundcolor.gif">&nbsp;this will let you define the page background color</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Inserting Pictures</SPAN></P>
+<P>Inserting of pictures is supported for type GIF (also animated), ICO, BMP, JPEG images. EMF and WMF are not supported, because they can not be shown in Mozilla. Insertion can be done by&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Drag &amp; Drop,&nbsp;</LI>
+<LI>Copy/Cut &amp; Paste,&nbsp;</LI>
+</UL>
+<P>&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI><IMG width=22 height=22 src="punthoofd_insert_image.gif">&nbsp;through the insert picture button&nbsp;</LI>
+</UL>
+<P>&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI><IMG width=36 height=23 src="punthoofd_editor_img1.gif">&nbsp; through the screencapture button&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>If you can avoid the first and second method (because there's only one image involved), AVOID THEM !!</P>
+<P>The second and third method are much faster, because they know only 1 image is coming, while the other methods can expect (and thus have to iterate through) all possible items. You can easily try this by inserting a copy of the screen and then try to change the imported image by double-clicking, first try print-screen+ctrl-V then try the screen capture button.</P>
+<P>With the capture button, it's possible to capture any part of the screen, to be inserted as a picture. Normally on starting a capture, JALcc&nbsp; will minimize itself, until the capture is completed. By checking the checkbox next to the capture button, it's also possible to capture parts of JALcc itself, because it won't be minimized. In case of HTML-documents, the picture will be stored in the same directory as the document, with a name &lt;doc-name&gt;_img&lt;xxx&gt;.gif, where &lt;xxx&gt; is a number starting at 1.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Image Manager</SPAN></P>
+<P>The image manager is a simple tool to get pictures (or parts of it) from a camera into your documents. This module is made for the following scenario: you shoot a whole bunch of pictures,&nbsp; want to select a few of them for your documentation, do some simple manipulations (like rotate / flip) and prepare the camera for next use, by deleting all the pictures from the camera.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=23 height=21 src="punthoofd_editor_img5.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Basically the image manager is just a normal explorer (without the annoyances of ms-explorer) with some extra buttons and a fully configurable favorites list.</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=502 bgcolor=#FFFFE6 valign=top>
+<P><IMG width=514 height=366 src="punthoofd_editor_img6.gif"></P></TD>
+<TD width=265 bgcolor=#FFFFE6 valign=top>
+<P>Through the right mouse menu in the preference list, you can add or remove items to/from the preference list.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Adding, adds the current path to the preferences. Right clicking on an icon, drops the path into the treebranch, right clicking on the label, inserts above the current item.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=280 bgcolor=#FFFFE6 valign=top>
+<P><IMG width=285 height=261 src="punthoofd_editor_img7.gif"></P></TD>
+<TD width=487 bgcolor=#FFFFE6 valign=top>
+<P>Image manipulation shold be done by the program of your own preference.&nbsp;</P>
+<P>I use ImageMagick, a great freeware package.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>In ImageMagick the action are performed by the module Mogrify. Pressing on example, will show the commands I use.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Insert Table</SPAN></P>
+<P>&nbsp;<IMG width=23 height=21 src="punthoofd_insert_table.gif">&nbsp;See for tables the special paragraph&nbsp;&nbsp;<A class=RVTS4 href="punthoofd_table.html">Editor, tables</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Inserting Files</SPAN></P>
+<P>&nbsp;<IMG width=24 height=22 src="punthoofd_insert_image.gif">&nbsp;Inserts the contents of a file (including styles) into the place of the caret.</P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

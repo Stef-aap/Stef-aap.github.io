@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Brick Command-Shell</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="54" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Brick Command-Shell </span><a href="pw_controls_manager_img1.ico"><img width=33 height=32 alt="" src="pw_controls_manager_img1.ico"></a><span class=rvts8>&nbsp; ( december 2008 )</span></p>
+<p><span class=rvts10>Application Designer</span> / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>From the user point of view, it consists of two tab pages, an interactive shell, which can perform general IO and catch error messages, where you can perform calculations, keep notes and interact with the active environment. The second tab contains a general viewer, organized as a browser, where you can view all kinds of documents and webpages.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>ToDo</span></p>
+<p>Although there seems still a lot to be done, the command-shell is already a very powerful brick.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>special color settings for the editor, so that triple quoted strings (very handy for notes) are clearly visible </li>
+<li>disabling autocompletion doesn't work yet </li>
+<li>ugly empty line, when executing code, with empty lines at the end </li>
+<li>replacing IE-webbrowser by webkit </li>
+<li>including CHMlib as a viewer component (preferable both for Linux and Windows) </li>
+<li>including some kind of pdf viewer, or does webkit has a plugin ? </li>
+<li>click on linenumber in error message, jump into correct location in the editor (if any available) </li>
+<li>better management of visited sites and forward / backward buttons ( new instead of append ?) </li>
+<li>let the user remove items from the history list </li>
+<li>better shell icon </li>
+<li>browser status in statusbar </li>
+<li>in error message replace "&lt;string&gt;" by "&lt;editor&gt;" or even the filename if already known </li>
+<li>Stepping through previous commands should be done better ( popup window ?) </li>
+<li>during writing this, a bug in correct displaying wxp-widgets is encountered </li>
+<li>grouping tCMD_Shell_Doc = tCMD_Shell + tDoc_Viewer </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Interactive Command Shell</span></p>
+<p>In fact the command shell is build around a standard Scintilla editor, so thereby it inherits all Scintilla's features, including automatic save and restore.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="pw_brick_cmd_shell_img1.png"><img width=166 height=85 alt="" src="pw_brick_cmd_shell_img1.png"></a></p>
+<p><br></p>
+<p><span class=rvts10>StdOut, StdErr</span></p>
+<p>When the checkboxes are checked, program output and error messages are caught by this window. When the brick is closed, the message handlers are restored to the previous ones.</p>
+<p><br></p>
+<p><span class=rvts10>Autocompletion</span></p>
+<p>If the checkbox is checked, all text you type in the command shell, will get (brute force) autocompletion and parameter suggestion features. When typing large amounts of comment this can be annoying, so you can disable the autocompletion with the checkbox.</p>
+<p><br></p>
+<p><span class=rvts10>Execute Code</span></p>
+<p>When pressing enter after the last line, the command-shell grabs all code, starting at the end and going up until a line with zero indent is found. This code is executed in the environment's namespace. So depending on the program, you can often really interact with the running code. With <span class=rvts10>Ctrl-Up</span> en <span class=rvts10>Ctrl-Down</span>, you can step through previous given commands and select one.</p>
+<p><br></p>
+<p><span class=rvts10>Commands</span></p>
+<p>If the last line starts with an "&gt;" (without the quotes) at the very first location and has no indent, the rest of the line is send as a command to the main application. It's up to the main application what to do with the command, e.g. the application can send it to a debugger to control it's behavior.</p>
+<p><br></p>
+<p><span class=rvts10>Code Snippet</span></p>
+<p>F7 invokes the standard code snippet manager, which is fully integrated.</p>
+<p><br></p>
+<p><span class=rvts10>Help</span></p>
+<p>help can invoked in the standard Python way, but also with a starting question mark "?". So the following 2 code lines are identical</p>
+<p>&nbsp; <span class=rvts10>help ( wxPython )</span></p>
+<p>&nbsp; <span class=rvts10>?wxPython</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>General Viewer</span></p>
+<p>The viewer with typical navigation buttons, can display a whole range of files: html (+ frames, +CSS), html-widgets, websites, pdf, MS-office-documents, pdf, ... at least this yields for the Windows Operating System. When used in another OS, it will use the default browser for files that can't be displayed with wx.html.HtmlWindow. So in that case the capabilities of the default browser will determine if a document can be viewed or not. The combobox keeps track of the history and is automatically saved and restored.</p>
+<p>Another important feature of this browser, is the capability to use and create shortcuts (with or without search keyword).</p>
+<p><br></p>
+<p><a href="pw_brick_cmd_shell_img2.png"><img width=672 height=245 alt="" src="pw_brick_cmd_shell_img2.png"></a></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>General</span></p>
+<p>You can just type an URL in the combobox. The prefix "http://" may be left out. Instead of an URL you can also type a local filename or use the browse button to locate a local file.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>?</span></p>
+<p>Typing just 1 simple question mark in the combobox, generates an actual information page, explaining all features, displaying all system and user settings and listing of visited pages.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Shortcuts</span></p>
+<p>Here is an example of a shortcut list. The Wikipedia shortcuts are builtin and can not be changed. The shortcuts may look a bit cryptic, but it's important to realize that the user determines the shortcuts. Shortcuts are application wide, so creating them in own application, will make them available in other PyLab_Works applications.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=589 height=210 alt="" src="pw_brick_cmd_shell_img3.png"></p>
+<p><br></p>
+<p>For explaining the capabilities, we'll use the example of above. All commands are activated by pressing the Enter-key.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Using Shortcuts</span></p>
+<p>To start a new Google search window, without a keyword search, we just type <span class=rvts10>g</span></p>
+<p>To search for wxPython with Google, we type <span class=rvts10>g.wxPython</span></p>
+<p>In the list above we see that getting pages from MathWorks (MatLab) we have 2 entries, one for opening the webpage without a keyword search <span class=rvts10>ml</span> and one shortcut for searching with a keyword <span class=rvts10>ml_</span> .</p>
+<p>So simply going to MathWorks, is done by <span class=rvts10>ml</span></p>
+<p>And searching the MathWorks site, is done by <span class=rvts10>ml_.pendulum</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Adding Shortcuts</span></p>
+<p>Adding (or replacing) shortcuts is very simple, just use a two points and type the full URL, and if needed with a placeholder for the search term. So if we want to create a new shortcut,<span class=rvts10> p</span>,&nbsp; that performs a search on the python site, we should type:</p>
+<p><span class=rvts10>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p..http://google.com/search?domains=www.python.org&amp;sitesearch=www.python.org&amp;sourceid=google-search&amp;q=%%%%</span></p>
+<p>And now we search the python site, with <span class=rvts10>p.dictionary</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Deleting Shortcuts</span></p>
+<p>To remove the above created python search shortcut, simply type <span class=rvts10>p..</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Handling File-Types</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=227 valign=middle style="background-color: #ffffd4;">
+<p><span class=rvts10>URL / file type</span></p>
+</td>
+<td width=262 valign=middle style="background-color: #ffffd4;">
+<p><span class=rvts10>Windows</span></p>
+</td>
+<td width=251 valign=middle style="background-color: #ffffd4;">
+<p><span class=rvts10>Linux</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=227 valign=middle style="background-color: #ffffd4;">
+<p>local html</p>
+</td>
+<td width=262 valign=middle style="background-color: #ffffd4;">
+<p>HtmlWindow</p>
+</td>
+<td width=251 valign=middle style="background-color: #ffffd4;">
+<p>HtmlWindow</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=227 valign=middle style="background-color: #ffffd4;">
+<p>local html with wxWidgets</p>
+</td>
+<td width=262 valign=middle style="background-color: #ffffd4;">
+<p>HtmlWindow</p>
+</td>
+<td width=251 valign=middle style="background-color: #ffffd4;">
+<p>HtmlWindow</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=227 valign=middle style="background-color: #ffffd4;">
+<p>local html with CSS</p>
+</td>
+<td width=262 valign=middle style="background-color: #ffffd4;">
+<p>HtmlWindow</p>
+</td>
+<td width=251 valign=middle style="background-color: #ffffd4;">
+<p>HtmlWindow</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=227 valign=middle style="background-color: #ffffd4;">
+<p>http://</p>
+</td>
+<td width=262 valign=middle style="background-color: #ffffd4;">
+<p>embedded IE</p>
+</td>
+<td width=251 valign=middle style="background-color: #ffffd4;">
+<p>external default browser</p>
+<p>should become WebKit</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=227 valign=middle style="background-color: #ffffd4;">
+<p>txt, dat</p>
+</td>
+<td width=262 valign=middle style="background-color: #ffffd4;">
+<p>embedded IE</p>
+</td>
+<td width=251 valign=middle style="background-color: #ffffd4;">
+<p>?</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=227 valign=middle style="background-color: #ffffd4;">
+<p>doc, xls, ppt</p>
+</td>
+<td width=262 valign=middle style="background-color: #ffffd4;">
+<p>embedded IE</p>
+</td>
+<td width=251 valign=middle style="background-color: #ffffd4;">
+<p>N.A.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=227 valign=middle style="background-color: #ffffd4;">
+<p>swf</p>
+</td>
+<td width=262 valign=middle style="background-color: #ffffd4;">
+<p>embedded IE</p>
+</td>
+<td width=251 valign=middle style="background-color: #ffffd4;">
+<p>?</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=227 valign=middle style="background-color: #ffffd4;">
+<p>pdf</p>
+</td>
+<td width=262 valign=middle style="background-color: #ffffd4;">
+<p>embedded IE</p>
+</td>
+<td width=251 valign=middle style="background-color: #ffffd4;">
+<p>?</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=227 valign=middle style="background-color: #ffffd4;">
+<p>chm</p>
+</td>
+<td width=262 valign=middle style="background-color: #ffffd4;">
+<p>external</p>
+</td>
+<td width=251 valign=middle style="background-color: #ffffd4;">
+<p>? should become chmlib</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>N.A. = Not Available</p>
+<p>embedded IE, should be replaced by webkit</p>
+<p>No solution found yet to embed CHM under windows.</p>
+
+</body></html>

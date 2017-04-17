@@ -1,0 +1,532 @@
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+
+
+
+-- define 2 motors with feedback on J3
+;;;;;<;mac> RPD_Motor_L293    Arm2, Arm1  = J3
+var volatile bit Arm2_potm_pin is J3L1
+var volatile bit Arm2_Hbridge_1 is J3L2
+var volatile bit Arm2_Hbridge_2 is J3L3
+var volatile bit Arm1_potm_pin is J3R1
+var volatile bit Arm1_Hbridge_1 is J3R2
+var volatile bit Arm1_Hbridge_2 is J3R3
+J3L1_direction = input
+J3L2_direction = output
+J3L3_direction = output
+J3R1_direction = input
+J3R2_direction = output
+J3R3_direction = output
+
+-- Define the ADC-channels for the potmeters
+const byte Arm2_Pot_ADCchan = 2
+const byte Arm1_Pot_ADCchan = 3
+
+-- Define functions for raw potmeter values
+function Arm2_potm return byte is
+  return PIC_ADC_low_res(2)
+end function
+function Arm1_potm return byte is
+  return PIC_ADC_low_res(3)
+end function
+;;;;;<;/mac>
+
+-- define 2 motors with feedback on J9
+;;;;;<;mac> RPD_Motor_DUAL_L272   Draai, Knijper = J9
+var volatile bit Draai_potm_pin is J9L1
+var volatile bit Draai_Hbridge_1 is J9L2
+var volatile bit Draai_Hbridge_2 is J9L3
+var volatile bit Knijper_potm_pin is J9R1
+var volatile bit Knijper_Hbridge_1 is J9R2
+var volatile bit Knijper_Hbridge_2 is J9R3
+J9L1_direction = input
+J9L2_direction = output
+J9L3_direction = output
+J9R1_direction = input
+J9R2_direction = output
+J9R3_direction = output
+
+-- Define the ADC-channels for the potmeters
+const byte Draai_Pot_ADCchan = 4
+const byte Knijper_Pot_ADCchan = 5
+
+-- Define functions for raw potmeter values
+function Draai_potm return byte is
+  return PIC_ADC_low_res(4)
+end function
+function Knijper_potm return byte is
+  return PIC_ADC_low_res(5)
+end function
+;;;;;<;/mac>
+
+-- define a JoyStick on J1
+;;;;;<;mac> RPD_JoyStick     JoyStick = J1
+-- define all IO-pins
+var volatile bit JoyStick_LED1 is J1L2
+var volatile bit JoyStick_LED2 is J1L3
+var volatile bit JoyStick_LED3 is J1R2
+var volatile bit JoyStick_LED4 is J1R3
+var volatile bit JoyStick_SWITCH1 is J1L2
+var volatile bit JoyStick_SWITCH2 is J1L3
+var volatile bit JoyStick_SWITCH3 is J1R2
+var volatile bit JoyStick_SWITCH4 is J1R3
+
+-- define storage for potmeter NULL position
+var volatile byte JoyStick_POTX_NULL
+var volatile byte JoyStick_POTY_NULL
+
+-- Define Debounced Switches
+var byte JoyStick_Switches_Shadow = 0xFF
+var bit JoyStick_S1 at JoyStick_Switches_Shadow : 4
+var bit JoyStick_S2 at JoyStick_Switches_Shadow : 5
+var bit JoyStick_S3 at JoyStick_Switches_Shadow : 6
+var bit JoyStick_S4 at JoyStick_Switches_Shadow : 7
+
+-- Define RAW Switches
+var bit JoyStick_S1_raw at JoyStick_Switches_Shadow : 0
+var bit JoyStick_S2_raw at JoyStick_Switches_Shadow : 1
+var bit JoyStick_S3_raw at JoyStick_Switches_Shadow : 2
+var bit JoyStick_S4_raw at JoyStick_Switches_Shadow : 3
+
+-- all LED/Switch pins are set to outputs
+-- so the LEDs can be controled
+J1L2_direction = output
+J1L3_direction = output
+J1R2_direction = output
+J1R3_direction = output
+-- all LEDs are set off (IO-pin made high
+J1L2 = high
+J1L3 = high
+J1R2 = high
+J1R3 = high
+
+-- Define the ADC-channels for the potmeters
+const byte JoyStick_POTX = 0
+const byte JoyStick_POTY = 1
+
+-- Define functions for raw potmeter values
+function JoyStick_X return byte is
+  return PIC_ADC_low_res(0)
+end function
+function JoyStick_Y return byte is
+  return PIC_ADC_low_res(1)
+end function
+
+-- Measure the NULL position of the potmeters 
+JoyStick_POTX_NULL = JoyStick_X
+JoyStick_POTY_NULL = JoyStick_Y
+
+-- Define functions for 2s-complement potmeter values
+function JoyStick_X_2s return byte is
+  return JoyStick_X - JoyStick_POTX_NULL
+end function
+function JoyStick_Y_2s return byte is
+  return JoyStick_Y - JoyStick_POTY_NULL
+end function
+
+-- function to derive all the debounced and raw switch values
+function JoyStick_Switches'get return byte is
+var bit new_bit
+
+  J1L2_direction = input
+  new_bit = J1L2
+  J1L2_direction = output
+  if new_bit != JoyStick_S1_raw then JoyStick_S1_raw = JoyStick_S1 end if
+  JoyStick_S1 = new_bit
+
+  J1L3_direction = input
+  new_bit = J1L3
+  J1L3_direction = output
+  if new_bit != JoyStick_S2_raw then JoyStick_S2_raw = JoyStick_S2 end if
+  JoyStick_S2 = new_bit
+
+  J1R2_direction = input
+  new_bit = J1R2
+  J1R2_direction = output
+  if new_bit != JoyStick_S3_raw then JoyStick_S3_raw = JoyStick_S3 end if
+  JoyStick_S3 = new_bit
+
+  J1R3_direction = input
+  new_bit = J1R3
+  J1R3_direction = output
+  if new_bit != JoyStick_S4_raw then JoyStick_S4_raw = JoyStick_S4 end if
+  JoyStick_S4 = new_bit
+
+  return JoyStick_Switches_Shadow
+end function
+;;;;;<;/mac>
+
+var byte ISR_count
+var bit  ISR_flag
+const byte motor_max_power = 32
+
+
+-- for the timer we take 1 msec,
+-- so this is also the bandwidth of the feedback loop = 1 kHz
+-- which allow us to do 5000 instructions in each loop
+;;;;;<;mac>  TMR0  20, 500  ;500    ;20 MHz, 1000 usec
+  -- intialize TMR0, including prescaler
+  -- XTAL = 20 MHz,  period = 500 usec
+  OPTION_REG = ( OPTION_REG & ! ( _b_T0CS ))   -- set TMR0 to main oscillator
+  OPTION_REG = ( OPTION_REG & ! ( _b_PSA ))    -- enable prescaler for TMR0
+  OPTION_REG = ( OPTION_REG & 0xF8 ) | 0x03    -- set prescaler to 3 = 1:16
+var volatile byte _tmr0_preset = -156
+;;;;;<;/mac>
+
+
+-- motor 1
+var byte doel1
+
+var bit  Arm1_direction
+var byte Arm1_power = 0
+var bit  new_Arm1_direction
+var byte new_Arm1_power = 0
+
+var bit  Arm2_direction
+var byte Arm2_power = 0
+var bit  new_Arm2_direction
+var byte new_Arm2_power = 0
+
+var bit  Knijper_direction
+var byte Knijper_power = 0
+var bit  new_Knijper_direction
+var byte new_Knijper_power = 0
+
+var bit  Draai_direction
+var byte Draai_power = 0
+var bit  new_Draai_direction
+var byte new_Draai_power = 0
+
+;var byte PID_motor1_Prev_Error2,PID_motor1_Prev_Error1
+;var byte PID_motor1_Sum_Error2,PID_motor1_Sum_Error1
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure ISR is
+pragma interrupt
+
+  if T0IF then
+    -- ADDITION instead of SETTING,
+    -- assures that missed interrupts are also included
+    TMR0 = TMR0 + _tmr0_preset  -- preset counter again
+    ISR_count = ISR_count - 1
+
+    if ISR_count < new_Arm1_power then Arm1_Hbridge_1 = ! new_Arm1_direction
+    end if
+
+    if ISR_count < new_Arm2_power then Arm2_Hbridge_1 = ! new_Arm2_direction
+    end if
+
+    if ISR_count < new_Knijper_power then
+      Knijper_Hbridge_1 = ! new_Knijper_direction
+    end if
+
+    if ISR_count < new_Draai_power then
+      Draai_Hbridge_1 = ! new_Draai_direction
+    end if
+
+    if ISR_count == 0 then
+      ISR_count = motor_max_power
+
+      new_Arm1_power = Arm1_power
+      new_Arm1_direction = Arm1_direction
+      Arm1_Hbridge_1 = Arm1_direction
+      Arm1_Hbridge_2 = Arm1_direction
+
+      new_Arm2_power = Arm2_power
+      new_Arm2_direction = Arm2_direction
+      Arm2_Hbridge_1 = Arm2_direction
+      Arm2_Hbridge_2 = Arm2_direction
+
+      new_Knijper_power = Knijper_power
+      new_Knijper_direction = Knijper_direction
+      Knijper_Hbridge_1 = Knijper_direction
+      Knijper_Hbridge_2 = Knijper_direction
+
+      new_Draai_power = Draai_power
+      new_Draai_direction = Draai_direction
+      Draai_Hbridge_1 = Draai_direction
+      Draai_Hbridge_2 = Draai_direction
+
+      ISR_flag = true
+    end if
+
+    -- must be the last statement, to prevent reentrance
+    T0IF = false        -- clear TMR0 interrupt flag
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- enable interrupts
+-- -----------------------------------------------------------------------------
+T0IE = true   -- enable TMR0 interrupt
+GIE  = true   -- enable general interrupts
+T0IF = false  -- clear TMR0 interrupt flag
+-- -----------------------------------------------------------------------------
+
+
+var byte sec = 0
+var byte speed
+var bit  sign
+var byte potmeter
+
+var byte commando
+var byte commando_goto
+const byte PC_motor = 0b_1100_0000
+
+
+var byte PC_draai_goto
+var byte PC_draai_laatste_commando = 0
+var bit  draai_sign
+const byte PC_draai = 0b_0000_0000
+
+var byte PC_arm1_goto
+var byte PC_arm1_laatste_commando = 0
+var bit  arm1_sign
+const byte PC_arm1 = 0b_0100_0000
+
+var byte PC_arm2_goto
+var byte PC_arm2_laatste_commando = 0
+var bit  arm2_sign
+const byte PC_arm2 = 0b_1000_0000
+
+var byte PC_knijper_goto
+var byte PC_knijper_laatste_commando = 0
+var bit  knijper_sign
+const byte PC_knijper = 0b_1100_0000
+
+
+const drempel = 4
+;JoyStick_LED1 = low
+;JoyStick_LED3 = low
+forever loop
+  if asynch_read_hw(commando) then
+    if (commando & 0b_0011_0000) == 0b_0010_0000 then
+      -- special commando
+      while ! asynch_read_hw(commando_goto) loop end loop
+      if    (commando & PC_motor) == PC_draai then
+        PC_draai_goto   = commando_goto
+      elsif (commando & PC_motor) == PC_arm1 then
+        PC_arm1_goto    = commando_goto
+      elsif (commando & PC_motor) == PC_arm2 then
+        PC_arm2_goto    = commando_goto
+        if    (PC_arm2_goto < Arm2_potm) then
+          arm2_sign = low;high
+        elsif (PC_arm2_goto > Arm2_potm) then
+          arm2_sign = high;low
+        end if
+
+        
+      elsif (commando & PC_motor) == PC_knijper then
+        PC_knijper_goto = commando_goto
+      end if
+    else
+      if (commando & PC_motor) == PC_draai then
+        PC_draai_laatste_commando = commando & 0b_0011_1111
+      elsif (commando & PC_motor) == PC_arm1 then
+        PC_arm1_laatste_commando = commando & 0b_0011_1111
+      elsif (commando & PC_motor) == PC_arm2 then
+        PC_arm2_laatste_commando = commando & 0b_0011_1111
+
+      elsif (commando & PC_motor) == PC_knijper then
+        PC_knijper_laatste_commando = commando & 0b_0011_1111
+      end if
+    end if
+  end if
+  
+  if sec >= 10 then
+;     aap = PIC_ADC_low_res(3)
+;    asynch_send_hw(JoyStick_X)
+;    asynch_send_hw(JoyStick_Y)
+    asynch_send_hw(0xFF)
+
+
+    -- MOTOR DRAAI  ******************************************
+    potmeter = Draai_potm
+    asynch_send_hw(potmeter)
+    speed = 10
+    if PC_draai_laatste_commando != 0 then
+      If (PC_draai_laatste_commando & 0b_0011_0000) == 0 then
+        sign = draai_direction
+        speed = 0
+      else
+        speed = (PC_draai_laatste_commando & 0b_0000_1111) * 2
+        sign  = (PC_draai_laatste_commando & 0b_0010_0000) > 0
+      end if
+    else
+      If    JoyStick_Switches == 0b_1100_1100 then
+        sign = high
+      Elsif JoyStick_Switches == 0b_0100_0100 then
+        sign = low
+      else
+        speed = 0
+      End if
+    end if
+    If ((potmeter >= 0xCC) & ! sign) |
+       ((potmeter <= 0x3E) & sign)
+    then
+       speed = 0
+    end if
+
+    -- transport motor-value to ISR
+    GIE = false
+      if speed != 0 then Draai_direction = sign end if
+      Draai_power = speed     ;0..31
+    GIE = true
+
+
+    -- ARM1  ******************************************
+
+    if PC_arm1_laatste_commando != 0 then
+      If (PC_arm1_laatste_commando & 0b_0011_0000) == 0 then
+        speed = 0
+      else
+        speed = (PC_arm1_laatste_commando & 0b_0000_1111) * 2
+        sign  = (PC_arm1_laatste_commando & 0b_0010_0000) > 0
+      end if
+    else
+      speed = JoyStick_Y
+      sign = speed >= JoyStick_POTY_NULL
+      if sign then speed = speed - JoyStick_POTY_NULL
+      else speed = JoyStick_POTY_NULL - speed
+      end if
+      speed = speed >> 1;2
+      if speed < drempel then speed = 0 else speed = speed - drempel end if
+    end if
+    potmeter = Arm1_potm
+    asynch_send_hw(potmeter)
+    If ((potmeter >= 0xB6) &  sign) | ;! sign
+       ((potmeter <= 0x84) & ! sign)     ; sign
+    then
+       speed = 0
+    end if
+    -- transport motor-value to ISR
+    GIE = false
+      if speed != 0 then Arm1_direction = ! sign end if
+      Arm1_power = speed
+    GIE = true
+
+
+    -- ARM2  ******************************************
+    If PC_arm2_goto != 0 then
+;asynch_send_hw(0xBB)
+;asynch_send_hw(commando_goto)
+      sign = arm2_sign
+      speed = 10
+      if  ! arm2_sign then
+        if PC_arm2_goto > Arm2_potm then
+          PC_arm2_goto = 0
+;asynch_send_hw(0xAA)
+          speed = 0
+        end if
+      elsif arm2_sign then
+        if PC_arm2_goto < Arm2_potm then
+          PC_arm2_goto = 0
+;asynch_send_hw(0xFF)
+          speed = 0
+        end if
+
+      end if
+    elsif PC_arm2_laatste_commando != 0 then
+      If (PC_arm2_laatste_commando & 0b_0011_0000) == 0 then
+        speed = 0
+      else
+        speed = (PC_arm2_laatste_commando & 0b_0000_1111) * 2
+        sign  = (PC_arm2_laatste_commando & 0b_0010_0000) > 0
+      end if
+    else
+      speed = JoyStick_X
+      sign = speed >= JoyStick_POTX_NULL
+      if sign then speed = speed - JoyStick_POTX_NULL
+      else speed = JoyStick_POTX_NULL - speed
+      end if
+  ;    speed = speed >> 1;2
+      if speed < drempel then speed = 0 else speed = speed - drempel end if
+    end if
+    
+    potmeter = Arm2_potm
+    asynch_send_hw(potmeter)
+
+    If ((potmeter >= 0xBE) & sign) |
+       ((potmeter <= 0x00) & ! sign)
+    then
+       speed = 0
+    end if
+    -- transport motor-value to ISR
+    GIE = false
+      -- if speed==0, sign can toggle,
+      -- which can introduces noise in the system
+      if speed != 0 then Arm2_direction = ! sign end if
+      Arm2_power = speed
+    GIE = true
+
+
+    -- MOTOR KNIJPER  ******************************************
+    if PC_knijper_laatste_commando != 0 then
+      If (PC_knijper_laatste_commando & 0b_0011_0000) == 0 then
+        sign = Knijper_direction
+        speed = 0
+        asynch_send_hw(0x00)
+      else
+        speed = (PC_knijper_laatste_commando & 0b_0000_1111) * 2
+        sign  = (PC_knijper_laatste_commando & 0b_0010_0000) > 0
+        if sign then
+          asynch_send_hw(0x02)
+        else
+          asynch_send_hw(0x01)
+        end if
+
+      end if
+    else
+      speed = 10
+      potmeter = Knijper_potm
+  ;    asynch_send_hw(potmeter)
+      If    JoyStick_Switches == 0b_0000_0000 then
+        sign = low              ; dubbelcheck
+        asynch_send_hw(0x01)
+
+      Elsif JoyStick_Switches == 0b_1000_1000 then
+        sign = high
+        asynch_send_hw(0x02)
+      else
+        -- if speed==0, sign can toggle,
+        -- which can introduces noise in the system
+        sign = Knijper_direction
+        speed = 0
+        asynch_send_hw(0x00)
+      end if
+    end if
+    -- transport motor-value to ISR
+    GIE = false
+      Knijper_direction = sign
+      Knijper_power = speed     ;0..31
+    GIE = true
+
+
+
+;    asynch_send_hw(0xAA)
+;    asynch_send_hw(JoyStick_Switches)
+
+
+    JoyStick_LED1 = JoyStick_S1_raw
+    JoyStick_LED2 = JoyStick_S2_raw
+    JoyStick_LED3 = JoyStick_S3_raw
+    JoyStick_LED4 = JoyStick_S4_raw
+
+    JoyStick_LED1 = ! JoyStick_LED1
+    JoyStick_LED2 = ! JoyStick_LED2
+    JoyStick_LED3 = ! JoyStick_LED3
+    JoyStick_LED4 = ! JoyStick_LED4
+
+    sec = 0
+  end if
+  delay_1ms(10)
+  sec = sec + 1
+end loop
+

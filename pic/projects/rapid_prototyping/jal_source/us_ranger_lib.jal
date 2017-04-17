@@ -1,0 +1,220 @@
+-- -----------------------------------------------------------------------------
+-- <title Ultrasonic Ranger
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2005 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- -----------------------------------------------------------------------------
+-- Detects objects through ultrasound,
+--  just call the function US_detect and
+--  if it returns true, use the value of US_distance.
+-- Transmitted energy varies upto 3 levels,
+--  to get both a good short range and a good long range.
+-- The transmitted levels can easily by modified.
+--
+-- <Version: 1.0  28-08-2005,  Stef Mientki
+--   - orginal release
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- <Example US detection, result to RS232
+;forever loop
+;  -- US detection should not be called more often the 30 msec
+;  delay_1ms(40)
+;  if detect_US then
+;    asynch_send_hw (US_distance)
+;  end if
+;end loop
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+
+-- -----------------------------------------------------------------------------
+-- global vars
+-- -----------------------------------------------------------------------------
+var byte detect_US_ranges
+var bit detect_US_ranges_low    at detect_US_ranges : 0
+var bit detect_US_ranges_medium at detect_US_ranges : 1
+var bit detect_US_ranges_high   at detect_US_ranges : 2
+var byte US_distance
+
+-- -----------------------------------------------------------------------------
+-- internal global vars
+-- -----------------------------------------------------------------------------
+var byte _US_search_distance
+
+
+-- -----------------------------------------------------------------------------
+-- the parameters below can be changed to get other range characteristics
+-- all distances are specified in [cm]
+-- The settings below, will give the followig specifications
+--   - measurement range 2 cm ... 3 metre
+--   - minimum detection distance 2 mm
+-- -----------------------------------------------------------------------------
+-- enable / disable the regions you want
+detect_US_ranges_low    = true
+detect_US_ranges_medium = true
+detect_US_ranges_high   = true
+
+-- the maximum distance that will be scanned in the 3 regions
+const US_low_range_search_distance    = 50
+const US_medium_range_search_distance = 150
+const US_high_range_search_distance   = 250
+
+-- the deadspace of each of the 3 regions
+const US_medium_range_deadspace = 10
+const US_high_range_deadspace   = 35  ;maximum 35*7=245
+
+-- the power of the regions (in full exitation waves)
+-- the low power ranges is fixed,
+--   but you lower it by changing the delay in detect_US
+const US_medium_range_power = 1
+const US_high_range_power   = 8
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- initialization
+-- -----------------------------------------------------------------------------
+US_receive_direction = input
+US_receive_pin = high
+US_transmit_direction = input
+US_transmit_pin = low
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- delay routine, which delays half a wavelength at 40 kHz
+-- -----------------------------------------------------------------------------
+procedure delay_half_period_US is
+var byte counter1
+    assembler
+    nop
+    local delay0
+        movlw     14          ;
+        movwf     counter1    ;
+        nop
+        nop                  ;
+      delay0:                 ;
+        decfsz    counter1,f  ;
+        goto      delay0      ;
+    end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- function, searches for an US echo, over US_search_distance [cm].
+-- If an echo is found,
+-- it returns true and
+-- US_distance will contain the valid object distance in [cm]
+-- -----------------------------------------------------------------------------
+function _detect_US_reflection return bit is
+var bit _US_found
+  -- puls will have minimum width of 200 us
+  -- so polling with 70 us (= 1 cm) is enough
+  _US_found = false
+  delay_10us(10)
+  while (! _US_found) & (US_distance < _US_search_distance) loop
+    delay_10us(7)
+    US_distance = US_distance + 1
+    _US_found = US_receive_pin
+  end loop
+  return _US_found
+end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- This function should be called by the user at regular intervals.
+-- The interval must be larger than 30 msec (unlesss only short range is used)
+-- If an echo is detected, the function will return true and US_distance
+-- will contain the valid object distance.
+-- -----------------------------------------------------------------------------
+function detect_US return bit is
+-- initialization
+var bit result = false
+
+  -- start with a very low energy puls, if enabled
+  if detect_US_ranges_low then
+    _US_search_distance = US_low_range_search_distance
+    US_transmit_pin = low
+    US_transmit_direction = output
+    US_transmit_pin = high
+    -- the next delay will determine the transmitted power
+    -- lowest power is achieved by NO delay
+    -- maximum power in this mode is about 14 usec
+    -- if you want to lower the energy, decrease the 14 usec delay below
+    delay_10us
+    delay_4us
+    US_transmit_direction = input
+
+    delay_10us            ;deadtime is fixed at 10 usec
+    US_distance = 0
+    if _detect_US_reflection then
+      result = true
+    end if
+  end if
+
+  -- no reflection found at low energy,
+  -- so try medium energy, if enabled
+  if (! result) & detect_US_ranges_medium then
+
+    _US_search_distance = US_medium_range_search_distance
+    US_transmit_pin = low
+    US_transmit_direction = output
+
+    for US_medium_range_power loop
+      US_transmit_pin = low
+      delay_half_period_US
+      US_transmit_pin = high
+      delay_half_period_US
+    end loop
+
+    US_transmit_direction = input
+
+    US_distance = US_medium_range_deadspace
+    delay_10us(7 * US_distance)
+    US_distance = US_distance + 2
+
+    if _detect_US_reflection then
+      result = true
+    end if
+  end if
+  
+  -- no reflection found at lower energy,
+  -- so try high energy, if enabled
+  if (! result) & detect_US_ranges_high then
+    _US_search_distance = US_high_range_search_distance
+    US_transmit_pin = low
+    US_transmit_direction = output
+
+    for US_high_range_power loop
+      US_transmit_pin = low
+      delay_half_period_US
+      US_transmit_pin = high
+      delay_half_period_US
+    end loop
+
+    US_transmit_direction = input
+
+    US_distance = US_high_range_deadspace
+    delay_10us(7 * US_distance)
+    US_distance = US_distance + 2
+
+    if _detect_US_reflection then
+      result = true
+    end if
+
+  end if
+
+  return result
+end function
+-- -----------------------------------------------------------------------------
+

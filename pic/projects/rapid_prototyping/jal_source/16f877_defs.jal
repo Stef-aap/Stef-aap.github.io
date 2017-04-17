@@ -1,0 +1,25 @@
+-- --------------------------------------------------------------------
+-- 16F877_DEFS.JAL
+-- This file is best inserted in the main program,
+-- so the typical hardware parameters can be set
+-- --------------------------------------------------------------------
+pragma target chip        16F628 ;628 ;628=SPEED !!!
+;pragma target chip        16F877 -- 628=SPEED !!!
+
+pragma target clock       20_000_000
+pragma target osc         hs
+pragma target watchdog    off
+pragma target powerup     on
+pragma target protection  off
+
+-- HS, -BOD, ,-LVP, -WDT, -CP  = 0x3F22
+pragma target fuses       0x3F32
+
+
+include 16F877_inc
+
+ADCON1 = 7    -- set portA to normal digital IO
+
+-- --------------------------------------------------------------------
+-- END OF 16F877_DEFS.JAL
+-- --------------------------------------------------------------------

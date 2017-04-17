@@ -1,0 +1,137 @@
+-- -----------------------------------------------------------------------------
+-- demo JAL v2: LCD_voltage
+-- This demo measures an analog voltage and display the value on the LCD.
+-- This demo also shows the powerful format routines, 
+-- which can send a formatted value to any output device.
+-- The demo has become rather complex, because we want the demo the work on
+-- all kind of PICs, include the 8-pin 12F675.
+-- Because in case of 12F675 we've only 6 IO-pins,
+-- and the LCD control needs at least 6 pins,
+-- we're going to multiplex 
+--    the datacmd line of the LCD 
+--    with the analog input
+-- In the test setting, a 10k potmeter was connected between GND and +5V,
+-- and the slider of the potmeter was connected through a 5k resistor to the
+-- analog input. Due to the load of the LCD, the lowest voltage on the ADC 
+-- will be approximately 0.5 Volt.
+-- -----------------------------------------------------------------------------
+-- Tested
+--    16F877, 20 MHz: ok
+--    12F675, 4 MHz (internal, calibrated): NO, only 5 outputs available 
+--    JALss + 16F877: NOT, due to 3 bugs in JALss
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- include hardware definitions
+-- select the appropriate devive library
+-- -----------------------------------------------------------------------------
+include jal_v2_demo_16F877 ;external 20 MHz Xtal
+-- this demo won't run on a 12F675,
+-- because it only has 5 outputs available.
+;include jal_v2_demo_12F675 ;internal 4 MHz (calibrated)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- variable definition and initialisation
+-- -----------------------------------------------------------------------------
+-- create some space space to store the ADC value
+var word ADC_value = 0
+
+-- we need to save the AD settings,
+-- to be able to turn it on again
+var byte old_ADCON1 = ADCON1
+
+-- because we need to initialize the LCD,
+-- which has some pins multiplexed with the ADC,
+-- we need to turn the AD-converter off
+ADC_off
+
+-- define the IO-pins of the LCD
+-- and set the correct IO-direction
+var volatile bit HD44780_Enable_pin is pin_A0
+var volatile bit HD44780_Enable_direction is pin_A0_direction
+var volatile bit HD44780_DataCmd_pin is pin_A1
+var volatile bit HD44780_DataCmd_direction is pin_A1_direction
+var volatile bit HD44780_b4_pin is pin_B0
+var volatile bit HD44780_b4_direction is pin_B0_direction
+var volatile bit HD44780_b5_pin is pin_B1
+var volatile bit HD44780_b5_direction is pin_B1_direction
+var volatile bit HD44780_b6_pin is pin_B3
+var volatile bit HD44780_b6_direction is pin_B3_direction
+var volatile bit HD44780_b7_pin is pin_B2
+var volatile bit HD44780_b7_direction is pin_B2_direction
+
+-- define the library constants
+-- in this case we set no multiplexing (although we multiplex)
+-- because direction is set correct manually
+const HD44780_multiplexed_output       = false
+const LCD_number_of_display_lines      = 2
+const LCD_number_of_display_characters = 16
+-- inlcude stringtables and the LCD library
+include HD44780_4_defs
+
+-- turn cursor off
+LCD_cursor = off
+
+-- write text to first line of the display
+-- here the string table routine is used
+LCD_cursor_pos = 0x00
+LCD_display_string(0,0) 
+
+-- write text to second line of the display
+-- here the constant string method is used
+-- define the constant string
+const byte line_voltage[] = "Voltage =       "
+-- define a loop counter, will be used as array index
+var byte i
+-- position the LCD cursor at the start
+LCD_cursor_pos = 0x40
+-- now loop for all characters in the string
+for count(line_voltage) using i loop
+  -- send each string element to the LCD
+  -- (LCD_char has a auto-increment cursor function)
+  LCD_char = line_voltage[i]
+end loop 
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- start of the main program
+-- -----------------------------------------------------------------------------
+forever loop
+  -- turn the AD converter on,
+  -- in general we could use the procedure ADC_on,
+  -- but as the LCD enable pin is also one of the AD-channels,
+  -- this IO-pin may not be changed,
+  -- so we turn on the ADC manual 
+  ADCON1 = old_ADCON1
+  -- and we only make channel 1 available
+  HD44780_DataCmd_direction = input
+  
+  -- this loop needs a general delay,
+  -- because the LCD can't change too fast
+  -- and this is the optimal place,
+  -- because now the AD input pin has enough settling time             
+  delay_100ms(1)
+
+  -- read the ADC as a 10 bit value
+  -- (it doesn't matter if the ADC is set to low or high resolution)
+  ADC_value = ADC_read(1) 
+
+  -- turn the ADC off
+  ADC_off
+  -- and set A1 again to digital output
+  HD44780_DataCmd_direction = output             
+
+  -- position the cursor for the voltage value
+  LCD_cursor_pos = 0x4A
+
+  -- here the user can select one of the format routines
+  -- decimal formatting, total length = 5, 2 decimals
+  format_word_dec(LCD_char,ADC_value,5,2) 
+  -- hexadecimal formatting
+  ;format_word_hex(LCD_char,ADC_value) 
+end loop
+-- -----------------------------------------------------------------------------

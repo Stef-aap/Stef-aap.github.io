@@ -1,0 +1,129 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 08/26/06, 14:35
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 05 0D 00 2B 05 <pp> <progname>  00 00 2B 05 29 05
+; program name: FROGGER
+; file is NOT protected
+
+; unkown codes are inserted as "%%HH%%"
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+;0 = Zero
+;\0\ = "Oh" as in "optimize"
+
+Repeat N<0
+  ClrHome
+  6->N
+  Menu("  DIFFICULTY   ","VERY EASY",1,"EASY",2,"NORMAL",3,"HARD",4
+  Lbl 1
+    Ans+1
+  Lbl 2
+    Ans+1
+  Lbl 3
+    Ans+1->N
+  Lbl 4
+  1->D
+  1->F
+
+  (-)11->E
+  Ans->G
+
+
+  DelVar S
+  Ans->G
+  While N
+
+    7->R
+    8->C
+
+    For(L,1,16
+      For(P,2,3
+        Output(P,L,"-1
+      End
+    End
+    randInt(3,14->L
+    randInt(3,14->P
+    randInt(4,12->J
+    randInt(4,12->K
+12->K
+    Output(8,1,"pi=
+    Output(8,3,N
+    Output(8,11,S
+    DelVar O99->I
+
+    Repeat O
+      Output(8,7,I
+      getKey->M
+      If Ans:Then
+        Output(R,C," ;
+        C+(Ans=26 and C!=15)-(Ans=24 and C!=2->C
+        R+(M=34 and R!=7)-(M=25->R
+        Output(R,C,"pi
+      End
+
+      ;13->J
+      If J=13:(-)11->D
+
+
+      If J=1:1->D
+      If 1=abs(D
+        Output(6,J+3(D<0)," ;
+      J+D->J
+      Output(6,J,"OOOO
+
+
+      If K=13:(-)11->E
+      If K<=1:1->E
+      If 1=abs(E
+        Output(5,K+(E<0)," ;
+      K+E->K
+      Output(5,K,"OOOO
+
+
+      Output(2,P,"-1
+      If P=2 or P=15:(-)1G->G
+      P+G->P
+      If not(R=2):Output(2,P," ;
+
+
+      Output(3,L,"-1
+      If L=2 or L=15:(-)F->F
+      L+F->L
+      If R!=3:Output(3,L," ;
+      If R=3 and 2>abs(C-L:L->C
+      If R=2 and 2>abs(C-P:P->C
+      Output(R,C,"pi
+      I-1->I
+;     max({1,2,3,4}{R=1,R=6 and J=<C and C=<J+3 or R=5 and K=<C and C=<K+3,R=3 and C!=L or R=2 and C!=P,not(I->O
+      max({1,2,3,4}{R=1,R=6 and J<=C and C<=J+3 or R=5 and K<=C and C<=K+3,R=3 and C!=L or R=2 and C!=P,not(I->O
+    End
+
+
+
+
+      ClrHome
+      If O=1:Then
+      Disp "CONGRATULATIONS!
+      Output(4,1,I
+      Output(4,3,"*50=
+      Output(4,7,50I
+      S+50I->S
+      Else
+      Disp sub("CRASH! BLUB...Time UP!   ",7O-13,7
+      End
+      Pause
+      ClrHome
+      If O!=1:Then
+      N-1->N
+      If not(Ans:Then
+      Menu("  TRY AGAIN  ","YES",8,"NO",9
+      Lbl 8
+      Lbl 9
+      (-)11->N
+End
+End
+End
+End
+ClrHome

@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="keywords" content="Lego; Mindstorms; PIC; JAL; JALcc; Robotics">
+  <meta name="author" content="Stef Mientki">
+  <title>Pic_header</title>
+  <link rel="STYLESHEET" type="text/css" href="styles.txt" title="none">
+
+<style>
+a {font-family:verdana;font-size:12px}
+.topic {font-size:12px;color:#005500;margin-bottom:2px;cursor:pointer}
+.level {margin-left:10px}
+div {margin-bottom:4px}
+img {margin-right:2px}
+</style>
+
+<style>
+form {font-family:verdana;font-size:12px}
+.topic {font-size:12px;color:#005500;margin-bottom:2px;cursor:pointer}
+.level {margin-left:10px}
+div {margin-bottom:4px}
+img {margin-right:2px}
+</style>
+
+<script language="JavaScript">
+  function Toggle(node) {
+	// Unfold the branch if it isn't visible
+	  if (node.nextSibling.style.display == 'none')	{
+ 		// Change the image (if there is an image)
+		  if (node.childNodes.length > 0) {
+			  if (node.childNodes.item(0).tagname == "IMG") {
+				  node.childNodes.item(0).src = "minus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = '';
+	  }
+	  // Collapse the branch if it IS visible
+	  else {
+		// Change the image (if there is an image)
+		  if (node.childNodes.length > 0)	{
+        if (node.childNodes.item(0).tagname == "IMG") {
+   				node.childNodes.item(0).src = "plus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = 'none';
+	  }
+  }
+
+  function collapse(pId) {
+  var node
+    node=document.getElementById(pId)
+    node.childNodes.item(0).src = "plus.gif"
+    node.nextSibling.style.display = 'none'
+
+  }
+
+  function main() {
+    collapse("ID1") 
+    collapse("ID2")
+    collapse("ID3")
+    collapse("ID4")
+    collapse("ID5")
+    collapse("ID6")
+    collapse("ID7")
+    collapse("ID8")
+    collapse("ID9")
+    collapse("ID10")
+    collapse("ID11")
+    collapse("ID12")
+    collapse("ID13")
+    collapse("ID14")
+    collapse("ID15")
+    collapse("ID16")
+    collapse("ID17")
+    collapse("ID18")
+    collapse("ID19")
+    collapse("ID20")
+    collapse("ID21")
+    collapse("ID22")
+    collapse("ID23")
+    collapse("ID24")
+    collapse("ID25")
+    collapse("ID26")
+    collapse("ID27")
+    collapse("ID28")
+    collapse("ID29")
+    collapse("ID30")
+    collapse("ID31")
+    collapse("ID32")
+    collapse("ID33")
+    collapse("ID34")
+    collapse("ID35")
+    collapse("ID36")
+    collapse("ID37")
+    collapse("ID38")
+    collapse("ID39")
+    collapse("ID40")
+  }
+</script>
+
+
+</head>
+<body>
+
+<body text="#000000" vlink="#5584aa" link="#006699" bgcolor="white" onload="main()">
+
+<table cellspacing="0" cellpadding="15" width="100%" height="88%">
+<tbody><tr><td class="bodyline" bgcolor="#ffffff" valign="top">
+
+<form name=search method="post" target="a" action=search.php>
+  <input name=query length=40
+    <?if (isset($query))
+     echo("value=\"".htmlspecialchars($query)."\"");?>
+  <input type=submit value='search'><br>
+  <input type=radio checked=true name=m value=and>All words<br>
+  <input type=radio name=m value=or>At least one word
+ </input>
+</form>
+<table cellspacing="0" cellpadding="15" width="100%" height="88%">
+<tbody><tr><td class="bodyline" bgcolor="#ffffff" valign="top">
+<div><img src="dot.gif"><a href="http://carlpisaturo.com/index.html" target="a">Carl Pisaturo</a></div>
+<div><img src="dot.gif"><a href="../projects/pic_at_night/pic_at_night.html" target="a">JAL at Night</a></div>
+<div><img src="dot.gif"><a href="../projects/boot_data.html" target="a">Data Booter</a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID0"><img src="minus.gif">Propellor Clock</a><div class="level">
+<div><img src="dot.gif"><a href="../projects/proppelor_clock.html" target="a">Propellor Clock</a></div>
+<div><img src="dot.gif"><a href="http://www.tdcircuits.tk/" target="a">TD Circuits - elektronica schakelingen, info en meer</a></div>
+<div><img src="dot.gif"><a href="http://users.pandora.be/ranzigen/td_circuits/pic_jal/magische_boodschap/magische_boodschap.html" target="a">* Magische boodschap *</a></div>
+<div><img src="dot.gif"><a href="http://www.rickard.gunee.com/projects/mechscan/dualpic/gamesys.php" target="a">Rickard's</a></div>
+<div><img src="dot.gif"><a href="http://www.bobblick.com/techref/projects/projects.html" target="a">Projects</a></div>
+<div><img src="dot.gif"><a href="http://www.feertech.com/andy/picclock.html" target="a">Andy's Personal Page</a></div>
+<div><img src="dot.gif"><a href="http://www.metricmind.com/clock/clock.htm" target="a">PIC clock</a></div>
+<div><img src="dot.gif"><a href="http://hot-streamer.com/hilo90mhz/electronics/prop_clock.htm" target="a">Propeller Clock</a></div>
+<div><img src="dot.gif"><a href="http://home.quicknet.nl/qn/prive/m.ursum/propclock.html" target="a">Propellor Clock</a></div>
+<div><img src="dot.gif"><a href="http://home.tiscali.be/henkenkatrien/propellerclock/" target="a">Propeller Clock on a Mirror</a></div>
+<div><img src="dot.gif"><a href="http://home.epix.net/~iracerc/clock.html" target="a">Propellor clock, by Otis.</a></div>
+<div><img src="dot.gif"><a href="http://www.dawkins.me.uk/" target="a">Nick Dawkins Homepage</a></div>
+<div><img src="dot.gif"><a href="http://www.ispf.de/propclock/" target="a">untitled</a></div>
+<div><img src="dot.gif"><a href="http://www.dawkins.me.uk/" target="a">Nick Dawkins Homepage</a></div>
+<div><img src="dot.gif"><a href="http://www.luberth.com/analog.htm" target="a">Analog & Digital propeller Clock</a></div>
+<div><img src="dot.gif"><a href="http://www.seattlerobotics.org/encoder/200112/srs.htm" target="a">How to Build a Spinning Sign and Other Free-Rotating Active Mechanisms</a></div>
+<div><img src="dot.gif"><a href="http://www.geocities.com/tjacodesign/propclock/propclock.html" target="a">Tjaco's design graveyard</a></div>
+<div><img src="dot.gif"><a href="http://www3.sympatico.ca/surfin.dude/creative/clocks/propclk/blick.html" target="a">My Blick Propeller Clock Design</a></div>
+<div><img src="dot.gif"><a href="http://www.bobblick.com/techref/projects/propclock/propclkpcb/propclkpcb.html" target="a">Propclock PC Board</a></div>
+<div><img src="dot.gif"><a href="http://www.gehrkeweb.de/crazy_clock.html" target="a">Gehrke - Willkommen</a></div>
+<div><img src="dot.gif"><a href="http://www.geocities.com/tjacodesign/propclock/propclock.html" target="a">Tjaco's design graveyard</a></div>
+<div><img src="dot.gif"><a href="http://www.bobblick.com/techref/projects/propclock/propclock.html" target="a">Propeller Clock</a></div>
+<div><img src="dot.gif"><a href="http://www.ispf.de/propclock/" target="a">untitled</a></div>
+</div>
+<div><img src="dot.gif"><a href="../projects/battery_tester/battery_tester.html" target="a">Battery Tester</a></div>
+<div><img src="dot.gif"><a href="../projects/reflex_charger.html" target="a">Reflex Charger</a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID1"><img src="minus.gif">build_yourself</a><div class="level">
+<div><img src="dot.gif"><a href="../projects/build_yourself.html" target="a">build_yourself</a></div>
+<div><img src="dot.gif"><a href="../projects/build_yourself.html" target="a">build yourself</a></div>
+<div><img src="dot.gif"><a href="http://homepage.ntlworld.com/electricstuff/cdzap.html" target="a">CD Zapping</a></div>
+<div><img src="dot.gif"><a href="http://www.hamjudo.com/notes/cdrom.html" target="a">CD-ROM's in the Microwave</a></div>
+<div><img src="dot.gif"><a href="http://www.electricstuff.co.uk/" target="a"></a></div>
+<div><img src="dot.gif"><a href="http://www.bobblick.com/techref/projects/projects.html" target="a">Projects</a></div>
+<div><img src="dot.gif"><a href="http://www.bobblick.com/techref/projects/stirling/stirling.html" target="a">Stirling Prayer Engine</a></div>
+</div>
+<div><img src="dot.gif"><a href="../projects/willie.html" target="a">Willie</a></div>
+</div>
+<div></div>
+
+</td></tr><tr></tr>
+</tbody></table>
+</body></html>

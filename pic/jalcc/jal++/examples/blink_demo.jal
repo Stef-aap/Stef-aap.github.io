@@ -1,0 +1,48 @@
+; define the hardware settings and
+; include all libraries
+include demo_settings
+
+; define the relevant IO-pins
+;;;;;<;mac> IO_pin LED = pin_C3
+var volatile bit  LED_pin       is pin_C3
+var volatile byte LED_port      is portC
+const             LED_nr        =  3
+var volatile byte LED_buffer    is _port_C_buffer
+var volatile bit  LED_direction is pin_C3_direction
+;;;;;<;/mac>
+LED_direction = output
+
+;;;;;<;mac> StateMachine Demo_init
+; JAL StateMachine Generator, by Diagram Designer
+; Initialisation of StateMachine: DEMO
+const byte sm_Demo_init   = 1
+const byte sm_Demo_state1 = 2
+var byte sm_Demo = sm_Demo_init
+;;;;;<;/mac>
+
+;;;;;<;mac> StateMachine Demo
+  -- StateMachine: Demo
+  if sm_Demo == sm_Demo_init then
+    Led797 = on
+    LED2 = on
+    ;LED3 = on
+    sm_Demo = sm_Demo_state1
+
+  elsif sm_Demo == sm_Demo_state1 then
+    led = off
+    LED2 = on
+    ;LED3 = on
+;WARNING: dead state
+
+  -- to be really sure the statemachine is finite
+  else
+    sm_Demo = sm_Demo_init
+  end if
+;;;;;<;/mac>
+
+; the main program
+forever loop
+  LED_pin = ! LED_pin  ; toggle the LED
+  delay_100ms(5)       ; wait half a period
+end loop               ; loop for inifinity
+

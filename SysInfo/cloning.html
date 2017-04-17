@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132115" /></head>
+<body>
+
+<p><span class=rvts1>Cloning / Back-Up</span></p>
+<p><br></p>
+<p><span class=rvts2>Algemene Stappen</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Zorg dat alle schijven eenduidig herkenbaar zijn </li>
+<li>Schakel ongewenste programma's definitief uit </li>
+<li>maak een image van de C-schijf (DRVImagerXP) </li>
+<li>RESTORE </li>
+<li>dual boot aanmaken </li>
+<li>restore the image </li>
+<li>als schijfgrootte anders, Scandisk fouten corrigeren + grootte corrigern met Partition Magic </li>
+</ul>
+<p><br></p>
+<p><span class=rvts2>Uitgeschakelde programma's</span></p>
+<p>Run MSConfig</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>VPN </li>
+<li>anti virus </li>
+<li>zone alarm </li>
+<li>tablet driver </li>
+</ul>
+<p><img width=571 height=373 alt="" src="cloning_img14.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Boot.ini</span></p>
+<p><img width=782 height=142 alt="" src="cloning_img16.png"></p>
+<p><br></p>
+<p><span class=rvts2>Image maken</span></p>
+<p><br></p>
+<p>Start <a class=rvts4 href="P:\Program Files\DrvImagerXP\DrvImagerXP.exe">DrvImagerXp</a> (er verschijnt een verklarende text in notepad dat het programma maskeert)</p>
+<p>Selecteer de schijf die gekloond moet worden</p>
+<p>Selecteer een directory en sla het image op zonder extensie.</p>
+<p>Kies een grote voor de image bestanden (beste is 300MB)</p>
+<p><img width=580 height=243 alt="" src="cloning_img1.png"></p>
+<p><br></p>
+<p>"Save the drive partition to a partition image file" en volg de stappen</p>
+<p><br></p>
+<p><img width=634 height=189 alt="" src="cloning_img15.png"></p>
+<p>YES !!</p>
+<p><br></p>
+<p>Een Image van 8GB duurt ongeveer 6 minuten.</p>
+<p>Daarna komt MSconfig met allerlei vragen, omdat je de instellingen hebt gewijzigd,</p>
+<p>de uitgeschakelde programma's kunnen nu weer worden ingeschakeld.</p>
+<p><br></p>
+<p><span class=rvts2>Image restore</span></p>
+<p><br></p>
+<p>Start <a class=rvts4 href="P:\Program Files\DrvImagerXP\DrvImagerXP.exe">DrvImagerXp</a></p>
+<p>Selecteer de schijf die gerestored moet worden</p>
+<p>Open het image bestand (open de eerste)</p>
+<p>Als de schijf geformatteerd moet worden zegt ie dat, volg de stappen:</p>
+<p><img width=562 height=137 alt="" src="cloning_img2.png"></p>
+<p><br></p>
+<p><img width=569 height=232 alt="" src="cloning_img4.png"></p>
+<p>(image size, # of files, zijn ingevuld en "Restore..." is zwart)</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>ALS restore andere SIZE</span></p>
+<p>Als de schijf een andere grote heeft dan de oorspronkelijke, moeten de volgende stappen worden gedaan op de gekloonde schijf.</p>
+<p><br></p>
+<p>Geef de kloon een andere naam voor de duidelijkheid, het is misschien handig om ook de andere schijven een logische naam te geven.</p>
+<p>scandisk draaien met "fix system errors".</p>
+<p><br></p>
+<p><a href="cloning_img6.png"><img width=289 height=358 alt="" src="cloning_img6.png"></a><img width=282 height=214 alt="" src="cloning_img5.png"></p>
+<p><br></p>
+<p>Start<a name="RichViewCheckpoint0"></a>
+ Partition Magic</p>
+<p>Resize: Maak de schijf een klein beetje kleiner</p>
+<p>Resize: Maak de schijf nu weer maximaal groot, de juiste grote word nu aangeven.</p>
+<p><img width=432 height=313 alt="" src="cloning_img11.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Windows herstel actie</span></p>
+<p>Voor een windows schijf:</p>
+<p>Start Partition saver (van boot floppy of UBCD ( F3 dan F9))</p>
+<p><br></p>
+<p><a href="ntfsfilecreationchoice.gif"><img width=668 height=307 alt="" src="ntfsfilecreationchoice.gif"></a></p>
+<p>Selecteer "Update Windows 2000/XP registry."</p>
+<p>Selecteer de disk, de partition, de directorie, waar windows staat.</p>
+<p>Selecteer nu de disk, de partition, die een andere schijf letter moet krijgen.</p>
+<p>Herhaal de stappen indien nodig.</p>
+
+</body></html>

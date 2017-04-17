@@ -1,0 +1,33 @@
+task main ()
+{
+  SetSensorType (SENSOR_1, SENSOR_TYPE_TOUCH);
+  SetSensorType (SENSOR_3, SENSOR_TYPE_TOUCH);
+  start voel;
+}
+task voel ()
+{
+  while (true)
+  {
+    SetUserDisplay (BatteryLevel (),3);
+    OnFwd (OUT_A+OUT_C);
+    if (SENSOR_1==1)
+    {
+      OnRev (OUT_A+OUT_C);
+      Wait (95);
+      OnFwd (OUT_A);
+      Wait (85);
+      OnFwd (OUT_A+OUT_C);
+    }
+    if (SENSOR_3==1)
+    {
+      PlaySound (SOUND_UP);
+      OnRev (OUT_A);
+      Wait (350);
+      OnFwd (OUT_A);
+      PlaySound (SOUND_UP);
+      OnFor (OUT_B, 250);
+    }
+  }
+}
+
+

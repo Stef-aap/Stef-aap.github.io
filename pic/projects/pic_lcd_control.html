@@ -1,0 +1,185 @@
+<HTML><HEAD><TITLE>LCD controle</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>March 2002</SPAN></P>
+<P><SPAN class=RVTS1>LCD controle</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><A name="introduction"></A>
+<SPAN class=RVTS2>Introduction</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Most alfa-numeric LCD displays are controled by the Hitachi HD44780U with ROM Code A00 or compatible.</P>
+<P>I used LCD from Anag Vision (sold by Conrad) with the KS0066 controler, which seems completly compatible.</P>
+<P>Here you can find the&nbsp;<A class=RVTS4 href="http://semiconductor.hitachi.com/hd44780.pdf">datasheet at Hitachi</A>&nbsp;.</P>
+<P>Special attention</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>basically it's a 80 character controller (1*80 or 2*40), and therefor the line starts are a bit odd : (1 line : linestart = 0) , (2 lines : linestarts = 0,0x40) , (4 lines : linestarts = 0, 0x40, 0x10, 0x50)&nbsp;</LI>
+<LI>in the documentation of Hitachi, sometimes 40 (decimal) is used where 0x40 is meant&nbsp;</LI>
+<LI>if the display has multiple lines, shifting has not much sense, because all lines will be shifted at the same time&nbsp;</LI>
+<LI>the characters with a ASCII value of 0 .. 7 can be definied by the user&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="library"></A>
+<SPAN class=RVTS2>Library</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Based on some files of Wouter (thanks Wouter !!), especially HD44780*.JAL and E0005.JAL, a extended library for LCD control was written, with the following features:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>randomly assigned IO-pins (always 4 bit interface)&nbsp;</LI>
+<LI>most IO-pins may be multiplexed with other devices&nbsp;</LI>
+<LI>easy control of most LCD features&nbsp;</LI>
+<LI>generation of user definied characters&nbsp;</LI>
+<LI>some examples of animated user characters&nbsp;</LI>
+<LI>support of more than 1 string-table&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>Basically the routines were written and tested on a 2*16 display, but they should also work on other configurations.</P>
+<P>The IO-interface is always 4 bit, because with PICs there's always a short of IO-pins.</P>
+<P>Shifting is always done right (incrementing), because this is the only meaningfull direction for western languages.</P>
+<P>Other sources for LCD routines:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI><A class=RVTS4 href="http://www.voti.nl">Wouter's</A>&nbsp;standard JAL library HD44780*.JAL, included in the JAL package&nbsp;</LI>
+<LI><A class=RVTS4 href="http://www.geocities.com/vsurducan/electro/pic/hd44780m.txt">Vasile's routines</A></LI>
+<LI><A class=RVTS4 href="http://groups.yahoo.com/group/jallist/files/phil%20pemberton%27s%20code/serial%20lcd/">Phil Pemberton's routines</A></LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=121 valign=top>
+<P><A name="hd44780_4"></A>
+<A class=RVTS4 href="../download/jal_libs/hd44780_4.jal">HD44780_4</A><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><A class=RVTS4 href="../download/jal_libs/hd44780_4_ins.jal">HD44780_4_ins</A></P>
+<P><A class=RVTS4 href="../download/jal_libs/display_example.zip">Example</A></P></TD>
+<TD width=586 valign=top>
+<P>Library for the control of an alfa-numeric LCD (2 lines), controlled by the HD44780 or equivalent</P>
+<P>HD44780_4_INS, contains the definitions of the IO-pins (totally random), the definition of the strings tables (2 tables implemented) and the character-definition table. The file also includes automatically HD44780_4.</P>
+<P>The example contains a complete package of files to test the routines on a 16F628.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>&nbsp;<IMG width=170 height=142 src="display_test.gif"></P></TD>
+<TD valign=top>
+<P><A class=RVTS4 href="../download/jal_libs/display_example.zip">Example</A><IMG width=14 height=14 src="top_page.gif"></P>
+<P>On the left is complete dependancy list of all the files in the example. The zip files contains all these files (without directory paths).&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Unzip the file in some directory of your choice&nbsp;</LI>
+<LI>edit HD44780_4_ins, so it fits your IO-pins&nbsp;</LI>
+<LI>compile Display_test, download, run and see what happens&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+</TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="hd44780_user_routines"></A>
+<SPAN class=RVTS2>HD44780 User Routines</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Control</P></TD>
+<TD valign=top>
+<P>Lines</P></TD>
+<TD valign=top>
+<P>Normal writing</P></TD>
+<TD valign=top>
+<P>Fancy</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>LCD_cursor = on</P>
+<P>LCD_blink = on</P>
+<P>LCD_display = on</P>
+<P>LCD_define_character</P></TD>
+<TD valign=top>
+<P>LCD_cursor_pos = 12</P>
+<P>LCD_shift_left</P>
+<P>LCD_shift_right</P>
+<P>LCD_clear_line</P></TD>
+<TD valign=top>
+<P>LCD_char = "A"</P>
+<P>LCD_char_pos</P>
+<P>LCD_char_line_pos</P>
+<P>LCD_display_string</P></TD>
+<TD valign=top>
+<P>LCD_scroll_string_init</P>
+<P>LCD_scroll_string</P>
+<P>LCD_animate1</P>
+<P>LCD_animate2</P>
+<P>LCD_animate3</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="control"></A>
+<SPAN class=RVTS2>Control</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>After initialization, display, cursor and blink are all on. With the pseudo variables LCD_display, LCD_cursor and LCD_blink these settings can be changed at any moment.</P>
+<P>The pseudo var LCD_cursor_pos, sets the cursor at the selected position, defining the position where the next character will be written. This cursor position can be placed outside the visible area of the display !</P>
+<P>With the procedure LCD_clear_line ( linenr ) the line LINENR (0..) is cleared and the cursor is positioned at the first location of that line, so next writing will start at the beginning of that line.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="displaying_text"></A>
+<SPAN class=RVTS2>Displaying text</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>For a single character the pseudo variable LCD_char can be used, this will place the selected character at the current cursor location.</P>
+<P>With LCD_char_pos ( ASCII , position ) you can place the character ASCII at any position (also outside the visible area) of the display.</P>
+<P>A more convenient way to place a character at a specific location is done with LCD_char_line_pos ( ASCII , linenr, position ), also here it's still possible to place the character outside the visible area of the display.</P>
+<P>A complete string from one of the predefinied string tables can be placed at the current cursor positions with LCD_display_string (table, stringnr). Although the start of the string can be outside the visible area of the display, once it's in the visible area, it will stay there and roll over to the next line.</P>
+<P>The string tables are definied in HD44780_4_INS and consists of simple jump tables, containing the strings, where each string is closed with a NULL character. At the moment 2 tables (giving a maximum of approximatly 500 bytes ) are definied, but this can easily expanded.</P>
+<P>If the second table is not used, the great JAL compiler will not generate any code for it.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="user_definied_characters"></A>
+<SPAN class=RVTS2>User definied characters</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The character rom leaves 8 character positions for user definable characters.</P>
+<P>By defining the layout of these characters in a predifined jump table (located in HD44780_4_INS) it's easy to generate your own characters or even animations. With the procedure LCD_define_character ( characterROMlocation, stringnumber) they are loaded in the character ROM and are ready for normal use. This construction is choozen, for the reason taht if you don't use them, they will occupy no code space.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="scrolling"></A>
+<SPAN class=RVTS2>Scrolling</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Scrolling doesn't look very good on a LCD display, because of the slow response time (maximum is about 200 ms).</P>
+<P>The integrated shift functions are quiet restricted, it's only possible to shift all lines at once.</P>
+<P>To use this integrated shift option, the procedures LCD_shift_right and LCD_shift_right are implemented.</P>
+<P>There's also a routine to rotate a string nicely in the upper line.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=204 height=34 src="lcd_ani.gif"></P>
+<P>Start with calling LCD_scroll_string_init ( table, stringnr ), where table is one of the predefinied string tables in HD44780_4_INS and the stringnr is the number of the string in this table, then call on a regular base (i.e. 300 ms) LCD_scroll_string, and the string will rotate nicely (filled with spaces at the start and the end around in the upper line of the display.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="animations"></A>
+<SPAN class=RVTS2>Animations</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Animations can be made by regular changing the contents of the user definable characters, at ASCII locations 0 .. 7.</P>
+<P>Calling of these routines at regular intervals must be done by the main program (in a program loop or by an interval timer)</P>
+<P>Here are some examples (made by my son Robbert), using different technics to generate the character lines.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=211 height=25 src="lcd_ani2.gif"></P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>LCD_animate1: growing / decreasing stack</P>
+<P>(uses 24 words)</P>
+<P>animation by direct writing of calculated values to the character generator rom</P></TD>
+<TD valign=top>
+<P>LCD_animate2 : rotating line</P>
+<P>(uses 60 words)</P>
+<P>animation by direct writing of (partial) table values to the character generator rom</P></TD>
+<TD valign=top>
+<P>LCD_animate3 : winking smiley</P>
+<P>(uses 31 words)</P>
+<P>animation by direct writing of fixed values to the character generator rom</P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

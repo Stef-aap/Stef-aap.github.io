@@ -1,0 +1,11 @@
+[JAL]
+libpath=D:\data_www\pic\jalcc\examples\jal++\libs\
+
+[PICBSC]
+libpath=
+
+[Bookmarks]
+formvis=1
+left=906
+top=383
+

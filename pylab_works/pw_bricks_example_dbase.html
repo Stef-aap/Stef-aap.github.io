@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Example Building DB-Bricks&nbsp; </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; ( june 2009 )</span></p>
+<p>Application Designer / <span class=rvts10>Domain Expert</span> / Control Designer / Core Developer</p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This is an example of a real-world problem, that I needed to solve for a customer. The background of the problem is: the SQL-language is very powerful (although often ambiguous) but also very difficult, certainly for non-programmers or programmers not dealing with SQL every day. I'm certainly not a database programmer, but I use them once a while. So while this page is not written by a domain expert, it may contain some very wrong or loosely defined statements.</p>
+<p><br></p>
+<p><span class=rvts2>Solution</span></p>
+<p>When the data base is highly normalized, a natural join between all tables represents all the available (and linked) information. having all the data, a simple "where"-clause should be sufficient to extract the records we're interested in. The desired fields can be selected from a grid, showing all fields of each table.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=205 valign=top style="background-color: #ffffd4;">
+<p><img width=204 height=290 alt="" src="pw_bricks_example_dbase_img1.png"></p>
+</td>
+<td width=498 valign=top style="background-color: #ffffd4;">
+<p>So the solution might look something like is shown on the left. Tow Bricks, dBase and dB-Grid are already available.</p>
+<p><span class=rvts10>dBase</span> = Brick that opens the database and passes the metadata to output-1, and upon receiving an SQL query on one of it's inputs, it will put the resulting records on output-2.</p>
+<p><span class=rvts10>dB-Grid</span> = Brick that displays resulting records in a table form</p>
+<p>The new Bricks, here to be made, are </p>
+<p><span class=rvts10>DB-Field-Grid</span> = Brick that shows all tables and all fields in each table and let the user select the fields to be in the final result.</p>
+<p><span class=rvts10>SQL-Editor</span> = Brick, where you either edit a complete SQL-statement, or the conditions for the natural-join query. In the latter case, we might want more than 1 query</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>DB Field Grid</span></p>
+<p>The input of the DB-Field-Grid Brick consists of the MetaData of the selected DataBase, in the form of TIO_Tree. The DB-Field-Grid Brick should display all tables, and from each table all the fields. The user should be able to select the desired fields, and the Brick should pass the desired fields ( and maybe also all MetaData) to the output.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=274 valign=top style="background-color: #ffffd4;">
+<p><img width=286 height=307 alt="" src="pw_bricks_example_dbase_img2.png"></p>
+</td>
+<td width=429 valign=top style="background-color: #ffffd4;">
+<p>From what we need here, the first (most simple) idea to realize the brick is shown in the drawing on the left.</p>
+<p>The input signal is directly fed into the control, the control makes the right mixture of input and user interventions, and puts the result in the Parameter array. The generator output module, which is fired when the parameter array changes, just needs to pass the Parameter to the output.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Now we search for a control that can perform the above functions. The best control we can find is the t_C_Grid control:</p>
+<p><br></p>
+<div><table border=1 cellpadding=0 cellspacing=-1 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid; border-collapse: collapse;">
+<tr valign=top>
+<td width=303 valign=top>
+<p><img width=314 height=116 alt="" src="pw_gui_controls_img87.png"></p>
+</td>
+<td width=500 valign=top>
+<p>Input is of type GridData, which is a list of rows, where each row contains the column elements for 1 row and where the first row contains the captions of the columns. This grid can also be used to display data or metadata of a database.</p>
+<p><img width=302 height=36 alt="" src="pw_gui_controls_img88.png"><img width=96 height=68 alt="" src="pw_gui_controls_img89.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>The t_C_Grid control has one major disadvantage, it can not handle tree-data ( which is far more complex than grid-data ). So we can either decide to make a new control or to convert the input data ourself. We choose the latter, so now the Brick will look like:</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=296 valign=top style="background-color: #ffffd4;">
+<p><img width=299 height=307 alt="" src="pw_bricks_example_dbase_img3.png"></p>
+</td>
+<td width=497 valign=top style="background-color: #ffffd4;">
+<p>The Generate-Output method reacts on changes of the input signal, fetches the input signal, translates the tree-from data into grid-data and transports the grid-data to the control.</p>
+<p><br></p>
+<p>The Generate-Output method also acts on changes of the Par-array.</p>
+<p><br></p>
+<p>If changes in Input or Par-array are detected, a new output signal will be generated.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>The existing control t_C_Grid, needs a few other small extensions:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>instead of row select we need a toggled cell-select </li>
+<li>we need the selected cells as the output of the control </li>
+</ul>
+<p><br></p>
+<p>By adding a selection-color as an extra parameter to the control, we can signal the Control to perform these actions. The total After_Init for the Brick will look something like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=609 height=412 alt="" src="pw_bricks_example_dbase_img8.png"></p>
+<p><br></p>
+<p>After making some (small) changes to the t_C_Grid control, which we'll not discuss here, we get the following result:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=520 height=114 alt="" src="pw_bricks_example_dbase_img5.png"></p>
+<p><br></p>
+<p>and starting with PyLab_Works with the -debugtable flag, we can see that the component is working as expected:</p>
+<p><br></p>
+<p><img width=767 height=262 alt="" src="pw_bricks_example_dbase_img7.png"></p>
+<p><br></p>
+<p>In a "perfect-normalized" database, there's absolutely no redundancy, so it would be enough to only list the field-names, without the table in which the field is available. But most practical databases are far from perfect, we added the table in which each field resides too.</p>
+<p><br></p>
+<p>At this point we need to decide what output will be generated by the Brick, but we'll postpone that decision till we've created the SQL-Editor.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>SQL-Editor</span></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

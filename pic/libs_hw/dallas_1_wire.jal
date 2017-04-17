@@ -1,0 +1,571 @@
+-- -----------------------------------------------------------------------------
+-- <title Dallas 1-wire bus JAL library
+-- specially for the DS18B20
+--
+-- <License
+-- freeware, under the terms of the GNU/GPL  
+--  , Copyright (C) 2004 Stef Mientki  
+--
+-- <Description
+-- JAL library for control of Dallas 1-wire bus and specially the DS18B20.
+--  The serach algorithm is based on:
+--       http://pdfserv.maxim-ic.com/en/an/app187.pdf
+--  the basic 1-wire routines are based on
+--       previous libs from Philip Pemberton and Vasile Surducan (thanks!)
+--
+-- interface
+--    function Dallas_1_wire_get_devices_all
+--		procedure DS18B20_set_resolution_and_alarms
+--		procedure DS18B20_get_resolution_and_alarms
+-- 		procedure DS18B20_load_settings_from_EEprom
+-- 		procedure DS18B20_save_settings_to_EEprom
+--		procedure DS18B20_start_conversion 
+--		procedure DS18B20_get_raw_temperature 
+--
+--    globals:  
+--       Dallas_1_wire_device_count
+--		   ROM-codes of the found devices are stored in ARRAY3
+--
+--
+-- <Version: 1.2    ,12-01-2005, Stef Mientki
+--      - bug fixed, no more then 2 sensors could be detected, otherwise hanged
+--			- 1-wire device ROM-codes moved to array3, which gives room for 12 devices
+--			- array1 is needed to store temporary ROM-codes
+--
+-- <Version: 1.1    ,10-09-2004, Stef Mientki
+--      - added procedure DS18B20_get_raw_temperature_nowait
+--
+-- <Version: 1.0    ,10-07-2004, Stef Mientki
+--    - orginal release
+--
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- <Example 
+-- -----------------------------------------------------------------------------
+; const array_check_indices = false
+;
+; const array0_start = 0x70       -- no array in bank 0 wanted
+; const array0_end   = 0x6F       --   so make end-index smaller than start_index
+; -- the first 8 positions of bank1 are used to store ROM_NO
+; const array1_start = 0xA0
+; const array1_end   = 0xEF
+; const array2_start = 0x120
+; const array2_end   = 0x11F
+; -- bank3 is used completly (except the common registers at the end)
+; -- so that gives room for a maximum of 12 pieces of 1-wire devices
+; const array3_start = 0x190
+; const array3_end   = 0x1EF
+;
+; -- include the ARRAY implementation
+; include bank_arrays
+;
+; -- Temperature sensors
+; <mac> io_pin	    _1_wire = pin_d0
+; include DS18B20
+; var byte Tmsb, Tlsb
+;
+; -- Start a search for all 1-wire devices
+; Dallas_1_wire_get_devices_all
+; -- Display the number of found devices
+; asynch_send_hw (Dallas_1_wire_device_count)
+;
+; -- Display the ROM-code of all devices
+; array3_get_index = 0
+; for Dallas_1_wire_device_count loop
+;   for 8 loop
+;     asynch_send_hw (array3)
+;   end loop
+; end loop
+; 
+; forever loop
+;   -- start temperature measurement for all devices
+;   DS18B20_start_conversion
+;   -- get the temperature of the first sensor
+;   DS18B20_get_raw_temperature (1, Tmsb, Tlsb)
+;   -- display the temperature detected by the first sensor
+;   asynch_send_hw(Tmsb)
+;   asynch_send_hw(Tlsb)
+;   -- now the same for the second sensor
+;   DS18B20_get_raw_temperature (2, Tmsb, Tlsb)
+;   asynch_send_hw(Tmsb)
+;   asynch_send_hw(Tlsb)
+; end loop
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+-- include the implementation
+include bank_arrays
+include delay_20Mc
+
+-- -----------------------------------------------------------------------------
+-- some global variables, needed for the search algorithm
+-- -----------------------------------------------------------------------------
+var byte LastDiscrepancy 
+var byte LastFamilyDiscrepancy
+var bit  LastDeviceFlag
+var volatile byte Dallas_1_wire_device_count
+
+
+
+-- 1-wire ROM commands
+const byte _1_wire_search_ROM            = 0xF0
+const byte _1_wire_read_rom              = 0x33
+const byte _1_wire_match_rom             = 0x55
+const byte _1_wire_skip_rom              = 0xCC
+const byte _1_wire_alarm_search          = 0xEC
+
+-- DS18B20 Function commands
+const byte _cmd_DS18B20_convert_T        = 0x44
+const byte _cmd_DS18B20_write_scratchpad = 0x4E
+const byte _cmd_DS18B20_read_scratchpad	 = 0xBE
+const byte _cmd_DS18B20_copy_scratchpad	 = 0x48
+const byte _cmd_DS18B20_recall_E2        = 0xB8
+const byte _cmd_DS18B20_read_powersupply = 0xB4
+
+
+-- -----------------------------------------------------------------------------
+-- generates a reset on the 1-wire bus
+-- and tests if 1-wire devices available
+-- returns 
+--   0 = ok, devices present
+--	 1 = ok, but no devices present
+--	 2 = error, bus short circuited to ground
+-- independant of PIC-speed and no false triggering by spikes
+-- -----------------------------------------------------------------------------
+function _1_wire_reset return byte is
+var byte present_count
+  -- see if pin not short circuited to ground
+  _1_wire_direction = input
+  if ! _1_wire_pin then return 2 end if
+  
+  -- reset puls > 480 usec
+  _1_wire_direction = output
+  delay_10us(50)            
+  _1_wire_direction = input        
+  
+  -- now check if presence puls (low) on the interval 60 .. 75 usec
+  delay_10us(6)
+  present_count = 0
+  -- DS18B20 returns present_count = 12..13 (on loop=20) 
+  for 10 loop
+    if ! _1_wire_pin then present_count = present_count + 1 end if
+    delay_4us
+  end loop
+  
+  -- master has to wiat at least 480 us after a reset
+  delay_10us (40)
+  
+  -- if long enough low present pulse detected
+  if present_count >= 3 then
+    return 0                            -- Yes - return with errorcode 0
+  else
+    return 1                            -- No - return with errorcode 1
+  end if
+end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Write 1 bit to the 1-Wire bus and completes the write-slot
+-- -----------------------------------------------------------------------------
+procedure _1_wire_writebit (bit in wb) is
+  -- start with pulling 1-wire line down
+  _1_wire_direction = output
+  if wb then
+    -- Output a "1", min 1 usec low, min 60 usec high
+    delay_2us
+    _1_wire_direction = input
+    delay_10us(6)
+  else
+    -- Output a "0", min 60 usec low, min 1 usec float
+    delay_10us(6)
+    _1_wire_direction = input
+    delay_2us
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Read 1 bit from the 1-Wire bus, and completes the read slot
+-- -----------------------------------------------------------------------------
+function _1_wire_readbit return bit is
+var bit temp
+  -- start read slot, min 1 usec low
+  _1_wire_direction = output
+  delay_2us
+  _1_wire_direction = input
+
+  -- now master should sample before 15usec-2usec has passed
+  delay_10us
+  temp = _1_wire_pin
+
+  -- now complete the timeslot, till at least 60 usec
+  delay_10us(5)
+
+  return temp
+end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Write 1 byte to the 1-Wire bus
+-- -----------------------------------------------------------------------------
+procedure _1_wire_writebyte (byte in wb) is
+  for 8 loop
+    -- start with lsb
+    asm rrf wb,f
+    _1_wire_writebit(C)
+  end loop
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Read 1 byte from the 1-Wire bus
+-- -----------------------------------------------------------------------------
+function _1_wire_readbyte return byte is
+var byte temp
+  for 8 loop
+    C = _1_wire_readbit
+    asm rrf temp, f
+  end loop
+  return temp
+end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Perform the 1-Wire Search Algorithm on the 1-Wire bus using the current
+-- search state, definied by LastDiscrepancy, LastFamilyDiscrepancy, LastDeviceFlag
+-- The resulting ROM-codes are stored in ram: ARRAY3
+-- Return TRUE  : device found, ROM number is placed in ARRAY3
+--        FALSE : device not found, end of search
+--
+-- This function is prepared for family search, but it's not yet implemented.
+-- CRC is not checked, because it consumes too much resources.
+-- -----------------------------------------------------------------------------
+function _1_wire_Search return bit is
+var byte id_bit_number
+var byte last_zero
+var bit  id_bit
+var bit  cmp_id_bit 
+var byte rom_byte_mask
+var bit  search_direction
+var byte rom_byte_number
+
+   -- initialize for search
+   id_bit_number = 1
+   last_zero = 0
+   rom_byte_mask = 1
+
+  -- if the last call was not the last one
+  if LastDeviceFlag then return false
+  else
+    -- if reset fails, return false
+		if _1_wire_reset != 0 then  return FALSE end if
+    -- issue the search command 
+    _1_wire_writebyte (_1_wire_search_ROM)
+
+    -- loop for all 64 bits (8*8 bytes)
+		rom_byte_number = 0
+		while rom_byte_number < 8 loop
+      -- read a bit and its complement
+      id_bit = _1_wire_readbit    
+      cmp_id_bit = _1_wire_readbit    
+      -- check for no devices on 1-wire
+      if id_bit & cmp_id_bit then return false
+      else
+        -- all devices coupled have 0 or 1
+        if id_bit != cmp_id_bit then
+          search_direction = id_bit   ; bit write value for search
+        else
+          -- if this discrepancy if before the Last Discrepancy
+          -- on a previous next then pick the same as last time
+          if id_bit_number < LastDiscrepancy then
+						array1_get_index = rom_byte_number;
+						search_direction = (array1 & rom_byte_mask) != 0
+          else
+            -- if equal to last pick 1, if not then pick 0
+            search_direction = (id_bit_number == LastDiscrepancy);
+          end if
+          -- if 0 was picked then record its position in LastZero
+          if ! search_direction then
+            last_zero = id_bit_number;
+            -- check for Last discrepancy in family
+            if last_zero < 9 then
+              LastFamilyDiscrepancy = last_zero;
+            end if
+          end if
+        end if
+        -- set or clear the bit in the result byte 
+        -- with mask rom_byte_mask
+				array1_get_index = rom_byte_number;
+				array1_put_index = rom_byte_number;
+				if search_direction then
+					array1 = array1 | rom_byte_mask
+				else
+					array1 = array1 & (! rom_byte_mask)
+				end if
+        -- serial number search direction write bit
+ 				_1_wire_writebit (search_direction)
+        -- increment the byte counter id_bit_number
+        -- and shift the mask rom_byte_mask
+        id_bit_number = id_bit_number + 1
+        rom_byte_mask = rom_byte_mask << 1
+        -- if the mask is 0 then go to new SerialNum byte result byte and reset mask
+        if rom_byte_mask == 0 then
+          array1_get_index = rom_byte_number;
+          array3 = array1  ;store the result in array3 and increment pointer
+          rom_byte_number = rom_byte_number + 1
+          rom_byte_mask = 1
+        end if
+      end if
+    end loop
+
+    -- if the search was successful then
+    -- search successful so set LastDiscrepancy,LastDeviceFlag,search_result
+    LastDiscrepancy = last_zero;
+    -- check for last device
+    if LastDiscrepancy == 0 then
+      LastDeviceFlag = TRUE;
+    end if
+  end if
+  return true
+end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Addresses one or all of the devices on the 1-wire bus
+-- The ROM codes of the devices should be available in array bank ARRAY
+-- Device_index=0 (default) addresses all the devices.
+-- Before addressing is performed, the 1-wire bus is reset.
+-- -----------------------------------------------------------------------------
+procedure _1_wire_address_device (byte in device_index = 0) is
+var byte x
+  _1_wire_reset
+  if device_index == 0 then
+    _1_wire_writebyte (_1_wire_skip_rom)
+  else
+    _1_wire_writebyte (_1_wire_match_rom)
+
+    -- now write the ROM code of the selected device to the 1-wire bus
+    array3_get_index = (device_index - 1) << 3
+    for 8 loop
+      _1_wire_writebyte (array3)
+    end loop
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- This procedure searches for all devices on the 1-wire-bus
+-- returns the number of devices
+-- the number of devices is stored in the global Dallas_1_wire_device_count
+-- the RM-code of the devices are stored in the global array ARRAY3
+-- The addressing of the sensors in all other routines is done by an index
+-- to the array ARRAY3 [1.. 8*Dallas_1_wire_device_count].
+-- Each device occupies 8 bytes in the ARRAY3
+-- Index=0 means all devices !!
+-- -----------------------------------------------------------------------------
+function Dallas_1_wire_get_devices_all 
+  return byte is
+var bit  found
+  -- reset the search state
+
+	-- clear ROM_NO array
+	array1_put_index = 0
+	for 8 loop
+		array1 = 0
+	end loop
+
+  LastDiscrepancy = 0
+  LastDeviceFlag = FALSE
+  LastFamilyDiscrepancy = 0
+  array3_put_index = 0
+
+  found = _1_wire_Search
+  Dallas_1_wire_device_count = 0
+  while found loop
+    Dallas_1_wire_device_count = Dallas_1_wire_device_count + 1
+    found = _1_wire_Search
+  end loop
+  return Dallas_1_wire_device_count
+end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- This procedure searches for ONE DS18B20 device on the 1-wire-bus, 
+-- the 8 bytes ROM-code-ID is stored in ARRAY3
+--  In case you hardcode the device ID's in software, 
+-- this routine can be used to identify just one device.
+--  If more devices are available on the bus, the device with the most significant
+-- zeroes will be identified.
+-- -----------------------------------------------------------------------------
+;function DS18B20_get_device_ID return byte is
+;var bit b1,b2
+;var byte kar
+;
+;  -- if devices present, try to indentify them
+;  if _1_wire_reset == 0 then
+;    _1_wire_writebyte (_1_wire_search_ROM)
+;    for 8 loop
+;      for 8 loop
+;	      b1 = _1_wire_readbit
+;        b2 = _1_wire_readbit
+;        _1_wire_writebit (b1)
+;        -- store bit in kar
+;        C = b1
+;  			asm rrf kar,f
+;      end loop
+;      -- on byte completion, store byte in array and incremenet pointer
+;      array3 = kar
+;    end loop
+;  end if
+;end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Sets resolution and alarms into the selected devices.
+-- NOTE, if internal alarms are not used,
+-- these locations can be used to store (permanently) other information.
+-- Resolution must be specified in "human" indices, i.e. 9,10,11,12
+-- After settings are done, the values can be stored permantly in the eeprom 
+-- of the device by the procedure DS18B20_save_settings_to_EEprom.
+-- (device_index=0 means all devices)
+-- -----------------------------------------------------------------------------
+procedure DS18B20_set_resolution_and_alarms
+  (byte in device_index = 0,
+	 byte in Resolution = 12,
+   byte in Talarm_high,
+   byte in Talarm_low) is
+
+  _1_wire_address_device (device_index)
+  _1_wire_writebyte (_cmd_DS18B20_write_scratchpad)
+  _1_wire_writebyte (Talarm_high)
+  _1_wire_writebyte (Talarm_low)
+  if Resolution < 9 then Resolution = 9
+  elsif resolution > 12 then Resolution = 12
+  end if
+  Resolution = ((Resolution - 9) << 5) | 0x1F
+  _1_wire_writebyte (Resolution)
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Reads resolution and alarms from the selected devices.
+-- Resolution is translated to "human" indices, i.e. 9,10,11,12
+-- Index=0 means all devices !! (this is not meaningfull !!)
+-- -----------------------------------------------------------------------------
+procedure DS18B20_get_resolution_and_alarms
+  (byte in device_index,
+	 byte out Resolution,
+   byte out Talarm_high,
+   byte out Talarm_low) is
+var bit b1
+  _1_wire_address_device (device_index)
+  _1_wire_writebyte (_cmd_DS18B20_read_scratchpad)
+  Talarm_high = _1_wire_readbyte   ;ignore temperature values 
+  Talarm_high = _1_wire_readbyte    
+  Talarm_high = _1_wire_readbyte    
+  Talarm_low = _1_wire_readbyte    
+  Resolution = ((_1_wire_readbyte & 0b_0110_0000) >> 5)+ 9
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- loads alarm and resolution settings from the EEprom into the device's scratchpad
+-- -----------------------------------------------------------------------------
+procedure DS18B20_load_settings_from_EEprom 
+  (byte in device_index = 0) is
+  _1_wire_address_device (device_index)
+  _1_wire_writebyte (_cmd_DS18B20_recall_E2)
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- saves alarm and resolution settings from the device's scratchpad to the EEprom
+-- -----------------------------------------------------------------------------
+procedure DS18B20_save_settings_to_EEprom 
+  (byte in device_index = 0) is
+  _1_wire_address_device (device_index)
+  _1_wire_writebyte (_cmd_DS18B20_copy_scratchpad)
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Starts the temperature conversion for the selected device.
+-- (device_index=0 means all devices)
+-- -----------------------------------------------------------------------------
+procedure DS18B20_start_conversion 
+  (byte in device_index = 0) is
+  _1_wire_address_device (device_index)
+  _1_wire_writebyte (_cmd_DS18B20_convert_T)
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Reads the temperature from the selected device.
+-- same as DS18B20_get_raw_temperature, (see below)
+-- except it doesn't wait.
+-- In cases where it's ensured that the conversion time of the sensor is satisfied,
+-- this procedure has the advantage that it doesn't hang for a while,
+-- in case something is wrong with the sensors
+-- -----------------------------------------------------------------------------
+procedure DS18B20_get_raw_temperature_nowait
+  (byte in device_index ,
+   byte out Tmsb,
+   byte out Tlsb) is
+var bit b1
+  _1_wire_address_device (device_index)
+  _1_wire_writebyte (_cmd_DS18B20_read_scratchpad)
+  Tlsb = _1_wire_readbyte    
+  Tmsb = _1_wire_readbyte    
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Reads the temperature from the selected device.
+-- device_index=0 reads all the sensors and stores them in array ...
+--   in that case temp_high and temp_low will contain the temparture from the first sensor
+-- IMPORTANT reading of each sensor takes about 4 msec !!
+-- In case a temerature measurement is still in progress, the procedure waits.
+-- -----------------------------------------------------------------------------
+procedure DS18B20_get_raw_temperature 
+  (byte in device_index ,
+   byte out Tmsb,
+   byte out Tlsb) is
+var bit b1
+  -- to be sure, wait for DS18B20 to be ready
+  b1 = false 
+  while ! b1 loop
+    b1 = _1_wire_readbit
+  end loop
+
+  DS18B20_get_raw_temperature_nowait(device_index, Tmsb, Tlsb)
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- initialize
+-- -----------------------------------------------------------------------------
+_1_wire_direction = input
+_1_wire_pin				= low
+
+

@@ -1,0 +1,1813 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 11/27/05, 14:28
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 53 0D 00 2B 53 <pp> <progname>  00 00 2B 53 29 53
+; program name: VOER
+; file is NOT protected
+
+; unkown codes are inserted as " %%HH%% "
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+;NO_Optimize 
+
+"VINCENT VD WEELE"->Str1
+CoordOff
+AxesOff
+FnOff
+1->Xmin
+95->Xmax
+1->Ymin
+63->Ymax
+ClrDraw
+Line(21,62,18,62
+Line(18,61,17,61
+Pt_On(17,60
+Line(16,60,16,56
+Line(15,55,15,52
+Line(14,52,14,48
+Line(13,48,13,43
+Line(12,43,12,36
+Pt_On(13,36
+Line(13,35,20,35
+Line(20,34,21,34
+Pt_On(21,33
+Line(22,33,22,28
+Line(21,28,21,24
+Line(20,24,20,19
+Line(21,19,21,18
+Pt_On(22,18
+Line(22,17,25,17
+Line(25,18,26,18
+Line(26,19,27,19
+Pt_On(27,20
+Line(28,20,28,24
+Line(29,24,29,28
+Line(30,28,30,33
+Line(31,33,31,38
+Line(32,38,32,41
+Line(33,41,33,47
+Line(34,47,34,49
+Line(35,49,35,53
+Line(36,54,36,59
+Line(35,60,34,60
+Line(34,61,31,61
+Line(31,60,30,60
+Pt_On(30,59
+Line(29,59,29,56
+Line(28,56,28,53
+Line(27,53,27,49
+Line(26,49,26,43
+Line(25,43,21,43
+Pt_On(21,44
+Line(20,44,20,47
+Line(21,47,21,51
+Line(22,51,22,55
+Line(23,55,23,60
+Line(22,60,22,61
+Pt_On(21,61
+Line(43,43,43,47
+Pt_On(44,42
+Line(45,41,46,41
+Pt_On(47,42
+Line(48,43,48,47
+Pt_On(47,48
+Line(46,49,45,49
+Pt_On(44,48
+Line(50,49,50,41
+Line(51,49,52,49
+Pt_On(53,48
+Line(54,47,54,46
+Pt_On(53,45
+Line(52,44,51,44
+Line(56,37,60,37
+Line(56,36,56,30
+Line(57,33,60,33
+Line(56,29,60,29
+Line(62,37,66,37
+Line(62,36,62,30
+Line(63,33,66,33
+Line(62,29,66,29
+Line(68,29,68,37
+Pt_On(69,36
+Line(70,37,71,37
+Line(72,36,72,29
+Line(77,25,77,14
+Line(78,25,82,25
+Line(83,24,83,21
+Pt_On(82,20
+Line(81,19,79,19
+Line(78,19,83,14
+Line(85,14,85,25
+Pt_On(85,28
+Pt_On(89,28
+Line(89,25,89,11
+Pt_On(88,10
+Line(87,9,84,9
+Pt_On(83,10
+Text(56,1,Str1
+Text(56,60,"2002
+Pause "ap"
+ClrDraw
+Clrhome
+32->X
+19->Q
+Lbl HM
+Clrhome
+{6,10}->dim([A]
+Fill(0,[A]
+0->V
+Menu("4 OP EEN RIJ","SPELEN!",1,"UITLEG",2,"MAKER",3,"STOP",0
+lbl 0
+ClrDraw
+Clrhome
+Disp "","","","   TOT ZIENS
+Pause "p"
+Clrhome
+Stop
+Lbl 2
+ClrDraw
+Text(1,1,"DE BEDOELING VAN HET SPEL
+Text(7,1,"IS DAT EEN SPELER 4 VAN
+Text(13,1,"ZIJN SYMBOLEN OP EEN"
+Text(19,1,"LIJN (HORI/VERT/DIAG)
+Text(25,1,"KRIJGT."
+Text(31,1,"JOUW SYMBOOL WORDT GEZET
+Text(37,1,"IN DE KOLOM DIE JE KIEST
+Text(43,1,"DOOR HET NUMMER BOVEN
+Text(49,1,"DE KOLOM IN TE DRUKKEN.
+Text(57,1,"DRUK OP 2ND OM TE STOPPEN.
+Lbl UL
+0->&
+Getkey->&
+If &=0:Goto UL
+Goto HM
+Lbl 3
+ClrDraw
+Line(17,47,79,47
+Line(17,17,79,17
+Line(17,17,17,47
+Line(79,17,79,47
+Text(18,28,"4 OP EEN RIJ
+Text(X,Q,Str1
+Text(38,41,"V4A
+8->S
+45->T
+48->U
+45->V
+Lbl SR
+0->&
+T+1->T
+V-1->V
+Text(S,T,"*
+Text(S,T-1," "
+Text(U,V,"*
+Text(U,V+6," "
+If T=81:Goto SD
+Getkey->&
+If &!=0:Goto HM
+Goto SR
+Lbl SD
+0->&
+S+1->S
+U-1->U
+Text(S,T,"*
+Text(S-6,T,"      "
+Text(U,V,"*
+Text(U+6,V,"      "
+If S=48:Goto SL
+Getkey->&
+If &!=0:Goto HM
+Goto SD
+Lbl SL
+0->&
+T-1->T
+V+1->V
+Text(S,T,"*
+Text(S,T+6," "
+Text(U,V,"*
+Text(U,V-1," "
+If V=81:Goto SU
+Getkey->&
+If &!=0:Goto HM
+Goto SL
+Lbl SU
+0->&
+S-1->S
+U+1->U
+Text(S,T,"*
+Text(S+6,T,"      "
+Text(U,V,"*
+Text(U-6,T,"      "
+If U=48:Goto SR
+Getkey->&
+If &!=0:Goto HM
+Goto SU
+lbl 1
+ClrDraw
+Line(8,49,88,49)
+Line(8,41,88,41)
+Line(8,33,88,33
+Line(8,25,88,25
+Line(8,17,88,17
+If Str1!="VINCENT VD WEELE":Goto DD
+Line(8,9,88,9
+Line(8,1,88,1
+Line(8,49,8,1
+Line(16,49,16,1
+Line(24,49,24,1
+Line(32,49,32,1
+Line(40,49,40,1
+Line(48,49,48,1
+If X!=32:DD
+If Y!=19:DD
+Line(56,49,56,1
+Line(64,49,64,1
+Line(72,49,72,1
+Line(80,49,80,1
+Line(88,49,88,1
+Text(7,10,"1"
+Text(7,18,"2"
+Text(7,26,"3
+Text(7,34,"4
+Text(7,42,"5
+Text(7,50,"6
+Text(7,58,"7
+Text(7,66,"8
+Text(7,74,"9
+Text(7,82,"0
+lbl HM
+lbl P1
+Text(1,8,"                    "
+Text(1,8,"GEREED"
+1->W
+0->&
+Getkey->&
+If &=92:Goto A
+If &=93:Goto B
+If &=94:Goto C
+If &=82:Goto D
+If &=83:Goto E
+If &=84:Goto F
+If &=72:Goto G
+If &=73:Goto H
+If &=74:Goto I
+If &=102:Goto J
+If &=21:Goto 0
+Goto P1
+lbl A
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,1)=0:Goto A1
+If [A](5,1)=0:Goto A2
+If [A](4,1)=0:Goto A3
+If [A](3,1)=0:Goto A4
+If [A](2,1)=0:Goto A5
+If [A](1,1)=0:Goto A6
+Goto P1
+lbl B
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,2)=0:Goto B1
+If [A](5,2)=0:Goto B2
+If [A](4,2)=0:Goto B3
+If [A](3,2)=0:Goto B4
+If [A](2,2)=0:Goto B5
+If [A](1,2)=0:Goto B6
+Goto P1
+lbl C
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,3)=0:Goto C1
+If [A](5,3)=0:Goto C2
+If [A](4,3)=0:Goto C3
+If [A](3,3)=0:Goto C4
+If [A](2,3)=0:Goto C5
+If [A](1,3)=0:Goto C6
+Goto P1
+lbl DD
+""->Str1
+""->Str2
+Str1+Expr(Str2)->Str3
+lbl D
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,4)=0:Goto D1
+If [A](5,4)=0:Goto D2
+If [A](4,4)=0:Goto D3
+If [A](3,4)=0:Goto D4
+If [A](2,4)=0:Goto D5
+If [A](1,4)=0:Goto D6
+Goto P1
+lbl E
+Text(1,8,"                       "
+Text(1,8,"BEZIG
+If [A](6,5)=0:Goto E1
+If [A](5,5)=0:Goto E2
+If [A](4,5)=0:Goto E3
+If [A](3,5)=0:Goto E4
+If [A](2,5)=0:Goto E5
+If [A](1,5)=0:Goto E6
+Goto P1
+lbl F
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,6)=0:Goto F1
+If [A](5,6)=0:Goto F2
+If [A](4,6)=0:Goto F3
+If [A](3,6)=0:Goto F4
+If [A](2,6)=0:Goto F5
+If [A](1,6)=0:Goto F6
+Goto P1
+lbl G
+Text(1,8,"
+Text(1,8,"BEZIG
+If [A](6,7)=0:Goto G1
+If [A](5,7)=0:Goto G2
+If [A](4,7)=0:Goto G3
+If [A](3,7)=0:Goto G4
+If [A](2,7)=0:Goto G5
+If [A](1,7)=0:Goto G6
+Goto P1
+lbl H
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,8)=0:Goto H1
+If [A](5,8)=0:Goto H2
+If [A](4,8)=0:Goto H3
+If [A](3,8)=0:Goto H4
+If [A](2,8)=0:Goto H5
+If [A](1,8)=0:Goto H6
+Goto P1
+lbl I
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,9)=0:Goto I1
+If [A](5,9)=0:Goto I2
+If [A](4,9)=0:Goto I3
+If [A](3,9)=0:Goto I4
+If [A](2,9)=0:Goto I5
+If [A](1,9)=0:Goto I6
+Goto P1
+lbl J
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,10)=0:Goto J1
+If [A](5,10)=0:Goto J2
+If [A](4,10)=0:Goto J3
+If [A](3,10)=0:Goto J4
+If [A](2,10)=0:Goto J5
+If [A](1,10)=0:Goto J6
+Goto P1
+lbl P2
+Text(1,8,"                    "
+Text(1,8,"GEREED
+2->W
+0->&
+Getkey->&
+If &=92:Goto K
+If &=93:Goto L
+If &=94:Goto M
+If &=82:Goto N
+If &=83:Goto O
+If &=84:Goto P
+If &=72:Goto Q
+If &=73:Goto R
+If &=74:Goto S
+If &=102:Goto T
+If &=21:Goto 0
+Goto P2
+lbl K
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,1)=0:Goto K1
+If [A](5,1)=0:Goto K2
+If [A](4,1)=0:Goto K3
+If [A](3,1)=0:Goto K4
+If [A](2,1)=0:Goto K5
+If [A](1,1)=0:Goto K6
+Goto P2
+lbl L
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,2)=0:Goto L1
+If [A](5,2)=0:Goto L2
+If [A](4,2)=0:Goto L3
+If [A](3,2)=0:Goto L4
+If [A](2,2)=0:Goto L5
+If [A](1,2)=0:Goto L6
+Goto P2
+lbl M
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,3)=0:Goto M1
+If [A](5,3)=0:Goto M2
+If [A](4,3)=0:Goto M3
+If [A](3,3)=0:Goto M4
+If [A](2,3)=0:Goto M5
+If [A](1,3)=0:Goto M6
+Goto P2
+lbl N
+Text(1,8,"                           "
+Text(1,8,"BEZIG
+If [A](6,4)=0:Goto N1
+If [A](5,4)=0:Goto N2
+If [A](4,4)=0:Goto N3
+If [A](3,4)=0:Goto N4
+If [A](2,4)=0:Goto N5
+If [A](1,4)=0:Goto N6
+Goto P2
+lbl O
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,5)=0:Goto O1
+If [A](5,5)=0:Goto O2
+If [A](4,5)=0:Goto O3
+If [A](3,5)=0:Goto O4
+If [A](2,5)=0:Goto O5
+If [A](1,5)=0:Goto O6
+Goto P2
+lbl P
+Text(1,8,"                         "
+Text(1,8,"BEZIG
+If [A](6,6)=0:Goto P3
+If [A](5,6)=0:Goto P4
+If [A](4,6)=0:Goto P5
+If [A](3,6)=0:Goto P6
+If [A](2,6)=0:Goto P7
+If [A](1,6)=0:Goto P8
+Goto P2
+lbl Q
+Text(1,8,"                         "
+Text(1,8,"BEZIG
+If [A](6,7)=0:Goto Q1
+If [A](5,7)=0:Goto Q2
+If [A](4,7)=0:Goto Q3
+If [A](3,7)=0:Goto Q4
+If [A](2,7)=0:Goto Q5
+If [A](1,7)=0:Goto Q6
+Goto P2
+lbl R
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,8)=0:Goto R1
+If [A](5,8)=0:Goto R2
+If [A](4,8)=0:Goto R3
+If [A](3,8)=0:Goto R4
+If [A](2,8)=0:Goto R5
+If [A](1,8)=0:Goto R6
+Goto P2
+lbl S
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,9)=0:Goto S1
+If [A](5,9)=0:Goto S2
+If [A](4,9)=0:Goto S3
+If [A](3,9)=0:Goto S4
+If [A](2,9)=0:Goto S5
+If [A](1,9)=0:Goto S6
+Goto P2
+lbl T
+Text(1,8,"                        "
+Text(1,8,"BEZIG
+If [A](6,10)=0:Goto T1
+If [A](5,10)=0:Goto T2
+If [A](4,10)=0:Goto T3
+If [A](3,10)=0:Goto T4
+If [A](2,10)=0:Goto T5
+If [A](1,10)=0:Goto T6
+Goto P2
+lbl A1
+1->[A](6,1)
+1->Z
+Line(10,7,14,3
+Line(10,3,14,7
+Goto 10
+lbl A2
+11->Z
+1->[A](5,1)
+Line(10,11,14,15
+Line(10,15,14,11
+Goto 17
+lbl A3
+21->Z
+1->[A](4,1
+Line(10,19,14,23
+Line(10,23,14,19
+Goto 24
+lbl A4
+31->Z
+1->[A](3,1
+Line(10,27,14,31
+Line(10,31,14,27
+Goto 31
+lbl A5
+41->Z
+1->[A](2,1
+Line(10,35,14,39
+Line(10,39,14,35
+Goto 38
+lbl A6
+51->Z
+1->[A](1,1
+Line(10,43,14,47
+Line(10,47,14,43
+Goto 45
+lbl B1
+2->Z
+1->[A](6,2
+Line(18,3,22,7
+Line(18,7,22,3
+Goto 10
+lbl B2
+12->Z
+1->[A](5,2
+Line(18,11,22,15
+Line(18,15,22,11
+Goto 17
+lbl B3
+22->Z
+1->[A](4,2
+Line(18,19,22,23
+Line(18,23,22,19
+Goto 24
+lbl B4
+32->Z
+1->[A](3,2
+Line(18,27,22,31
+Line(18,31,22,27
+Goto 31
+lbl B5
+42->Z
+1->[A](2,2
+Line(18,35,22,39
+Line(18,39,22,35
+Goto 38
+lbl B6
+52->Z
+1->[A](1,2
+Line(18,43,22,47
+Line(18,47,22,43
+Goto 45
+lbl C1
+3->Z
+1->[A](6,3
+Line(26,3,30,7
+Line(26,7,30,3
+Goto 10
+lbl C2
+13->Z
+1->[A](5,3
+Line(26,11,30,15
+Line(26,15,30,11
+Goto 17
+lbl C3
+23->Z
+1->[A](4,3
+Line(26,19,30,23
+Line(26,23,30,19
+Goto 24
+lbl C4
+33->Z
+1->[A](3,3
+Line(26,27,30,31
+Line(26,31,30,27
+Goto 31
+lbl C5
+43->Z
+1->[A](2,3
+Line(26,35,30,39
+Line(26,39,30,35
+Goto 38
+lbl C6
+53->Z
+1->[A](1,3
+Line(26,43,30,47
+Line(26,47,30,43
+Goto 45
+lbl D1
+4->Z
+1->[A](6,4
+Line(34,3,38,7
+Line(34,7,38,3
+Goto 10
+lbl D2
+14->Z
+1->[A](5,4
+Line(34,11,38,15
+Line(34,15,38,11
+Goto 17
+lbl D3
+24->Z
+1->[A](4,4
+Line(34,19,38,23
+Line(34,23,38,19
+Goto 24
+lbl D4
+34->Z
+1->[A](3,4
+Line(34,27,38,31
+Line(34,31,38,27
+Goto 31
+lbl D5
+44->Z
+1->[A](2,4
+Line(34,35,38,39
+Line(34,39,38,35
+Goto 38
+lbl D6
+54->Z
+1->[A](1,4
+Line(34,43,38,47
+Line(34,47,38,43
+Goto 45
+lbl E1
+5->Z
+1->[A](6,5
+Line(42,3,46,7
+Line(42,7,46,3
+Goto 11
+lbl E2
+15->Z
+1->[A](5,5
+Line(42,11,46,15
+Line(42,15,46,11
+Goto 18
+lbl E3
+25->Z
+1->[A](4,5
+Line(42,19,46,23
+Line(42,23,46,19
+Goto 25
+lbl E4
+35->Z
+1->[A](3,5
+Line(42,27,46,31
+Line(42,31,46,27
+Goto 32
+lbl E5
+45->Z
+1->[A](2,5
+Line(42,35,46,39
+Line(42,39,46,35
+Goto 39
+lbl E6
+55->Z
+1->[A](1,5
+Line(42,43,46,47
+Line(42,47,46,43
+Goto 46
+lbl F1
+6->Z
+1->[A](6,6
+Line(50,3,54,7
+Line(50,7,54,3
+Goto 12
+lbl F2
+16->Z
+1->[A](5,6
+Line(50,11,54,15
+Line(50,15,54,11
+Goto 19
+lbl F3
+26->Z
+1->[A](4,6
+Line(50,19,54,23
+Line(50,23,54,19
+Goto 26
+lbl F4
+36->Z
+1->[A](3,6
+Line(50,27,54,31
+Line(50,31,54,27
+Goto 33
+lbl F5
+46->Z
+1->[A](2,6
+Line(50,35,54,39
+Line(50,39,54,35
+Goto 40
+lbl F6
+56->Z
+1->[A](1,6
+Line(50,43,54,47
+Line(50,47,54,43
+Goto 47
+lbl G1
+7->Z
+1->[A](6,7
+Line(58,3,62,7
+Line(58,7,62,3
+Goto 13
+lbl G2
+17->Z
+1->[A](5,7
+Line(58,11,62,15
+Line(58,15,62,11
+Goto 20
+lbl G3
+27->Z
+1->[A](4,7
+Line(58,19,62,23
+Line(58,23,62,19
+Goto 27
+lbl G4
+37->Z
+1->[A](3,7
+Line(58,27,62,31
+Line(58,31,62,27
+Goto 34
+lbl G5
+47->Z
+1->[A](2,7
+Line(58,35,62,39
+Line(58,39,62,35
+Goto 41
+lbl G6
+57->Z
+1->[A](1,7
+Line(58,43,62,47
+Line(58,47,62,43
+Goto 48
+lbl H1
+8->Z
+1->[A](6,8
+Line(66,3,70,7
+Line(66,7,70,3
+Goto 14
+lbl H2
+18->Z
+1->[A](5,8
+Line(66,11,70,15
+Line(66,15,70,11
+Goto 21
+lbl H3
+28->Z
+1->[A](4,8
+Line(66,19,70,23
+Line(66,23,70,19
+Goto 28
+lbl H4
+38->Z
+1->[A](3,8
+Line(66,27,70,31
+Line(66,31,70,27
+Goto 35
+lbl H5
+48->Z
+1->[A](2,8
+Line(66,35,70,39
+Line(66,39,70,35
+Goto 42
+lbl H6
+58->Z
+1->[A](1,8
+Line(66,43,70,47
+Line(66,47,70,43
+Goto 49
+lbl I1
+9->Z
+1->[A](6,9
+Line(74,3,78,7
+Line(74,7,78,3
+Goto 15
+lbl I2
+19->Z
+1->[A](5,9
+Line(74,11,78,15
+Line(74,15,78,11
+Goto 22
+lbl I3
+29->Z
+1->[A](4,9
+Line(74,19,78,23
+Line(74,23,78,19
+Goto 29
+lbl I4
+39->Z
+1->[A](3,9
+Line(74,27,78,31
+Line(74,31,78,27
+Goto 36
+lbl I5
+49->Z
+1->[A](2,9
+Line(74,35,78,39
+Line(74,39,78,35
+Goto 43
+lbl I6
+59->Z
+1->[A](1,9
+Line(74,43,78,47
+Line(74,47,78,43
+Goto 50
+lbl J1
+10->Z
+1->[A](6,10
+Line(82,3,86,7
+Line(82,7,86,3
+Goto 16
+lbl J2
+20->Z
+1->[A](5,10
+Line(82,11,86,15
+Line(82,15,86,11
+Goto 23
+lbl J3
+30->Z
+1->[A](4,10
+Line(82,19,86,23
+Line(82,23,86,19
+Goto 30
+lbl J4
+40->Z
+1->[A](3,10
+Line(82,27,86,31
+Line(82,31,86,27
+Goto 37
+lbl J5
+50->Z
+1->[A](2,10
+Line(82,35,86,39
+Line(82,39,86,35
+Goto 44
+lbl J6
+60->Z
+1->[A](1,10
+Line(82,43,86,47
+Line(82,47,86,43
+Goto 51
+lbl K1
+1->Z
+2->[A](6,1
+Circle(12,5,2)
+Goto 10
+lbl K2
+11->Z
+2->[A](5,1
+Circle(12,13,2
+Goto 17
+lbl K3
+21->Z
+2->[A](4,1
+Circle(12,21,2
+Goto 24
+lbl K4
+31->Z
+2->[A](3,1
+Circle(12,29,2
+Goto 31
+lbl K5
+41->Z
+2->[A](2,1
+Circle(12,37,2
+Goto 38
+lbl K6
+51->Z
+2->[A](1,1
+Circle(12,45,2
+Goto 45
+lbl L1
+2->Z
+2->[A](6,2
+Circle(20,5,2
+Goto 10
+lbl L2
+12->Z
+2->[A](5,2
+Circle(20,13,2
+Goto 17
+lbl L3
+22->Z
+2->[A](4,2
+Circle(20,21,2
+Goto 24
+lbl L4
+32->Z
+2->[A](3,2
+Circle(20,29,2
+Goto 31
+lbl L5
+42->Z
+2->[A](2,2
+Circle(20,37,2
+Goto 38
+lbl L6
+52->Z
+2->[A](1,2
+Circle(20,45,2
+Goto 45
+lbl M1
+3->Z
+2->[A](6,3
+Circle(28,5,2
+Goto 10
+lbl M2
+13->Z
+2->[A](5,3
+Circle(28,13,2
+Goto 17
+lbl M3
+23->Z
+2->[A](4,3
+Circle(28,21,2
+Goto 24
+lbl M4
+33->Z
+2->[A](3,3
+Circle(28,29,2
+Goto 31
+lbl M5
+43->Z
+2->[A](2,3
+Circle(28,37,2
+Goto 38
+lbl M6
+53->Z
+2->[A](1,3
+Circle(28,45,2
+Goto 45
+lbl N1
+4->Z
+2->[A](6,4
+Circle(36,5,2
+Goto 10
+lbl N2
+14->Z
+2->[A](5,4
+Circle(36,13,2
+Goto 17
+lbl N3
+24->Z
+2->[A](4,4
+Circle(36,21,2
+Goto 24
+lbl N4
+34->Z
+2->[A](3,4
+Circle(36,29,2
+Goto 31
+lbl N5
+44->Z
+2->[A](2,4
+Circle(36,37,2
+Goto 38
+lbl N6
+54->Z
+2->[A](1,4
+Circle(36,45,2
+Goto 45
+lbl O1
+5->Z
+2->[A](6,5
+Circle(44,5,2
+Goto 11
+lbl O2
+15->Z
+2->[A](5,5
+Circle(44,13,2
+Goto 18
+lbl O3
+25->Z
+2->[A](4,5
+Circle(44,21,2
+Goto 25
+lbl O4
+35->Z
+2->[A](3,5
+Circle(44,29,2
+Goto 32
+lbl O5
+45->Z
+2->[A](2,5
+Circle(44,37,2
+Goto 39
+lbl O6
+55->Z
+2->[A](1,5
+Circle(44,45,2
+Goto 46
+lbl P3
+6->Z
+2->[A](6,6
+Circle(52,5,2
+Goto 12
+lbl P4
+16->Z
+2->[A](5,6
+Circle(52,13,2
+Goto 19
+lbl P5
+26->Z
+2->[A](4,6
+Circle(52,21,2
+Goto 26
+lbl P6
+36->Z
+2->[A](3,6
+Circle(52,29,2
+Goto 33
+lbl P7
+46->Z
+2->[A](2,6
+Circle(52,37,2
+Goto 40
+lbl P8
+56->Z
+2->[A](1,6
+Circle(52,45,2
+Goto 47
+lbl Q1
+7->Z
+2->[A](6,7
+Circle(60,5,2
+Goto 13
+lbl Q2
+17->Z
+2->[A](5,7
+Circle(60,13,2
+Goto 20
+lbl Q3
+27->Z
+2->[A](4,7
+Circle(60,21,2
+Goto 27
+lbl Q4
+37->Z
+2->[A](3,7
+Circle(60,29,2
+Goto 34
+lbl Q5
+47->Z
+2->[A](2,7
+Circle(60,37,2
+Goto 41
+lbl Q6
+57->Z
+2->[A](1,7
+Circle(60,45,2
+Goto 48
+lbl R1
+8->Z
+2->[A](6,8
+Circle(68,5,2
+Goto 14
+lbl R2
+18->Z
+2->[A](5,8
+Circle(68,13,2
+Goto 21
+lbl R3
+28->Z
+2->[A](4,8
+Circle(68,21,2
+Goto 28
+lbl R4
+38->Z
+2->[A](3,8
+Circle(68,29,2
+Goto 35
+lbl R5
+48->Z
+2->[A](2,8
+Circle(68,37,2
+Goto 42
+lbl R6
+58->Z
+2->[A](1,8
+Circle(68,45,2
+Goto 49
+lbl S1
+9->Z
+2->[A](6,9
+Circle(76,5,2
+Goto 15
+lbl S2
+19->Z
+2->[A](5,9
+Circle(76,13,2
+Goto 22
+lbl S3
+29->Z
+2->[A](4,9
+Circle(76,21,2
+Goto 29
+lbl S4
+39->Z
+2->[A](3,9
+Circle(76,29,2
+Goto 36
+lbl S5
+49->Z
+2->[A](2,9
+Circle(76,37,2
+Goto 43
+lbl S6
+59->Z
+2->[A](1,9
+Circle(76,45,2
+Goto 50
+lbl T1
+10->Z
+2->[A](6,10
+Circle(84,5,2
+Goto 16
+lbl T2
+20->Z
+2->[A](5,10
+Circle(84,13,2
+Goto 23
+lbl T3
+30->Z
+2->[A](4,10
+Circle(84,21,2
+Goto 30
+lbl T4
+40->Z
+2->[A](3,10
+Circle(84,29,2
+Goto 37
+lbl T5
+50->Z
+2->[A](2,10
+Circle(84,37,2
+Goto 44
+lbl T6
+60->Z
+2->[A](1,10
+Circle(84,45,2
+Goto 51
+lbl 10
+If [A](6,1)=[A](6,2) and [A](6,1)=[A](6,3) and [A](6,1)=[A](6,4):Then
+Line(8,5,40,5)
+Goto W
+End
+If Z=1:Goto 82
+lbl 11
+If [A](6,2)=[A](6,3) and [A](6,2)=[A](6,4) and [A](6,2)=[A](6,5):Then
+Line(16,5,48,5):Goto W
+End
+If Z=2:Goto 83
+lbl 12
+If [A](6,3)=[A](6,4) and [A](6,3)=[A](6,5) and [A](6,3)=[A](6,6):Then
+Line(24,5,56,5)
+Goto W
+End
+If Z=3:Goto 84
+lbl 13
+If [A](6,4)=[A](6,5) and [A](6,4)=[A](6,6) and [A](6,4)=[A](6,7):Then
+Line(32,5,64,5)
+Goto W
+End
+If Z=4:Goto 85
+lbl 14
+If [A](6,5)=[A](6,6) and [A](6,5)=[A](6,7) and [A](6,5)=[A](6,8):Then
+Line(40,5,72,5)
+Goto W
+End
+If Z=5:Goto 86
+lbl 15
+If [A](6,6)=[A](6,7) and [A](6,6)=[A](6,8) and [A](6,6)=[A](6,9):Then
+Line(48,5,80,5)
+Goto W
+End
+If Z=6:Goto 87
+lbl 16
+If [A](6,7)=[A](6,8) and [A](6,7)=[A](6,9) and [A](6,7)=[A](6,10):5->V
+If V=5:Line(56,5,88,5)
+If V=5:Goto W
+If Z=7:Goto 88
+If Z=8:Goto Y4
+If Z=9:Goto Y5
+If Z=10:Goto Y6
+lbl 17
+If [A](5,1)=[A](5,2) and [A](5,1)=[A](5,3) and [A](5,1)=[A](5,4):5->V
+If V=5:Line(8,13,40,13)
+If V=5:Goto W
+If Z=11:Goto 89
+lbl 18
+If [A](5,2)=[A](5,3) and [A](5,2)=[A](5,4) and [A](5,2)=[A](5,5):5->V
+If V=5:Line(16,13,48,13)
+If V=5:Goto W
+If Z=12:Goto 82
+lbl 19
+If [A](5,3)=[A](5,4) and [A](5,3)=[A](5,5) and [A](5,3)=[A](5,6):V->5
+If V=5:Line(24,13,56,13)
+If V=5:Goto W
+If Z=13:Goto 83
+lbl 20
+If [A](5,4)=[A](5,5) and [A](5,4)=[A](5,6) and [A](5,4)=[A](5,7):5->V
+If V=5:Line(32,13,64,13)
+If V=5:Goto W
+If Z=14:Goto 84
+lbl 21
+If [A](5,5)=[A](5,6) and [A](5,5)=[A](5,7) and [A](5,5)=[A](5,8):5->V
+If V=5:Line(40,13,72,13)
+If V=5:Goto W
+If Z=15:Goto 85
+lbl 22
+If [A](5,6)=[A](5,7) and [A](5,6)=[A](5,8) and [A](5,6)=[A](5,9):5->V
+If V=5:Line(48,13,80,13)
+If V=5:Goto W
+If Z=16:Goto 86
+lbl 23
+If [A](5,7)=[A](5,8) and [A](5,7)=[A](5,9) and [A](5,7)=[A](5,10):5->V
+If V=5:Line(56,13,88,13)
+If V=5:Goto W
+If Z=17:Goto 87
+If Z=18:Goto 88
+If Z=19:Goto Z7
+If Z=20:Goto Z8
+lbl 24
+If [A](4,1)=[A](4,2) and [A](4,1)=[A](4,3) and [A](4,1)=[A](4,4):5->V
+If V=5:Line(8,21,40)
+If V=5:Goto W
+If Z=21:Goto 96
+lbl 25
+If [A](4,2)=[A](4,3) and [A](4,2)=[A](4,4) and [A](4,2)=[A](4,5):5->V
+If V=5:Line(16,21,48,21)
+If V=5:Goto W
+If Z=22:Goto 89
+lbl 26
+If [A](4,3)=[A](4,4) and [A](4,3)=[A](4,5) and [A](4,3)=[A](4,6):5->V
+If V=5:Line(24,21,56,21)
+If V=5:Goto W
+If Z=23:Goto 82
+lbl 27
+If [A](4,4)=[A](4,5) and [A](4,4)=[A](4,6) and [A](4,4)=[A](4,7):5->V
+If V=5:Line(32,21,64,21)
+If V=5:Goto W
+If Z=24:Goto 83
+lbl 28
+If [A](4,5)=[A](4,6) and [A](4,5)=[A](4,7) and [A](4,5)=[A](4,8):5->V
+If V=5:Line(40,21,72,21)
+If V=5:Goto W
+If Z=25:Goto 84
+lbl 29
+If [A](4,6)=[A](4,7) and [A](4,6)=[A](4,8) and [A](4,6)=[A](4,9):5->V
+If V=5:Line(48,21,80,21)
+If V=5:Goto W
+If Z=26:Goto 85
+lbl 30
+If [A](4,7)=[A](4,8) and [A](4,7)=[A](4,9) and [A](4,7)=[A](4,10):5->V
+If V=5:Line(56,21,88,21)
+If V=5:Goto W
+If Z=27:Goto 86
+If Z=28:Goto 87
+If Z=29:Goto 88
+If Z=30:Goto Z1
+lbl 31
+If [A](3,1)=[A](3,2) and [A](3,1)=[A](3,3) and [A](3,1)=[A](3,4):5->V
+If V=5:Line(8,29,40,29)
+If V=5:Goto W
+If Z=31:Goto 52
+lbl 32
+If [A](3,2)=[A](3,3) and [A](3,2)=[A](3,4) and [A](3,2)=[A](3,5):5->V
+If V=5:Line(16,29,48,29)
+If V=5:Goto W
+If Z=32:Goto 53
+lbl 33
+If [A](3,3)=[A](3,4) and [A](3,3)=[A](3,5) and [A](3,3)=[A](3,6):5->V
+If V=5:Line(24,29,56,29)
+If V=5:Goto W
+If Z=33:Goto 54
+lbl 34
+If [A](3,4)=[A](3,5) and [A](3,4)=[A](3,6) and [A](3,4)=[A](3,7):5->V
+If V=5:Line(32,29,64,29)
+If V=5:Goto W
+If Z=34:Goto 55
+lbl 35
+If [A](3,5)=[A](3,6) and [A](3,5)=[A](3,7) and [A](3,5)=[A](3,8):5->V
+If V=5:Line(40,29,72,29)
+If V=5:Goto W
+If Z=35:Goto 56
+lbl 36
+If [A](3,6)=[A](3,7) and [A](3,6)=[A](3,8) and [A](3,6)=[A](3,9):5->V
+If V=5:Line(48,29,80,29)
+If V=5:Goto W
+If Z=36:Goto 57
+lbl 37
+If [A](3,7)=[A](3,8) and [A](3,7)=[A](3,9) and [A](3,7)=[A](3,10):5->V
+If V=5:Line(56,29,88,29)
+If V=5:Goto W
+If Z=37:Goto 58
+If Z=38:Goto 59
+If Z=39:Goto 60
+If Z=40:Goto 61
+lbl 38
+If [A](2,1)=[A](2,2) and [A](2,1)=[A](2,3) and [A](2,1)=[A](2,4):5->V
+If V=5:Line(8,37,40,37)
+If V=5:Goto W
+If Z=41:Goto 62
+lbl 39
+If [A](2,2)=[A](2,3) and [A](2,2)=[A](2,4) and [A](2,2)=[A](2,5):5->V
+If V=5:Line(16,37,48,37)
+If V=5:Goto W
+If Z=42:Goto 63
+lbl 40
+If [A](2,3)=[A](2,4) and [A](2,3)=[A](2,5) and [A](2,3)=[A](2,6):5->V
+If V=5:Line(24,37,56,37)
+If V=5:Goto W
+If Z=43:Goto 64
+lbl 41
+If [A](2,4)=[A](2,5) and [A](2,4)=[A](2,6) and [A](2,4)=[A](2,7):5->V
+If V=5:Line(32,37,64,37)
+If V=5:Goto W
+If Z=44:Goto 65
+lbl 42
+If [A](2,5)=[A](2,6) and [A](2,5)=[A](2,7) and [A](2,5)=[A](2,8):5->V
+If V=5:Line(40,37,72,37)
+If V=5:Goto W
+If Z=45:Goto 66
+lbl 43
+If [A](2,6)=[A](2,7) and [A](2,6)=[A](2,8) and [A](2,6)=[A](2,9):5->V
+If V=5:Line(48,37,80,37)
+If V=5:Goto W
+If Z=46:Goto 67
+lbl 44
+If [A](2,7)=[A](2,8) and [A](2,7)=[A](2,9) and [A](2,7)=[A](2,10):5->V
+If V=5:Line(56,37,88,37)
+If V=5:Goto W
+If Z=47:Goto 68
+If Z=48:Goto 69
+If Z=49:Goto 70
+If Z=50:Goto 71
+lbl 45
+If [A](1,1)=[A](1,2) and [A](1,1)=[A](1,3) and [A](1,1)=[A](1,4):5->V
+If V=5:Line(8,45,40,45)
+If V=5:Goto W
+If Z=51:Goto 72
+lbl 46
+If [A](1,2)=[A](1,3) and [A](1,2)=[A](1,4) and [A](1,2)=[A](1,5):5->V
+If V=5:Line(16,45,48,45)
+If V=5:Goto W
+If Z=52:Goto 73
+lbl 47
+If [A](1,3)=[A](1,4) and [A](1,3)=[A](1,5) and [A](1,3)=[A](1,6):5->V
+If V=5:Line(24,45,56,45)
+If V=5:Goto W
+If Z=53:Goto 74
+lbl 48
+If [A](1,4)=[A](1,5) and [A](1,4)=[A](1,6) and [A](1,4)=[A](1,7):5->V
+If V=5:Line(32,45,64,45)
+If V=5:Goto W
+If Z=54:Goto 75
+lbl 49
+If [A](1,5)=[A](1,6) and [A](1,5)=[A](1,7) and [A](1,5)=[A](1,8):5->V
+If V=5:Line(40,45,72,45)
+If V=5:Goto W
+If Z=55:Goto 76
+lbl 50
+If [A](1,6)=[A](1,7) and [A](1,6)=[A](1,8) and [A](1,6)=[A](1,9):5->V
+If V=5:Line(48,45,80,45)
+If V=5:Goto W
+If Z=56:Goto 77
+lbl 51
+If [A](1,7)=[A](1,8) and [A](1,7)=[A](1,9) and [A](1,7)=[A](1,10):5->V
+If V=5:Line(56,45,88,45)
+If V=5:Goto W
+If Z=57:Goto 78
+If Z=58:Goto 79
+If Z=59:Goto 80
+If Z=60:Goto 81
+lbl 52
+If [A](6,1)=[A](5,1) and [A](6,1)=[A](4,1) and [A](6,1)=[A](3,1):5->V
+If V=5:Line(12,1,12,33)
+If V=5:Goto W
+Goto Z9
+lbl 53
+If [A](6,2)=[A](5,2) and [A](6,2)=[A](4,2) and [A](6,2)=[A](3,2):5->V
+If V=5:Line(20,1,20,33)
+If V=5:Goto W
+Goto 96
+lbl 54
+If [A](6,3)=[A](5,3) and [A](6,3)=[A](4,3) and [A](6,3)=[A](3,3):5->V
+If V=5:Line(28,1,28,33)
+If V=5:Goto W
+Goto 89
+lbl 55
+If [A](6,4)=[A](5,4) and [A](6,4)=[A](4,4) and [A](6,4)=[A](3,4):5->V
+If V=5:Line(36,1,36,33)
+If V=5:Goto W
+Goto 82
+lbl 56
+If [A](6,5)=[A](5,5) and [A](6,5)=[A](4,5) and [A](6,5)=[A](3,5):5->V
+If V=5:Line(44,1,44,33)
+If V=5:Goto W
+Goto 83
+lbl 57
+If [A](6,6)=[A](5,6) and [A](6,6)=[A](4,6) and [A](6,6)=[A](3,6):5->V
+If V=5:Line(52,1,52,33)
+If V=5:Goto W
+Goto 84
+lbl 58
+If [A](6,7)=[A](5,7) and [A](6,7)=[A](4,7) and [A](6,7)=[A](3,7):5->V
+If V=5:Line(60,1,60,33)
+If V=5:Goto W
+Goto 85
+lbl 59
+If [A](6,8)=[A](5,8) and [A](6,8)=[A](4,8) and [A](6,8)=[A](3,8):5->V
+If V=5:Line(68,1,68,33)
+If V=5:Goto W
+Goto 86
+lbl 60
+If [A](6,9)=[A](5,9) and [A](6,9)=[A](4,9) and [A](6,9)=[A](3,9):5->V
+If V=5:Line(76,1,76,33)
+If V=5:Goto W
+Goto 87
+lbl 61
+If [A](6,10)=[A](5,10) and [A](6,10)=[A](4,10) and [A](6,10)=[A](3,10):5->V
+If V=5:Line(84,1,84,33)
+If V=5:Goto W
+Goto 88
+lbl 62
+If [A](5,1)=[A](4,1) and [A](5,1)=[A](3,1) and [A](5,1)=[A](3,1):5->V
+If V=5:Line(12,9,12,41)
+If V=5:Goto W
+Goto Z2
+lbl 63
+If [A](5,2)=[A](4,2) and [A](5,2)=[A](3,2) and [A](5,2)=[A](2,2):5->V
+If V=5:Line(20,9,20,41)
+If V=5:Goto W
+Goto Z3
+lbl 64
+If [A](5,3)=[A](4,3) and [A](5,3)=[A](3,3) and [A](5,3)=[A](2,3):5->V
+If V=5:Line(28,9,28,41)
+If V=5:Goto W
+Goto 96
+lbl 65
+If [A](5,4)=[A](4,4) and [A](5,4)=[A](3,4) and [A](5,4)=[A](2,4):5->V
+If V=5:Line(36,9,36,41)
+If V=5:Goto W
+Goto 89
+lbl 66
+If [A](5,5)=[A](4,5) and [A](5,5)=[A](3,5) and [A](5,5)=[A](2,5):5->V
+If V=5:Line(44,9,44,41)
+If V=5:Goto W
+Goto 90
+lbl 67
+If [A](5,6)=[A](4,6) and [A](5,6)=[A](3,6) and [A](5,6)=[A](2,6):5->V
+If V=5:Line(52,9,52,41)
+If V=5:Goto W
+Goto 91
+lbl 68
+If [A](5,7)=[A](4,7) and [A](5,7)=[A](3,7) and [A](5,7)=[A](2,7):5->V
+If V=5:Line(60,9,60,41)
+If V=5:Goto W
+Goto 92
+lbl 69
+If [A](5,8)=[A](4,8) and [A](5,8)=[A](3,8) and [A](5,8)=[A](2,8):5->V
+If V=5:Line(68,9,68,41)
+If V=5:Goto W
+Goto 93
+lbl 70
+If [A](5,9)=[A](4,9) and [A](5,9)=[A](3,9) and [A](5,9)=[A](2,9):5->V
+If V=8:Line(76,9,76,41)
+If V=5:Goto W
+Goto 94
+lbl 71
+If [A](5,10)=[A](4,10) and [A](5,10)=[A](3,10) and [A](5,10)=[A](2,10):5->V
+If V=5:Line(84,9,84,41)
+If V=5:Goto W
+Goto 95
+lbl 72
+If [A](1,1)=[A](2,1) and [A](1,1)=[A](3,1) and [A](1,1)=[A](4,1):5->V
+If V=5:Line(12,17,12,49)
+If V=5:Goto W
+Goto &4
+lbl 73
+If [A](4,2)=[A](3,2) and [A](4,2)=[A](2,2) and [A](4,2)=[A](1,2):5->V
+If V=5:Line(20,17,20,49)
+If V=5:Goto W
+Goto &5
+lbl 74
+If [A](4,3)=[A](3,3) and [A](4,3)=[A](2,3) and [A](4,3)=[A](1,3):5->V
+If V=5:Line(28,17,28,49)
+If V=5:Goto W
+Goto &6
+lbl 75
+If [A](4,4)=[A](3,4) and [A](4,4)=[A](2,4) and [A](4,4)=[A](1,4):5->V
+If V=5:Line(36,17,36,49)
+If V=5:Goto W
+Goto 96
+lbl 76
+If [A](4,5)=[A](3,5) and [A](4,5)=[A](2,5) and [A](4,5)=[A](1,5):5->V
+If V=5:Line(44,17,44,49)
+If V=5:Goto W
+Goto 97
+lbl 77
+If [A](4,6)=[A](3,6) and [A](4,6)=[A](2,6) and [A](4,6)=[A](1,6):5->V
+If V=5:Line(52,17,52,49)
+If V=5:Goto W
+Goto 98
+lbl 78
+If [A](4,7)=[A](3,7) and [A](4,7)=[A](2,7) and [A](4,7)=[A](1,7):5->V
+If V=5:Line(60,17,60,49)
+If V=5:Goto W
+Goto 99
+lbl 79
+If [A](4,8)=[A](3,8) and [A](4,8)=[A](2,8) and [A](4,8)=[A](1,8):5->V
+If V=5:Line(68,17,68,49)
+If V=5:Goto W
+Goto &1
+lbl 80
+If [A](4,9)=[A](3,9) and [A](4,9)=[A](2,9) and [A](4,9)=[A](1,9):5->V
+If V=5:Line(76,49,76,17)
+If V=5:Goto W
+Goto &2
+lbl 81
+If [A](4,10)=[A](3,10) and [A](4,10)=[A](2,10) and [A](4,10)=[A](1,10):5->V
+If V=5:Line(84,17,84,49)
+If V=5:Goto W
+Goto &3
+lbl 82
+If [A](6,1)=[A](5,2) and [A](6,1)=[A](4,3) and [A](6,1)=[A](3,4):5->V
+If V=5:Line(8,1,40,33)
+If V=5:Goto W
+If Z=1:Goto &&
+If Z!=1:Goto 90
+lbl 83
+If [A](6,2)=[A](5,3) and [A](6,2)=[A](4,4) and [A](6,2)=[A](3,5):5->V
+If V=5:Line(16,1,48,33)
+If V=5:Goto W
+If Z=2:Goto &&
+If Z!=2:Goto 91
+lbl 84
+If [A](6,3)=[A](5,4) and [A](6,3)=[A](4,5) and [A](6,3)=[A](3,6):5->V
+If V=5:Line(24,1,56,33)
+If V=5:Goto W
+If Z=3:Goto &&
+If Z!=3:Goto 92
+lbl 85
+If [A](6,4)=[A](5,5) and [A](6,4)=[A](4,6) and [A](6,4)=[A](3,7):5->V
+If V=5:Line(32,1,64,33)
+If V=5:Goto W
+If Z=4:Goto Z9
+If Z!=4:Goto 93
+lbl 86
+If [A](6,5)=[A](5,6) and [A](6,5)=[A](4,7) and [A](6,5)=[A](3,8):5->V
+If V=5:Line(40,1,72,33)
+If V=5:Goto W
+If Z=5:Goto Y1
+If Z!=5:Goto 94
+lbl 87
+If [A](6,6)=[A](5,7) and [A](6,6)=[A](4,8) and [A](6,6)=[A](3,9):5->V
+If V=5:Line(48,1,80,33)
+If V=5:Goto W
+If Z=6:Goto Y2
+If Z!=6:Goto 95
+lbl 88
+If [A](6,7)=[A](5,8) and [A](6,7)=[A](4,9) and [A](6,7)=[A](3,10):5->V
+If V=5:Line(56,1,88,33)
+If V=5:Goto W
+If Z=7:Goto Y3
+If Z=18:Goto Z6
+If Z=29:Goto &9
+If Z=40:Goto &&
+lbl 89
+If [A](5,1)=[A](4,2) and [A](5,1)=[A](3,3) and [A](5,1)=[A](2,4):5->V
+If V=5:Line(8,9,40,41)
+If V=5:Goto W
+If Z=11:Goto &&
+If Z!=11:Goto 97
+lbl 90
+If [A](5,2)=[A](4,3) and [A](5,2)=[A](3,4) and [A](5,2)=[A](2,5):5->V
+If V=5:Line(16,9,48,41)
+If V=5:Goto W
+If Z=12:Goto &&
+If Z!=12:Goto 98
+lbl 91
+If [A](5,3)=[A](4,4) and [A](5,3)=[A](3,5) and [A](5,3)=[A](2,6):5->V
+If V=5:Line(24,9,56,41)
+If V=5:Goto W
+If Z=13:Goto Z9
+If Z!=13:Goto 99
+lbl 92
+If [A](5,4)=[A](4,5) and [A](5,4)=[A](3,6) and [A](5,4)=[A](2,7):5->V
+If V=5:Line(32,9,64,41)
+If V=5:Goto W
+If Z=14:Goto Z2
+If Z!=14:Goto &1
+lbl 93
+If [A](5,5)=[A](4,6) and [A](5,5)=[A](3,7) and [A](5,5)=[A](2,8):5->V
+If V=5:Line(40,9,72,41)
+If V=5:Goto W
+If Z=15:Goto Z3
+If Z!=15:Goto &2
+lbl 94
+If [A](5,6)=[A](4,7) and [A](5,6)=[A](3,8) and [A](5,6)=[A](2,9):5->V
+If V=5:Line(48,9,80,41)
+If V=5:Goto W
+If Z=16:Goto Z4
+If Z!=16:Goto &3
+lbl 95
+If [A](5,7)=[A](4,8) and [A](5,7)=[A](3,9) and [A](5,7)=[A](2,10):5->V
+If V=5:Line(56,9,88,41)
+If V=5:Goto W
+If Z=17:Goto Z5
+If Z=28:Goto &8
+If Z=39:Goto Z1
+If Z=50:Goto &&
+lbl 96
+If [A](4,1)=[A](3,2) and [A](4,1)=[A](2,3) and [A](4,1)=[A](1,4):5->V
+If V=5:Line(8,17,40,49)
+If V=5:Goto W
+If Z=21:Goto &&
+If Z=32:Goto Z2
+If Z=43:Goto &5
+If Z=54:Goto &7
+lbl 97
+If [A](4,2)=[A](3,3) and [A](4,2)=[A](2,4) and [A](4,2)=[A](1,5):5->V
+If V=5:Line(16,17,48,49)
+If V=5:Goto W
+If Z=22:Goto Z9
+If Z=33:Goto &4
+If Z=44:Goto &6
+If Z=55:Goto &8
+lbl 98
+If [A](4,3)=[A](3,4) and [A](4,3)=[A](2,5) and [A](4,3)=[A](1,6):5->V
+If V=5:Line(24,17,56,49)
+If V=5:Goto W
+If Z=23:Goto Z2
+If Z=34:Goto &5
+If Z=45:Goto &7
+If Z=56:Goto &9
+lbl 99
+If [A](4,4)=[A](3,5) and [A](4,4)=[A](2,6) and [A](4,4)=[A](1,7):5->V
+If V=5:Line(32,17,64,49)
+If V=5:Goto W
+If Z=24:Goto &4
+If Z=35:Goto &6
+If Z=46:Goto &8
+If Z=57:Goto Z1
+lbl &1
+If [A](4,5)=[A](3,6) and [A](4,5)=[A](2,7) and [A](4,5)=[A](1,8):5->V
+If V=5:Line(40,17,72,49)
+If V=5:Goto W
+If Z=25:Goto &5
+If Z=36:Goto &7
+If Z=47:Goto &9
+If Z=58:Goto &&
+lbl &2
+If [A](4,6)=[A](3,7) and [A](4,6)=[A](2,8) and [A](4,6)=[A](1,9):5->V
+If V=5:Line(48,17,80,49)
+If V=5:Goto W
+If Z=26:Goto &6
+If Z=37:Goto &8
+If Z=48:Goto Z1
+If Z=59:Goto &&
+lbl &3
+If [A](4,7)=[A](3,8) and [A](4,7)=[A](2,9) and [A](4,7)=[A](1,10):5->V
+If V=5:Line(56,17,88,49)
+If V=5:Goto W
+If Z=27:Goto &7
+If Z=38:Goto &9
+If Z=49:Goto &&
+If Z=60:Goto &&
+lbl &4
+If [A](1,1)=[A](2,2) and [A](1,1)=[A](3,3) and [A](1,1)=[A](4,4):5->V
+If V=5:Line(8,49,40,17)
+If V=5:Goto W
+If Z=51:Goto &&
+If Z!=51:Goto Z3
+lbl &5
+If [A](1,2)=[A](2,3) and [A](1,2)=[A](3,4) and [A](1,2)=[A](4,5):5->V
+If V=5:Line(16,49,48,17)
+If V=5:Goto W
+If Z=52:Goto &&
+If Z!=52:Goto Z4
+lbl &6
+If [A](1,3)=[A](2,4) and [A](1,3)=[A](3,5) and [A](1,3)=[A](4,6):5->V
+If V=5:Line(24,49,56,17)
+If V=5:Goto W
+If Z=53:Goto &&
+If Z!=53:Goto Z5
+lbl &7
+If [A](1,4)=[A](2,5) and [A](1,4)=[A](3,6) and [A](1,4)=[A](4,7):5->V
+If V=5:Line(32,49,64,17)
+If V=5:Goto W
+If Z=54:Goto &&
+If Z!=54:Goto Z6
+lbl &8
+If [A](1,5)=[A](2,6) and [A](1,5)=[A](3,7) and [A](1,5)=[A](4,8):5->V
+If V=5:Line(40,49,72,17)
+If V=5:Goto W
+If Z=55:Goto &&
+If Z!=55:Goto Z7
+lbl &9
+If [A](1,6)=[A](2,7) and [A](1,6)=[A](3,8) and [A](1,6)=[A](4,9):5->V
+If V=5:Line(48,49,80,17)
+If V=5:Goto W
+If Z=56:Goto &&
+If Z!=56:Goto Z8
+lbl Z1
+If [A](1,7)=[A](2,8) and [A](1,7)=[A](3,9) and [A](1,7)=[A](4,10):Then
+Line(56,49,88,17)
+Goto W
+End
+Goto &&
+lbl Z2
+If [A](2,1)=[A](3,2) and [A](2,1)=[A](4,3) and [A](2,1)=[A](5,4):Then
+Line(8,41,40,9)
+Goto W
+End
+If Z=41:Goto &&
+If Z!=41:Goto Y1
+lbl Z3
+If [A](2,2)=[A](3,3) and [A](2,2)=[A](4,4) and [A](2,2)=[A](5,5):Then
+Line(16,41,48,9)
+Goto W
+End
+If Z=42:Goto &&
+If Z!=42:Goto Y2
+lbl Z4
+If [A](2,3)=[A](3,4) and [A](2,3)=[A](4,5) and [A](2,3)=[A](5,6):Then
+Line(24,41,56,9)
+Goto W
+End
+If Z=43:Goto &&
+If Z!=43:Goto Y3
+lbl Z5
+If [A](2,4)=[A](3,5) and [A](2,4)=[A](4,6) and [A](2,4)=[A](5,7):Then
+Line(32,41,64,9)
+Goto W
+End
+If Z=44:Goto &&
+If Z!=44:Goto Y4
+lbl Z6
+If [A](2,5)=[A](3,6) and [A](2,5)=[A](4,7) and [A](2,5)=[A](5,8):Then
+Line(40,41,72,9)
+Goto W
+End
+If Z=45:Goto &&
+If Z!=45:Goto Y5
+lbl Z7
+If [A](2,6)=[A](3,7) and [A](2,6)=[A](4,8) and [A](2,6)=[A](5,9):Then
+Line(48,41,80,9)
+Goto W
+End
+If Z=46:Goto &&
+If Z!=46:Goto Y6
+lbl Z8
+If [A](2,7)=[A](3,8) and [A](2,7)=[A](4,9) and [A](2,7)=[A](5,10):Then
+Line(56,41,88,9)
+Goto W
+End
+Goto &&
+lbl Z9
+If [A](3,1)=[A](4,2) and [A](3,1)=[A](5,3) and [A](3,1)=[A](6,4):5->V
+If V=5:Line(8,33,40,1)
+If V=5:Goto W
+Goto &&
+lbl Y1
+If [A](3,2)=[A](4,3) and [A](3,2)=[A](5,4) and [A](3,2)=[A](6,5):5->V
+If V=5:Line(16,33,48,1)
+If V=5:Goto W
+Goto &&
+lbl Y2
+If [A](3,3)=[A](4,4) and [A](3,3)=[A](5,5) and [A](3,3)=[A](6,6):5->V
+If V=5:Line(24,33,56,1)
+If V=5:Goto W
+Goto &&
+lbl Y3
+If [A](3,4)=[A](4,5) and [A](3,4)=[A](5,6) and [A](3,4)=[A](6,7):5->V
+If V=5:Line(32,33,64,1)
+If V=5:Goto W
+Goto &&
+lbl Y4
+If [A](3,5)=[A](4,6) and [A](3,5)=[A](5,7) and [A](3,5)=[A](6,8):5->V
+If V=5:Line(40,33,72,1)
+If V=5:Goto W
+Goto &&
+lbl Y5
+If [A](3,6)=[A](4,7) and [A](3,6)=[A](5,8) and [A](3,6)=[A](6,9):5->V
+If V=5:Line(48,33,80,1)
+If V=5:Goto W
+Goto &&
+lbl Y6
+If [A](3,7)=[A](4,8) and [A](3,7)=[A](5,9) and [A](3,7)=[A](6,10):5->V
+If V=5:Line(56,33,88,1)
+If V=5:Goto W
+Goto &&
+lbl &&
+If W=1:Goto P2
+If W=2:Goto P1
+lbl W
+Pause "l"
+If W=1:Goto 1W
+If W=2:Goto 2W
+lbl 1W
+ClrDraw
+clrhome
+disp "","","","     1 WINT"
+Pause "p"
+Goto HM
+Lbl 2W
+ClrDraw
+Clrhome
+disp "","","","     2 WINT"
+Pause "k"
+Goto HM
+
+

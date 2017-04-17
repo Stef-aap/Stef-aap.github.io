@@ -1,0 +1,404 @@
+<HTML><HEAD><TITLE>RPD IR receiver / transmitter</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FEFFE6;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS7>&nbsp;august 2005</SPAN></P>
+<P><SPAN class=RVTS1>RPD&nbsp; IR receiver/transmitter</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;<IMG width=32 height=32 src="rbd.png">&nbsp;&nbsp;<A class=RVTS4 href="rapid_prototyping_devices.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>The IR-receiver just consists of a standard TSOP1138. Note that the resistor and capacitor are very essential !! The IR-receiver should be connected to one of the pins with interrupt on change (normally B4 .. B7).</P>
+<P>For the transmitter I've chozen a 555-timer as modulator. The reason is that the PWM output is not on one of the RB4 .. RB7 pins, and above we need some amplifier / transistor or whatsover, to get more than 20mA through the IR-LED. After testing the circuit, it seems that the 555 still has a large voltage drop, when drawing large currents. So it would be better to use an extra FET, to get a powerfull and well defined output.</P>
+<P>There are 2 diodes (preferable shottkey) in the timing circuit of the 555-timer, to get a 50% duty cycle signal. The timing capacitor (1n2**) should be tuned to give th desired modulation frequency of 38 kHz.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=415 height=365 src="rapid_prototyping_ir_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=293 height=192 src="rapid_prototyping_ir_img7.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>JALcc macro call</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=528 height=203 src="rapid_prototyping_ir_img8.gif"></P>
+<P><SPAN class=RVTS7>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS7>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>JALcc use</SPAN></P>
+<P>see "SONY TV-remote RM883" below&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>JALcc macro expansion</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=369 height=137 src="rapid_prototyping_ir_img9.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Background Information</SPAN></P>
+<P>A lot of information can be found on the web. Unfortunatly I've to conclude that most of this information is not (completly) correct or my remotes are weird derivates. General features, like number of bits and kind of modulation are often correct, but startpuls, stoppuls, number of repeats doesn't match my remote controls.</P>
+<P>Here some links</P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://users.pandora.be/davshomepage/">Davshomepage</A></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://lirc.sourceforge.net/remotes/">Index of -remotes</A></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://winlirc.sourceforge.net/technicaldetails.html#remoteparameters">Technical Details</A></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://groups.yahoo.com/group/jp1/">Yahoo! Groups - jp1</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Some tips / problems I encountered</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>to see if the IR-LED is on, use a digital camera. This is also a good method to compare different LEDs, or just try your remote and see how much light it will produce.&nbsp;</LI>
+<LI>Probably your selfmade IR-transmitter will produce a lot less IR-light than a standard IR-remote, check it with a camera. My experiments show that 100 mA is still not enough, or I don't have the right IR-leds ?&nbsp;</LI>
+<LI>If you use a TSOP1138 for reception, it will in general be more sensitive than the real device controled by the remote&nbsp;</LI>
+<LI>because in receiving, interrupt on change is used, the other portB-pins must not be left float&nbsp;</LI>
+<LI>sending and receiving at the same time doesn't work well&nbsp;</LI>
+<LI>don't trust the information on the web, test your remote with one of the raw routines&nbsp;</LI>
+<LI>do your first tests (especially the receiving part) at bright daylight. This may sound a bit strange, with artificial light you'll be surprised how many false detection the TSOP1138 will make, due to computer screen, (small) neon bulbs etc.&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Analyzing a remote control</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>SONY TV-remote RM883</SPAN></P>
+<P>As an example a SONY TV_remote RM883 is used.</P>
+<P>First start by reading one well suited key in the RAW mode. A well suited key, is a key that has direct action and no unwanted results if pressed many times. For a TV-remote this is for instance the CHANNEL-up key.</P>
+<P>In the RAW mode, 3 bytes are sent, each time an edge is detected:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>the first byte is the timer overflow counter&nbsp;</LI>
+<LI>the second byte is the Timer value, which is the duration of the level (Eah time an edge is detected the timer is cleared.&nbsp;</LI>
+<LI>the third byte is the level just prior to the edge (so it's the level that corresponds to the Timer value&nbsp;</LI>
+</UL>
+<P>Here an example of the program I use</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=533 height=558 src="rapid_prototyping_ir_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>And here the results, captured with the boot-uploader (you can use any terminal program that can represent the received bytes in hex or decimal)</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS12>&nbsp;&nbsp; Ov = timer0 overflow, each count = 256 *51.2 us</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp; T0 = timer0 value, real time is T0*51.2 us (if Ov=0)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp; 00/FF = level SPACE/MARK</SPAN></P>
+<P><SPAN class=RVTS12>Ov T0 00 Ov T0 FF</SPAN></P>
+<P><SPAN class=RVTS12>=================</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;== each sequence is repeated 4 times</SPAN></P>
+<P><SPAN class=RVTS12>7D 0E 00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;== time before pressing te key, has no meaning</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00 2F FF &lt;== startpuls 2.4 ms MARK</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 0C FF &lt;== bit 0 = 0&nbsp; (600 uS high)</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 18 FF &lt;== bit 1 = 1&nbsp; (1200 us high)</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 0C FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 0C FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 18 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 0C FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 0C FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 18 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 0C FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 0C FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 0C FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B 00 00 0C FF &lt;== bit 11 (so we've 12 bits data/cmd)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; &lt;== so the above code = 0b_0000_1001_0010 = 0x92 (volume +)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;== each sequence is repeated 4 times</SPAN></P>
+<P><SPAN class=RVTS12>02 03 00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;== pause between the 4 repeats (25 msec)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00 31 FF &lt;== next sequence</SPAN></P>
+<HR noshade size=1>
+<P>-- transmit procedure for SONY TV-remote RM-883</P>
+<P>-- START-PATTERN : 2.4 msec MARK</P>
+<P>-- DATABITS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 12</P>
+<P>-- 0-BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 600 usec SPACE, 600usec MARK</P>
+<P>-- 1-BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 600 usec SPACE, 1200usec MARK</P>
+<P>-- STOP-PATTERN&nbsp; : none</P>
+<P>-- PAUSE Repeats : 25 msec</P>
+<P>-- REPEAT COUNT&nbsp; : 4</P>
+<HR noshade size=1>
+<P>&nbsp;&nbsp;</P>
+<P>The next step is to write or modify a receive routine, so you can watch the code of each key in hexadecimal presentation. Look in the IR-lib for some protocol that closes matches the protocol found in the previous state, and make a modified routine. Start again with the key you used in the RAW mode and verify that receiving and decoding is ok. Normally the receive routine will only return a valid code, if a valid sequence is received twice. In the first test phase (and even for some remotes) you can turn this doublecheck off, by</P>
+<P>&nbsp;&nbsp; const IR_check_twice = falses</P>
+<P>Now it's time to decode all the other keys from the remote.</P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS1><SPAN class=RVTS12>0x090 channel +&nbsp;&nbsp;</SPAN></P>
+<P class=RVPS1><SPAN class=RVTS12>0x091 channel -&nbsp;&nbsp;</SPAN></P>
+<P class=RVPS1><SPAN class=RVTS12>0x092 volume +&nbsp;&nbsp;</SPAN></P>
+<P class=RVPS1><SPAN class=RVTS12>0x093 volume -&nbsp;&nbsp;</SPAN></P>
+<HR noshade size=1>
+<P>The transmit part is far more easier then the receiver part. You already know which protocol matches most closely, so find it and modify it.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>JVC audio RM-SUXP3R</SPAN></P>
+<HR noshade size=1>
+<P>On/Off = 0x17A3</P>
+<P>CD next = 0x05AF</P>
+<P>CD previous = 0x06AF</P>
+<HR noshade size=1>
+<P>-- START-PATTERN : 8.5 msec MARK,&nbsp; 4 msec SPACE</P>
+<P>-- DATABITS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 16</P>
+<P>-- 0-BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 640 usec MARK, 400usec SPACE</P>
+<P>-- 1-BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 640 usec MARK, 1480usec SPACE</P>
+<P>-- STOP-PATTERN&nbsp;&nbsp; : 640 usec MARK</P>
+<P>-- PAUSE Repeats&nbsp;&nbsp; : 20 msec SPACE</P>
+<P>-- REPEAT COUNT&nbsp; : 3&nbsp; (exception: on/off key is repeated 5 times)</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS12>00 A7 FF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;== MARK 8.5 msec</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00 4E 00&nbsp;&nbsp; &lt;== SPACE 4 msec</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;&nbsp; &lt;==&nbsp; "1" = 640 us MARK,&nbsp; 1480us SPACE&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 08 00&nbsp;&nbsp; &lt;==&nbsp; "0" = 640 us MARK,&nbsp; 400us SPACE</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1C 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1C 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1C 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 07 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 07 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 07 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;==&nbsp; closing 640us MARK</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; totalcode (CD +) = 0000_0101_1010_1111 = 0x_05AF</SPAN></P>
+<P><SPAN class=RVTS12>01 8D 00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;==&nbsp; 20ms SPACE between 3 repeats</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;&nbsp; &lt;==&nbsp; next data repeat</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>===</P>
+<P><SPAN class=RVTS12>00 A6 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00 4F 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 07 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 07 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0B FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;01 8D 00 00 0C FF 00 1D 00 00 0C FF 00 1D 00 00 0C FF 00 1D 00 00 0C FF 00 1D 00 00 0B FF 00 08 00 00 0C FF 00 1D 00 00 0C FF 00 08 00 00 0C FF 00 1D 00 00 0C FF 00 1D 00 00 0B FF 00 08 00 00 0C FF 00 1D 00 00 0C FF 00 07 00 00 0C FF 00 08 00 00 0C FF 00 07 00 00 0C FF 00 08 00 00 0C FF 00 07 00 00 0C FF</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Akai video RC-X121E</SPAN><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;</SPAN></P>
+<HR noshade size=1>
+<P>On/Off =</P>
+<P>chan +&nbsp; = 0x_A7_58_77_89</P>
+<P>chan -&nbsp;&nbsp; = 0x_A6_58_77_89</P>
+<P>play&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 0x_F9_06_77_89</P>
+<P>pause&nbsp;&nbsp; = 0x_FC_03_77_89</P>
+<HR noshade size=1>
+<P>-- START-PATTERN : 9 msec MARK,&nbsp; 4.5 msec SPACE</P>
+<P>-- DATABITS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 32</P>
+<P>-- 0-BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 640 usec MARK, 400usec SPACE</P>
+<P>-- 1-BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 640 usec MARK, 1480usec SPACE</P>
+<P>-- STOP-PATTERN&nbsp;&nbsp; : 640 usec MARK</P>
+<P>-- PAUSE Repeats&nbsp;&nbsp; : none</P>
+<P>-- REPEAT COUNT&nbsp; : none</P>
+<P>This protocol looks very much alike JVC audio RM-SUXP3R, except it's 32 bits (instead of 16) and it has no repeats.</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS12>00 B1 FF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;== MARK 9 msec</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00 55 00&nbsp;&nbsp; &lt;== SPACE 4.5 msec</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;&nbsp; &lt;==&nbsp; "1" = 640 us MARK,&nbsp; 1480us SPACE&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 08 00&nbsp;&nbsp; &lt;==&nbsp; "0" = 640 us MARK,&nbsp; 400us SPACE</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0C FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 08 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF 00 1E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;==&nbsp; closing 640us MARK</SPAN></P>
+<P><SPAN class=RVTS12>totalcode (chan +) = 1010_0111_0101_1000_0111_0111_1000_1001 = 0xA7_58_77_89</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Lego MindStorms</SPAN></P>
+<P>, 6 toetsen linksonder, linksboven</P>
+<P><SPAN class=RVTS12>FA 1C 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 12 FF 00 0D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 32 FF 00 0D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 32 FF 00 0D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 12 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 32 FF 00 0D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 11 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 12 FF 00 0D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 32 FF 00 0D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 32 FF 00 0D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 12 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 32 FF 00 0D 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 11 FF 00 0E 00</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 12 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 12 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00</SPAN></P>
+<P><SPAN class=RVTS12>00 11 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 11 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 12 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 11 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 11 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF 00 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 FF</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>PC Keyboard Liteon SK-7100</SPAN></P>
+<P>RC5 code ??</P>
+<P>Toetsenbord: space</P>
+<P><SPAN class=RVTS12>4F 0E 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00 20 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 52 00 00 20 FF</SPAN></P>
+<P><SPAN class=RVTS12>00 20 00 00 10 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 10 00 00 30 FF</SPAN></P>
+<P><SPAN class=RVTS12>01 0F 00&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00 20 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 21 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 21 00 00 20 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 20 00 00 10 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 10 00 00 20 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 37 00 00 10 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 10 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 11 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 21 00 00 10 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 10 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 10 00 00 1F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 11 00 00 0F FF</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00 20 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 52 00 00 1F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 21 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 10 00 00 30 FF</SPAN></P>
+<P><SPAN class=RVTS12>05 5C 00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;== long space</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00 20 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 00 00 10 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 20 00 00 10 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 21 00 00 20 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 21 00 00 10 FF</SPAN></P>
+<P><SPAN class=RVTS12>00 10 00 00 1F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 37 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 11 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 31 00 00 10 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 10 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 21 00 00 10 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 10 00 00 0F FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 11 00 00 20 FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 10 00 00 0F FF</SPAN></P>
+<P><SPAN class=RVTS12>=================================</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>JVC a-lot-remote in A-code PQ11202</SPAN></P>
+<P><SPAN class=RVTS12>============================</SPAN></P>
+<P><SPAN class=RVTS12>probably an RC5 code ??, no every "1" has equal time</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp; Ov = timer0 overflow, each count = 256 *51.2 us</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp; T0 = timer0 value</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp; 00/FF = level SPACE/MARK</SPAN></P>
+<P><SPAN class=RVTS12>Ov T0 00 Ov T0 FF</SPAN></P>
+<P><SPAN class=RVTS12>=================</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;== each sequence is repeated 4 times</SPAN></P>
+<P><SPAN class=RVTS12>6A 34 00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;== start, can be very long SPACE</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00 0C FF &lt;== no special start mark</SPAN></P>
+<P><SPAN class=RVTS12>00 1C 00 00 0D FF &lt;== bit0 = 1 (</SPAN></P>
+<P><SPAN class=RVTS12>00 1C 00 00 0C FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 07 00 00 0C FF &lt;== bit2 = 0&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 07 00 00 0B FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 08 00 00 0B FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 09 00 00 0B FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 09 00 00 0B FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 08 00 00 0B FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 1F 00 00 0C FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 08 00 00 0B FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 08 00 00 0B FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 1F 00 00 0C FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 1C 00 00 0C FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 08 00 00 0B FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 0A 00 00 0B FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 09 00 00 0B FF &lt;== bit15</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; &lt;== so the above code = 0b_0001_1001_0000_0011 = 0x1903 (channel +)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;== pause between the 4 repeats (24 msec)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00 0D FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 1B 00 00 0D FF&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS2>Hitek DVD-recorder</SPAN></P>
+<P><SPAN class=RVTS12>=== setup-key ====</SPAN></P>
+<P><SPAN class=RVTS12>00 B2 FF &lt;== MARK&nbsp; 9.1 msec</SPAN></P>
+<P><SPAN class=RVTS12>00 54 00 &lt;== SPACE 4.3 msec</SPAN></P>
+<P><SPAN class=RVTS12>00 0D FF &lt;== MARK&nbsp; 660us</SPAN></P>
+<P><SPAN class=RVTS12>00 08 00 00 0B FF 00 0A 00 00 0D FF 00 08 00 00 0D FF 00 08 00 00 0B FF =0000</SPAN></P>
+<P><SPAN class=RVTS12>00 20 00 00 0D FF 00 08 00 00 0B FF 00 0A 00 00 0D FF 00 08 00 00 0D FF =0001</SPAN></P>
+<P><SPAN class=RVTS12>00 1E 00 00 0D FF 00 08 00 00 0D FF 00 1E 00 00 0D FF 00 1E 00 00 0B FF =1101</SPAN></P>
+<P><SPAN class=RVTS12>00 0A 00 00 0D FF 00 1E 00 00 0B FF 00 20 00 00 0D FF 00 1E 00 00 0D FF =1110</SPAN></P>
+<P><SPAN class=RVTS12>00 1E 00 00 0B FF 00 20 00 00 0D FF 00 1E 00 00 0D FF 00 1E 00 00 0B FF =1111</SPAN></P>
+<P><SPAN class=RVTS12>00 20 00 00 0D FF 00 08 00 00 0B FF 00 20 00 00 0D FF 00 08 00 00 0B FF =0101</SPAN></P>
+<P><SPAN class=RVTS12>00 0A 00 00 0D FF 00 08 00 00 0D FF 00 08 00 00 0B FF 00 0A 00 00 0D FF =0000</SPAN></P>
+<P><SPAN class=RVTS12>00 08 00 00 0D FF 00 1E 00 00 0D FF 00 08 00 00 0D FF 00 1E 00 00 0D FF =1010</SPAN></P>
+<P><SPAN class=RVTS12>03 1F 00 &lt;== SPACE 40 msec&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>00 B2 FF &lt;== MARK&nbsp; 9.1 msec</SPAN></P>
+<P><SPAN class=RVTS12>00 29 00 &lt;== SPACE 2.1 msec</SPAN></P>
+<P><SPAN class=RVTS12>00 0B FF &lt;== MARK&nbsp; 550us</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>total code = 0x_A0_5F_ED_10 (just send once)&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>ZERO = 0x09 low&nbsp; =&nbsp; 460 us</SPAN></P>
+<P><SPAN class=RVTS12>ONE&nbsp; = 0x1F low&nbsp; = 1600 us</SPAN></P>
+<P><SPAN class=RVTS12>always 0x0C high =&nbsp; 610 us&nbsp;&nbsp;&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P>FF 55&nbsp;</P>
+<P>08 0A 08 08&nbsp;</P>
+<P>20 08 0A 08&nbsp;</P>
+<P>1E 08 1E 1E&nbsp;</P>
+<P>0A 1E 20 1E&nbsp;</P>
+<P>1E 20 1E 1E&nbsp;</P>
+<P>20 08 20 08&nbsp;</P>
+<P>0A 08 08 0A&nbsp;</P>
+<P>08 1E 08 1E</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+</BODY></HTML>

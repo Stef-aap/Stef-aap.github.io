@@ -1,0 +1,4 @@
+proc
+=proc "type" "name" ( "argument list" ) is
+=   "body"
+=endproc

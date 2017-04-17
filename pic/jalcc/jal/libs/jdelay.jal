@@ -1,0 +1,481 @@
+--
+-- file      : jdelay.jal
+-- author    : Wouter van Ooijen
+-- date      : 2001-03-21
+-- purpose   : busy delay procedures
+-- includes  : -
+-- notes     : Xtal must be 4 or 10 MHz for the 16x84
+--           : Xtal must be 4 MHz or >=10 MHz for the Scenix
+--
+-- Copyright (C) 1998 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+
+
+-- reasonably accurate x * 1uS delay
+-- The delay has a minimum (1..2.5uS for Scenix; 3.6uS for 10MHz 16x84; 
+-- 9uS for 4MHz 16x84) and a step (1uS for Scenix; 2uS for 10MHz 16x84;
+-- 4uS for 4MHz 16x84). 
+-- The time for the calling and return sequence is taken into account.
+-- The actual delay is rounded to the nearest possible value.
+
+procedure delay_1us( byte in x ) is
+   if target_cpu == sx_12 then
+
+      pragma keep page, bank
+      
+      -- cycles for argument passing, call and return
+      const call_overhead = 14
+
+      if target_clock >= 10_000_000 then
+
+         const once_through        = 16
+         const overhead            = 
+            ( ( ( call_overhead + once_through ) * 1_000_000 ) / target_clock )
+
+         const one_us_cycles       = target_clock / 1_000_000
+         const outer_loop_overhead = 12
+         const inner_loops         = 
+            ( one_us_cycles - outer_loop_overhead - 6 )  / 4
+
+         var byte outer_counter, inner_counter
+         const byte yy = - ( overhead + 1 )
+         const byte zz = inner_loops + 1
+         assembler
+            local outer_loop, inner_loop
+            -- get argument, substitute zero if too small
+                 movlw   yy
+            bank addwf   x, w
+                 skpc
+                    movlw 0
+            -- make local copy
+            bank movwf   outer_counter
+                 incf    outer_counter, f
+
+            -- outer loop must take 1uS 
+         outer_loop:
+
+            -- inner loop takes 6 + 4 * n
+                 movlw zz
+            bank movwf   inner_counter
+            page inner_loop
+         inner_loop:
+                 decfsz  inner_counter, f
+                    goto    inner_loop 
+
+            -- outer loop again?
+            page outer_loop
+            bank decfsz  outer_counter, f
+                    goto    outer_loop
+
+         end assembler
+
+      elsif target_clock == 10_000_000 then
+
+         const overhead_us = ( call_overhead + 16 ) / 10
+
+         var byte counter
+         const byte abc = - overhead_us
+         assembler
+            local loop, next
+            -- get argument, correct for overhead, minimum is zero
+                 movlw   abc
+            bank addwf   x, w
+                 skpc
+                    movlw 0
+            -- loop, total cycles in assembler block is 16 + 10 * n
+            bank movwf   counter
+                 incf    counter, f
+         loop:
+                 nop
+            page goto    next
+         next:
+            page loop
+                 decfsz  counter, f
+                 goto    loop
+         end assembler
+
+      elsif target_clock == 4_000_000 then
+      
+         const overhead_us = ( call_overhead + 11 ) / 4
+
+         var byte counter
+         var byte xyz = - overhead_us
+         assembler
+            local loop
+            -- get argument, correct for overhead, minimum is zero
+                 movlw   xyz
+            bank addwf   x, w
+                 skpc
+                    movlw 0
+            -- loop, total cycles in assembler block is 11 + 4 * n
+            bank movwf   counter
+                 incf    counter, f
+            page loop
+         loop:
+                 decfsz  counter, f
+                    goto    loop
+         end assembler
+
+      else
+         pragma error -- clock must be 4 or >=10 MHz
+      end if
+
+   elsif ( target_cpu == pic_14 ) | ( target_cpu == pic_12 ) then
+ 
+      const ips = target_clock / 4
+      if target_clock >= 10_000_000 then
+
+         const i_iteration  = 5
+         const i_overhead   = 9 
+         const d_iteration  = ( i_iteration * 1_000_000 ) / ips
+         const d_overhead   = ( i_overhead * 1_000_000  ) / ips
+         const x_iteration  = - d_iteration
+         const x_overhead   = - ( d_overhead + ( d_iteration / 2 ) + 1 )
+         
+         var byte v_overhead   = x_overhead
+         var byte v_iteration  = x_iteration
+
+         assembler 
+         local loop
+            page loop
+            movfw x
+            addwf v_overhead, w
+         loop: 
+            skpc
+               retlw 0
+            addwf v_iteration, w
+            goto loop
+         end assembler
+
+      elsif target_clock == 4_000_000 then
+
+         const i_iteration  = 4
+         const i_overhead   = 9 
+         const d_iteration  = ( i_iteration * 1_000_000 ) / ips
+         const d_overhead   = ( i_overhead * 1_000_000  ) / ips
+         const x_iteration  = - d_iteration
+         const x_overhead   = - ( d_overhead + ( d_iteration / 2 ) + 1 )
+
+         var byte v_overhead   = x_overhead
+         var byte v_iteration  = x_iteration
+
+         assembler 
+         local loop
+            page loop
+            movfw x
+            addwf v_overhead, w
+            skpc
+               retlw 0
+         loop:
+            addwf v_iteration, w
+            skpnc
+               goto loop
+         end assembler
+      end if
+
+   elsif ( target_cpu == pic_16 ) then
+ 
+      const ips = target_clock / 4
+      if target_clock >= 10_000_000 then
+
+         const i_iteration  = 5
+         const i_overhead   = 9 
+         const d_iteration  = ( i_iteration * 1_000_000 ) / ips
+         const d_overhead   = ( i_overhead * 1_000_000  ) / ips
+         const x_iteration  = - d_iteration
+         const x_overhead   = - ( d_overhead + ( d_iteration / 2 ) + 1 )
+         
+         var byte v_overhead   = x_overhead
+         var byte v_iteration  = x_iteration
+
+         assembler 
+         local loop
+            page loop
+            movfw x
+            addwf v_overhead, w
+         loop: 
+            skpc
+               retlw 0
+            addwf v_iteration, w
+            goto loop
+         end assembler
+
+      elsif target_clock == 4_000_000 then
+
+         const i_iteration  = 4
+         const i_overhead   = 9 
+         const d_iteration  = ( i_iteration * 1_000_000 ) / ips
+         const d_overhead   = ( i_overhead * 1_000_000  ) / ips
+         const x_iteration  = - d_iteration
+         const x_overhead   = - ( d_overhead + ( d_iteration / 2 ) + 1 )
+
+         var byte v_overhead   = x_overhead
+         var byte v_iteration  = x_iteration
+
+         assembler 
+         local loop
+            page loop
+            movfw x
+            addwf v_overhead, w
+            skpc
+               retlw 0
+         loop:
+            addwf v_iteration, w
+            skpnc
+               goto loop
+         end assembler
+
+      else
+         pragma error -- clock must be 4 or >= 10 MHz
+      end if
+   else
+      pragma error -- cpu must be sx_12 or pic_14
+   end if
+end procedure
+
+procedure delay_2uS( byte in x ) is
+   delay_1uS( x )
+   delay_1uS( x )
+end procedure
+
+procedure delay_5uS( byte in x ) is
+   delay_1uS( x )
+   delay_1uS( x )
+   delay_1uS( x )
+   delay_1uS( x )
+   delay_1uS( x )
+end procedure
+
+procedure delay_10uS( byte in x ) is
+   for x loop
+      delay_1uS( 10 )
+   end loop
+end procedure
+
+procedure delay_20uS( byte in x ) is
+   for x loop
+      delay_1uS( 20 )
+   end loop
+end procedure
+
+procedure delay_50uS( byte in x ) is
+   for x loop
+      delay_1uS( 50 )
+   end loop
+end procedure
+
+-- basis for the x * 100uS etc. delays
+procedure _delay_100us( byte in x, byte in y, byte in z ) is
+   if target_cpu == sx_12 then
+
+      pragma keep page, bank
+      
+      for x loop 
+      for y loop 
+      for z loop
+         if target_clock == 4_000_000 then
+
+            var byte counter
+            assembler
+               local loop
+               -- 2 + 4 * n cycles; z loop adds some more
+                    movlw   96
+               bank movwf   counter
+               page    loop
+            loop:
+                    decfsz  counter, f
+                       goto    loop 
+
+            end assembler
+         else
+
+            var byte inner_counter, outer_counter
+            const byte qq = ( target_clock / 500_000 ) - 2
+            assembler
+               local inner_loop, outer_loop
+
+               -- repeat inner block 10 times
+                    movlw   10
+               bank movwf   outer_counter
+            outer_loop:
+
+               -- inner block takes rouhly 10uS = ( clock / 100_000 ) cycles
+               -- 2 + 5 * n cycles; outer loop adds 6 more
+                    movlw   qq
+               bank movwf   inner_counter
+            inner_loop:
+               page inner_loop
+                    decfsz  inner_counter, f
+                       goto    inner_loop 
+               
+               page outer_loop
+               bank decfsz  outer_counter, f
+                    goto    outer_loop 
+
+            end assembler
+         end if
+      end loop 
+      end loop 
+      end loop            
+
+   elsif ( target_cpu == pic_14 ) | ( target_cpu == pic_12 )  then
+      var byte minus_one = -1
+
+      var byte xx, yy
+      -- inner_iterations is 60 for 10 MHz, 24 for 4 MHz
+      const inner_iterations = target_clock / 166_667
+      assembler
+         local loop_x, loop_y, loop_z, loop_w
+
+         -- for 1..z
+      loop_z:
+
+         -- for 1..y
+         movfw y
+         movwf yy
+      loop_y:
+
+         -- for 1..x
+         movfw x
+         movwf xx
+      loop_x:
+
+         movlw inner_iterations
+         page loop_w
+      loop_w:
+         addwf minus_one, w
+         skpnc
+            goto loop_w
+
+         page loop_x
+         decfsz xx, f
+         goto loop_x
+
+         page loop_y
+         decfsz yy, f
+         goto loop_y
+
+         page loop_z
+         decfsz z, f
+         goto loop_z
+         
+     end assembler
+
+   elsif ( target_cpu == pic_16 ) then
+      var byte minus_one = -1
+
+      var byte xx, yy
+      -- inner_iterations is 60 for 10 MHz, 24 for 4 MHz
+      const inner_iterations = target_clock / 166_667
+      assembler
+         local loop_x, loop_y, loop_z, loop_w
+
+         -- for 1..z
+      loop_z:
+
+         -- for 1..y
+         movfw y
+         movwf yy
+      loop_y:
+
+         -- for 1..x
+         movfw x
+         movwf xx
+      loop_x:
+
+         movlw inner_iterations
+      loop_w:
+         addwf minus_one, w
+         skpnc
+            goto loop_w
+
+         decfsz xx, f
+         goto loop_x
+
+         decfsz yy, f
+         goto loop_y
+
+         decfsz z, f
+         goto loop_z
+
+      end assembler
+
+   else
+      pragma error -- cpu must be sx_12 or pic_14
+   end if
+end procedure
+
+procedure delay_100us( byte in x = 1 ) is
+   _delay_100us( x, 1, 1 )
+end procedure
+
+procedure delay_200us( byte in x = 1 ) is
+   _delay_100us( x, 2, 1 )
+end procedure
+
+procedure delay_500us( byte in x = 1 ) is
+   _delay_100us( x, 5, 1 )
+end procedure
+
+procedure delay_1ms( byte in x = 1 ) is
+   _delay_100us( x, 10, 1 )
+end procedure
+
+procedure delay_2ms( byte in x = 1 ) is
+   _delay_100us( x, 20, 1 )
+end procedure
+
+procedure delay_5ms( byte in x = 1 ) is
+   _delay_100us( x, 50, 1 )
+end procedure
+
+procedure delay_10ms( byte in x = 1 ) is
+   _delay_100us( x, 100, 1 )
+end procedure
+
+procedure delay_20ms( byte in x = 1 ) is
+   _delay_100us( x, 100, 2 )
+end procedure
+
+procedure delay_50ms( byte in x = 1 ) is
+   _delay_100us( x, 100, 5 )
+end procedure
+
+procedure delay_100ms( byte in x = 1 ) is
+   _delay_100us( x, 100, 10 )
+end procedure
+
+procedure delay_200ms( byte in x = 1 ) is
+   _delay_100us( x, 100, 20 )
+end procedure
+
+procedure delay_500ms( byte in x = 1 ) is
+   _delay_100us( x, 100, 50 )
+end procedure
+
+procedure delay_1s( byte in x = 1 ) is
+   _delay_100us( x, 100, 100 )
+end procedure
+
+procedure delay_2s( byte in x = 1 ) is
+   _delay_100us( x, 100, 200 )
+end procedure
+
+procedure delay_5s( byte in x = 1 ) is
+   _delay_100us( x, 250, 200 )
+end procedure

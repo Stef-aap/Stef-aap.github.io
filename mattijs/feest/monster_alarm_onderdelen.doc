@@ -1,0 +1,1829 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List href="Monster_alarm_onderdelen_files/filelist.xml">
+<link rel=Edit-Time-Data href="Monster_alarm_onderdelen_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Monster alarm onderdelen</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Stef  Mientki</o:Author>
+  <o:LastAuthor>Stef  Mientki</o:LastAuthor>
+  <o:Revision>29</o:Revision>
+  <o:TotalTime>481</o:TotalTime>
+  <o:LastPrinted>2003-01-26T12:06:00Z</o:LastPrinted>
+  <o:Created>2003-01-12T16:30:00Z</o:Created>
+  <o:LastSaved>2003-01-26T12:19:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>136</o:Words>
+  <o:Characters>776</o:Characters>
+  <o:Company>Mira</o:Company>
+  <o:Lines>6</o:Lines>
+  <o:Paragraphs>1</o:Paragraphs>
+  <o:CharactersWithSpaces>911</o:CharactersWithSpaces>
+  <o:Version>10.2625</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:View>Print</w:View>
+  <w:Zoom>50</w:Zoom>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:DrawingGridHorizontalSpacing>9.05 pt</w:DrawingGridHorizontalSpacing>
+  <w:DrawingGridVerticalSpacing>9.05 pt</w:DrawingGridVerticalSpacing>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Comic Sans MS";
+	panose-1:3 15 7 2 3 3 2 2 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:script;
+	mso-font-pitch:variable;
+	mso-font-signature:647 0 0 0 159 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:NL;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	border:solid windowtext 1.0pt;
+	mso-border-alt:solid windowtext .5pt;
+	padding:24.0pt 24.0pt 24.0pt 24.0pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:131409348;
+	mso-list-type:hybrid;
+	mso-list-template-ids:210017410 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:17.9pt;
+	mso-level-number-position:left;
+	margin-left:17.9pt;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1
+	{mso-list-id:668212501;
+	mso-list-template-ids:-294356608;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l2
+	{mso-list-id:1108889686;
+	mso-list-template-ids:-1794875522;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+</style>
+<![endif]-->
+<meta name=author content="Stef Mientki">
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="5122">
+  <o:colormenu v:ext="edit" fillcolor="silver" strokecolor="black"/>
+ </o:shapedefaults></xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1,3"/>
+  <o:regrouptable v:ext="edit">
+   <o:entry new="1" old="0"/>
+   <o:entry new="2" old="0"/>
+   <o:entry new="3" old="0"/>
+   <o:entry new="4" old="0"/>
+   <o:entry new="5" old="0"/>
+   <o:entry new="6" old="0"/>
+   <o:entry new="7" old="0"/>
+   <o:entry new="8" old="7"/>
+   <o:entry new="9" old="0"/>
+   <o:entry new="10" old="0"/>
+   <o:entry new="11" old="0"/>
+   <o:entry new="12" old="11"/>
+   <o:entry new="13" old="12"/>
+   <o:entry new="14" old="0"/>
+   <o:entry new="15" old="0"/>
+   <o:entry new="16" old="0"/>
+   <o:entry new="17" old="0"/>
+   <o:entry new="18" old="0"/>
+   <o:entry new="19" old="0"/>
+   <o:entry new="20" old="0"/>
+   <o:entry new="21" old="0"/>
+   <o:entry new="22" old="0"/>
+   <o:entry new="23" old="0"/>
+   <o:entry new="24" old="0"/>
+   <o:entry new="25" old="24"/>
+   <o:entry new="26" old="0"/>
+   <o:entry new="27" old="0"/>
+   <o:entry new="28" old="0"/>
+   <o:entry new="29" old="0"/>
+   <o:entry new="30" old="29"/>
+   <o:entry new="31" old="30"/>
+   <o:entry new="32" old="31"/>
+   <o:entry new="33" old="0"/>
+   <o:entry new="34" old="0"/>
+   <o:entry new="35" old="0"/>
+   <o:entry new="36" old="0"/>
+  </o:regrouptable>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-US style='tab-interval:36.0pt'>
+
+<div class=Section1>
+
+<p class=MsoNormal align=center style='margin-bottom:12.0pt;text-align:center'><b><span
+lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>Monster Alarm<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt'><b><span lang=NL
+style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt'><b><span lang=NL
+style='font-size:24.0pt;font-family:"Comic Sans MS"'><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:6in;
+ height:332.25pt'>
+ <v:imagedata src="Monster_alarm_onderdelen_files/image001.jpg" o:title="titel"/>
+</v:shape><![endif]--><![if !vml]><img width=576 height=443
+src="Monster_alarm_onderdelen_files/image002.jpg" v:shapes="_x0000_i1025"><![endif]><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt'><b><span lang=NL
+style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:12.0pt;text-align:center'><b><span
+lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>Verjaardagsfeestje<o:p></o:p></span></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:12.0pt;text-align:center'><b><span
+lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>Mattijs 2003<o:p></o:p></span></b></p>
+
+<b><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS";
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-ansi-language:NL;mso-fareast-language:EN-US;mso-bidi-language:AR-SA'><br
+clear=all style='page-break-before:always'>
+</span></b>
+
+<p class=MsoNormal style='margin-bottom:12.0pt'><b><span lang=NL
+style='font-size:24.0pt;font-family:"Comic Sans MS"'>De nacht beschermer<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt'><b><span lang=NL
+style='font-size:24.0pt;font-family:"Comic Sans MS"'>Er was eens een momster en
+die ging elke avond met zijn vriendjes naar de kamers van de kinderen om de
+kinderen te beschermen. En hij joeg iedereen weg maar nu zijn de vriendjes van het
+monster uit elkaar gevallen. Jullie kunnen hem helpen door zijn vriendjes weer
+in elkaar te zetten.<u><br clear=all style='page-break-before:always'>
+dingen die je nodig hebt:</u><o:p></o:p></span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo3;tab-stops:list 36.0pt'><b><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>buis</span></b><b
+     style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+     font-family:"Comic Sans MS"'><o:p></o:p></span></b></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo3;tab-stops:list 36.0pt'><b><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>1 grote schroef</span></b><b
+     style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+     font-family:"Comic Sans MS"'><o:p></o:p></span></b></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo3;tab-stops:list 36.0pt'><b><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>1 kleine schroef</span></b><b
+     style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+     font-family:"Comic Sans MS"'><o:p></o:p></span></b></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo3;tab-stops:list 36.0pt'><b><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>2 lampjes</span></b><b
+     style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+     font-family:"Comic Sans MS"'><o:p></o:p></span></b></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo3;tab-stops:list 36.0pt'><b><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>2 draden elk zolang
+     als een keer rond het glazen tafeltje</span></b><b style='mso-bidi-font-weight:
+     normal'><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p></o:p></span></b></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo3;tab-stops:list 36.0pt'><b><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>lood</span></b><b
+     style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+     font-family:"Comic Sans MS"'><o:p></o:p></span></b></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo3;tab-stops:list 36.0pt'><b><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>2 batterijen</span></b><b
+     style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+     font-family:"Comic Sans MS"'><o:p></o:p></span></b></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo3;tab-stops:list 36.0pt'><b><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>een grote moer<o:p></o:p></span></b></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo3;tab-stops:list 36.0pt'><b><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>een kleine moer<o:p></o:p></span></b></li>
+</ul>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:18.0pt'><b><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:-18.1pt'><b><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>gereedschap<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:17.9pt;text-indent:-18.0pt;mso-list:l0 level1 lfo5;tab-stops:list 17.9pt'><![if !supportLists]><span
+lang=NL style='font-size:24.0pt;font-family:Symbol;mso-fareast-font-family:
+Symbol;mso-bidi-font-family:Symbol;mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><b><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS"'>stampertje<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:17.9pt;text-indent:-18.0pt;mso-list:l0 level1 lfo5;tab-stops:list 17.9pt'><![if !supportLists]><span
+lang=NL style='font-size:24.0pt;font-family:Symbol;mso-fareast-font-family:
+Symbol;mso-bidi-font-family:Symbol;mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><b><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS"'>je verstand<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:17.9pt;text-indent:-18.0pt;mso-list:l0 level1 lfo5;tab-stops:list 17.9pt'><![if !supportLists]><span
+lang=NL style='font-size:24.0pt;font-family:Symbol;mso-fareast-font-family:
+Symbol;mso-bidi-font-family:Symbol;mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><b><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS"'>een beetje handigheid<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:17.9pt;text-indent:-18.0pt;mso-list:l0 level1 lfo5;tab-stops:list 17.9pt'><![if !supportLists]><span
+lang=NL style='font-size:24.0pt;font-family:Symbol;mso-fareast-font-family:
+Symbol;mso-bidi-font-family:Symbol;mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><b><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS"'>een striptang<o:p></o:p></span></b></p>
+
+<b><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS";
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-ansi-language:NL;mso-fareast-language:EN-US;mso-bidi-language:AR-SA'><br
+clear=all style='mso-special-character:line-break;page-break-before:always'>
+</span></b>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><b><span
+lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><!--[if gte vml 1]><o:wrapblock
+ pagebreak="t">
+ <v:group id="_x0000_s1914" style='position:absolute;margin-left:72.4pt;
+  margin-top:24.95pt;width:185.7pt;height:42.05pt;z-index:1' coordorigin="4780,3036"
+  coordsize="3714,841">
+  <v:shape id="_x0000_s1191" style='position:absolute;left:4780;top:3036;
+   width:3714;height:627' coordsize="4706,965" o:regroupid="35" path="m,c633,422,1267,845,1810,905v543,60,965,-543,1448,-543c3741,362,4344,875,4706,905e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><v:shapetype id="_x0000_t10" coordsize="21600,21600" o:spt="10"
+   adj="6326" path="m@0,l0@0,0@2@0,21600@1,21600,21600@2,21600@0@1,xe">
+   <v:stroke joinstyle="miter"/>
+   <v:formulas>
+    <v:f eqn="val #0"/>
+    <v:f eqn="sum width 0 #0"/>
+    <v:f eqn="sum height 0 #0"/>
+    <v:f eqn="prod @0 2929 10000"/>
+    <v:f eqn="sum width 0 @3"/>
+    <v:f eqn="sum height 0 @3"/>
+    <v:f eqn="val width"/>
+    <v:f eqn="val height"/>
+    <v:f eqn="prod width 1 2"/>
+    <v:f eqn="prod height 1 2"/>
+   </v:formulas>
+   <v:path gradientshapeok="t" limo="10800,10800" o:connecttype="custom"
+    o:connectlocs="@8,0;0,@9;@8,@7;@6,@9" textboxrect="0,0,21600,21600;2700,2700,18900,18900;5400,5400,16200,16200"/>
+   <v:handles>
+    <v:h position="#0,topLeft" switch="" xrange="0,10800"/>
+   </v:handles>
+  </v:shapetype><v:shape id="_x0000_s1192" type="#_x0000_t10" style='position:absolute;
+   left:5217;top:3036;width:874;height:841' o:regroupid="35"/>
+  <v:shape id="_x0000_s1193" type="#_x0000_t10" style='position:absolute;
+   left:5437;top:3244;width:436;height:423' o:regroupid="35"/>
+  <v:shape id="_x0000_s1194" style='position:absolute;left:5473;top:3374;
+   width:631;height:248' coordsize="525,214" o:regroupid="35" path="m,hcl105,105hdc105,105,105,105,105,105v25,10,51,17,75,30c207,150,269,207,315,210v70,4,140,,210,hce"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><w:wrap side="left"/>
+ </v:group><v:shape id="_x0000_s1195" style='position:absolute;margin-left:72.4pt;
+  margin-top:-56.5pt;width:185.75pt;height:31.4pt;z-index:2;
+  mso-position-horizontal:absolute;mso-position-vertical:absolute' coordsize="4706,965"
+  o:regroupid="35" path="m,c633,422,1267,845,1810,905v543,60,965,-543,1448,-543c3741,362,4344,875,4706,905e"
+  filled="f">
+  <v:path arrowok="t"/>
+  <w:wrap side="left"/>
+ </v:shape><v:group id="_x0000_s1913" style='position:absolute;margin-left:-54.3pt;
+  margin-top:107.5pt;width:315.7pt;height:49.9pt;z-index:3' coordorigin="2182,4142"
+  coordsize="6314,998">
+  <v:oval id="_x0000_s1179" style='position:absolute;left:2182;top:4142;
+   width:434;height:835' o:regroupid="35"/>
+  <v:line id="_x0000_s1180" style='position:absolute' from="2616,4768" to="4355,4770"
+   o:regroupid="35"/>
+  <v:line id="_x0000_s1181" style='position:absolute' from="2616,4350" to="4355,4352"
+   o:regroupid="35"/>
+  <v:line id="_x0000_s1182" style='position:absolute' from="4355,4350" to="4356,4768"
+   o:regroupid="35"/>
+  <v:line id="_x0000_s1183" style='position:absolute;flip:x' from="2291,4541"
+   to="2508,4542" o:regroupid="35"/>
+  <v:line id="_x0000_s1184" style='position:absolute' from="2380,4297" to="2381,4802"
+   o:regroupid="35"/>
+  <v:shape id="_x0000_s1196" style='position:absolute;left:4781;top:4297;
+   width:3715;height:628;mso-position-horizontal:absolute;
+   mso-position-vertical:absolute' coordsize="4706,965" o:regroupid="35"
+   path="m,c633,422,1267,845,1810,905v543,60,965,-543,1448,-543c3741,362,4344,875,4706,905e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><v:shape id="_x0000_s1197" type="#_x0000_t10" style='position:absolute;
+   left:5219;top:4297;width:873;height:843' o:regroupid="35"/>
+  <v:shape id="_x0000_s1198" type="#_x0000_t10" style='position:absolute;
+   left:5437;top:4507;width:437;height:422' o:regroupid="35"/>
+  <v:shape id="_x0000_s1199" style='position:absolute;left:5473;top:4635;
+   width:633;height:248;mso-position-horizontal:absolute;
+   mso-position-vertical:absolute' coordsize="525,214" o:regroupid="35" path="m,hcl105,105hdc105,105,105,105,105,105v25,10,51,17,75,30c207,150,269,207,315,210v70,4,140,,210,hce"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1912" style='position:absolute;margin-left:-54.3pt;
+  margin-top:252.3pt;width:262.15pt;height:42.15pt;z-index:4' coordorigin="2162,5558"
+  coordsize="5243,843">
+  <v:oval id="_x0000_s1185" style='position:absolute;left:2162;top:5558;
+   width:434;height:835' o:regroupid="35"/>
+  <v:line id="_x0000_s1186" style='position:absolute' from="2596,6185" to="4333,6186"
+   o:regroupid="35"/>
+  <v:line id="_x0000_s1187" style='position:absolute' from="2596,5768" to="4333,5769"
+   o:regroupid="35"/>
+  <v:line id="_x0000_s1188" style='position:absolute' from="4333,5768" to="4335,6185"
+   o:regroupid="35"/>
+  <v:line id="_x0000_s1189" style='position:absolute;flip:x' from="2271,5958"
+   to="2488,5960" o:regroupid="35"/>
+  <v:line id="_x0000_s1190" style='position:absolute' from="2361,5714" to="2363,6220"
+   o:regroupid="35"/>
+  <v:shape id="_x0000_s1200" style='position:absolute;left:3690;top:5769;
+   width:3715;height:628;mso-position-horizontal:absolute;
+   mso-position-vertical:absolute' coordsize="4706,965" o:regroupid="35"
+   path="m,c633,422,1267,845,1810,905v543,60,965,-543,1448,-543c3741,362,4344,875,4706,905e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><v:rect id="_x0000_s1201" style='position:absolute;left:3910;top:5558;
+   width:218;height:843' o:regroupid="35"/>
+  <w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1911" style='position:absolute;margin-left:-54.3pt;
+  margin-top:397.1pt;width:262.1pt;height:42.05pt;z-index:5' coordorigin="2162,7241"
+  coordsize="5242,841">
+  <v:oval id="_x0000_s1202" style='position:absolute;left:2162;top:7241;
+   width:434;height:835' o:regroupid="35" fillcolor="silver"/>
+  <v:rect id="_x0000_s1204" style='position:absolute;left:2597;top:7451;
+   width:1748;height:423' o:regroupid="35" fillcolor="silver"/>
+  <v:shape id="_x0000_s1205" style='position:absolute;left:3690;top:7451;
+   width:3714;height:628;mso-position-horizontal:absolute;
+   mso-position-vertical:absolute' coordsize="4706,965" o:regroupid="35"
+   path="m,c633,422,1267,845,1810,905v543,60,965,-543,1448,-543c3741,362,4344,875,4706,905e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><v:rect id="_x0000_s1206" style='position:absolute;left:3908;top:7241;
+   width:219;height:841' o:regroupid="35" fillcolor="silver"/>
+  <w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1910" style='position:absolute;margin-left:-54.3pt;
+  margin-top:541.9pt;width:262.1pt;height:42pt;z-index:6' coordorigin="2162,8926"
+  coordsize="5242,840">
+  <v:oval id="_x0000_s1207" style='position:absolute;left:2162;top:8926;
+   width:434;height:834' o:regroupid="35" fillcolor="silver"/>
+  <v:rect id="_x0000_s1209" style='position:absolute;left:2597;top:9135;
+   width:1748;height:424' o:regroupid="35" fillcolor="silver"/>
+  <v:shape id="_x0000_s1210" style='position:absolute;left:3690;top:9135;
+   width:3714;height:628;mso-position-horizontal:absolute;
+   mso-position-vertical:absolute' coordsize="4706,965" o:regroupid="35"
+   path="m,c633,422,1267,845,1810,905v543,60,965,-543,1448,-543c3741,362,4344,875,4706,905e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><v:rect id="_x0000_s1211" style='position:absolute;left:3908;top:8926;
+   width:219;height:840' o:regroupid="35" fillcolor="silver"/>
+  <v:rect id="_x0000_s1212" style='position:absolute;left:2702;top:9004;
+   width:1051;height:662' o:regroupid="35" fillcolor="black"/>
+  <w:wrap side="left"/>
+ </v:group><v:shapetype id="_x0000_t202" coordsize="21600,21600" o:spt="202"
+  path="m,l,21600r21600,l21600,xe">
+  <v:stroke joinstyle="miter"/>
+  <v:path gradientshapeok="t" o:connecttype="rect"/>
+ </v:shapetype><v:shape id="_x0000_s1213" type="#_x0000_t202" style='position:absolute;
+  margin-left:235.3pt;margin-top:-92.7pt;width:262.45pt;height:733.05pt;
+  z-index:7'>
+  <v:textbox>
+   <![if !mso]>
+   <table cellpadding=0 cellspacing=0 width="100%">
+    <tr>
+     <td><![endif]>
+     <div>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;- strip de draad <u>+</u>3cm<o:p></o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;- doe de moer om
+     de draad<o:p></o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-pak de schroef<o:p></o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;- draai<span
+     style='mso-spacerun:yes'>  </span>de moer om de schroef met de draad aan
+     de gestripte kant<o:p></o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-doe nu het
+     aluminium over de schroef<o:p></o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;- doe nu een
+     stukje lood rond de schroef<o:p></o:p></span></b></p>
+     </div>
+     <![if !mso]></td>
+    </tr>
+   </table>
+   <![endif]></v:textbox>
+  <w:wrap side="left"/>
+ </v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout;position:
+ relative;z-index:1;left:-73px;top:-125px;width:740px;height:984px'><img
+ width=740 height=984 src="Monster_alarm_onderdelen_files/image003.gif" v:shapes="_x0000_s1914 _x0000_s1191 _x0000_s1192 _x0000_s1193 _x0000_s1194 _x0000_s1195 _x0000_s1913 _x0000_s1179 _x0000_s1180 _x0000_s1181 _x0000_s1182 _x0000_s1183 _x0000_s1184 _x0000_s1196 _x0000_s1197 _x0000_s1198 _x0000_s1199 _x0000_s1912 _x0000_s1185 _x0000_s1186 _x0000_s1187 _x0000_s1188 _x0000_s1189 _x0000_s1190 _x0000_s1200 _x0000_s1201 _x0000_s1911 _x0000_s1202 _x0000_s1204 _x0000_s1205 _x0000_s1206 _x0000_s1910 _x0000_s1207 _x0000_s1209 _x0000_s1210 _x0000_s1211 _x0000_s1212 _x0000_s1213"></span><![endif]><!--[if gte vml 1]></o:wrapblock><![endif]--><b
+style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><b
+style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+
+<b style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS";mso-fareast-font-family:"Times New Roman";
+mso-bidi-font-family:"Times New Roman";mso-ansi-language:NL;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'><br clear=all style='page-break-before:always'>
+</span></b>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><!--[if gte vml 1]><o:wrapblock
+ pagebreak="t">
+ <v:group id="_x0000_s1895" style='position:absolute;margin-left:63.35pt;
+  margin-top:-36.2pt;width:45.25pt;height:144.75pt;z-index:13' coordorigin="3470,3760"
+  coordsize="751,2379">
+  <v:shapetype id="_x0000_t22" coordsize="21600,21600" o:spt="22" adj="5400"
+   path="m10800,qx0@1l0@2qy10800,21600,21600@2l21600@1qy10800,xem0@1qy10800@0,21600@1nfe">
+   <v:formulas>
+    <v:f eqn="val #0"/>
+    <v:f eqn="prod #0 1 2"/>
+    <v:f eqn="sum height 0 @1"/>
+   </v:formulas>
+   <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="custom"
+    o:connectlocs="10800,@0;10800,0;0,10800;10800,21600;21600,10800"
+    o:connectangles="270,270,180,90,0" textboxrect="0,@0,21600,@2"/>
+   <v:handles>
+    <v:h position="center,#0" yrange="0,10800"/>
+   </v:handles>
+   <o:complex v:ext="view"/>
+  </v:shapetype><v:shape id="_x0000_s1896" type="#_x0000_t22" style='position:absolute;
+   left:3470;top:3760;width:602;height:2379'/>
+  <v:oval id="_x0000_s1897" style='position:absolute;left:3771;top:5693;
+   width:450;height:445'/>
+  <v:line id="_x0000_s1898" style='position:absolute' from="3921,5841" to="4071,5990"/>
+  <v:line id="_x0000_s1899" style='position:absolute;flip:x' from="3921,5841"
+   to="4071,5990"/>
+  <w:wrap side="left"/>
+ </v:group><v:shape id="_x0000_s1905" type="#_x0000_t202" style='position:absolute;
+  margin-left:208.15pt;margin-top:-18.1pt;width:262.45pt;height:705.9pt;
+  z-index:15'>
+  <w:wrap side="left"/>
+ </v:shape><v:group id="_x0000_s1639" style='position:absolute;margin-left:36.2pt;
+  margin-top:190.05pt;width:144.8pt;height:74.05pt;z-index:17' coordorigin="6174,4800"
+  coordsize="2403,1215">
+  <v:line id="_x0000_s1395" style='position:absolute' from="7826,4800" to="7826,4800"/>
+  <v:line id="_x0000_s1633" style='position:absolute;flip:x y' from="6174,5247"
+   to="6325,5396" o:regroupid="24"/>
+  <v:shape id="_x0000_s1629" type="#_x0000_t10" style='position:absolute;
+   left:6174;top:5396;width:601;height:593' o:regroupid="25"/>
+  <v:oval id="_x0000_s1631" style='position:absolute;left:6325;top:5544;
+   width:299;height:298' o:regroupid="25"/>
+  <v:shape id="_x0000_s1632" style='position:absolute;left:6475;top:5544;
+   width:2102;height:471' coordsize="2534,573" o:regroupid="25" path="m,c226,256,453,513,724,543v271,30,603,-362,905,-362c1931,181,2293,543,2534,543e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1649" style='position:absolute;margin-left:-36.2pt;
+  margin-top:290.1pt;width:180.95pt;height:208.05pt;z-index:18' coordorigin="2119,6585"
+  coordsize="3004,3418">
+  <v:shape id="_x0000_s1626" type="#_x0000_t22" style='position:absolute;
+   left:2119;top:6585;width:603;height:2379'/>
+  <v:shape id="_x0000_s1637" type="#_x0000_t10" style='position:absolute;
+   left:2418;top:8370;width:601;height:593'/>
+  <v:oval id="_x0000_s1638" style='position:absolute;left:2569;top:8517;
+   width:300;height:299'/>
+  <v:line id="_x0000_s1641" style='position:absolute' from="5122,10002" to="5123,10003"
+   o:regroupid="26"/>
+  <v:shape id="_x0000_s1645" style='position:absolute;left:2719;top:8666;
+   width:2101;height:472' coordsize="2534,573" o:regroupid="26" path="m,c226,256,453,513,724,543v271,30,603,-362,905,-362c1931,181,2293,543,2534,543e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1656" style='position:absolute;margin-left:-36.2pt;
+  margin-top:479.65pt;width:181pt;height:226.1pt;z-index:19' coordorigin="5723,6733"
+  coordsize="3003,3716">
+  <v:group id="_x0000_s1650" style='position:absolute;left:5723;top:7031;
+   width:3003;height:3418' coordorigin="2119,6585" coordsize="3004,3418">
+   <v:shape id="_x0000_s1651" type="#_x0000_t22" style='position:absolute;
+    left:2119;top:6585;width:603;height:2379'/>
+   <v:shape id="_x0000_s1652" type="#_x0000_t10" style='position:absolute;
+    left:2418;top:8370;width:601;height:593'/>
+   <v:oval id="_x0000_s1653" style='position:absolute;left:2569;top:8517;
+    width:300;height:299'/>
+   <v:line id="_x0000_s1654" style='position:absolute' from="5122,10002" to="5123,10003"/>
+   <v:shape id="_x0000_s1655" style='position:absolute;left:2719;top:8666;
+    width:2101;height:472' coordsize="2534,573" path="m,c226,256,453,513,724,543v271,30,603,-362,905,-362c1931,181,2293,543,2534,543e"
+    filled="f">
+    <v:path arrowok="t"/>
+   </v:shape></v:group><v:shapetype id="_x0000_t72" coordsize="21600,21600"
+   o:spt="72" path="m11462,4342l9722,1887,8550,6382,4502,3625r870,4192l1172,8270r2763,3322l,12877r3330,2493l1285,17825r3520,415l4917,21600,7527,18125r1173,1587l9872,17370r1740,1472l12180,15935r2762,1435l14640,14350r4237,1282l16380,12310r1890,-1020l16985,9402,21600,6645,16380,6532,18007,3172,14525,5777,14790,xe">
+   <v:stroke joinstyle="miter"/>
+   <v:path gradientshapeok="t" o:connecttype="custom" o:connectlocs="9722,1887;0,12877;11612,18842;21600,6645"
+    o:connectangles="270,180,90,0" textboxrect="5372,6382,14640,15935"/>
+  </v:shapetype><v:shape id="_x0000_s1647" type="#_x0000_t72" style='position:absolute;
+   left:5723;top:6733;width:602;height:595' fillcolor="silver"/>
+  <w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1906" style='position:absolute;margin-left:-36.2pt;
+  margin-top:126.7pt;width:45.3pt;height:144.75pt;z-index:16' coordorigin="4822,3760"
+  coordsize="751,2379">
+  <v:shape id="_x0000_s1907" type="#_x0000_t22" style='position:absolute;
+   left:4822;top:3760;width:602;height:2379'/>
+  <v:shape id="_x0000_s1908" type="#_x0000_t22" style='position:absolute;
+   left:5199;top:5764;width:298;height:451;rotation:-39814216fd'/>
+  <w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1900" style='position:absolute;margin-left:-36.2pt;
+  margin-top:-36.2pt;width:36.3pt;height:144.9pt;z-index:14' coordorigin="2269,3760"
+  coordsize="601,2379">
+  <v:shape id="_x0000_s1901" type="#_x0000_t22" style='position:absolute;
+   left:2269;top:3760;width:601;height:2379'/>
+  <v:oval id="_x0000_s1902" style='position:absolute;left:2569;top:5841;
+   width:150;height:146'/>
+  <w:wrap side="left"/>
+ </v:group><![endif]--><![if !vml]><span style='mso-ignore:vglayout;position:
+ relative;z-index:13;left:-50px;top:-49px;width:680px;height:991px'>
+ <table cellpadding=0 cellspacing=0 align=left>
+  <tr>
+   <td width=0 height=0></td>
+   <td width=1></td>
+   <td width=50></td>
+   <td width=14></td>
+   <td width=32></td>
+   <td width=36></td>
+   <td width=63></td>
+   <td width=48></td>
+   <td width=48></td>
+   <td width=33></td>
+   <td width=355></td>
+  </tr>
+  <tr>
+   <td height=22></td>
+   <td></td>
+   <td rowspan=2 align=left valign=top><img width=50 height=195
+   src="Monster_alarm_onderdelen_files/image004.gif" v:shapes="_x0000_s1900 _x0000_s1901 _x0000_s1902"></td>
+   <td colspan=3></td>
+   <td rowspan=2 align=left valign=top><img width=63 height=195
+   src="Monster_alarm_onderdelen_files/image005.gif" v:shapes="_x0000_s1895 _x0000_s1896 _x0000_s1897 _x0000_s1898 _x0000_s1899"></td>
+  </tr>
+  <tr>
+   <td height=173></td>
+   <td></td>
+   <td colspan=3></td>
+   <td colspan=3></td>
+   <td rowspan=7 width=355 height=947 bgcolor=white style='border:.75pt solid black;
+   vertical-align:top;background:white'><![endif]><![if !mso]><span
+   style='position:absolute;mso-ignore:vglayout;z-index:15'>
+   <table cellpadding=0 cellspacing=0 width="100%">
+    <tr>
+     <td><![endif]>
+     <div v:shape="_x0000_s1905" style='padding:3.6pt 7.2pt 3.6pt 7.2pt'
+     class=shape>
+     <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto'><b><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-
+     draai de dunne schroef in het onderste gaatje van de buis<o:p></o:p></span></b></p>
+     <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto'><b><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-
+     strip de draad die om de tafel past aan een kant <u>+</u> 6cm<o:p></o:p></span></b></p>
+     <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto'><b><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+     <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto'><b><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-draai
+     nu de moer met daar in het gestripte draadje aan de schroef in de buis<o:p></o:p></span></b></p>
+     <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto'><b><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-maak
+     een propje van aluminium folie prop dat via de boven kant er in met het
+     stampertje<o:p></o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+     </div>
+     <![if !mso]></td>
+    </tr>
+   </table>
+   </span><![endif]><![if !mso & !vml]>&nbsp;<![endif]><![if !vml]></td>
+  </tr>
+  <tr>
+   <td height=22></td>
+  </tr>
+  <tr>
+   <td height=84></td>
+   <td></td>
+   <td colspan=2 rowspan=3 align=left valign=top><img width=64 height=200
+   src="Monster_alarm_onderdelen_files/image006.gif" v:shapes="_x0000_s1906 _x0000_s1907 _x0000_s1908"></td>
+  </tr>
+  <tr>
+   <td height=101></td>
+   <td></td>
+   <td></td>
+   <td colspan=4 align=left valign=top><img width=195 height=101
+   src="Monster_alarm_onderdelen_files/image007.gif" v:shapes="_x0000_s1639 _x0000_s1395 _x0000_s1633 _x0000_s1629 _x0000_s1631 _x0000_s1632"></td>
+  </tr>
+  <tr>
+   <td height=15></td>
+  </tr>
+  <tr>
+   <td height=18></td>
+  </tr>
+  <tr>
+   <td height=534></td>
+   <td colspan=7 rowspan=2 align=left valign=top><img width=244 height=556
+   src="Monster_alarm_onderdelen_files/image008.gif" v:shapes="_x0000_s1649 _x0000_s1626 _x0000_s1637 _x0000_s1638 _x0000_s1641 _x0000_s1645 _x0000_s1656 _x0000_s1650 _x0000_s1651 _x0000_s1652 _x0000_s1653 _x0000_s1654 _x0000_s1655 _x0000_s1647"></td>
+  </tr>
+  <tr>
+   <td height=22></td>
+  </tr>
+ </table>
+ </span><![endif]><!--[if gte vml 1]></o:wrapblock><![endif]--><b
+style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS"'><br clear=all style='mso-special-character:line-break;
+page-break-before:always'>
+<o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><!--[if gte vml 1]><o:wrapblock
+ pagebreak="t">
+ <v:group id="_x0000_s1390" style='position:absolute;margin-left:-36.2pt;
+  margin-top:-65.55pt;width:119.35pt;height:90.45pt;z-index:8' coordorigin="4822,5841"
+  coordsize="1981,1486">
+  <v:group id="_x0000_s1382" style='position:absolute;left:4822;top:5841;
+   width:1957;height:1486' coordorigin="5122,3314" coordsize="1955,1486"
+   o:regroupid="11">
+   <v:shapetype id="_x0000_t16" coordsize="21600,21600" o:spt="16" adj="5400"
+    path="m@0,l0@0,,21600@1,21600,21600@2,21600,xem0@0nfl@1@0,21600,em@1@0nfl@1,21600e">
+    <v:stroke joinstyle="miter"/>
+    <v:formulas>
+     <v:f eqn="val #0"/>
+     <v:f eqn="sum width 0 #0"/>
+     <v:f eqn="sum height 0 #0"/>
+     <v:f eqn="mid height #0"/>
+     <v:f eqn="prod @1 1 2"/>
+     <v:f eqn="prod @2 1 2"/>
+     <v:f eqn="mid width #0"/>
+    </v:formulas>
+    <v:path o:extrusionok="f" gradientshapeok="t" limo="10800,10800"
+     o:connecttype="custom" o:connectlocs="@6,0;@4,@0;0,@3;@4,21600;@1,@3;21600,@5"
+     o:connectangles="270,270,180,90,0,0" textboxrect="0,@0,@1,21600"/>
+    <v:handles>
+     <v:h position="topLeft,#0" switch="" yrange="0,21600"/>
+    </v:handles>
+    <o:complex v:ext="view"/>
+   </v:shapetype><v:shape id="_x0000_s1370" type="#_x0000_t16" style='position:absolute;
+    left:5122;top:3314;width:1955;height:1486' o:regroupid="9" adj="6603"/>
+   <v:rect id="_x0000_s1371" style='position:absolute;left:5273;top:3908;
+    width:1204;height:745' o:regroupid="9" strokecolor="red"/>
+  </v:group><v:group id="_x0000_s1389" style='position:absolute;left:5536;
+   top:6891;width:1267;height:325' coordorigin="7379,5084" coordsize="1265,324">
+   <v:shapetype id="_x0000_t184" coordsize="21600,21600" o:spt="184" adj="10800"
+    path="m21600,qx,10800,21600,21600wa@0@10@6@11,21600,21600,21600,xe">
+    <v:stroke joinstyle="miter"/>
+    <v:formulas>
+     <v:f eqn="val #0"/>
+     <v:f eqn="sum 21600 0 #0"/>
+     <v:f eqn="prod #0 #0 @1"/>
+     <v:f eqn="prod 21600 21600 @1"/>
+     <v:f eqn="prod @3 2 1"/>
+     <v:f eqn="sum @4 0 @2"/>
+     <v:f eqn="sum @5 0 #0"/>
+     <v:f eqn="prod @5 1 2"/>
+     <v:f eqn="sum @7 0 #0"/>
+     <v:f eqn="prod @8 1 2"/>
+     <v:f eqn="sum 10800 0 @9"/>
+     <v:f eqn="sum @9 10800 0"/>
+     <v:f eqn="prod #0 9598 32768"/>
+     <v:f eqn="sum 21600 0 @12"/>
+     <v:f eqn="ellipse @13 21600 10800"/>
+     <v:f eqn="sum 10800 0 @14"/>
+     <v:f eqn="sum @14 10800 0"/>
+    </v:formulas>
+    <v:path o:connecttype="custom" o:connectlocs="21600,0;0,10800;21600,21600;@0,10800"
+     o:connectangles="270,180,90,0" textboxrect="@12,@15,@0,@16"/>
+    <v:handles>
+     <v:h position="#0,center" xrange="0,18900"/>
+    </v:handles>
+   </v:shapetype><v:shape id="_x0000_s1376" type="#_x0000_t184" style='position:absolute;
+    left:7381;top:5258;width:148;height:151;rotation:4382004fd' o:regroupid="15"
+    fillcolor="silver"/>
+   <v:group id="_x0000_s1388" style='position:absolute;left:7411;top:5084;
+    width:1233;height:185' coordorigin="7411,5084" coordsize="1233,185">
+    <v:shape id="_x0000_s1375" style='position:absolute;left:7448;top:5095;
+     width:1196;height:174;rotation:-930373fd' coordsize="1448,392"
+     o:regroupid="15" path="m,181c241,286,483,392,724,362,965,332,1327,90,1448,e"
+     fillcolor="red">
+     <v:path arrowok="t"/>
+    </v:shape><v:rect id="_x0000_s1386" style='position:absolute;left:7411;
+     top:5084;width:1193;height:86;rotation:-1126622fd' o:regroupid="15"
+     fillcolor="red" strokecolor="red"/>
+   </v:group></v:group><w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1784" style='position:absolute;margin-left:-36.2pt;
+  margin-top:251.75pt;width:117.7pt;height:135.8pt;z-index:10' coordorigin="9040,9042"
+  coordsize="2354,2716">
+  <v:group id="_x0000_s1785" style='position:absolute;left:9040;top:9947;
+   width:2354;height:1811' coordorigin="4522,7328" coordsize="1955,1486">
+   <v:shape id="_x0000_s1786" type="#_x0000_t16" style='position:absolute;
+    left:4522;top:7328;width:1955;height:1486' adj="6603"/>
+   <v:rect id="_x0000_s1787" style='position:absolute;left:4672;top:7922;
+    width:1203;height:744'/>
+  </v:group><v:group id="_x0000_s1788" style='position:absolute;left:9583;
+   top:10128;width:1267;height:181' coordorigin="5239,1621" coordsize="1267,181">
+   <v:oval id="_x0000_s1789" style='position:absolute;left:5239;top:1621;
+    width:181;height:181'/>
+   <v:oval id="_x0000_s1790" style='position:absolute;left:6325;top:1621;
+    width:181;height:181'/>
+  </v:group><v:shape id="_x0000_s1791" style='position:absolute;left:10850;
+   top:9042;width:300;height:1161;mso-position-horizontal:absolute;
+   mso-position-vertical:absolute' coordsize="300,1160" path="m,1160hdc74,1049,108,909,140,780v15,-152,5,-207,80,-320c227,400,228,339,240,280,261,177,300,108,300,e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><v:shape id="_x0000_s1792" style='position:absolute;left:9764;
+   top:9042;width:538;height:1223;mso-position-horizontal:absolute;
+   mso-position-vertical:absolute' coordsize="540,1223" path="m,1223hdc47,1153,75,1094,140,1043v38,-30,120,-80,120,-80c319,874,383,809,440,723,463,540,435,341,540,183,533,150,528,116,520,83,503,14,477,,540,63e"
+   filled="f" strokecolor="red">
+   <v:path arrowok="t"/>
+  </v:shape><v:group id="_x0000_s1793" style='position:absolute;left:9764;
+   top:10671;width:544;height:363' coordorigin="2719,8517" coordsize="451,298">
+   <v:line id="_x0000_s1794" style='position:absolute' from="2719,8517" to="3170,8815"
+    strokecolor="red"/>
+   <v:line id="_x0000_s1795" style='position:absolute;flip:x' from="2719,8517"
+    to="3170,8815"/>
+   <v:shapetype id="_x0000_t59" coordsize="21600,21600" o:spt="59" adj="2700"
+    path="m21600,10800l@5@10,20777,6667@7@12,18436,3163@8@11,14932,822@6@9,10800,0@10@9,6667,822@12@11,3163,3163@11@12,822,6667@9@10,,10800@9@6,822,14932@11@8,3163,18436@12@7,6667,20777@10@5,10800,21600@6@5,14932,20777@8@7,18436,18436@7@8,20777,14932@5@6xe">
+    <v:stroke joinstyle="miter"/>
+    <v:formulas>
+     <v:f eqn="sum 10800 0 #0"/>
+     <v:f eqn="prod @0 32138 32768"/>
+     <v:f eqn="prod @0 6393 32768"/>
+     <v:f eqn="prod @0 27246 32768"/>
+     <v:f eqn="prod @0 18205 32768"/>
+     <v:f eqn="sum @1 10800 0"/>
+     <v:f eqn="sum @2 10800 0"/>
+     <v:f eqn="sum @3 10800 0"/>
+     <v:f eqn="sum @4 10800 0"/>
+     <v:f eqn="sum 10800 0 @1"/>
+     <v:f eqn="sum 10800 0 @2"/>
+     <v:f eqn="sum 10800 0 @3"/>
+     <v:f eqn="sum 10800 0 @4"/>
+     <v:f eqn="prod @0 23170 32768"/>
+     <v:f eqn="sum @13 10800 0"/>
+     <v:f eqn="sum 10800 0 @13"/>
+    </v:formulas>
+    <v:path gradientshapeok="t" o:connecttype="rect" textboxrect="@15,@15,@14,@14"/>
+    <v:handles>
+     <v:h position="#0,center" xrange="0,10800"/>
+    </v:handles>
+   </v:shapetype><v:shape id="_x0000_s1796" type="#_x0000_t59" style='position:absolute;
+    left:2866;top:8606;width:151;height:132' fillcolor="black"/>
+  </v:group><v:shape id="_x0000_s1797" style='position:absolute;left:9583;
+   top:11033;width:757;height:302;mso-position-horizontal:absolute;
+   mso-position-vertical:absolute' coordsize="758,300" path="m729,hdc736,20,758,41,749,60v-9,19,-39,18,-60,20c596,91,502,93,409,100v-302,60,74,,-180,c188,100,139,140,109,160,94,183,,300,109,300e"
+   filled="f" strokecolor="red">
+   <v:path arrowok="t"/>
+  </v:shape><v:shape id="_x0000_s1798" style='position:absolute;left:9402;
+   top:11033;width:439;height:479;mso-position-horizontal:absolute;
+   mso-position-vertical:absolute' coordsize="440,480" path="m440,hdc373,7,305,5,240,20,190,32,158,95,120,120v-18,12,-40,13,-60,20c27,189,,215,,280v,67,20,200,20,200e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><w:wrap side="left"/>
+ </v:group><v:shape id="_x0000_s1894" type="#_x0000_t202" style='position:absolute;
+  margin-left:108.6pt;margin-top:-92.7pt;width:389.15pt;height:742.1pt;
+  z-index:12'>
+  <w:wrap side="left"/>
+ </v:shape><v:group id="_x0000_s1828" style='position:absolute;margin-left:-36.2pt;
+  margin-top:459.9pt;width:117.7pt;height:135.8pt;z-index:11' coordorigin="5842,7654"
+  coordsize="2354,2716">
+  <v:group id="_x0000_s1783" style='position:absolute;left:5842;top:7654;
+   width:2354;height:2716' coordorigin="9040,9042" coordsize="2354,2716">
+   <v:group id="_x0000_s1769" style='position:absolute;left:9040;top:9947;
+    width:2354;height:1811' coordorigin="4522,7328" coordsize="1955,1486"
+    o:regroupid="32">
+    <v:shape id="_x0000_s1770" type="#_x0000_t16" style='position:absolute;
+     left:4522;top:7328;width:1955;height:1486' adj="6603"/>
+    <v:rect id="_x0000_s1771" style='position:absolute;left:4672;top:7922;
+     width:1203;height:744'/>
+   </v:group><v:group id="_x0000_s1761" style='position:absolute;left:9583;
+    top:10128;width:1267;height:181' coordorigin="5239,1621" coordsize="1267,181">
+    <v:oval id="_x0000_s1762" style='position:absolute;left:5239;top:1621;
+     width:181;height:181'/>
+    <v:oval id="_x0000_s1763" style='position:absolute;left:6325;top:1621;
+     width:181;height:181'/>
+   </v:group><v:shape id="_x0000_s1775" style='position:absolute;left:10850;
+    top:9042;width:300;height:1161;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="300,1160" o:regroupid="31"
+    path="m,1160hdc74,1049,108,909,140,780v15,-152,5,-207,80,-320c227,400,228,339,240,280,261,177,300,108,300,e"
+    filled="f">
+    <v:path arrowok="t"/>
+   </v:shape><v:shape id="_x0000_s1776" style='position:absolute;left:9764;
+    top:9042;width:538;height:1223;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="540,1223" o:regroupid="31"
+    path="m,1223hdc47,1153,75,1094,140,1043v38,-30,120,-80,120,-80c319,874,383,809,440,723,463,540,435,341,540,183,533,150,528,116,520,83,503,14,477,,540,63e"
+    filled="f" strokecolor="red">
+    <v:path arrowok="t"/>
+   </v:shape><v:group id="_x0000_s1777" style='position:absolute;left:9764;
+    top:10671;width:544;height:363' coordorigin="2719,8517" coordsize="451,298"
+    o:regroupid="30">
+    <v:line id="_x0000_s1778" style='position:absolute' from="2719,8517" to="3170,8815"
+     strokecolor="red"/>
+    <v:line id="_x0000_s1779" style='position:absolute;flip:x' from="2719,8517"
+     to="3170,8815"/>
+    <v:shape id="_x0000_s1780" type="#_x0000_t59" style='position:absolute;
+     left:2866;top:8606;width:151;height:132' fillcolor="black"/>
+   </v:group><v:shape id="_x0000_s1781" style='position:absolute;left:9583;
+    top:11033;width:757;height:302;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="758,300" o:regroupid="29"
+    path="m729,hdc736,20,758,41,749,60v-9,19,-39,18,-60,20c596,91,502,93,409,100v-302,60,74,,-180,c188,100,139,140,109,160,94,183,,300,109,300e"
+    filled="f" strokecolor="red">
+    <v:path arrowok="t"/>
+   </v:shape><v:shape id="_x0000_s1782" style='position:absolute;left:9402;
+    top:11033;width:439;height:479;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="440,480" o:regroupid="29"
+    path="m440,hdc373,7,305,5,240,20,190,32,158,95,120,120v-18,12,-40,13,-60,20c27,189,,215,,280v,67,20,200,20,200e"
+    filled="f">
+    <v:path arrowok="t"/>
+   </v:shape></v:group><v:group id="_x0000_s1815" style='position:absolute;
+   left:6186;top:9740;width:1266;height:360' coordorigin="4371,9261"
+   coordsize="1202,299" o:regroupid="33">
+   <v:group id="_x0000_s1816" style='position:absolute;left:4822;top:9261;
+    width:751;height:296' coordorigin="4371,8964" coordsize="1052,431">
+    <v:group id="_x0000_s1817" style='position:absolute;left:4371;top:8964;
+     width:1052;height:297' coordorigin="5122,13127" coordsize="569,119">
+     <v:oval id="_x0000_s1818" style='position:absolute;left:5573;top:13127;
+      width:118;height:119'/>
+     <v:oval id="_x0000_s1819" style='position:absolute;left:5122;top:13127;
+      width:122;height:119'/>
+    </v:group><v:rect id="_x0000_s1820" style='position:absolute;left:4403;
+     top:9228;width:150;height:150'/>
+    <v:rect id="_x0000_s1821" style='position:absolute;left:5234;top:9244;
+     width:150;height:151'/>
+   </v:group><v:line id="_x0000_s1822" style='position:absolute;flip:x' from="4972,9558"
+    to="5424,9560"/>
+   <v:line id="_x0000_s1823" style='position:absolute;flip:x' from="4972,9410"
+    to="5424,9411"/>
+   <v:line id="_x0000_s1824" style='position:absolute;flip:x' from="4671,9410"
+    to="4822,9411"/>
+   <v:line id="_x0000_s1825" style='position:absolute;flip:x' from="4371,9558"
+    to="4822,9558"/>
+  </v:group><w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1764" style='position:absolute;margin-left:-36.2pt;
+  margin-top:70.75pt;width:117.8pt;height:117.65pt;z-index:9' coordorigin="4696,897"
+  coordsize="2356,2353">
+  <v:group id="_x0000_s1379" style='position:absolute;left:4696;top:1440;
+   width:2356;height:1810' coordorigin="2569,3314" coordsize="1953,1486"
+   o:regroupid="28">
+   <v:shape id="_x0000_s1380" type="#_x0000_t16" style='position:absolute;
+    left:2569;top:3314;width:1953;height:1486' adj="6603"/>
+   <v:rect id="_x0000_s1381" style='position:absolute;left:2719;top:3908;
+    width:1202;height:744'/>
+  </v:group><v:group id="_x0000_s1412" style='position:absolute;left:6506;
+   top:897;width:539;height:899;rotation:-9214263fd' coordorigin="3170,8220"
+   coordsize="451,744" o:regroupid="28">
+   <v:line id="_x0000_s1413" style='position:absolute' from="3320,8220" to="3470,8964"/>
+   <v:line id="_x0000_s1414" style='position:absolute;flip:x' from="3320,8220"
+    to="3470,8964"/>
+   <v:oval id="_x0000_s1415" style='position:absolute;left:3470;top:8815;
+    width:151;height:149'/>
+   <v:oval id="_x0000_s1416" style='position:absolute;left:3170;top:8815;
+    width:150;height:149'/>
+  </v:group><v:group id="_x0000_s1760" style='position:absolute;left:5242;
+   top:1621;width:1267;height:181' coordorigin="5239,1621" coordsize="1267,181">
+   <v:oval id="_x0000_s1756" style='position:absolute;left:5239;top:1621;
+    width:181;height:181' strokecolor="red"/>
+   <v:oval id="_x0000_s1759" style='position:absolute;left:6325;top:1621;
+    width:181;height:181' strokecolor="red"/>
+  </v:group><w:wrap side="left"/>
+ </v:group><![endif]--><![if !vml]><span style='mso-ignore:vglayout;position:
+ relative;z-index:8;left:-49px;top:-125px;width:716px;height:996px'>
+ <table cellpadding=0 cellspacing=0 align=left>
+  <tr>
+   <td width=0 height=0></td>
+   <td width=159></td>
+   <td width=12></td>
+   <td width=20></td>
+   <td width=525></td>
+  </tr>
+  <tr>
+   <td height=39></td>
+   <td colspan=3></td>
+   <td rowspan=9 width=525 height=996 bgcolor=white style='border:.75pt solid black;
+   vertical-align:top;background:white'><![endif]><![if !mso]><span
+   style='position:absolute;mso-ignore:vglayout;z-index:12'>
+   <table cellpadding=0 cellspacing=0 width="100%">
+    <tr>
+     <td><![endif]>
+     <div v:shape="_x0000_s1894" style='padding:3.6pt 7.2pt 3.6pt 7.2pt'
+     class=shape>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS";mso-bidi-font-family:
+     "Courier New"'>&lt;-<span class=GramE>Snij</span> met het rode haakmes een
+     vierkant uit de doos maar er moet een dun randje aan de buitenkant
+     overblijven <o:p></o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS";mso-bidi-font-family:
+     "Courier New"'><o:p>&nbsp;</o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS";mso-bidi-font-family:
+     "Courier New"'>&lt;-Prik twee gaatjes aan de bovenkant. De gaatjes moeten
+     zo ver mogelijk in de hoeken aan de voorkant.<o:p></o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS";mso-bidi-font-family:
+     "Courier New"'><o:p>&nbsp;</o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS";mso-bidi-font-family:
+     "Courier New"'>&lt;-steek de lange draden van de batterijhouder
+     -schakelaar door de gaatjes en knoop ze aan elkaar(zorg dat je ongeveer 20
+     cm over hebt.) <o:p></o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS";mso-bidi-font-family:
+     "Courier New"'><o:p>&nbsp;</o:p></span></b></p>
+     <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=NL
+     style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-Plak de lampjes
+     vast in de doos. Dit doe je<span style='mso-spacerun:yes'>  </span>door de
+     draden op de achterwand te plakken. Draai de twee paarse draden in elkaar en
+     de twee grijze draden.</span></b><b style='mso-bidi-font-weight:normal'><span
+     lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS";mso-bidi-font-family:
+     "Courier New"'><o:p></o:p></span></b></p>
+     </div>
+     <![if !mso]></td>
+    </tr>
+   </table>
+   </span><![endif]><![if !mso & !vml]>&nbsp;<![endif]><![if !vml]></td>
+  </tr>
+  <tr>
+   <td height=122></td>
+   <td align=left valign=top><img width=159 height=122
+   src="Monster_alarm_onderdelen_files/image009.gif" v:shapes="_x0000_s1390 _x0000_s1382 _x0000_s1370 _x0000_s1371 _x0000_s1389 _x0000_s1376 _x0000_s1388 _x0000_s1375 _x0000_s1386"></td>
+  </tr>
+  <tr>
+   <td height=56></td>
+  </tr>
+  <tr>
+   <td height=162></td>
+   <td colspan=2 align=left valign=top><img width=171 height=162
+   src="Monster_alarm_onderdelen_files/image010.gif" v:shapes="_x0000_s1764 _x0000_s1379 _x0000_s1380 _x0000_s1381 _x0000_s1412 _x0000_s1413 _x0000_s1414 _x0000_s1415 _x0000_s1416 _x0000_s1760 _x0000_s1756 _x0000_s1759"></td>
+  </tr>
+  <tr>
+   <td height=83></td>
+  </tr>
+  <tr>
+   <td height=183></td>
+   <td align=left valign=top><img width=159 height=183
+   src="Monster_alarm_onderdelen_files/image011.gif" v:shapes="_x0000_s1784 _x0000_s1785 _x0000_s1786 _x0000_s1787 _x0000_s1788 _x0000_s1789 _x0000_s1790 _x0000_s1791 _x0000_s1792 _x0000_s1793 _x0000_s1794 _x0000_s1795 _x0000_s1796 _x0000_s1797 _x0000_s1798"></td>
+  </tr>
+  <tr>
+   <td height=94></td>
+  </tr>
+  <tr>
+   <td height=183></td>
+   <td align=left valign=top><img width=159 height=183
+   src="Monster_alarm_onderdelen_files/image012.gif" v:shapes="_x0000_s1828 _x0000_s1783 _x0000_s1769 _x0000_s1770 _x0000_s1771 _x0000_s1761 _x0000_s1762 _x0000_s1763 _x0000_s1775 _x0000_s1776 _x0000_s1777 _x0000_s1778 _x0000_s1779 _x0000_s1780 _x0000_s1781 _x0000_s1782 _x0000_s1815 _x0000_s1816 _x0000_s1817 _x0000_s1818 _x0000_s1819 _x0000_s1820 _x0000_s1821 _x0000_s1822 _x0000_s1823 _x0000_s1824 _x0000_s1825"></td>
+  </tr>
+  <tr>
+   <td height=74></td>
+  </tr>
+ </table>
+ </span><![endif]><!--[if gte vml 1]></o:wrapblock><![endif]--><b
+style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+
+<b style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS";mso-fareast-font-family:"Times New Roman";
+mso-bidi-font-family:"Times New Roman";mso-ansi-language:NL;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'><br clear=all style='page-break-before:always'>
+</span></b><br style='mso-ignore:vglayout' clear=ALL>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:54.3pt;text-indent:-54.3pt'><b style='mso-bidi-font-weight:normal'><span
+lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>Nu komt een
+spannend moment want we gaan testen of de schakeling het doet.houd het buisje
+recht, stop de batterijen er in en laat voorzichtig de zware schroef er in. De
+lampjes moeten nu gaan branden. Als de lampjes het niet doen zoek dan een hulp.<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><!--[if gte vml 1]><o:wrapblock
+ pagebreak="t">
+ <v:group id="_x0000_s1751" style='position:absolute;margin-left:-9.05pt;
+  margin-top:59.35pt;width:180.95pt;height:298.55pt;z-index:20' coordorigin="2269,9558"
+  coordsize="3003,4905">
+  <v:group id="_x0000_s1658" style='position:absolute;left:2269;top:11045;
+   width:3003;height:3418' coordorigin="2119,6585" coordsize="3004,3418">
+   <v:shape id="_x0000_s1659" type="#_x0000_t22" style='position:absolute;
+    left:2119;top:6585;width:603;height:2379'/>
+   <v:shape id="_x0000_s1660" type="#_x0000_t10" style='position:absolute;
+    left:2418;top:8370;width:601;height:593'/>
+   <v:oval id="_x0000_s1661" style='position:absolute;left:2569;top:8517;
+    width:300;height:299'/>
+   <v:line id="_x0000_s1662" style='position:absolute' from="5122,10002" to="5123,10003"/>
+   <v:shape id="_x0000_s1663" style='position:absolute;left:2719;top:8666;
+    width:2101;height:472' coordsize="2534,573" path="m,c226,256,453,513,724,543v271,30,603,-362,905,-362c1931,181,2293,543,2534,543e"
+    filled="f">
+    <v:path arrowok="t"/>
+   </v:shape></v:group><v:group id="_x0000_s1669" style='position:absolute;
+   left:2419;top:9558;width:300;height:744' coordorigin="7350,11637"
+   coordsize="451,920">
+   <v:shape id="_x0000_s1670" type="#_x0000_t22" style='position:absolute;
+    left:7350;top:11664;width:451;height:893'/>
+   <v:shape id="_x0000_s1671" type="#_x0000_t22" style='position:absolute;
+    left:7428;top:11637;width:302;height:150'/>
+  </v:group><v:group id="_x0000_s1672" style='position:absolute;left:2419;
+   top:10450;width:300;height:745' coordorigin="7350,11637" coordsize="451,920">
+   <v:shape id="_x0000_s1673" type="#_x0000_t22" style='position:absolute;
+    left:7350;top:11664;width:451;height:893'/>
+   <v:shape id="_x0000_s1674" type="#_x0000_t22" style='position:absolute;
+    left:7428;top:11637;width:302;height:150'/>
+  </v:group><w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1915" style='position:absolute;margin-left:208.15pt;
+  margin-top:167.95pt;width:117.55pt;height:135.8pt;z-index:21' coordorigin="5842,7654"
+  coordsize="2354,2716">
+  <v:group id="_x0000_s1916" style='position:absolute;left:5842;top:7654;
+   width:2354;height:2716' coordorigin="9040,9042" coordsize="2354,2716">
+   <v:group id="_x0000_s1917" style='position:absolute;left:9040;top:9947;
+    width:2354;height:1811' coordorigin="4522,7328" coordsize="1955,1486">
+    <v:shape id="_x0000_s1918" type="#_x0000_t16" style='position:absolute;
+     left:4522;top:7328;width:1955;height:1486' adj="6603"/>
+    <v:rect id="_x0000_s1919" style='position:absolute;left:4672;top:7922;
+     width:1203;height:744'/>
+   </v:group><v:group id="_x0000_s1920" style='position:absolute;left:9583;
+    top:10128;width:1267;height:181' coordorigin="5239,1621" coordsize="1267,181">
+    <v:oval id="_x0000_s1921" style='position:absolute;left:5239;top:1621;
+     width:181;height:181'/>
+    <v:oval id="_x0000_s1922" style='position:absolute;left:6325;top:1621;
+     width:181;height:181'/>
+   </v:group><v:shape id="_x0000_s1923" style='position:absolute;left:10850;
+    top:9042;width:300;height:1161;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="300,1160" path="m,1160hdc74,1049,108,909,140,780v15,-152,5,-207,80,-320c227,400,228,339,240,280,261,177,300,108,300,e"
+    filled="f">
+    <v:path arrowok="t"/>
+   </v:shape><v:shape id="_x0000_s1924" style='position:absolute;left:9764;
+    top:9042;width:538;height:1223;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="540,1223" path="m,1223hdc47,1153,75,1094,140,1043v38,-30,120,-80,120,-80c319,874,383,809,440,723,463,540,435,341,540,183,533,150,528,116,520,83,503,14,477,,540,63e"
+    filled="f" strokecolor="red">
+    <v:path arrowok="t"/>
+   </v:shape><v:group id="_x0000_s1925" style='position:absolute;left:9764;
+    top:10671;width:544;height:363' coordorigin="2719,8517" coordsize="451,298">
+    <v:line id="_x0000_s1926" style='position:absolute' from="2719,8517" to="3170,8815"
+     strokecolor="red"/>
+    <v:line id="_x0000_s1927" style='position:absolute;flip:x' from="2719,8517"
+     to="3170,8815"/>
+    <v:shape id="_x0000_s1928" type="#_x0000_t59" style='position:absolute;
+     left:2866;top:8606;width:151;height:132' fillcolor="black"/>
+   </v:group><v:shape id="_x0000_s1929" style='position:absolute;left:9583;
+    top:11033;width:757;height:302;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="758,300" path="m729,hdc736,20,758,41,749,60v-9,19,-39,18,-60,20c596,91,502,93,409,100v-302,60,74,,-180,c188,100,139,140,109,160,94,183,,300,109,300e"
+    filled="f" strokecolor="red">
+    <v:path arrowok="t"/>
+   </v:shape><v:shape id="_x0000_s1930" style='position:absolute;left:9402;
+    top:11033;width:439;height:479;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="440,480" path="m440,hdc373,7,305,5,240,20,190,32,158,95,120,120v-18,12,-40,13,-60,20c27,189,,215,,280v,67,20,200,20,200e"
+    filled="f">
+    <v:path arrowok="t"/>
+   </v:shape></v:group><v:group id="_x0000_s1931" style='position:absolute;
+   left:6186;top:9740;width:1266;height:360' coordorigin="4371,9261"
+   coordsize="1202,299">
+   <v:group id="_x0000_s1932" style='position:absolute;left:4822;top:9261;
+    width:751;height:296' coordorigin="4371,8964" coordsize="1052,431">
+    <v:group id="_x0000_s1933" style='position:absolute;left:4371;top:8964;
+     width:1052;height:297' coordorigin="5122,13127" coordsize="569,119">
+     <v:oval id="_x0000_s1934" style='position:absolute;left:5573;top:13127;
+      width:118;height:119'/>
+     <v:oval id="_x0000_s1935" style='position:absolute;left:5122;top:13127;
+      width:122;height:119'/>
+    </v:group><v:rect id="_x0000_s1936" style='position:absolute;left:4403;
+     top:9228;width:150;height:150'/>
+    <v:rect id="_x0000_s1937" style='position:absolute;left:5234;top:9244;
+     width:150;height:151'/>
+   </v:group><v:line id="_x0000_s1938" style='position:absolute;flip:x' from="4972,9558"
+    to="5424,9560"/>
+   <v:line id="_x0000_s1939" style='position:absolute;flip:x' from="4972,9410"
+    to="5424,9411"/>
+   <v:line id="_x0000_s1940" style='position:absolute;flip:x' from="4671,9410"
+    to="4822,9411"/>
+   <v:line id="_x0000_s1941" style='position:absolute;flip:x' from="4371,9558"
+    to="4822,9558"/>
+  </v:group><w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1942" style='position:absolute;margin-left:-108.6pt;
+  margin-top:-86pt;width:235.3pt;height:18.1pt;rotation:270;z-index:22'
+  coordorigin="2162,8926" coordsize="5242,840">
+  <v:oval id="_x0000_s1943" style='position:absolute;left:2162;top:8926;
+   width:434;height:834' fillcolor="silver"/>
+  <v:rect id="_x0000_s1944" style='position:absolute;left:2597;top:9135;
+   width:1748;height:424' fillcolor="silver"/>
+  <v:shape id="_x0000_s1945" style='position:absolute;left:3690;top:9135;
+   width:3714;height:628;mso-position-horizontal:absolute;
+   mso-position-vertical:absolute' coordsize="4706,965" path="m,c633,422,1267,845,1810,905v543,60,965,-543,1448,-543c3741,362,4344,875,4706,905e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><v:rect id="_x0000_s1946" style='position:absolute;left:3908;top:8926;
+   width:219;height:840' fillcolor="silver"/>
+  <v:rect id="_x0000_s1947" style='position:absolute;left:2702;top:9004;
+   width:1051;height:662' fillcolor="black"/>
+  <w:wrap side="left"/>
+ </v:group><v:shape id="_x0000_s1950" style='position:absolute;margin-left:153.85pt;
+  margin-top:167.95pt;width:124.8pt;height:135.1pt;z-index:23;
+  mso-position-horizontal:absolute;mso-position-vertical:absolute' coordsize="2496,2702"
+  path="m,2702hdc40,2682,86,2671,120,2642,250,2531,227,2409,300,2252,401,2036,584,1865,690,1652v10,-100,4,-203,30,-300c735,1296,782,1253,810,1202,885,1066,926,907,1020,782v34,-45,80,-80,120,-120c1150,632,1148,594,1170,572v22,-22,62,-16,90,-30c1351,496,1396,436,1470,362v65,-196,-25,-4,120,-120c1618,219,1622,175,1650,152v25,-20,60,-21,90,-30c1929,68,1837,106,2100,62,2472,,2496,2,2370,2e"
+  filled="f">
+  <v:path arrowok="t"/>
+  <w:wrap side="left"/>
+ </v:shape><v:shape id="_x0000_s1953" style='position:absolute;margin-left:18pt;
+  margin-top:-184.95pt;width:295.5pt;height:352.5pt;z-index:24' coordsize="5910,7050"
+  path="m5910,7050hdc5664,6968,5845,7039,5430,6720,5007,6395,4600,6105,4110,5880v-78,-36,-155,-84,-240,-90c3361,5755,2850,5770,2340,5760v-457,-183,201,113,-270,-240c1843,5350,1782,5222,1590,5010,1476,4884,1371,4744,1230,4650v-63,-42,-157,-102,-210,-150c891,4384,809,4259,690,4140v-75,-226,26,53,-90,-180c559,3879,558,3773,540,3690v-24,-109,-44,-95,-90,-210c427,3421,410,3360,390,3300v-10,-30,-30,-90,-30,-90c330,2270,567,1282,270,390,200,180,270,230,120,180,80,120,,,,e"
+  filled="f">
+  <v:path arrowok="t"/>
+  <w:wrap side="left"/>
+ </v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout;position:
+ relative;z-index:20;left:-13px;top:-260px;width:448px;height:738px'><img
+ width=448 height=738 src="Monster_alarm_onderdelen_files/image013.gif" v:shapes="_x0000_s1751 _x0000_s1658 _x0000_s1659 _x0000_s1660 _x0000_s1661 _x0000_s1662 _x0000_s1663 _x0000_s1669 _x0000_s1670 _x0000_s1671 _x0000_s1672 _x0000_s1673 _x0000_s1674 _x0000_s1915 _x0000_s1916 _x0000_s1917 _x0000_s1918 _x0000_s1919 _x0000_s1920 _x0000_s1921 _x0000_s1922 _x0000_s1923 _x0000_s1924 _x0000_s1925 _x0000_s1926 _x0000_s1927 _x0000_s1928 _x0000_s1929 _x0000_s1930 _x0000_s1931 _x0000_s1932 _x0000_s1933 _x0000_s1934 _x0000_s1935 _x0000_s1936 _x0000_s1937 _x0000_s1938 _x0000_s1939 _x0000_s1940 _x0000_s1941 _x0000_s1942 _x0000_s1943 _x0000_s1944 _x0000_s1945 _x0000_s1946 _x0000_s1947 _x0000_s1950 _x0000_s1953"></span><![endif]><!--[if gte vml 1]></o:wrapblock><![endif]--><b
+style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+
+<b style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS";mso-fareast-font-family:"Times New Roman";
+mso-bidi-font-family:"Times New Roman";mso-ansi-language:NL;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'><br clear=all style='page-break-before:always'>
+</span></b>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><!--[if gte vml 1]><o:wrapblock
+ pagebreak="t">
+ <v:group id="_x0000_s1455" style='position:absolute;margin-left:-18.1pt;
+  margin-top:-9.05pt;width:90.5pt;height:63.25pt;z-index:25' coordorigin="2719,5693"
+  coordsize="1352,892" o:regroupid="36">
+  <v:rect id="_x0000_s1456" style='position:absolute;left:2719;top:5693;
+   width:1352;height:892'/>
+  <v:group id="_x0000_s1457" style='position:absolute;left:2870;top:5841;
+   width:901;height:594' coordorigin="7225,6734" coordsize="1052,891">
+   <v:shape id="_x0000_s1458" style='position:absolute;left:7976;top:7030;
+    width:250;height:273' coordsize="301,330" path="m281,29hdc195,,164,21,81,49,18,144,,142,61,309v7,20,40,13,60,20c154,322,194,330,221,309v38,-30,80,-120,80,-120c294,169,294,145,281,129v-62,-77,-102,2,,-100xe">
+    <v:path arrowok="t"/>
+   </v:shape><v:shape id="_x0000_s1459" style='position:absolute;left:7225;
+    top:6882;width:378;height:401' coordsize="455,489" path="m400,49hdc380,36,364,12,340,9,266,,178,50,120,89,93,169,46,200,,269v33,98,77,164,160,220c187,482,215,481,240,469v43,-21,120,-80,120,-80c387,349,455,315,440,269,428,232,420,169,360,169v-15,,-13,27,-20,40e"
+    filled="f">
+    <v:path arrowok="t"/>
+   </v:shape><v:oval id="_x0000_s1460" style='position:absolute;left:7526;
+    top:7476;width:450;height:149'/>
+   <v:line id="_x0000_s1461" style='position:absolute' from="7826,7030" to="7826,7179"/>
+   <v:line id="_x0000_s1462" style='position:absolute;flip:x' from="7976,6882"
+    to="8277,7179"/>
+   <v:line id="_x0000_s1463" style='position:absolute;flip:x y' from="7376,6734"
+    to="7676,7179"/>
+  </v:group><w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1479" style='position:absolute;margin-left:-18.1pt;
+  margin-top:226.25pt;width:90.5pt;height:63.35pt;z-index:27' coordorigin="2569,8071"
+  coordsize="1502,1040" o:regroupid="36">
+  <v:rect id="_x0000_s1480" style='position:absolute;left:2569;top:8071;
+   width:1502;height:1040'/>
+  <v:shape id="_x0000_s1481" style='position:absolute;left:3451;top:8473;
+   width:238;height:212' coordsize="301,330" path="m281,29hdc195,,164,21,81,49,18,144,,142,61,309v7,20,40,13,60,20c154,322,194,330,221,309v38,-30,80,-120,80,-120c294,169,294,145,281,129v-62,-77,-102,2,,-100xe">
+   <v:path arrowok="t"/>
+  </v:shape><v:shape id="_x0000_s1482" style='position:absolute;left:2737;
+   top:8358;width:359;height:312' coordsize="455,489" path="m400,49hdc380,36,364,12,340,9,266,,178,50,120,89,93,169,46,200,,269v33,98,77,164,160,220c187,482,215,481,240,469v43,-21,120,-80,120,-80c387,349,455,315,440,269,428,232,420,169,360,169v-15,,-13,27,-20,40e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><v:oval id="_x0000_s1483" style='position:absolute;left:3023;top:8820;
+   width:428;height:116' fillcolor="red"/>
+  <v:line id="_x0000_s1484" style='position:absolute' from="3308,8473" to="3308,8589"/>
+  <v:line id="_x0000_s1485" style='position:absolute;flip:x' from="3451,8358"
+   to="3737,8589"/>
+  <v:line id="_x0000_s1486" style='position:absolute;flip:x y' from="2881,8243"
+   to="3166,8589"/>
+  <w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1704" style='position:absolute;margin-left:90.5pt;
+  margin-top:407.25pt;width:90.45pt;height:63.3pt;z-index:29' coordorigin="2569,8071"
+  coordsize="1502,1040">
+  <v:rect id="_x0000_s1705" style='position:absolute;left:2569;top:8071;
+   width:1502;height:1040'/>
+  <v:shape id="_x0000_s1706" style='position:absolute;left:3451;top:8473;
+   width:238;height:212' coordsize="301,330" path="m281,29hdc195,,164,21,81,49,18,144,,142,61,309v7,20,40,13,60,20c154,322,194,330,221,309v38,-30,80,-120,80,-120c294,169,294,145,281,129v-62,-77,-102,2,,-100xe">
+   <v:path arrowok="t"/>
+  </v:shape><v:shape id="_x0000_s1707" style='position:absolute;left:2737;
+   top:8358;width:359;height:312' coordsize="455,489" path="m400,49hdc380,36,364,12,340,9,266,,178,50,120,89,93,169,46,200,,269v33,98,77,164,160,220c187,482,215,481,240,469v43,-21,120,-80,120,-80c387,349,455,315,440,269,428,232,420,169,360,169v-15,,-13,27,-20,40e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><v:oval id="_x0000_s1708" style='position:absolute;left:3023;top:8820;
+   width:428;height:116' fillcolor="red"/>
+  <v:line id="_x0000_s1709" style='position:absolute' from="3308,8473" to="3308,8589"/>
+  <v:line id="_x0000_s1710" style='position:absolute;flip:x' from="3451,8358"
+   to="3737,8589"/>
+  <v:line id="_x0000_s1711" style='position:absolute;flip:x y' from="2881,8243"
+   to="3166,8589"/>
+  <w:wrap side="left"/>
+ </v:group><v:shape id="_x0000_s1956" type="#_x0000_t202" style='position:absolute;
+  margin-left:199.1pt;margin-top:-36.2pt;width:298.65pt;height:733.05pt;
+  z-index:31'>
+  <w:wrap side="left"/>
+ </v:shape><v:group id="_x0000_s1891" style='position:absolute;margin-left:-45.25pt;
+  margin-top:515.85pt;width:117.6pt;height:135.75pt;z-index:30' coordorigin="1668,9777"
+  coordsize="1952,2231">
+  <v:group id="_x0000_s1856" style='position:absolute;left:1668;top:9777;
+   width:1952;height:2231' coordorigin="5842,7654" coordsize="2354,2716">
+   <v:group id="_x0000_s1857" style='position:absolute;left:5842;top:7654;
+    width:2354;height:2716' coordorigin="9040,9042" coordsize="2354,2716">
+    <v:group id="_x0000_s1858" style='position:absolute;left:9040;top:9947;
+     width:2354;height:1811' coordorigin="4522,7328" coordsize="1955,1486">
+     <v:shape id="_x0000_s1859" type="#_x0000_t16" style='position:absolute;
+      left:4522;top:7328;width:1955;height:1486' adj="6603"/>
+     <v:rect id="_x0000_s1860" style='position:absolute;left:4672;top:7922;
+      width:1203;height:744'/>
+    </v:group><v:group id="_x0000_s1861" style='position:absolute;left:9583;
+     top:10128;width:1267;height:181' coordorigin="5239,1621" coordsize="1267,181">
+     <v:oval id="_x0000_s1862" style='position:absolute;left:5239;top:1621;
+      width:181;height:181'/>
+     <v:oval id="_x0000_s1863" style='position:absolute;left:6325;top:1621;
+      width:181;height:181'/>
+    </v:group><v:shape id="_x0000_s1864" style='position:absolute;left:10850;
+     top:9042;width:300;height:1161;mso-position-horizontal:absolute;
+     mso-position-vertical:absolute' coordsize="300,1160" path="m,1160hdc74,1049,108,909,140,780v15,-152,5,-207,80,-320c227,400,228,339,240,280,261,177,300,108,300,e"
+     filled="f">
+     <v:path arrowok="t"/>
+    </v:shape><v:shape id="_x0000_s1865" style='position:absolute;left:9764;
+     top:9042;width:538;height:1223;mso-position-horizontal:absolute;
+     mso-position-vertical:absolute' coordsize="540,1223" path="m,1223hdc47,1153,75,1094,140,1043v38,-30,120,-80,120,-80c319,874,383,809,440,723,463,540,435,341,540,183,533,150,528,116,520,83,503,14,477,,540,63e"
+     filled="f" strokecolor="red">
+     <v:path arrowok="t"/>
+    </v:shape><v:group id="_x0000_s1866" style='position:absolute;left:9764;
+     top:10671;width:544;height:363' coordorigin="2719,8517" coordsize="451,298">
+     <v:line id="_x0000_s1867" style='position:absolute' from="2719,8517" to="3170,8815"
+      strokecolor="red"/>
+     <v:line id="_x0000_s1868" style='position:absolute;flip:x' from="2719,8517"
+      to="3170,8815"/>
+     <v:shape id="_x0000_s1869" type="#_x0000_t59" style='position:absolute;
+      left:2866;top:8606;width:151;height:132' fillcolor="black"/>
+    </v:group><v:shape id="_x0000_s1870" style='position:absolute;left:9583;
+     top:11033;width:757;height:302;mso-position-horizontal:absolute;
+     mso-position-vertical:absolute' coordsize="758,300" path="m729,hdc736,20,758,41,749,60v-9,19,-39,18,-60,20c596,91,502,93,409,100v-302,60,74,,-180,c188,100,139,140,109,160,94,183,,300,109,300e"
+     filled="f" strokecolor="red">
+     <v:path arrowok="t"/>
+    </v:shape><v:shape id="_x0000_s1871" style='position:absolute;left:9402;
+     top:11033;width:439;height:479;mso-position-horizontal:absolute;
+     mso-position-vertical:absolute' coordsize="440,480" path="m440,hdc373,7,305,5,240,20,190,32,158,95,120,120v-18,12,-40,13,-60,20c27,189,,215,,280v,67,20,200,20,200e"
+     filled="f">
+     <v:path arrowok="t"/>
+    </v:shape></v:group><v:group id="_x0000_s1872" style='position:absolute;
+    left:6186;top:9740;width:1266;height:360' coordorigin="4371,9261"
+    coordsize="1202,299">
+    <v:group id="_x0000_s1873" style='position:absolute;left:4822;top:9261;
+     width:751;height:296' coordorigin="4371,8964" coordsize="1052,431">
+     <v:group id="_x0000_s1874" style='position:absolute;left:4371;top:8964;
+      width:1052;height:297' coordorigin="5122,13127" coordsize="569,119">
+      <v:oval id="_x0000_s1875" style='position:absolute;left:5573;top:13127;
+       width:118;height:119'/>
+      <v:oval id="_x0000_s1876" style='position:absolute;left:5122;top:13127;
+       width:122;height:119'/>
+     </v:group><v:rect id="_x0000_s1877" style='position:absolute;left:4403;
+      top:9228;width:150;height:150'/>
+     <v:rect id="_x0000_s1878" style='position:absolute;left:5234;top:9244;
+      width:150;height:151'/>
+    </v:group><v:line id="_x0000_s1879" style='position:absolute;flip:x'
+     from="4972,9558" to="5424,9560"/>
+    <v:line id="_x0000_s1880" style='position:absolute;flip:x' from="4972,9410"
+     to="5424,9411"/>
+    <v:line id="_x0000_s1881" style='position:absolute;flip:x' from="4671,9410"
+     to="4822,9411"/>
+    <v:line id="_x0000_s1882" style='position:absolute;flip:x' from="4371,9558"
+     to="4822,9558"/>
+   </v:group></v:group><v:group id="_x0000_s1883" style='position:absolute;
+   left:1668;top:10967;width:1501;height:1041' coordorigin="2569,8071"
+   coordsize="1502,1040">
+   <v:rect id="_x0000_s1884" style='position:absolute;left:2569;top:8071;
+    width:1502;height:1040'/>
+   <v:shape id="_x0000_s1885" style='position:absolute;left:3451;top:8473;
+    width:238;height:212' coordsize="301,330" path="m281,29hdc195,,164,21,81,49,18,144,,142,61,309v7,20,40,13,60,20c154,322,194,330,221,309v38,-30,80,-120,80,-120c294,169,294,145,281,129v-62,-77,-102,2,,-100xe">
+    <v:path arrowok="t"/>
+   </v:shape><v:shape id="_x0000_s1886" style='position:absolute;left:2737;
+    top:8358;width:359;height:312' coordsize="455,489" path="m400,49hdc380,36,364,12,340,9,266,,178,50,120,89,93,169,46,200,,269v33,98,77,164,160,220c187,482,215,481,240,469v43,-21,120,-80,120,-80c387,349,455,315,440,269,428,232,420,169,360,169v-15,,-13,27,-20,40e"
+    filled="f">
+    <v:path arrowok="t"/>
+   </v:shape><v:oval id="_x0000_s1887" style='position:absolute;left:3023;
+    top:8820;width:428;height:116' fillcolor="red"/>
+   <v:line id="_x0000_s1888" style='position:absolute' from="3308,8473" to="3308,8589"/>
+   <v:line id="_x0000_s1889" style='position:absolute;flip:x' from="3451,8358"
+    to="3737,8589"/>
+   <v:line id="_x0000_s1890" style='position:absolute;flip:x y' from="2881,8243"
+    to="3166,8589"/>
+  </v:group><w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1829" style='position:absolute;margin-left:-45.25pt;
+  margin-top:334.85pt;width:117.65pt;height:135.9pt;z-index:28' coordorigin="5842,7654"
+  coordsize="2354,2716">
+  <v:group id="_x0000_s1830" style='position:absolute;left:5842;top:7654;
+   width:2354;height:2716' coordorigin="9040,9042" coordsize="2354,2716">
+   <v:group id="_x0000_s1831" style='position:absolute;left:9040;top:9947;
+    width:2354;height:1811' coordorigin="4522,7328" coordsize="1955,1486">
+    <v:shape id="_x0000_s1832" type="#_x0000_t16" style='position:absolute;
+     left:4522;top:7328;width:1955;height:1486' adj="6603"/>
+    <v:rect id="_x0000_s1833" style='position:absolute;left:4672;top:7922;
+     width:1203;height:744'/>
+   </v:group><v:group id="_x0000_s1834" style='position:absolute;left:9583;
+    top:10128;width:1267;height:181' coordorigin="5239,1621" coordsize="1267,181">
+    <v:oval id="_x0000_s1835" style='position:absolute;left:5239;top:1621;
+     width:181;height:181'/>
+    <v:oval id="_x0000_s1836" style='position:absolute;left:6325;top:1621;
+     width:181;height:181'/>
+   </v:group><v:shape id="_x0000_s1837" style='position:absolute;left:10850;
+    top:9042;width:300;height:1161;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="300,1160" path="m,1160hdc74,1049,108,909,140,780v15,-152,5,-207,80,-320c227,400,228,339,240,280,261,177,300,108,300,e"
+    filled="f">
+    <v:path arrowok="t"/>
+   </v:shape><v:shape id="_x0000_s1838" style='position:absolute;left:9764;
+    top:9042;width:538;height:1223;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="540,1223" path="m,1223hdc47,1153,75,1094,140,1043v38,-30,120,-80,120,-80c319,874,383,809,440,723,463,540,435,341,540,183,533,150,528,116,520,83,503,14,477,,540,63e"
+    filled="f" strokecolor="red">
+    <v:path arrowok="t"/>
+   </v:shape><v:group id="_x0000_s1839" style='position:absolute;left:9764;
+    top:10671;width:544;height:363' coordorigin="2719,8517" coordsize="451,298">
+    <v:line id="_x0000_s1840" style='position:absolute' from="2719,8517" to="3170,8815"
+     strokecolor="red"/>
+    <v:line id="_x0000_s1841" style='position:absolute;flip:x' from="2719,8517"
+     to="3170,8815"/>
+    <v:shape id="_x0000_s1842" type="#_x0000_t59" style='position:absolute;
+     left:2866;top:8606;width:151;height:132' fillcolor="black"/>
+   </v:group><v:shape id="_x0000_s1843" style='position:absolute;left:9583;
+    top:11033;width:757;height:302;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="758,300" path="m729,hdc736,20,758,41,749,60v-9,19,-39,18,-60,20c596,91,502,93,409,100v-302,60,74,,-180,c188,100,139,140,109,160,94,183,,300,109,300e"
+    filled="f" strokecolor="red">
+    <v:path arrowok="t"/>
+   </v:shape><v:shape id="_x0000_s1844" style='position:absolute;left:9402;
+    top:11033;width:439;height:479;mso-position-horizontal:absolute;
+    mso-position-vertical:absolute' coordsize="440,480" path="m440,hdc373,7,305,5,240,20,190,32,158,95,120,120v-18,12,-40,13,-60,20c27,189,,215,,280v,67,20,200,20,200e"
+    filled="f">
+    <v:path arrowok="t"/>
+   </v:shape></v:group><v:group id="_x0000_s1845" style='position:absolute;
+   left:6186;top:9740;width:1266;height:360' coordorigin="4371,9261"
+   coordsize="1202,299">
+   <v:group id="_x0000_s1846" style='position:absolute;left:4822;top:9261;
+    width:751;height:296' coordorigin="4371,8964" coordsize="1052,431">
+    <v:group id="_x0000_s1847" style='position:absolute;left:4371;top:8964;
+     width:1052;height:297' coordorigin="5122,13127" coordsize="569,119">
+     <v:oval id="_x0000_s1848" style='position:absolute;left:5573;top:13127;
+      width:118;height:119'/>
+     <v:oval id="_x0000_s1849" style='position:absolute;left:5122;top:13127;
+      width:122;height:119'/>
+    </v:group><v:rect id="_x0000_s1850" style='position:absolute;left:4403;
+     top:9228;width:150;height:150'/>
+    <v:rect id="_x0000_s1851" style='position:absolute;left:5234;top:9244;
+     width:150;height:151'/>
+   </v:group><v:line id="_x0000_s1852" style='position:absolute;flip:x' from="4972,9558"
+    to="5424,9560"/>
+   <v:line id="_x0000_s1853" style='position:absolute;flip:x' from="4972,9410"
+    to="5424,9411"/>
+   <v:line id="_x0000_s1854" style='position:absolute;flip:x' from="4671,9410"
+    to="4822,9411"/>
+   <v:line id="_x0000_s1855" style='position:absolute;flip:x' from="4371,9558"
+    to="4822,9558"/>
+  </v:group><w:wrap side="left"/>
+ </v:group><v:group id="_x0000_s1464" style='position:absolute;margin-left:-18.1pt;
+  margin-top:108.6pt;width:90.5pt;height:63.3pt;z-index:26' coordorigin="2569,6585"
+  coordsize="1502,1040" o:regroupid="36">
+  <v:group id="_x0000_s1465" style='position:absolute;left:2569;top:6585;
+   width:1502;height:1040' coordorigin="2719,5693" coordsize="1352,892">
+   <v:rect id="_x0000_s1466" style='position:absolute;left:2719;top:5693;
+    width:1352;height:892'/>
+   <v:group id="_x0000_s1467" style='position:absolute;left:2870;top:5841;
+    width:901;height:594' coordorigin="7225,6734" coordsize="1052,891">
+    <v:shape id="_x0000_s1468" style='position:absolute;left:7976;top:7030;
+     width:250;height:273' coordsize="301,330" path="m281,29hdc195,,164,21,81,49,18,144,,142,61,309v7,20,40,13,60,20c154,322,194,330,221,309v38,-30,80,-120,80,-120c294,169,294,145,281,129v-62,-77,-102,2,,-100xe">
+     <v:path arrowok="t"/>
+    </v:shape><v:shape id="_x0000_s1469" style='position:absolute;left:7225;
+     top:6882;width:378;height:401' coordsize="455,489" path="m400,49hdc380,36,364,12,340,9,266,,178,50,120,89,93,169,46,200,,269v33,98,77,164,160,220c187,482,215,481,240,469v43,-21,120,-80,120,-80c387,349,455,315,440,269,428,232,420,169,360,169v-15,,-13,27,-20,40e"
+     filled="f">
+     <v:path arrowok="t"/>
+    </v:shape><v:oval id="_x0000_s1470" style='position:absolute;left:7526;
+     top:7476;width:450;height:149'/>
+    <v:line id="_x0000_s1471" style='position:absolute' from="7826,7030" to="7826,7179"/>
+    <v:line id="_x0000_s1472" style='position:absolute;flip:x' from="7976,6882"
+     to="8277,7179"/>
+    <v:line id="_x0000_s1473" style='position:absolute;flip:x y' from="7376,6734"
+     to="7676,7179"/>
+   </v:group></v:group><v:group id="_x0000_s1474" style='position:absolute;
+   left:3470;top:7029;width:446;height:746;rotation:-5058762fd' coordorigin="3170,8220"
+   coordsize="451,744">
+   <v:line id="_x0000_s1475" style='position:absolute' from="3320,8220" to="3470,8964"/>
+   <v:line id="_x0000_s1476" style='position:absolute;flip:x' from="3320,8220"
+    to="3470,8964"/>
+   <v:oval id="_x0000_s1477" style='position:absolute;left:3470;top:8815;
+    width:151;height:149'/>
+   <v:oval id="_x0000_s1478" style='position:absolute;left:3170;top:8815;
+    width:150;height:149'/>
+  </v:group><w:wrap side="left"/>
+ </v:group><![endif]--><![if !vml]><span style='mso-ignore:vglayout;position:
+ relative;z-index:25;left:-61px;top:-49px;width:728px;height:983px'>
+ <table cellpadding=0 cellspacing=0 align=left>
+  <tr>
+   <td width=0 height=0></td>
+   <td width=36></td>
+   <td width=122></td>
+   <td width=1></td>
+   <td width=2></td>
+   <td width=20></td>
+   <td width=122></td>
+   <td width=20></td>
+   <td width=405></td>
+  </tr>
+  <tr>
+   <td height=38></td>
+   <td colspan=7></td>
+   <td rowspan=13 width=405 height=983 bgcolor=white style='border:.75pt solid black;
+   vertical-align:top;background:white'><![endif]><![if !mso]><span
+   style='position:absolute;mso-ignore:vglayout;z-index:31'>
+   <table cellpadding=0 cellspacing=0 width="100%">
+    <tr>
+     <td><![endif]>
+     <div v:shape="_x0000_s1956" style='padding:3.6pt 7.2pt 3.6pt 7.2pt'
+     class=shape>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-
+     Teken eerst een monster op het papier<o:p></o:p></span></p>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></p>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-
+     Knip daarna de stukken die licht moeten gaan geven er uit<o:p></o:p></span></p>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></p>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-
+     Plak daarna doorzichtig papier er achter het leukste is natuurlijk
+     verschillende kleuren.<o:p></o:p></span></p>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></p>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-
+     Pak de doos<o:p></o:p></span></p>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></p>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></p>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></p>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></p>
+     <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-
+     plak je monster op de doos met de draden boven<o:p></o:p></span></p>
+     </div>
+     <![if !mso]></td>
+    </tr>
+   </table>
+   </span><![endif]><![if !mso & !vml]>&nbsp;<![endif]><![if !vml]></td>
+  </tr>
+  <tr>
+   <td height=86></td>
+   <td></td>
+   <td colspan=2 align=left valign=top><img width=123 height=86
+   src="Monster_alarm_onderdelen_files/image014.gif" v:shapes="_x0000_s1455 _x0000_s1456 _x0000_s1457 _x0000_s1458 _x0000_s1459 _x0000_s1460 _x0000_s1461 _x0000_s1462 _x0000_s1463"></td>
+  </tr>
+  <tr>
+   <td height=71></td>
+  </tr>
+  <tr>
+   <td height=92></td>
+   <td></td>
+   <td colspan=3 align=left valign=top><img width=125 height=92
+   src="Monster_alarm_onderdelen_files/image015.gif" v:shapes="_x0000_s1464 _x0000_s1465 _x0000_s1466 _x0000_s1467 _x0000_s1468 _x0000_s1469 _x0000_s1470 _x0000_s1471 _x0000_s1472 _x0000_s1473 _x0000_s1474 _x0000_s1475 _x0000_s1476 _x0000_s1477 _x0000_s1478"></td>
+  </tr>
+  <tr>
+   <td height=65></td>
+  </tr>
+  <tr>
+   <td height=86></td>
+   <td></td>
+   <td colspan=2 align=left valign=top><img width=123 height=86
+   src="Monster_alarm_onderdelen_files/image016.gif" v:shapes="_x0000_s1479 _x0000_s1480 _x0000_s1481 _x0000_s1482 _x0000_s1483 _x0000_s1484 _x0000_s1485 _x0000_s1486"></td>
+  </tr>
+  <tr>
+   <td height=58></td>
+  </tr>
+  <tr>
+   <td height=97></td>
+   <td colspan=3 rowspan=3 align=left valign=top><img width=159 height=184
+   src="Monster_alarm_onderdelen_files/image017.gif" v:shapes="_x0000_s1829 _x0000_s1830 _x0000_s1831 _x0000_s1832 _x0000_s1833 _x0000_s1834 _x0000_s1835 _x0000_s1836 _x0000_s1837 _x0000_s1838 _x0000_s1839 _x0000_s1840 _x0000_s1841 _x0000_s1842 _x0000_s1843 _x0000_s1844 _x0000_s1845 _x0000_s1846 _x0000_s1847 _x0000_s1848 _x0000_s1849 _x0000_s1850 _x0000_s1851 _x0000_s1852 _x0000_s1853 _x0000_s1854 _x0000_s1855"></td>
+  </tr>
+  <tr>
+   <td height=86></td>
+   <td colspan=2></td>
+   <td align=left valign=top><img width=122 height=86
+   src="Monster_alarm_onderdelen_files/image018.gif" v:shapes="_x0000_s1704 _x0000_s1705 _x0000_s1706 _x0000_s1707 _x0000_s1708 _x0000_s1709 _x0000_s1710 _x0000_s1711"></td>
+  </tr>
+  <tr>
+   <td height=1></td>
+  </tr>
+  <tr>
+   <td height=58></td>
+  </tr>
+  <tr>
+   <td height=183></td>
+   <td colspan=2 align=left valign=top><img width=158 height=183
+   src="Monster_alarm_onderdelen_files/image019.gif" v:shapes="_x0000_s1891 _x0000_s1856 _x0000_s1857 _x0000_s1858 _x0000_s1859 _x0000_s1860 _x0000_s1861 _x0000_s1862 _x0000_s1863 _x0000_s1864 _x0000_s1865 _x0000_s1866 _x0000_s1867 _x0000_s1868 _x0000_s1869 _x0000_s1870 _x0000_s1871 _x0000_s1872 _x0000_s1873 _x0000_s1874 _x0000_s1875 _x0000_s1876 _x0000_s1877 _x0000_s1878 _x0000_s1879 _x0000_s1880 _x0000_s1881 _x0000_s1882 _x0000_s1883 _x0000_s1884 _x0000_s1885 _x0000_s1886 _x0000_s1887 _x0000_s1888 _x0000_s1889 _x0000_s1890"></td>
+  </tr>
+  <tr>
+   <td height=62></td>
+  </tr>
+ </table>
+ </span><![endif]><!--[if gte vml 1]></o:wrapblock><![endif]--><b
+style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+
+<b style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS";mso-fareast-font-family:"Times New Roman";
+mso-bidi-font-family:"Times New Roman";mso-ansi-language:NL;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'><br clear=all style='page-break-before:always'>
+</span></b>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><!--[if gte vml 1]><v:group
+ id="_x0000_s2027" style='position:absolute;margin-left:-36.2pt;margin-top:0;
+ width:126.7pt;height:208.15pt;z-index:32' coordorigin="2343,1440" coordsize="2534,4163">
+ <v:rect id="_x0000_s1959" style='position:absolute;left:2343;top:1440;width:2534;
+  height:4163'/>
+ <v:group id="_x0000_s1960" style='position:absolute;left:2886;top:2888;
+  width:1448;height:905' coordorigin="2569,8071" coordsize="1502,1040">
+  <v:rect id="_x0000_s1961" style='position:absolute;left:2569;top:8071;
+   width:1502;height:1040'/>
+  <v:shape id="_x0000_s1962" style='position:absolute;left:3451;top:8473;
+   width:238;height:212' coordsize="301,330" path="m281,29hdc195,,164,21,81,49,18,144,,142,61,309v7,20,40,13,60,20c154,322,194,330,221,309v38,-30,80,-120,80,-120c294,169,294,145,281,129v-62,-77,-102,2,,-100xe">
+   <v:path arrowok="t"/>
+  </v:shape><v:shape id="_x0000_s1963" style='position:absolute;left:2737;
+   top:8358;width:359;height:312' coordsize="455,489" path="m400,49hdc380,36,364,12,340,9,266,,178,50,120,89,93,169,46,200,,269v33,98,77,164,160,220c187,482,215,481,240,469v43,-21,120,-80,120,-80c387,349,455,315,440,269,428,232,420,169,360,169v-15,,-13,27,-20,40e"
+   filled="f">
+   <v:path arrowok="t"/>
+  </v:shape><v:oval id="_x0000_s1964" style='position:absolute;left:3023;top:8820;
+   width:428;height:116' fillcolor="red"/>
+  <v:line id="_x0000_s1965" style='position:absolute' from="3308,8473" to="3308,8589"/>
+  <v:line id="_x0000_s1966" style='position:absolute;flip:x' from="3451,8358"
+   to="3737,8589"/>
+  <v:line id="_x0000_s1967" style='position:absolute;flip:x y' from="2881,8243"
+   to="3166,8589"/>
+ </v:group><v:shape id="_x0000_s1973" style='position:absolute;left:2705;top:1440;
+  width:595;height:1440' coordsize="540,1320" path="m540,1320hdc500,1310,451,1317,420,1290,315,1200,332,1107,300,990,283,929,240,810,240,810,230,710,242,605,210,510,199,476,139,481,120,450,73,376,,90,,e"
+  filled="f" strokecolor="red">
+  <v:path arrowok="t"/>
+ </v:shape><v:shape id="_x0000_s1974" style='position:absolute;left:4170;top:1440;
+  width:526;height:1470' coordsize="491,1410" path="m,1410hdc29,1323,31,1227,60,1140v11,-34,45,-57,60,-90c146,992,160,930,180,870v46,-138,5,-160,60,-270c383,315,205,794,360,330v20,-60,25,-127,60,-180c491,43,480,96,480,e"
+  filled="f">
+  <v:path arrowok="t"/>
+ </v:shape><w:wrap side="left"/>
+</v:group><v:group id="_x0000_s2028" style='position:absolute;margin-left:0;
+ margin-top:244.35pt;width:190.05pt;height:271.5pt;z-index:33' coordorigin="4696,7051"
+ coordsize="3801,5430">
+ <v:rect id="_x0000_s1975" style='position:absolute;left:4696;top:7051;width:2534;
+  height:4163'/>
+ <v:shapetype id="_x0000_t7" coordsize="21600,21600" o:spt="7" adj="5400"
+  path="m@0,l,21600@1,21600,21600,xe">
+  <v:stroke joinstyle="miter"/>
+  <v:formulas>
+   <v:f eqn="val #0"/>
+   <v:f eqn="sum width 0 #0"/>
+   <v:f eqn="prod #0 1 2"/>
+   <v:f eqn="sum width 0 @2"/>
+   <v:f eqn="mid #0 width"/>
+   <v:f eqn="mid @1 0"/>
+   <v:f eqn="prod height width #0"/>
+   <v:f eqn="prod @6 1 2"/>
+   <v:f eqn="sum height 0 @7"/>
+   <v:f eqn="prod width 1 2"/>
+   <v:f eqn="sum #0 0 @9"/>
+   <v:f eqn="if @10 @8 0"/>
+   <v:f eqn="if @10 @7 height"/>
+  </v:formulas>
+  <v:path gradientshapeok="t" o:connecttype="custom" o:connectlocs="@4,0;10800,@11;@3,10800;@5,21600;10800,@12;@2,10800"
+   textboxrect="1800,1800,19800,19800;8100,8100,13500,13500;10800,10800,10800,10800"/>
+  <v:handles>
+   <v:h position="#0,topLeft" xrange="0,21600"/>
+  </v:handles>
+ </v:shapetype><v:shape id="_x0000_s1981" type="#_x0000_t7" style='position:absolute;
+  left:3339;top:8589;width:5430;height:2353;rotation:-450;flip:x' adj="5223"/>
+ <v:group id="_x0000_s2016" style='position:absolute;left:7411;top:8680;
+  width:1086;height:2534' coordorigin="7411,7594" coordsize="1086,2534">
+  <v:group id="_x0000_s2004" style='position:absolute;left:7773;top:7594;
+   width:362;height:2414' coordorigin="7411,7714" coordsize="362,2052">
+   <v:shape id="_x0000_s1997" type="#_x0000_t22" style='position:absolute;
+    left:7411;top:8499;width:362;height:1267'/>
+   <v:shape id="_x0000_s2003" type="#_x0000_t22" style='position:absolute;
+    left:7531;top:7714;width:181;height:543'/>
+  </v:group><v:rect id="_x0000_s2007" style='position:absolute;left:7411;top:9766;
+   width:1086;height:181'/>
+  <v:rect id="_x0000_s2011" style='position:absolute;left:7411;top:8680;
+   width:1086;height:181'/>
+  <v:rect id="_x0000_s2012" style='position:absolute;left:8316;top:9585;
+   width:181;height:543'/>
+  <v:rect id="_x0000_s2013" style='position:absolute;left:7411;top:8499;
+   width:181;height:543'/>
+  <v:rect id="_x0000_s2014" style='position:absolute;left:7411;top:9585;
+   width:181;height:543'/>
+  <v:rect id="_x0000_s2015" style='position:absolute;left:8316;top:8499;
+   width:181;height:543'/>
+ </v:group><v:shape id="_x0000_s2019" style='position:absolute;left:6720;top:7380;
+  width:1230;height:1290' coordsize="1230,1290" path="m1230,1290hdc1200,1280,1171,1268,1140,1260v-80,-22,-240,-60,-240,-60c870,1180,842,1156,810,1140v-28,-14,-68,-8,-90,-30c560,950,840,1070,600,990,476,805,614,985,450,840,387,784,270,660,270,660,227,489,244,443,150,330,123,297,90,270,60,240,42,169,,74,,e"
+  filled="f" strokecolor="red">
+  <v:path arrowok="t"/>
+ </v:shape><v:shape id="_x0000_s2022" style='position:absolute;left:5100;top:8310;
+  width:2880;height:3300' coordsize="2880,3300" path="m2880,2730hdc2870,2760,2859,2790,2850,2820v-11,40,-3,89,-30,120c2773,2994,2691,3009,2640,3060v-30,30,-55,66,-90,90c2524,3168,2488,3165,2460,3180v-63,35,-180,120,-180,120c2130,3290,1979,3287,1830,3270v-95,-11,-208,-109,-270,-150c1305,2950,1580,3110,1260,2790v-30,-30,-63,-57,-90,-90c934,2417,1260,2791,1080,2520v-24,-35,-60,-60,-90,-90c980,2400,980,2365,960,2340v-194,-243,4,133,-150,-150c767,2111,718,2035,690,1950,663,1868,625,1727,570,1650v-25,-35,-60,-60,-90,-90c460,1510,444,1458,420,1410v-16,-32,-44,-58,-60,-90c236,1072,442,1398,270,1140,260,1090,256,1038,240,990,124,642,225,1089,150,750,124,631,117,509,90,390,56,245,,151,,e"
+  filled="f">
+  <v:path arrowok="t"/>
+ </v:shape><v:rect id="_x0000_s2025" style='position:absolute;left:5058;top:8499;
+  width:362;height:181'/>
+ <v:rect id="_x0000_s2026" style='position:absolute;left:6687;top:7594;width:362;
+  height:181'/>
+ <w:wrap side="left"/>
+</v:group><v:line id="_x0000_s2031" style='position:absolute;z-index:34'
+ from="126.7pt,452.5pt" to="307.7pt,452.5pt">
+ <w:wrap side="left"/>
+</v:line><v:line id="_x0000_s2034" style='position:absolute;flip:x;z-index:35'
+ from="-54.3pt,452.5pt" to="0,452.5pt">
+ <w:wrap side="left"/>
+</v:line><v:line id="_x0000_s2035" style='position:absolute;z-index:36' from="126.7pt,244.35pt"
+ to="334.85pt,244.35pt">
+ <w:wrap side="left"/>
+</v:line><v:line id="_x0000_s2036" style='position:absolute;flip:x;z-index:37'
+ from="-54.3pt,244.35pt" to="0,244.35pt">
+ <w:wrap side="left"/>
+</v:line><v:shape id="_x0000_s2042" type="#_x0000_t202" style='position:absolute;
+ margin-left:244.35pt;margin-top:-45.25pt;width:253.4pt;height:733.05pt;
+ z-index:38'>
+ <v:textbox style='mso-next-textbox:#_x0000_s2042'>
+  <![if !mso]>
+  <table cellpadding=0 cellspacing=0 width="100%">
+   <tr>
+    <td><![endif]>
+    <div>
+    <p class=MsoNormal><span style='font-size:24.0pt;font-family:"Comic Sans MS";
+    mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
+    <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-
+    plakband<o:p></o:p></span></p>
+    <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></p>
+    <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></p>
+    <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></p>
+    <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>Ga
+    binnen in de kamer staan en sluit de deur. Nu moet je de paarse draad zo
+    strak spannen (met een plakbandje) dat de zware schroef net opgetild wordt.<o:p></o:p></span></p>
+    <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>&lt;-<o:p></o:p></span></p>
+    <p class=MsoNormal><span lang=NL style='font-size:24.0pt;font-family:"Comic Sans MS"'>Ga
+    nu buiten de kamer staan en probeer of alles werkt. En nu maar wachten tot het
+    donker wordt en er een dief komt.....<o:p></o:p></span></p>
+    </div>
+    <![if !mso]></td>
+   </tr>
+  </table>
+  <![endif]></v:textbox>
+ <w:wrap side="left"/>
+</v:shape><v:rect id="_x0000_s3072" style='position:absolute;margin-left:181pt;
+ margin-top:9.05pt;width:36.2pt;height:9.05pt;z-index:39'>
+ <w:wrap side="left"/>
+</v:rect><![endif]--><![if !vml]><span style='mso-ignore:vglayout;position:
+relative;z-index:32;left:-73px;top:-61px;width:740px;height:983px'><img
+width=740 height=983 src="Monster_alarm_onderdelen_files/image020.gif" v:shapes="_x0000_s2027 _x0000_s1959 _x0000_s1960 _x0000_s1961 _x0000_s1962 _x0000_s1963 _x0000_s1964 _x0000_s1965 _x0000_s1966 _x0000_s1967 _x0000_s1973 _x0000_s1974 _x0000_s2028 _x0000_s1975 _x0000_s1981 _x0000_s2016 _x0000_s2004 _x0000_s1997 _x0000_s2003 _x0000_s2007 _x0000_s2011 _x0000_s2012 _x0000_s2013 _x0000_s2014 _x0000_s2015 _x0000_s2019 _x0000_s2022 _x0000_s2025 _x0000_s2026 _x0000_s2031 _x0000_s2034 _x0000_s2035 _x0000_s2036 _x0000_s2042 _x0000_s3072"></span><![endif]><b
+style='mso-bidi-font-weight:normal'><span lang=NL style='font-size:24.0pt;
+font-family:"Comic Sans MS"'><o:p>&nbsp;</o:p></span></b></p>
+
+</div>
+
+</body>
+
+</html>

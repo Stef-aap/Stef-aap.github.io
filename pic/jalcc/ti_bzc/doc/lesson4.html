@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--
+	***************************************************************************
+ 	*   Copyright (C) 2005-2006 by Erik van 't Wout, Eugene Evans             *
+ 	*   bugs@hofhom.nl                                                        *
+ 	*                                                                         *
+ 	*   This program is free software; you can redistribute it and/or modify  *
+ 	*   it under the terms of the GNU General Public License as published by  *
+	*   the Free Software Foundation; either version 2 of the License, or     *
+	*   (at your option) any later version.                                   *
+	*                                                                         *
+	*   This program is distributed in the hope that it will be useful,       *
+	*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ 	*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ 	*   GNU General Public License for more details.                          *
+ 	*                                                                         *
+ 	*   You should have received a copy of the GNU General Public License     *
+ 	*   along with this program; if not, write to the                         *
+	*   Free Software Foundation, Inc.,                                       *
+ 	*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+	***************************************************************************
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="format.css" rel="stylesheet" type="text/css" /><script type="text/JavaScript">
+<!--
+function MM_popupMsg(msg) { //v1.0
+  alert(msg);
+}
+//-->
+</script>
+</head>
+<body>
+<div class="text-f">
+<div align="center" class="text-ft">Declarations</div>
+<hr />
+<div align="justify">
+<p>This lesson takes an in-depth look at declarations, and their many and varied forms. The following are examples of some types of declarations, some of which you've seen before, some of which you haven't.</p>
+<table width="*" border="0" cellpadding="0" cellspacing="0" class="ec">
+  <tr>
+    <td class="ect">Example of declarations:</td>
+    </tr>
+  <tr>
+    <td class="ec"><p><span class="cc">#include </span>&lt;<span class="header">asmlib.h</span>&gt;<span class="com"> // contains definitions of ROM calls and system variables as well as additional ASM routines</span><br />
+        <span class="com">// this, by the way, is a comment</span><br />
+          <br />
+        <span class="func">FUNCTION</span> something <span class="arg">ARG</span> 3 <span class="com">// defines a function that takes 3 arguments </span> <br />
+          <span class="str">STRING</span> msg = &quot;Hello World!&quot; <span class="com">// defines a constant string</span> <br />
+          <span class="var">INT</span> num1 = $346A <span class="com">// defines a 2-byte (word) integer, assigned to an initial hex value </span></p></td>
+    </tr>
+</table>
+<p><span class="cc">#include</span> we've already seen before; not much more to say about it. <span class="str">STRING</span> we've seen before as well. Now for <span class="func">FUNCTION</span>! This keyword, as you might have guessed, declares the prototype for a function. The syntax goes like this:</p>
+<p><span class="kw">FUNCTION </span>&lt;function_name&gt; [ <span class="kw">ARG</span> &lt;number_of_arguments&gt; ]</p>
+<p>or, for experts:</p>
+<p><span class="kw">FUNCTION </span>&lt;function_name&gt; [ <span class="kw">ARG</span> &lt;number_of_arguments&gt; | <span class="kw">ROMCALL</span> &lt;romcall_name&gt; <span class="kw">ARG</span> &lt;arg1&gt; &lt;arg2&gt; ... ]</p>
+<p>Normally, unless you want to make a function consisting solely of a ROM call, all that you need to do to declare a function's prototype is to put in the function's name and how many arguments will be passed to it. The actual recipients of the values you passed to the function will be defined in the function's code block.</p>
+<p>It is generally discouraged to create a function consisting solely of a ROM call; however, the feature is supported, and there might be occasions when such a form is quite useful. That said, try to stick to regular functions.</p>
+<p><span class="var">INT</span> is another type of variable declaration. It simply declares a 2-byte variable, with the option of initializing it to a value. For the ASM programmers, all that is happening here is that a label is being created corresponding to the variable's name and a <span class="asm">.DW</span> statement is put after it. As a complement to <span class="var">INT</span> is <span class="var">BYTE</span>, which declares a 1-byte variable, again with the option of initializing it to a value.</p>
+<p>I should put in a little note here about variable scope. That is, variables can be localized to particular functions or subroutines, such that a variable of the same name could be used in many functions, but the variable storage sites would be completely separate. C programmers, for one, should be intimately familiar with the concept of variable scope; frankly, I'm not sure if BASIC has this feature. TI-BASIC certainly does not! In any case, BASIC ASM allows for variable scope in a relatively simple way. You see, at the ASM level, a variable is simply a label with a <span class="asm">.DB</span> or <span class="asm">.DW</span> (or combinations of those) statements following it. To localize a variable, all <span class="bzc">BZC</span> does is add the name of the function containing the particular variable at the beginning of the variable's label. This makes the variable unique to that function. So, variables defined outside the <span class="cc">START...END</span> code block are considered global, and can be accessed by any function or subroutine. However, variables defined inside <span class="cc">START...END</span>, or inside functions or even loops for that matter are considered local and can only be accessed by those functions that contain them.</p>
+  <p><span class="text-fsect">Other types of declarations</span><br />
+  Although the preceeding four declaration types will be the ones you use most often, there are still other types of variables you can declare. At the moment, those include blocks of memory, which you can use to create menus and arrays, and sprites (however sprite support is not yet finished in this alpha-release).<br /></p>
+  <p>Certainly the simplest of these is declaring block of memory, which is done using the <span class="var">MEM</span> keyword. It takes two arguments: a name, so that you can actually access the variable later; and a number, which defines how large a block of contiguous memory you want in bytes, to be located at the end of the program (e.g. <span class="var">MEM</span> memory 6 causes a 6-byte block of memory to be reserved at the end of the current program).</p>
+  <p> Declaring a menu takes a bit of work. First, you have to allocate storage space to store the pointers to the menu title and options strings; this is simple enough to do with <span class="var">MEM</span> (see above paragraph). Second, the strings that your menu is using must be defined <em>before</em> you start using them in the menu declaration; otherwise, you will surely get a compile error. Finally, you have to actually assign string variables to the menu title and entry(s). This is done with <span class="var">MENUOPTION</span>. Since the whole process is rather confusing, I've taken the liberty of providing an example for you to take a look at. No doubt it will make infinitely more sense that this paragraph.</p>
+  <table width="*" cellspacing="0" class="ec">
+    <tr>
+      <td width="1100" class="ect">Menu Example Program:</td>
+    </tr>
+    <tr>
+      <td class="ec"><p><span class="cc">#include </span>&lt;<span class="header">asmlib.h</span>&gt; <span class="com">// standard BZC header</span> </p>
+        <p><span class="cc">START</span><br />
+          <span class="str">STRING</span> mtitle = &quot;Test Menu:&quot; <span class="com">// string for menu title </span><br />
+          <span class="str">STRING</span> mop1 = &quot;Pick Me!&quot; <span class="com">// string for first menu option </span><br />
+          <span class="str">STRING</span> mop2 = &quot;No, Pick Me!&quot;  <span class="com">// string for second menu option</span><br />
+          <span class="var">MEM</span> mymenu 6 <span class="com">// storage location for menu data ( 2 options + the title ) * 2</span></p>
+        <p> <span class="var">menuoption</span> mymenu 0 mtitle <span class="com">// set the menu title; menu title is always the 0th element </span><br />
+          <span class="var">menuoption</span> mymenu 1 mop1 <span class="com">// set the first menu option; the first element </span><br />
+          <span class="var">menuoption</span> mymenu 2 mop2<span class="com">// set the second menu option; the second element </span><br />
+          <br />
+          <span class="func">menu</span> mymenu 2
+         <span class="com">// finally! display the menu! </span><br />
+          <span class="cc">END</span></p>
+      </td>
+  </tr>
+</table>
+<p>In any case, you can create menus of up to 255 entries (and it actually doesn't take as long as you might think to scroll through them all; this is theTI-OS menu system to the tenth power).</p>
+<p>The <span class="var">SPRITE</span> keyword allows the definition of (really, inclusion of) a sprite from another file, but because sprites are not yet available, we will not discuss it here.</p>
+<p>In summary, the following is a list of the available declarations in BASIC ASM; simply click on any of them to jump to that declaration's entry on the  <a href="commands.html">BASIC ASM Commands</a> page.</p>
+<table border="0" class="ec">
+  <tr>
+    <td class="kw"><a href="commands.html#declaration_byte" target="mainframe">BYTE</a></td>
+    <td >Declares a 1-byte variable, with optional initialization</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#declaration_const" target="mainframe">CONST</a></td>
+    <td >Declares and initializes a 2-byte constant variable</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#declaration_function" target="mainframe">FUNCTION</a></td>
+    <td >Declares a function</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#declaration_int" target="mainframe">INT</a></td>
+    <td >Declares an integer-type (2-byte) variable, with optional initialization</td>
+  </tr>
+  <tr>
+    <td height="22" class="kw"><a href="commands.html#declaration_mem" target="mainframe">MEM</a></td>
+    <td >Reserves a block of memory and attaches it to a variable name</td>
+  </tr>
+  <tr>
+    <td height="22" class="kw"><a href="commands.html#declaration_romcall" target="mainframe">ROMCALL</a></td>
+    <td >Declares a  ROM call at a certain address</td>
+  </tr>
+  <tr>
+    <td height="22" class="kw"><a href="commands.html#declaration_sprite" target="mainframe">SPRITE</a></td>
+    <td >Creates a sprite in the current program from the specified data file</td>
+  </tr>
+  <tr>
+    <td height="22" class="kw"><a href="commands.html#declaration_string" target="mainframe">STRING</a></td>
+    <td >Declares and initializes a constant string variable</td>
+  </tr>
+  <tr>
+    <td height="22" class="kw"><a href="commands.html#declaration_sysvar" target="mainframe">SYSVAR</a></td>
+    <td >Declares a system variable</td>
+  </tr>
+</table>
+<p>Now we're ready to take a closer look at <a href="lesson5.html" target="tutorialframe">Functions</a>, the real meat and potatos of BASIC ASM.</p>
+</div>
+</div>
+</body>
+</html>

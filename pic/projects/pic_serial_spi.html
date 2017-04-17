@@ -1,0 +1,113 @@
+<HTML><HEAD><TITLE>Serial + SPI</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>March 2003</SPAN></P>
+<P><SPAN class=RVTS1>RS232 + SPI</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>This's an attempt to create libraries that always give the same functionaliteit to the user, indepent of the devices chozen and therefor independant of the selected PIC.</P>
+<P>At the functional level I'm often in need of both RS232 and SPI devices.</P>
+<P>For historical reasons, I had an software RS232 library available. So when both are needed and the PIC doesn't have a MSSP device, I use the USART for SPI and do the RS232 by software. Because the SPI is far more simple and less time-critical then RS232, I would do it the other way around if I had to do it again.</P>
+<P>In JAL this construction still gives some problems, because when a PIC doesn't have one of the devices, the specific registers are not available.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=694 height=580 src="rs232_function.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=531 valign=middle>
+<P><A name="program hierarchy"></A>
+<SPAN class=RVTS2>Program Hierarchy</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Test_RS232 = main programma used for testing the RS232 routines.</P>
+<P>16F628_defs = pic hardware definitions, this file must be included or inserted in the main file and adapted to your own hardware settings.</P>
+<P>16F628_INC = automatisch vertaalde Microchip INC-file, which is automatically included by the 16f628_defs file.</P>
+<P>INDF = Javi's routines for accessing all registers</P>
+<P>RS232_SW_INS = RS232 hardware definitions, this file must be included or inserted in the main file and adapted to your own hardware settings.</P>
+<P>RS232_SW = the serial software library, which is autonatically included by the rs232_sw_ins file.</P></TD>
+<TD width=201 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=198 height=162 src="serial1.jpg"></P>
+<P>Downloads:&nbsp;</P>
+<P><A class=RVTS4 href="../download/jal_libs/rs232_16f628.zip">RS232_16F628.ZIP</A></P>
+<P><A class=RVTS4 href="../download/jal_libs/rs232_16f84a.zip">RS232_16F84A.ZIP</A></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=95 valign=top>
+<P><A name="rs232_sw"></A>
+<A class=RVTS4 href="../download/jal_libs/rs232_sw.jal">rs232_sw</A><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><A class=RVTS4 href="../download/jal_libs/rs232_sw_ins.jal">rs232_sw_ins</A></P></TD>
+<TD width=637 valign=middle>
+<P>Contains routines for transmitting and receiving through RS232 protocol by software.</P>
+<P>Baudrates from 110 Baud ... 230_400 Baud are supported. None standard baudrates are also allowed.</P>
+<P>At this moment only 2 stop bits, no parity and non-inverted is supported.</P>
+<P>Initialisation is done by rs232_sw_ins, where also the Baudrate is set.</P>
+<P>procedure asynch_send_sw (byte in x) is</P>
+<P>procedure asynch_receive_sw (byte out x) is</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=407 valign=top>
+<P><A name="hardware_interface"></A>
+Hardware Interface&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>This RS232 interface works just as good as all the MAX232 IC's. It's tested upto 115_200 Baud.</P>
+<P>In stead of RTS is also possible to use DTR as the positive power supply.</P>
+<P>It's even well possible to derive to complete power supply for the PIC and other electronics from the RS232 port, see&nbsp;<A class=RVTS4 href="pic_serial.html#rs232%20interface%20+%20power%20supply">schematic</A>&nbsp;below.</P>
+<P>It's even possible to extend this circuit, so programming of the PIC can be done by the same cicuit, see&nbsp;<A class=RVTS4 href="../picprog/picprogrammer_hardware.html">picprogrammer hardware</A>.</P></TD>
+<TD width=325 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=301 height=269 src="serial3.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><A name="common misunderstandings"></A>
+&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Common misunderstandings</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Receiving in software is more difficult than transmitting in software. No ! The fault tolerance in transmitting must be less than 2%, while in receiving a tolerance of 5% can be accepted (during 10 bits a maximum deviation of 0.5 bit still gives a good detection).&nbsp;</LI>
+<LI>Receiving is an asynchronuous action. No ! Waiting for a startbit is very synchronuous.&nbsp;</LI>
+<LI>Interrupt based receiving is faster than polling based receiving. No ! In interrupts there's always some extra overhead for jumping and saving registers.&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=323 valign=top>
+<P><A name="rs232 interface + power supply"></A>
+<SPAN class=RVTS2>RS232 interface + power supply</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>RTS generates positive power supply for the RxD signal. In this cicrcuit it's also used to reset the PIC.</P>
+<P>TxD is both used as the received RS232 signal and for generating the ground for the +5 Volt power supply for PIC and other electronics.</P>
+<P>DTR is used to generate the ground of the +5 Volt power supply.</P>
+<P>GND is used to generate +5 Volt power supply.</P>
+<P>CTS and DSR are not used here.</P></TD>
+<TD width=409 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=405 height=367 src="serial2.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="the double loop"></A>
+<SPAN class=RVTS2>The double loop</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The number of instructions in the double loop equals</P>
+<P>N = ( 3 * OuterLoop * InnerLoop )&nbsp; +&nbsp; ( 4 * OuterLoop )&nbsp; -&nbsp; 1It's therefore obvious that the InnerLoop realizes the finetuning, and the OuterLoop is used to realize the whole range of Baudrates.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

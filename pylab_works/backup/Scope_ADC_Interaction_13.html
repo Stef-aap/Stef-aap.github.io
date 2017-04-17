@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html><html class="Debug"><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Scope ADC Interaction</title>
+
+  <!--
+  <base href = file:///D:/Data_Python_25/WebKit/CodeMirror/>
+  <base href = CodeMirror/>
+  -->
+  <link rel="stylesheet" href="css/codemirror.css">
+  <script src="js/codemirror.js"></script>
+  <link rel="stylesheet" href="css/night.css">
+  <link rel="stylesheet" href="css/elegant.css">
+  <link rel="stylesheet" href="css/neat.css">
+  <link rel="stylesheet" href="css/default.css">
+  <link rel="stylesheet" href="css/robbie.css">
+  <script src="js/css.js"></script>
+  <script src="js/javascript.js"></script>
+  <script src="js/xml.js"></script>
+  <script src="js/python.js"></script>
+  <script src="js/lua.js"></script>
+  <script src="js/mysql.js"></script>
+  <script src="js/htmlmixed.js"></script>
+  <script src="js/ph_codemirror.js"></script>
+
+  <link rel="stylesheet" href="css/py_punthoofd.css">
+
+  <script type="text/javascript" src="js/ph_rvts.js"></script>
+
+  <link rel="stylesheet" href="css/demo_page.css">
+  <link rel="stylesheet" href="css/demo_table.css">
+
+</head>
+<body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; " settings="{&quot;Scroll&quot;: [0, 2040]}">
+<h1>ADC Scope Interaction</h1><div>PyLab Works, 13-aug-2015, SM</div><div><br></div><h3>Introduction</h3><div>This document is meant for <b>Brick-Designers</b>.</div><div>There are many ways to accomplish the communication between bricks, and it's not always obvious which solution to choose, both for the communication between bricks and for the communication between a brick and it's GUI-control. As an example we'll discus In this document the rather complex communication for the ADC-Brick and the Scope-Brick.</div><div><br></div><div>The simplest, but still very usefull, application that uses these bricks is the following</div><div><br></div><div><table border="2" style="width:100%;  border-collapse: collapse;" "="">
+  <tbody>
+
+    <tr>
+            <td><span class="Apple-style-span" style="border-collapse: separate; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; "><img src="images/Scope_ADC_Interaction_Snapshot_2.png"></span><br></td>
+      <td>The brick used for the AD Converter is <i><b>brick_Plotting.t_ADC</b></i>, for the rest we'll address this brick with "<i><b>ADC-Brick</b></i>", the GUI-control for this brick is <i><b>control_adc.t_C_AD_Converter</b></i> (which supports several types of ADC's) and will be called "<i><b>ADC-Control</b></i>".<br><br>The brick used for the Oscilloscope is&nbsp;<i><b>brick_Plotting.t_Scope_Display</b></i>, for the rest we'll address this brick with "<i><b>Scope-Brick</b></i>", the GUI-control for this brick is&nbsp;<i><b>control_scope.t_C_Scope_Display</b></i>&nbsp;and will be called "<i><b>Scope-Control</b></i>".<br></td>
+
+    </tr>
+
+  </tbody>
+</table></div><div><br></div><div><br></div><div>If we look at the final application it might be very well desirable not to show the ADC-Control, but only the Scope-Control because that's what the end-user is interested in. So the final application might look something like this:</div><div><br></div><div><img src="images/Scope_ADC_Interaction_Snapshot_5.png"><br></div><div><br></div><div><br></div><h3>Basic communication connections</h3><div>The IO ports and connections are chozen as in the picture below.</div><div>The data from the ADC-Brick is transported as some array like type to the Scope-Brick.</div><div>Between the Scope-Brick and the ADC-Brick there's a bi-directional communication line, which can transport any data. So the biggest challenge is to define a good / simple and clear definition for the bi-directional communication channel, keeping in mind that both bricks are also fully usable in other applications.</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src="images/Scope_ADC_Interaction_Snapshot_7.png"><br></div><div><br></div><div><br></div><div><h3 style="font-family: 'Trebuchet MS', sans-serif; font-weight: normal; color: rgb(32, 67, 92); border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(204, 204, 204); margin-left: -20px; margin-right: -20px; margin-top: -10px; margin-bottom: 10px; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 0px; ">Tasks</h3><div>Looking at the tasks the devices should perform, some are abvious:</div><div><br></div><div>ADC:</div><div><ul><li>sample the data (always)</li><li>store the data in a file (sometimes)</li><li>store the ADC-settings in a file</li></ul></div><div>Scope:</div><div><ul><li>display the data (including scaling, maybe some primitive filtering, etc)</li><li>let the user measure signals</li></ul></div><div>But for a number of tasks it's not directly clear which device should perform the task, e.g. let the user place markers and store those markers in the datafile.</div><div><br></div></div><div><br></div><h3>MetaData</h3><div>Let's first look at the metadata of the signals, i.e. Signal-Name, Signal-Calibration, etc.</div><div>The Scope-Control has a second page where the user can define all these metadata. It's logical that the ADC has no notice of the available metadata and that other bricks connected to the ADC might have completely different metadata.</div><div>On the other hand the Scope-Brick/Control has no idea how and where the ADC will store it's gathered data.</div><div><br></div><div>&nbsp; &nbsp;&nbsp;<img src="images/Scope_ADC_Interaction_Snapshot_8.png"><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><b>---&gt;</b> &nbsp;send message through TIO_Interaction dictionary</div><div><b>--X--</b> message is not changed so it won't generate an XIn or Xout setting</div><div><br></div><div><table border="2" style="width:100%;  border-collapse: collapse;" "="">
+  <tbody>
+
+    <tr>
+            <td><br></td>
+      <td>communication communication communication coomunication communication</td>
+      <td><span class="Apple-style-span" style="border-collapse: separate; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; "><br></span></td>
+
+    </tr>
+
+    <tr>
+            <td><b>Scope</b></td>
+      <td><br></td>
+      <td><b>ADC</b></td></tr><tr><td><font class="Apple-style-span" color="#ff0000"><b>Push on RED ---&gt;</b></font><br><br>Set_Run_Status (2):<br><br>&nbsp; set button GREEN &nbsp;<b>---&gt;</b><br></td>
+      <td><div style="text-align: center;"><b>---&gt;</b> &nbsp;Set ADC Started = 2 &nbsp;<b>---&gt;</b><br></div><br><div style="text-align: center;"><b>&lt;---</b> &nbsp;Started = True &nbsp;<b>&lt;---</b></div><div style="text-align: center;"><b><br></b></div><div style="text-align: center;"><b>---&gt;</b>&nbsp;Set ADC Started = 2 &nbsp; <b>--X--</b></div></td>
+      <td>Start-Stop(True)<br>&nbsp; &nbsp; <b>&nbsp; |<br>&lt;----</b><br><br><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br><br><br>Set_Run_Status (2):<br><br>&nbsp; set button GREEN &nbsp;<b>---&gt;</b><br></td>
+      <td><div style="text-align: center; "><b><br></b></div><div style="text-align: center; "><b><br></b></div><div style="text-align: center; "><b><br></b></div><div style="text-align: center; "><b>&lt;---</b>&nbsp;&nbsp;Started = True &nbsp;<b>&lt;---</b></div><div style="text-align: center; "><b><br></b></div><div style="text-align: center; "><b>---&gt;</b>&nbsp;Set ADC Started = 2 &nbsp;&nbsp;<b>--X--</b></div></td>
+      <td><b><font class="Apple-style-span" color="#ff0000">Press "Start"</font></b><br>&nbsp; Start_Stop(True)<br>&nbsp; &nbsp; &nbsp; &nbsp;|<br>&lt;----<br><br><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><div style="text-align: center; "><b><br></b></div></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><font class="Apple-style-span" color="#ff0000"><b>Push on GREEN&nbsp;---&gt;</b></font><br><br>Set_Run_Status (1):<br><br>&nbsp; set button RED &nbsp;<b>---&gt;</b><br></td>
+      <td><div style="text-align: center; "><b>---&gt;</b>&nbsp;&nbsp;Set ADC Started = 1 &nbsp;<b>---&gt;</b><br></div><br><div style="text-align: center; "><b>&lt;---</b>&nbsp;&nbsp;Started = False &nbsp;<b>&lt;---</b></div><div style="text-align: center; "><b><br></b></div><div style="text-align: center; "><b>---&gt;</b>&nbsp;Set ADC Started = 1 &nbsp;&nbsp;<b>--X--</b></div></td>
+      <td>Start_Stop(False)<br>&nbsp; &nbsp;&nbsp;<b>&nbsp; |<br>&lt;----<br></b><br><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br><br><br>Set_Run_Status (1):<br><br>&nbsp; set button RED &nbsp;<b>---&gt;</b><br></td>
+      <td><div style="text-align: center; "><b><br></b></div><div style="text-align: center; "><b><br></b></div><div style="text-align: center; "><b><br></b></div><div style="text-align: center; "><b>&lt;---</b>&nbsp;&nbsp;Started = False &nbsp;<b>&lt;---</b></div><div style="text-align: center; "><b><br></b></div><div style="text-align: center; "><b>---&gt;</b>&nbsp;Set ADC Started = a &nbsp;&nbsp;<b>--X--</b></div></td>
+      <td><b><font class="Apple-style-span" color="#ff0000">Press "Stop"</font></b><br>&nbsp; Start_Stop(False)<br>&nbsp; &nbsp; &nbsp; &nbsp;|<br>&lt;----<br><br><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+    <tr>
+            <td><br></td>
+      <td><br></td>
+      <td><br></td>
+
+    </tr>
+
+  </tbody>
+</table></div><p></p>
+
+        </body></html>

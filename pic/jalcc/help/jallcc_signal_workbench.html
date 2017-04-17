@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Signal Workbench</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="84" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>april 2007</span></p>
+<p><span class=rvts1>Signal Workbench</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>The signal workbench is highly sophisticated graphical calculator, specially equipped for off-line analysis of time series and development of algorithm for real-time analysis.</p>
+<p>Although it was my first intention to create this program completely in Python, I had the feeling that my knowledge of Delphi would result in a much quicker result, especially because of the calculation tree and the signal displays. (Maybe the overwhelming collection of different graphical libraries in Python also forced this choose. At the moment I've the feeling that wxWidgets is the future way to go, but I've no idea yet if and what wrapper to use for wxWidgets.)</p>
+<p>The main items of the signal workbench are:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>the <span class=rvts9>calculation tree</span>, giving a more or less graphical presentation of the calculation flow </li>
+<li>the <span class=rvts9>signal displays</span>, to visualize, compare and measure the final and intermediate calculated results </li>
+<li>the <span class=rvts9>code window</span>, where the pre-processed python code can be edited </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><span class=rvts2>Calculation Tree</span></p>
+<p>The global view of a total calculation is represented by a tree, where each node in the tree performs a (small) part of the calculation. The top-node in general reads the raw datafile. </p>
+<p>For each node in the tree yields:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>gets its input signals from its parent </li>
+<li>inherits all global variables from its ancestors (if they were executed this session !!) </li>
+<li>can contain a Python script </li>
+<li>can generate output signals, that will be passed to all its children </li>
+<li>can generate global variables, that will be available to all its descendants </li>
+<li>has a graphical window, where its output signals can be shown </li>
+</ul>
+<p>From the code-editor, pressing F9 will recompile the code of the active node and redisplay the output signals (if visible). Pressing shift-F9 will recompile (and redisplay) the active node and all its descendants.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Signal Displays</span></p>
+<p>The signal displays are highly automated, while leaving great flexibility both by programming and user manipulation. Signals can be viewed, zoomed and measured. The ability to make one or more signal displays transparent, gives a unique feature to overlay several signal displays for easy comparison. The signal displays are quit light-weighted, so you can have a lot of them open simultaneous.</p>
+<p>Each signal display consists of 2 graphical windows, the bottom window (also called time-base window), holding the complete time-history of one selected signal, meant for navigating and selecting along the time-dimension. The top window, holding all (or a selected set) signals over a (possibly) limited time segment, is meant for zooming into details and for doing exact measurements.</p>
+<p>The following items are used to control the appearance of the signal display:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>LM, clicking in an image will draw (and drag) a cursor, clicking on a label will show and let you modify the properties </li>
+<li>MM, clicking in an image will draw (and drag) the other cursor. (We can't use the RM, because it;s used of normal popups. </li>
+<li>RM, will popup a menu </li>
+<li>splitter can be moved to set the horizontal size of the time-base window </li>
+<li>form drag&amp;drop, form-resize </li>
+<li>(shift) arrow left/right, page up/down for moving the cursors </li>
+</ul>
+<p><span class=rvts9><br></span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=504 height=462 alt="" src="jallcc_signal_workbench_img7.png"><span class=rvts8>&nbsp; </span><img width=296 height=344 alt="" hspace=1 vspace=1 src="jallcc_signal_workbench_img17.png"></p>
+<p><br></p>
+<p><span class=rvts9>Signal Selecting</span></p>
+<p>through the RM-menu in the upper window you can select which signals are visible or not. Labels are automatically shown, with as much information as possible. Which part of the visible signals along the time-axis will be shown, is determined by the 2 cursors in the time-base window&nbsp; (showing the complete time-axis), which can be placed by LM and removed by MM (or RM-menu).</p>
+<p>Through the RM-menu of the time-base window or by clicking on the signal label in the time-base window, you can select the signal that's used in the time-base window. The color of the signal in the time-base window is the same as the signal color in the main-window. The amplitude scaling of the signal in the time-base window is always automatic.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=574 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>Signal Appearance</span></p>
+<p>By clicking on one of the lower or upper signal labels, the values of the labels can be changed, the color of the signal can be changed or an auto-scale action can be performed. Auto-scale is performed only once, each time the checkbox is checked.</p>
+<p><br></p>
+<p><br></p>
+</td>
+<td width=149 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=156 height=139 alt="" src="jallcc_signal_workbench_img8.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=581 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>Background Color </span>can be changed through the RM-menu.</p>
+<p><br></p>
+<p><span class=rvts9>Grid appearance </span>is also done through the RM-menu.</p>
+<p><br></p>
+<p><span class=rvts9>Transparency</span></p>
+<p>Each signal display can be made transparent for easy comparing different algorithms. Transparency can be set through the RM-menu of any of the signal windows. Transparency only works for windows-2000 and up.</p>
+</td>
+<td width=142 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=133 height=237 alt="" src="jallcc_signal_workbench_img6.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts9>Cursor Measurement</span></p>
+<p>With the left-MB in the main signal window, you can position 2 cursors in the upper signal window for measurement. Removing of the cursors is done through the middle-MB or the RM-menu. Each cursor has a panel attached, in which the actual real-world values of the visible signals are shown. The vertical position of the panels is determined by the mouse cursor. The left panel will also show the startpoint of the signals, both in samples and in (mili-)seconds. The right panel will also display the distance between the 2 cursors both in samples and in (mili-)seconds. When the signal window has focus, the position of the cursors can be fine-tuned with the left-arrow and right-arrow key for the left cursor and shift-left-arrow and shift-right-arrow key for the right cursor. Larger steps can be made by the page-up and page-don key (+shift for the right cursor).</p>
+<p><br></p>
+<p><span class=rvts9>Time Selection</span></p>
+<p>The two top-items of the RM-menu are designed to select certain time regions for further calculations. With "Selection Set", a new marker is placed on the time-axis, toggling the selection on or off. In the figure above the dark green lines at the bottom, are the&nbsp; selected regions. Removing a toggle point is also done through the RM-menu.</p>
+<p>If the selection is used in the next calculation is furthermore determined by the calculation function itself.</p>
+<p><br></p>
+<p><br></p>
+<p><a name="code_window"></a>
+<span class=rvts2>Code Window</span></p>
+<p>Each node in the calculation tree, is connected with a piece of (extended-) Python code. Let's take a look at a very simple example below:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=494 height=326 alt="" src="jallcc_signal_workbench_img9.png"></p>
+<p><br></p>
+<p><span class=rvts9>Lines 1..7 defines all the input signals</span>, </p>
+<p>their names and there calibration values. These lines are generated by Signal WorkBench, from the information of the parent node, so don't edit them manually !! We see that there are 3 input signals, called FinaPres, ECG and Stimulus. Some of these signals also have defined in what units they are expressed, like here FinaPres is expressed in units mmHg. The units must be separated by at least 1 space from the signal-name. Input signals can also have 2-points calibration value, like here FinaPress "0,0,1000,1". Both the units and calibration units have no real meaning for the core Python calculations, but are mainly meant for the graphical displays. They are specified here, so you can use the correct units and calibration for the output signals (if you want).</p>
+<p><br></p>
+<p><span class=rvts9>Lines 10..11, the functional user code</span>.</p>
+<p>In this example we create some new signals (or maybe they are just views), derived from the input signals. Note that these signals are not scalars but vectors. "Inverted_Stimulus" is an inverted version of the third input signal. "Better_ECG" is an amplified version of the second input signal. This section can consist completely of regular Python code, but may also contain extended-Python code.</p>
+<p><br></p>
+<p><span class=rvts9>Lines 15..18, the definition of the output signals.</span></p>
+<p>The output block (if present), serves two different purposes:</p>
+<p>&nbsp; 1.&nbsp; which signals will be available in the graphical display</p>
+<p>&nbsp; 2.&nbsp; to pass parameters to it's children</p>
+<p><br></p>
+<p>You can define which signals should be defined as output and thereby made available as an input to the next elements in the calculation tree. This looks very similar to the input definition, and again calibration and units are optional and mainly meant for the graphical displays. </p>
+<p>Output signals can either be 1-dimensional vectors or 2-dimensional arrays. In the code below, "data" is an 2-dimensional array of size [2,18]. "one_signal" is one row from the array "data", and also a row can be specified directly in the output, like "data[3]". The length of the last dimension of all vectors and arrays will extended to the longest last dimension, by extending the shorter vectors with their own last value. If a 2-dimensional array is specified, the names of the individual columns is generated as shown in the picture on the right.</p>
+<p>The figure below also shows, that the "OUTPUTS" block doesn't need to be the final code. In this case after the OUTPUTS block, a statement is written, to print the total output array.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=390 height=182 alt="" src="jallcc_signal_workbench_img12.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=100 height=107 alt="" src="jallcc_signal_workbench_img13.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>Compile</span></p>
+<p>Either from the main-menu (Tools | Compile), pressing F9, or from the statusbar the Python compiler is started, with the script available in the current editor. If higher nodes have been started, then the globals from these higher nodes are also available. Through the main-menu (Tools | Compile-2) or pressing shift-F9, the Python compiler is started for the current node and all it's descendants.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>Compiler Errors</span></p>
+<p>When a compiler error occurs, the Python error message is captured in the lower interactive editor (see picture below) and the cursor automatically jumps to the line with the error in the upper editor window. Note that the line numbers in the error message doesn't need to be the same as the line-number in the editor, this is because the script is pre-processed and so there are some extra lines added. You can always jump to the error, by clicking on the line in the lower interactive editor with the left mouse button, or by pressing Enter, when cursor is on the line "#&lt;&lt;&nbsp; File "&lt;string&gt;",&nbsp; ..."</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=375 height=173 alt="" src="jallcc_signal_workbench_img15.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=321 height=162 alt="" src="jallcc_signal_workbench_img16.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>Graphical Presentation</span></p>
+<p>And here the graphical presentation of the above code is given. You can see that Signal-names, signal-units and calibration values are nicely copied from the above code. (Yes, in this example calibration is not very meaningful&nbsp; ;-)</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=508 height=403 alt="" src="jallcc_signal_workbench_img1.bmp"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>Example of extended-Python code</span></p>
+<p>The next code snippet, connects the existing signal "FinaPres" to a Bloodpressure analysis function, of which the parameters can easily be controlled by the parameters defined in the box.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=458 height=342 alt="" src="jalcc_data_acquisition_img28.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>Generated code</span></p>
+<p><span class=rvts9><br></span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=370 height=296 alt="" src="jallcc_signal_workbench_img10.png"></p>
+<p><br></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts9>Save Code to File</span></p>
+<p>From the RM-menu in the main code editor, you can save the code of the current editor (and the code of all it's children, if you want) to a normal python code file.</p>
+<p><br></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts2>ToDo</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>If Input-block contains array, extend IOI in calculations, just as is done in displaying arrays. OR maybe don't use the names or at least the last name if there are arrays, because it might change namespace (data[3] can not be interpreted if data doesn't exist yet ??) </li>
+<li>jump into error of a not-active node </li>
+<li>jump into error of an external file </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>File format</span></p>
+<p>Signals are stored in the following file format:</p>
+<p><br></p>
+<p><span class=rvts12>&nbsp; ID_length&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ,byte&nbsp;&nbsp;&nbsp;&nbsp; =8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 1 byte</span></p>
+<p><span class=rvts12>&nbsp; ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ,string&nbsp;&nbsp; ='MID-poly'&nbsp;&nbsp; : 8 bytes</span></p>
+<p><span class=rvts12>&nbsp; version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ,smallint =8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 2 bytes</span></p>
+<p><span class=rvts12>&nbsp; NChan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ,integer&nbsp; =&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 4 bytes</span></p>
+<p><span class=rvts12>&nbsp; Sample Frequency,integer&nbsp; =&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 4 bytes</span></p>
+<p><span class=rvts12>&nbsp; --------------------------------------------------</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; headersize = 19 bytes </span></p>
+<p><span class=rvts12><br></span></p>
+
+</body></html>

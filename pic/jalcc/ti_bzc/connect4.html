@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>SourceCode exporting of connect4.bzc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="generator" content="SynEdit HTML exporter" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+.ti-bzc1-command { color: #0000FF; }
+.ti-bzc1-comment { color: #808080; font-style: italic; }
+.ti-bzc1-constant { color: #008000; }
+.ti-bzc1-field { color: #00FF00; }
+.ti-bzc1-identifier { color: #800000; font-style: italic; }
+.ti-bzc1-number { }
+.ti-bzc1-preprocessor { color: #FF0000; }
+.ti-bzc1-reservedword { color: #800080; }
+.ti-bzc1-searchresults { color: #000000; font-weight: bold; }
+.ti-bzc1-space { }
+.ti-bzc1-string { color: #FF0000; }
+.ti-bzc1-symbol { }
+-->
+</style>
+</head>
+<body>
+<pre>
+<code><span style="font: 10pt Courier New;"><span class="ti-bzc1-identifier">; <A href="connect4.bzc">download JALcc Source code: connect4.bzc</A>
+; <A href="connect4.8xp">download TI-Basic Source code: connect4.8xp</A>
+
+</span><span class="ti-bzc1-comment">;-----------------------------------------------------
+; include all the standard necessary libraries (always needed)
+;-----------------------------------------------------
+</span><span class="ti-bzc1-preprocessor">#include &lt;asmlib.h&gt;
+
+
+</span><span class="ti-bzc1-comment">;-----------------------------------------------------
+; Switch enhanced pre-processor on
+;-----------------------------------------------------
+</span><span class="ti-bzc1-preprocessor">#jal_processor
+
+
+</span><span class="ti-bzc1-comment">;-----------------------------------------------------
+; include all the TI-basic equivalents
+;-----------------------------------------------------
+</span><span class="ti-bzc1-preprocessor">include</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">ti_basic_library</span><span class="ti-bzc1-symbol">.</span><span class="ti-bzc1-identifier">bzc
+
+
+</span><span class="ti-bzc1-comment">;-----------------------------------------------------
+; Global variables
+;-----------------------------------------------------
+; Create an array to hold the coin positions
+; although the visible coin area is only 10 width and 7 high,
+; we create a larger matrix, of 16 by 13,
+; so that on each side there are 3 positions extra
+; The advantage is that we don't need to calculate 
+; with special boundery conditions
+</span><span class="ti-bzc1-command">Byte_Array</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Play_Field</span><span class="ti-bzc1-space">  [16,13]
+
+</span><span class="ti-bzc1-comment">; X and Y indicates the position of the new inserted coin
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">X
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Y
+
+</span><span class="ti-bzc1-comment">; currently active player
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Player
+
+
+</span><span class="ti-bzc1-comment">;-----------------------------------------------------
+; Wait for a valid key 0..9
+; in a column that's not completely full
+;-----------------------------------------------------
+</span><span class="ti-bzc1-command">Function_Def</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Get_User_Input
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Oke
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Key
+
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">;BUG:  Loop While Key&gt;=0 AND Key&lt;=9 ;AND Row&lt;9
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Oke</span><span class="ti-bzc1-space"> = 0
+  </span><span class="ti-bzc1-command">Loop</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-command">While</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Oke</span><span class="ti-bzc1-space"> == 0 
+    </span><span class="ti-bzc1-identifier">_GetKey
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">Key</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">A</span><span class="ti-bzc1-space"> - </span><span class="ti-bzc1-identifier">K0
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">// Key 0 is translated to 10
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Key</span><span class="ti-bzc1-space"> == 0 </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">Key</span><span class="ti-bzc1-space"> = 10
+    </span><span class="ti-bzc1-command">EndIf
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">// translate the key array index 
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Key</span><span class="ti-bzc1-space"> + 3
+
+    </span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-space"> = 4
+    </span><span class="ti-bzc1-command">Loop</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-command">While</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Play_Field</span><span class="ti-bzc1-symbol">[</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">,</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">]&gt;0 
+      </span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-space"> + 1
+    </span><span class="ti-bzc1-command">EndLoop
+
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">//BUG: if Key&gt;=0 AND Key&lt;=9 AND Y&lt;11 Then
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Key</span><span class="ti-bzc1-symbol">&gt;=0 </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Key</span><span class="ti-bzc1-symbol">&lt;=10 </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">&lt;11 </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">          </span><span class="ti-bzc1-identifier">Oke</span><span class="ti-bzc1-space"> = 1
+        </span><span class="ti-bzc1-command">EndIf
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-command">EndIf
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">EndIf
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-command">Endloop
+End_Function_Def
+</span><span class="ti-bzc1-comment">;-----------------------------------------------------
+
+
+;-----------------------------------------------------
+; Test if Loose in one direction, indicated by DX and DY,
+; Logically (or more human) you would test WIN,
+; but because we're missing &quot;&lt;&gt;&quot; and/or the &quot;NOT&quot;
+; it was far more easy to implement &quot;Loose&quot;
+;-----------------------------------------------------
+</span><span class="ti-bzc1-command">Function_Def</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Test_Loose</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">DX</span><span class="ti-bzc1-symbol">, </span><span class="ti-bzc1-identifier">DY
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">I
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Loose
+
+</span><span class="ti-bzc1-comment">//Limitation, because array indices must be a single VAR or CONST
+// we need to use some intermediate variables
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">X1
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">X2
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Y1
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Y2
+
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">// If Loose=0=false, we've 4 consecutive coins of current Player
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">//BUG: unary minus not supported
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> = 0 - 4 * </span><span class="ti-bzc1-identifier">Player
+
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">// Calculate the result of the 4 most left,
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">// starting 3 left of the last inserted coin 
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">// uptil and including the last inserted coin
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-command">For</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">I</span><span class="ti-bzc1-space"> = 1 </span><span class="ti-bzc1-command">to</span><span class="ti-bzc1-space"> 4
+    </span><span class="ti-bzc1-comment">//BUG  X1 = X +DX*(I-4) is not allowed
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">X1</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-space"> + </span><span class="ti-bzc1-identifier">DX</span><span class="ti-bzc1-symbol">*</span><span class="ti-bzc1-identifier">I</span><span class="ti-bzc1-space"> - </span><span class="ti-bzc1-identifier">DX</span><span class="ti-bzc1-symbol">*4
+    </span><span class="ti-bzc1-identifier">Y1</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-space"> + </span><span class="ti-bzc1-identifier">DY</span><span class="ti-bzc1-symbol">*</span><span class="ti-bzc1-identifier">I</span><span class="ti-bzc1-space"> - </span><span class="ti-bzc1-identifier">DY</span><span class="ti-bzc1-symbol">*4
+    </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> + </span><span class="ti-bzc1-identifier">Play_Field</span><span class="ti-bzc1-symbol">[</span><span class="ti-bzc1-identifier">X1</span><span class="ti-bzc1-symbol">,</span><span class="ti-bzc1-identifier">Y1</span><span class="ti-bzc1-symbol">]
+  </span><span class="ti-bzc1-command">End_For</span><span class="ti-bzc1-space">  
+
+  </span><span class="ti-bzc1-comment">// if we still are loosing,
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">// move the test 1 place to the right,
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">// by removing the most left one and adding one on the right
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">// we have to do a maximum of 3 shifts
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">For</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">I</span><span class="ti-bzc1-space"> = 1 </span><span class="ti-bzc1-command">To</span><span class="ti-bzc1-space"> 3 
+      </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-comment">// index of the most left coin (to be removed)
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-identifier">X1</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-space"> + </span><span class="ti-bzc1-identifier">DX</span><span class="ti-bzc1-symbol">*</span><span class="ti-bzc1-identifier">I</span><span class="ti-bzc1-space"> - </span><span class="ti-bzc1-identifier">DX</span><span class="ti-bzc1-symbol">*4
+        </span><span class="ti-bzc1-identifier">Y1</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-space"> + </span><span class="ti-bzc1-identifier">DY</span><span class="ti-bzc1-symbol">*</span><span class="ti-bzc1-identifier">I</span><span class="ti-bzc1-space"> - </span><span class="ti-bzc1-identifier">DY</span><span class="ti-bzc1-symbol">*4
+        </span><span class="ti-bzc1-comment">// index of the new to add coin at the right
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-identifier">X2</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-space"> + </span><span class="ti-bzc1-identifier">DX</span><span class="ti-bzc1-symbol">*</span><span class="ti-bzc1-identifier">I</span><span class="ti-bzc1-space"> 
+        </span><span class="ti-bzc1-identifier">Y2</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-space"> + </span><span class="ti-bzc1-identifier">DY</span><span class="ti-bzc1-symbol">*</span><span class="ti-bzc1-identifier">I</span><span class="ti-bzc1-space"> 
+        </span><span class="ti-bzc1-comment">// perform the new calculation
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> - </span><span class="ti-bzc1-identifier">Play_Field</span><span class="ti-bzc1-symbol">[</span><span class="ti-bzc1-identifier">X1</span><span class="ti-bzc1-symbol">,</span><span class="ti-bzc1-identifier">Y1</span><span class="ti-bzc1-symbol">] + </span><span class="ti-bzc1-identifier">Play_Field</span><span class="ti-bzc1-symbol">[</span><span class="ti-bzc1-identifier">X2</span><span class="ti-bzc1-symbol">,</span><span class="ti-bzc1-identifier">Y2</span><span class="ti-bzc1-symbol">]
+      </span><span class="ti-bzc1-command">EndIf
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">End_For
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-command">EndIf
+
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-command">Return</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Loose
+</span><span class="ti-bzc1-command">End_Function_Def
+</span><span class="ti-bzc1-comment">;-----------------------------------------------------
+
+
+;-----------------------------------------------------
+; This procedure checks if a new inserted coin,
+; by player P, placed at (X,Y) in the history array
+; results in a winning situation,
+; by checking all 4 directions
+;-----------------------------------------------------
+</span><span class="ti-bzc1-command">Function_Def</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Test_If_Won
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Loose
+
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">; scan the horizontal line: dx=1, dy=0
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Test_Loose</span><span class="ti-bzc1-space"> 1 0
+
+  </span><span class="ti-bzc1-comment">; scan the vertical line dx=0, dy=1
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Test_Loose</span><span class="ti-bzc1-space"> 0 1
+    
+    </span><span class="ti-bzc1-comment">; scan the diagonal from bottom-left to top-right: dx=1, dy=1
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Test_Loose</span><span class="ti-bzc1-space"> 1 1
+      
+      </span><span class="ti-bzc1-comment">; scan the diagonal from top-left to bottom-right: dx=1, dy=-1
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-identifier">Loose</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Test_Loose</span><span class="ti-bzc1-space"> 1 (0-1)
+      </span><span class="ti-bzc1-command">EndIf
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">EndIf
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-command">EndIf
+
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-command">Return</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Loose
+</span><span class="ti-bzc1-command">End_Function_def
+</span><span class="ti-bzc1-comment">;-----------------------------------------------------
+
+
+;-----------------------------------------------------
+; Draws a cross at position X,Y on the screen
+; The playing field, starts at left-bottom=4,4 !!
+;-----------------------------------------------------
+</span><span class="ti-bzc1-command">Function_Def</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Draw_Cross</span><span class="ti-bzc1-space">   </span><span class="ti-bzc1-identifier">Draw_Erase
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Basic_Line_</span><span class="ti-bzc1-symbol">(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-18),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-25),(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-14),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-29),</span><span class="ti-bzc1-identifier">Draw_Erase
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Basic_Line_</span><span class="ti-bzc1-symbol">(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-18),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-29),(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-14),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-25),</span><span class="ti-bzc1-identifier">Draw_Erase
+</span><span class="ti-bzc1-command">End_Function_Def
+</span><span class="ti-bzc1-comment">;-----------------------------------------------------
+
+
+;-----------------------------------------------------
+; Draws a circle at position X,Y on the screen
+; The playing field, starts at left-bottom=4,4 !!
+;-----------------------------------------------------
+</span><span class="ti-bzc1-command">Function_Def</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Draw_Circle</span><span class="ti-bzc1-space">   </span><span class="ti-bzc1-identifier">Draw_Erase
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Basic_Line_</span><span class="ti-bzc1-symbol">(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-19),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-27),(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-17),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-25),</span><span class="ti-bzc1-identifier">Draw_Erase
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Basic_Line_</span><span class="ti-bzc1-symbol">(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-19),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-28),(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-17),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-30),</span><span class="ti-bzc1-identifier">Draw_Erase
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Basic_Line_</span><span class="ti-bzc1-symbol">(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-16),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-30),(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-14),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-28),</span><span class="ti-bzc1-identifier">Draw_Erase
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Basic_Line_</span><span class="ti-bzc1-symbol">(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-16),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-25),(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-14),(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-27),</span><span class="ti-bzc1-identifier">Draw_Erase
+</span><span class="ti-bzc1-command">End_Function_Def
+</span><span class="ti-bzc1-comment">;************************************************************
+
+
+
+;************************************************************
+; MAIN PROGRAM
+;************************************************************
+</span><span class="ti-bzc1-command">Begin
+Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Game</span><span class="ti-bzc1-space"> = 1
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Key</span><span class="ti-bzc1-space">  
+</span><span class="ti-bzc1-command">Byte</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">L
+
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-command">Loop</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-command">While</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Game
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">// clear the playfield array
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">For</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-space"> = 0 </span><span class="ti-bzc1-command">to</span><span class="ti-bzc1-space"> 15
+      </span><span class="ti-bzc1-command">For</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-space"> = 0 </span><span class="ti-bzc1-command">to</span><span class="ti-bzc1-space"> 12
+        </span><span class="ti-bzc1-identifier">Play_Field</span><span class="ti-bzc1-symbol">[</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">,</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">]=0
+      </span><span class="ti-bzc1-command">EndFor
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">EndFor
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">Basic_ClrHome_
+</span><span class="ti-bzc1-space">  
+    </span><span class="ti-bzc1-comment">// draw the horizontal lines
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">For</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">L</span><span class="ti-bzc1-space"> = 0 </span><span class="ti-bzc1-command">TO</span><span class="ti-bzc1-space"> 9</span><span class="ti-bzc1-comment">; step 8
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">Basic_Line_</span><span class="ti-bzc1-space"> 12,(</span><span class="ti-bzc1-identifier">L</span><span class="ti-bzc1-symbol">*8+1),92,(</span><span class="ti-bzc1-identifier">L</span><span class="ti-bzc1-symbol">*8+1),1
+    </span><span class="ti-bzc1-command">EndFor
+
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">// draw the vertical lines and a number above each column
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">// clumsy, but it works for now
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">String</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">column_chars</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-string">&quot;1     2     3   4    5    6    7    8    9    0&quot;
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">Basic_Text_</span><span class="ti-bzc1-space"> 0,14, </span><span class="ti-bzc1-identifier">column_chars
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">For</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">L</span><span class="ti-bzc1-space"> = 1 </span><span class="ti-bzc1-command">TO</span><span class="ti-bzc1-space"> 11
+      </span><span class="ti-bzc1-comment">//Basic_Text_ 0,(8*L+7), column_chars
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">Basic_Line_</span><span class="ti-bzc1-space"> (8*</span><span class="ti-bzc1-identifier">L</span><span class="ti-bzc1-symbol">+4),0,(8*</span><span class="ti-bzc1-identifier">L</span><span class="ti-bzc1-symbol">+4),56,2
+    </span><span class="ti-bzc1-command">EndFor
+</span><span class="ti-bzc1-space">    
+    </span><span class="ti-bzc1-comment">;************************************************************
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">; playing the game
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">;************************************************************
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">; Set the first Player
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">Player</span><span class="ti-bzc1-space"> = 1
+    </span><span class="ti-bzc1-command">Loop</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-command">While</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Game
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-comment">// to initialize random generator we call it each move
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">Random
+</span><span class="ti-bzc1-space">      
+      </span><span class="ti-bzc1-comment">// Change Player and display which Player is currently active
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-space"> = 3
+      </span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-space"> = 4
+      </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Player</span><span class="ti-bzc1-space"> == 1 </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-identifier">Player</span><span class="ti-bzc1-space"> = 5
+        </span><span class="ti-bzc1-identifier">Draw_Cross</span><span class="ti-bzc1-space">  0
+        </span><span class="ti-bzc1-identifier">Draw_Circle</span><span class="ti-bzc1-space"> 1
+      </span><span class="ti-bzc1-command">Else
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-identifier">Player</span><span class="ti-bzc1-space"> = 1
+        </span><span class="ti-bzc1-identifier">Draw_Circle</span><span class="ti-bzc1-space"> 0
+        </span><span class="ti-bzc1-identifier">Draw_Cross</span><span class="ti-bzc1-space">  1
+      </span><span class="ti-bzc1-command">EndIf
+</span><span class="ti-bzc1-space">    
+      </span><span class="ti-bzc1-comment">// wait for valid user input
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">Get_User_Input
+</span><span class="ti-bzc1-space">    
+      </span><span class="ti-bzc1-comment">// draw the new coin 
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Player</span><span class="ti-bzc1-space"> == 1 </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-identifier">Draw_Cross</span><span class="ti-bzc1-space">  1
+      </span><span class="ti-bzc1-command">Else
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-identifier">Draw_Circle</span><span class="ti-bzc1-space"> 1
+      </span><span class="ti-bzc1-command">EndIf
+
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-comment">// and store it in the play_field array
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">Play_field</span><span class="ti-bzc1-symbol">[</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">,</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">] = </span><span class="ti-bzc1-identifier">Player
+</span><span class="ti-bzc1-space">    
+      </span><span class="ti-bzc1-comment">// Game will become zero if current player has won
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">Game</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Test_If_won</span><span class="ti-bzc1-space">  
+    </span><span class="ti-bzc1-command">EndLoop
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">;************************************************************
+</span><span class="ti-bzc1-space">  
+    </span><span class="ti-bzc1-comment">// Draw a cross hair at the winning coin
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">Basic_Line_</span><span class="ti-bzc1-space"> (</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-16),0,(</span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-symbol">*8-16),100,1
+    </span><span class="ti-bzc1-identifier">Basic_Line_</span><span class="ti-bzc1-space"> 0,(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-27),100,(</span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-symbol">*8-27),1
+    
+    </span><span class="ti-bzc1-command">String</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">press</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-string">&quot;Press  A  Key  to  Continue&quot;
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">Basic_Text_</span><span class="ti-bzc1-space"> 0,14, </span><span class="ti-bzc1-identifier">press
+</span><span class="ti-bzc1-space">  
+    </span><span class="ti-bzc1-identifier">Key</span><span class="ti-bzc1-space"> = 0
+    </span><span class="ti-bzc1-command">Loop</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-command">While</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Key</span><span class="ti-bzc1-space"> == 0
+      </span><span class="ti-bzc1-comment">; While waiting for any keypress,
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-comment">; fill the complete playing field at random
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-comment">; with the winning symbol
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Basic_RandInt_</span><span class="ti-bzc1-space">  4 13
+      </span><span class="ti-bzc1-identifier">Y</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Basic_RandInt_</span><span class="ti-bzc1-space">  4 10
+      </span><span class="ti-bzc1-command">If</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Player</span><span class="ti-bzc1-space"> == 1 </span><span class="ti-bzc1-command">Then
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-identifier">Draw_Circle</span><span class="ti-bzc1-space"> 0
+        </span><span class="ti-bzc1-identifier">Draw_Cross</span><span class="ti-bzc1-space">  1
+      </span><span class="ti-bzc1-command">Else
+</span><span class="ti-bzc1-space">        </span><span class="ti-bzc1-identifier">Draw_Cross</span><span class="ti-bzc1-space">  0
+        </span><span class="ti-bzc1-identifier">Draw_Circle</span><span class="ti-bzc1-space"> 1
+      </span><span class="ti-bzc1-command">EndIf
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-comment">// Test if Key pressed, without waiting
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">_GetCSC
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">Key</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">A
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">EndLoop
+
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">// Let the users choose to play again or to quit  
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">Menu_Definition</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">My_Menu</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-string">&quot;Make a Choice&quot;
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-string">&quot;New Game&quot;
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-string">&quot;Exit&quot;
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-command">End_Menu_Definition
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">Game</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-command">Menu</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">My_Menu
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">Game</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Game</span><span class="ti-bzc1-space"> - 2
+
+    </span><span class="ti-bzc1-comment">// we need a short delay here,
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">// otherwise the key will recognized in the following part
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-reservedword">Sleep</span><span class="ti-bzc1-space"> 1
+  </span><span class="ti-bzc1-command">EndLoop
+
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">// when finished, we clear the screen completely
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Basic_ClrHome_
+</span><span class="ti-bzc1-command">End
+</span><span class="ti-bzc1-comment">;************************************************************
+
+</span></span>
+</code></pre>
+</body>
+</html>

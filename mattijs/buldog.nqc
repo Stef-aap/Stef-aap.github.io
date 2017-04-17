@@ -1,0 +1,24 @@
+task main ()
+{
+  SetSensorMode (SENSOR_1, SENSOR_MODE_RAW);
+  Off (OUT_A+OUT_B);
+  SetPower (OUT_A,7);
+  OnFwd(OUT_A);
+  start loop;
+}
+
+task loop ()
+{
+  while (true)
+  {
+    if (SENSOR_1 < 905)
+    {
+      OnFwd (OUT_A);
+    }
+    else
+    {
+      if (SENSOR_1 < 980) OnRev (OUT_A);
+    }
+  }
+}
+

@@ -1,0 +1,410 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Enhanced BZC</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="3" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>September 2006</span></p>
+<p><span class=rvts1>"Enhanced" BZC</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; <a href="jalccring3.gif"><img width=28 height=21 alt="" src="jalccring3.gif"></a>&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Quoted directly from the project manager / main programmer Erik van 't Wout:</p>
+<p><span class=rvts3>BASIC ASM (pronounced: "Basic Assembly") is a brand new programming language, designed for anyone who wants to get more power out of their calculator, without having to learn much. Of course, this last "much" is relative, you will not be able to get any advantage out of BASIC ASM within an hour, but it should be much easier to learn than Z80 Assembly.</span></p>
+<p><br></p>
+<p>BZC is a block structured language, with a very good human readable syntax, like Pascal, Algol or modern Basic. BZC is thé next step after TI-Basic, when you want more speed and more flexibility, but don't want to switch to pure assembler (yet). If we set the cost factor to step from TI-Basic into Assembler at 100, the step from TI-Basic into BZC is just 20, but gaining about 80% of the power of pure assembler.</p>
+<p><br></p>
+<p>For this brief evaluation we used the alpha release of BZC, version V0.1. For the test we used a number of small programs and one larger program: the game "connect-4" (sometimes known as "four-on-a-row"). <a class=rvts4 href="..\ti_bzc\connect4.html">Source view</a>, including downloads,</p>
+<p><a class=rvts4 href="..\ti_bzc\ti_basic_library.html">library file</a>. In JALcc we made an interface, comparable to <a class=rvts4 href="jalcc_ti84_editor.html">TI-Basic</a>, which also includes a simple pre-processor (called "enhanced" BZC) to overcome the (current) limitations of BZC.</p>
+<p><span class=rvts3><br></span></p>
+<p><span class=rvts3><br></span></p>
+<p><span class=rvts2>Conclusion</span></p>
+<p>With a number of workarounds we managed to get Connect-4 working correctly in "enhanced" BZC, functioning just like the TI-Basic version. As expected, the size increased from 2k to 3.5k, were an estimated quantity of 0.5 k is caused by the workarounds. The speed couldn't be measured accurately, but increased at least by a factor 5, probably with a factor 10. So the figures are as expected and indeed very good.</p>
+<p>Although BZC looks very promising, as thé (most easiest) next step after TI-Basic with large enhancements compared to TI-Basic itself, version V0.1 can't yet make this statement true. The compiler feels very solid, but has too many (simple) bugs, libraries are not yet available so you still need to program reasonable parts in assembler, documentation needs some improvements. Even "Enhanced" BZC is not sufficient to write program-code in a relaxed way.</p>
+<p>So my advice</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>for those who want, and are able to dig into assembler, try it out, write library files, report the bugs to Erik van 't Wout and Eugene Evans, and let's make BZC thé promising next step </li>
+<li>for those who don't like assembler, stick to TI-Basic and wait for the evaluation of version V0.2 </li>
+</ul>
+<p><br></p>
+<p><span class=rvts3><br></span></p>
+<p><span class=rvts2>Differences</span></p>
+<p><br></p>
+<p><span class=rvts10>Advantages</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Almost identical and as easy as TI-Basic, in some respects even easier </li>
+<li>Much faster program execution 5..10 times faster </li>
+<li>All internal TI-functions (Rom-Calls) are available, so much more flexibility than TI-basic </li>
+<li>Most common Normal TI-Basic functions are available in a fast model, not using the 11-byte TI-basic variables, but just bytes or words (2-byte values) </li>
+<li>You can build your own real functions,&nbsp; and store them in library files </li>
+<li>No (need for) goto's anymore </li>
+<li>No (need for those cripple) magic fast-IF-statements </li>
+<li>Comment in source file allowed / recommended. Much easier to maintain large programs </li>
+<li>No need for (speed) optimization </li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>Disadvantage</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>It's still in the alpha stage (We tested version ..., but although were some small bugs (we all could find a work around), the compiler "felt" very stable) </li>
+<li>Code-size will in general be larger than TI-basic </li>
+<li>It's not so fast and not so small, compared to pure assembler </li>
+<li>array indices start at zero (in TI-Basic at 1) </li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>"Enhanced" BZC</span></p>
+<p>Because we felled in love for BZC as soon as we saw it, but found some constructs were missing en couldn't wait for the next release (which is expected for the end of 2006 and will fix many of these issues), we build a small pre-processor, making BZC even more easier to use. We called these extensions "enhanced-BZC". Most of the enhancements are completely in line with the plans of the official next release of BZC ???</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>added 1 and 2-dimensional arrays ... </li>
+<li>comma's are allowed instead of spaces </li>
+<li>easier menu constructs </li>
+<li>1-level include of normal BZC files </li>
+<li>easier function definition </li>
+<li>case insensitive </li>
+<li>strings can be used as direct argument for functions </li>
+<li>case statement added </li>
+<li>some renaming making it more consistent </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Bugs / Weak points / Annoying issues / Wishes</span></p>
+<p>It was not always clear if something we couldn't achieve, was due to a bug, something not / different defined in the language or just our stupidity. There everything we've put everything we didn't like, in this chapter (in the hope the authors will correct a lot of this in version v0.2). There's no particular order in the list below.</p>
+<p><br></p>
+<p><span class=rvts10>BZC, the name</span></p>
+<p>"Very bad" ;-) chosen, because the string is too short to be googled on (also TI-calc.org refuses to search for it)</p>
+<p><br></p>
+<p><span class=rvts10>Brackets</span></p>
+<p>Brackets are quit annoying at the moment, sometimes they must be inserted when it's not logical needed, but the most annoying thing is that you're not allowed to write redundant brackets (i.e. to make the code more readable).</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; put (beer+1)&nbsp; 27+12&nbsp; </p>
+<p>doesn't work correctly and only stores 27</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; put (beer+1)&nbsp; (27+12) </p>
+<p>works OK</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; coala = (GET (beer+1)) </p>
+<p>gives no compiler output</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; coala = GET (beer+1)&nbsp; </p>
+<p>works OK </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; coala = (GET (beer+1)) + (GET (beer+1))</p>
+<p>gives compiler error</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If (key &gt;= K0) AND (key &lt;= K9) THEN </p>
+<p>gives compiler error unbalanced () </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If&nbsp; key &gt;= K0&nbsp;&nbsp; AND&nbsp;&nbsp; key &lt;= K9&nbsp; THEN </p>
+<p>doesn't work at all,</p>
+<p>work around: use nested IF statements</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Loop Until&nbsp; key &gt;= K0&nbsp;&nbsp; AND&nbsp;&nbsp; key &lt;= K9</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Loop While&nbsp; key &gt;= K0&nbsp;&nbsp; AND&nbsp;&nbsp; key &lt;= K9</p>
+<p>doesn't work, probably due the same reason</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X1 = X + DX * (I - 4)</p>
+<p>compiler error, unbalanced ()</p>
+<p><br></p>
+<p><span class=rvts10>Negative Numbers</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aap = -2&nbsp; (puts a space in between - and 2), work around:&nbsp; aap = 0 - 2 </p>
+<p><br></p>
+<p><span class=rvts10>Use of normal Z80 registers</span></p>
+<p>Use of Z80 registers as a "normal" variable&nbsp; should be discouraged. Using them can give very weird results. So either a warning or .... </p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>this works</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>this doesn't</span></p>
+<p>although "better"</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=161 height=121 alt="" src="bzc_demos_img24.png"></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=172 height=122 alt="" src="bzc_demos_img25.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts10>PRINTF and printf</span></p>
+<p>I still don't understand what the difference is (or I can't remember it), these 2 functions are very confusing</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; string mess = "aap"&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf&nbsp; mess</p>
+<p>crashed the compiler</p>
+<p><br></p>
+<p><span class=rvts10>NOT, &lt;&gt;</span></p>
+<p>I miss these operators very much.</p>
+<p><br></p>
+<p><span class=rvts10>Bitwise logical operators</span></p>
+<p>Would be very nice to have.</p>
+<p><br></p>
+<p><span class=rvts10>Documentation</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>CONST declares a constant 2-byte variable ???? constant or variable ??? </li>
+<li>how do I declare a constant byte ? </li>
+<li>Why is a 2-byte variable called an INT and not a WORD </li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>Signed Math</span></p>
+<p>Is this available ?</p>
+<p><br></p>
+<p><span class=rvts10>Compiler</span></p>
+<p>Would be good if the compiler tells his version number in the output.</p>
+<p>The compiler crashes regular and then wants to tell Bill about it. It would be nice if a debug facility (like MadExcept) was included.</p>
+<p><br></p>
+<p><span class=rvts10>Include</span></p>
+<p>We could not get this to work ("Enhanced" BZC solves this)</p>
+<p><br></p>
+<p><span class=rvts10>Scope of variables</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Function_Def Random</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WORD _RDM</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ASM</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LD&nbsp;&nbsp;&nbsp; HL,_RDM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;point HL to _RDM (LSB first !!)&nbsp;&nbsp; &lt;== _RDM not knwon</p>
+<p>work around, declare the variable global</p>
+<p><br></p>
+<p><span class=rvts10>Concatenation</span></p>
+<p>It would be nice to have a concatenation character, so a complex line can be split into more lines.</p>
+<p><br></p>
+<p><span class=rvts10>Break / Step</span></p>
+<p>As a FOR loop is always preferred over a WHILE of REPEAT loop, you need a break to exit large loops.</p>
+<p>A stepsize in a for loop would be nice.</p>
+<p><br></p>
+<p><span class=rvts10>Arrays</span></p>
+<p>We need at least 1 and 2 dimensional byte and word arrays.</p>
+<p>And maybe also the official TI-basic arrays, in which case start index will be very confusing (0, for byte and word, 1 for TI-basic).</p>
+<p><br></p>
+<p><span class=rvts10>Case Statement</span></p>
+<p>Needed to make code far more readable.</p>
+<p><br></p>
+<p><span class=rvts10>Menu definition</span></p>
+<p>should be simpler</p>
+<p><br></p>
+<p><span class=rvts10>Procedure definition</span></p>
+<p>can be done simpler.</p>
+<p>Preferable with the use of brackets.</p>
+<p><br></p>
+<p><span class=rvts10>Case Sensitive</span></p>
+<p>Very annoying (and sometimes very confusing, see printf)</p>
+<p><br></p>
+<p><span class=rvts10>Comma's</span></p>
+<p>instead of spaces, for better readability.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts1>Enhanced BZC</span></p>
+<p><br></p>
+<p><span class=rvts2>Include</span></p>
+<p>The normal include (not the #include) doesn't seem to work, therefor in enhanced BZC a quick and dirty 1 level include is implemented. One level means a library may not call other libraries, but you're allowed to include more than 1 library in the main program file. The library file is search first in the path of the main program, if not found the JALcc main directory is searched.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=350 height=36 alt="" src="bzc_demos_img18.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Menu Definition</span></p>
+<p>Menu definitions are quit complex, because you have to define the items as constant strings first and you have to calculate all kinds of redundant numbers.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=266 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Enhanced</span></p>
+</td>
+<td width=347 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Orginal</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=266 valign=top style="{background-color: #ffffd4;}">
+<p><img width=313 height=106 alt="" src="bzc_demos_img5.png"></p>
+</td>
+<td width=347 valign=top style="{background-color: #ffffd4;}">
+<p><img width=269 height=155 alt="" src="bzc_demos_img4.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Procedure Definition</span></p>
+<p>Although it is a good habit to declare a function before it's use, but it that case the declaration should be exactly the same as in the function definition (like in Pascal). So here we have removed the redundancy.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Enhanced</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Orginal</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=152 height=21 alt="" src="bzc_demos_img8.png"></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=201 height=39 alt="" src="bzc_demos_img7.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Case Insensitive</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Enhanced</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Orginal</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=235 height=120 alt="" src="bzc_demos_img10.png"></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=229 height=121 alt="" src="bzc_demos_img9.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Direct strings as arguments</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Enhanced</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Orginal</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=212 height=20 alt="" src="bzc_demos_img16.png"></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=267 height=36 alt="" src="bzc_demos_img15.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Comma's instead of spaces</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Enhanced</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Orginal</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=262 height=91 alt="" src="bzc_demos_img11.png"></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=248 height=89 alt="" src="bzc_demos_img12.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Arrays</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Enhanced</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Orginal</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=268 height=126 alt="" src="bzc_demos_img21.png"></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=311 height=125 alt="" src="bzc_demos_img23.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Case Statement</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Enhanced</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Orginal</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=178 height=119 alt="" src="bzc_demos_img19.png"></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=231 height=267 alt="" src="bzc_demos_img20.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Parameter Passing</span></p>
+<p>One of the obscure things in BZC is parameter passing. We thought by evaluating PrintF we could discover the details, but PrintF probably also gets some help from the compiler.</p>
+<p>So here are the rules</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>B,C,BC may not be used </li>
+<li>if HL is used, it must b the first parameter </li>
+<li>I think using L is the same as HL ?? </li>
+<li>Inside the procedure you can use HL to catch a user parameter </li>
+</ul>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=490 height=312 alt="" src="bzc_demos_img17.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Some Renaming</span></p>
+<p>Original naming can be used too.</p>
+<p>At the moment Integer is changed to WORD.</p>
+<p>And I still don't know if I like the underscore in End_If etc ???</p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Enhanced</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Oginal</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=173 height=343 alt="" src="bzc_demos_img14.png"></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><img width=175 height=342 alt="" src="bzc_demos_img13.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

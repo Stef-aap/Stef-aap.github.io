@@ -1,0 +1,75 @@
+--
+-- file      : ramdom3.jal
+-- author    : Wouter van Ooijen
+-- date      : 17-DEC-1998
+-- purpose   : pseudo-random number based on a 24-bits LFSR
+-- requires  : -
+--
+-- Copyright (C) 1998 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+
+
+var byte _random_b1
+var byte _random_b2
+var byte _random_b3 
+
+-- make sure there is at least one bit set!
+asm bsf _random_b1, 0
+
+procedure _random_shift is
+   -- from the art of electronics, p657:
+   -- 24 bits LFSR needs xor feedback from taps at 17, 22 and 23
+   assembler
+           movlw 0
+      bank btfsc _random_b3, 1
+              xorlw 0xFF
+           btfsc _random_b3, 6
+              xorlw 0xFF
+           btfsc _random_b3, 7
+              xorlw 0xFF
+           addlw 1 
+      bank rlf   _random_b1, f
+      bank rlf   _random_b2, f
+      bank rlf   _random_b3, f
+   end assembler
+end procedure
+
+var bit  _random_bit   at _random_b1 : 0
+var byte _random_byte  at _random_b1
+
+procedure randomize( byte in n = 0 ) is
+   _random_b1 = n
+   _random_b2 = 1
+   _random_b3 = 0
+   for 24 loop
+      _random_shift
+   end loop
+end procedure
+
+function random_bit return bit is
+   _random_shift
+   return _random_bit
+end function
+
+function random_byte return byte is
+   for 8 loop
+      _random_shift
+   end loop
+   return _random_byte
+end function
+

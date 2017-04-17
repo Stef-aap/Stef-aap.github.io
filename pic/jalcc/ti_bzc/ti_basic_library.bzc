@@ -1,0 +1,123 @@
+//************************
+//equivalents for TI-Basic
+//************************
+
+
+//-----------------------------------------------------
+// Naming conventions
+//    TI-Basic Name    XYZ
+//    BZC-Name         Basic_XYZ_
+//-----------------------------------------------------
+
+
+//-----------------------------------------------------
+// TI-BASIC        Line  (X1, Y1, X2, Y2, Draw)
+// limitation, should always be called with 5 parameters
+// This function doesn't use the 11-byte OP-varaibles like TI_Basic
+// but just simple bytes and words.
+// The advantage is that's much faster,
+// the disadvantage is, that scaling and shifting is not supported.
+//-----------------------------------------------------
+Function_Def Basic_Line_  HL, A,  D,  E,  Draw
+  ASM
+    LD  B, L         ; B = X1 coordinate
+    LD  C, A         ; C = Y1 coordinate
+  ENDASM 
+
+  HL = Draw          ; HL = (0=Erase, 1=Draw, 2=Toggle)
+
+  ASM
+    LD  H, L         ; H = (0=Erase, 1=Draw, 2=Toggle)
+  ENDASM 
+  _ILine             ; Draw the line
+End_Function_Def
+//-----------------------------------------------------
+
+
+//-----------------------------------------------------
+//                 TEXT  (Row, Col, String)
+// limited version can only display strings,
+// whereas in TI-Basic it can also format all kind of types
+//-----------------------------------------------------
+Function_Def Basic_Text_   L,   A,    DE
+  ASM
+    EX  DE, HL       ; HL = address of string
+                     ; E = Y
+    LD  (PenCol), A  ; set Column for _VPutS
+    LD  A, E         ;
+    LD  (PenRow), A  ; set Row for _VPutS
+  ENDASM 
+  _VPutS             ; Displays string addressed by (HL)
+End_Function_Def
+//-----------------------------------------------------
+
+
+//-----------------------------------------------------
+//                 ClrHome ()
+//-----------------------------------------------------
+Function_Def Basic_ClrHome_
+    _GrBufClr
+    _ClrLCDFull
+    ;_ClrScrnFull
+End_Function_Def
+//-----------------------------------------------------
+
+
+//-----------------------------------------------------
+// RANDOM generator, generates a new random WORD
+//-----------------------------------------------------
+WORD _RDM  ;bug, not allowed to place inside the function !!
+Function_Def Random
+  ASM
+      LD    HL,_RDM         ;point HL to _RDM (LSB first !!)
+      INC   HL              ;point HL to MSB of _RDM
+      
+      SCF                   ;set carry
+      CCF                   ;invert carry
+
+      RR    (HL)            ;rotate MSB of _RDM
+      DEC   HL              ;point HL to LSB of _RDM
+
+      RR    (HL)            ;rotate LSB of _RDM
+      JR    C, Finish       ;jump if carry
+
+      INC   HL
+      LD    A, $A1          ;$A1A1 seems to be a prime !!
+      XOR   (HL)
+      LD    (HL),A
+      
+      DEC   HL
+      LD    A, $A1
+      XOR   (HL)
+      LD    (HL),A
+      
+    Finish:
+  ENDasm
+  Return _RDM
+End_Function_Def
+//-----------------------------------------------------
+
+
+//-----------------------------------------------------
+// TI-BASIC        RandInt (LowerBound, UpperBound)
+// Generates a random Word, in the range from LowerBound .. MAX
+// where BASE and MAX are included in the range
+//-----------------------------------------------------
+Function_Def Basic_RandInt_  LowerBound, UpperBound
+Word X
+Word _Max
+Word Divisor
+Word Modulo
+  ; calculate zero based range
+  _Max = UpperBound - LowerBound + 1
+  ; run random generator
+  X = Random
+  ; calculate _RDM MOD range
+  Divisor = X / _Max
+  Modulo = X - _MAX * Divisor
+  ; return value, don't forget to add base
+  Return Modulo + LowerBound
+End_Function_Def
+;************************************************************
+
+

@@ -1,0 +1,7 @@
+pragma name 12f675_20
+pragma target chip  12f675
+pragma target fuses 0x11C2
+pragma target clock 20_000_000
+pragma target osc   hs
+
+include jpic

@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>SourceCode exporting of voer2.8xpr</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="generator" content="SynEdit HTML exporter" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+.ti841-command { color: #0000FF; font-weight: bold; }
+.ti841-comment { color: #808080; font-style: italic; }
+.ti841-constant { color: #FF0000; }
+.ti841-declaration { color: #FF00FF; }
+.ti841-field { color: #800000; font-style: italic; }
+.ti841-identifier { color: #000000; }
+.ti841-number { color: #FF0000; }
+.ti841-preprocessor { color: #FF00FF; font-weight: bold; }
+.ti841-reservedword { color: #000080; font-weight: bold; }
+.ti841-space { }
+.ti841-string { color: #FF0000; }
+.ti841-symbol { color: #008080; }
+-->
+</style>
+</head>
+<body>
+<pre>
+<code><span style="font: 10pt Courier New;"><span class="ti841-identifier">; <a href="voer2.8xpr">download JALcc Source code:voer2.8xpr</a>
+; <A href="voer2.8xp">download &nbsp TI-Basic &nbsp Source &nbsp code:voer2.8xp</A>
+
+</span><span class="ti841-comment">; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 08/26/06, 14:35
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 05 0D 00 2B 05 &lt;pp&gt; &lt;progname&gt;  00 00 2B 05 29 05
+; program name: Voer2
+; file is NOT protected
+
+; unkown codes are inserted as &quot;%%HH%%&quot;
+; where &quot;HH&quot; is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+
+;*******************************************
+; Use of the Variables
+;*******************************************
+; A = temp var for Test_If_Won
+; B = Result of Test_If_Won
+; N = Counter for Test_If_Won
+; P = Player (-1,1)
+; R = Row in visible field (1..7)
+; X = Column in history array
+; Y = Row in history array
+; Z = Visibility, 1=draw, 0=erase
+;*******************************************
+
+
+
+;************************************************************
+; Waits until a valid user input is received
+; Also checks if the column has free space
+; If all conditions are satisfied, this procedure will return
+; with a new coin positioned at (C,R) in the visible field
+; and (X,Y) indicating the position in the array
+; see &lt;a href=&quot;voer2.8xp&quot;&gt;voer2.8xp &lt;/a&gt; endsee
+;************************************************************
+</span><span class="ti841-preprocessor">Procedure</span><span class="ti841-space"> Get_User_Input
+  </span><span class="ti841-comment">; wait for a valid key 0..9 (X&gt;0)
+</span><span class="ti841-space">  </span><span class="ti841-comment">; in a column that's not completely full
+</span><span class="ti841-space">  </span><span class="ti841-command">Repeat</span><span class="ti841-space"> </span><span class="ti841-reservedword">X
+</span><span class="ti841-space">    </span><span class="ti841-comment">; Wait for a keyboard input
+</span><span class="ti841-space">    </span><span class="ti841-command">Getkey</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">X
+
+</span><span class="ti841-space">    </span><span class="ti841-comment">; Translate key codes
+</span><span class="ti841-space">    </span><span class="ti841-comment">; 72  73  74
+</span><span class="ti841-space">    </span><span class="ti841-comment">; 82  83  84
+</span><span class="ti841-space">    </span><span class="ti841-comment">; 92  93  94
+</span><span class="ti841-space">    </span><span class="ti841-comment">; 102
+</span><span class="ti841-space">     </span><span class="ti841-symbol">(</span><span class="ti841-identifier">Ans</span><span class="ti841-symbol">=</span><span class="ti841-number">92</span><span class="ti841-symbol">)+</span><span class="ti841-number">2</span><span class="ti841-symbol">(</span><span class="ti841-identifier">Ans</span><span class="ti841-symbol">=</span><span class="ti841-number">93</span><span class="ti841-symbol">)+</span><span class="ti841-number">3</span><span class="ti841-symbol">(</span><span class="ti841-identifier">Ans</span><span class="ti841-symbol">=</span><span class="ti841-number">94</span><span class="ti841-symbol">)+|
+</span><span class="ti841-space">    </span><span class="ti841-number">4</span><span class="ti841-symbol">(</span><span class="ti841-identifier">Ans</span><span class="ti841-symbol">=</span><span class="ti841-number">82</span><span class="ti841-symbol">)+</span><span class="ti841-number">5</span><span class="ti841-symbol">(</span><span class="ti841-identifier">Ans</span><span class="ti841-symbol">=</span><span class="ti841-number">83</span><span class="ti841-symbol">)+</span><span class="ti841-number">6</span><span class="ti841-symbol">(</span><span class="ti841-identifier">Ans</span><span class="ti841-symbol">=</span><span class="ti841-number">84</span><span class="ti841-symbol">)+|
+</span><span class="ti841-space">    </span><span class="ti841-number">7</span><span class="ti841-symbol">(</span><span class="ti841-identifier">Ans</span><span class="ti841-symbol">=</span><span class="ti841-number">72</span><span class="ti841-symbol">)+</span><span class="ti841-number">8</span><span class="ti841-symbol">(</span><span class="ti841-identifier">Ans</span><span class="ti841-symbol">=</span><span class="ti841-number">73</span><span class="ti841-symbol">)+</span><span class="ti841-number">9</span><span class="ti841-symbol">(</span><span class="ti841-identifier">Ans</span><span class="ti841-symbol">=</span><span class="ti841-number">74</span><span class="ti841-symbol">)+|
+</span><span class="ti841-space">    </span><span class="ti841-number">10</span><span class="ti841-symbol">(</span><span class="ti841-identifier">Ans</span><span class="ti841-symbol">=</span><span class="ti841-number">102</span><span class="ti841-symbol">)-&gt;</span><span class="ti841-reservedword">X
+</span><span class="ti841-space">    
+    </span><span class="ti841-comment">; If K&lt;&gt;0 then we have a visible column
+</span><span class="ti841-space">    </span><span class="ti841-comment">; so check if there's empty space in that column
+</span><span class="ti841-space">    </span><span class="ti841-command">if</span><span class="ti841-space"> </span><span class="ti841-reservedword">X</span><span class="ti841-symbol">:</span><span class="ti841-command">Then
+</span><span class="ti841-space">      </span><span class="ti841-comment">; Make K a valid array index (step over the 3-sized border)
+</span><span class="ti841-space">      </span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">3</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">X
+</span><span class="ti841-space">      
+      </span><span class="ti841-comment">; Search for a Zero in the specified column
+</span><span class="ti841-space">      </span><span class="ti841-comment">; We don't boundery check, because there are always 
+</span><span class="ti841-space">      </span><span class="ti841-comment">; zeroes around the visible part of the array
+</span><span class="ti841-space">      </span><span class="ti841-number">3</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">Y
+</span><span class="ti841-space">      </span><span class="ti841-command">Repeat</span><span class="ti841-space"> </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)=</span><span class="ti841-number">0
+</span><span class="ti841-space">        </span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">Y
+</span><span class="ti841-space">      </span><span class="ti841-command">End
+
+</span><span class="ti841-space">      </span><span class="ti841-comment">; Now &quot;I&quot; holds the lowest row that's empty
+</span><span class="ti841-space">      </span><span class="ti841-comment">; So check if row position is in the visible part
+</span><span class="ti841-space">      </span><span class="ti841-comment">; otherwise clear K
+</span><span class="ti841-space">      </span><span class="ti841-reservedword">X</span><span class="ti841-symbol">(</span><span class="ti841-number">1</span><span class="ti841-symbol">-(</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">&gt;</span><span class="ti841-number">10</span><span class="ti841-symbol">))-&gt;</span><span class="ti841-reservedword">X</span><span class="ti841-space">  
+    </span><span class="ti841-command">End
+</span><span class="ti841-space">  </span><span class="ti841-command">End
+</span><span class="ti841-preprocessor">End_Procedure
+</span><span class="ti841-comment">;************************************************************
+
+
+
+;************************************************************
+;************************************************************
+</span><span class="ti841-preprocessor">Procedure</span><span class="ti841-space"> Draw_Cross </span><span class="ti841-symbol">(</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-comment">;  (X-4)8+14-&gt;C
+;  Ans+4-&gt;D
+;  (Y-3)8-2-&gt;R
+;  Ans-4-&gt;S
+;  Line(C,R,D,S,Z)
+;  Line(C,S,D,R,Z)
+</span><span class="ti841-space">  </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">18</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">26</span><span class="ti841-symbol">,</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">14</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">30</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-space">  </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">18</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">30</span><span class="ti841-symbol">,</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">14</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">26</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+
+</span><span class="ti841-space">  </span><span class="ti841-comment">;I'ld expect much faster, 
+</span><span class="ti841-space">  </span><span class="ti841-comment">;but in facts it's only 2 bytes longer
+</span><span class="ti841-space">  </span><span class="ti841-comment">;8X-&gt;X
+</span><span class="ti841-space">  </span><span class="ti841-comment">;8Y-&gt;Y
+</span><span class="ti841-space">  </span><span class="ti841-comment">;Line(X-18,Y-26,X-14,Y-30,1)
+</span><span class="ti841-space">  </span><span class="ti841-comment">;Line(X-18,Y-30,X-14,Y-26,1)
+</span><span class="ti841-preprocessor">End_Procedure
+</span><span class="ti841-comment">;************************************************************
+
+</span><span class="ti841-space">         
+
+
+</span><span class="ti841-comment">;************************************************************
+;************************************************************
+</span><span class="ti841-preprocessor">Procedure</span><span class="ti841-space"> Draw_circle_old </span><span class="ti841-symbol">(</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-comment">;  (X-4)8+12-&gt;C
+;X8-20
+;  (Y-3)8-8-&gt;R
+;Y8-32  
+</span><span class="ti841-space">  </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">19</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">28</span><span class="ti841-symbol">,</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">17</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">26</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-space">  </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">19</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">29</span><span class="ti841-symbol">,</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">17</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">31</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-space">  </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">16</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">31</span><span class="ti841-symbol">,</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">14</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">29</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-space">  </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">16</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">26</span><span class="ti841-symbol">,</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">14</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">28</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-preprocessor">End_Procedure
+</span><span class="ti841-comment">;************************************************************
+
+
+;************************************************************
+;************************************************************
+</span><span class="ti841-preprocessor">Procedure</span><span class="ti841-space"> Draw_circle </span><span class="ti841-symbol">(</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-comment">;  (X-4)8+12-&gt;C
+;X8-20
+;  (Y-3)8-8-&gt;R
+;Y8-32  
+</span><span class="ti841-space">  </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">19</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">28</span><span class="ti841-symbol">,</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">17</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">26</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-space">  </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">19</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">29</span><span class="ti841-symbol">,</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">17</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">31</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-space">  </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">16</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">31</span><span class="ti841-symbol">,</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">14</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">29</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-space">  </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">16</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">26</span><span class="ti841-symbol">,</span><span class="ti841-identifier">X8</span><span class="ti841-symbol">-</span><span class="ti841-number">14</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Y8</span><span class="ti841-symbol">-</span><span class="ti841-number">28</span><span class="ti841-symbol">,</span><span class="ti841-identifier">Draw_Erase</span><span class="ti841-symbol">)
+</span><span class="ti841-preprocessor">End_Procedure
+</span><span class="ti841-comment">;************************************************************
+
+
+;************************************************************
+; This procedure checks if a new inserted coin,
+; by player P, placed at (X,Y) in the history array
+; results in a winning situation
+; 
+;************************************************************
+</span><span class="ti841-preprocessor">Procedure</span><span class="ti841-space"> Test_If_Won
+  </span><span class="ti841-comment">; We will look for 3 consecutive coins in all directions
+</span><span class="ti841-space">  </span><span class="ti841-comment">; So the sum of these 3 elements should be 3*P
+</span><span class="ti841-space">  </span><span class="ti841-number">3P</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">A
+</span><span class="ti841-space">  
+  </span><span class="ti841-comment">;clear the result
+</span><span class="ti841-space">  </span><span class="ti841-command">Delvar</span><span class="ti841-space"> </span><span class="ti841-reservedword">B
+</span><span class="ti841-space">  
+  </span><span class="ti841-comment">; scan the horizontal line 
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">  </span><span class="ti841-reservedword">B</span><span class="ti841-symbol">+(</span><span class="ti841-reservedword">N</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">)-&gt;</span><span class="ti841-reservedword">B
+
+</span><span class="ti841-space">  </span><span class="ti841-comment">; scan the vertical line
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">3</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">3</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">  </span><span class="ti841-reservedword">B</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">N</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">)-&gt;</span><span class="ti841-reservedword">B
+
+</span><span class="ti841-space">  </span><span class="ti841-comment">; scan the diagonal from bottom-left to top-right
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">3</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">3</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">  </span><span class="ti841-reservedword">B</span><span class="ti841-symbol">+</span><span class="ti841-number">4</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">N</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">)-&gt;</span><span class="ti841-reservedword">B
+</span><span class="ti841-space">  
+  </span><span class="ti841-comment">; scan the diagonal from top-left to bottom-right
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">3</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-space"> </span><span class="ti841-reservedword">or</span><span class="ti841-space"> </span><span class="ti841-symbol">|
+</span><span class="ti841-space">  </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">1</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">2</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">2</span><span class="ti841-symbol">)+[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">+</span><span class="ti841-number">3</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">3</span><span class="ti841-symbol">)=</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">  </span><span class="ti841-reservedword">B</span><span class="ti841-symbol">+</span><span class="ti841-number">8</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">N</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">)-&gt;</span><span class="ti841-reservedword">B
+</span><span class="ti841-preprocessor">End_Procedure
+</span><span class="ti841-comment">;************************************************************
+;************************************************************
+
+
+;************************************************************
+; Start of MAIN PROGRAM
+;************************************************************
+</span><span class="ti841-symbol">:</span><span class="ti841-string">&quot;Four on a Row
+</span><span class="ti841-command">Repeat</span><span class="ti841-space"> </span><span class="ti841-reservedword">Z
+</span><span class="ti841-space">  </span><span class="ti841-comment">; Clear screen and graph
+</span><span class="ti841-space">  </span><span class="ti841-command">PlotsOff</span><span class="ti841-symbol">:</span><span class="ti841-command">FnOff</span><span class="ti841-symbol">:</span><span class="ti841-command">ClrDraw</span><span class="ti841-symbol">:</span><span class="ti841-command">AxesOff</span><span class="ti841-symbol">:</span><span class="ti841-command">ZStandard
+</span><span class="ti841-space">  </span><span class="ti841-comment">; Set the graph origin and scaling
+</span><span class="ti841-space">  </span><span class="ti841-number">0</span><span class="ti841-symbol">-&gt;</span><span class="ti841-identifier">Xmin
+  </span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-identifier">_delta_X
+  </span><span class="ti841-number">0</span><span class="ti841-symbol">-&gt;</span><span class="ti841-identifier">Ymin
+  </span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-identifier">_delta_y
+  
+  </span><span class="ti841-comment">;Draw the field
+</span><span class="ti841-space">  </span><span class="ti841-comment">; draw the horizontal lines
+</span><span class="ti841-space">  </span><span class="ti841-command">For</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">,</span><span class="ti841-number">0</span><span class="ti841-symbol">,</span><span class="ti841-number">62</span><span class="ti841-symbol">,</span><span class="ti841-number">8</span><span class="ti841-symbol">)
+</span><span class="ti841-space">    </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-number">12</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">,</span><span class="ti841-number">92</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">)
+</span><span class="ti841-space">  </span><span class="ti841-command">End
+</span><span class="ti841-space">  </span><span class="ti841-comment">; draw the vertical lines
+</span><span class="ti841-space">  </span><span class="ti841-command">For</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">,</span><span class="ti841-number">1</span><span class="ti841-symbol">,</span><span class="ti841-number">11</span><span class="ti841-symbol">)
+</span><span class="ti841-space">    </span><span class="ti841-command">Text</span><span class="ti841-symbol">(</span><span class="ti841-number">0</span><span class="ti841-symbol">,</span><span class="ti841-number">8L</span><span class="ti841-symbol">+</span><span class="ti841-number">6</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">(</span><span class="ti841-reservedword">L</span><span class="ti841-symbol">&lt;</span><span class="ti841-number">10</span><span class="ti841-symbol">))
+</span><span class="ti841-space">    </span><span class="ti841-command">Line</span><span class="ti841-symbol">(</span><span class="ti841-number">8L</span><span class="ti841-symbol">+</span><span class="ti841-number">4</span><span class="ti841-symbol">,</span><span class="ti841-number">0</span><span class="ti841-symbol">,</span><span class="ti841-number">8L</span><span class="ti841-symbol">+</span><span class="ti841-number">4</span><span class="ti841-symbol">,</span><span class="ti841-number">55</span><span class="ti841-symbol">)
+</span><span class="ti841-space">  </span><span class="ti841-command">End
+</span><span class="ti841-space">  
+  
+  </span><span class="ti841-comment">; Create an array to hold the coin positions
+</span><span class="ti841-space">  </span><span class="ti841-comment">; although the visible coin area is only 10 width and 7 high,
+</span><span class="ti841-space">  </span><span class="ti841-comment">; we create a larger matrix, of 16 by 13,
+</span><span class="ti841-space">  </span><span class="ti841-comment">; so that on each side there are 3 positions extra
+</span><span class="ti841-space">  </span><span class="ti841-comment">; The advantage is that we don't need to calculate 
+</span><span class="ti841-space">  </span><span class="ti841-comment">; with special boundery conditions
+</span><span class="ti841-space">  </span><span class="ti841-comment">; A newly array will always be cleared ???
+</span><span class="ti841-space">  </span><span class="ti841-command">Delvar</span><span class="ti841-space"> </span><span class="ti841-symbol">[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">]
+</span><span class="ti841-space">  </span><span class="ti841-symbol">{</span><span class="ti841-number">16</span><span class="ti841-symbol">,</span><span class="ti841-number">13</span><span class="ti841-symbol">}-&gt;</span><span class="ti841-command">dim</span><span class="ti841-symbol">([</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">])
+</span><span class="ti841-space">  
+  </span><span class="ti841-comment">; Set the first Player
+</span><span class="ti841-space">  </span><span class="ti841-number">1</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">P
+</span><span class="ti841-space">  
+  </span><span class="ti841-comment">; Initialize the position where current player is indicated
+</span><span class="ti841-space">  </span><span class="ti841-number">3</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">X
+</span><span class="ti841-space">  </span><span class="ti841-number">4</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">Y
+</span><span class="ti841-space">  
+  </span><span class="ti841-comment">; repeat until WON
+</span><span class="ti841-space">  </span><span class="ti841-command">Repeat</span><span class="ti841-space"> </span><span class="ti841-reservedword">B
+</span><span class="ti841-space">    </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">P</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-command">Then
+</span><span class="ti841-space">      </span><span class="ti841-comment">; place the new coin of the user P=1
+</span><span class="ti841-space">  </span><span class="ti841-comment">;    Call Draw_Circle(1)
+</span><span class="ti841-space">  
+      </span><span class="ti841-comment">; Erase the current Player P=1
+</span><span class="ti841-space">      </span><span class="ti841-number">3</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">X
+</span><span class="ti841-space">      </span><span class="ti841-number">4</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">Y
+</span><span class="ti841-space">      </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Circle</span><span class="ti841-symbol">(</span><span class="ti841-number">0</span><span class="ti841-symbol">)
+</span><span class="ti841-space">  
+      </span><span class="ti841-comment">; Set new current Player P=-1
+</span><span class="ti841-space">      </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Cross</span><span class="ti841-symbol">(</span><span class="ti841-number">1</span><span class="ti841-symbol">)
+</span><span class="ti841-space">    </span><span class="ti841-command">Else</span><span class="ti841-space">  </span><span class="ti841-comment">;and here the same for the other player
+</span><span class="ti841-space">  </span><span class="ti841-comment">;    Call Draw_Cross(1)
+</span><span class="ti841-space">      </span><span class="ti841-number">3</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">X
+</span><span class="ti841-space">      </span><span class="ti841-number">4</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">Y
+</span><span class="ti841-space">      </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Cross</span><span class="ti841-symbol">(</span><span class="ti841-number">0</span><span class="ti841-symbol">)
+</span><span class="ti841-space">      </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Circle</span><span class="ti841-symbol">(</span><span class="ti841-number">1</span><span class="ti841-symbol">)
+</span><span class="ti841-space">    </span><span class="ti841-command">End
+</span><span class="ti841-space">   
+    </span><span class="ti841-comment">; wait for a valid key 0..9
+</span><span class="ti841-space">    </span><span class="ti841-comment">; in a column that's not completely full
+</span><span class="ti841-space">    </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Get_User_Input
+ 
+    
+</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">M
+Y</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">N
+</span><span class="ti841-space">    </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">P</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-command">Then
+</span><span class="ti841-space">  </span><span class="ti841-comment">; Erase the current Player P=1
+</span><span class="ti841-space">  </span><span class="ti841-number">3</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">X
+</span><span class="ti841-space">  </span><span class="ti841-number">4</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">Y
+</span><span class="ti841-space">  </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Cross</span><span class="ti841-symbol">(</span><span class="ti841-number">0</span><span class="ti841-symbol">)
+</span><span class="ti841-space">      </span><span class="ti841-comment">; place the new coin of the user P=1
+</span><span class="ti841-reservedword">M</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">X
+N</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">Y
+</span><span class="ti841-space">      </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Cross</span><span class="ti841-symbol">(</span><span class="ti841-number">1</span><span class="ti841-symbol">)
+</span><span class="ti841-space">    </span><span class="ti841-command">Else</span><span class="ti841-space">  </span><span class="ti841-comment">;and here the same for the other player
+</span><span class="ti841-space">  </span><span class="ti841-number">3</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">X
+</span><span class="ti841-space">  </span><span class="ti841-number">4</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">Y
+</span><span class="ti841-space">  </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Circle</span><span class="ti841-symbol">(</span><span class="ti841-number">0</span><span class="ti841-symbol">)
+</span><span class="ti841-reservedword">M</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">X
+N</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">Y
+</span><span class="ti841-space">      </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Circle</span><span class="ti841-symbol">(</span><span class="ti841-number">1</span><span class="ti841-symbol">)
+</span><span class="ti841-space">    </span><span class="ti841-command">End
+
+
+</span><span class="ti841-space">  
+    </span><span class="ti841-comment">; Here we have a new valid coin position,
+</span><span class="ti841-space">    </span><span class="ti841-comment">; In the visible field indicated by coordinates (C,R)
+</span><span class="ti841-space">    </span><span class="ti841-comment">; In the history array indicated by coordinates (X,Y)
+</span><span class="ti841-space">    </span><span class="ti841-comment">; So store the result
+</span><span class="ti841-space">    </span><span class="ti841-reservedword">P</span><span class="ti841-symbol">-&gt;[</span><span class="ti841-reservedword">A</span><span class="ti841-symbol">](</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">,</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">)
+</span><span class="ti841-space">  
+    </span><span class="ti841-comment">; test if this is a winning situation, result in B
+</span><span class="ti841-space">    </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Test_If_won
+  
+    </span><span class="ti841-comment">; Change to the other Player
+</span><span class="ti841-space">    </span><span class="ti841-symbol">(-)</span><span class="ti841-reservedword">P</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">P
+</span><span class="ti841-space">  </span><span class="ti841-command">End
+</span><span class="ti841-space">  
+
+  
+  </span><span class="ti841-command">Vertical</span><span class="ti841-space"> </span><span class="ti841-number">8</span><span class="ti841-symbol">*(</span><span class="ti841-reservedword">X</span><span class="ti841-symbol">-</span><span class="ti841-number">4</span><span class="ti841-symbol">)+</span><span class="ti841-number">16
+</span><span class="ti841-space">  </span><span class="ti841-command">Horizontal</span><span class="ti841-space"> </span><span class="ti841-number">8</span><span class="ti841-symbol">*(</span><span class="ti841-reservedword">Y</span><span class="ti841-symbol">-</span><span class="ti841-number">4</span><span class="ti841-symbol">)+</span><span class="ti841-number">4
+
+</span><span class="ti841-space">  </span><span class="ti841-command">Text</span><span class="ti841-symbol">(</span><span class="ti841-number">0</span><span class="ti841-symbol">,</span><span class="ti841-number">14</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;Press  Key  to  Continue  &quot;
+</span><span class="ti841-space">  </span><span class="ti841-command">Repeat</span><span class="ti841-space"> </span><span class="ti841-command">Getkey
+</span><span class="ti841-space">    </span><span class="ti841-command">RandInt</span><span class="ti841-symbol">(</span><span class="ti841-number">4</span><span class="ti841-symbol">,</span><span class="ti841-number">10</span><span class="ti841-symbol">)-&gt;</span><span class="ti841-reservedword">Y
+</span><span class="ti841-space">    </span><span class="ti841-command">RandInt</span><span class="ti841-symbol">(</span><span class="ti841-number">4</span><span class="ti841-symbol">,</span><span class="ti841-number">13</span><span class="ti841-symbol">)-&gt;</span><span class="ti841-reservedword">X
+</span><span class="ti841-space">    </span><span class="ti841-command">If</span><span class="ti841-space"> </span><span class="ti841-reservedword">P</span><span class="ti841-symbol">=</span><span class="ti841-number">1</span><span class="ti841-symbol">:</span><span class="ti841-command">then
+</span><span class="ti841-space">      </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Cross</span><span class="ti841-symbol">(</span><span class="ti841-number">0</span><span class="ti841-symbol">)
+</span><span class="ti841-space">      </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Circle</span><span class="ti841-symbol">(</span><span class="ti841-number">1</span><span class="ti841-symbol">)
+</span><span class="ti841-space">    </span><span class="ti841-command">else
+</span><span class="ti841-space">      </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Circle</span><span class="ti841-symbol">(</span><span class="ti841-number">0</span><span class="ti841-symbol">)
+</span><span class="ti841-space">      </span><span class="ti841-preprocessor">Call</span><span class="ti841-space"> Draw_Cross</span><span class="ti841-symbol">(</span><span class="ti841-number">1</span><span class="ti841-symbol">)
+</span><span class="ti841-space">    </span><span class="ti841-command">end
+</span><span class="ti841-space">  </span><span class="ti841-command">end
+</span><span class="ti841-space">    
+  </span><span class="ti841-command">Text</span><span class="ti841-symbol">(</span><span class="ti841-number">7</span><span class="ti841-symbol">,</span><span class="ti841-number">14</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;1. New Game &quot;
+</span><span class="ti841-space">  </span><span class="ti841-command">Text</span><span class="ti841-symbol">(</span><span class="ti841-number">15</span><span class="ti841-symbol">,</span><span class="ti841-number">14</span><span class="ti841-symbol">,</span><span class="ti841-string">&quot;2. Exit     &quot;
+
+</span><span class="ti841-space">    </span><span class="ti841-comment">; Wait for a keyboard input
+</span><span class="ti841-space">  </span><span class="ti841-command">Repeat</span><span class="ti841-space"> Ans
+    </span><span class="ti841-command">Getkey</span><span class="ti841-symbol">-&gt;</span><span class="ti841-reservedword">Z
+</span><span class="ti841-space">  </span><span class="ti841-command">end
+</span><span class="ti841-space">  </span><span class="ti841-symbol">(</span><span class="ti841-identifier">Ans</span><span class="ti841-symbol">!=</span><span class="ti841-number">92</span><span class="ti841-symbol">)-&gt;</span><span class="ti841-reservedword">Z
+</span><span class="ti841-command">end
+
+
+</span><span class="ti841-comment">;If B&gt;0:Pause B
+;stop
+
+
+</span><span class="ti841-space">  </span><span class="ti841-comment">;3-&gt;X
+</span><span class="ti841-space">  </span><span class="ti841-comment">;For(Y,4,11)
+</span><span class="ti841-space">  </span><span class="ti841-comment">;  If P=1:Then
+</span><span class="ti841-space">  </span><span class="ti841-comment">;    Call Draw_Circle(1)
+</span><span class="ti841-space">  </span><span class="ti841-comment">;  Else
+</span><span class="ti841-space">  </span><span class="ti841-comment">;    Call Draw_Cross(1)
+</span><span class="ti841-space">  </span><span class="ti841-comment">;  End
+</span><span class="ti841-space">  </span><span class="ti841-comment">;End
+
+
+
+
+;no_optimize
+;1-&gt;[A](1,4)
+;1-&gt;[A](2,4)
+;1-&gt;[A](3,4)
+;0-&gt;[A](4,1)
+;0-&gt;[A](5,1)
+;0-&gt;[A](6,1)
+;  0-&gt;N
+;  4-&gt;X
+;  4-&gt;Y
+;  3-&gt;A
+;
+;  [A](X-3,Y)+[A](X-2,Y)+[A](X-1,Y)=A or |
+;  [A](X-2,Y)+[A](X-1,Y)+[A](X+1,Y)=A or |
+;  [A](X-1,Y)+[A](X+1,Y)+[A](X+2,Y)=A or |
+;  [A](X+1,Y)+[A](X+2,Y)+[A](X+3,Y)=A-&gt;N
+;  B+(N=1)-&gt;B
+;  
+;  [A](X,Y-3)+[A](X,Y-2)+[A](X,Y-1)=A or |
+;  [A](X,Y-2)+[A](X,Y-1)+[A](X,Y+1)=A or |
+;  [A](X,Y-1)+[A](X,Y+1)+[A](X,Y+2)=A or |
+;  [A](X,Y+1)+[A](X,Y+2)+[A](X,Y+3)=A-&gt;N
+;  B+2(N=1)-&gt;B
+;
+;  [A](X-3,Y-3)+[A](X-2,Y-2)+[A](X-1,Y-1)=A or |
+;  [A](X-2,Y-2)+[A](X-1,Y-1)+[A](X+1,Y+1)=A or |
+;  [A](X-1,Y-1)+[A](X+1,Y+1)+[A](X+2,Y+2)=A or |
+;  [A](X+1,Y+1)+[A](X+2,Y+2)+[A](X+3,Y+3)=A-&gt;N
+;  B+4(N=1)-&gt;B
+;  
+;  [A](X-3,Y+3)+[A](X-2,Y+2)+[A](X-1,Y+1)=A or |
+;  [A](X-2,Y+2)+[A](X-1,Y+1)+[A](X+1,Y-1)=A or |
+;  [A](X-1,Y+1)+[A](X+1,Y-1)+[A](X+2,Y-2)=A or |
+;  [A](X+1,Y-1)+[A](X+2,Y-2)+[A](X+3,Y-3)=A-&gt;N
+;  B+8(N=1)-&gt;B
+;
+;disp B
+
+;  ;the new coin is inserted at C=column ,R=Row
+;  ;new coin at [A](X,Y)
+;  
+;  ;;horizontal scan
+;  [A](X-3,Y)+[A](X-2,Y)+[A](X-1,Y)=A or | 
+;  [A](X-2,Y)+[A](X-1,Y)+[A](X+1,Y)=A or |
+;  [A](X-1,Y)+[A](X+1,Y)+[A](X+2,Y)=A or |
+;  [A](X+1,Y)+[A](X+2,Y)+[A](X+3,Y)=A-&gt;N
+;
+;  ;;vertical scan
+;  [A](X,Y-3)+[A](X,Y-2)+[A](X,Y-1)=A or | 
+;  [A](X,Y-2)+[A](X,Y-1)+[A](X,Y+1)=A or |
+;  [A](X,Y-1)+[A](X,Y+1)+[A](X,Y+2)=A or |
+;  [A](X,Y+1)+[A](X,Y+2)+[A](X,Y+3)=A-&gt;N
+;  
+;  ;diagonal scan
+;  [A](X-3,Y-3)+[A](X-2,Y-2)+[A](X-1,Y-1)=A or | 
+;  [A](X-2,Y-2)+[A](X-1,Y-1)+[A](X+1,Y+1)=A or |
+;  [A](X-1,Y-1)+[A](X+1,Y+1)+[A](X+2,Y+2)=A or |
+;  [A](X+1,Y+1)+[A](X+2,Y+2)+[A](X+3,Y+3)=A-&gt;N
+;  
+;  ;diagonal scan
+;  [A](X-3,Y+3)+[A](X-2,Y+2)+[A](X-1,Y+1)=A or | 
+;  [A](X-2,Y+2)+[A](X-1,Y+1)+[A](X+1,Y-1)=A or |
+;  [A](X-1,Y+1)+[A](X+1,Y-1)+[A](X+2,Y-2)=A or |
+;  [A](X+1,Y-1)+[A](X+2,Y-2)+[A](X+3,Y-3)=A-&gt;N
+;  
+;
+;  ;horizontal scan 14 sec
+;  ;  the new coin is inserted at [A](X+3,Y)
+;    [A](X,Y)+[A](X+1,Y)+[A](X+2,Y)=A or | 
+;  [A](X+1,Y)+[A](X+2,Y)+[A](X+4,Y)=A or |
+;  [A](X+2,Y)+[A](X+4,Y)+[A](X+5,Y)=A or |
+;  [A](X+4,Y)+[A](X+5,Y)+[A](X+6,Y)=A-&gt;N
+;
+;
+;;15sec
+;  Repeat (B=0) or (L=3)
+;    ([A](L+X,1)=1)-&gt;B
+;    N+Ans-&gt;N
+;    L+1-&gt;L
+;  End
+;  Repeat (B=0) or (L=5)
+;    ([A](L,1)=1)-&gt;B
+;    N+Ans-&gt;N
+;    L+1-&gt;L
+;  End
+;Repeat (B=0) or (L=5)
+;  If [A](L+R,1)=1:Then
+;    N+1-&gt;N
+;  Else
+;    DelVar B
+;  End
+;  L+1-&gt;L
+;End
+;Repeat (B=0) or (L=5)
+;  If [A](L,1)=1:Then
+;    N+1-&gt;N
+;  Else
+;    0-&gt;B
+;  End
+;  L+1-&gt;L
+;End
+;;15 sec
+;Repeat (B=0) or (L=5)
+;  N+([A](L,1)=1)-&gt;N
+;  If [A](L,1)!=1:0-&gt;B
+;  L+1-&gt;L
+;End
+;
+;;werkt niet
+;For(L,1,5)
+;  N+([A](L,1)=1)-&gt;N
+;  If [A](L,1)!=1:End
+;End
+
+
+;Rondje
+;Line(2+X,4+Y,4+X,6+Y
+;Line(2+X,3+Y,4+X,1+Y
+;Line(5+X,1+Y,7+X,3+Y
+;Line(5+X,6+Y,7+X,4+Y
+
+
+
+</span></span>
+</code></pre>
+</body>
+</html>

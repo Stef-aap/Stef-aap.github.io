@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Documents List</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #feffe6;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="388" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>December, 2004</span></p>
+<p><span class=rvts1>Document List</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>The Document-List is an hierarchical list of links to documents and webpages. It can contain links to files, URLs and email addresses. The Document-List is not a representation of some kind of directory structure, but is list of links (with some usefull additional information), completly setup by the user. This allows the user to see only those documents that are relevant to him, it doesn't matter where those documents are located (harddisk, network, www), and the order and nesting of the documents can be completly controlled. It also means that the same document can be seen more than once in different items. From this hierarchical Document-List, you can generate complete documents and/or websites.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #000000;}">
+<tr valign=top>
+<td width=605 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Each element in the list is represented by an icon and a textlabel. </p>
+<p>&nbsp;&nbsp; </p>
+<p>An important feature of the list, are it's drag&amp;drop facilities. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Another important facility, is that each element in the list can be associated with 2 different applications. </p>
+<p>E.g. an batch-file can either be edited in an editor or it can be executed. If you choose the internal code editor, it's even possible to run the (modified) batch-file with a single click or key.</p>
+<p>&nbsp;&nbsp; </p>
+<p>From each branch it's possible to generate either a document or a website, which will contain all underlying documents and starts with a contents page. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Tthe list can also be used as an MP3-playlist. </p>
+<p>&nbsp;&nbsp; </p>
+<p>The first page of the list, has a special meaning, it holds a number of shortcuts to often used programs.</p>
+</td>
+<td width=145 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p class=rvps3><img width=182 height=230 alt="" src="jalcc_lists_img1.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Browsing the Document List</span></p>
+<p>You can browse through the document list and view almost any selected item through the general viewer. In fact this General Viewer is the same as the window used in presentation mode, but here it is not used in full screen mode, but just as a normal MDI-child. The General Viewer can be made visible through: Tools | General Viewer. The General Viewer decides on base of the fileextension, which viewer to use. Normally there is no need to change these file-associates, so there is no direct way to change them. But the file-associates are stored in the used ini-file, after you've used the general viewer for the first time. After that, you can change the associates by changing the used ini-file.</p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #000000;}">
+<tr valign=top>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p>On the right an example of the file-associates stored in the ini-file. </p>
+<p>If new viewers come available, they will always add a new line to this section, so you'll always see an full overview of the available viewers.</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p>[general viewer]</p>
+<p>CodeEdit=txt,jal,php,bas,au3,bat,bas</p>
+<p>RichView=rtf,rvf</p>
+<p>WebBrowser=htm,html</p>
+<p>Graphics=jpg,jpeg,gif,png,bmp</p>
+<p>Video=avi,mpeg,mpg</p>
+<p>Diagram=ddd,ddt</p>
+<p>Audio=mp3,wav</p>
+<p>OLE=xls</p>
+<p>Execute=exe,com,bat</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><span class=rvts2>Searching the Document List</span></p>
+<p>After entering the searchstring, pressing <span class=rvts3>ENTER</span> or the Search-Button, will start a new search. Search is not case-sensitive. The search is always performed in the text shown in the document list, but you can extend the search to the target (either the filename only, or the fullpath).</p>
+<p><span class=rvts3>Clicking</span> on an item in the result list, will show the document in the general viewer (if possible). Also the item is selected in the normal document list.</p>
+<p><span class=rvts3>DoubleClicking</span> will open (or focus) the selected document.</p>
+<p>For the moment the search window is modal (you've to close it before you can reach other parts in the program).</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=504 height=284 alt="" src="jalcc_lists_img8.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>List commands</span></p>
+<p>After selecting an item, you can start one of the 2 predefined actions. The possible kind of actions also depends on the kind of file. In general the following rules apply:</p>
+<p>&nbsp; <span class=rvts3>ENTER</span> = start the file with the first application (for items without children, also doubleclick works)</p>
+<p>&nbsp; <span class=rvts3>shift+ENTER</span> = start the file with the second application</p>
+<p>&nbsp; <span class=rvts3>ctrl+ENTER</span> = start the file (with the external standard windows application)</p>
+<p>Other keyboard commands (see also the right mouse menu)</p>
+<p>&nbsp; <span class=rvts3>left-arrow / right-arrow</span> = compress /expand treenode</p>
+<p>&nbsp; </p>
+<p>A few examples, might give you an idea of the possibilities with the associated actions.</p>
+<p>(remember that you determine which applications are attached to each individual item)</p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #000000;}">
+<tr valign=top>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p><span class=rvts3>Filetype</span></p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p><span class=rvts3>Application 1</span></p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p><span class=rvts3>Application-2</span></p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p><span class=rvts3>Enter</span></p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p><span class=rvts3>Shift-Enter</span></p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p><span class=rvts3>Ctrl-Enter</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>*.txt</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>ASCII-Editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Code-Editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Open in ASCII-editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Open in Code-editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>*.bat</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Code-Editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Batch &amp; Scripts</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Open in Code-Editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>&nbsp; </p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Run</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>*.txt</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Code-Editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Windows Associate</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Open in Code-Editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>&nbsp; </p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Open in default windows application (Notepad perhaps?)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>*.exe</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Hex-Editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Executable</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Open in Hex-Editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>&nbsp; </p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Run</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>*.jal</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Main Jal Code-Editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>&nbsp; </p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Open as a mainfile in the JAL code-editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>&nbsp; </p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>*.html</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>WebBrowser</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Code-Editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Open in tabbed Webbrowser</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Open in Code-Editor</p>
+</td>
+<td width=100 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Inserting items</span></p>
+<p>Inserting of new items can be done in several ways:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>dropping a file, a number of files, a shortcut, an URL, a text into the list </li>
+<li>dropping another item from the same list </li>
+<li>copy or cut and paste form the same list </li>
+<li>right mouse + insert new </li>
+<li>dumping a complete directory or scan ?? </li>
+</ul>
+<p>As you can see drag &amp; drop is an important tool. There's a important difference between dropping on the items-text-label or dropping on the items-icon.</p>
+<p>Dropping on the icon, will insert the new item as a child of the drop place.</p>
+<p>Dropping on the label, will insert the item as an ascendant of the drop place.</p>
+<p>When an item is inserted, the item settings are derived from the defaults, so it's important to set the defaults correctly.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Modifying item parameters</span></p>
+<p>By clicking on an item, all the parameters are shown in a super hintbox. By moving the cursor the hint will disappear</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=404 height=82 alt="" src="jalcc_lists_img2.gif"></p>
+<p>&nbsp; </p>
+<p>The parameters can by changed thorugh the right mouse menu / Edit Parameters. This will popup the following form:</p>
+<p>(The exact layout of this form may differ, depepending on the filekind of the item).</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=310 height=347 alt="" src="jalcc_lists_img4.gif"></p>
+<p>&nbsp; </p>
+<p>Clicking on the icon, let's you choose another icon for this item only.</p>
+<p>With the fontattributes (at the right top) you can change the appearance of this item in the document list.</p>
+<p>Pressing the applications, lets you change the first and second associated application.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Default item parameters</span></p>
+<p>Through the programs main menu Settings / Global Settings / File Associates, the next form popups. This form lets you edit the default settings for newly inserted items in the document list (it doesn't change anything to items already present in the list).</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=596 height=393 alt="" src="jalcc_lists_img5.gif"></p>
+<p>&nbsp; </p>
+<p>The column file-extensions can be normally editted. The other columns can be changed by clicking (or selecteing and pressing Enter), after which a selection form will be presented.</p>
+<p>After this form is closed, the list is sorted according to the file-extension.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Right Mouse Menu</span></p>
+<p>The items enabled in the right mouse menu are dependant on the selected item.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=190 height=278 alt="" src="jalcc_lists_img6.gif"></p>
+<p><span class=rvts8>&nbsp; </span></p>
+<p><span class=rvts3>Create &amp; Insert New</span></p>
+<p>Creates a new document, in the same directory and of the same type as the selected item.</p>
+<p>There's one filetype ".INC" which is treated as a Microchip INC-file. On opening such a file, an automatic translation program starts to translate this file to a JAL library file.</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Launch with default application</span></p>
+<p>Opens the file through the standard windows file-association. E.g.for URLs or html-files this will launch the standard browser.</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Edit Parameters</span></p>
+<p>Edit appearance and associated actions of the currently selected item.</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Start MP3 Playlist here</span></p>
+<p>Advances the MP3 playlist to the selected point and start the MP3 playlist facility.</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Update Link / Upload Pages / Generate Webframes / Test Links / AutoScan</span></p>
+<p>not implemented yet</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Generate HTML document (JAL only)</span></p>
+<p>This generates an HTML documentation file from a JAL-library file. When the JAL file is open in a code-editor, it's better to select MainMenu | File | Export, as this function not only creates the HTML-documentation file, but also a color-highlighted HTML file of the JAL-source.</p>
+<p><br></p>
+<p><span class=rvts3>Copy</span></p>
+<p>Copies the selected item with all it's children.</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Paste</span></p>
+<p>Inserts the copied or cut item (including all it's children).</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Paste in New Doc</span></p>
+<p>Paste the contents of the clipboard into a new document and place a link to that document in the document-list.</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Cut</span></p>
+<p>Deletes the selected item (and all it's children) and saves them to the clipboard.</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Delete</span></p>
+<p>Delete the item and all it's children from the list (nothing else !!). The user is asked for a confirmation.</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Delete (File inclusive)</span></p>
+<p>Delete the item and all it's children from the list&nbsp; and also the associated files !!!. The user is asked for a confirmation.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Drag &amp; Drop</span></p>
+<p>The list accepts (multiple) files, URLs and even content, to be dropped.</p>
+<p>The first thing to notice is that dropping on the icon or on the text-label is different.</p>
+<p>For dropping and inserting the following rules applies:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>when the drop or insertion point is on an icon, the source is dropped into the selected item, or in other words, the source will become a child of the target. </li>
+<li>when the drop or insertion point is not on an icon, the source is dropped just before the selected item. </li>
+<li>when a drop or insertion is done, ouside a selection, the source will become the last child of the main root.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
+</ul>
+<p>&nbsp; </p>
+<p>Normal dropping and pasting, includes the following</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>items, from the same or another list within the program </li>
+<li>file(s), from explorer or hyperlinks </li>
+<li>shortcuts (lnk-files), all relevant parameters are copied </li>
+<li>URL, from IE, Mozilla (and probably any other browser), hyperlinks </li>
+<li>email-addresses, from hyperlinks </li>
+<li>?? drop text possible ?? </li>
+</ul>
+<p>&nbsp; </p>
+<p>You can also drop "content" in a new document, through using the special Paste button or the RM-menu.</p>
+<p>In this case the same rules apply for dropping on a item or an icon.</p>
+<p>i.e. you want to save an email from Mozilla:</p>
+<p>- select the email, ^A (select all), ^C (copy to clipboard)</p>
+<p>- select the node or the icon, press the special Paste button</p>
+<p>- now a save-dialog will be shown</p>
+<p>- selecting an existing file, will drop the clipboard content at the beginning of the existing file</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Import PuntHoofd Document Lists</span></p>
+<p>This can be done thorugh the Global Settings Menu.</p>
+
+</body></html>

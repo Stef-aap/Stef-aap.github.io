@@ -1,0 +1,176 @@
+<HTML><HEAD><TITLE>Displays</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>January 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, Displays</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;</SPAN></P>
+<P><TABLE border=0 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P><A class=RVTS4 href="#lcd_display">LCD Display</A></P></TD>
+<TD valign=middle>
+<P><A class=RVTS4 href="#7-segment_led_display">7-Segment Display</A></P></TD>
+<TD valign=middle>
+<P><A class=RVTS4 href="#ledbar">LED bar</A></P></TD>
+<TD valign=middle>
+<P><A class=RVTS4 href="#byte_led_bar">Byte LED bar</A></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;</SPAN></P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 style='{border-width : 0px}' cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=377 valign=top style='{border-width : 1px; }'>
+<P><A name="lcd_display"></A>
+<SPAN class=RVTS2>LCD Display</SPAN>&nbsp;</P>
+<P>This device represents a LCD display based on the popular HD44780.</P>
+<P>Not all features are implemented at the moment. The following things have to be done: 5*8 characterset instead of 5*7, only the first half of character ROM A00 is implemented (even with some differences), definitions of own characters (ASCII 0..7), shifting, cursor, display off.</P>
+<P>The display can contain upto 80 characters, on 1 to 4 lines.</P>
+<P>The HD44780 supports in fact a display of 1*80. Depending how the wiring to the chip is made in the LCD display, the start values of the individual lines (mapped into the 1*80 address space) can differ. In the code page you can set the start value of each line.</P>
+<P>It only supports the 4-bit interface, because this is the mode with the least IO-pins.</P>
+<P>Reading of RAM and ROM is not supported.</P>
+<P>On reset the device even checks if the appropiate delay between the commands are according to the specifications, if not an error will be reported in the code list.</P>
+<P>The code list gives the user an extra debug option. It lists all received bytes.</P>
+<P>All numbers are displayed in a HexaDecimal presentation.&nbsp;</P>
+<P>A command is preceeded by "C=".</P>
+<P>All commands and data bytes are translated to the full 8-bit commands / data,</P>
+<P>except the first 4 reset bytes (3,3,3,2) which are given as a 4-bit presentation.</P>
+<P>All buttons not mentioned are just for fun, try them.</P></TD>
+<TD width=338 valign=middle style='{border-width : 1px; border-left: none; }'>
+<P class=RVPS3>&nbsp;<IMG width=349 height=172 src="device_lcd1.gif"></P>
+<P>The LCD component is based on the&nbsp;<A class=RVTS4 href="http://www.geocities.com/andronovin/moreeverindicator.html">TIAEverIndicator of Igor Andronov</A>, (thanks !)</P>
+<P class=RVPS3>&nbsp;<IMG width=350 height=170 src="device_lcd2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Function</P></TD>
+<TD valign=top>
+<P>TestMethod</P></TD>
+<TD valign=top>
+<P>Result</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>General</P></TD>
+<TD valign=top>
+<P>For all tests, the library HD44780_4_ins was used.</P>
+<P>Resetting the device.</P>
+<P>Writing all ASCII-values from $00 .. $FF to a 2*16 display (with explicit positioning the cursor)</P></TD>
+<TD valign=middle>
+<P class=RVPS2>Ok</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>Character ROM</P></TD>
+<TD valign=top>
+<P>- user definiable characters ASCII&nbsp; $00 .. $07not implemented</P>
+<P>- characters are just 5*7 instead of 5*8</P>
+<P>- characters $22, $5C, $7E, $7F are wrong</P>
+<P>- ASCI characters from $80 and above are not implemented</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>Display on/of</P>
+<P>Cursor on/of</P>
+<P>Cursor blink</P></TD>
+<TD valign=top>
+<P>not yet implemented</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>Shift Display</P></TD>
+<TD valign=top>
+<P>not yet implemented</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;</SPAN></P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=319 valign=middle>
+<P><A name="7-segment_led_display"></A>
+<SPAN class=RVTS2>7-Segment LED display</SPAN>&nbsp;&nbsp;</P>
+<P>The device can show from 1 upto 10&nbsp; multiplexed 7-segment LED displays.</P>
+<P>With the + or - button you can set for common anode (+) or common cathode (-).</P>
+<P>With size, color and dot you can change the appearance of the display.</P>
+<P>I find the colors awfull, so if anyone has good color ideas, I'll implement them.</P>
+<P>The segments will light up, as soon as it's set on. But switching off is delayed to get a good view when multiplexing the displays. When simulation is stopped, the switch-off delay is set to zero, so you will see the exact result for that timepoint.</P>
+<P>The device has build in current setting resistors, so you can simply connect ground and +5V to any segment.</P></TD>
+<TD width=157 valign=middle>
+<P>Segment</P>
+<P>Layout</P>
+<P>&nbsp;&nbsp;&nbsp; - A -</P>
+<P>F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B</P>
+<P>&nbsp;&nbsp;&nbsp; - G -</P>
+<P>E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C</P>
+<P>&nbsp;&nbsp;&nbsp; - D -</P></TD>
+<TD width=208 valign=middle>
+<P>&nbsp;<IMG width=236 height=142 src="7-segment.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS8>&nbsp;</SPAN>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=590 valign=top>
+<P><A name="ledbar"></A>
+<SPAN class=RVTS2>LEDbar</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>This is a very simple LEDbar, which can display from 1 upto 8 LEDs.</P>
+<P>Momentary this device uses a reduced internal clock to refresh the LED-status, in the future this could possibly change into a permanent&nbsp; "Slow-device".</P></TD>
+<TD width=130 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=93 height=57 src="device_ledbar.gif">&nbsp;&nbsp;&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P><A name="byte_led_bar"></A>
+<SPAN class=RVTS2>Byte LED bar</SPAN></P>
+<P>This LED bar accepts a (named) 8-bit wide byte as an input. Therefor it can also be used to watch internal locations of a MCU.&nbsp;</P>
+<P>The name of the input byte is shown in the edit box.&nbsp;</P>
+<P>The input byte is also available as an analog output byte.</P>
+<P>The input is sampled at 1 kHz.</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=184 height=58 src="device_byte_ledbar.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

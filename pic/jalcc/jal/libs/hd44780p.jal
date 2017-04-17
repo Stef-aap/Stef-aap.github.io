@@ -1,0 +1,87 @@
+--
+-- file      : hd44780p.jal
+-- author    : Wouter van Ooijen
+-- date      : 17-DEC-1998
+-- purpose   : hd44780 default IO pins
+-- requires  : -
+-- pins      : B0 .. B5 or A0 .. A1, B0 .. B7
+-- used by   : hd447804, hd447808
+--
+-- Copyright (C) 1998 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+-- pin assignment for the 4-bit (6 PIC I/O pins) interface:
+--
+-- PIC        HD44870
+-- ----------------------
+--  5 Gnd      1 Gnd
+-- 14 Vcc      2 Vcc
+--  5 Gnd      3 Contrast 
+--  6 B0      11 D4
+--  7 B1      12 D5
+--  8 B2      13 D6
+--  9 B3      14 D7
+-- 10 B4       4 RS D/I_
+--  5 Gnd      5 R/W_
+-- 11 B5       6 E
+--
+-- pin assignment for the 8-bit (11 PIC I/O pins) interface:
+--
+-- PIC        HD44870
+-- ----------------------
+--  5 Gnd      1 Gnd
+-- 14 Vcc      2 Vcc
+--  5 Gnd      3 Contrast
+-- 17 A0       4 RS D/I_
+--  5 Gnd      5 R/W_
+-- 18 A1       6 E
+--  6 B0       7 D1
+--  7 B1       8 D2
+--  8 B2       9 D3
+--  9 B3      10 D4 
+-- 10 B4      11 D4
+-- 11 B4      12 D5
+-- 12 B6      13 D6   (2k2 series resistor for ISP!)
+-- 13 B7      14 D7   (2k2 series resistor for ISP!)
+--
+
+
+var volatile bit  hd44780_4_DI is pin_b4
+var volatile bit  hd44780_4_E  is pin_b5
+var volatile byte hd44780_4_D  is port_b_low
+
+procedure _hd44780_4_init is
+   port_b_low            = 0
+   pin_b4                = low
+   pin_b5                = low
+   port_b_low_direction  = all_output
+   pin_b4_direction      = output
+   pin_b5_direction      = output
+end procedure
+
+var volatile bit  hd44780_8_DI is pin_a0
+var volatile bit  hd44780_8_E  is pin_a1
+var volatile byte hd44780_8_D  is port_b
+
+procedure _hd44780_8_init is
+   port_b                = 0
+   pin_a0                = low
+   pin_a1                = low
+   port_b_direction      = all_output
+   pin_a0_direction      = output
+   pin_a1_direction      = output
+end procedure

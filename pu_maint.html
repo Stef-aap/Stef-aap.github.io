@@ -1,0 +1,219 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>Main Popup Design / Test</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1><a href="midorg.html#top">MID
+TestOrganizer</a></font></font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1><a href="vrg_indx.html#top">Vragenlijst
+Module</a></font></font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1><a href="vrg_all.html#top">VragenOverzicht</a></font></font></font></b></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00"><font size=+1>MIDORG
+- Vragenlijst Module</font></font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>&nbsp;</font></font></font></b></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF"><font size=+1>Main
+Popup Design / Test</font></font></font></b></td>
+</tr>
+</table>
+
+<p><a name="popup voor alle vragen"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>Popup
+voor alle vragen</font></font></font></b>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Design:</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Blok
+1 betreft typische eigenschappen die alleen voor deze vraag gelden</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Blok
+2 betreft de layout en inhoud van deze vraag</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Blok
+3 betreft eigenschappen van de gehele vragenlijst (gelden dus voor alle
+vragen)</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Blok
+4 bevat hulpmiddelen, om te kunnen ontwerpen op andere dan de uiteindelijk
+computer</font></font></font>
+<p><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Technische
+uitwerking:</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Dit
+popup-menu roept een aantal secundaire popup's op, vandaar dat <b>form_edit.formmousedown()</b>
+de co&ouml;rdinaten van de muiscursor moet bewaren, om de secundaire popup's
+juist te kunnen plaatsen:</font></font></font>
+<br><b><font face="Arial,Helvetica"><font color="#000000"><font size=-1>procedure
+form_edit.formmousedown()</font></font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#000000"><font size=-1>&nbsp;
+if mode_mode=pm_edit then</font></font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#000000"><font size=-1>&nbsp;
+begin</font></font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#000000"><font size=-1>&nbsp;&nbsp;&nbsp;
+if button=mbright then</font></font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#000000"><font size=-1>&nbsp;&nbsp;&nbsp;
+begin</font></font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#000000"><font size=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{save postion of mouse, for lower popup menus}</font></font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#000000"><font size=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+form_edit.mouse_x0:=x+tcontrol(sender).left;</font></font></font></b>
+<br><b><font face="Arial,Helvetica"><font color="#000000"><font size=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+form_edit.mouse_y0:=y+tcontrol(sender).top;</font></font></font></b>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Omdat
+dit popup-menu vaak zal worden aangeroepen vanuit een vraagform, dienen
+alle vraagforms een dergelijke voorziening te hebben. Daarnaast dient in
+iedere vraagsoort in het vraagveld en zo mogelijk in overige niet relevante
+delen dit popup-menu te laten verschijnen en in al deze gebieden de hint
+<b>form_edit.hint</b>
+over te nemen.</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>De
+onderstreepte vraagsoorten zijn hierop getest:</font></font></font>
+<br><font face="Arial,Helvetica"><font size=-1>Getest:&nbsp;&nbsp; 
+<u>form_edit</u>&nbsp;&nbsp;&nbsp;
+<u>1</u>&nbsp;&nbsp;&nbsp; <u>2</u>&nbsp;&nbsp; 
+<u>3</u>&nbsp;&nbsp;&nbsp;
+<u>4</u>&nbsp;&nbsp;&nbsp; <u>5</u>&nbsp;&nbsp; 
+<u>6</u>&nbsp;&nbsp;&nbsp;
+<u>7</u></font></font>
+<p><img src="pu_all.gif" height=252 width=194>
+<br>&nbsp;
+<p><a name="vraagsoort"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>VraagSoort&nbsp;</font></font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Het
+wijzigen van de vraagsoort, met een zo goed mogelijk behoud van de inhoud
+van de vraag.</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>De
+teksten in het popup-menu <b>form_edit.popup_vraagsoort</b> worden tijdens
+<b>form_edit.formcreate</b>
+automatisch geladen uit het array met omschrijvingen:</font></font></font>
+<br><b><font face="Arial,Helvetica"><font color="#000000"><font size=-1>&nbsp;&nbsp;&nbsp;
+vraag_soort_omschrijving[1..vraag_soort_aantal]</font></font></font></b>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Bij
+het opkomen van dit popup-menu wordt de huidige vraagsoort afgevinkt, op
+basis van</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>&nbsp;
+<b>vlist.items[question_nr-1].vraag_soort</b></font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Bij
+het kiezen van een andere vraagsoort, wordt middels <b>form_edit.vc_list1click()</b>&nbsp;
+de inhoud van de vraag getoond in de nieuwe vraagsoort, door de routine
+<b>form_edit.vraag_enter()</b>
+aan te roepen.</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Het
+probleem dat zich hierbij kan voordoen, is dat de inhoud van de oude en
+de nieuwe vraagsoort niet op elkaar zijn afgestemd, enerzijds kan hierdoor
+informatie verloren gaan (helaas, dit wordt door het design geaccepteerd),
+anderzijds kan de informatie fout of missing zijn zodat programma-fouten
+kunnen optreden, met alle gevolgen van dien. Iedere vraagsoort moet daarom
+een uitgebreide controle van de parameters uitvoeren&nbsp;&nbsp;&nbsp;&nbsp;
+en zonodig deze parameters wijzigen.</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>De
+onderstreepte vraagsoorten zijn gecontroleerd op parameter fouten. Omdat
+het bijna niet mogelijk is deze test in al zijn vormen uit te voeren is
+de controle gedaan door een dubbel-check van de programma-code.</font></font></font>
+<br><font face="Arial,Helvetica"><font size=-1>Getest:&nbsp;&nbsp; 
+<u>1</u>&nbsp;&nbsp;&nbsp;
+<u>2</u>&nbsp;&nbsp;&nbsp; <u>3</u>&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;
+<u>5</u>&nbsp;&nbsp;&nbsp; <u>6</u>&nbsp;&nbsp; 
+<u>7</u></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Daarnaast
+zijn de grafische vragen (voeren de meest ingewikkelde schalings methoden
+uit) extra getest in de praktijk:</font></font></font>
+<br><font face="Arial,Helvetica"><font size=-1>Getest:&nbsp;&nbsp;&nbsp;
+4&nbsp;&nbsp;&nbsp; <u>7</u></font></font>
+<p><img src="pu_vsrt.gif" height=145 width=229>
+<p><a name="vraaggeluid"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>VraagGeluid:
+hond.wav&nbsp;</font></font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Door
+het aanklikken van het menu-item, wordt middels <b>form_edit.VraagGeluid1Click()</b>
+een dialoogbox voor het openen van een geluidsbestand (*.wav) getoond.</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Het
+vraaggeluid wordt afgespeeld, bij het tonen van de vraag via <b>formactivate()</b>
+(ook in edit mode), en bij het met de linkermuis klikken op het vraagform
+<b>formclick()</b>
+en op de vraagtekst <b>vraagclick()</b> (niet in edit mode).</font></font></font>
+<br><font face="Arial,Helvetica"><font size=-1>Getest:&nbsp;&nbsp; 
+<u>1</u>&nbsp;&nbsp;&nbsp;
+<u>2</u>&nbsp;&nbsp;&nbsp; <u>3</u>&nbsp;&nbsp; 
+<u>4</u>&nbsp;&nbsp;&nbsp;
+<u>5</u>&nbsp;&nbsp;&nbsp; <u>6</u>&nbsp;&nbsp; 
+<u>7</u></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Het
+afspelen gebeurt altijd met de routine <b>form_edit.play_vraagsound(vraagnr)</b>.</font></font></font>
+<br><font face="Arial,Helvetica"><font color="#000000"><font size=-1>Voor
+de directory van de file-dialoogbox geldt, in eerste instantie gelijk gemaakt
+aan de directory waar de vragenlijst staat, daarna "volgt" de directory.</font></font></font>
+<p><a name="score"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>Score&nbsp;</font></font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><a name="overslaan"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>Overslaan&nbsp;</font></font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><a name="opbergen als template"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>Opbergen
+als template&nbsp;</font></font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica"><font size=-1>Bergt alle variabelen uit
+het huidige scherm op in de interne datastructuur van het template. Om
+dit goed te laten verlopen, wordt eerst het focus weggehaald bij het de
+huidige vraag-form, hierdoor worden de schermgegevens opgeborgen in de
+interne datastructuur van de huidige vraag. Vervolgens wordt de gehele
+interne datastructuur van de huidige vraag gekopi&euml;erd naar de interne
+datastructuur van het template voor deze vraagsoort (dus ook parameters
+die niet voor deze vraag gelden worden gekopi&euml;erd).</font></font><font face="Arial,Helvetica"><font size=-1></font></font>
+<p><a name="ophalen uit template"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>Ophalen
+uit Template&nbsp;</font></font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica"><font size=-1>Haalt alle gegevens uit
+het template en brengt deze over naar de interne structuur van de huidige
+vraag. Daarnaar wordt via <b>form_edit.vraag_enter</b> de interne structuur
+van de huidige vraag opnieuw overgebarcht naar het vraag-form.</font></font>
+<br><font face="Arial,Helvetica"><font size=-1>Het is belangrijk dat het
+template altijd gevuld is, met enigzins realistische waarden. Daartoe is
+het noodzakelijk dat alle leesroutines <b>read_vraag_x</b> de ingelezen
+waarden controleren.</font></font>
+<br><font face="Arial,Helvetica"><font size=-1>Getest:&nbsp;&nbsp;&nbsp;
+<u>1</u>&nbsp;&nbsp;&nbsp; <u>2</u>&nbsp;&nbsp;&nbsp; <u>3</u>&nbsp;&nbsp;&nbsp;
+4&nbsp;&nbsp;&nbsp; <u>5</u>&nbsp;&nbsp;&nbsp; <u>6</u>&nbsp;&nbsp;&nbsp;
+7</font></font>
+<br><font face="Arial,Helvetica"><font size=-1>Vraagsoort 4 en 7 bevatten
+dermate zware checks in de build_all routine dat hier geen controle nodig
+is.</font></font><font face="Arial,Helvetica"><font size=-1></font></font>
+<p><a name="font"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>Font&nbsp;</font></font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica"><font size=-1>Door selectie van het menuitem
+wordt de routine <b>procedure Tform_edit.Font1Click()</b> geactiveerd,
+welke een fontdialoog opstart, dat start met het huidige font van de vragenlijst:
+<b>vragenlijst_font</b>.
+Als een nieuw font wordt geselecteerd, wordt de huidige vraag opnieuw opgebouwd.
+Als aan de antwoorden van een vraag niet een expliciet font is meegegeven,
+verandert dus ook het font van de antwoorden !</font></font>
+<br><font face="Arial,Helvetica"><font size=-1>Getest:&nbsp;&nbsp; 
+<u>1</u>&nbsp;&nbsp;&nbsp;
+<u>2</u>&nbsp;&nbsp;&nbsp; <u>3</u>&nbsp;&nbsp; 
+<u>4</u>&nbsp;&nbsp;&nbsp;
+<u>5</u>&nbsp;&nbsp;&nbsp; <u>6</u>&nbsp;&nbsp; 
+<u>7</u></font></font>
+<p><a name="subschalen"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>Subschalen&nbsp;</font></font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><a name="normen"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>Normen&nbsp;</font></font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><a name="kinder / volwassenen layout"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>Kinder
+/ Volwassenen Layout&nbsp;</font></font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<p><a name="schermformaat"></a><b><font face="Arial,Helvetica"><font color="#000099"><font size=-1>Schermformaat&nbsp;</font></font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br><font face="Arial,Helvetica"><font size=-1>Door selectie van het menuitem
+wordt <b>form_edit.SchermFormaat1Click()</b> geactiveerd, welke zorgt voor
+een actuele afvinking van onderstaand secundair popup-menu.</font></font>
+<br><font face="Arial,Helvetica"><font size=-1>Het selecteren van een formaat
+start routine <b>form_edit.screen_size1Click()</b>, welke via de routine
+<b>form_edit.build_all</b>
+eerst het hoofdform zelf opnieuw schaalt en vervolgens via een aanroep
+van <b>form_edit.vraag_enter</b> de huidige vraag opnieuw opbouwt. Het
+is dus noodzakelijk dat iedere routine <b>start_vraag_x</b> het gehele
+scherm herschaalt en de inwendige componenten hiervan schaalt en positioneert.</font></font>
+<br><font face="Arial,Helvetica"><font size=-1>Getest:&nbsp;&nbsp; 
+<u>1</u>&nbsp;&nbsp;&nbsp;
+<u>2</u>&nbsp;&nbsp;&nbsp; <u>3</u>&nbsp;&nbsp; 
+<u>4</u>&nbsp;&nbsp;&nbsp;
+<u>5</u>&nbsp;&nbsp;&nbsp; <u>6</u>&nbsp;&nbsp; 
+<u>7</u></font></font>
+<p><img src="pu_ssize.gif" height=84 width=104>
+<p>
+<hr size=2><font size=-1>&copy; Copyright Instrumentele Dienst</font>
+<br><font size=-2>SM/GvV, 4-12-1998</font>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<HTML><HEAD><TITLE>Scope</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>March 2003</SPAN></P>
+<P><SPAN class=RVTS1>JALss, Scope</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><A class=RVTS4 href="#introduction">Introduction</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="#signals">Signals</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="#controling_simulation">Simulation Control</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="#timebase">Timebase</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="#measurements">Measurements</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="#breakpoints">Breakpoints</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=400 valign=top>
+<P><A name="introduction"></A>
+<SPAN class=RVTS2>Introduction</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>This scope device differs in a number of ways from a real scope:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>timeaxis is from top to bottom&nbsp;</LI>
+<LI>digital signals are displayed as Z-modulation (color)&nbsp;</LI>
+<LI>triggering is done level sensitive instead of edge sensitive&nbsp;</LI>
+<LI>triggerpoint is at the end of the display (not at the beginning)&nbsp;</LI>
+<LI>instead of pre-triggering there is an post-triggering&nbsp;</LI>
+</UL>
+<P>The scope has space for an unlimited of signals (at the moment max 100).</P>
+<P>The time storage space is at the moment 2000 words for each channel. Changing to a higher storage capacity is no problem (tested is 200,000 words, which showed no degradation of system performance), but it doesn't seem very meaningfull.</P>
+<P>During recording a sample reduction can be set, to measure long times.</P>
+<P>Just above the sample reduction the compression ration in reviewing is displayed.</P>
+<P>It's better to analyze the signals with sufficient complex breakpoints. therfore an unlimited amount of breakpoints can be set. Moreover a special arrangement is made to easily switch each breakpoint on and off.</P>
+<P>After sampling is stopped, either by some breakpoint or by pressing the stop button, each PIC will show actual status of registers and code explorer.</P>
+<P>"sec / msec" reveals the time from the initial start of the sampling proces.</P></TD>
+<TD width=329 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=340 height=409 src="device_scope_1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=514 valign=top>
+<P><A name="signals"></A>
+<SPAN class=RVTS2>Signals&nbsp;</SPAN><IMG width=14 height=14 src="top_page.gif"></P>
+<P>Adding signals can be done by clicking on the green or blue input pin. The scope itself will distingush between digital and analog signals, so it doesn't matter wheter the green or the blue input pin is clicked. Just as with all other devices a window with all avaliable outputs (as shown on the right) will appear. But the list with available output devices will contain much more signals than for normal devices. It's now possible to connect the scope directly to a complete internal register of a PIC, including the program counter. Registers with an official name can be selected by name, through "Registers". Every register can be selected through "Unnamed Registers", which will show the window below. The same yields for EEprom locations.</P>
+<P>Even the JAL variables can be selected directly.</P>
+<P>The list of JAL variables is only shown as the assembler file can be found in the directory were the hex file is located (which is normally the case, unless you moved or deleted something by hand).</P>
+<P>For the time being it's choosen only to show the last word variable at som location, assuming this is the volatile / permanent / global variable. Bit variables are also shown, see for instance in the picture right-below $0B:2 T0IF, but selecting a bit will show the whole register $0B in the scope.</P>
+<P>Deleting signals is done by Right Mouse button on the selected signal header, and choosing "Delete" from the popup menu.</P>
+<P>Ordening of the signals can be done by drag and drop of the signal headers.</P>
+<P>The headers can be resized to reveal the full name of a signal.</P>
+<P>&nbsp;<IMG width=150 height=110 src="available_unnamed_registers.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=151 height=111 src="available_outputs_eeprom.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=167 height=113 src="device_scope_cut_connection.gif"></P></TD>
+<TD width=215 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=199 height=268 src="available_outputs_scope.gif"></P>
+<P class=RVPS3>Â&nbsp;<IMG width=204 height=400 src="available_outputs_scope_jal.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=508 valign=top>
+<P><A name="controling_simulation"></A>
+<SPAN class=RVTS2>Controling simulation</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>Start: will start simulation until the next breakpoint is reached.</P>
+<P>Single Step: generates one system clock period and thus advance at least the fastest PIC in the circuit</P>
+<P>Buttons:&nbsp;&nbsp;&nbsp;&nbsp; Start&nbsp;&nbsp; /&nbsp;&nbsp;&nbsp; Single Step&nbsp;&nbsp; /&nbsp;&nbsp; Stop&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=131 height=51 src="device_scope_controls.gif"></P>
+<P>Start and Single Step can also be controlled by the SPACEBAR, depending on which button is down, SS (=Single Step) or run / stop (=Start / Stop).&nbsp;</P>
+<P>After the simulation has stopped, from all PIC's their code and stack windows can be viewed.</P>
+<P>If the simulation is stopped due to a breakpoint, the actual breakpoint that stopped the simulation proces is shown in the statusbar.</P></TD>
+<TD width=227 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=227 height=291 src="pic_code_screen.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=559 valign=top>
+<P><A name="timebase"></A>
+<SPAN class=RVTS2>Timebase</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>During simulation, a large sample reduction is used to get enough simulation speed. (At the moment this sample reduction starts at 1003, an weird odd number, choosen to see as much variation as possible). By clicking on the up button,&nbsp; the compression is increased by a factor 2. The down button decreases the compression by a factor 2. Of course the presented information has no real meaning, except for slow varying (analog) signals. The real information will only be revealed when the simulation is stopped.</P>
+<P>When simulation is stopped:</P>
+<P>The black bar at the far left, represents the total memory buffer. The light blue box in this bar represents the part of the memory buffer that is shown in the display.</P>
+<P>By clicking on the black bar, the blue box will move to the clicked point and display will change according.</P>
+<P>By pageup / pagedown the blue block is moved 1 position.</P>
+<P>The upbutton and downbutton will double or half the compression.</P></TD>
+<TD width=170 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=180 height=131 src="device_scope_timebase.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=434 valign=top>
+<P><A name="measurements"></A>
+<SPAN class=RVTS2>Measurements</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>When the simulation is stopped, there are 2 hairlines to perform time and amplitude measurements.</P>
+<P>A left mouseclick on the image will place a green marker. The green led on the right will lit. and measurements of all signals will be shown on the line left to the green led.</P>
+<P>A right mouseclick on the image will place the red marker, red led lights and left off the red led the amplitude levels are shown.</P>
+<P>With the keys arrow-up and arrow-down the line with the lighted led can me moved 1 position in memory up / down.</P>
+<P>The green measurement lines moves also the highlighted line in the code windows of all PICs.</P>
+<P>In the statusbar the time between the red and green line is shown both in micro-seconds and in (system) samples.</P></TD>
+<TD width=295 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=339 height=170 src="device_scope_measures.gif"></P>
+<P class=RVPS3>&nbsp;<IMG width=228 height=139 src="pic_code_screen2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=497 valign=top>
+<P><A name="breakpoints"></A>
+<SPAN class=RVTS2>&nbsp;Breakpoints</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>Automatic breakpoints can be set by any language that's recognized by JALcc, simply by assigning a non-zero value to the breakpoint variable,i.e. "breakpoint = 12"</P>
+<P>There must be small routine, defining the pseudo var "breakpoint", in case the source is JAL, this routine should look like (best stored in a general pic-library)</P>
+<P>var volatile byte _breakpoint = 0</P>
+<P>procedure breakpoint'put(byte in x) is</P>
+<P>&nbsp;&nbsp;&nbsp; breakpoint_ = x</P>
+<P>&nbsp;&nbsp;&nbsp; breakpoint_ = 0</P>
+<P>end procedure&nbsp;</P>
+<P>An unlimited number of breakpoints can be set.</P>
+<P>The breakpoint page (which can only be reached when simulation is stopped) shows at each breakpoints the condition for all recorded signals.</P>
+<P>The format of the breakpoint is depending on the kind of signal.</P>
+<P>In general, for digital signals yields (which have all masked fields)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; =&nbsp; low&nbsp; signal required</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp; =&nbsp; high signal required</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; anything else&nbsp; = don't care</P>
+<P>For analog signals yields</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; positive number&nbsp;&nbsp; =&nbsp;&nbsp; signal higher is required</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; negative number&nbsp;&nbsp; =&nbsp;&nbsp; signal lower is required</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; anything else&nbsp;&nbsp; =&nbsp;&nbsp; don't care</P>
+<P>With&nbsp;&nbsp; Toggle invert-breakpoint checked, each time a breakpoint is encountered, the conditions are inverted. In that way it's very easy to follow all changes of a signal. When the conditions of a certain breakpoint are inverted, the number of that breakpoint in the breaks-list will become negative.</P>
+<P>Add / Delete button adds a new breakpoint&nbsp; /&nbsp; deletes the selected breakpoint.</P>
+<P>At the bottom also the posttrigger (in system clocks) can be set.</P>
+<P>In the graphical display window, for every breakpoint a checkbox is placed. In this way it's easy to jump from one part in the program to another.</P></TD>
+<TD width=232 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=298 height=288 src="device_scope_break3.gif"></P>
+<P class=RVPS3>&nbsp;<IMG width=152 height=174 src="device_scope_break2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

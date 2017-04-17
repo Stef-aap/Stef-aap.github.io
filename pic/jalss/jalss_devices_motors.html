@@ -1,0 +1,119 @@
+<HTML><HEAD><TITLE>Stepper Motors</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>May 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, Stepper motor</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=511 valign=top>
+<P><SPAN class=RVTS2>Stepper Motor</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>At this moment the stepper motor device is only implemented as a 4-phase unipolar stepper motor (most common used).</P>
+<P>The stepper motor (central in the picture on the right) has a reduction box (gear at the left of the stepper motor), a servo potmeter (left of the gear) output and max, mid and min switch outputs.</P>
+<P>The reduced angle (after the reduction box) is represented both numerical and as a visual gauge.</P>
+<P>Windings 1a and 1b represents the 2 windings (with center tap) on the same poles.</P>
+<P>Windings 2a and 2b representw the windings on the other poles.</P>
+<P>A&nbsp;<A class=RVTS4 href="http://www.cs.uiowa.edu/%7ejones/step/index.html">good tutorial</A>&nbsp;about stepper motors on line is written by&nbsp;<A class=RVTS4 href="http://www.cs.uiowa.edu/%7ejones/">Douglas W. Jones</A>.</P>
+<P>The motor-animation was taken from this tutorial.</P></TD>
+<TD width=218 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=223 height=171 src="device_stepper1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=30 valign=middle>
+<P>V0.2</P></TD>
+<TD valign=middle>
+<P>16-02-2003</P>
+<P>- for the min,mid,max detectors the active logical&nbsp; level can be selected</P>
+<P>- active page is stored in the settings</P>
+<P>- version number added</P></TD>
+</TR>
+<TR valign=top>
+<TD width=30 valign=middle>
+<P>V0.1</P></TD>
+<TD valign=middle>
+<P>Original Release</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=540 valign=top>
+<P><SPAN class=RVTS2>Timegraphs</SPAN></P>
+<P>The second page displays motor-angle, reduced-angle and speed as a function of time. These graphs will only be drawn as this page is selected (to save computer time).</P>
+<P>Motor-angle and reduced angle are represented modulo 360 degrees.</P>
+<P>Speed is graphical displayed as the absolute speed between 0 and 300 steps/sec.</P>
+<P>The numerical value will display also the direction.</P></TD>
+<TD width=189 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=225 height=171 src="device_stepper2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=520 valign=top>
+<P><SPAN class=RVTS2>Input Signals</SPAN></P>
+<P>The third page displays the signals aplied to the windings of the motor.</P>
+<P>Every pixel in horizontal direction represents a 1msec sample.</P>
+<P>If simulation is stopped, moving the mouse over the image, will generate a green vertical line for a better time comparison of the signals. In this case also a number will be shown in the lower-left corner, indicating relative time in msec.</P></TD>
+<TD width=209 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=224 height=171 src="device_stepper3.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=513 valign=top>
+<P><SPAN class=RVTS2>Motor settings</SPAN></P>
+<P>Unipolar and number of windings is fixed at the moment.</P>
+<P>Reduction should be a positive integer.</P>
+<P>Start Position, is the starting angle of the reduced angle that will appear after a reset. By setting this value to -1, a random value between 0 and 360 degrees will be generated.</P>
+<P>Missing is the percentage of steps, that the motor looses steps, so you test programs that are watched by servo-potmeter and/or min/max-switches (not yet implented).</P>
+<P>Min, Max and Mid switches will give a signal when activated, the logical active level can be selected. For each switch you can specify the range (in degrees from 0 to 360) of the reduced angle that will activate the switch.&nbsp;</P>
+<P>Maybe it's good to add some hysteresis in the future.</P></TD>
+<TD width=216 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=225 height=170 src="device_stepper4.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=505 valign=top>
+<P><SPAN class=RVTS2>PulsWidths</SPAN></P>
+<P>A limited number of pulses can be analysed numerical.</P>
+<P>The first value indicates the stepsize:</P>
+<P>-2 = fullstep backwards</P>
+<P>-1 = halfstep backwards</P>
+<P>+1 = halfstep forwards</P>
+<P>+2 = fullstep forwards</P>
+<P>The second value indicates the time from the previous transition.</P>
+<P>In the picture shown, it's evident there's some error in the program, because every 20-the value the transition time is too short.</P></TD>
+<TD width=224 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=233 height=171 src="device_stepper5.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

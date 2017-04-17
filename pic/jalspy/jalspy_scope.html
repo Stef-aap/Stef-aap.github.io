@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JALsPy Oscilloscope</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="142" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>november 2007</span></p>
+<p><span class=rvts1>JALsPy&nbsp; Oscilloscope</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <a href="punthoofd.gif"><img width=16 height=17 alt="" src="punthoofd.gif"></a>&nbsp; <a class=rvts4 href="../jalcc/jalcc_frame.html">MainIndex</a></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>With the Oscilloscope you can watch all kind of signals in a time-related way. Not only IO-pins or other hardware signals can be viewed, but also virtual nets, CPU registers and normal JAL variables. Because the scope can have a large memory, it's very convenient to search phenomena which happened a while ago (much easier than a table). All settings are automatically stored in the project's configuration file.</p>
+<p>As the scope can also control the simulation by speedbuttons, a trigger input combined with a (delayed) breakpoint might be a valuable addition.</p>
+<p>The actual value of the signals are displayed numerical on the left panel.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=690 height=413 alt="" hspace=1 vspace=1 src="jalspy_scope_img11.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Speed Buttons</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=57 valign=top style="background-color: #ffffe6;">
+<p><img width=25 height=51 alt="" src="jalspy_scope_img5.png"></p>
+</td>
+<td width=679 valign=top style="background-color: #ffffe6;">
+<p>Stop the simulation</p>
+<p><br></p>
+<p>(Re-)start the simulation</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=57 valign=top style="background-color: #ffffe6;">
+<p><img width=23 height=49 alt="" src="jalspy_scope_img6.png"></p>
+</td>
+<td width=679 valign=top style="background-color: #ffffe6;">
+<p>Increase the gain of the selected signal by a factor 2</p>
+<p><br></p>
+<p>Decrease the gain of the selected signal by a factor 2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=57 valign=top style="background-color: #ffffe6;">
+<p><img width=24 height=49 alt="" src="jalspy_scope_img7.png"></p>
+</td>
+<td width=679 valign=top style="background-color: #ffffe6;">
+<p>Shift the selected signal 1 cell up</p>
+<p><br></p>
+<p>Shift the selected signal 1 cell down</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=57 valign=top style="background-color: #ffffe6;">
+<p><img width=23 height=47 alt="" src="jalspy_scope_img8.png"></p>
+</td>
+<td width=679 valign=top style="background-color: #ffffe6;">
+<p>Set the color of the selected cell</p>
+<p><br></p>
+<p>The name of the selected signal ('--' if no signals is selected)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=57 valign=top style="background-color: #ffffe6;">
+<p><img width=51 height=67 alt="" src="jalspy_scope_img9.png"></p>
+</td>
+<td width=679 valign=top style="background-color: #ffffe6;">
+<p>Name and value of the displayed signals,</p>
+<p>either the actual value is the simulation is running,</p>
+<p>or the value at the active cursor, when the simulation is paused</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2><br></span></p>
+<div><table width="100%" border=1 style="border-width : 0px" cellpadding=5 cellspacing=0 style="background-color: #d4d0c8;">
+<tr valign=top>
+<td width=544 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; background-color: #ffffe6;">
+<p><span class=rvts2>Cursor Measurement</span></p>
+<p><br></p>
+<p>If the simulation is stopped, you measure the exact values with a cursor.</p>
+<p>Mouse Left-Click will show and drag the cursor, while the values at the cursor position are shown on the left panel.</p>
+<p>Mouse Middle-Click lets the cursor disappear.</p>
+<p><br></p>
+<p>In the future a second cursor will be added, so accurate time measurements can be performed.</p>
+</td>
+<td width=356 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; background-color: #ffffe6;">
+<p><img width=401 height=410 alt="" hspace=1 vspace=1 src="jalspy_scope_img12.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Fine Tuning&nbsp; and Signal Selection</span></p>
+<p>Clicking on the Setting tab, will show an hierarchical ordered list of all current and paste known signals. Some signals will, due to their nature, appear in more than one node. Signals can be (de-)selected by clicking on the corresponding node. The selected signals will also be shown in the grid, where fine tuning of gain and offset can be set. If a signal is deselected, it disappears from the grid, but it's settings remain available and will be stored in the projects configuration file. Some variables may not be present at the current moment, like a JAL variable that is not yet declared, in that case you may select it, but it will a value in the scope pane, only after it's declared.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=690 height=413 alt="" hspace=1 vspace=1 src="jalspy_scope_img10.png"></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

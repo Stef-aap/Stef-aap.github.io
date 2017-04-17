@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>SourceCode exporting of ti_basic_library.bzc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="generator" content="SynEdit HTML exporter" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+.ti-bzc1-command { color: #0000FF; }
+.ti-bzc1-comment { color: #808080; font-style: italic; }
+.ti-bzc1-constant { color: #008000; }
+.ti-bzc1-field { color: #00FF00; }
+.ti-bzc1-identifier { color: #800000; font-style: italic; }
+.ti-bzc1-number { }
+.ti-bzc1-preprocessor { color: #FF0000; }
+.ti-bzc1-reservedword { color: #800080; }
+.ti-bzc1-searchresults { color: #000000; font-weight: bold; }
+.ti-bzc1-space { }
+.ti-bzc1-string { color: #FF0000; }
+.ti-bzc1-symbol { }
+-->
+</style>
+</head>
+<body>
+<pre>
+<code><span style="font: 10pt Courier New;"><span class="ti-bzc1-identifier">; <A href="ti_basic_library.bzc">download JALcc Source code: ti_basic_library.bzc</A>
+; <A href="ti_basic_library.8xp">download TI-Basic Source code: ti_basic_library.8xp</A>
+
+</span><span class="ti-bzc1-comment">//************************
+//equivalents for TI-Basic
+//************************
+
+
+//-----------------------------------------------------
+// Naming conventions
+//    TI-Basic Name    XYZ
+//    BZC-Name         Basic_XYZ_
+//-----------------------------------------------------
+
+
+//-----------------------------------------------------
+// TI-BASIC        Line  (X1, Y1, X2, Y2, Draw)
+// limitation, should always be called with 5 parameters
+// This function doesn't use the 11-byte OP-varaibles like TI_Basic
+// but just simple bytes and words.
+// The advantage is that's much faster,
+// the disadvantage is, that scaling and shifting is not supported.
+//-----------------------------------------------------
+</span><span class="ti-bzc1-command">Function_Def</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Basic_Line_</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-symbol">, </span><span class="ti-bzc1-identifier">A</span><span class="ti-bzc1-symbol">,  </span><span class="ti-bzc1-identifier">D</span><span class="ti-bzc1-symbol">,  </span><span class="ti-bzc1-identifier">E</span><span class="ti-bzc1-symbol">,  </span><span class="ti-bzc1-identifier">Draw
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-preprocessor">ASM
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">LD</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">B</span><span class="ti-bzc1-symbol">, </span><span class="ti-bzc1-identifier">L</span><span class="ti-bzc1-space">         </span><span class="ti-bzc1-comment">; B = X1 coordinate
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">LD</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">C</span><span class="ti-bzc1-symbol">, </span><span class="ti-bzc1-identifier">A</span><span class="ti-bzc1-space">         </span><span class="ti-bzc1-comment">; C = Y1 coordinate
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-preprocessor">ENDASM</span><span class="ti-bzc1-space"> 
+
+  </span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Draw</span><span class="ti-bzc1-space">          </span><span class="ti-bzc1-comment">; HL = (0=Erase, 1=Draw, 2=Toggle)
+
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-preprocessor">ASM
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">LD</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">H</span><span class="ti-bzc1-symbol">, </span><span class="ti-bzc1-identifier">L</span><span class="ti-bzc1-space">         </span><span class="ti-bzc1-comment">; H = (0=Erase, 1=Draw, 2=Toggle)
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-preprocessor">ENDASM</span><span class="ti-bzc1-space"> 
+  </span><span class="ti-bzc1-identifier">_ILine</span><span class="ti-bzc1-space">             </span><span class="ti-bzc1-comment">; Draw the line
+</span><span class="ti-bzc1-command">End_Function_Def
+</span><span class="ti-bzc1-comment">//-----------------------------------------------------
+
+
+//-----------------------------------------------------
+//                 TEXT  (Row, Col, String)
+// limited version can only display strings,
+// whereas in TI-Basic it can also format all kind of types
+//-----------------------------------------------------
+</span><span class="ti-bzc1-command">Function_Def</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Basic_Text_</span><span class="ti-bzc1-space">   </span><span class="ti-bzc1-identifier">L</span><span class="ti-bzc1-symbol">,   </span><span class="ti-bzc1-identifier">A</span><span class="ti-bzc1-symbol">,    </span><span class="ti-bzc1-identifier">DE
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-preprocessor">ASM
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">EX</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">DE</span><span class="ti-bzc1-symbol">, </span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-space">       </span><span class="ti-bzc1-comment">; HL = address of string
+</span><span class="ti-bzc1-space">                     </span><span class="ti-bzc1-comment">; E = Y
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">LD</span><span class="ti-bzc1-space">  (</span><span class="ti-bzc1-identifier">PenCol</span><span class="ti-bzc1-symbol">), </span><span class="ti-bzc1-identifier">A</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">; set Column for _VPutS
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">LD</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">A</span><span class="ti-bzc1-symbol">, </span><span class="ti-bzc1-identifier">E</span><span class="ti-bzc1-space">         </span><span class="ti-bzc1-comment">;
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">LD</span><span class="ti-bzc1-space">  (</span><span class="ti-bzc1-identifier">PenRow</span><span class="ti-bzc1-symbol">), </span><span class="ti-bzc1-identifier">A</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">; set Row for _VPutS
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-preprocessor">ENDASM</span><span class="ti-bzc1-space"> 
+  </span><span class="ti-bzc1-identifier">_VPutS</span><span class="ti-bzc1-space">             </span><span class="ti-bzc1-comment">; Displays string addressed by (HL)
+</span><span class="ti-bzc1-command">End_Function_Def
+</span><span class="ti-bzc1-comment">//-----------------------------------------------------
+
+
+//-----------------------------------------------------
+//                 ClrHome ()
+//-----------------------------------------------------
+</span><span class="ti-bzc1-command">Function_Def</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Basic_ClrHome_
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">_GrBufClr
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">_ClrLCDFull
+</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-comment">;_ClrScrnFull
+</span><span class="ti-bzc1-command">End_Function_Def
+</span><span class="ti-bzc1-comment">//-----------------------------------------------------
+
+
+//-----------------------------------------------------
+// RANDOM generator, generates a new random WORD
+//-----------------------------------------------------
+</span><span class="ti-bzc1-command">WORD</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">_RDM</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">;bug, not allowed to place inside the function !!
+</span><span class="ti-bzc1-command">Function_Def</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Random
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-preprocessor">ASM
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">LD</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-symbol">,</span><span class="ti-bzc1-identifier">_RDM</span><span class="ti-bzc1-space">         </span><span class="ti-bzc1-comment">;point HL to _RDM (LSB first !!)
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">INC</span><span class="ti-bzc1-space">   </span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-space">              </span><span class="ti-bzc1-comment">;point HL to MSB of _RDM
+</span><span class="ti-bzc1-space">      
+      </span><span class="ti-bzc1-identifier">SCF</span><span class="ti-bzc1-space">                   </span><span class="ti-bzc1-comment">;set carry
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">CCF</span><span class="ti-bzc1-space">                   </span><span class="ti-bzc1-comment">;invert carry
+
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">RR</span><span class="ti-bzc1-space">    (</span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-symbol">)            </span><span class="ti-bzc1-comment">;rotate MSB of _RDM
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">DEC</span><span class="ti-bzc1-space">   </span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-space">              </span><span class="ti-bzc1-comment">;point HL to LSB of _RDM
+
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">RR</span><span class="ti-bzc1-space">    (</span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-symbol">)            </span><span class="ti-bzc1-comment">;rotate LSB of _RDM
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">JR</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">C</span><span class="ti-bzc1-symbol">, </span><span class="ti-bzc1-identifier">Finish</span><span class="ti-bzc1-space">       </span><span class="ti-bzc1-comment">;jump if carry
+
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">INC</span><span class="ti-bzc1-space">   </span><span class="ti-bzc1-identifier">HL
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">LD</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">A</span><span class="ti-bzc1-symbol">, $A1          </span><span class="ti-bzc1-comment">;$A1A1 seems to be a prime !!
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">XOR</span><span class="ti-bzc1-space">   (</span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-symbol">)
+      </span><span class="ti-bzc1-identifier">LD</span><span class="ti-bzc1-space">    (</span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-symbol">),</span><span class="ti-bzc1-identifier">A
+</span><span class="ti-bzc1-space">      
+      </span><span class="ti-bzc1-identifier">DEC</span><span class="ti-bzc1-space">   </span><span class="ti-bzc1-identifier">HL
+</span><span class="ti-bzc1-space">      </span><span class="ti-bzc1-identifier">LD</span><span class="ti-bzc1-space">    </span><span class="ti-bzc1-identifier">A</span><span class="ti-bzc1-symbol">, $A1
+      </span><span class="ti-bzc1-identifier">XOR</span><span class="ti-bzc1-space">   (</span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-symbol">)
+      </span><span class="ti-bzc1-identifier">LD</span><span class="ti-bzc1-space">    (</span><span class="ti-bzc1-identifier">HL</span><span class="ti-bzc1-symbol">),</span><span class="ti-bzc1-identifier">A
+</span><span class="ti-bzc1-space">      
+    </span><span class="ti-bzc1-identifier">Finish</span><span class="ti-bzc1-symbol">:
+  </span><span class="ti-bzc1-preprocessor">ENDasm
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-command">Return</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">_RDM
+</span><span class="ti-bzc1-command">End_Function_Def
+</span><span class="ti-bzc1-comment">//-----------------------------------------------------
+
+
+//-----------------------------------------------------
+// TI-BASIC        RandInt (LowerBound, UpperBound)
+// Generates a random Word, in the range from LowerBound .. MAX
+// where BASE and MAX are included in the range
+//-----------------------------------------------------
+</span><span class="ti-bzc1-command">Function_Def</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Basic_RandInt_</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">LowerBound</span><span class="ti-bzc1-symbol">, </span><span class="ti-bzc1-identifier">UpperBound
+</span><span class="ti-bzc1-command">Word</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">X
+</span><span class="ti-bzc1-command">Word</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">_Max
+</span><span class="ti-bzc1-command">Word</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Divisor
+</span><span class="ti-bzc1-command">Word</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Modulo
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">; calculate zero based range
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">_Max</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">UpperBound</span><span class="ti-bzc1-space"> - </span><span class="ti-bzc1-identifier">LowerBound</span><span class="ti-bzc1-space"> + 1
+  </span><span class="ti-bzc1-comment">; run random generator
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">Random
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">; calculate _RDM MOD range
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Divisor</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-space"> / </span><span class="ti-bzc1-identifier">_Max
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-identifier">Modulo</span><span class="ti-bzc1-space"> = </span><span class="ti-bzc1-identifier">X</span><span class="ti-bzc1-space"> - </span><span class="ti-bzc1-identifier">_MAX</span><span class="ti-bzc1-space"> * </span><span class="ti-bzc1-identifier">Divisor
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-comment">; return value, don't forget to add base
+</span><span class="ti-bzc1-space">  </span><span class="ti-bzc1-command">Return</span><span class="ti-bzc1-space"> </span><span class="ti-bzc1-identifier">Modulo</span><span class="ti-bzc1-space"> + </span><span class="ti-bzc1-identifier">LowerBound
+</span><span class="ti-bzc1-command">End_Function_Def
+</span><span class="ti-bzc1-comment">;************************************************************
+
+
+</span></span>
+</code></pre>
+</body>
+</html>

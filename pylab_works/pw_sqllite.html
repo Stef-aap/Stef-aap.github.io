@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Brick DataBase</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>16 may 2008</span></p>
+<p><span class=rvts1>SQLlite </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"></p>
+<p><br></p>
+<p><span class=rvts10>Application Designer</span> / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><br></p>
+<p>Besides the special DataBase bricks, you can use the normal Grid to display tables, use the normal code editor to generate SQL code.</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=210 height=313 alt="" src="pw_sqllite_img10.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=578 height=470 alt="" src="pw_sqllite_img18.png"></p>
+<p><br></p>
+<p><span class=rvts2>dBase</span></p>
+<p>The database Brick has a buildin open database dialog, which can either connect to a SQLITE3 database or to an ODBC database ( MS-Access, Sybase, MySQL, etc.). For ODBC databases it will show both the system databases and the user databases. </p>
+<p>The Brick has 2 outputs. The first output gives the metadata of the connected database ( tables, views, etc) and can for example be connected to a Tree or a DB_Tree brick. The second output gives the results of a query, in the general form of a grid, so you can connect it to a Grid or DB_Grid.</p>
+<p>The Brick has 3 inputs, which are identical and except an SQL string that will be performed on the connected database. If the first input changes, only the SQL statement of the first input will be executed. If the first input didn't change, but the second input changed, the SQL statement of the second imput will executed and so on. For example you can connect the first input to the SQL output of a dB_Grid, the second input to a general text editor and the third to a visual SQL builder.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=98 height=80 alt="" src="pw_sqllite_img12.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=287 height=105 alt="" src="pw_sqllite_img11.png"></p>
+<p><span class=rvts8><br></span></p>
+<p><img width=619 height=239 alt="" src="pw_sqllite_img14.png"></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>dB_Tree</span></p>
+<p>The dB_Tree is a tree with some extra features, to handle the meta-data of a database.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=110 height=81 alt="" src="pw_sqllite_img15.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=525 height=453 alt="" src="pw_sqllite_img9.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>db_Grid</span></p>
+<p>This is a normal gridd !!</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=99 height=77 alt="" src="pw_sqllite_img17.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=392 height=223 alt="" src="pw_sqllite_img16.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Background Information</span></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.ch-werner.de/sqliteodbc/">SQLite ODBC Driver</a></p>
+<p><br></p>
+<p>User DSNs are stored in HKEY_CURRENT_USER\Software\ODBC\ODBC.INI.</p>
+<p>see :</p>
+<p>&nbsp; <a class=rvts4 href="http://www.codeproject.com/KB/database/ODBCMngr.aspx">CodeProject An ODBC (DSNDriver) Manager DLL written in C# (Version - I). Free source code and programming help</a></p>
+<p><br></p>
+<p><img width=878 height=253 alt="" src="pw_sqllite_img8.png"></p>
+<p><span class=rvts8><br></span></p>
+<p><br></p>
+<p><span class=rvts2>Manage ODBC</span></p>
+<p><img width=203 height=266 alt="" src="pw_sqllite_img6.png">&nbsp; </p>
+<p><br></p>
+<p><img width=460 height=374 alt="" src="pw_sqllite_img5.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><img width=472 height=307 alt="" src="pw_sqllite_img4.png"></p>
+<p><img width=392 height=372 alt="" src="pw_sqllite_img3.png"></p>
+<p><br></p>
+<p><img width=399 height=238 alt="" src="pw_sqllite_img2.png"></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://pyodbc.sourceforge.net/">pyodbc</a></p>
+<p>pyodbc is a Python module that allows you to access ODBC databases. It implements the Python Database API Specification v2.0.</p>
+<p>Some notable features include:</p>
+<p>&nbsp;&nbsp;&nbsp; * The library is free for commercial and personal use.</p>
+<p>&nbsp;&nbsp;&nbsp; * It conforms to the DB API standard.</p>
+<p>&nbsp;&nbsp;&nbsp; * No 3rd party libraries are required. Only native Python datatypes are used, such as decimal and datetime.</p>
+<p>&nbsp;&nbsp;&nbsp; * It requires Python 2.4 or higher, since the decimal type was added in 2.4. (We are open to suggestions regarding versions for earlier Python builds.)</p>
+<p>&nbsp;&nbsp;&nbsp; * Additional features have been added to simplify database programming with Python.</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.freelance-developer.com/howto_odbcpy">Mark J. Nenadov - HowTo Use ODBC with the Python DBI..</a></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www6.uniovi.es/python/windows/win32/odbc.html">ODBC Module</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.egenix.com/products/python/mxODBC/">eGenix.com Products Python mxODBC - ODBC Database Interface for Python</a></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/303667">ASPN Python Cookbook Odbc connection on win32</a></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.petersblog.org/node/847">Python ODBC Stuff- Peter's Blog</a></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="https://sourceforge.net/projects/pyodb">SourceForge.net PyODB</a></p>
+<p>PyODB is an ODBC Python module to provide an quick an easy way to work with databases. It provides a small set of simplified bindings to the unixODBC API and has been developed using SWIG. </p>
+<p>Almost no activity, latest 2005</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://unipex.it/vario/RealPyOdbc.py">Untitled RealPyODBC</a></p>
+<p># Welcome to RealPyODBC</p>
+<p># Version 0.1 beta</p>
+<p># This class help you to connect your python script with ODBC engine.</p>
+<p># I need at least ctypes 0.9.2 for work.</p>
+<p># This class is not db-api 2.0 compatible. If you want to help me to do it</p>
+<p># please modify it and send me an e-mail with your work!</p>
+<p># All the comunity will thanks you.</p>
+<p># Please send bugs and reports to michele.petrazzo@unipex.it</p>
+<p># TO-DO</p>
+<p># Make compatibility with db-api 2.0, so add:</p>
+<p># apilevel, theadsafety, paramstyle, cursor, exceptions, ....</p>
+<p># This software if released with MIT Licence</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://savannah.nongnu.org/projects/pyodbc/">Python ODBC - Summary [Savannah]</a></p>
+<p>Python ODBC - Summary</p>
+<p>This project is not part of the GNU Project.</p>
+<p>Le objectivo de iste projecto es le realisation de un modulo ODBC pro Python, con licentia GPL, que es usabile in le major numero possibile de systemas operative.</p>
+<p>Iste projecto es basate super le modulo ODBC que es parte del pacchetto win32all (que infortunatemente functiona solmente in Windows), ma jam actualmente illo functiona in Linux.</p>
+<p>Pro utilisar iste modulo in Linux on necessita un installation functionante de unixODBC o de iODBC.</p>
+<p>Registration Date: Sunday 11/23/2003 at 15:18 UTC</p>
+<p>License: GNU General Public License v2 or later</p>
+<p>Development Status: 2 - Pre-Alph</p>
+<p>No activity since 2005</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.iodbc.org/index.php?page=about">iODBC.org</a></p>
+<p>iODBC has been ported to numerous platforms, including:</p>
+<p>Linux (x86, Itanium, Alpha, Mips, and StrongArm), Solaris (Sparc &amp; x86), AIX, HP-UX (PA-RISC &amp; Itanium), Digital UNIX, Dynix, Generic UNIX 5.4, FreeBSD, MacOS 9, MacOS X, DG-UX, and OpenVMS.</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.unixodbc.org/">unixODBC</a></p>
+<p>The unixODBC Project goals are to develop and promote unixODBC to be the definitive standard for ODBC on non MS Windows platforms. This is to include GUI support for both KDE and GNOME.</p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

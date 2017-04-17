@@ -1,0 +1,271 @@
+<HTML><HEAD><TITLE>JALcc, auto document generation</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>july 2004</SPAN></P>
+<P><SPAN class=RVTS1>JALcc, Release JAL sources</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>Releasing a new version of a JAL library or JAL mainprogram, involves one or more of the following steps:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>backup of the actual version (generating new version number ?)&nbsp;</LI>
+<LI>generating the accompanying documentation&nbsp;</LI>
+<LI>publishing of the documentation and sources&nbsp;</LI>
+<LI>notifying the people who are interested&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>In JALcc these tasks can all be perfomed with just one mouse-click. The job can be started through de main menu "File" --&gt; "BackUp-Upload".&nbsp; Here a view after performing the selected tasks</P>
+<P>&nbsp;<IMG width=637 height=373 src="jalcc_doc_generation_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>With the testbuttons, it's possible to perform just one of the tasks. The tasks "export SourceCode to HTML/RTF" can also be reached directly from the mainmenu item "File".</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>To be done</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>backup of new releases (including changes in includes)&nbsp;</LI>
+<LI>inserting a notification in some general PIC page under "NEW"&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS1>Backup of the new release</SPAN></P>
+<P>to be done</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS1>Generating Documentation</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>JALcc can generate html-documents from the raw JAL source files. These html-files can either be used as personal documentation, but can also be used to publish the information on the internet. The html-file will include links to the source-file and to all the included files.</P>
+<P>All the files, i.e. the html-doc-file, the source-file and the included files can be uploaded (through some commandline uploader) to a website with the same mouse-click. And this single mouse-click can also generate an email to a list of interested people. Above all this, a backup of the file can be made automatically.</P>
+<P>&nbsp;&nbsp;</P>
+<P>The document is build up from a fixed number of sections. Each section is detected through documentation tags. The general form of a documentation tag is "-- &lt;tag" , so in JAL it will be recognized as comment. In general a section starts at the correct section tag and ends when another documentation tag is encountered.&nbsp;</P>
+<P>If a specified section tag is not available, that section will not be included in the documentation. It's also not necessary that the tags are in the same order as the order in the documentation file. At the moment, the following sections are created (if specified tags are found):</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Title&nbsp;</LI>
+<LI>License&nbsp;</LI>
+<LI>Version information&nbsp;</LI>
+<LI>Description&nbsp;</LI>
+<LI>Example&nbsp;</LI>
+<LI>Included JAL sources&nbsp;</LI>
+<LI>Public Procedures&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>The JAL comment tags are removed from the text and also the lines are concatanated, unless a line starts with an extra space character, in which case a&nbsp; new line is generated.</P>
+<P>So the following JAL source code</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=434 height=46 src="jalcc_doc_generation_img8.gif"></P>
+<P>Will be translated in the html documentation to:&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=391 height=34 src="jalcc_doc_generation_img9.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The generated HTML-documentation file is formatted with RVF.CSS (Casacade Style Sheet file), which will be uploaded together with the documentation file. For the moment the CSS-file is fixed in JALcc. For the future, a wysiwyg html-editor is forseen in JALcc, which will also modify the CSS-file.</P>
+<P>To each doc file, a icon-link is added, which shows Javi's beatiful JALcc rings.</P>
+<P>(&lt;link rel="icon" href="jalccring_small.gif" type="image/gif"&gt;), if available, this file will be uploaded too.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Title section</SPAN></P>
+<P><SPAN class=RVTS3>Tag</SPAN>: -- &lt;title</P>
+<P><SPAN class=RVTS3>Content</SPAN>: just the text on the same line as the tag</P>
+<P>The following JAL-code</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=299 height=47 src="jalcc_doc_generation_img22.gif"></P>
+<P>will generate the following documentation part</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=384 height=60 src="jalcc_doc_generation_img21.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>License section</SPAN></P>
+<P><SPAN class=RVTS3>Tag</SPAN>: -- &lt;license</P>
+<P><SPAN class=RVTS3>Content</SPAN>: all upto the next section tag</P>
+<P>The following JAL-code,</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=329 height=92 src="jalcc_doc_generation_img24.gif"></P>
+<P>will generate the next documentation part (note also the translation of the email address, to a directly clickable link)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=445 height=61 src="jalcc_doc_generation_img20.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Version information section</SPAN></P>
+<P><SPAN class=RVTS3>Tag</SPAN>: -- &lt;version</P>
+<P><SPAN class=RVTS3>Content</SPAN>: download links + all upto the next section tag</P>
+<P>At least a download link to the source code will be inserted. Depending on what kind of color-coded files are generated, also the links to these color-coded files are included.</P>
+<P>In the next example, both HTML and RTF color-coded source files were created, so the following JAL-source code</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=346 height=32 src="jalcc_doc_generation_img12.gif"></P>
+<P>will generate the following part in the documentation file</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=362 height=140 src="jalcc_doc_generation_img11.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Description section</SPAN></P>
+<P><SPAN class=RVTS3>Tag</SPAN>: -- &lt;description</P>
+<P><SPAN class=RVTS3>Content</SPAN>: all upto the next section tag</P>
+<P>The next JAL-code will normally put everything in the documentation file. If you don't want to place the list of functions in the documentation part, simply put a "&lt;" in front of "interface", so it will be recognized as a (non-valid) documentation tag.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=537 height=230 src="jalcc_doc_generation_img14.gif"></P>
+<P>in which case the documentation of this part will be limited to</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=411 height=121 src="jalcc_doc_generation_img15.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Example section</SPAN></P>
+<P><SPAN class=RVTS3>Tag</SPAN>: -- &lt;example</P>
+<P><SPAN class=RVTS3>Content</SPAN>: all upto the next section tag</P>
+<P>The easyist way to create this is by using a real code part and mark it (through the right mouse button menu) as comment (";" are placed in front of each line). When converting this section to the documentation file, no line concatanation is performed.</P>
+<P>So the following part of the example section</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=346 height=183 src="jalcc_doc_generation_img16.gif">&nbsp;&nbsp;</P>
+<P>Will be added to the documentation file as:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=290 height=197 src="jalcc_doc_generation_img17.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Included section</SPAN></P>
+<P><SPAN class=RVTS3>Tag</SPAN>: -- &lt;code</P>
+<P><SPAN class=RVTS3>Content</SPAN>: all valid JAL include statements, these lines will also contain a html-tag with links directly to the download of the specified include file. Also the "last modified data" and the orginal location of the included files will be reported (just for your own documentation).</P>
+<P>If the JAL source contains:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=235 height=80 src="jalcc_doc_generation_img18.gif"></P>
+<P>Then the documentation file will look like:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=296 height=65 src="jalcc_doc_generation_img19.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Public Procedures section</SPAN></P>
+<P><SPAN class=RVTS3>Tag</SPAN>: -- &lt;code</P>
+<P><SPAN class=RVTS3>Content</SPAN>: all public procedures, including their description</P>
+<P>The doc-generator starts to search for public routines, starting at the code-tag: "-- &lt;code"</P>
+<P>It searches for lines starting with "procedure" or "function" (which may be preceeded by spaces or tabs). Then it reads the name of the routine, and if the name starts with an underscore "_", the routine is assumed to be an internal routine and thus ignored. Otherwise the routine is assumed to be a public routine and so it's incorporated in the doc.</P>
+<P>After a valid public routine is found, the text above the procedure header (between 2 horizontal lines) is used as the text for the doc. (A horizontal line should have at least 10 minus signs.) When inserting this text, the JAL comment tags will be removed.</P>
+<P>Example:</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- -----------------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- loads alarm and resolution settings from the EEprom into the device's scratchpad</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- -----------------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure DS18B20_load_settings_from_EEprom&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>will be inserted in the document as</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS2>procedure DS18B20_load_settings_from_EEprom&nbsp;</SPAN></P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN>loads alarm and resolution settings from the EEprom into the device's scratchpad</P>
+<P>&nbsp;&nbsp;</P>
+<P>To prevent that the subheader with the procedure name in the documentation is polluted with the procedure parameters, you should place the parameters in JAL on the next line, like this</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure DS18B20_set_resolution_and_alarms</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (byte in device_index = 0,</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; byte in Resolution = 12,</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; byte in Talarm_high,</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; byte in Talarm_low) is</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>URL and Mail links</SPAN></P>
+<P>The document generator will recognize mail- and web-addresses, and will add the appropriate link tag, if they satifies the following rules:</P>
+<P>Must start with one of the following (case-insensitive)</P>
+<P>&nbsp; http://</P>
+<P>&nbsp; mailto:</P>
+<P>Must be at the end of a line or followed by a space.</P>
+<P>If recognized as a valid URL or email-address, the link will be placed on a new line and a suitable&nbsp; html-tag will be added to the text.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=636 height=376 src="jalcc_doc_generation_img5.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS1>Directories</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#E8E8E8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=394 bgcolor=#FFFFD2 valign=top>
+<P>Where all the docs and sources are stored, can be set in the tabpage on the right.&nbsp;</P>
+<P>A short overview, is given below, where XXX stands for the orginal source path of the JAL-source that generates these documents.</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#E8E8E8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>local</P></TD>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>web</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>doc-html</P></TD>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>A</P></TD>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>D</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>JAL-source</P></TD>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>XXX</P></TD>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>C</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>RTF colored&nbsp;</P>
+<P>HTML colored</P></TD>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>B (or XXX)</P></TD>
+<TD width=100 bgcolor=#FFFFD2 valign=top>
+<P>E (or C)</P></TD>
+</TR>
+</TABLE>
+</P></TD>
+<TD width=347 bgcolor=#FFFFD2 valign=top>
+<P>&nbsp;<IMG width=365 height=370 src="jalcc_doc_generation_img7.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS1>Publishing</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#E8E8E8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=388 bgcolor=#FFFFD2 valign=top>
+<P>A = the address used for uploading to the website, this address is in general different from the download address (see your providers information)&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>B = the base address for downloading / accessing your website. It's advised to use the lowest address here.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>C = the FTP program, used to upload all the necessary files to the website. This must be a commandline uploader, in which you can pass the password through the commandline. I've good experiences with Putty and his derivates. PSFTP doesn't work for my site (the last slash always gets lost), but PSCP works perfectly.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>D = the commandline, which can handle a number of macro substitues:&nbsp;</P>
+<P>&nbsp; %PW = password&nbsp;</P>
+<P>&nbsp; %F = the complete filename to be uploaded&nbsp;</P>
+<P>&nbsp; %WB = the base webpath, definied in B&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>E = password, if stored, it's stored in a coded file "&lt;JAL-path&gt;\JALcc_email_pw.xxx".</P></TD>
+<TD width=353 bgcolor=#FFFFD2 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=361 height=372 src="jalcc_doc_generation_img6.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS1>Notifying people</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Email client</SPAN></P>
+<P>The emails can either be sent through the default email client or directly through smpt-server. It's advised to use the smtp-server directly, because it's more reliable. The smpt-client always uses port:25.</P>
+<P>To guarantee the privacy of the mailed people, sending though smtp is done as individual messages. If the default email client is used (the user must press the send button for each mail), only the first address will be directed to the MailTo part, while all others are directed to the BCC-list.</P>
+<P>The outgoing SMTP server and the MailFrom are only required when using SMTP directly. By placing the MailFrom address between &lt;&gt;, and placing a name in front of it, your email address will be less visible, especially in newsgroups.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=334 height=84 src="jalcc_doc_generation_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Email addresses</SPAN></P>
+<P>The address list can be edited directly. By placing an empty line in the address-list, only the addresses above that empty line will be used. This is handy for testpurposes or to maintain a subset list, that receives more than the total list.</P>
+<P>The email addresses are stored in a separate file "&lt;JALcc-path&gt;\JALcc_email_addresses.txt".</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=244 height=122 src="jalcc_doc_generation_img2.gif">&nbsp;here, only the first address will be used</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Subject, content</SPAN></P>
+<P>The subject and content is loaded from the file "&lt;JALcc-path&gt;\JALcc_email_upload.txt". This file can be edited by pressing the button ar just by any other plain-text-editor.</P>
+<P>The first line of the file is used as the subject of the mail, while the other lines forms the content of the mail. After the file is loaded in the Notifying page, the text can aslo be edited, but all changes will be lost after the program closes.</P>
+<P>A number of text-substitutes (case-insensitive) are available for use in both the subject part and the content part:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>%F = the filename (without the path, and in uppercase) of the sourcecode&nbsp;</LI>
+<LI>%source = absolute link to the sourcecode on the webpage&nbsp;</LI>
+<LI>%doc = absolute link to the documentation on the webpage&nbsp;</LI>
+<LI>%html = absolute link to the color-coded sourcecode in HTML-form on the webpage&nbsp;</LI>
+<LI>%rtf = absolute link to the color-coded sourcecode in RTF-form on the webpage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=323 height=314 src="jalcc_doc_generation_img1.gif"></P>
+<P>&nbsp;</P>
+</BODY></HTML>

@@ -1,0 +1,52 @@
+<HTML><HEAD><TITLE>EEprom endurance worse then we think</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>EEprom endurance</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>In december 2004 an interesting discussion took place about an often overseen spec of the EEprom.</P>
+<P>I too have done a project that has probems probably due to this phenomene. I even have written a library to increase the EEprom endurance, by spreading the information over the complete EEprom, but which offences against this rule and make things probably worse.</P>
+<P>&nbsp;&nbsp;</P>
+<P>What's the problem ?</P>
+<P>Normal endurance (parameter D124) is worst case 10^6 (upto 85 Celcius).</P>
+<P>&nbsp;&nbsp;</P>
+<P>But writing to some place in EEprom, reduces the endurance of the other EEprom locations by</P>
+<P>a factor 10, (parameter D120) upto 85 Celcius</P>
+<P>a factor 100, (parameter D120A) above 85 Celcius</P>
+<P>&nbsp;&nbsp;</P>
+<P>So my conclusion is that I've to write a new library, not spreading the information over the EEprom, but keeping the number of writes into a counter and create a refresh of the total EEprom when counter exceeds a certain value.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>from m'chip techsupport</SPAN></P>
+<P>The data sheet is being updated in this area.</P>
+<P>The refresh works as follows:</P>
+<P>any individual EEPROM cell has an absolute maximum endurance.</P>
+<P>If you extend the endurance of a piece of data by spreading the value across a few cells you can increase the data's endurance by n * endurance, where n is the number of cells you spread the value across.</P>
+<P>If you are updating the entire EEPROM array but you have a few cells that never get touched, the data can be disturbed if the rest of the array has had 10Million erase cycles performed anywhere in the array.</P>
+<P>Refresh means you read and re-write the little used cells before the entire array sees 10Million writes.</P>
+<P>The ultimate endurance of the DATA EEPROM memory is (size * cell Endurance).&nbsp; However if you never touch one address you can expect that one address to be corrupted before you reach the ultimate endurance.&nbsp; That is why we recomend periodic refresh of less frequently used memory locations.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>from Bob Ammerman:</SPAN></P>
+<P>Basically the issue is this:</P>
+<P>Any write to EEPROM memory (any location) degrades the signal stored in _all_ EEPROM locations. Thus, the value of any given location can be corrupted, if there are too many writes to _other_ locations between writes to that location.</P>
+<P>The datasheet will define parameters for this. For many, but not all PICs, these parameters are called D120 and D120A.</P>
+<P>For an example, looking at the datasheet for the PIC18F1220/PIC18F1320 we find (marked as advance information in the copy I have):</P>
+<P>Parameter D120 - Byte Endurance - Min=100K, Typ=1M -- This is the number of times any single byte of EEPROM can be written to reliably.</P>
+<P>Parameter D124 - Number of total ERASE/WRITE cycles before refresh - Min = 1M, Typ = 10M -- Any bytes that have _not_ been written need to be refreshed before D124 total writes to other bytes are done.</P>
+<P>So, what does this really mean?</P>
+<P>Well, if you do less than 1M total writes to the EEPROM (and 100K to any one byte) in the life of your product, you have no problem.</P>
+<P>If you are using some sort of logging scheme where every EEPROM cell you are using is written to 'regularly', you have no problem.</P>
+<P>The typical case where you do have a problem is where some EEPROM locations are quite static and seldom written, while others are actively written. A primary example of this is where configuration or calibration data is stored in part of the EEPROM and logged data in the rest. In this case you would have to perform a periodic refresh of the configuration/calibration data (before doing 1M writes to the logging data area).</P>
+<P>A refresh, of course, is as simple as reading and then immediately rewriting the same memory location with the same value.</P>
+<P>One useful way to avoid the refresh issue is to store your configuration/calibration data in program memory on those PICs that support self writing. This will work if you can live within the endurance constraint of program memory (parameter D130 for our example PICS, Min=10K, Typ=100K), and can afford to have your PIC 'freeze' while writing the parameters.</P>
+</BODY></HTML>

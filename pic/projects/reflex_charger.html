@@ -1,0 +1,74 @@
+<HTML><HEAD><TITLE>JALcc and other compilers</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>July 2003</SPAN></P>
+<P><SPAN class=RVTS1>Reflex Charging</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=736 height=248 src="reflex_charge_discharge.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>From datasheets ICS1700,</SPAN></P>
+<P>Every chargepuls the voltage is measured several times and filtered by a IIR filter (filter is not specified).</P>
+<P>Every filtered value is stored in a 12 point FIFO, from which the first derivate is calculated by a linear regression.</P>
+<P>&nbsp;&nbsp;&nbsp; y = ax + b</P>
+<P>&nbsp;&nbsp;&nbsp; a = [ n * sum( x * y ) - sum(x) * sum(y)&nbsp; ]&nbsp; / [ n * sum(x * x)&nbsp; - sum(x) * sum(x)&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; where&nbsp; n = number of measurement points,&nbsp; y = measured value,&nbsp; x = time coordinate</P>
+<P>Some interpretation</P>
+<P>the above formula, is a nice formula from a theory book which forgot to get into practice (or in other words, Galaxy power is trying to let us believe that's very difficult.</P>
+<P>In more pratical books you'll find a far more convenient formula (constant factor is ignored):</P>
+<P>&nbsp;&nbsp;&nbsp; a = 12 * sum ( t * x )&nbsp;&nbsp; - 6 * ( T+1) * sum (x)</P>
+<P>where T is number of samples,</P>
+<P>so by taking 11 instead of 12 samples we even get a simpler formula</P>
+<P>&nbsp;&nbsp;&nbsp; a = sum ( t * x ) - 6 * sum (x)</P>
+<P>with the add of a accumulator shift register, the calculation becomes very nice</P>
+<P>&nbsp;&nbsp;&nbsp; 1. first remove x1 from the slope:&nbsp;&nbsp;&nbsp; a :=&nbsp; a&nbsp; + 5* x1&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; 2. add 6 times the new value&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a := a + 6* x12</P>
+<P>&nbsp;&nbsp;&nbsp; 3. shift the fifo and put new value in</P>
+<P>&nbsp;&nbsp;&nbsp; 4. subtract all the fifo elements once from the slope:&nbsp;&nbsp; a := a - sum(fifo)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Diego Sierra&nbsp;</SPAN></P>
+<P>did the following measurements with a&nbsp;<A class=RVTS4 href="ftp://ftp.iac.es/out/dsg">pic design</A></P>
+<P>thanks Diego.</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=550 height=317 src="reflex_diego1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=550 height=321 src="reflex_diego2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Comparison of filtered and sum over 16 samples</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=556 height=386 src="reflex_diego3.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

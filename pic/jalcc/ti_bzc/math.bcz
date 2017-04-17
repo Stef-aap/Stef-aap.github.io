@@ -1,0 +1,33 @@
+#include <asmlib.h> 
+STRING JAL_string_0 = "aap"
+MEM aap 6 
+MEM beer 12
+BYTE coala 
+START 
+PRINTF JAL_string_0 
+put beer 28 
+put (beer+1) (27+12) 
+PUT (beer+1) ( 13) 
+coala = GET (beer+1) + GET (beer+1) 
+BYTE key 
+BYTE AA =73 
+IF AA==92 THEN
+Key = 1 
+ELSE
+IF AA==93 THEN
+Key = 2 
+ELSE
+IF AA==94 THEN
+Key = 3 
+ELSE
+IF AA==82 THEN
+Key = 4 
+ELSE 
+Key = 0 
+ENDIF
+ENDIF
+ENDIF
+ENDIF
+printf num key 
+printf num coala 
+printf num (get (beer+1)) 

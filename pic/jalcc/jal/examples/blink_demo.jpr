@@ -1,0 +1,15 @@
+[JAL]
+libpath=D:\data_www\pic\jalcc\jal\libs\
+
+[PICBSC]
+libpath=
+
+[General]
+Panel_treeview=0
+Panel_treeviewwidth=200
+
+[Bookmarks]
+formvis=0
+left=453
+top=283
+

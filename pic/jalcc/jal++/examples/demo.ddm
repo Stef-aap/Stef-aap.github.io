@@ -1,0 +1,25 @@
+  -- StateMachine: Demo
+  if sm_Demo == sm_Demo_init then
+    Led797 = on
+    LED2 = on
+    ;LED3 = on
+    lamp = on
+    sm_Demo = sm_Demo_state1
+
+  elsif sm_Demo == sm_Demo_state1 then
+    led = off
+      sm_Demo = sm_Demo_test
+    LED2 = on
+    ;LED3 = on
+
+  elsif sm_Demo == sm_Demo_test then
+  LED2 = on
+  ;LED3 = on
+  = = on
+  on = on
+;WARNING: dead state
+
+  -- to be really sure the statemachine is finite
+  else
+    sm_Demo = sm_Demo_init
+  end if

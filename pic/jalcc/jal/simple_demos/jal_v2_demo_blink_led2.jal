@@ -1,0 +1,52 @@
+-- -----------------------------------------------------------------------------
+-- demo JAL v2: Blink a LED2
+-- This demo will blink a LED with a period of 1 second,
+-- i.e. 0.5 seconds on, 0.5 seconds off
+-- This demo uses a software delay for the timing
+-- -----------------------------------------------------------------------------
+-- Tested
+--    16F877, 20 MHz: ok
+--    12F675, 4 MHz (internal, calibrated): ok
+--    JALss + 16F877: ok
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- include hardware definitions
+-- select the appropriate devive library
+-- -----------------------------------------------------------------------------
+;include jal_v2_demo_16F877 ;external 20 MHz Xtal
+include jal_v2_demo_12F675 ;internal 4 MHz (calibrated)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- variable definition and initialisation
+-- -----------------------------------------------------------------------------
+-- define the io-pin as a logical name
+var volatile bit my_LED1 is pin_A0
+-- and set the io-pin as an output
+pin_A0_direction = output
+
+-- define the blink period in units of [100 msec]
+const byte half_blink_period = 5 
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Start of the main program
+-- Because of the Read-Modify-Write issue
+-- (When reading back a heavy loaded IO-pin,
+--  you might read something different than you wrote to it),
+-- It's not allowed to use 
+--     my_LED1 = ! my_LED1
+-- Therefor you must always use a dummy memory bit !!
+-- -----------------------------------------------------------------------------
+var bit dummy
+forever loop
+  dummy = ! dummy
+  my_LED1 = dummy
+  -- wait for half a period
+  delay_100ms( half_blink_period )
+end loop
+-- -----------------------------------------------------------------------------

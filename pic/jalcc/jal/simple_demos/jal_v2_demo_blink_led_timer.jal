@@ -1,0 +1,100 @@
+-- -----------------------------------------------------------------------------
+-- demo JAL v2: Blink a LED by timer0
+-- This demo will blink a LED with a period of 1 second,
+-- i.e. 0.5 seconds on, 0.5 seconds off
+-- -----------------------------------------------------------------------------
+-- Tested
+--    16F877, 20 MHz: ok
+--    12F675, 4 MHz (internal, calibrated): ok
+--    JALss + 16F877: ok
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- include hardware definitions
+-- select the appropriate devive library
+-- -----------------------------------------------------------------------------
+;include jal_v2_demo_16F877 ;external 20 MHz Xtal
+include jal_v2_demo_12F675 ;internal 4 MHz (calibrated)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- variable definition and initialisation
+-- -----------------------------------------------------------------------------
+-- define the io-pin as a logical name
+var volatile bit my_LED1 is pin_A0
+-- and set the io-pin as an output
+pin_A0_direction = output
+
+-- intialize TMR0, including prescaler
+-- XTAL = 20 MHz,  period = 10000 usec
+-- this is about the longest time we can achieve with this timer
+T0CS = false                                 -- set TMR0 to main oscillator
+PSA = false                                  -- enable prescaler for TMR0
+-- read the manual how to set the next values
+-- ( I use a macro that generates the OPTIMAL solution below)
+
+-- here the if-statement only consists of constants
+-- and therefor acts like a compiler directive and thus consumes no code space.
+-- Still yields that everything declared within the bounds of the if-statement,
+-- is not known outside the if-statement.
+-- There's also a ternary operator that will allow such constructs.
+if target_chip == PIC_16F877 then
+  OPTION_REG = ( OPTION_REG & 0xF8 ) | 0x07    -- set prescaler to 7 = 1:256
+else
+  OPTION_REG = ( OPTION_REG & 0xF8 ) | 0x05    -- set prescaler to 7 = 1:256
+end if 
+var volatile byte _tmr0_preset = -195
+
+-- define the blink half-period in units of [100 msec]
+const byte half_blink_period = 5 
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- procedure that waits for N times 100 msec,
+-- based on timer0 overflows
+-- -----------------------------------------------------------------------------
+procedure wait_100ms(word in N) is
+  -- we loop N times,
+  -- to get the delay required by the user
+  for N loop
+    -- timer overflows every 10 msec
+    -- so by looping 10 times,
+    -- we get the base delay of 100 msec
+    for 10 loop
+      -- wait till timer0 overflows
+      while ! T0IF loop end loop
+
+      -- first thing to do is always to reload the counter with its preset value
+      -- because at this point we could have missed some counts,
+      -- we do ADDITION instead of simple ASSIGNING (TMR0 = _tmr0_preset)
+      -- which assures that missed counts are also included
+      TMR0 = TMR0 + _tmr0_preset 
+
+      -- reset the interrupt flag of timer0
+      T0IF = false
+    end loop
+  end loop
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Start of the main program
+-- Because of the Read-Modify-Write issue
+-- (When reading back a heavy loaded IO-pin,
+--  you might read something different than you wrote to it),
+-- It's not allowed to use 
+--     my_LED1 = ! my_LED1
+-- Therefor you must always use a dummy memory bit !!
+-- -----------------------------------------------------------------------------
+var bit dummy
+forever loop
+  dummy = ! dummy
+  my_LED1 = dummy
+  -- wait for half a period
+  wait_100ms( half_blink_period )
+end loop
+-- -----------------------------------------------------------------------------

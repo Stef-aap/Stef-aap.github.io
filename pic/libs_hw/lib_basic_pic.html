@@ -1,0 +1,36 @@
+<HTML><HEAD><TITLE>Software RS232 library</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS2>JAL software routines</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>General considerations</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>I never use any of the standard libraries.&nbsp;</LI>
+<LI>I always use the automatic translated INC-files (done by JALcc).&nbsp;</LI>
+<LI>Below is a typical dependancy tree of my programs&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=146 bgcolor=#E4E4E4 valign=top>
+<P>&nbsp;<IMG width=135 height=84 src="lib_basic_pic_img1.gif"></P></TD>
+<TD width=556 bgcolor=#E4E4E4 valign=top>
+<P>JRTL is a standard extension of the JAL compiler (implements things like multiply)&nbsp;</P>
+<P>16F877_DEFS definies pragmas and includes inc-file&nbsp;</P>
+<P>16F877_INC, automatic translated inc-file, which includes INDF_BITS&nbsp;</P>
+<P>INDF_BITS, a great library, written by Javi, to read/write any bit/byte in any bank (Because the inc-files makes almost every register-variable available (through INDF_BITS), you'll hardly need this library explicit)</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+</BODY></HTML>

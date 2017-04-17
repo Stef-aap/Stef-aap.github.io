@@ -1,0 +1,242 @@
+-- ----------------------------------------------------------------------------
+-- Currently 2 string-tables are definied, but this can easily be extended,
+-- by changing the code in HD44780_4.
+--
+-- There's also a table definied, for loading the free positions in the character
+-- rom.
+--
+-- The LCD library HD44780_4 is automatic included by this file.
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- Define all the LCD control lines, they may be completly random
+-- (note that some IO-pins need a pullup resistor, like A4 on 16F628)
+-- ----------------------------------------------------------------------------
+;;;;;<;mac> io_pin  HD44780_DataCmd = pin_c0
+var volatile bit  HD44780_DataCmd_pin       is pin_c0
+var volatile byte HD44780_DataCmd_port      is portc
+const             HD44780_DataCmd_nr        =  0
+var volatile byte HD44780_DataCmd_buffer    is _port_c_buffer
+var volatile bit  HD44780_DataCmd_direction is pin_c0_direction
+;;;;;<;/mac>
+;;;;;<;mac> io_pin  HD44780_Enable = pin_c5
+var volatile bit  HD44780_Enable_pin       is pin_c5
+var volatile byte HD44780_Enable_port      is portc
+const             HD44780_Enable_nr        =  5
+var volatile byte HD44780_Enable_buffer    is _port_c_buffer
+var volatile bit  HD44780_Enable_direction is pin_c5_direction
+;;;;;<;/mac>
+;;;;;<;mac> io_pin  HD44780_b4 = pin_d1
+var volatile bit  HD44780_b4_pin       is pin_d1
+var volatile byte HD44780_b4_port      is portd
+const             HD44780_b4_nr        =  1
+var volatile byte HD44780_b4_buffer    is _port_d_buffer
+var volatile bit  HD44780_b4_direction is pin_d1_direction
+;;;;;<;/mac>
+;;;;;<;mac> io_pin  HD44780_b5 = pin_d3
+var volatile bit  HD44780_b5_pin       is pin_d3
+var volatile byte HD44780_b5_port      is portd
+const             HD44780_b5_nr        =  3
+var volatile byte HD44780_b5_buffer    is _port_d_buffer
+var volatile bit  HD44780_b5_direction is pin_d3_direction
+;;;;;<;/mac>
+;;;;;<;mac> io_pin  HD44780_b6 = pin_a2
+var volatile bit  HD44780_b6_pin       is pin_a2
+var volatile byte HD44780_b6_port      is porta
+const             HD44780_b6_nr        =  2
+var volatile byte HD44780_b6_buffer    is _port_a_buffer
+var volatile bit  HD44780_b6_direction is pin_a2_direction
+;;;;;<;/mac>
+;;;;;<;mac> io_pin  HD44780_b7 = pin_d2
+var volatile bit  HD44780_b7_pin       is pin_d2
+var volatile byte HD44780_b7_port      is portd
+const             HD44780_b7_nr        =  2
+var volatile byte HD44780_b7_buffer    is _port_d_buffer
+var volatile bit  HD44780_b7_direction is pin_d2_direction
+;;;;;<;/mac>
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- If the datalines (and/or the Command/Data selectline) are multiplexed with other
+-- devices, then HD44780_multiplexed_output must be set to true,
+-- to ensure these lines are set explictly to output before addressing the LCD,
+-- otherwsie, set the constant false to save program memory and time
+-- ----------------------------------------------------------------------------
+const HD44780_multiplexed_output = false
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- define the actual display size
+-- (all routines are tested at 2*16)
+-- ----------------------------------------------------------------------------
+const LCD_number_of_display_lines      = 2
+const LCD_number_of_display_characters = 16
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- constants, definining the positions of the animated characters in the
+-- character rom, must be in the range of [0..7]
+-- ----------------------------------------------------------------------------
+const byte LCD_animate1_pos = 2
+const byte LCD_animate2_pos = 3
+const byte LCD_animate3_pos = 4
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- here the strings of table 1 are definied
+-- maximum tablelength is 255
+-- every string is terminated with a NULL
+--   a slightly more efficient way is to use bit 7 as end of string,
+--   but there are 2 problems,
+--   1. JAL doesn't accept  "retlw  "t" + 0x80"
+--   2. the second half of the characterset (which contains some greek
+--      symbols, cann't be reached
+-- The length of each string must be declared just afterwards.
+-- ----------------------------------------------------------------------------
+;;;;;<;macro>
+;;;;;   stringtable  _string_table_1
+procedure _string_table_1 is
+   pragma jump_table
+   assembler
+     addwf PCL, f
+;;;;;     string0      "An Example"                              -- index 0
+     retlw      "A"
+     retlw      "n"
+     retlw      " "
+     retlw      "E"
+     retlw      "x"
+     retlw      "a"
+     retlw      "m"
+     retlw      "p"
+     retlw      "l"
+     retlw      "e"
+     retlw       0
+;;;;;     string0      "This is a long line, to test scrolling"  -- index 1
+     retlw      "T"
+     retlw      "h"
+     retlw      "i"
+     retlw      "s"
+     retlw      " "
+     retlw      "i"
+     retlw      "s"
+     retlw      " "
+     retlw      "a"
+     retlw      " "
+     retlw      "l"
+     retlw      "o"
+     retlw      "n"
+     retlw      "g"
+     retlw      " "
+     retlw      "l"
+     retlw      "i"
+     retlw      "n"
+     retlw      "e"
+     retlw      ","
+     retlw      " "
+     retlw      "t"
+     retlw      "o"
+     retlw      " "
+     retlw      "t"
+     retlw      "e"
+     retlw      "s"
+     retlw      "t"
+     retlw      " "
+     retlw      "s"
+     retlw      "c"
+     retlw      "r"
+     retlw      "o"
+     retlw      "l"
+     retlw      "l"
+     retlw      "i"
+     retlw      "n"
+     retlw      "g"
+     retlw       0
+;;;;;     string0      "Short"                                   -- index 2
+     retlw      "S"
+     retlw      "h"
+     retlw      "o"
+     retlw      "r"
+     retlw      "t"
+     retlw       0
+;;;;;     string0      "Animations"                              -- index 3
+     retlw      "A"
+     retlw      "n"
+     retlw      "i"
+     retlw      "m"
+     retlw      "a"
+     retlw      "t"
+     retlw      "i"
+     retlw      "o"
+     retlw      "n"
+     retlw      "s"
+     retlw       0
+;;;;;   stringtable_end
+   end assembler
+end procedure
+;;;;;<;/macro>
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- string-table 2
+-- ----------------------------------------------------------------------------
+procedure _string_table_2 is
+   pragma jump_table
+   assembler
+      addwf PCL, f
+        retlw   "h"  -- start of first string (index = 0)
+        retlw   "a"
+        retlw   "h"
+        retlw   "a"
+        retlw   0   
+   end assembler
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- here the strings of the self generated characters are definied
+-- maximum tablelength is 255
+-- every character is definied by 8 words of 5 bits each
+-- ----------------------------------------------------------------------------
+procedure _string_table_character_generator is
+   pragma jump_table
+   assembler
+      addwf PCL, f
+        retlw   0b_00100  -- arrow up
+        retlw   0b_01110
+        retlw   0b_10101
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+        
+        retlw   0b_00100  -- arrow down
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_10101
+        retlw   0b_01110
+        retlw   0b_00100
+        
+
+   end assembler
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- here the actual LCD library is included
+-- ----------------------------------------------------------------------------
+include hd44780_4
+

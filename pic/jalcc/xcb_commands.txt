@@ -1,0 +1,2 @@
+asm_end
+asm_start

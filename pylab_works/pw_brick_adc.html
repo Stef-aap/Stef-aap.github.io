@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="225" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Brick ADC </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; (july 2009)</span></p>
+<p><span class=rvts10>Application Designer</span> / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This brick forms the interface to all available AD converters. Because of our lack of knowledge of Linux and the unavailability of MacOS, we were only able to test these AD converters under Windows-XP.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=126 valign=top style="background-color: #ffffd4;">
+<p><img width=116 height=61 alt="" src="pw_brick_adc_img6.png"></p>
+</td>
+<td width=712 valign=top style="background-color: #ffffd4;">
+<p>The control used in the AD Converter Brick will automatically search for all avalaible drivers.</p>
+<p>All Drivers should be placed in <span class=rvts10>../PyLab_Works/controls/ADC_Drivers/..</span>.</p>
+<p>The filename of a driver should begin with&nbsp; <span class=rvts10>Driver_</span></p>
+<p>The class name of driver should begin with <span class=rvts10>t_ADC_Driver_</span></p>
+<p>The class should implement the methods <span class=rvts10>Set, Start_Stop, Kill, Get_New_Sample_Sets</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p>The GUI has all basic controls and a panel on the right, which can be used by the ADC to add some specific extra controls.</p>
+<p><br></p>
+<p>`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=601 height=115 alt="" src="pw_brick_adc_img7.png"></p>
+<p><br></p>
+<p>This panel is passed as a parameter on creation of the ADC, and here is an example how you can add a multi-line textcontrol on this extra panel. Note that because these controls are created after the complete application is settled, there will be no implicit size event, until you resize for instance the whole application window, therefor we here send an explicit size event.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=639 height=158 alt="" hspace=1 vspace=1 src="pw_brick_adc_img8.png"></p>
+<p><br></p>
+<p>And here is the result:</p>
+<p><br></p>
+<p><img width=737 height=113 alt="" hspace=1 vspace=1 src="pw_brick_adc_img9.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Set</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=509 height=134 alt="" hspace=1 vspace=1 src="pw_brick_adc_img11.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Start_Stop</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=421 height=121 alt="" hspace=1 vspace=1 src="pw_brick_adc_img12.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Kill</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=348 height=89 alt="" hspace=1 vspace=1 src="pw_brick_adc_img13.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Get_New_Sample_Sets</span></p>
+<p>This method is called every cycle of the virtual machine. The method should return None if no new data is available and data (possible with metadata) if the data has changed. A typical return of this method might look like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=436 height=128 alt="" hspace=1 vspace=1 src="pw_brick_adc_img10.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>USB-6008 / USB-6009</span></p>
+<p>The USB-6008 and USB-6009 are (relative) cheap ( Euro 160 / 260 ) AD-converters from National Instruments. Theer are drivers available for many different Operating systems and a lot of data-acquisition packages support these devices.</p>
+<p><br></p>
+<p><img width=340 height=60 alt="" src="pw_brick_adc_img2.png">for the rest equal to USB-6009</p>
+<p><img width=551 height=275 alt="" src="pw_brick_adc_img3.png">&nbsp; <img width=177 height=304 alt="" src="pw_brick_adc_img1.png"></p>
+<p><br></p>
+<p><span class=rvts2>Drivers installation under Windows</span>:</p>
+<p>From our experiences it's important to follow the next steps exactly, otherwise you will be meshed up with a lot of active programs and services, which only consume cpu time and memory space.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>don't connect the ADC until the software is installed </li>
+<li>if you use the CD "NI-DAQmx", if it starts automatically, stop the automatically started program </li>
+<li>start the program Setup.Exe found in the root of the CD </li>
+<li>Select only "NI-DAQmx 8.0" and "NI Measurement &amp; Automation Explorer " </li>
+<li>Deselect all subitems of "NI-DAQmx 8.0" </li>
+<li>Finish the installation ( which might take up to 15 minutes !) </li>
+<li>After the installation has finished, </li>
+</ul>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=319 valign=top style="background-color: #ff6600;">
+<p>Lookout Citadel Server</p>
+</td>
+<td width=167 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=331 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=319 valign=top style="background-color: #ff6600;">
+<p>National Instruments Domain Service</p>
+</td>
+<td width=167 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=331 valign=top style="background-color: #ff6600;">
+<p>NOT NEEDED</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=319 valign=top style="background-color: #ff6600;">
+<p>National Instruments PSP Server Locator</p>
+</td>
+<td width=167 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=331 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=319 valign=top style="background-color: #ff6600;">
+<p>National Instruments Time Synchronization</p>
+</td>
+<td width=167 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=331 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=319 valign=top style="background-color: #00ff00;">
+<p>NI Configuration Manager</p>
+</td>
+<td width=167 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=331 valign=top style="background-color: #00ff00;">
+<p>NEEDED</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=319 valign=top style="background-color: #ff6600;">
+<p>NI Service Locator</p>
+</td>
+<td width=167 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=331 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=319 valign=top style="background-color: #00ff00;">
+<p>nidevldu</p>
+</td>
+<td width=167 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=331 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=319 valign=top style="background-color: #ff6600;">
+<p>NILM License Manager</p>
+</td>
+<td width=167 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=331 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=319 valign=top style="background-color: #00ff00;">
+<p>nipxirmu</p>
+</td>
+<td width=167 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=331 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Alle services die niet nodig zijn kunnen worden gestopt en het opstart-type kan worden ingesteld op "Uitgeschakeld". Dit vereist beheerdersrechten op de PC.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>MIDAC-ADC</span></p>
+<p>Only Midac_File and FysioFlex are exposed.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=155 height=64 alt="" src="pw_brick_adc_img4.png"></p>
+<p><br></p>
+
+</body></html>

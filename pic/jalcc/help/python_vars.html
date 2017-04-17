@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="64" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>january 2007</span></p>
+<p><span class=rvts1>Python variables</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Type</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>MatLab</span></p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Python</span></p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Remarks</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>simple var</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>A = 5.2 * pi ;</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>A = 5.2 * pi</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>integer-4</p>
+<p>arbritary long integer</p>
+<p>float-8</p>
+<p>complex-2*8</p>
+<p>IMMUTABLE</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>strings</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>S1 = 'aap' ;</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>S1 = 'aap'</p>
+<p>S2 = "aap"</p>
+<p>DOC_S = """this is doc"""</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>C-type backslash chars</p>
+<p>IMMUTABLE</p>
+<p>accessed by Index</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>list</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>--</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>L1 = [ ]</p>
+<p>L2 = [ 2, 'hello', 45 ]</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>heterogeneous collection</p>
+<p>MUTABLE</p>
+<p>accessed by Index </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>tuple</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>cell-array</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>T1 = ( )</p>
+<p>T2 = ( 2, 'hello', 45 )</p>
+<p>T3 = 3, 'hello', 45</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>heterogeneous collection</p>
+<p>IMMUTABLE</p>
+<p>accessed by Index </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>dictionary</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>-</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>D1 = { }</p>
+<p>D2 = { 'aap' : 1, 'beer': 2 }</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>heterogeneous collection</p>
+<p>MUTABLE</p>
+<p>accessed by key (or value)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>array</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>A1 = [ 1, 2 ] ;</p>
+<p>A2 = zeros ( 100 ) ;</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>A1 = array ( [ 1, 2 ] )</p>
+<p>A2 = zeros ( 100 )</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>homogeneous collection of any type</p>
+<p>highly MUTABLE</p>
+<p>accessed by index</p>
+<p>Many types, </p>
+<p>Bool, (U)INT-8,16,32,64 </p>
+<p>Float/Complex-32,64,96</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=middle style="{background-color: #ffffd4;}">
+<p><span class=rvts10>sparse</span></p>
+</td>
+<td width=200 valign=middle style="{background-color: #ffffd4;}">
+<p>+</p>
+</td>
+<td width=166 valign=middle style="{background-color: #ffffd4;}">
+<p>+</p>
+</td>
+<td width=283 valign=middle style="{background-color: #ffffd4;}">
+<p>only useful if array contains many zeros</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>All sequence types are nestable (without any depth restriction), for list, tuple, dictionary, array:</p>
+<p>&nbsp;&nbsp;&nbsp; L3 = [ 2, 'hello', [ 45, 'aap', [ 2, 4 ] ] ]</p>
+<p>&nbsp;&nbsp;&nbsp; T3 = ( 2, 'hello', ( 45, 'aap', ( 2, 4 ) ) )</p>
+<p>&nbsp;&nbsp;&nbsp; D3 = { 'aap' : 1, coala: { 'beer': 2 } }</p>
+<p>&nbsp;&nbsp;&nbsp; A3 = array ( [ [ 1, 2 ] , [&nbsp; 4, 5 ] ] )</p>
+<p>or even in every random combination / nesting:</p>
+<p>&nbsp;&nbsp;&nbsp; R3 = [ 2, 'hello', ( 45, 'aap', [ 2, 4 ], { 'aap' : 1, coala: { 'beer': 2 } } ) ]</p>
+<p><br></p>
+<p><span class=rvts10>List and Tupple</span> are different in their <span class=rvts10>mutability</span> and therefore also their <span class=rvts10>methods differ</span>.</p>
+<p><br></p>
+<p><span class=rvts10>IMMUTABLE</span>: </p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>the variable <span class=rvts10>can not</span> be changed in-place </li>
+<li>for simple variables (e.g. integer) passed to functions, modifications in a function body creates a new local variable, for complex variables&nbsp; (e.g. tuple) an error will occure. This error can be prevented by making an explicit x.copy&nbsp; or x.deepcopy.</li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>MUTABLE</span>:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>the variable <span class=rvts10>can</span> be changed in-place </li>
+<li>the variable is <span class=rvts10>passed by reference</span> to a function </li>
+</ul>
+<p><br></p>
+<p>In older documents there's sometimes made a distinct between numpy.array( ), numpy.ndarray( ) and scipy.array( ), this difference doesn't exists anymore.</p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

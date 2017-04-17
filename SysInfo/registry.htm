@@ -1,0 +1,493 @@
+<HTML>
+<HEAD>
+<!doctype html public "-//IETF//DTD HTML 3.2//EN">
+<TITLE>REGISTRY</TITLE>
+
+<meta http-equiv="CONTENT-Type" content="text/html; charset=us-ascii">
+<meta name="author" content="Henri Leboeuf">
+<meta name="keywords" content="REGISTRY, registry, Registry, REGCLEAN, regclean, RegClean">
+<meta name="description" content="Solutions to Visual Basic Programming - Windows 95 -
+            Windows 98 ...">
+
+</head>
+
+<BODY BGCOLOR=DDFFDD TEXT=000000 LINK=0000FF VLINK=0000FF>
+<font FACE="Arial, helvetica, geneva">
+
+<H1><center><u>REGISTRY</u></center></h1><br>
+
+<h3><a name="REGKEY"><u>REGISTRY: Descriptions of HKEYS</u></a></h3>
+<Table width="100%" BORDER="2">
+
+<tr align="Left" bordercolor="black">
+<td><a href="http://support.microsoft.com/support/kb/articles/q250/4/10.asp">
+<B>Description of the Registry Files in Windows 98/95</B></a><br>
+Logically, the registry is one data store. Physically, the registry consists of three 
+different files <br>
+<i>User.dat, System.dat, Policy.pol</i><br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/4/10.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q250/4/09.asp">
+<B>Description of HKEY Registry Keys in Windows 98/95</B></a><br>
+The Windows registry consists of six root keys, each of which contains configuration data 
+that is both user and hardware specific.<br>
+<b>HKEY_CLASSES_ROOT</b><br>
+<a href="#HKEY_CURRENT_USER"><B>HKEY_CURRENT_USER</B></a><br>
+<a href="#HKEY_LOCAL_MACHINE"><B>HKEY_LOCAL_MACHINE</B></a><br>
+<b>HKEY_USERS</b><br>
+<a href="#HKEY_CURRENT_CONFIG"><B>HKEY_CURRENT_CONFIG</B></a><br>
+<a href="#HKEY_DYN_DATA"><B>HKEY_DYN_DATA</B></a><br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/4/09.asp</B></TD></TR>
+</table>
+
+<h3><a name="HKEY_CURRENT_USER">HKEY_CURRENT_USER</a></h3>
+<Table width="100%" BORDER="2">
+<tr align="Left" bordercolor="black">
+<td><a href="http://support.microsoft.com/support/kb/articles/q250/4/04.asp">
+<B>Description of HKEY_CURRENT_USER Registry Subkeys</B></a><br>
+The information in this key is built from the HKEY_USERS key during the logon process.<br>
+<b>Therefore, all information found in the HKEY_CURRENT_USER key is a copy of the subkey 
+HKEY_USERS\<i>username</i></b>, where <i>username</i> is the name of the active user (or Default).<br> 
+ <i>AppEvents, Control Panel, InstallLocationsMRU, Keyboard Layout, Network, RemoteAccess, Software.</i><br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/4/04.asp</B></TD></TR>
+</TABLE>
+
+<h3><a name="HKEY_LOCAL_MACHINE">HKEY_LOCAL_MACHINE</a></h3>
+<Table width="100%" BORDER="2">
+<tr align="Left" bordercolor="black">
+<td><a href="http://support.microsoft.com/support/kb/articles/q250/4/05.asp">
+<B>Description of the HKEY_LOCAL_MACHINE Registry Branch Subkeys</B></a><br>
+The <b>HKEY_LOCAL_MACHINE</b> branch in the registry defines all of the following specific 
+information for your local computer:<br>
+<b>Drivers, Installed hardware, Port settings,Software configuration.</b><br>
+The following list includes the <b>subkey names</b> and a description of them:<br>
+<i>Config, Driver, <a href="#SUBKEYENUM"><b>Enum, </b></a>Hardware, Network, Security, 
+<a href="#SUBKEYSOFTWARE"><b>Software,</b></a> <a href="#SUBKEYSYSTEM"><b>System</b></i></a><br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/4/05.asp</B><hr size="1" noshade>
+
+<a name="SUBKEYSOFTWARE"><b><i>Software SubKey</i></b></a><br><br>
+<a href="http://support.microsoft.com/support/kb/articles/q137/3/67.asp">
+<B>Definition of the RunOnce Keys in the Registry</B></a><br>
+HKEY_LOCAL_MACHINE<B>\Software\Microsoft\Windows\CurrentVersion</b><br>
+There are seven <b>Run keys</b> in the registry that cause programs to be run automatically.<br>
+<B>http://support.microsoft.com/support/kb/articles/q137/3/67.asp</B> (<I><B>W95 </B></I>Feb. 1, 2000)<BR><BR>
+
+<a href="http://support.microsoft.com/support/kb/articles/q179/3/65.asp">
+<B>INFO: Run, RunOnce, RunServices, RunServicesOnce and Startup</B></a><br>
+This article explains how the Run, RunOnce, RunServices, RunServicesOnce, and RunOnce\Setup 
+registry keys relate to each other and to the Startup Folder. It also describes the order in 
+which these keys are loaded.<br>
+* <B>http://support.microsoft.com/support/kb/articles/q179/3/65.asp</B><BR><BR>
+
+<a href="http://support.microsoft.com/support/kb/articles/q232/5/09.asp">
+<B>Syntax for the RunOnceEx Registry Key</B></a><br>
+The Windows Desktop Update component implements the <b>RunOnceEx</b> registry key that provides 
+the functionality described in this article.<br>
+* <B>http://support.microsoft.com/support/kb/articles/q232/5/09.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q247/5/01.asp">
+<B>How to Manually Remove Programs from Add/Remove Programs List</a></b><br>
+HKEY_LOCAL_MACHINE\<b>SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall</b>.<br>
+Under this key, there are number of sub-keys, each representing an installed program.<br>
+* <b>http://support.microsoft.com/support/kb/articles/q247/5/01.asp</B><hr size="1" noshade>
+
+<a name="SUBKEYSYSTEM"><b><i>System SubKey</i></b></a><br><br>
+<a href="http://support.microsoft.com/support/kb/articles/q250/4/47.asp">
+<B>Description of Typical Control Subkeys of the HKLM Registry Key</B></a><br>
+The Control subkey is located in the following registry key:<br>
+HKEY_LOCAL_MACHINE\<b>System\CurrentControlSet</b><br>
+<i>ASD, ComputerName, DeviceClasses, FileSystem, GroupOrderList, IDConfigDB, InstalledFilesB,
+Keyboard Layouts, MediaProperties, Media Resources, NetworkProvider, Nls, NTKern,
+PerfStats, Print, PwdProvider, SecurityProviders, ServiceGroupOrder, ServiceProvider,
+Session Manager, SessionManager, Shutdown, TimeZoneInformation, Update, VMM32, WebPost.</i><br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/4/47.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q250/4/48.asp">
+<B>Description of Typical Services Registry Keys Under Hkey_Local_Machine</B></a><br>
+This article describes some typical registry subkeys you may find under the following Windows 
+registry key:<br>
+HKEY_LOCAL_MACHINE\<b>System\CurrentControlSet\Services</b><br>
+<i>Agent_name, Arbitrators, Class, MSNP32, NWNP32, VxD.</i><br>
+Depending on the computer, you may have keys for:<br>
+<i>Inetaccess, RemoteAccess, ProtectedStorage and other installed services.</i><br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/4/48.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q250/6/47.asp">
+<B>Description of the Modem Init Key in the Windows 98/95 Registry</B></a><br>
+This article describes the following Modem Init key in the Windows 98/95 registry:<br>
+HKEY_LOCAL_MACHINE\<b>System\CurrentControlSet\Services\Class\Modem\four-digit number\Init</b><br>
+For each installed modem, Windows creates one registry key, four-digit number, starting with \0000<br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/6/47.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q250/6/48.asp">
+<B>Description of the Modem Responses Key in the Windows 98/95 Registry</B></a><br>
+This article describes the following Modem Init key in the Windows 98/95 registry:<br>
+HKEY_LOCAL_MACHINE\<b>System\CurrentControlSet\Services\Class\Modem\xxxx\Responses</b><br>
+The Responses key contains strings that the modem might report to Windows 98/95 in response 
+to a command or during the connection process.<br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/6/48.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q250/6/49.asp">
+<B>Description of the Modem Settings Key in the Windows Registry</B></a><br>
+This article describes the Modem Settings registry key in the Windows 95/98 Registry. 
+This key is located in :<br>
+HKEY_LOCAL_MACHINE\<b>System\CurrentControlSet\Services\Class\Modem\xxxx\Settings</b><br>
+The table describes the entries under the Settings registry key:<br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/6/49.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q250/6/62.asp">
+<B>Description of the TCP/IP Registry Entries in the MSTCP\ServiceProvider Subkey</B></a><br>
+This article describes the variables for the ServiceProvider subkeys that appear in the 
+following registry key:<br>
+HKEY_LOCAL_MACHINE\<b>System\CurrentControlSet\Services\VxD\MSTCP\ServiceProvider</b><br>
+The table describes the entries under the Settings registry key:<br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/6/62.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q250/6/63.asp">
+<B>Description of the TCP/IP Registry Entries in the NetTrans Subkey</B></a><br>
+This article describes the TCP/IP registry entries in the NetTrans subkey:<br>
+HKEY_LOCAL_MACHINE\<b>System\CurrentControlSet\Services\Class\netTrans\000n</b><br>
+Where n represents a specific TCP/IP-to-network adapter binding. See Table.<br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/6/63.asp</B><hr size="1" noshade>
+
+<a name="SUBKEYENUM"><b><i>Enum Subkey</i></b></a><br><br>
+<a href="http://support.microsoft.com/support/kb/articles/q250/5/30.asp">
+<B>Description of the Subkeys Contained in the HKEY_LOCAL_MACHINE\Enum Registry Key</B></a><br>
+The HKEY_LOCAL_MACHINE\<b>Enum</b> key contains subkeys for the specific hardware components your 
+computer uses.<br>
+<i>BIOS, ESDI, FLOP, HTREE, ISAPNP, MF, MONITOR, NETWORK, PCI, ROOT, SCSI, USB.</i><br>
+Depending on the computer, you may have keys for:<br>
+<i>infrared, tape controllers, and modems.</i><br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/5/30.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q250/5/34.asp">
+<B>Description of Plug and Play Components within the HKEY_LOCAL_MACHINE\Enum\Bios Subkey</B></a><br>
+The following subkey contains entries for Plug and Play components of the Basic Input/Output 
+System (BIOS), including timers, controllers, DMA chips, and so on:<br> 
+HKEY_LOCAL_MACHINE\<b>Enum\Bios:</b><br> 
+The following list includes a value name, followed by an appropriate description:<br> 
+<i>PNP0000-PNP0004 Interrupt controllers</i> Etc...<br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/5/34.asp</B></TD></TR>
+</TABLE>
+
+<h3><a name="HKEY_CURRENT_CONFIG">HKEY_CURRENT_CONFIG</a></h3>
+<Table width="100%" BORDER="2">
+<tr align="Left" bordercolor="black">
+<td><a href="http://support.microsoft.com/support/kb/articles/q250/5/65.asp">
+<B>Description of the HKEY_CURRENT_CONFIG Registry Key in Windows 98/95</B></a><br>
+The <b>HKEY_CURRENT_CONFIG</b> registry key is stored in the System.dat file<br> 
+This key points to the current computer configuration in the collection of configurations 
+stored in the HKEY_LOCAL_MACHINE\<b>Config\000x</b> key, which contains the current hardware 
+configuration (where x refers to the configuration number).<br>
+* <B>http://support.microsoft.com/support/kb/articles/q250/5/65.asp</B></TD></TR>
+</TABLE>
+
+<h3><a name="HKEY_DYN_DATA">HKEY_DYN_DATA</a></h3>
+<Table width="100%" BORDER="2">
+<tr align="Left" bordercolor="black">
+<td><a href="http://support.microsoft.com/support/kb/articles/q250/5/68.asp">
+<B>Description of the HKEY_DYN_DATA Registry Key in Windows 95/98, and Win98 SE</B></a><br>
+Some configuration information in Windows must be stored in RAM because it requires fast 
+modification and retrieval that cannot wait for the registry to send it to the hard disk. 
+You can find all this data in the HKEY_DYN_DATA registry key. The information in this key is 
+newly created every time Windows starts.<br> 
+* <B>http://support.microsoft.com/support/kb/articles/q250/5/68.asp</B></TD></TR>
+</table><br>
+
+<h3><a name="REGERRORS"><u>REGISTRY: Error Messages</u></a></h3>
+<Table width="100%" BORDER="2">
+<tr align="Left" bordercolor="black">
+<td><a href="http://support.microsoft.com/support/kb/articles/q186/9/09.asp">
+<B>Registry Checker Continues to Detect Registry Damage</B></a><br>
+<b>Windows registry is damaged</b>. Windows will restart and try to fix the problem<br>
+Note that running the real-mode version of Registry Checker
+<a href="w98util.htm#SCANREG.EXE"> <B>(Scanreg.exe)</B></a> at a command prompt does not detect 
+registry damage.<BR> 
+* <B>http://support.microsoft.com/support/kb/articles/q186/9/09.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q187/3/16.asp">
+<B>Cannot Import &lt;file &gt;. Error Opening the File.</a></b><BR>
+When you double-click a registry entry (.reg) file, you may receive the following error message: <BR>
+Cannot import &lt;path to file &gt; Error opening the file. There may be a disk 
+or file system error. <B><I>(W95 Jun. 7,</I></B> 1999)<br>
+<b>http://support.microsoft.com/support/kb/articles/q187/3/16.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q232/7/58.asp">
+<B>Err Msg: Setup encountered a problem while checking the integrity of your registry.</B></a><br>
+When you <b>attempt to install Windows 98</b> Second Edition.<BR> 
+* <B>http://support.microsoft.com/support/kb/articles/q232/7/58.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q247/4/97.asp">
+<B>Error Message When Running Setup Program Created Using Application Setup Wizard</B></a><br>
+<b>Failure writing to the system registry</b>. The registry may be corrupt, or you may not have the 
+required permissions to write to the registry.<BR> 
+* <B>http://support.microsoft.com/support/kb/articles/q247/4/97.asp</B>
+</TD></TR>
+</table><br>
+
+<h3><a name="REGCLEAN1"><u>REGISTRY: RegClean (Utility)</u></a></h3>
+<Table width="100%" BORDER="2">
+<tr align="Left" bordercolor="black">
+<td><a href="http://support.microsoft.com/support/kb/articles/q147/7/69.asp">
+<B>RegClean 4.1a Description and General Issues</B></a><br>
+The <b>RegClean</b> utility is designed to clean up unnecessary registry entries in your 
+registry. Windows 95/98.<br>
+* <B>http://support.microsoft.com/support/kb/articles/q147/7/69.asp</B><hr size="1" noshade>
+
+<a href="http://members.aol.com/Knows98/regclean.htm">
+<B>Tips for running Regclean</B></a><br>
+An excellent page on this subject.<br>
+<B>http://members.aol.com/Knows98/regclean.htm</B></TD></TR>
+</table><br>
+
+<h3><a name="REGISTRYSUPPORT1"><u>REGISTRY: Support</u></a></h3>
+<table width="100%" border="2">
+
+<tr align="Left" bordercolor="black">
+<td><a href="#BACKUPREGISTRY1"><B>Backup and Restore</B></a>
+ the Windows 95 Registry using a<B> BATCH Files</B>.<hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q187/3/16.asp">
+<B>Cannot Import <file>. Error Opening the File.</a></B><BR>
+<B>While trying to Import a .REG file to the Registry:</B><br>
+Cannot import &lt;path to file &gt;. Error opening the file. There may be a disk 
+or file system error.<BR>
+* <b>http://support.microsoft.com/support/kb/articles/q187/3/16.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q171/4/24.asp">
+<B>How to Remove Windows 95/98 Registry Entries Automatically</a></B><BR>
+This article describes how to create an .inf file to <B>automatically delete registry entries</B>. (<I><B>W95/98/ME</B></I>Oct. 20, 2000)<BR> 
+<B>http://support.microsoft.com/support/kb/articles/q171/4/24.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q145/6/79.asp">
+<B>Microsoft support</a></B><BR>
+How to Use the Registry API to Save and Retrieve Settings.<BR>
+* <b>http://support.microsoft.com/support/kb/articles/q145/6/79.asp</B><hr size="1" noshade>
+
+<a href="http://home1.swipnet.se/~w-13055/codepot.htm">
+<B>Peter Larsson's Home Page</a></B><BR>
+Look for Read and write settings in the Windows registry.<BR>
+<B>http://home1.swipnet.se/~w-13055/codepot.htm</B><hr size="1" noshade>
+
+<a href="http://www1.zdnet.com/pcmag/pctech/content/14/18/iw1418.001.html">
+<B>The Windows 95 Registry Part 1</a></B><BR>
+A unified database replaces Windows 3.x configuration files.<BR>
+<B>http://www1.zdnet.com/pcmag/pctech/content/14/18/iw1418.001.html</B><hr size="1" noshade>
+
+<a href="http://205.181.113.18/pcmag/pctech/content/14/19/iw1419.001.html">
+<B>The Windows 95 Registry Part 2</a></B><BR>
+The HKEY_CLASSES_ROOT key governs Windows 95 file types.<BR>
+<B>http://205.181.113.18/pcmag/pctech/content/14/19/iw1419.001.html</B><hr size="1" noshade>
+
+<a href="http://www.zdnet.com/pcmag/pctech/content/15/01/iw1501.001.html">
+<B>The Windows 95 Registry Part 3</a></B><BR>
+Customize icons and other seemingly hardwired OS components.<BR>
+<B>http://www.zdnet.com/pcmag/pctech/content/15/01/iw1501.001.html</B></TD></TR>
+</table>
+
+<h3><a name="REGISTRYTOOLS1"><u>REGISTRY: Tools</u></a></h3>
+<table width="100%" border="2">
+
+<tr align="Left" bordercolor="black">
+<td><a href="http://www.softcircuits.com/sw_apps.htm">
+<B>regctrls.zip</a></B><BR>
+RegCtrls (Register Controls) allows you to selectively register and unregister OLE controls 
+with the system registry. RegCtrls is a GUI replacement for Microsoft's REGSVR32 command-line 
+utility. RegCtrls uses its Windows interface to provide easier access to features and also 
+provides functionality not available with Microsoft's command-line utility.<BR>
+<B>http://www.softcircuits.com/sw_apps.htm</B><hr size="1" noshade>
+
+<a href="http://www.zdnet.com/pcmag/pctech/content/18/12/ut1812.001.html">
+<B>Safely Edit Your Registry</a></B><BR>
+<b>RegEdit+ </b>makes editing you Registry less of a hassle and a lot safer. It lets you save 
+favorite keys, it keeps a History of all your changes, and it offers multiple undo.<BR>
+<B>http://www.zdnet.com/pcmag/pctech/content/18/12/ut1812.001.html</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q131/3/52.asp">
+<B>Using Registry Editor in Real Mode</a></B><BR>
+Windows 95 includes a Registry Editor program (<b>Regedit.exe</b>) that runs in both the real-mode 
+MS-DOS environment and in the protected-mode Windows environment. When you need to modify the 
+registry without starting Windows 95, use Registry Editor in real mode. Note that the switches 
+listed in this article only work in real-mode.<BR>
+<B>http://support.microsoft.com/support/kb/articles/q131/3/52.asp</B> (<I><B>W95 </B></I>May 14, 1999)<hr size="1" noshade>
+
+<a href="http://www.imagine-lan.com"><B>Config Safe</B></a><BR>
+<b>ConfigSafe 95</b> Protects your Windows settings, Profiles etc.<BR>
+<B>http://www.imagine-lan.com</B><hr size="1" noshade>
+
+<a href="http://www.qualitas.com"><B>Qualitas</B></a></B><BR>
+<b>Qualitas C.Y.A. 1.5</b> protects your Windows Registry from dangerous changes made by 
+install programs.<BR>
+<B>http://www.qualitas.com</b><hr size="1" noshade>
+
+<a href="http://www.mvps.org/ccrp/index.html">
+<B>RegSvr</a></B><BR>
+Download the OCX/DLL <B>RegSvr</B> 
+It adds the Register/Unregistered functions to the pop up menu in Windows Explorer.
+Look under <B>CoolTools</B>.<BR>
+<B>http://www.mvps.org/ccrp/index.html</B><hr size="1" noshade>
+
+<a href="http://www.iserv.net/~sjhswdev/">
+<B>RegSearch</a></B><BR>
+<B>Search & Replace</B> the content of the registry.<BR>
+<B>http://www.iserv.net/~sjhswdev/</B><hr size="1" noshade>
+
+<a href="http://www.users.dircon.co.uk/~flibble/regsmall.html ">
+<B>Shrink Your Windows 95/98 Registry The Easy Way! </a><br></B>
+If you want an easy way of <b>shrinking your Windows 95/98 registry</b> -you've found it!<BR> 
+<B>http://www.users.dircon.co.uk/~flibble/regsmall.html </B></TD></TR>
+</table>
+
+<h3><a name="REGISTRYVB1"><u>REGISTRY: Visual Basic</u></a></h3>
+<table width="100%" border="2">
+
+<tr align="Left" bordercolor="black">
+<TD><a href="http://www.spnc.demon.co.uk/vb/vbreg.htm">
+<B>Registry Access</a></B><BR>
+Code to access the registry (using API calls).<BR>
+<B>http://www.spnc.demon.co.uk/vb/vbreg.htm</b><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q145/6/79.asp">
+<B>HOWTO: Use the Registry API to Save and Retrieve Setting</a></B><BR>
+This article outlines the <b>use of 32-bit Windows API functions</b>, which can be used to set 
+and retrieve values from anywhere in the registry.<BR>
+* <b>http://support.microsoft.com/support/kb/articles/q145/6/79.asp</B><hr size="1" noshade>
+
+<a href="http://support.microsoft.com/support/kb/articles/q178/7/55.asp">
+<B>Q178755</a></B><BR>
+<B>HOWTO:</B> Enumerate the Values of a Registry Key.<BR>
+* <b>http://support.microsoft.com/support/kb/articles/q178/7/55.asp</B><hr size="1" noshade>
+
+<a href="http://www.geocities.com/CapeCanaveral/6740/allfiles.htm">
+<B>Southern Cross</a></B><BR>
+<B>REG32.ZIP	Edit</B> Registry in NT. Requires CALL32.DLL<br>
+<B>REGQUERY.ZIP</B>	Query any Registry key, not just VBA section (VB4)<br>
+<B>SETUP132.ZIP</B>	VB4 setup which allows user details to be requested and
+entered into the Registry(VB4).<BR>
+<B>http://www.geocities.com/CapeCanaveral/6740/allfiles.htm</B><hr size="1" noshade>
+
+<a href="http://www.mvps.org/vb/samples.htm">
+<B>RegSettings</a></B><BR>
+You'll love this class that replaces the native <B>SaveSetting, 
+GetSetting, and DeleteSetting</B> functions!<BR>
+<B> http://www.mvps.org/vb/samples.htm</B></TD></TR>
+</table>
+
+<h3><a name="REGISTRYWEBSITES1"><u>REGISTRY: WEB Sites concerning...</u></a></h3>
+<table width="100%" border="2">
+
+<tr align="Left" bordercolor="black">
+<td><a href="http://www.keyvision.com">
+<B>All About the Windows 95 Registry</a></B><BR>
+<B>KeyVision</B> supports registry for ALL windows platforms, win 95/98, Nt 3.5/4
+<B>A site you must visit</B> if you are looking to change windows by the way of the registry.<BR>
+<B>http://www.keyvision.com</B><hr size="1" noshade>
+
+<a href="http://activewin.com/tips/reg/">
+<B>Windows Registry</a></B><BR>
+Welcome to the Windows Registry Tips library. These registry tweaks and hacks will make Windows 
+perform the way you want it to be. Please note that these tweaks are not for beginners to toy 
+with.<BR>
+<B>http://activewin.com/tips/reg/</b><hr size="1" noshade>
+
+<a href="http://www.geocities.com/SiliconValley/Pines/2857/">
+<B>All About the Windows 95 Registry</a></B><BR>
+<B>http://www.geocities.com/SiliconValley/Pines/2857/</B><hr size="1" noshade>
+
+<a href="http://www.globalserve.net/~coola/Home.html">
+<B>CooLa's Windows (Reg. etc)</a></B><BR>
+<B>http://www.globalserve.net/~coola/Home.html</B><hr size="1" noshade>
+
+<a href="http://www.users.dircon.co.uk/~flibble/index.html">
+<B>Dave W (reg. hacks)</a></B><BR>
+<B>http://www.users.dircon.co.uk/~flibble/index.html</B><hr size="1" noshade>
+
+<a href="http://www.cyberport.com/~greg/tutor-registry.html">
+<B>Fixing your Win95 Setup</B></a> - Registry-brief<BR>
+<B>http://www.cyberport.com/~greg/tutor-registry.html</B><hr size="1" noshade>
+
+<a href="http://www.annoyances.org/win95/registry.html">
+<B>Getting to Know the Registry</B></a><BR>
+Good explanation of the Registry.<BR>
+<B>http://www.annoyances.org/win95/registry.html</B><hr size="1" noshade>
+
+<a href="http://www.woram.com/">
+<B>John Woram's Home Page.</B></a><BR>
+If you are looking for tools.<BR>
+<B>http://www.woram.com/</B><hr size="1" noshade>
+
+<a href="http://www.geocities.com/SiliconValley/1226/regmachinesoftwareclasses.html">
+<B>Windows 95 Registry Page:</B></a><BR>
+<B>http://www.geocities.com/SiliconValley/1226/regmachinesoftwareclasses.html</B><hr size="1" noshade>
+
+<a href="http://www.winmag.com/library/1997/0201/featu159.htm">
+<B>WinMag Feb 1997</B> -Registry</a><BR>
+<B>http://www.winmag.com/library/1997/0201/featu159.htm</B></TD></TR>
+</table>
+
+<br><B><a href="registry.htm">Top</a></B><br><br>
+
+<script language="vbscript">
+<!--
+  document.write "<B>This page was last modified on :</B> "
+  document.write document.lastmodified
+-->
+</script>
+<hr width="100%" size="1" noshade>
+
+<br><br><br><br><br><br><br><br><br><br>
+
+<table width="100%" border="1">
+<tr bgcolor="YELLOW">
+<TD><a name="BACKUPREGISTRY1"><h3><center>BackUp and Restore your Windows 95 Registry.</center></h3></a>
+
+<hr width="70%" size=3 noshade>
+The first file is <B>regbkup.bat</B> which will back up your files
+<B>SYSTEM.DAT</B> and <B>USER.DAT</B> to a folder 
+(directory) named <B>REGSAVE</B> you must create before you start.<br>
+The second file <B>regrstor.bat</B> will restore both files to the
+Windows directory. It is assumed that Windows is installed in C:\Windows<br>
+<hr width="70%" size=3 noshade>
+<PRE>
+@REM regbkup.bat
+C:
+cd\windows
+attrib -h -r -s system.dat
+attrib -h -r -s user.dat
+copy system.dat c:\regsave\system.bk1
+copy user.dat c:\regsave\user.bk1
+attrib +r +h +s system.dat
+attrib +r +h +s user.dat
+copy system.ini c:\regsave
+copy win.ini c:\regsave
+copy c:\autoexec.bat c:\regsave
+copy c:\config.sys c:\regsave
+</PRE>
+
+<hr width="100%" size=3 noshade>
+<PRE>
+To restore the registry backups from DOS use this one:
+<hr width="100%" size=3 noshade>
+REM	regrstor.bat
+REM	!!!  This will replace the registry with backups !!!
+REM	To cancel use CTRL+C
+Pause
+C:
+cd\windows
+attrib -h -r -s system.dat
+attrib -h -r -s user.dat
+ren system.dat system.xxx
+ren user.dat user.xxx
+copy C:\regsave\system.bk1 C:\windows\system.dat
+copy C:\regsave\user.bk1 C:\windows\user.dat
+attrib +r +h +s system.dat
+attrib +r +h +s user.dat
+REM	you can add the other system files here, some of them may
+REM	get changed also when you install programs.
+</PRE>
+<BR><a href="registry.htm"><b>Top</b></a>
+</td></TR>
+
+</table>
+</BODY>
+</HTML>

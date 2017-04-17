@@ -1,0 +1,530 @@
+-- -----------------------------------------------------------------------------
+-- <title IR remote control library
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2005 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- This library can receive and decode IR-remote control codes and
+-- can be used to transmit IR-codes (with external modulation).
+--    - doesn't support RC5 code (there exists JAL libraries for RC5)
+--    - AKAI-JVC receive routine is the most detailed receive routine
+--
+--  IR receiving
+--  ============
+--  Timer0 is set to count units of about 50 usec. Overflow of Timer0 is counted
+-- in a interrupt service routine (ISR).
+--  Demodulated IR (e.g. from a TSOP11xx) is decoded by edge detection in an
+-- interrupt-on-change event of RB4 ... RB7. This ISR stores the elapsed time
+-- since the previous edge, resets timer0 and flags the main program.
+--  The user should call "IR_valid_code" at least every 1 msec, to ensure the
+-- information of the ISR is read. The function IR_valid_code will test the
+-- ISR flag, and if this flag is set, it will accumulate the new data bit.
+-- IR_valid_code will return true if a valid code is received. A valid code in
+-- general is detected if 2 consecutive sequences are valid and equal. Testing
+-- for 2 valid sequences can be turned off (some remotes don't repeat),
+-- by setting the constant IR_check_twice false.
+--
+-- IR transmitting
+-- ===============
+--  Sending of IR code is done straight forward, without any interrupts,
+-- but with software delay loops.
+--
+--
+-- overview of the available routines
+--  IR_valid_code  :returns true when a valid code is received
+--  IR_send        :to be constructed (there are type specific routines)
+-- Bytes are transfered through
+--  IR_byte1 .. IR_byte4
+--
+-- <Version: 1.0  06-08-2005, Stef Mientki
+--   - orginal release
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+-- ---_-------------------------------------------------------------------------
+-- <Example IR remote
+;-- define an IR-remote control on J2R
+;-- because we need interrupt on change (RB4 .. RB7)
+;-- we want to receive a code twice before it's valid
+;const IR_check_twice = true
+;<mac> RPD_IR_remote    IR = J2R, JVC_RMSUXP3R
+;
+;-- including of IR_remote_lib is already done by RPD_IR_remote
+;-- but JALcc can't yet generate the interrupt macros,
+;-- so temporary we include it here manual
+;include IR_remote_lib
+;
+;-- generate ISR from all libraries
+;<mac> interrupt_main
+;
+;-- ----------------------------------------------------------------------------
+;-- main program,
+;-- receive IR-data from remote control
+;-- and send it to the RS232 port
+;-- ----------------------------------------------------------------------------
+;forever loop
+;  -- IR_valid_code should be called at least every 1 msec
+;  if IR_valid_code then
+;    -- some protocols use 4 bytes
+;    if IR_Nbytes == 4 then
+;      asynch_send_hw (IR_byte4)
+;      asynch_send_hw (IR_byte3)
+;    end if
+;    asynch_send_hw (IR_byte2)
+;    asynch_send_hw (IR_byte1)
+;  end if
+;end loop
+;
+;-- ----------------------------------------------------------------------------
+;-- main program, send IR-data
+;-- ----------------------------------------------------------------------------
+;var bit old_gie
+;forever loop
+;  old_gie = GIE
+;  GIE = false
+;
+;  -- SONY channel +
+;  IR_byte2 = 0
+;  IR_byte1 = 0x90
+;  IR_send_SONY_RM883
+;
+;  GIE = old_GIE
+;
+;  -- do some other stuff
+;  delay_100ms(10)
+;end loop
+;-- ----------------------------------------------------------------------------
+
+
+
+-- <code
+
+-- -----------------------------------------------------------------------------
+-- Definitions of remote control types
+-- must be in a separate file, so user can define the remote type
+-- -----------------------------------------------------------------------------
+include IR_remote_lib_defs
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Definitions of IR timing constants (units of 51.2 usec)
+-- -----------------------------------------------------------------------------
+const IR_900us  = 18
+const IR_1500us = 30
+const IR_2000us = 40
+const IR_3000us = 60
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Definitions of the global vars
+-- -----------------------------------------------------------------------------
+var byte IR_byte1       ; IR-bytes to communicate with the main program
+var byte IR_byte2
+var byte IR_byte3
+var byte IR_byte4
+var byte IR_Nbytes      ; Number of bytes required by the protocol
+var byte IR_byte1_new   ; IR-bytes where new IR-bits are accumulated
+var byte IR_byte2_new
+
+var bit  IR_level               ;global, ISR stores received level
+var byte IR_time                ;global, ISR stores measured time
+var byte IR_timer_overflow      ;global, ISR stores measured timer overflows
+var bit  IR_valid_data = false  ;global, ISR sets on new edge detection
+
+var byte IR_timer0_overflow     ;to count T0 overflows
+var bit  IR_valid_bytes = false
+var byte IR_state = 0
+var byte IR_bit_count
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Interrupt service routine for timer0 overflow
+-- overflows over T0 are stored in the global IR_timer0_overflow
+-- -----------------------------------------------------------------------------
+procedure ISR_IR_T0 is
+;;;;;<;mac> interrupt_sub ISR_IR_T0  T0IF  5
+;;;;;<;/mac>
+  IR_timer0_overflow = IR_timer0_overflow + 1
+  T0IF = false
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Interrupt service routine for change on RB
+-- if change of the IR_receive_pin is encountered,
+--   elapsed time is stored in the global IR_time
+--   level is stored in the global IR_level
+--   flag IR_valid_data is set
+-- -----------------------------------------------------------------------------
+procedure ISR_IR_RB is
+;;;;;<;mac> interrupt_sub ISR_IR_RB  RBIF  5
+;;;;;<;/mac>
+var bit  IR_level_new
+  -- first test the right RB-pin
+  IR_level_new = IR_receiver_pin
+  RBIF = false
+  if IR_level != IR_level_new then
+    IR_level = IR_level_new
+    IR_time = TMR0
+    TMR0 = 0               ;also clears prescaler
+    IR_timer_overflow = IR_timer0_overflow
+    IR_timer0_overflow = 0
+    IR_valid_data = true
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- This routine sends a level and time after each edge detection
+-- -----------------------------------------------------------------------------
+procedure IR_rec_RAW is
+  -- although IR_level is the level after the just detected edge
+  -- we still use IR_level, because the TSOP11..  inverts !!
+  if IR_level then
+    IR_byte1 = 0xFF
+    IR_byte2 = IR_time
+    IR_valid_bytes = true
+  else
+    IR_byte1 = 0x00
+    IR_byte2 = IR_time
+    IR_valid_bytes = true
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- transmit procedure for SONY TV-remote RM-883
+-- START-PATTERN : 2.4 msec MARK
+-- DATABITS      : 12
+-- 0-BIT         : 600 usec SPACE, 600usec MARK
+-- 1-BIT         : 600 usec SPACE, 1200usec MARK
+-- STOP-PATTERN  : none
+-- PAUSE Repeats : 25 msec
+-- REPEAT COUNT  : 4
+-- -----------------------------------------------------------------------------
+procedure IR_send_SONY_RM883 is
+  -- --------------------------------------------------------------------------
+  procedure _IR_send_byte (byte in data, byte in Nbits) is
+  var bit databit at data : 0
+    for Nbits loop
+      -- 600 us SPACE
+      IR_transmit_pin = low
+      delay_10us(60)
+      -- 600 us MARK
+      IR_transmit_pin = high
+      delay_10us(60)
+      -- if databit=1, extend MARK to 1200 us
+      if databit then delay_10us(60) end if
+      -- get next databit at bit0
+      data = data >> 1
+    end loop
+  end procedure
+  -- --------------------------------------------------------------------------
+  for 4 loop
+    -- start puls, 2.4 msec MARK
+    IR_transmit_pin = high
+    delay_10us(240)
+    -- send the first (LSB) 8bits
+    _IR_send_byte(IR_byte1, 8)
+    -- send the next 4 bytes
+    _IR_send_byte(IR_byte2, 4)
+    -- insert a space inbetween repeats of 25 msec
+    IR_transmit_pin = low
+    delay_1ms(25)
+  end loop
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- detection for SONY TV-remote RM-883
+-- (re-)starts decoding on a MARK of 1.5 .. 3 msec
+--    if a MARK larger then 3 msec is detected it will go idle
+-- after a valid startbit is detected, it will sample 12 bytes
+--    during sampling of the databits,
+--     it can be reset by a MARK larger then 1.5 ms
+-- a "0" consists of a 600 us SPACE, followed by a 600 us MARK
+-- a "1" consists of a 600 us SPACE, followed by a 1200 us MARK
+-- therefor the detection level is set to 900 us
+-- there is no stop pattern
+-- -----------------------------------------------------------------------------
+procedure IR_REC_SONY_RM883 is
+  if IR_level then
+    -- search for new startpuls (2.4 ms high encountered)
+    -- in fluoresent light we need to supress false starts
+    if IR_time > IR_3000us then
+      IR_state = 0
+    elsif IR_time > IR_1500us then
+      IR_state = 1
+      IR_bit_count = 9   ;because information is stored in Zeroes
+                         ;or in other words if IR_level = high,
+                         ;we've to ignore the startbit
+                         ;with 9 bits, the startbit will be shifted out
+    end if
+
+    if IR_state == 1 then       ;get the bits from the first byte
+      -- data bits
+      C = IR_time > IR_900us    ;get new bit in Carry
+      asm  RRF  IR_byte1_new,f  ;shift new bit in receive byte
+      IR_bit_count = IR_bit_count - 1
+      if IR_bit_count == 0 then
+        IR_state = 2
+        IR_bit_count = 4
+        IR_Byte2_new = 0
+      end if
+    elsif IR_state == 2 then    ;get bits from the second word
+      -- data bits
+      C = IR_time > IR_900us    ;get new bit in Carry
+      asm  RRF  IR_byte2_new,f  ;shift new bit in receive byte
+      IR_bit_count = IR_bit_count - 1
+      if IR_bit_count == 0 then
+        asm  swapf  IR_byte2_new,f  ;because we only have 4 bits, swap
+        IR_valid_bytes = true
+        IR_state = 0
+      end if
+    end if
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure IR_send_AKAI_JVC is
+  -- --------------------------------------------------------------------------
+  procedure _IR_send_byte (byte in data) is
+  var bit databit at data : 0
+    for 8 loop
+      IR_transmit_pin = high
+      delay_10us(60)
+      IR_transmit_pin = low
+      delay_10us(40)
+      if databit then delay_10us(110) end if
+      data = data >> 1
+    end loop
+  end procedure
+  -- --------------------------------------------------------------------------
+  -- start puls
+  IR_transmit_pin = high
+  delay_1ms(8)
+  IR_transmit_pin = low
+  delay_1ms(4)
+  -- on/off key is repeated 5 times
+  -- other keys are repeated 3 times
+  for 3 loop
+    _IR_send_byte(IR_byte1)
+    _IR_send_byte(IR_byte2)
+    -- one extra high puls of 600 us
+    IR_transmit_pin = high
+    delay_10us(60)
+    IR_transmit_pin = low
+    delay_1ms(20)
+  end loop
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- JVC audio RM-SUXP3R
+-- START-PATTERN : 9 msec MARK,  4.5 msec SPACE
+-- DATABITS      : 16
+-- 0-BIT         : 640 usec MARK, 400usec SPACE
+-- 1-BIT         : 640 usec MARK, 1480usec SPACE
+-- STOP-PATTERN  : 640 usec MARK
+-- PAUSE Repeats : 20 msec SPACE
+-- REPEAT COUNT  : 3 (exception: on/off key is repeated 5 times)
+--
+-- AKAI video RC-X121E
+-- START-PATTERN : 9 msec MARK,  4.5 msec SPACE
+-- DATABITS      : 32
+-- 0-BIT         : 640 usec MARK, 400usec SPACE
+-- 1-BIT         : 640 usec MARK, 1480usec SPACE
+-- STOP-PATTERN  : 640 usec MARK
+-- PAUSE Repeats : none
+-- REPEAT COUNT  : none
+-- -----------------------------------------------------------------------------
+procedure IR_REC_AKAI_JVC is
+  -- high level measured
+  if IR_level then
+    -- wait for start MARK (9 msec)
+    if IR_time > IR_3000us then IR_state = 1 end if
+    -- now if all databits are received, check stop MARK (640 usec)
+    if IR_state == 6 then
+      if IR_time < IR_900us then
+        -- if stopmark ok, flag the outside world
+        IR_valid_bytes = true
+      end if
+      -- becasue ther can be repeats,
+      -- we ignore the start MARK for a moment,
+      -- if a long space is encountered, the decoder will reset
+      IR_state = 1
+    end if
+    
+  else -- low level measured
+    -- reset if a low period of larger 25 msec is detected
+     if IR_timer_overflow > 3 then IR_state = 0 end if
+    
+    -- check start SPACE (4 msec), if not reset
+    if IR_state == 1 then
+      if IR_time > IR_3000us then
+        IR_state = 2
+        IR_bit_count = 8
+      else
+        IR_state = 0
+      end if
+      
+    -- detect data only after a valid start sequence is detected
+    elsif IR_state != 0 then
+      -- reset if low puls is too long
+      if IR_time > IR_2000us then IR_state = 0
+      else
+
+        -- lsb-word data bits
+        if IR_state == 2 then
+          C = IR_time > IR_900us   ;get new bit in Carry
+          asm  RRF  IR_byte1_new,f ;shift new bit in receive byte
+          IR_bit_count = IR_bit_count - 1
+          if IR_bit_count == 0 then
+            IR_state = 3
+            IR_bit_count = 8
+          end if
+
+        -- second word data bits
+        elsif IR_state == 3 then
+          C = IR_time > IR_900us
+          asm  RRF  IR_byte2_new,f
+          IR_bit_count = IR_bit_count - 1
+          if IR_bit_count == 0 then
+            -- e.g. JVC uses only 2 bytes, so ignore next 2 cycles
+            if IR_Nbytes == 2 then IR_state = 6
+            else
+              IR_state = 4
+              IR_bit_count = 8
+            end if
+          end if
+          
+        -- third word data bits
+        elsif IR_state == 4 then
+          C = IR_time > IR_900us
+          asm  RRF  IR_byte3,f
+          IR_bit_count = IR_bit_count - 1
+          if IR_bit_count == 0 then
+            IR_state = 5
+            IR_bit_count = 8
+          end if
+          
+        -- msb-word data bits
+        elsif IR_state == 5 then
+          C = IR_time > IR_900us
+          asm  RRF  IR_byte4,f
+          IR_bit_count = IR_bit_count - 1
+          if IR_bit_count == 0 then
+            IR_state = 6
+          end if
+        end if
+      end if
+    end if
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- returns TRUE when a new valid sequence is detected
+-- i.e. the timing of 1 sequence was correct received
+-- -----------------------------------------------------------------------------
+function IR_valid_sequence return bit is
+var bit ready
+  if IR_valid_data then
+    -- next if statement is compiler directive (IR_remote is const)
+    if IR_remote == IR_raw then IR_rec_RAW
+
+    elsif (IR_remote == IR_AKAI_RCX121E) |
+          (IR_remote == IR_JVC_RMSUXP3R) then
+      IR_REC_AKAI_JVC
+
+    elsif IR_remote == IR_SONY_RM883 then IR_REC_SONY_RM883
+    end if
+    IR_valid_data = false
+  end if
+
+  ready = IR_valid_bytes
+  IR_valid_bytes = false
+  return ready
+end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- returns TRUE, when 2 times the same valid sequence is received
+-- i.e. a valid sequence is received 2 times, and can be used by the mainprogram
+-- by resetting IR_check_twice, each valid sequence will generate a valid code
+-- -----------------------------------------------------------------------------
+function IR_valid_code return bit is
+var bit ready = false
+  if IR_valid_sequence then
+    -- in case of RAW data we've to lett all pass
+    if IR_remote == IR_raw then
+      asynch_send_hw(IR_Timer_Overflow)
+      ready = true
+    else
+      if IR_check_twice then
+        if (IR_byte2_new == IR_byte2) &
+           (IR_byte1_new == IR_byte1) then
+          ready = true
+        else
+          IR_byte2 = IR_byte2_new
+          IR_byte1 = IR_byte1_new
+        end if
+      else
+        IR_byte2 = IR_byte2_new
+        IR_byte1 = IR_byte1_new
+        ready = true
+      end if
+    end if
+  end if
+  return ready
+end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- compiler directives to set some specific protocol variables
+-- -----------------------------------------------------------------------------
+if IR_remote == IR_raw then
+elsif IR_remote == IR_AKAI_RCX121E then
+  IR_Nbytes = 4
+elsif IR_remote == IR_JVC_RMSUXP3R then
+  IR_Nbytes = 2
+elsif IR_remote == IR_SONY_RM883 then
+end if
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- initialize Timer0
+-- enable interrupts
+-- -----------------------------------------------------------------------------
+OPTION_REG = OPTION_REG & 0xC0    ;we don't touch bit7,6
+OPTION_REG = OPTION_REG | 0b_0000_0111
+--                                 111 = prescaler = 256 (51.2 us units)
+--                                0    = prescaler on Timer 0
+--                              0      = T0SE, not relevant
+--                             0       = select internal oscillator
+T0IF = false    ;clear Timer 0 interrupt flag
+T0IE = true     ;enable Timer 0 interrupts
+
+RBIE = true
+RBIF = false
+GIE = true      ;enable interrupts (in general)
+-- -----------------------------------------------------------------------------
+
+

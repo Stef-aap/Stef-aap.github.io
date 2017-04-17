@@ -1,0 +1,948 @@
+-- -----------------------------------------------------------------------------
+-- <title 2 stepper
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- Library that can control up to 2 stepper motors.
+-- Features
+--    * position control (in half-steps) controled by a 4 byte number
+--    * both half-stepping and full-stepping implemented
+--    * on full-stepping, 1 or 2 windings can be forced
+--    * acceleration / deceleration supported
+--  uses   : byte3_math, TMR0 as interrupt generator
+--
+--
+-- <Version: 1.0  24-08-2002   Stef Mientki
+--    - orginal release
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- <Example RS232
+; -- define settings
+; const usart_asynch = true      ;true = RS232, false = SPI
+; const baudrate     = 115_200   ;Baudrate
+;
+; var byte xx
+; forever loop
+;   -- if character received, echo inverted
+;   if asynch_read_hw (xx) then
+;     asynch_send_hw ( ! xx)
+;   end if
+;   ... do other things here
+; end loop
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+
+
+-- -----------------------------------------------------------------------------
+-- automatic include the necessary files
+const LOG_ACCURACY = 2  -- necessary for byte3_math
+include byte3_math
+-- -----------------------------------------------------------------------------
+
+
+
+-- motor status constants
+const byte _stepper_status_stopped      = 0
+const byte _stepper_status_running      = 1
+const byte _stepper_status_continuous   = 2
+
+
+-- variables for motor1
+var volatile byte _stepper1_period
+var volatile byte _stepper1_period_preset = 40
+var volatile byte _stepper1_index = 0
+var volatile byte stepper1_status
+var volatile bit  stepper1_full_steps
+var volatile bit  stepper1_full_force_1_winding
+var volatile bit  stepper1_full_force_2_winding
+var volatile bit  stepper1_forward
+var volatile byte stepper1_pos1
+var volatile byte stepper1_pos2
+var volatile byte stepper1_pos3
+var volatile byte stepper1_pos4
+var volatile byte _stepper1_target_pos1
+var volatile byte _stepper1_target_pos2
+var volatile byte _stepper1_target_pos3
+var volatile byte _stepper1_target_pos4
+var volatile bit  stepper1_accelerate_on
+var volatile byte _stepper1_acc_count
+var volatile byte _stepper1_acc_index
+var volatile bit  _stepper1_not_decelerating
+
+
+-- identical variables for motor 2
+var volatile byte _stepper2_period
+var volatile byte _stepper2_period_preset = 40
+var volatile byte _stepper2_index = 0
+var volatile byte stepper2_status
+var volatile bit  stepper2_full_steps
+var volatile bit  stepper2_full_force_1_winding
+var volatile bit  stepper2_full_force_2_winding
+var volatile bit  stepper2_forward
+var volatile byte stepper2_pos1
+var volatile byte stepper2_pos2
+var volatile byte stepper2_pos3
+var volatile byte stepper2_pos4
+var volatile byte _stepper2_target_pos1
+var volatile byte _stepper2_target_pos2
+var volatile byte _stepper2_target_pos3
+var volatile byte _stepper2_target_pos4
+var volatile bit  stepper2_accelerate_on
+var volatile byte _stepper2_acc_count
+var volatile byte _stepper2_acc_index
+var volatile bit  _stepper2_not_decelerating
+
+
+
+-- ----------------------------------------------------------------------------
+-- internal routine
+-- This table can be used for both half-stepping and full-stepping of 4-phase motors
+-- for full-stepping the table indices are incremented or decremented by 2
+-- NOTE: depending on the moment of switching form half-stepping to full-stepping
+--       the odd or the even indices can be used !!
+--
+-- If these tables are not used, they will not consume any memory space,
+-- because they will be wiped out by the compiler
+-- ----------------------------------------------------------------------------
+procedure _stepper_table_4_phase_forward is
+   pragma jump_table
+   assembler
+      addwf   PCL,f
+      retlw   0b_0001
+      retlw   0b_0011
+      retlw   0b_0010
+      retlw   0b_0110
+      retlw   0b_0100
+      retlw   0b_1100
+      retlw   0b_1000
+      retlw   0b_1001
+   end assembler
+end procedure
+-- ----------------------------------------------------------------------------
+procedure _get_stepper_value (  byte in  out indx, byte out x ) is
+  assembler
+    bank  movfw  indx
+    page  call   _stepper_table_4_phase_forward
+    bank  movwf  x
+  end assembler
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- increment the current position counter of motor=1
+-- -----------------------------------------------------------------------------
+procedure _stepper1_inc_pos is
+  assembler
+  local non_zero
+    incfsz   stepper1_pos1,f
+    goto     non_zero
+    incfsz   stepper1_pos2,f
+    goto     non_zero
+    incfsz   stepper1_pos3,f
+    goto     non_zero
+    incfsz   stepper1_pos4,f
+  non_zero:
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- increment the current position counter of motor=2
+-- -----------------------------------------------------------------------------
+procedure _stepper2_inc_pos is
+  assembler
+  local non_zero
+    incfsz   stepper2_pos1,f
+    goto     non_zero
+    incfsz   stepper2_pos2,f
+    goto     non_zero
+    incfsz   stepper2_pos3,f
+    goto     non_zero
+    incfsz   stepper2_pos4,f
+  non_zero:
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- decrement the current position counter of motor=1
+-- -----------------------------------------------------------------------------
+procedure _stepper1_dec_pos is
+  assembler
+  local non_zero
+    movlw    1
+    subwf    stepper1_pos1,f
+    btfsc    C
+    goto     non_zero
+    subwf    stepper1_pos2,f
+    btfsc    C
+    goto     non_zero
+    subwf    stepper1_pos3,f
+    btfsc    C
+    goto     non_zero
+    subwf    stepper1_pos4,f
+  non_zero:
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- decrement the current position counter of motor=2
+-- -----------------------------------------------------------------------------
+procedure _stepper2_dec_pos is
+  assembler
+  local non_zero
+    movlw    1
+    subwf    stepper2_pos1,f
+    btfsc    C
+    goto     non_zero
+    subwf    stepper2_pos2,f
+    btfsc    C
+    goto     non_zero
+    subwf    stepper2_pos3,f
+    btfsc    C
+    goto     non_zero
+    subwf    stepper2_pos4,f
+  non_zero:
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- compare the current postion and the target position of motor=1
+-- returns TRUE if both are equal
+-- ..?..result stored in gloabl ??
+-- -----------------------------------------------------------------------------
+function _stepper1_cmp_pos return bit is
+  assembler
+  local not_equal, finish
+    movf     stepper1_pos1,w
+    subwf    _stepper1_target_pos1,w
+    btfss    Z
+    goto     not_equal
+
+    movf     stepper1_pos2,w
+    subwf    _stepper1_target_pos2,w
+    btfss    Z
+    goto     not_equal
+
+    movf     stepper1_pos3,w
+    subwf    _stepper1_target_pos3,w
+    btfss    Z
+    goto     not_equal
+
+    movf     stepper1_pos4,w
+    subwf    _stepper1_target_pos4,w
+    btfss    Z
+    goto     not_equal
+
+;    movlw    0           ;equal
+;    goto     finish      ;
+  not_equal:             ;
+;    movlw    1           ;
+  finish:                ;
+;    movwf    _stepper1_z          ;
+  end assembler
+  return Z
+end function
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- compare the current postion and the target position of motor=2
+-- returns TRUE if both are equal
+-- ..?..result stored in gloabl ??
+-- -----------------------------------------------------------------------------
+function _stepper2_cmp_pos return bit is
+  assembler
+  local not_equal, finish
+    movf     stepper2_pos1,w
+    subwf    _stepper2_target_pos1,w
+    btfss    Z
+    goto     not_equal
+
+    movf     stepper2_pos2,w
+    subwf    _stepper2_target_pos2,w
+    btfss    Z
+    goto     not_equal
+
+    movf     stepper2_pos3,w
+    subwf    _stepper2_target_pos3,w
+    btfss    Z
+    goto     not_equal
+
+    movf     stepper2_pos4,w
+    subwf    _stepper2_target_pos4,w
+    btfss    Z
+    goto     not_equal
+
+;    movlw    0           ;equal
+;    goto     finish      ;
+  not_equal:             ;
+;    movlw    1           ;
+  finish:                ;
+;    movwf    _stepper1_z          ;
+  end assembler
+  return Z
+end function
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- tests in full step mode if forced windings 1/2 are ok for motor=1
+-- TRUE if no forced windings or forced windings are wrong
+-- -----------------------------------------------------------------------------
+function _stepper1_test_forced_windings return bit is
+var bit index_lsb at _stepper1_index : 0
+  return
+    ((! stepper1_full_force_1_winding) & (! stepper1_full_force_2_winding)) |
+    (stepper1_full_force_1_winding & index_lsb)|
+    (stepper1_full_force_2_winding & (! index_lsb))
+end function
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- tests in full step mode if forced windings 1/2 are ok for motor=2
+-- TRUE if no forced windings or forced windings are wrong
+-- -----------------------------------------------------------------------------
+function _stepper2_test_forced_windings return bit is
+var bit index_lsb at _stepper2_index : 0
+  return
+    ((! stepper2_full_force_1_winding) & (! stepper2_full_force_2_winding)) |
+    (stepper2_full_force_1_winding & index_lsb)|
+    (stepper2_full_force_2_winding & (! index_lsb))
+end function
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- steps motor=1 a half- or full-step forward
+-- if motor is not in continuous mode and target position is reached,
+-- no motor movement will be made.
+-- in fullstep mode, also the settings of force full windings is checked
+-- -----------------------------------------------------------------------------
+procedure _stepper1_step_forward is
+  ;increment indices
+  _stepper1_index = _stepper1_index + 1
+  _stepper1_inc_pos
+
+  ;on full steps, take another half step
+  if stepper1_full_steps &
+     ( (! _stepper1_cmp_pos) |
+       (stepper1_status == _stepper_status_continuous)
+     ) then
+     ;only step if no forced windings or forced windings are wrong
+     if _stepper1_test_forced_windings then
+      _stepper1_index = _stepper1_index + 1
+      _stepper1_inc_pos
+     end if
+  end if
+
+  ;correct table overflow
+  if _stepper1_index >= 8 then
+    _stepper1_index = _stepper1_index - 8
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- steps motor=2 a half- or full-step forward
+-- if motor is not in continuous mode and target position is reached,
+-- no motor movement will be made.
+-- in fullstep mode, also the settings of force full windings is checked
+-- -----------------------------------------------------------------------------
+procedure _stepper2_step_forward is
+  ;increment indices
+  _stepper2_index = _stepper2_index + 1
+  _stepper2_inc_pos
+
+  ;on full steps, take another half step
+  if stepper2_full_steps &
+     ( (! _stepper2_cmp_pos) |
+       (stepper2_status == _stepper_status_continuous)
+     ) then
+     ;only step if no forced windings or forced windings are wrong
+     ;only step if no forced windings or forced windings are wrong
+     if _stepper2_test_forced_windings then
+      _stepper2_index = _stepper2_index + 1
+      _stepper2_inc_pos
+     end if
+  end if
+
+  ;correct table overflow
+  if _stepper2_index >= 8 then
+    _stepper2_index = _stepper2_index - 8
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- steps motor=1 a half- or full-step backward
+-- if motor is not in continuous mode and target position is reached,
+-- no motor movement will be made.
+-- in fullstep mode, also the settings of force full windings is checked
+-- -----------------------------------------------------------------------------
+procedure _stepper1_step_backward is
+var bit _stepper1_index_msb at _stepper1_index : 7
+
+  ;decrement indices
+  _stepper1_index = _stepper1_index - 1
+  _stepper1_dec_pos
+
+  ;on full steps, take another half step
+  if stepper1_full_steps &
+     ( (! _stepper1_cmp_pos) |
+       (stepper1_status == _stepper_status_continuous)
+     ) then
+     ;only step if no forced windings or forced windings are wrong
+     if _stepper1_test_forced_windings then
+      _stepper1_index = _stepper1_index - 1
+      _stepper1_dec_pos
+     end if
+  end if
+
+  ;correct table overflow
+  if _stepper1_index_msb then
+    _stepper1_index = _stepper1_index + 8
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- steps motor=2 a half- or full-step backward
+-- if motor is not in continuous mode and target position is reached,
+-- no motor movement will be made.
+-- in fullstep mode, also the settings of force full windings is checked
+-- -----------------------------------------------------------------------------
+procedure _stepper2_step_backward is
+var bit _stepper2_index_msb at _stepper2_index : 7
+
+  ;decrement indices
+  _stepper2_index = _stepper2_index - 1
+  _stepper2_dec_pos
+
+  ;on full steps, take another half step
+  if stepper2_full_steps &
+     ( (! _stepper2_cmp_pos) |
+       (stepper2_status == _stepper_status_continuous)
+     ) then
+     ;only step if no forced windings or forced windings are wrong
+     if _stepper2_test_forced_windings then
+      _stepper2_index = _stepper2_index - 1
+      _stepper2_dec_pos
+     end if
+  end if
+
+  ;correct table overflow
+  if _stepper2_index_msb then
+    _stepper2_index = _stepper2_index + 8
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- this is the procedure that should be called by the interrupt routine
+-- If you're using JALcc, it's most convenient done by a macro statement
+-- -----------------------------------------------------------------------------
+procedure _stepper_TMR0_interrupt is
+;;;;;<;mac> interrupt_sub _stepper_TMR0_interrupt T0IF 5
+;;;;;<;/mac>
+var byte value
+var bit _stepper1_acc_index_msb at _stepper1_acc_index : 7
+var bit _stepper2_acc_index_msb at _stepper2_acc_index : 7
+
+  -- must be (one of) the first statement for accurate timing
+  TMR0 = _tmr0_preset  -- preset counter again
+
+  ;if motor is running
+  if stepper1_status != _stepper_status_stopped then
+    ;only decrement period counter when it's not already zero,
+    ;this could happen if a motor has reached his target position,
+    ;while still in running mode
+    ;if this limiting is not done, it could take quiet a while to restart
+    if _stepper1_period != 0 then _stepper1_period = _stepper1_period - 1 end if
+
+    ;if motor puls finished
+    if _stepper1_period == 0 then
+
+      ;as long as position not reached or running continuous
+      if (! _stepper1_cmp_pos) |
+         (stepper1_status == _stepper_status_continuous) then
+
+        if stepper1_accelerate_on then
+          _stepper1_acc_count = _stepper1_acc_count - 1
+          if _stepper1_acc_count == 0 then
+            if _stepper1_not_decelerating then
+              _stepper1_acc_index = _stepper1_acc_index + 1
+              if _stepper1_acc_index > _stepper_max_speed_index then
+                _stepper1_acc_index = _stepper_max_speed_index
+              end if
+            else
+              _stepper1_acc_index = _stepper1_acc_index - 1
+              if _stepper1_acc_index_msb then
+                _stepper1_acc_index = 0
+                stepper1_status = _stepper_status_stopped
+              end if
+            end if
+            stepper_acc1 (_stepper1_acc_index,_stepper1_period_preset)
+            stepper_acc1N (_stepper1_acc_index,_stepper1_acc_count)
+          end if
+        end if
+
+        ;reload the counter for this loop
+        _stepper1_period = _stepper1_period_preset
+
+        ;now get value for next step and send to port
+        if stepper1_forward then _stepper1_step_forward
+        else _stepper1_step_backward
+        end if
+
+        ;get table value, output to port
+        _get_stepper_value ( _stepper1_index, value )
+        _stepper1_port = value
+      end if
+    end if
+  end if
+
+  if stepper_Nmotors == 2 then  -- compiler directive !!
+  ;if motor is running
+  if stepper2_status != _stepper_status_stopped then
+    if _stepper2_period != 0 then _stepper2_period = _stepper2_period - 1 end if
+
+    ;if motor puls finished
+    if _stepper2_period == 0 then
+
+      ;as long as position not reached or running continuous
+      if (! _stepper2_cmp_pos) |
+         (stepper2_status == _stepper_status_continuous) then
+
+         if stepper2_accelerate_on then
+           _stepper2_acc_count = _stepper2_acc_count - 1
+           if _stepper2_acc_count == 0 then
+             if _stepper2_not_decelerating then
+               _stepper2_acc_index = _stepper2_acc_index + 1
+               if _stepper2_acc_index > _stepper_max_speed_index then
+                 _stepper2_acc_index = _stepper_max_speed_index
+               end if
+             else
+               _stepper2_acc_index = _stepper2_acc_index - 1
+               if _stepper2_acc_index_msb then
+                 _stepper2_acc_index = 0
+                 stepper2_status = _stepper_status_stopped
+               end if
+             end if
+             stepper_acc1 (_stepper2_acc_index,_stepper2_period_preset)
+             stepper_acc1N (_stepper2_acc_index,_stepper2_acc_count)
+           end if
+         end if
+
+        ;reload the counter for this loop
+        _stepper2_period = _stepper2_period_preset
+
+        ;now get value for next step and send to port
+        if stepper2_forward then _stepper2_step_forward
+        else _stepper2_step_backward
+        end if
+
+        ;get table value, output to port
+        _get_stepper_value ( _stepper2_index, value )
+        _stepper2_port = value
+      end if
+    end if
+  end if
+  end if
+
+  -- must be the last statement, to prevent reentrance
+  T0IF = false        -- clear TMR0 interrupt flag
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- ---------------------------------------------------------------------
+-- sets motor to run continuously in the current speed and direction,
+-- without any acceleration
+-- ---------------------------------------------------------------------
+procedure stepper_run_continuous (byte in motor_nr = 1) is
+  if motor_nr == 1 then
+    stepper1_accelerate_on = false
+    stepper1_status = _stepper_status_continuous
+  else
+    stepper2_accelerate_on = false
+    stepper2_status = _stepper_status_continuous
+  end if
+end procedure
+-- ---------------------------------------------------------------------
+
+
+
+-- ---------------------------------------------------------------------
+-- sets motor to run continuously, with smooth start in the current direction
+-- motor is supposed to be initial not running
+-- ---------------------------------------------------------------------
+procedure stepper_run_continuous_smooth (byte in motor_nr = 1) is
+  if motor_nr == 1 then
+    stepper1_accelerate_on = true
+    _stepper1_not_decelerating = true
+    _stepper1_acc_index = 0
+    stepper_acc1 (_stepper1_acc_index,_stepper1_period_preset)
+    stepper_acc1N (_stepper1_acc_index,_stepper1_acc_count)
+    stepper1_status = _stepper_status_continuous
+  else
+    stepper2_accelerate_on = true
+    _stepper2_not_decelerating = true
+    _stepper2_acc_index = 0
+    stepper_acc1 (_stepper2_acc_index,_stepper2_period_preset)
+    stepper_acc1N (_stepper2_acc_index,_stepper2_acc_count)
+    stepper2_status = _stepper_status_continuous
+  end if
+end procedure
+-- ---------------------------------------------------------------------
+
+
+
+-- ---------------------------------------------------------------------
+-- Runs motor to the specified target position,
+-- using the current direction, speed and accereration settings
+-- This routine can also be called as a macro,
+-- allowing to use large integer values
+--     stepper_run_into  1,23300
+-- ---------------------------------------------------------------------
+procedure stepper_run_into (byte in motor_nr = 1,
+                       byte in target_pos1 = 0,
+                       byte in target_pos2 = 0,
+                       byte in target_pos3 = 0,
+                       byte in target_pos4 = 0) is
+  if motor_nr == 1 then
+    stepper1_status = _stepper_status_running
+    -- it's not necessary to disable interrupts here !!
+;;;;;    <;mac> byte4_assign _stepper1_target_pos = target_pos
+    _stepper1_target_pos1 = target_pos1
+    _stepper1_target_pos2 = target_pos2
+    _stepper1_target_pos3 = target_pos3
+    _stepper1_target_pos4 = target_pos4
+;;;;;<;/mac>
+  else
+    stepper2_status = _stepper_status_running
+    -- it's not necessary to disable interrupts here !!
+;;;;;    <;mac> byte4_assign _stepper2_target_pos = target_pos
+    _stepper2_target_pos1 = target_pos1
+    _stepper2_target_pos2 = target_pos2
+    _stepper2_target_pos3 = target_pos3
+    _stepper2_target_pos4 = target_pos4
+;;;;;<;/mac>
+  end if
+end procedure
+-- ---------------------------------------------------------------------
+
+
+
+-- ---------------------------------------------------------------------
+-- Runs motor for the specified HALF-STEPS !!
+-- using the current direction, speed and accereration settings
+-- If motor is running, the specified steps will be added to the target position
+-- This routine can also be called as a macro,
+-- allowing to use large integer values
+--     stepper_do_steps  1,23300
+-- ---------------------------------------------------------------------
+procedure stepper_do_steps (byte in motor_nr = 1,
+                       byte in n_steps1 = 0,
+                       byte in n_steps2 = 0,
+                       byte in n_steps3 = 0,
+                       byte in n_steps4 = 0) is
+  -- interrupts must be disabled, because target-position is changes
+  T0IE = false
+  if motor_nr == 1 then
+    if stepper1_forward then
+;;;;;      <;mac> byte4_add  _stepper1_target_pos = _stepper1_target_pos , n_steps
+      Y1 = _stepper1_target_pos1
+      Y2 = _stepper1_target_pos2
+      Y3 = _stepper1_target_pos3
+      Y4 = _stepper1_target_pos4
+      X1 = n_steps1
+      X2 = n_steps2
+      X3 = n_steps3
+      X4 = n_steps4
+      byte4_add
+      _stepper1_target_pos1 = Y1
+      _stepper1_target_pos2 = Y2
+      _stepper1_target_pos3 = Y3
+      _stepper1_target_pos4 = Y4
+;;;;;<;/mac>
+    else
+;;;;;      <;mac> byte4_sub  _stepper1_target_pos = _stepper1_target_pos , n_steps
+      Y1 = _stepper1_target_pos1
+      Y2 = _stepper1_target_pos2
+      Y3 = _stepper1_target_pos3
+      Y4 = _stepper1_target_pos4
+      X1 = n_steps1
+      X2 = n_steps2
+      X3 = n_steps3
+      X4 = n_steps4
+      byte4_sub
+      _stepper1_target_pos1 = Y1
+      _stepper1_target_pos2 = Y2
+      _stepper1_target_pos3 = Y3
+      _stepper1_target_pos4 = Y4
+;;;;;<;/mac>
+    end if
+    stepper1_status = _stepper_status_running
+  else
+    if stepper2_forward then
+;;;;;      <;mac> byte4_add  _stepper2_target_pos = _stepper2_target_pos , n_steps
+      Y1 = _stepper2_target_pos1
+      Y2 = _stepper2_target_pos2
+      Y3 = _stepper2_target_pos3
+      Y4 = _stepper2_target_pos4
+      X1 = n_steps1
+      X2 = n_steps2
+      X3 = n_steps3
+      X4 = n_steps4
+      byte4_add
+      _stepper2_target_pos1 = Y1
+      _stepper2_target_pos2 = Y2
+      _stepper2_target_pos3 = Y3
+      _stepper2_target_pos4 = Y4
+;;;;;<;/mac>
+    else
+;;;;;      <;mac> byte4_sub  _stepper2_target_pos = _stepper2_target_pos , n_steps
+      Y1 = _stepper2_target_pos1
+      Y2 = _stepper2_target_pos2
+      Y3 = _stepper2_target_pos3
+      Y4 = _stepper2_target_pos4
+      X1 = n_steps1
+      X2 = n_steps2
+      X3 = n_steps3
+      X4 = n_steps4
+      byte4_sub
+      _stepper2_target_pos1 = Y1
+      _stepper2_target_pos2 = Y2
+      _stepper2_target_pos3 = Y3
+      _stepper2_target_pos4 = Y4
+;;;;;<;/mac>
+    end if
+    stepper2_status = _stepper_status_running
+  end if
+  -- enable interrupts again
+  T0IE = true
+end procedure
+-- ---------------------------------------------------------------------
+
+
+
+-- ---------------------------------------------------------------------
+-- internal routine used by stop and null
+-- stops the motor (sets also stopped mode)
+-- if NULL, defines current-position as NULL
+-- sets target-position to current-position
+-- ---------------------------------------------------------------------
+procedure _stepper_stop_null (byte in motor_nr, bit in null) is
+  if motor_nr == 1 then
+    stepper1_status = _stepper_status_stopped
+
+    -- at this point interrupts have or will see the stop status and will do nothing
+    -- so it's save to change the target-position
+
+    -- define current position as NULLpoint
+    if null then
+;;;;;      <;mac> byte4_assign   stepper1_pos = 0
+    stepper1_pos1 = 0x00
+    stepper1_pos2 = 0x00
+    stepper1_pos3 = 0x00
+    stepper1_pos4 = 0x00
+;;;;;<;/mac>
+    end if
+
+    -- set target-position to current-position
+;;;;;    <;mac> byte4_assign   _stepper1_target_pos = stepper1_pos
+    _stepper1_target_pos1 = stepper1_pos1
+    _stepper1_target_pos2 = stepper1_pos2
+    _stepper1_target_pos3 = stepper1_pos3
+    _stepper1_target_pos4 = stepper1_pos4
+;;;;;<;/mac>
+
+  else
+    stepper2_status = _stepper_status_stopped
+
+    -- define current position as NULLpoint
+    if null then
+;;;;;      <;mac> byte4_assign   stepper2_pos = 0
+    stepper2_pos1 = 0x00
+    stepper2_pos2 = 0x00
+    stepper2_pos3 = 0x00
+    stepper2_pos4 = 0x00
+;;;;;<;/mac>
+    end if
+
+    -- set target-position to current-position
+;;;;;    <;mac> byte4_assign   _stepper2_target_pos = stepper2_pos
+    _stepper2_target_pos1 = stepper2_pos1
+    _stepper2_target_pos2 = stepper2_pos2
+    _stepper2_target_pos3 = stepper2_pos3
+    _stepper2_target_pos4 = stepper2_pos4
+;;;;;<;/mac>
+
+  end if
+end procedure
+-- ---------------------------------------------------------------------
+
+
+
+-- ---------------------------------------------------------------------
+-- stops motor directly
+-- sets motor status to stopped
+-- sets position target=current
+-- ---------------------------------------------------------------------
+procedure stepper_stop (byte in motor_nr = 1) is
+  _stepper_stop_null (motor_nr, false)
+end procedure
+-- ---------------------------------------------------------------------
+
+
+
+-- ---------------------------------------------------------------------
+-- stops motor smoothly
+-- ---------------------------------------------------------------------
+procedure stepper_stop_smooth (byte in motor_nr = 1) is
+  T0IE = false  ; disable interrupts
+  if motor_nr == 1 then
+    stepper1_accelerate_on = true
+    _stepper1_acc_count = 1
+    _stepper1_not_decelerating = false
+  else
+    stepper2_accelerate_on = true
+    _stepper2_acc_count = 1
+    _stepper2_not_decelerating = false
+  end if
+  T0IE = true  ; enable interrupts
+end procedure
+-- ---------------------------------------------------------------------
+
+
+
+-- ---------------------------------------------------------------------
+-- stops motor directly and nulls position
+-- sets motor status to stopped
+-- sets position current=0
+-- sets position target=current
+-- ---------------------------------------------------------------------
+procedure stepper_set_null (byte in motor_nr = 1) is
+  _stepper_stop_null (motor_nr, true)
+end procedure
+-- ---------------------------------------------------------------------
+
+
+
+-- ---------------------------------------------------------------------
+-- initializes all stepper motors
+-- this procedure is automatic called by the include of this library
+-- and should rarely be called be the user
+-- ---------------------------------------------------------------------
+procedure stepper_init is
+var byte value
+
+  stepper1_status = _stepper_status_stopped
+  stepper_set_null (1)
+
+  stepper1_full_steps = true
+  stepper1_forward = true
+  stepper1_full_force_2_winding = false
+  stepper1_full_force_1_winding = true
+
+  stepper1_accelerate_on = false
+  _stepper1_index = 0
+  _stepper1_not_decelerating = true
+
+  -- get table value, output to port
+  _get_stepper_value ( _stepper1_index, value )
+  _stepper1_port_dir = all_output
+  _stepper1_port = value
+  
+  if stepper_Nmotors == 2 then  -- compiler directive !!
+    stepper2_status = _stepper_status_stopped
+    stepper_set_null (2)
+
+    stepper2_full_steps = true
+    stepper2_forward = true
+    stepper2_full_force_2_winding = false
+    stepper2_full_force_1_winding = true
+
+    stepper2_accelerate_on = false
+    _stepper2_index = 0
+    _stepper2_not_decelerating = true
+
+    -- get table value, output to port
+    _get_stepper_value ( _stepper2_index, value )
+    _stepper2_port_dir = all_output
+    _stepper2_port = value
+
+  end if
+
+  -- intialize TMR0 prescaler
+  OPTION_REG = ( OPTION_REG & ! ( _b_T0CS ))   -- set TMR0 to main oscillator
+  OPTION_REG = ( OPTION_REG & ! ( _b_PSA ))    -- enable prescaler for TMR0
+  OPTION_REG = ( OPTION_REG & 0xF8 ) | 0x06    -- set prescaler to 6 = 1:128
+  -- in that case a timer value of -39 will give 0.9984 msec
+
+  -- enable interrupts
+  T0IE = true   -- enable TMR0 interrupt
+  GIE  = true   -- enable general interrupts
+  T0IF = false  -- clear TMR0 interrupt flag
+end procedure
+-- ---------------------------------------------------------------------
+
+
+
+-- ---------------------------------------------------------------------
+-- perform the stepper intialisation
+-- ---------------------------------------------------------------------
+stepper_init
+
+
+
+

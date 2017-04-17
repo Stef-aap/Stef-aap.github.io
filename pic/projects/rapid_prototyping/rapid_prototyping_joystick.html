@@ -1,0 +1,92 @@
+<HTML><HEAD><TITLE>RPD JoyStick</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS7>july 2005</SPAN></P>
+<P><SPAN class=RVTS1>RPD JoyStick</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;<IMG width=32 height=32 src="rbd.png">&nbsp;&nbsp;<A class=RVTS4 href="rapid_prototyping_devices.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>This module can interface a standard analog PC JoyStick, but also professional JoySticks (based on full potentiometer ranges).</P>
+<P>The JoyStick is connected through the standard PC 15-pole D-connector. Although the 15-pole D-connector can handle 2 joysticks, this rpd-module can handle only 2 potmeters (from the first joystick), bit it can handle upto 4 switches (from both joysticks). The LEDs are not available on a standard PC-joystick but can be added by modifiying the joystick. In any case all the LEDs are also available on the RPD module.</P>
+<P>If 2 joysticks are needed you could use 2 rpd-JoyStick-modules. Of course it's also possible to use the switches (if desired with LED feedback) to change the function of the potmeters.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=771 height=447 src="rapid_prototyping_joystick_img7.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>An analog PC JoyStick consists of 2 potmeters, which are not connected as a full potmeter, but are just connected as a variable resistor to +5V. (normally they are used in a 555 timing circuit. The range of the potmeter is effectively 0 .. 100 kOhm.</P>
+<P>The opamp with the transistor at its output, act as a current source, thereby converting the potmeter-resistance linear into a voltage (V = I * Potmeter). This current source is not needed for professional potmeters, so that's where the jumper is for. Because the AD-converter needs a low impedance, the second opamp is used as an impedance transformer.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=136 height=82 src="rapid_prototyping_joystick_img6.gif"><SPAN class=RVTS7>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><IMG width=198 height=148 src="rapid_prototyping_joystick_img10.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Switch / LED multiplexing</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>Normally the PIC-pin (used for LED and Switch) is set to output and then the LED will reflect the status of the (inversed) output bit. When reading the switch, the PIC-pin is set temporary to input, so the PIC can read the switch. The 10k resistor ensures that the input is read as high, in case the switch is open. After reading the switch, the pin is set to outpur again.</P>
+<P>When the LED is on, the LED will be turned off, during the switch is pressed. Because these switches are pushbuttons, this will hardly be a problem.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=201 height=207 src="rapid_prototyping_joystick_img18.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>JALcc macro call&nbsp;</SPAN></P>
+<P>defining a JoyStick, named "JoyStick" on connector J1</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=307 height=36 src="rapid_prototyping_joystick_img1.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>JALcc use</SPAN></P>
+<P>The potmeters are directly available (at low ADC resolution = 8 bits) through pseudo variables "&lt;name&gt;_X" and "&lt;name&gt;_Y", so you can directly use them as normal variables.</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=276 height=37 src="rapid_prototyping_joystick_img2.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>On initialisation of the PIC, the potmeters are nulled, therefor it's also possible to read the 2-complement values.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=298 height=36 src="rapid_prototyping_joystick_img19.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>If you want the high resolution results (which are easily available, because the AD-converter is always set to high resolution), you should call the high resolution ADC-routines</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=503 height=41 src="rapid_prototyping_joystick_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The switches can be read through the function "&lt;name&gt;_Switches". After using this function, the total result is also available in the variable "&lt;name&gt;_Switches_Shadow", and the individual bits are also available, under "&lt;name&gt;_S1" ... "&lt;name&gt;_S4". The reading of the switches is done with a build-in debouncing algoritm: only after 2 consecutive readings are equal, the value is returned as a result. If you cann't use or don't want to use the debouncing, you can also use the raw values through the variables "&lt;name&gt;_S1_raw" ...&nbsp; "&lt;name&gt;_S4_raw".</P>
+<P>In line 82, the function (pseudo-variable) to read the switches is called and used directly into the asynch_send_hw procedure.</P>
+<P>In line 83, the shadow register (filled by line 82) is used, The low nibble contains the debounced results and the high nibble contains the raw results. (Don't change the value of the shadow register, because it's used by the debouncing algoritm.</P>
+<P>In line 84 ... 87 the individual bits *filled by line 82) are used.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=396 height=102 src="rapid_prototyping_joystick_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>and the raw values</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=320 height=71 src="rapid_prototyping_joystick_img20.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The LEDs can be controlled individual by the variables "&lt;name&gt;_LED1" ... "&lt;name&gt;_LED4", as shown in the example above, line 84 ... 87.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>JALcc macro expansion</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=484 height=445 src="rapid_prototyping_joystick_img12.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=400 height=256 src="rapid_prototyping_joystick_img16.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=466 height=327 src="rapid_prototyping_joystick_img21.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=618 height=509 src="rapid_prototyping_joystick_img15.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>PC JoyStick</SPAN></P>
+<P>Here you can find a lot of information about analog PC joystiscks:&nbsp;&nbsp;<A class=RVTS4 href="http://www.epanorama.net/documents/joystick/pc_joystick.html">PC joystick interface</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=385 height=376 src="rapid_prototyping_joystick_img9.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Professional JoyStick</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=395 height=376 src="rapid_prototyping_joystick_img8.gif"></P>
+</BODY></HTML>

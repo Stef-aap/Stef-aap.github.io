@@ -1,0 +1,105 @@
+-- -----------------------------------------------------------------------------
+-- demo JAL v2: the front grill of the famous car KITT from night Rider
+-- -----------------------------------------------------------------------------
+-- Tested
+--    16F877, 20 MHz: ok
+--    12F675, 4 MHz (internal, calibrated): ok
+--    JALss + 16F877: ok
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- include hardware definitions
+-- select the appropriate devive library
+-- -----------------------------------------------------------------------------
+include jal_v2_demo_16F877 ;external 20 MHz Xtal
+;include jal_v2_demo_12F675 ;internal 4 MHz (calibrated)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- variable definition and initialisation
+-- -----------------------------------------------------------------------------
+-- define all the io-pin as a logical names
+var volatile bit my_LED1 is pin_A1
+var volatile bit my_LED2 is pin_B2
+var volatile bit my_LED3 is pin_B3
+var volatile bit my_LED4 is pin_A0
+var volatile bit my_LED5 is pin_B0
+var volatile bit my_LED6 is pin_B1
+
+-- and set all the io-pin as outputs
+pin_A0_direction = output
+pin_A1_direction = output
+pin_B0_direction = output
+pin_B1_direction = output
+pin_B2_direction = output
+pin_B3_direction = output
+
+;-- define all the io-pin as a logical names
+;var volatile bit my_LED1 is pin_A3  ;this is not an output :-(
+;var volatile bit my_LED2 is pin_A4
+;var volatile bit my_LED3 is pin_A5
+;var volatile bit my_LED4 is pin_A0
+;var volatile bit my_LED5 is pin_A1
+;var volatile bit my_LED6 is pin_A2
+;
+;-- and set all the io-pin as outputs
+;pin_A0_direction = output
+;pin_A1_direction = output
+;pin_A2_direction = output
+;pin_A3_direction = output
+;pin_A4_direction = output
+;pin_A5_direction = output
+
+-- define the blink period in units of [1 msec]
+const byte period = 50 
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- start of the main program
+-- -----------------------------------------------------------------------------
+forever loop
+  my_LED2 = on           ;LED1 + LED2
+  delay_1ms( period )
+  my_LED1 = off          ;LED2
+  delay_1ms( period )
+  my_LED3 = on           ;LED2 + LED3
+  delay_1ms( period )
+  my_LED2 = off          ;LED3
+  delay_1ms( period )
+  my_LED4 = on           ;LED3 + LED4
+  delay_1ms( period )
+  my_LED3 = off          ;LED4
+  delay_1ms( period )
+  my_LED5 = on           ;LED4 + LED5
+  delay_1ms( period )
+  my_LED4 = off          ;LED5
+  delay_1ms( period )
+  my_LED6 = on           ;LED5 + LED6
+  delay_1ms( period )
+  my_LED5 = off          ;LED6
+  delay_1ms( period )
+  my_LED5 = on           ;LED6 + LED5
+  delay_1ms( period )
+  my_LED6 = off          ;LED5
+  delay_1ms( period )
+  my_LED4 = on           ;LED5 + LED4
+  delay_1ms( period )
+  my_LED5 = off          ;LED4
+  delay_1ms( period )
+  my_LED3 = on           ;LED4 + LED3
+  delay_1ms( period )
+  my_LED4 = off          ;LED3
+  delay_1ms( period )
+  my_LED2 = on           ;LED3 + LED2
+  delay_1ms( period )
+  my_LED3 = off          ;LED2
+  delay_1ms( period )
+  my_LED1 = on           ;LED2 + LED1
+  delay_1ms( period )
+  my_LED2 = off          ;LED1
+  delay_1ms( period )
+end loop
+-- -----------------------------------------------------------------------------

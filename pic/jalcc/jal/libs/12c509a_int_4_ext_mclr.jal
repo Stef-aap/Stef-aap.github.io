@@ -1,0 +1,10 @@
+pragma name 12c509a_int_4_ext_mclr
+pragma target chip             12c509a
+pragma target clock            4_000_000
+pragma target osc              internal
+pragma target watchdog         off
+pragma target powerup          on
+pragma target protection       off
+pragma target internal_mclr    off
+
+include jpic

@@ -1,0 +1,372 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Brick 2D-Scene</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Brick 2D Scene </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp; (april 2008)</span></p>
+<p><br></p>
+<p><span class=rvts10>Application Designer</span> / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This Brick&nbsp; (consisting of just one control: tScene_2D) presents a 2D space in which you can create 2D animations. In combination with a Code-Editor Brick you can easily simulate physics dynamics and even the special relativity theory of Einstein..</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp; <img width=120 height=169 alt="" src="pw_bricks_2d_scene_img1.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=663 height=560 alt="" src="pw_bricks_2d_scene_img35.png"></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p>All positions are done in the coordinate system of the user. Most shapes have all common properties, can be dragged around with the mouse and have 2 trails (can be turned on/off) that can be used to measure speed. There are a few special shapes that perform special tasks, e.g. button-shape toggles it's value that can be read by the program code.</p>
+<p>This is just a first version and not all issues are decided yet. At this moment the following issues are open for discussion:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>should a shape be sizeable by the mouse (how to inform the program, or does it not need to be informed) ? </li>
+<li>should a shape be rotatable by the mouse (inform the program ? ) ? </li>
+<li>if a shape is dragged by the mouse, should the program be informed ? </li>
+<li>should there be a hidden initialization ? </li>
+<li>should there be a slider shape, or should this be done by a normal control ? </li>
+</ul>
+<p>The measurement cursor is toggled by the middle mouse button, and can dragged with the middle mouse button. Of course the values in the labels are in the user coordinate system.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Future Extensions</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>making an animated recording of the canvas </li>
+<li>time measurement with the cursor </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Common Properties</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Color</span></p>
+</td>
+<td width=988 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Line_Width</span></p>
+</td>
+<td width=988 valign=top style="background-color: #ffffd4;">
+<p>All shapes use this to determine the width of the lines, e.g. the Text_Shape uses this property to determine the fontsize</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>x,y</span></p>
+</td>
+<td width=988 valign=top style="background-color: #ffffd4;">
+<p>The position of the center of the shape</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>vx,vy</span></p>
+</td>
+<td width=988 valign=top style="background-color: #ffffd4;">
+<p>The speed of the shape</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Trail</span></p>
+</td>
+<td width=988 valign=top style="background-color: #ffffd4;">
+<p>If True, the Center Trail is drawn</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=95 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Trail_Corner</span></p>
+</td>
+<td width=988 valign=top style="background-color: #ffffd4;">
+<p>If True, the Corner Trail is drawn</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=933 valign=middle style="background-color: #ffffd4;">
+<p><span class=rvts2>Specifying the size of an object</span></p>
+<p>Whenever possible, objects have an universal way of specifying their size. The origin of the object is always defined as the left- bottom (LB) point. The user can choose between specifying width-height (WH), right-top (RT) and a vector from the origin length-angle (RPhi). Here are the 3 ways of generating an identical (but shifted) arrow: (the Line_Width setting is not shown in the code)</p>
+<p><br></p>
+<p><img width=548 height=60 alt="" src="pw_bricks_2d_scene_img21.png"></p>
+</td>
+<td width=148 valign=middle style="background-color: #ffffd4;">
+<p class=rvps3><img width=147 height=114 alt="" src="pw_bricks_2d_scene_img22.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=514 valign=top>
+<p><span class=rvts2>Coordinate System</span></p>
+<p>All coordinates are specified in the user coordinate system, i.e. the user specifies the world value (user value) of the left-bottom / width-height or right-top of the 2D-space. And all object positions should be specified in the user values. If the top value is omitted, the scaling of the Y-axis will be the same as the scaling of the X-axis, so the top value will be depending on the width-height ratio of the visible window. The top picture on the right shows the uniform coordinate system when height / top is not specified. The bottom picture on the right shows the non-uniform coordinate system, where top or height is specified.</p>
+<p><br></p>
+<p><img width=389 height=194 alt="" src="pw_bricks_2d_scene_img8.png"></p>
+<p><br></p>
+<p>Defaults:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Left_Bottom&nbsp; = ( -100, -100 ) </li>
+<li>Right_Top = ( 100, None ) </li>
+</ul>
+</td>
+<td width=281 valign=middle>
+<p class=rvps3><img width=276 height=204 alt="" src="pw_bricks_2d_scene_img7.png"></p>
+<p class=rvps3><br></p>
+<p class=rvps3><img width=279 height=204 alt="" src="pw_bricks_2d_scene_img6.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=573 valign=top>
+<p><span class=rvts2>Axis_Shape</span></p>
+<p><br></p>
+<p>You can have multiple axis. The Axis_Shape can either be specified with x,y values or by one xy-tuple.</p>
+<p><br></p>
+<p><img width=375 height=72 alt="" src="pw_bricks_2d_scene_img9.png"></p>
+<p><br></p>
+<p>Defaults:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>x,y = 0, 0 </li>
+<li>Line_Width = 1 </li>
+<li>Color = Blue </li>
+</ul>
+</td>
+<td width=222 valign=middle>
+<p class=rvps3><img width=223 height=309 alt="" src="pw_bricks_2d_scene_img5.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=534 valign=top>
+<p><span class=rvts2>Grid_Shape</span></p>
+<p><br></p>
+<p>The Grid_Shape is just like any other shape, on creating, the tick interval is specified. After creation you can change the standard properties.</p>
+<p><br></p>
+<p><img width=364 height=55 alt="" src="pw_bricks_2d_scene_img12.png"></p>
+<p><br></p>
+<p>Although the grid can't be rotated, you can specify the property rot, which can already be set on creation as the second parameter. If rotation is not zero, a special grid is created (the red grid in the lower figure on the right), to visualize the time-space in special relativity theory.</p>
+<p><br></p>
+<p><img width=461 height=209 alt="" src="pw_bricks_2d_scene_img14.png"></p>
+<p><br></p>
+<p>Defaults:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Color = Grey </li>
+<li>Line_Width = 1 </li>
+<li>rot = 0 </li>
+</ul>
+</td>
+<td width=259 valign=middle>
+<p class=rvps3><img width=263 height=256 alt="" src="pw_bricks_2d_scene_img11.png"></p>
+<p class=rvps3><br></p>
+<p class=rvps3><img width=262 height=261 alt="" src="pw_bricks_2d_scene_img10.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=428 valign=middle>
+<p><span class=rvts2>Line_Shape</span></p>
+<p><br></p>
+<p>Defined by an Origin (left bottom) and with either WH (default), RT or RPhi.</p>
+<p>Rotation is not done around the center, but around the origin !</p>
+<p><br></p>
+<p><img width=512 height=139 alt="" src="pw_bricks_2d_scene_img3.png"></p>
+</td>
+<td width=202 valign=middle>
+<p class=rvps3><img width=243 height=165 alt="" src="pw_bricks_2d_scene_img4.png"></p>
+<p><br></p>
+<p>Defaults:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Color = Red </li>
+<li>Line_Width = 4 </li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=428 valign=middle>
+<p><span class=rvts2>Arrow_Shape</span></p>
+<p><br></p>
+<p>Identical to Line_Shape, except that the second point is an arrow-head. The size of the arrow-head is determined on the base of the Line_Width.</p>
+<p><br></p>
+<p><img width=512 height=139 alt="" src="pw_bricks_2d_scene_img3.png"></p>
+</td>
+<td width=202 valign=middle>
+<p class=rvps3><img width=233 height=125 alt="" src="pw_bricks_2d_scene_img2.png"></p>
+<p><br></p>
+<p>Defaults: see Line_Shape</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=542 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Text_Shape</span></p>
+<p><br></p>
+<p>Text_Shape is a normal shape that can be moved around and rotated. Fontsize is determined on the base of the standard property Line_Width.</p>
+<p><br></p>
+<p><img width=418 height=141 alt="" src="pw_bricks_2d_scene_img16.png"></p>
+<p>Defaults:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Color = Blue </li>
+<li>Line_Width = 1 </li>
+<li>rot = 0 </li>
+</ul>
+</td>
+<td width=253 valign=middle style="background-color: #ffffd4;">
+<p class=rvps3><img width=264 height=292 alt="" src="pw_bricks_2d_scene_img15.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=474 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Circle_Shape</span></p>
+<p><br></p>
+<p>On creation you can (but don't need to) specify the Radius and the Center position.</p>
+<p><img width=409 height=37 alt="" src="pw_bricks_2d_scene_img19.png"></p>
+<p><br></p>
+<p>The code below generates the Red Ball in the picture on the right, that has both trails on. The corner trail is at the bottom of the ball (as long as the ball is not rotated.</p>
+<p><img width=393 height=112 alt="" src="pw_bricks_2d_scene_img18.png"></p>
+<p>Defaults:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Color = </li>
+<li>Trail = True </li>
+<li>Trail_Corner = False </li>
+</ul>
+</td>
+<td width=321 valign=middle style="background-color: #ffffd4;">
+<p class=rvps3><img width=327 height=301 alt="" src="pw_bricks_2d_scene_img17.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=540 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Rectangle_Shape</span></p>
+<p><br></p>
+<p>Normal shape, can be moved, rotated, has both center trail and left-bottom corner trail, can be specified withe the universal parameters. So both the code pieces below (color settings not shown), will generate the same figure, as shown on the right.</p>
+<p><br></p>
+<p><img width=414 height=53 alt="" src="pw_bricks_2d_scene_img25.png"></p>
+<p><br></p>
+<p><img width=459 height=71 alt="" src="pw_bricks_2d_scene_img24.png"></p>
+</td>
+<td width=255 valign=middle style="background-color: #ffffd4;">
+<p class=rvps3><img width=261 height=207 alt="" src="pw_bricks_2d_scene_img23.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=666 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Free_Shape</span></p>
+<p><br></p>
+<p>Free_Shape is some shapes defined by an unlimited series of points.</p>
+<p><br></p>
+<p><img width=439 height=161 alt="" src="pw_bricks_2d_scene_img27.png"></p>
+</td>
+<td width=129 valign=middle style="background-color: #ffffd4;">
+<p class=rvps3><img width=136 height=233 alt="" src="pw_bricks_2d_scene_img26.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=595 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Function_Shape</span></p>
+<p><br></p>
+<p>Put in a function (as a string) and a range (may be floats), and this Shape will draw the curve.</p>
+<p><br></p>
+<p><img width=357 height=73 alt="" src="pw_bricks_2d_scene_img29.png"></p>
+</td>
+<td width=198 valign=middle style="background-color: #ffffd4;">
+<p class=rvps3><img width=192 height=117 alt="" src="pw_bricks_2d_scene_img28.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=602 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Points_Shape</span></p>
+<p><br></p>
+<p>Same as Function_Shape, but now you've to specify series of xy points.</p>
+<p><br></p>
+<p><img width=357 height=126 alt="" src="pw_bricks_2d_scene_img30.png"></p>
+</td>
+<td width=193 valign=middle style="background-color: #ffffd4;">
+<p class=rvps3><img width=192 height=117 alt="" src="pw_bricks_2d_scene_img28.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=618 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Button_Shape</span></p>
+<p><br></p>
+<p>This is not really a shape, it can not be selected, nor moved. But clicking on it will change it's value and toggles the color, so this can be used to control the program.</p>
+<p><br></p>
+<p><img width=399 height=37 alt="" src="pw_bricks_2d_scene_img32.png"></p>
+</td>
+<td width=177 valign=middle style="background-color: #ffffd4;">
+<p class=rvps3><img width=182 height=84 alt="" src="pw_bricks_2d_scene_img31.png"></p>
+</td>
+</tr>
+</table>
+</div>
+
+</body></html>

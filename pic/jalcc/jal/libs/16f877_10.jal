@@ -1,0 +1,9 @@
+pragma name 16f877_10
+pragma target chip        16f877
+pragma target clock       10_000_000
+pragma target osc         hs
+pragma target watchdog    off
+pragma target powerup     on
+pragma target protection  off
+
+include jpic

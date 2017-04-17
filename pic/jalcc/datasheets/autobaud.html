@@ -1,0 +1,196 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+   <title>An autobaud rate detection algorithm</title>
+   <base target="_top">
+<!--- HTML automatically generated from m4 source. Do not modify by hand! --->
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#FF0000" vlink="#000099" background="margin.gif">
+&nbsp;
+<table BORDER=0 >
+<tr VALIGN=TOP>
+<td WIDTH="90"></td>
+
+<td WIDTH="410">
+<center><font size=-1><a href="http://www.iol.ie/~ecarroll/index.html">Home</a>
+.. <a href="http://www.iol.ie/~ecarroll/personal.html">Personal</a> ..
+<b><a href="http://www.iol.ie/~ecarroll/articles.html">ARTICLES</a></b>
+.. <a href="http://www.iol.ie/~ecarroll/software.html">Software</a> ..
+<a href="http://www.iol.ie/~ecarroll/mud.html">MUD</a> .. <a href="http://www.iol.ie/~ecarroll/links.html">Links</a>
+.. <a href="http://www.iol.ie/~ecarroll/search.html">Search</a></font>
+<p><b><font size=+3>A</font><font size=+2>UTO </font><font size=+3>B</font><font size=+2>AUD
+</font><font size=+3>R</font><font size=+2>ATE </font><font size=+3>D</font><font size=+2>ETECTION</font></b>
+<br><i><font size=+1>by Eddy Carroll, April 1989</font></i><img src="dot.gif" ALT="" HSPACE=1 VSPACE=14 height=1 width=1></center>
+The following discussion explains how it is possible to determine the baud
+rate of a serial terminal by examining a single character received from
+that terminal.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> The character used here is the <font size=-1>RETURN</font>
+character, since its binary pattern has certain desirable properties (and
+it's also a nice big key for people to hit). However, the technique described
+here can be applied to other characters.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> The approach we use is to set the receive baud
+rate to 9600 baud and wait for a character to be received from the terminal.
+The baud rate this character is being transmitted at can fall into one
+of three main categories:
+<pre><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Baud > 9600
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Baud > 1200 and Baud &lt;= 9600
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Baud &lt; 1200</tt></pre>
+These three cases are handled separately as follows.
+<p><b><font size=+1>Analysing a Return character</font></b>
+<br>The binary pattern for a <font size=-1>RETURN</font> character (0x0D)
+as transmitted over the serial line looks like this:
+<pre><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 1 0 1 1 0 0 0 0 1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | \_____________/ |
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; Data bits&nbsp;&nbsp;&nbsp; |
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Stop
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bit</tt></pre>
+(The least significant data bits are always transferred first.)&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> The time taken to transmit each bit, <i>T</i>,
+depends on the baud rate.
+<i>T19200</i> = <i>T9600</i> / 2 for example.
+Thus, in the time taken to transmit a single bit at 9600 baud, two bits
+could be transmitted at 19200 baud.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> Similarly, If two bits are transmitted at 9600
+baud, only a single bit can be transmitted in the same time at 4800 baud.
+If the receiver is using a fixed rate of 9600 baud, it will interpret the
+<font size=-1>RETURN</font> character in a variety of ways, depending on
+what speed it was transmitted at. The following table describes this:
+<pre><tt>&nbsp;<i><u>Baud</u></i>&nbsp; <i><u>Bit pattern received at 9600 baud</u></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i><u>Byte
+</u></i>19200&nbsp; 01011000011111111111&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0xF?
+&nbsp;9600&nbsp; 0 1 0 1 1 0 0 0 0 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0D
+&nbsp;4800&nbsp; 0 0 1 1 0 0 1 1 1 1 0 0 0 0 0 0 0 0 1 1&nbsp; 0xE6
+&nbsp;2400&nbsp; 0 0 0 0 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1&nbsp; 0x78
+&nbsp;1800&nbsp; 0 0 0 0 0 x 1 1 1 1 x 0 0 0 0 0 1 1 1 1&nbsp; 0xE0
+&nbsp;1800&nbsp; 0 0 0 0 0 x 1 1 1 1 x 0 0 0 0 0 1 1 1 1&nbsp; 0xF0
+&nbsp;1200&nbsp; 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0&nbsp; 0x80
+&nbsp; 600&nbsp; 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1&nbsp; 0x00
+&nbsp; 300&nbsp; 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0&nbsp; 0x00
+&nbsp; 150&nbsp; 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0&nbsp; 0x00
+&nbsp; 110&nbsp; 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0&nbsp; 0x00</tt></pre>
+With the exception of the entries for 19200 and 1800 baud, all these bit
+patterns are exact transformations of the pattern for 9600. The first ten
+bits of each pattern correspond to a complete byte at 9600 baud, and this
+byte is listed in the <i><tt>Byte</tt></i> column in the table above. The
+absence of a '1' stop bit in some of the patterns will cause a Frame Error
+to occur, but this can be ignored -- the byte received will still be as
+shown.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> Thus, if <font size=-1>RETURN</font> is pressed
+at 1200 baud, the receiver at 9600 baud will receive the byte value 0x80.
+All the bytes are unique, so that it is possible to uniquely determine
+the baud rate.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> 19200 is slightly different, since every two
+bits sent at 19200 baud are interpreted as a single bit at 9600 baud. The
+bit pairs 01 and 10 could be interpreted as either a 0 or a 1, depending
+on the serial hardware. Fortunately, only bits 0-4 exhibit this problem,
+with the remainder being set to a 1.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> Thus, at 9600 baud, the high nibble of the byte
+received will always be 0xF. The low nibble could be one of several values,
+but it will not be a 0, since there is a pair of adjacent 1 bits which
+will cause at least one 1 to appear in the low nibble. So, the entire byte
+will be of the form 0xF?, where the low nibble is not 0.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> At 1800 baud, things are slightly complicated
+by the fact that <i>T1800</i> = <i>T9600</i> * 16/3. Hence, transitions
+from 0 to 1 do not take place on bit boundaries with respect to 9600 baud.
+The table shows that exactly one such transition occurs within the first
+10 bits, and so by allowing two possibilities (depending on whether the
+bit at that position gets interpreted as a 1 or a 0), one of two bytes
+will be received when the transmit speed is 1800 baud.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> A similar technique could be applied to speeds
+of 3600 and 7200 but the number of 'unstable' bits would increase, and
+result in more combinations to check. Since baud rates of 3600 and 7200
+are almost never used anyway, this is not a major problem.
+<p><b><font size=+1>Detecting slower baud rates</font></b>
+<br>We can now uniquely distinguish between all the speeds from 19200 to
+1200 baud on the basis of a single byte received. Speeds below 1200 baud
+however all return a byte of 0x00, so while we can detect that the speed
+is below 1200, nothing more can be determined from the byte value alone.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> To get around this problem, we simply wait for
+the next byte to be received at 9600 baud. Since each bit transmitted at
+low speeds corresponds to at least one complete byte at 9600 baud, each
+transition from 1 to 0 will cause the serial hardware to appear receive
+a new byte at 9600 baud.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> Let's look at the start of our <font size=-1>RETURN</font>
+character again, for rates less than 1200 baud:
+<pre><tt><i><u>Baud</u></i>&nbsp;&nbsp;&nbsp; <i><u>Bit Pattern at 9600 baud</u></i>&nbsp;&nbsp;&nbsp; <i><u>Delay</u></i>&nbsp;&nbsp; <i><u>Time
+</u></i>&nbsp;600&nbsp;&nbsp;&nbsp;&nbsp; 16 0's&nbsp;&nbsp; 16 1's&nbsp;&nbsp; 16 0's&nbsp;&nbsp;&nbsp;&nbsp; 32&nbsp;&nbsp; 3.33 ms
+&nbsp;300&nbsp;&nbsp;&nbsp;&nbsp; 32 0's&nbsp;&nbsp; 32 1's&nbsp;&nbsp; 32 0's&nbsp;&nbsp;&nbsp;&nbsp; 64&nbsp;&nbsp; 6.66 ms
+&nbsp;150&nbsp;&nbsp;&nbsp;&nbsp; 64 0's&nbsp;&nbsp; 64 1's&nbsp;&nbsp; 64 0's&nbsp;&nbsp;&nbsp; 128&nbsp; 13.33 ms
+&nbsp;110&nbsp;&nbsp;&nbsp;&nbsp; 87 0's&nbsp;&nbsp; 87 1's&nbsp;&nbsp; 87 0's&nbsp;&nbsp;&nbsp; 174&nbsp; 18.13 ms
+&nbsp; 75&nbsp;&nbsp;&nbsp; 128 0's&nbsp; 128 1's&nbsp; 128 0's&nbsp;&nbsp;&nbsp; 256&nbsp; 26.66 ms
+&nbsp; 50&nbsp;&nbsp;&nbsp; 192 0's&nbsp; 192 1's&nbsp; 192 0's&nbsp;&nbsp;&nbsp; 384&nbsp; 40.00 ms</tt></pre>
+At 600 baud, the first transition from 1 to 0 occurs immediately, and this
+is what triggers off the initial 0x00 byte we receive. The next transition
+occurs exactly (16 + 16) * <i>T9600</i> seconds after the initial transition,
+and this will cause the serial hardware to think another byte is about
+to arrive.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> The serial hardware tells us the first byte has
+arrived exactly 10 * <i>T9600</i> seconds after the first transition, and
+tells us about the second byte (16 + 16 + 10) * <i>T9600</i> after the
+first transition. Hence, the delay between the first and second bytes arriving
+when the transmission speed is 600 baud is (16 + 16 + 10 - 10) * <i>T9600</i>
+seconds, which is 32 * <i>T9600 seconds</i>.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> The number of <i>T9600</i> periods which pass
+is shown in the <i><tt>Delay</tt></i> column in the table above. <i>T9600</i>
+is actually 104.16 microseconds, so multiplying these together gives us
+the actual delay in seconds between the two bytes. This is listed in the
+final column.&nbsp;
+<br><tt>&nbsp;&nbsp;</tt> Armed with this information, we can now easily
+determine the transmission baud rate: simply time the delay between the
+arrival of the first and second bytes, then scan a table of time constants
+to see which baud rate it most closely matches. This approach allows the
+timing to be a little off while still producing an accurate estimate of
+the baud rate.&nbsp;
+<p><b><font size=+1>An algorithm for auto baud rate detection</font></b>
+<br>Now that we know how to detect all the baud rates, we can present a
+complete algorithm that combines all the techniques just described:
+<pre><tt>;
+;&nbsp;&nbsp; Pseudo code to determine what baud rate a
+;&nbsp;&nbsp; transmitter is at, on the basis of a single
+;&nbsp;&nbsp; RETURN (0x0D) character received from it.
+;&nbsp;
+;
+Initialise receive baud rate to 9600
+Wait for Byte to be received
+
+<b>IF</b> Byte = 0x00 <b>THEN
+</b>&nbsp;&nbsp;&nbsp; Start Timer
+&nbsp;&nbsp;&nbsp; <b>REPEAT
+</b>&nbsp;&nbsp;&nbsp; <b>UNTIL</b> (Timer > 50 ms <b>OR</b> New Byte Received)
+
+&nbsp;&nbsp;&nbsp; <b>CASE</b> Timer <b>IN
+</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 ms - 4&nbsp; ms:&nbsp; --> 600 Baud
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 ms - 10 ms:&nbsp; --> 300 Baud
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11 ms - 15 ms:&nbsp; --> 150 Baud
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16 ms - 22 ms:&nbsp; --> 110 Baud
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 23 ms - 32 ms:&nbsp; -->&nbsp; 75 Baud
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 33 ms - 49 ms:&nbsp; -->&nbsp; 50 Baud
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>ELSE</b>:&nbsp; --> Timed out; reset
+&nbsp;&nbsp;&nbsp; <b>END CASE</b>;
+<b>ELSIF</b> Byte >= 0xF1 <b>THEN
+</b>&nbsp;&nbsp;&nbsp; --> 19200 Baud
+<b>ELSE
+</b>&nbsp;&nbsp;&nbsp; <b>CASE</b> Byte <b>IN
+</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0D: --> 9600 Baud
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0xE6: --> 4800 Baud
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x78: --> 2400 Baud
+&nbsp;&nbsp; 0xE0,0xF0: --> 1800 Baud
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x80: --> 1200 Baud
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>ELSE</b>: --> Line noise; reset
+&nbsp;&nbsp;&nbsp; <b>END CASE
+END IF</b></tt></pre>
+
+<center><font size=-1><a href="http://www.iol.ie/~ecarroll/index.html">Home</a>
+.. <a href="http://www.iol.ie/~ecarroll/personal.html">Personal</a> ..
+<b><a href="http://www.iol.ie/~ecarroll/articles.html">ARTICLES</a></b>
+.. <a href="http://www.iol.ie/~ecarroll/software.html">Software</a> ..
+<a href="http://www.iol.ie/~ecarroll/mud.html">MUD</a> .. <a href="http://www.iol.ie/~ecarroll/links.html">Links</a>
+.. <a href="http://www.iol.ie/~ecarroll/search.html">Search</a></font>
+<br><i><font size=-1>Last updated 26 November 2000. Comments to <a href="mailto:ecarroll@iol.ie">ecarroll@iol.ie</a>.</font></i></center>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Windows Memory Usage</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="39" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>may 2007</span></p>
+<p><span class=rvts1>Memory Use of an Application</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p>Having trouble with extreme memory usage of some programs, I wrote a little program, that shows the memory usage continuously in the taskbar. The measured values can also be written to an incremental log file. You can have more than one instance of the program running (e.g. in case you want to watch more programs), by making copies of the program in different directories (the program uses an ini-file and log-file with it's own name, in it's own directory)</p>
+<p>The program itself, uses 1.5 MB.</p>
+<p>The program can be downloaded <a class=rvts4 href="../../../../pic/download/tb_mem_use.zip">here</a> (if someone wants the sources, Delphi, just ask me)</p>
+<p><br></p>
+<p>After the program is started and found the program it should watch, you see the following icon in the taskbar:</p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=103 height=23 alt="" src="win_memory_usage_img4.png"></p>
+<p><br></p>
+<p>When the program to be watched disappears (or can't be found), the icon changes to:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=114 height=21 alt="" src="win_memory_usage_img5.png"></p>
+<p><br></p>
+<p>You can set the program to be watched and the desired timing parameters in an inifile, with the same name as the program, but with the extension ".ini". The parameters and default values are given in the following picture, section = "General",</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=367 height=92 alt="" src="win_memory_usage_img3.png"></p>
+<p><br></p>
+<p>If the log interval is zero, no logging takes place. The log file has the same name and is placed in the same directory as this program, except the extension is ".log".</p>
+<p>An example of the log file:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=275 height=267 alt="" src="win_memory_usage_img2.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+
+</body></html>

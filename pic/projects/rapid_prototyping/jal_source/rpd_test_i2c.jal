@@ -1,0 +1,78 @@
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+
+-- define 2 eeproms 8k*8 on the I2C bus
+-- I2C bus is always on J6
+-- set I2C_bus_levels false for 5V PIC driving 3V devices
+const I2C_bus_levels = false
+;;;;;<;mac> def_I2C_begin
+;;;;;<;/mac>
+--             name    address  #address  speed (kHz)
+;;;;;<;mac> def_I2C  eeprom1,  $A0,    2,       1000  ;24LC64 8k*8 Fram EEprom
+;;;;;<;/mac>
+;;;;;<;mac> def_I2C  eeprom2,  $A2,    2,       1000  ;24LC64 8k*8 Fram EEprom
+;;;;;<;/mac>
+;;;;;<;mac> def_I2C_end
+const byte eeprom1= 1  -- Each individual i2c chip needs is own name and
+const byte eeprom2= 2  -- Each individual i2c chip needs is own name and
+
+var byte _I2C_slave_address    -- Holds the i2c control byte for current chip
+var byte _I2C_bus_speed        -- Holds the i2c bus speed for current chip
+var byte _I2C_address_bytes    -- Holds the # of address bytes required by current chip
+var byte I2C_device       = -1 -- Holds the unique device number of current chip
+var byte _I2C_last_device = 0  -- Holds the device number of the previous chip
+
+procedure _pre_init ( byte in device) is
+  if device != _I2C_last_device then    -- if device has changed, update settings
+    if _I2C_last_device == 0 then    -- only needs to be done once
+      sspcon = 0b0010_1000      -- set up 16f87x as master device
+      bank_1
+      sspcon2 = 0b0010_0000    -- sets default acknowledge bit value
+      bank_0
+    end if
+
+    if device == eeprom1 then    -- device name
+      _I2C_bus_speed = 10              -- device bus speed: 1=>100KHz, 4=>400KHz
+      _I2C_slave_address = 0xA0    -- device control byte
+      _I2C_address_bytes = 2        -- number of address bytes required
+    end if
+
+    if device == eeprom2 then    -- device name
+      _I2C_bus_speed = 10              -- device bus speed: 1=>100KHz, 4=>400KHz
+      _I2C_slave_address = 0xA2    -- device control byte
+      _I2C_address_bytes = 2        -- number of address bytes required
+    end if
+
+  end if
+end procedure
+
+include i2c_lib_sm
+
+;;;;;<;/mac>
+
+var byte data
+var byte I2C_addr1 = 0
+var byte I2C_addr0 = 0
+
+
+data = 0
+for 250 loop
+  i2c_byte_write(0x55,eeprom1,0,I2C_addr0)
+  data = data + 1
+  I2C_addr0 = I2C_addr0 + 1
+end loop
+
+data = i2c_byte_read(eeprom1,0,0)
+asynch_send_hw(data)
+
+forever loop
+  data = i2c_byte_read_next(eeprom1)
+  if data != 0xFF then
+    asynch_send_hw(data)
+  end if
+  I2C_addr0 = I2C_addr0 + 1
+  delay_1ms(10)
+end loop

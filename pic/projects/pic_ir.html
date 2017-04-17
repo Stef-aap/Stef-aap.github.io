@@ -1,0 +1,80 @@
+<HTML><HEAD><TITLE>Pic_overview</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>December 2002</SPAN></P>
+<P><SPAN class=RVTS1>IR communication</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="pic_ir.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;<A class=RVTS4 href="rcx_remote_control.html"># IR-remote controler</A></P>
+<P><A class=RVTS4 href="../../lego_knex/lego_electronica/ir_tower/ir_tower.html"># IR-tower</A></P>
+<P><A class=RVTS4 href="../../lego_knex/lego_electronica/pic.html"># IR-All-Module</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>IR sending</SPAN></P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=96 height=214 src="ir_transmit1.gif"></P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=196 height=278 src="ir_transmit2.gif"></P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=170 height=271 src="ir_transmit4.gif"></P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=211 height=212 src="ir_transmit3.gif"></P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>The most basic circuit.</P>
+<P>You can always use 2 diodes in series, because voltage drop of IR is just 2 Volt.</P>
+<P>Although this cicuit is the most simple and uses the minimum amount of pins, the software requires a lot of space and processor time.</P></TD>
+<TD valign=middle>
+<P>The most elegant circuit.</P>
+<P>Minimum of software requirements, just set the special PWM output to the desired modulation frequency and just send the characters to the USART.</P>
+<P>The limitation of this circuit lies in the fact that only valid 8 or 9 bit RS232 compatible bytes can be sent (1 start bit, 1 or 2 stop bits).</P></TD>
+<TD valign=middle>
+<P>The second best circuit.</P>
+<P>The advantage over the previous circuit is that it's not bound to a 8 or 9 bit RS232 protocol.</P>
+<P>In software you create any pulscode you like, while (the time consuming) high frequency modulation is done by the PWM output.</P></TD>
+<TD valign=middle>
+<P>A circuit not in the "spirit" of&nbsp; PICs, but it can save a pin and you get lost of the (time consuming) high frequency modulation.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>IR Receiving</SPAN></P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=226 height=146 src="ir_receive1.gif"></P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=242 height=158 src="ir_receive2.gif"></P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>This is the standard circuit.</P>
+<P>Note that the decoupling of the power supply by R1, C1 is very essential !!</P>
+<P>R2 is not strictly necessary.</P>
+<P>The optical receiver (TSOP ... or equivalent) decodes the high frequency modulation with the help of a lot of good tricks.&nbsp; Because the data is not inverted, it can not directly be coupled into a PIC usart port.</P></TD>
+<TD valign=middle>
+<P>The most elegant circuit.</P>
+<P>The data is inverted, so there are a minimum of software requirements,&nbsp; just read the characters from the USART.</P>
+<P>The limitation of this circuit lies in the fact that only valid 8 or 9 bit RS232 compatible bytes can be received (1 start bit, 1 or 2 stop bits).&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN></P>
+</BODY></HTML>

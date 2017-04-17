@@ -1,0 +1,786 @@
+-- -----------------------------------------------------------------------------
+-- <title Integer Math (2,3,4,N byte)
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- THE DOCUMENTATION OF THIS FILE SHOULD BE IMPROVED (also add exmples)
+-- All math routines in this file are 3-byte / 24 bit straight binary math routines
+--
+-- The math routines acts on fixed variables X and Y, definied in this library
+-- The use of JALcc macros makes the use of this library very simple
+--
+-- overview of the available routines
+--  byte3_TWOS_complement
+--  byte3_XCHG             Y = X   ,   X = Y
+--  byte3_SHL ( N )        Y = Y shl N
+--  byte2_SHL ( N )        Y = Y shl N
+--  byte3_SRL ( N , rot)   Y = Y shl/rol N
+--  byte3_SRR ( N , rot)   Y = Y shr/ror N
+--  byte3_CLIP_NEG         Y = 0 if msb set, else Y is left unchanged
+--  byteN_ADD              Y = Y + X   , X unchanged
+--  byteN_INC              Y = Y + 1 ,if Y==0 then X1=0 else X1=1 (X3,X2 unchanged)
+--  byteN_SUB              Y = Y - X   , X unchanged
+--  byte3_DEC  ...
+--  ..byte3_LOG              MOVED TO Byte3_log.jal !! Y = log ( X )  , X CHANGED !!
+--
+-- <Version: 1.7  20-02-2005, Stef Mientki
+--   - byte3_twos_complement added
+--
+-- <Version: 1.5  12-09-2004,  Stef Mientki
+--   - LOG routines are moved to Byte3_log.jal
+--   - SHL 2 added
+--   - SHR 2,3 added
+--   - SHLX 2,3 added
+--   - SHRX 2,3 added
+--   - "pragma keep page" added to all assembler routines
+--
+-- <Version: 1.4  16-10-2003,  Stef Mientki
+--   - SRL was totally wrong, bug fixed
+--
+-- <Version: 1.3  15-08-2002,  Stef Mientki
+--   - INC 2,3,4,N bytes added
+--   - DEC added ??
+--   - CMP 2,3,4,N bytes compare
+--   - ADD 2,3,4,N bytes compare
+--   - SUB 2,3,4,N bytes compare
+--
+-- <Version: 1.2  05-03-2002,  Stef Mientki
+--   - SHL replaced by SRL
+--   - SRR added
+--   - CLIP_NEG added
+--
+-- <Version: 1.1  27-02-2002,  Stef Mientki
+--   - LOG_ACCURACY must be definied outside this library
+--
+-- <Version: 1.0  26-02-2002, Stef Mientki
+--   - orginal release
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- <Example RS232
+; -- define settings
+; const usart_asynch = true      ;true = RS232, false = SPI
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+-- -----------------------------------------------------------------------------
+-- Definitions of the global vars
+-- X = 24 bit = X3 .. X2 .. X1
+-- Y = 24 bit
+var byte x4,x3,x2,x1
+var byte y4,y3,y2,y1
+var byte z4,z3,z2,z1
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- 24 bit Exchange routine
+-- Y = X
+-- X = Y
+-- -----------------------------------------------------------------------------
+procedure byte2_XCHG is
+var byte x
+  x = X1
+  X1 = Y1
+  Y1 = x
+  x = X2
+  X2 = Y2
+  Y2 = x
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte3_XCHG is
+var byte x
+  x = X1
+  X1 = Y1
+  Y1 = x
+  x = X2
+  X2 = Y2
+  Y2 = x
+  x = X3
+  X3 = Y3
+  Y3 = x
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- 24 bit negative clipping
+-- if Y negative (msb is set) Y = 0 else Y is left unchanged
+-- X is left unchanged
+--
+-- in fact this is not a straight binary routine,
+-- it'll clip negative (offset binary) values to zero
+-- -----------------------------------------------------------------------------
+procedure byte3_CLIP_NEG is
+  assembler
+  pragma keep page
+  local finish
+    btfss    y3,7        ;
+    goto     finish      ;
+    movlw    0           ;
+    movwf    y3          ;
+    movwf    y2          ;
+    movwf    y1          ;
+  finish:                ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- 16 bit SHL routine
+-- Y = Y shl N
+-- X is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte2_SHL ( byte in N ) is
+  assembler
+  pragma keep page
+  local next
+  next:                  ;
+    bcf      status,C    ;clear Carry
+    rlf      y1,f        ;
+    rlf      y2,f        ;
+
+    decfsz   N,f         ;
+    goto     next        ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- 24 bit SHL routine
+-- Y = Y shl N
+-- X is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte3_SHL ( byte in N ) is
+  assembler
+  pragma keep page
+  local next
+  next:                  ;
+    bcf      status,C    ;clear Carry
+    rlf      y1,f        ;
+    rlf      y2,f        ;
+    rlf      y3,f        ;
+
+    decfsz   N,f         ;
+    goto     next        ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- 16 bit SHL routine in X
+-- X = X shl N
+-- Y is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte2_SHLX ( byte in N ) is
+  assembler
+  pragma keep page
+  local next
+  next:                  ;
+    bcf      status,C    ;clear Carry
+    rlf      x1,f        ;
+    rlf      x2,f        ;
+
+    decfsz   N,f         ;
+    goto     next        ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- 24 bit SHL routine in X
+-- X = X shl N
+-- Y is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte3_SHLX ( byte in N ) is
+  assembler
+  pragma keep page
+  local next
+  next:                  ;
+    bcf      status,C    ;clear Carry
+    rlf      x1,f        ;
+    rlf      x2,f        ;
+    rlf      x3,f        ;
+
+    decfsz   N,f         ;
+    goto     next        ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+
+-- -----------------------------------------------------------------------------
+-- 24 bit shift/rotate LEFT routine
+-- if shift (default)  then Y = Y shl N
+-- if rotate           then Y = Y rol N
+-- X is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte3_SRL ( byte in N = 1 , bit in rotate = false ) is
+  assembler
+  pragma keep page
+  local next, no_rotate
+  next:                  ;
+    bcf      status,C    ;clear Carry
+    btfss    rotate      ;test if rotate
+    goto     no_rotate   ;if shift rather than rotate
+    btfsc    y3,7        ;if rotate, test lsb
+    bsf      status,C    ;set Carry according to lsb
+  no_rotate:             ;
+    rlf      y1,f        ;
+    rlf      y2,f        ;
+    rlf      y3,f        ;
+    decfsz   N,f         ;
+    goto     next        ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- 16 bit shift Right routine
+-- Y = Y shr N
+-- X is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte2_SHR ( byte in N = 1 ) is
+  assembler
+  pragma keep page
+  local next
+  next:                  ;
+    bcf      status,C    ;clear Carry
+    rrf      y2,f        ;
+    rrf      y1,f        ;
+    decfsz   N,f         ;
+    goto     next        ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- 24 bit shift Right routine
+-- Y = Y shr N
+-- X is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte3_SHR ( byte in N = 1 ) is
+  assembler
+  pragma keep page
+  local next
+  next:                  ;
+    bcf      status,C    ;clear Carry
+    rrf      y3,f        ;
+    rrf      y2,f        ;
+    rrf      y1,f        ;
+    decfsz   N,f         ;
+    goto     next        ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- 16 bit shift Right routine in X
+-- X = X shr N
+-- Y is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte2_SHRX ( byte in N = 1 ) is
+  assembler
+  pragma keep page
+  local next
+  next:                  ;
+    bcf      status,C    ;clear Carry
+    rrf      x2,f        ;
+    rrf      x1,f        ;
+    decfsz   N,f         ;
+    goto     next        ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- 24 bit shift Right routine in X
+-- X = X shr N
+-- Y is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte3_SHRX ( byte in N = 1 ) is
+  assembler
+  pragma keep page
+  local next
+  next:                  ;
+    bcf      status,C    ;clear Carry
+    rrf      x3,f        ;
+    rrf      x2,f        ;
+    rrf      x1,f        ;
+    decfsz   N,f         ;
+    goto     next        ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- 24 bit shift/rotate Right routine
+-- if shift (default)  then Y = Y shr N
+-- if rotate           then Y = Y ror N
+-- X is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte3_SRR ( byte in N = 1 , bit in rotate = false ) is
+  assembler
+  pragma keep page
+  local next, no_rotate
+  next:                  ;
+    bcf      status,C    ;clear Carry
+    btfss    rotate      ;test if rotate
+    goto     no_rotate   ;if shift rather than rotate
+    btfsc    y1,0        ;if rotate, test lsb
+    bsf      status,C    ;set Carry according to lsb
+  no_rotate:             ;
+    rrf      y3,f        ;
+    rrf      y2,f        ;
+    rrf      y1,f        ;
+    decfsz   N,f         ;
+    goto     next        ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- N,2,3,4 byte ADD routine
+-- Y = Y + X
+-- X is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byteN_ADD is
+  assembler
+  pragma keep page
+  local carry_y2, carry_y3, carry_y4, start
+
+    goto     start       ;
+
+  -- this method can easily be expanded to more bytes
+  carry_y2:              ;aggregate the Carry through all the bytes
+    incfsz   y2,f        ;
+    return               ;
+  carry_y3:
+    incfsz   y3,f        ;
+    return               ;
+  carry_y4:
+    incf     y4,f        ;
+    return               ;
+
+  start:                 ;
+    movf     x1,w        ; W = X1
+    addwf    y1,f        ; Y1 = Y1 + X1
+    btfsc    status,C    ; skip if no Carry
+    call     carry_y2    ; add Carry
+
+    movf     x2,w        ; W = X2
+    addwf    y2,f        ; Y2 = Y2 + X2
+    btfsc    status,C    ; skip if no Carry
+    call     carry_y3    ; add Carry
+
+    movf     x3,w        ; W = X3
+    addwf    y3,f        ; Y3 = Y3 + X3
+    btfsc    status,C    ; skip if no Carry
+    call     carry_y4    ; add Carry
+
+    movf     x4,w        ; W = X4
+    addwf    y4,f        ; Y4 = Y4 + X4
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte2_ADD is
+  byteN_add
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte3_ADD is
+--  byteN_add
+  assembler
+  pragma keep page
+  local carry_y2, carry_y3, start
+
+    goto     start       ;
+
+  -- this method can easily be expanded to more bytes
+  carry_y2:              ;aggregate the Carry through all the bytes
+    incfsz   y2,f        ;
+    return               ;
+  carry_y3:
+    incf     y3,f        ;
+    return               ;
+    
+  start:                 ;
+    movf     x1,w        ; W = X1
+    addwf    y1,f        ; Y1 = Y1 + X1
+    btfsc    status,C    ; skip if no Carry
+    call     carry_y2    ; add Carry
+
+    movf     x2,w        ; W = X2
+    addwf    y2,f        ; Y2 = Y2 + X2
+    btfsc    status,C    ; skip if no Carry
+    call     carry_y3    ; add Carry
+
+    movf     x3,w        ; W = X3
+    addwf    y3,f        ; Y3 = Y3 + X3
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte4_ADD is
+  byteN_add
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- N,2,3,4 bytes CMP routine
+-- if X=Y then Z1=0 else Z1=1
+-- X, Y, Z4,Z3,X2 are left unchanged
+-- -----------------------------------------------------------------------------
+procedure byteN_cmp  (byte in N) is
+  assembler
+  pragma keep page
+  local byte4, byte3, byte2, byte1, equal, not_equal, finish
+  
+    decf     N,f         ;
+    btfsc    Z           ;
+    goto     byte1       ;if ZERO (N=1)
+    decf     N,f         ;
+    btfsc    Z           ;
+    goto     byte2       ;if ZERO (N=2)
+    decf     N,f         ;
+    btfsc    Z           ;
+    goto     byte3       ;if ZERO (N=3)
+
+  byte4:                 ;
+    movf     x4,w        ;
+    subwf    y4,w        ;
+    btfss    Z           ;
+    goto     not_equal   ;
+  byte3:                 ;
+    movf     x3,w        ;
+    subwf    y3,w        ;
+    btfss    Z           ;
+    goto     not_equal   ;
+  byte2:
+    movf     x2,w        ;
+    subwf    y2,w        ;
+    btfss    Z           ;
+    goto     not_equal   ;
+  byte1:
+    movf     x1,w        ;
+    subwf    y1,w        ;
+    btfss    Z           ;
+    goto     not_equal   ;
+
+  equal:                 ;
+    movlw    0           ;
+    goto     finish      ;
+  not_equal:             ;
+    movlw    1           ;
+  finish:                ;
+    movwf    z1          ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte2_CMP is
+  byteN_CMP (2)
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte3_CMP is
+  byteN_CMP (3)
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte4_CMP is
+  byteN_CMP (4)
+end procedure
+-- -----------------------------------------------------------------------------
+function byteN_fcmp (byte in N) return bit is
+  byteN_cmp (N)
+  return Z1 == 0
+end function
+-- -----------------------------------------------------------------------------
+
+
+
+
+-- -----------------------------------------------------------------------------
+-- N,2,3,4 bytes INC routine
+-- Y = Y + 1
+-- if Y=0 then Z1=0 else Z1=1
+-- X, Z4,Z3,X2 are left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte2_INC is
+  assembler
+  pragma keep page
+  local non_zero, finish
+    incfsz   y1,f        ;
+    goto     non_zero    ;
+    incfsz   y2,f        ;
+    goto     non_zero    ;
+    movlw    0           ;
+    goto     finish      ;
+  non_zero:              ;
+    movlw    1           ;
+  finish:                ;
+    movwf    z1          ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte3_INC is
+  assembler
+  pragma keep page
+  local non_zero, finish
+    incfsz   y1,f        ;
+    goto     non_zero    ;
+    incfsz   y2,f        ;
+    goto     non_zero    ;
+    incfsz   y3,f        ;
+    goto     non_zero    ;
+    movlw    0           ;
+    goto     finish      ;
+  non_zero:              ;
+    movlw    1           ;
+  finish:                ;
+    movwf    z1          ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte4_INC is
+  assembler
+  pragma keep page
+  local non_zero, finish
+    incfsz   y1,f        ;
+    goto     non_zero    ;
+    incfsz   y2,f        ;
+    goto     non_zero    ;
+    incfsz   y3,f        ;
+    goto     non_zero    ;
+    incfsz   y4,f        ;
+    goto     non_zero    ;
+    movlw    0           ;
+    goto     finish      ;
+  non_zero:              ;
+    movlw    1           ;
+  finish:                ;
+    movwf    z1          ;
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byteN_INC (byte in N) is
+  if    N == 2 then byte2_inc
+  elsif N == 3 then byte3_inc
+  elsif N == 4 then byte4_inc
+  else pragma error   -- invalid number of bytes
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- converts between 2-complement and a positive signed number (both ways)
+-- if Y is positive signed number
+--    Y = 2-complement(Y)
+-- if Y is a 2-complement number, it's inverted
+--    Y = -Y
+-- X, Z are left unchanged
+-- -----------------------------------------------------------------------------
+procedure byte3_twos_complement is
+  assembler
+  pragma keep page
+    comf     y1,f        ;
+    comf     y2,f        ;
+    comf     y3,f        ;
+  end assembler
+  byte3_INC
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte2_twos_complement is
+  assembler
+  pragma keep page
+    comf     y1,f        ;
+    comf     y2,f        ;
+  end assembler
+  byte2_INC
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- 24 bit multiply routine
+-- Y = Y * X
+-- X is CHANGED !!
+-- -----------------------------------------------------------------------------
+procedure byte3_MUL is
+var byte s3, s2, s1, N
+  assembler
+  pragma keep page
+  local next, no_add
+    movfw    y3          ; S = Y
+    movwf    s3          ;
+    movfw    y2          ;
+    movwf    s2          ;
+    movfw    y1          ;
+    movwf    s1          ;
+                         ;
+    movlw    0           ; Y = 0
+    movwf    y3          ;
+    movwf    y2          ;
+    movwf    y1          ;
+    movlw    6          ;
+    movwf    N           ;
+  next:                  ;
+    btfss    S1,0        ;
+    goto     no_add      ;
+    call     byte3_add   ; Y = Y + X
+    ;clip at overflow
+  no_add:                ;
+    bcf      C           ; X = X shl 1 (shift in Carry = 0)
+    rlf      x1,f        ;
+    rlf      x2,f        ;
+    rlf      x3,f        ;
+    rrf      s3,f        ; S = S shr 1 (carry is don't care)
+    rrf      s2,f        ;
+    rrf      s1,f        ;
+    decfsz   N,f         ;
+    goto     next        ;
+                         ;
+
+  end assembler
+end procedure
+procedure byte3x_MUL is
+var byte s3, s2, s1, N
+  assembler
+  pragma keep page
+  local next, no_add
+    movfw    y3          ; S = Y
+    movwf    s3          ;
+    movfw    y2          ;
+    movwf    s2          ;
+    movfw    y1          ;
+    movwf    s1          ;
+                         ;
+    movlw    0           ; Y = 0
+    movwf    y3          ;
+    movwf    y2          ;
+    movwf    y1          ;
+    movlw    24          ;
+    movwf    N           ;
+  next:                  ;
+    btfss    S1,0        ;
+    goto     no_add      ;
+    call     byte3_add   ; Y = Y + X
+    ;clip at overflow
+  no_add:                ;
+    bcf      C           ; X = X shl 1 (shift in Carry = 0)
+    rlf      x1,f        ;
+    rlf      x2,f        ;
+    rlf      x3,f        ;
+    rrf      s3,f        ; S = S shr 1 (carry is don't care)
+    rrf      s2,f        ;
+    rrf      s1,f        ;
+    decfsz   N,f         ;
+    goto     next        ;
+                         ;
+
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- N,2,3,4 byte SUB routine
+-- Y = Y - X
+-- X is left unchanged
+-- -----------------------------------------------------------------------------
+procedure byteN_SUB is
+  assembler
+  pragma keep page
+  local borrow_y2, borrow_y3, borrow_y4, start
+  page start
+
+    goto     start       ;
+
+  -- this method can easily be expanded to more bytes
+  borrow_y2:             ;aggregate the Borrow through all the bytes
+    decf     y2,f        ;
+    comf     y2,w        ;
+    btfss    status,Z    ;
+    return               ;
+  borrow_y3:             ;aggregate the Borrow through all the bytes
+    decf     y3,f        ;
+    comf     y3,w        ;
+    btfss    status,Z    ;
+    return               ;
+  borrow_y4:
+    decf     y4,f        ;
+    return               ;
+
+  start:                 ;
+    movf     x1,w        ; W = X1
+    subwf    y1,f        ; Y1 = Y1 - X1
+    btfss    status,C    ; skip if no Borrow
+    call     borrow_y2   ; subtract Borrow
+
+    movf     x2,w        ; W = X2
+    subwf    y2,f        ; Y2 = Y2 - X2
+    btfss    status,C    ; skip if no Borrow
+    call     borrow_y3   ; subtract Borrow
+
+    movf     x3,w        ; W = X3
+    subwf    y3,f        ; Y3 = Y3 - X3
+    btfss    status,C    ; skip if no Borrow
+    call     borrow_y4   ; subtract Borrow
+
+    movf     x4,w        ; W = X4
+    subwf    y4,f        ; Y4 = Y4 - X4
+  end assembler
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte2_SUB is
+  byteN_SUB
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte3_SUB is
+  byteN_SUB
+end procedure
+-- -----------------------------------------------------------------------------
+procedure byte4_SUB is
+  byteN_SUB
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- 24 bit DEC routine
+-- Y = Y - 1
+-- X = 1
+-- -----------------------------------------------------------------------------
+procedure byte3_DEC is
+  X1 = 1
+  X2 = 0
+  X3 = 0
+  byte3_SUB
+end procedure
+-- -----------------------------------------------------------------------------
+
+

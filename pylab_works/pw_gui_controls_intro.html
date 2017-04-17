@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>GUI Controls Intro</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="1" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>GUI Controls Intro&nbsp; </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; ( march 2009 )</span></p>
+<p>Application Designer / Domain Expert / <span class=rvts10>Control Designer</span> / Core Developer</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Controls are the basic GUI building blocks used in Bricks. Controls transports information from the user to the Brick and vice-versa. In the beginning we shall need to extend the controls somewhat, but after a short time we'll have a complete set of controls and only cosmetic changes will be needed.</p>
+<p><br></p>
+<p>In the this part we'll describe how controls can be used to create new Bricks.</p>
+<p>In the part "GUI Controls Overview", an overview will be given of all available controls, with enough detail to use them to build new Bricks.</p>
+<p>The part "GUI Controls Building", will describe how to build new controls.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Help on Controls</span></p>
+<p>The name of a control class always starts with "t_C_", so by typing this first characters in one of&nbsp; the PyLab_Works editors will popup an auto-completion list with all the available controls. In a PyLab_Works command-shell you can ask help about "t_C_". The&nbsp; chapter GUI Controls Overview, describes all the available controls. And last but not least the template manager (F7 form an editor) has a tab where all controls are available as an example, with all the specific parameters used.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Creating a Control Instance</span></p>
+<p>A control is created by calling the Brick's "Create_Control".</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=632 height=19 alt="" src="pw_gui_controls_intro_img2.png"></p>
+<p><br></p>
+<p>Often you only have to specify the Type, because the default values for Caption and Default will suffice:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=423 height=26 alt="" src="pw_gui_controls_intro_img7.png"></p>
+<p><br></p>
+<p>And as an alternative, which might be better readable, you might even specify the type as an attribute:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=287 height=38 alt="" src="pw_gui_controls_intro_img8.png"></p>
+<p><br></p>
+<p>That's all !!! Everything else is done behind the scene: layout of controls, saving and restoring settings etc.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>More Control Parameters</span></p>
+<p>For some controls you might need to specify some additional parameters, because of your specific needs. e.g. you need a slider with a logarithmic changing value:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=539 height=51 alt="" src="pw_gui_controls_intro_img4.png"></p>
+<p><br></p>
+<p>The parameters that are a available for each Control are given in the help about each Control.</p>
+<p><br></p>
+<p>If you want a Control to be positioned behind the previous Control on the same line, you can set the following attribute to False ( this will not work for all controls)</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=221 height=23 alt="" src="pw_gui_controls_intro_img9.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Data transport between Brick and Controls</span></p>
+<p>Looking at the schematic below, shows that the communication between a GUI-control at it's parent Brick is always done through the Par-array of the Brick. If a control acts on the same Par as an input (e.g. Par [2] and Control [1]), the input is automatically passed to the control and the control decides what value will be passed to the Brick. A Control can also have extra parameters (e.g.Par [3] - Control [2] or Par[4] - Control [2] ), to exchange information between the Brick and the Control. Notice that the numbering starts at "1", which is done to get a human representation in the Brick Definitions. Don't bother with the complex numbering for the controls, because they'll see a zero-based Par-array, only containing the elements that concerns them.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=498 height=385 alt="" src="pw_bricks_controls_img35.png"></p>
+<p><br></p>
+<p>So in your Brick you can simple check any use the Par-array in the following way:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=437 height=89 alt="" src="pw_gui_controls_intro_img6.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

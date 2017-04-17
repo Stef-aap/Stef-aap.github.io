@@ -1,0 +1,93 @@
+
+
+  operator * ( byte in a, byte in b ) return byte is   
+      var byte d = 0   
+      assembler
+       movf  b,w
+       mulwf  a
+       movf PRODL,w
+       movwf d
+      end assembler 
+      return d
+   end operator   
+      
+   operator / ( byte in a, byte in b ) return byte is   
+      var byte d = 0   
+      if b != 0 then   
+         while a >= b loop   
+            a = a - b   
+            d = d + 1   
+         end loop   
+      end if   
+      return d   
+   end operator   
+      
+   operator % ( byte in a, byte in b ) return byte is   
+      if b != 0 then   
+         while a >= b loop   
+            a = a - b   
+         end loop   
+      end if   
+      return a   
+   end operator   
+
+     
+   operator << ( byte in a, byte in n ) return byte is   
+      while n > 0 loop   
+         asm      clrc   
+         asm rlf  a,f
+         n = n - 1   
+      end loop   
+      return a   
+   end operator   
+      
+   operator >> ( byte in a, byte in n ) return byte is   
+      while n > 0 loop   
+         asm      clrc   
+         asm rrf  a,f   
+         n = n - 1   
+      end loop   
+      return a   
+   end operator   
+
+
+   operator << ( word in a, word in n ) return word is   
+   end operator   
+      
+   operator >> ( word in a, word in n ) return word is   
+   end operator   
+      
+   operator * ( word in a, word in b ) return word is   
+      var word aa = a   
+      var word bb = b     
+      var word x  = 0   
+      var bit  y at bb : 0   
+      while bb > 0 loop   
+         if y then   
+            x = x + aa   
+         end if   
+         aa = aa << 1   
+         bb = bb >> 1   
+      end loop   
+      return x   
+   end operator   
+      
+   operator / ( word in a, word in b ) return word is   
+      var word d = 0   
+      if b != 0 then   
+         while a >= b loop   
+            a = a - b   
+            d = d + 1   
+         end loop   
+      end if   
+      return d   
+   end operator   
+      
+   operator % ( word in a, word in b ) return word is   
+      if b != 0 then   
+         while a >= b loop   
+            a = a - b   
+         end loop   
+      end if   
+      return a   
+   end operator

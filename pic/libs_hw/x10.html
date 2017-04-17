@@ -1,0 +1,101 @@
+<HTML><HEAD><TITLE>PIC new</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS2>A very interesting link to X10 &amp; wireless</SPAN></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://www.mbx-usa.com/">App Notes</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Manchester</SPAN></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://www.quickbuilder.co.uk/qb/articles/Manchester_encoding_using_RS232.pdf">Manchester_encoding_using_RS232.pdf (application-pdf Object)</A></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;&nbsp;<A class=RVTS4 href="http://www.quickbuilder.co.uk/qb/articles/">QuickBuilder - Articles- Manchester encoding</A></P>
+<P>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS4>&nbsp;&nbsp;<A class=RVTS4 href="http://homepage.ntlworld.com/matthew.rowe/micros/virbook/manchest.htm">Manchester encoding</A></P>
+<P>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS4>&nbsp;&nbsp;<A class=RVTS4 href="http://www.erg.abdn.ac.uk/users/gorry/course/phy-pages/man.html">Manchester Encoding</A></P>
+<P>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS4>&nbsp;&nbsp;<A class=RVTS4 href="http://www.linxtechnologies.com/">Linx Technologies, Inc. - Wireless Made Simple - RF Module Design, Antennas and Connectors</A></P>
+<P>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;xx</P>
+<P>I've been playing with some RF modules, and I'm using manchester</P>
+<P>encoding to to provide a DC balanced code.&nbsp; Encoding 4 bit nibbles into</P>
+<P>8 bit bytes with a lookup table is very fast and requires little memory,</P>
+<P>but decoding is slightly trickier if you also want to check the code is</P>
+<P>valid.&nbsp; I came up with the following that uses 1 byte of GPR and</P>
+<P>executes in 13 cycles if the manchester code is valid, or jumps to an</P>
+<P>error handler in 8 cycles if not.</P>
+<P>I don't need the speed, but I'm pretty sure this can be done in less</P>
+<P>cycles, anyone see a better way?</P>
+<P>Mike</P>
+<P>; on entry manchester encoded byte held in w,</P>
+<P>; if code is valid, decoded byte held in w on exit</P>
+<P>; if code is invalid, jumps to error handler</P>
+<P>; if valid incomming byte looks like&nbsp; a !a&nbsp; b !b&nbsp; c !c&nbsp; d !d</P>
+<P>xorlw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; Invert the second phase of each bit.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; First and second phases should now match</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; if valid i.e. aabbccdd</P>
+<P>movwf enc&nbsp;&nbsp; ; Take a copy of the result</P>
+<P>rrf&nbsp;&nbsp; enc,f ; enc = xaabbccd</P>
+<P>xorwf enc,w ;&nbsp;&nbsp; (w)aabbccdd&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; (enc)xaabbccd&nbsp; XOR</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;&nbsp;&nbsp; (w)x0x0x0x0</P>
+<P>andlw 0x55&nbsp; ; Clear bits 1,3,5,7.&nbsp; The value in W is now zero if</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; the manchester code was valid i.e. both phases</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; of each bit are complimentry</P>
+<P>skpz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; If valid skip to decoding</P>
+<P>goto man_err ; invalid code, jump to error handler</P>
+<P>; enc still holds xaabbccd, our target is 0000abcd</P>
+<P>; bits 0 &amp; 1 are already in the correct position</P>
+<P>movf&nbsp; enc,w ; w = xaabbccd</P>
+<P>andlw 0x03&nbsp; ; w = 000000cd</P>
+<P>btfsc enc,4</P>
+<P>iorlw 0x04&nbsp; ; w = 00000bcd</P>
+<P>btfsc enc,5</P>
+<P>iorlw 0x08&nbsp; ; w = 0000abcd</P>
+<P>=======================================================================</P>
+<P>This e-mail is intended for the person it is addressed to only. The</P>
+<P>information contained in it may be confidential and/or protected by</P>
+<P>law. If you are not the intended recipient of this message, you must</P>
+<P>not make any use of this information, or copy or show it to any</P>
+<P>person. Please contact us immediately to tell us that you have</P>
+<P>received this e-mail, and return the original to us. Any use,x</P>
+<P>forwarding, printing or copying of this message is strictly prohibited.</P>
+<P>No part of this message can be considered a request for goods or</P>
+<P>services.</P>
+<P>=======================================================================</P>
+<P>-- http://www.piclist.com PIC/SX FAQ &amp; list archive View/change your membership options at http://mailman.m</P>
+<P>Michael Rigby-Jones &lt;piclist@MIT.EDU&gt; wrote:</P>
+<P>&gt;&gt; I came up with the following that uses 1 byte of GPR and executes in</P>
+<P>&gt;&gt; 13 cycles if the manchester code is valid, or jumps to an error handler</P>
+<P>&gt;&gt; in 8 cycles if not.&nbsp;</P>
+<P>&gt;&gt;&nbsp;</P>
+<P>&gt;&gt; I don't need the speed, but I'm pretty sure this can be done in less</P>
+<P>&gt;&gt; cycles, anyone see a better way?</P>
+<P>Mike:</P>
+<P>&nbsp;&nbsp;&nbsp; ; Enter with received byte in REG.&nbsp; Jumps to INVALID if the</P>
+<P>&nbsp;&nbsp;&nbsp; ; Manchester code is invalid.</P>
+<P>&nbsp;&nbsp;&nbsp; RADIX = DEC</P>
+<P>&nbsp;&nbsp;&nbsp; RRF&nbsp;&nbsp;&nbsp;&nbsp; REG,W&nbsp;&nbsp;&nbsp;&nbsp; ;Copy REG's odd-numbered bits to W's</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;even-numbered bit positions.</P>
+<P>&nbsp;&nbsp;&nbsp; XORWF&nbsp;&nbsp; ENC,W&nbsp;&nbsp;&nbsp;&nbsp; ;Each even-numbered bit of W holds "1"</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;if REG's odd bits are complements of</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;REG's even bits.</P>
+<P>&nbsp;&nbsp;&nbsp; XORLW&nbsp;&nbsp; 11111111B ;Now, each even-numbered bit of W holds</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;"0" if REG's odd bits are complements</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;of REG's even bits.</P>
+<P>&nbsp;&nbsp;&nbsp; ANDLW&nbsp;&nbsp; 01010101B ;Mask off all but W's even bits.</P>
+<P>&nbsp;&nbsp;&nbsp; BNZ&nbsp;&nbsp;&nbsp;&nbsp; INVALID&nbsp;&nbsp; ;If any of them are non-zero, the word in</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;REG was not valid.&nbsp; Jump.</P>
+<P>-Andrew</P>
+<P>=== Andrew Warren - fastfwd@ix.netcom.com</P>
+<P>-- http://www.piclist.com PIC/SX FAQ &amp; list archive View/change your membership options at http://mailman.mi</P>
+</BODY></HTML>

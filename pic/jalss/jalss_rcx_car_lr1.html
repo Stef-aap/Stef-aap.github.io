@@ -1,0 +1,38 @@
+<HTML><HEAD><TITLE>RCX car with left-right motor</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>December 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, RCX car with Left/Right motor</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;</SPAN></P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=371 valign=middle>
+<P>This device simulates an RCX with a left and right motor, driving around in a room. It has 2 front bumpers and 2 rear bumpers.&nbsp;</P>
+<P>By connecting the 2 motors to the virtual RCX, the car can be controlled by the virtual RCX, which can be controlled by a program or directly by the tools of Bricxcc.</P>
+<P>When one of it bumpers touches a wall, the corresponding ligth will color red and a resistor is connected to ground (you can edit the value of each resistor). By connecting the bumper outputs to the sensor inputs of the virtual RCX, you can test a program running in the virtual RCX.</P>
+<P>Also the motors will draw more power, which can be seen in the internal motor signals of the viryual RCX.</P>
+<P>With the sliders Xpos, Ypos and Angle you can set the initial and current location and orientation of the car.</P>
+<P>With the Scale slider you can scale the RCX to get a bigger or smaller room.</P>
+<P>The color of the background can be changed by clicking with the right-mouse button on the background. You can change the image of the car by substituting another image for "rcx5.bmp" (in the main JALss directory)</P>
+<P>Help button, shows this page.</P>
+<P>RST button does nothing at the moment.</P></TD>
+<TD width=358 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=383 height=316 src="dev_rcx_car_lr1.gif"></P>
+<P>Technical:</P>
+<P>This device is totally programmed as a DLL. You can find the Delphi source code here:&nbsp;&nbsp;<A class=RVTS4 href="../download/jalss/dll_dev_rcx_car_lr.pas">DLL_dev_RCX_car_LR.pas</A>&nbsp; and&nbsp;&nbsp;<A class=RVTS4 href="../download/jalss/dll_dev_rcx_car_lr.dfm">DLL_dev_RCX_car_LR.dfm</A></P>
+<P>Normal motor resistance is 80 Ohm, when bumping the resistance drops to 50 Ohm.</P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

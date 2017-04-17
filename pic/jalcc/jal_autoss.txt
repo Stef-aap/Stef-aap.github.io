@@ -1,0 +1,6 @@
+proc
+=-- ---------------------------------------------------------
+=--  standard helptext, recognized by JALcc as helptext
+=-- ---------------------------------------------------------
+=procedure | is
+=end procedure

@@ -1,0 +1,82 @@
+<HTML><HEAD><TITLE>Website Verification</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FEFFE6;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>september, 2005</SPAN></P>
+<P><SPAN class=RVTS1>Website verification</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>This function can check and correct a complete website. The website is assumed to start in the directory of the current document, and checks this directory and all it's subdirectories.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=357 height=369 src="punthoofd_verify_website_img1.gif"></P>
+<P>After selecting the actions to be performed, pressing the GO-button will execute all tasks.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>ToDo list</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>uploading of a complete website&nbsp;</LI>
+<LI>clearing a complete website (through php ?)&nbsp;</LI>
+<LI>tags and the links to tags to lowercase ??&nbsp;</LI>
+<LI>&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Change local files+links to lowercase</SPAN></P>
+<P>Because on Unix machines (most webservers) lowercase and uppercase are assumed different, it's essential that the case of links is correct. Testing the website locally on a windows machine, won't reveal these errors. So here you get the possibility to standarize on lowercase.</P>
+<P>First of all, the directory and subdirectories are scanned for uppercase and if such paths are found, they are translated to lowercase.&nbsp;</P>
+<P class=RVPS1>In windows-XP, although it works, shows a strange behaviour: The path will showup in windows explorer with some uppercase characters. But don't worry, it works !!</P>
+<P>After the (sub-)directories are all changed to lowercase, all the filenames are changed to lowercase.</P>
+<P>Then all html-files are scanned for "local" links, and if they contain links with uppercase characters, they are converted to lowercase.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=207 height=62 src="punthoofd_verify_website_img2.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Change local tags+links to lowercase</SPAN></P>
+<P>not implemented yet</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Change local files+links from "htm" to "html"</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=226 height=44 src="punthoofd_verify_website_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Change absolute links to relative</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=307 height=63 src="punthoofd_verify_website_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Report local broken links</SPAN></P>
+<P>Reports internal broken links. An internal link is assumed broken, if it's either an absolute link or if&nbsp; the file doesn't exist. This action doensn't perform a case check !!</P>
+<P>If the action "convert absolute links to relative" is already done, the action "report broken links" will not detect the absolute addresses (unless the file doesn't exist), because they are all fixed.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=318 height=95 src="punthoofd_verify_website_img5.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;Below the same scan as above, but now "convert absolute" was also on.</P>
+<P>&nbsp;In this case the "ABS" broken links will be missing (because they are already fixed).</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=234 height=103 src="punthoofd_verify_website_img7.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>By double-clicking a broken link, the editor will open at the position of the broken link, so you can correct it.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Report external broken links</SPAN></P>
+<P>not implemented yet.</P>
+<P>This might be a problem nowadays, because when a link get's broken, most webservers show some kind of ad-page for their own services.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Report empty files</SPAN></P>
+<P>Some uploaders, like SSH, have problems (hangs) when they try to upload an empty file.</P>
+<P>Why do empty files exist in the first place ??</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Report only</SPAN></P>
+<P>In this mode the selected actions are executedperformed, but not stored on disk.</P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

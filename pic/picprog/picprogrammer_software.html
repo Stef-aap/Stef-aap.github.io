@@ -1,0 +1,976 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en"><html><head>
+            
+  
+  
+  <link rel="STYLESHEET" type="text/css" href="picoverview.css" title="none">
+
+
+
+  
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+
+            
+  
+  
+  <meta name="author" content="Stef Mientki">
+
+
+            
+  
+  
+  <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]"><title>PicProgrammer Software</title></head><body text="#000000" bgcolor="#33ff33" link="#0000ee" vlink="#551a8b" alink="#ff0000">
+   
+<table width="100%">
+
+
+   <tbody>
+      <tr>
+   <td align="left" valign="top"><a href="picprogrammer_hardware.html">Hardware</a>
+              
+      
+      <br>
+      <a href="picprogrammer_software.html#program%20history">Program History</a> <br>
+
+        <a href="picprogrammer_software.html#downloads">Downloads</a><br>
+</td>
+    <td align="center" valign="top">
+      
+
+        
+      <h2>Mindstorms &amp; PICs</h2>
+      <h2>programmer (software) </h2>
+
+</td>
+    <td align="right" valign="top">
+      <h3>16-12-2001</h3>
+
+        </td>
+   </tr>
+         
+  </tbody>  
+</table>
+
+
+    <br>
+
+
+  &nbsp;   
+<table border="1" cols="6" width="100%">
+
+
+   <tbody>
+      <tr>
+   <td><b><font face="Arial,Helvetica"><font color="#3333ff">File</font></font></b></td>
+    <td><b><font face="Arial,Helvetica"><font color="#3333ff">Commands</font></font></b></td>
+    <td><b><font face="Arial,Helvetica"><font color="#3333ff">Tools</font></font></b></td>
+    <td><b><font face="Arial,Helvetica"><font color="#3333ff">Help</font></font></b></td>
+    <td><font face="Arial,Helvetica">&nbsp;</font></td>
+    <td><b><font face="Arial,Helvetica"><font color="#3333ff">Misc.</font></font></b></td>
+   </tr>
+    <tr>
+   <td valign="top"><font face="Arial,Helvetica"><a href="#file%20open">Open</a></font>
+   <br>
+        <font face="Arial,Helvetica"><a href="#file%20save">Save</a></font>
+   <br>
+        <font face="Arial,Helvetica"><a href="#exit">Exit</a></font></td>
+    <td valign="top"><font face="Arial,Helvetica"><a href="#read%20device">
+  Read Device</a></font> <br>
+        <font face="Arial,Helvetica"><a href="#read%20device_id">Read ID</a></font>
+   <br>
+        <font face="Arial,Helvetica"><a href="#command%20write%20device">
+Verify  Device</a></font> <br>
+        <font face="Arial,Helvetica"><a href="#command%20write%20device">
+Write  Device</a></font> <br>
+        <font face="Arial,Helvetica"><a href="#command%20erase%20device">
+Erase  Device</a></font> <br>
+        <img src="prog_command_icons.gif" height="22" width="114">
+        </td>
+    <td valign="top"><font face="Arial,Helvetica"><a href="#tools,%20settings">
+  Settings</a></font> <br>
+        <font face="Arial,Helvetica"><a href="#pic%20definitions">PIC Definitions</a></font></td>
+    <td valign="top"><font face="Arial,Helvetica"><a href="#help">Help</a></font>
+   <br>
+  &nbsp;               
+      <p><font face="Arial,Helvetica"><a href="#run%20command">Run</a></font>
+   <br>
+        <a href="#run%20command"><img src="prog_stop_icon.gif" height="25" width="35">
+        </a></p>
+        </td>
+    <td valign="top"><font face="Arial,Helvetica">&nbsp;</font></td>
+    <td valign="top"><font face="Arial,Helvetica"><a href="#program%20start">
+  Program Start</a></font> <br>
+        <font face="Arial,Helvetica"><a href="#data%20memo%27s">Data Memo's</a></font>
+   <br>
+        <font face="Arial,Helvetica"><a href="#device%20dependant%20settings">
+  Device dependancy</a></font> <br>
+        <font face="Arial,Helvetica"><a href="#protocol%201,2">Protocols</a></font>
+   <br>
+        <font face="Arial,Helvetica"><a href="#differences%20between%2016f84%20en%2016f84a">
+  F84 &lt;&gt; F84A</a></font> <br>
+        <font face="Arial,Helvetica"><a href="#hex%20file%20format">Hex File</a></font></td>
+   </tr>
+         
+  </tbody>  
+</table>
+
+
+      
+<p><a name="operating instructions"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Operating Instructions&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+  </a> <br>
+  <font face="Arial,Helvetica"><font color="#000000">It's important to follow
+ the steps described below in the right order, because applying a voltage
+to the programmer pin of the PIC, without the PIC is supplied from a +5Volt
+source, can damage the PIC.</font></font> </p>
+
+
+   
+<ol>
+
+
+   <li> <i><u><font face="Arial,Helvetica">start the program and select the
+ right RS232 port</font></u></i><font face="Arial,Helvetica"> (this will
+ensure  that the voltage on the programmer will be ok) The voltages generated
+by the circuit can be tested before inserting a PIC, <a href="#test_hardware">
+ see  here</a>)</font></li>
+    <li> <font face="Arial,Helvetica">set the switch on <i><u>the programmer
+ in the run mode</u></i> (this will ensure that the program voltage will
+not  be present until the +5Volt is present)</font></li>
+    <li> <font face="Arial,Helvetica">now <i><u>connect the programmer</u></i>
+   to the selected RS232 port</font></li>
+    <li> <font face="Arial,Helvetica">now you can savely put the switch on
+     <i><u>the programmer in program mode</u></i></font></li>
+     
+</ol>
+
+
+      
+<table border="1" width="100%">
+
+
+   <tbody>
+      <tr>
+   <td valign="top"><a name="data memo's"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Data Memo's&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+        </a> <br>
+        <font face="Arial,Helvetica">The topline contains the filename or 
+the  devicename, depending on where the last data was read from.</font> <br>
+  &nbsp; <br>
+  &nbsp; <br>
+  &nbsp; <br>
+  &nbsp; <br>
+  &nbsp;               
+      <p><font face="Arial,Helvetica">The large memo is the program memory.</font>
+   <br>
+        <font face="Arial,Helvetica">If a complete row is empty ($3FFF) the 
+ row is not displayed.</font> <br>
+  &nbsp; <br>
+  &nbsp; <br>
+  &nbsp; <br>
+  &nbsp; <br>
+  &nbsp; <br>
+  &nbsp; <br>
+  &nbsp; </p>
+               
+      <p><font face="Arial,Helvetica">The line with address $2000 are the
+ ID words and other fuses. From version 1.2 these values can be edited.</font>
+   <br>
+  &nbsp; <br>
+  &nbsp; </p>
+               
+      <p><font face="Arial,Helvetica">The bytes, starting at address $2100
+ are the EEPROM data bytes. From version 1.2 these values can be edited.</font></p>
+        </td>
+    <td><img src="pic_memos.gif" height="566" width="380">
+        </td>
+   </tr>
+         
+  </tbody>  
+</table>
+
+
+      
+<p><a name="program start"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Program start&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+  </a> <br>
+  <font face="Arial,Helvetica">On opening of the program, all settings are
+ read form the inifile ("applicationnam.ini") and the last hexfile is automatically
+ loaded.</font> <br>
+  <font face="Arial,Helvetica">The program can be started automatically from
+ another program (i.e. JAL-IDE), in which case parameters can be passed through
+ the command line:</font> </p>
+
+
+   
+<blockquote><font face="Arial,Helvetica">mind_picprog.exe&nbsp;&nbsp; d:\data_test\aap.hex&nbsp;&nbsp; 
+ PIC16F84&nbsp;&nbsp; program</font></blockquote>
+
+
+   <font face="Arial,Helvetica">The <i><u>first parameter</u></i> is the
+name  of the hexfile (including full path) to be used to program the device.</font>
+   <br>
+
+
+    <font face="Arial,Helvetica">The <i><u>second parameter</u></i> is the
+ devicename (including or excluding the prefix "PIC", so valid are "16F84" 
+ ,&nbsp; "PIC16F84" ).</font> <br>
+
+
+    <font face="Arial,Helvetica">The <i><u>third parameter</u></i> is the 
+command, only "program" at the moment. Command program will start programming 
+the PIC immediatly, and if succesfull an outputfile with the contents "ok" 
+will be produced and the program will automatically stop. If not succesfull, 
+this outputfile will not be created and the program is not stopped. So the 
+user can try to program the device by handcraft, if succesfull, the output 
+file will still be created.</font> <br>
+
+
+    <font face="Arial,Helvetica">The <i><u>name of the outputfile</u></i>
+ is the name of this programfile, but with the extension "out".</font> <br>
+
+
+  &nbsp;       
+  
+<p><a name="file open"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  File Open&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+    </a> <br>
+    <font face="Arial,Helvetica">Opens a hex file for reading. After openning 
+ the file, all the data is put in the corresponding memo fields.</font> <br>
+    <font face="Arial,Helvetica">The hex file must be a INXH8M file format, 
+ see <a href="#hex%20file%20format">below for details</a>. The file may contain 
+ program data, config data and EEprom data data.</font> <br>
+  &nbsp; </p>
+
+
+       
+  
+<p><a name="file save"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  File Save&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+    </a> <br>
+    <font face="Arial,Helvetica">Saves all information (program, config and
+ data) on the screen in a INXH8M file format.</font> <br>
+  &nbsp; </p>
+
+
+       
+  
+<p><a name="exit"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Exit&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+    </a> <br>
+    <font face="Arial,Helvetica">Closes the program, after storing all settings
+ in the inifile.</font> <br>
+  &nbsp; </p>
+
+
+       
+  
+<p><a name="read device"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Command Read Device&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+    </a> <br>
+    <font face="Arial,Helvetica">Reads program, data (eprom) and configuration 
+ memory and places the contents in the corresponding memofields.</font> <br>
+    <font face="Arial,Helvetica">If in the program memory a complete row
+is  empty ($3FFF), then this row is not displayed. Config and data values
+are  always shown.</font> <br>
+    <font face="Arial,Helvetica">The configuration memory ($2000 .. $2007) 
+is both displayed in the corresponding memo and in the corresponding edit- 
+and check-boxes.</font> <br>
+    <font face="Arial,Helvetica">The device-ID is checked against the selected 
+ device, and if a difference is encountered, a message is placed in the history
+ memo.</font> <br>
+  &nbsp; </p>
+
+
+       
+  
+<p><a name="read device_id"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Command Read Device-ID&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+    </a> <br>
+    <font face="Arial,Helvetica">Reads only the Device-ID and puts it (only) 
+ in the corresponding edit-box.</font> <br>
+    <font face="Arial,Helvetica">The device-ID is checked against the selected 
+ device, and if a difference is encountered, a message is placed in the history
+ memo.</font> <br>
+  &nbsp; </p>
+
+
+       
+  
+<p><a name="command write device"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Command Write Device</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+    </a> <br>
+    <font face="Arial,Helvetica">Writes program, data and configuration memory.</font>
+   <br>
+    <font face="Arial,Helvetica">If no device is specified or if the device-ID 
+ differs from the selected device, no writing is performed and an error message
+ is displayed.</font> <br>
+    <font face="Arial,Helvetica">Verifying of the data can be done during 
+programming and/or after programming (controled by Tools / Settings / ...).</font>
+  <br>
+    <font face="Arial,Helvetica">If verifying is done during programming, 
+each word is checked and if an error is found the programmer retries a number
+ of times (can be set by Tools / Settings / Nr. of retries). If, after the
+ maximum number of retries, still an error occurs, the programming is aborted.
+ After programming is done the programmer displays the total number of retries.</font>
+   <br>
+    <font face="Arial,Helvetica">So a good setting is:</font> </p>
+
+
+       
+  
+<blockquote><font face="Arial,Helvetica">+ Verify during programming</font>
+   <br>
+      <font face="Arial,Helvetica">- Verify after programming (there's absolutly 
+ no need for}</font> <br>
+      <font face="Arial,Helvetica">Number of retries = 3</font></blockquote>
+
+
+   <font face="Arial,Helvetica">Writing the device is time-optimized. First 
+ the first words of the device are compared to the words in the buffer, if
+ there are differences a "bulk-erase" is performed, otherwise no "bulk-erase" 
+ is performed. After that, each word is only programmed if the word in the 
+ device and the word in the buffer are different. So if a device is programmed 
+ twice, no programming at all will take place the second time, only a device 
+ read.</font>           
+    
+<p><font face="Arial,Helvetica">Writing is device dependant, see <a href="#device%20dependant%20settings">
+  device dependant settings</a>.</font> <br>
+  &nbsp; </p>
+
+
+           
+    
+<p><a name="command verify device"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Command Verify Device</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+      </a> <br>
+      <font face="Arial,Helvetica">If more than 20 errors are encountered, 
+the program is aborted and an error message is displayed.</font> <br>
+      <font face="Arial,Helvetica">The device-ID is checked against the selected 
+ device, and if a difference is encountered, a message is placed in the history
+ memo.</font> <br>
+  &nbsp; </p>
+
+
+           
+    
+<p><a name="command erase device"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Command Erase Device&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+      </a> <br>
+      <font face="Arial,Helvetica">Erases all, i.e. program, data and fuses.</font>
+   <br>
+      <font face="Arial,Helvetica">After an erase cycle, there's no automatic 
+ verify cycle.</font> <br>
+      <font face="Arial,Helvetica">Erasing is device dependant, see <a href="#device%20dependant%20settings">
+  device dependant settings</a>.</font> <br>
+  &nbsp; </p>
+
+
+           
+    
+<p><a name="run command"></a><b><font color="#3333ff">RUN command&nbsp;</font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+      </a> <br>
+  With the RUN command (ok it's a strange symbol for that), you're first
+prompted  to set the switch on the programmer to "RUN" after which the MCLR-line
+of  the PIC is controled by the DTR-signal. Pushing on the RUN button will
+start  the PIC by pulling the MCLR line high. <br>
+  Pressing the RUN button again, will reset the PIC , prompt the user to
+set  the programmer switch back to "Program" and enter the program/verify
+mode  again. <br>
+  &nbsp; <br>
+  &nbsp; <br>
+  &nbsp;           
+    <table border="1" width="100%">
+   <tbody>
+          <tr>
+   <td valign="top"><a name="tools, settings"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Tools, Settings&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+            </a>                       
+          <p><font face="Arial,Helvetica">Verifying during and / or after
+ programming can be selected individually. Normally you'll only choose for
+ "during" because this will cost no extra time and above you can have retries.
+ There's no need for verifying afterwards.</font> </p>
+                       
+          <p><font face="Arial,Helvetica">The helppath is the path, where
+ this file is stored (normally the program directory).</font> </p>
+                       
+          <p><font face="Arial,Helvetica">Datapath is the path where your
+ hex files are normally stored. If you read a hex file from a diferent directory, 
+ this path will automatically be addapted.</font> </p>
+                       
+          <p><font face="Arial,Helvetica"><font color="#000000">Clicking
+on the commport lets you select an RS232 port.</font></font> </p>
+                       
+          <p><font face="Arial,Helvetica"><font color="#000000">All settings
+ are stored in the inifile ((applicationname.ini").</font></font></p>
+            </td>
+    <td><img src="pic_settings.gif" height="325" width="472">
+            </td>
+   </tr>
+                 
+      </tbody>          
+    </table>
+    <br>
+  &nbsp; <br>
+  &nbsp; <br>
+  &nbsp;           
+    <table border="1" width="100%">
+   <tbody>
+          <tr>
+   <td><a name="test_hardware"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Test Hardware&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+            </a>                       
+          <p><font face="Arial,Helvetica">After a valid commport is selected,
+ you can connect the RS232 port by checking the according checkbox.</font>
+   </p>
+                       
+          <p><font face="Arial,Helvetica">To be compatible with different
+ hardware configurations, you check which of the lines DTR/RTS should be
+used  as dataline / clockline.</font> <br>
+            <font face="Arial,Helvetica">Also you can check which return-lines 
+ CTS/DSR should be used for data/clock.</font> </p>
+                       
+          <p><font face="Arial,Helvetica">When the RS232 port is connected,
+ the input lines CTS and DSR are polled about 5 times per second and the
+status  of these lines is reflected in the red/green panels.</font> </p>
+                       
+          <p><font face="Arial,Helvetica">By pressing "send $FF", 1000 times
+ $FF is sent, resulting in a period of about 8 seconds of active signal on
+ the TxD line.</font> <br>
+            <font face="Arial,Helvetica">If at the start of send $FF, both
+ DTR and RTS are high, DTR is made low, this is done to prevent a program
+voltage occurs without the presence of the +5Volt supply.</font> </p>
+                       
+          <p><font face="Arial,Helvetica">The voltage should be measured
+with an appropriate load between +5Volt and ground.</font> <br>
+            <font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; 1 kOhm&nbsp;
+--&gt;  5 mA&nbsp; (will do for the new devices, i.e. 16F84A)</font> <br>
+            <font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; 500 Ohm&nbsp; 
+--&gt; 10 mA&nbsp; (necessary for old devices, i.e. 16F84)</font> </p>
+                       
+          <p><font face="Arial,Helvetica">The voltages I measured where:</font>
+   <br>
+            <font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; Vdd = 5.0 Volt,
+ which dropped 50 mV with 1 KOhm load</font> <br>
+            <font face="Arial,Helvetica">&nbsp;&nbsp;&nbsp; Vpp = 12.5 Volt</font></p>
+            </td>
+    <td><img src="commport1.gif" height="280" width="274">
+            </td>
+   </tr>
+                 
+      </tbody>          
+    </table>
+    </p>
+
+
+           
+    
+<p><a name="help"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Help&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+      </a> <br>
+      <font face="Arial,Helvetica">Shows this help text in your own default 
+ browser.</font> <br>
+  &nbsp; </p>
+
+
+           
+    
+<p><a name="device dependant settings"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Device dependant settings&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+      </a> <br>
+  &nbsp; <br>
+  &nbsp;           
+    <table border="1" width="99%">
+   <tbody>
+          <tr>
+   <td><a name="pic definitions"></a><b><font color="#3333ff">PIC definitions&nbsp;</font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+            </a>                       
+          <p>&nbsp;&nbsp;&nbsp; Tools / PIC Definitions / ... </p>
+                       
+          <p><i><u>ID</u></i> stands for the device-ID. <br>
+            <i><u>ID-mask</u></i> are the bits that take active part in the
+ device-ID (the newer types, some bits are used for the revision number)
+          <br>
+            <i><u>ProgSize and DataSize</u></i> speaks for themself. <br>
+            <i><u>Protocol</u></i>, <a href="#protocol%201,2">see below</a>
+  . <br>
+            <i><u>WriteCycle</u></i> is the maximum value in milli-seconds
+ of the write- / erase-cycle. </p>
+                       
+          <p>You can <i><u>add new devices</u></i> just by walking with the
+ cursor to the bottom of the table (or by pressing button "Add New"). </p>
+                       
+          <p><i><u>Numbers</u></i> be inserted decimal or hexa-decimal (with
+ a preceeding '$' sign). </p>
+                       
+          <p><i><u>Enter-key</u></i> can be used to step through the fields
+ of the table.</p>
+            </td>
+    <td><img src="prog_pic_defs.gif" height="318" width="458">
+            </td>
+   </tr>
+                 
+      </tbody>          
+    </table>
+    </p>
+
+
+           
+    
+<p><a name="protocol 1,2"></a><b><font color="#3333ff">Protocol 1,2&nbsp;</font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+      </a> <br>
+      <font color="#000000">Before writing the device, always an erase is 
+performed, with an explicit disabling of the codeprotection. In this way protocol
+1 and protocol 2 could be mad almost equal. The only difference is the extra
+erase of the data-segment in the case of protocol 2.</font>     <br>
+      <font color="#000000">Below you see the codes that are used in the
+program.</font>             
+    <table border="1" cols="4" width="99%">
+   <tbody>
+          <tr>
+   <td><b><font color="#3333ff">Read Device + Verify</font></b></td>
+    <td><b><font color="#3333ff">Read ID</font></b></td>
+    <td><b><font color="#3333ff">Write</font></b></td>
+    <td><b><font color="#3333ff">Erase</font></b></td>
+   </tr>
+    <tr>
+   <td valign="top">generate Vpp                       
+          <p>Prog: <br>
+  &nbsp;&nbsp;&nbsp; $04 + getdata <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; go Prog until ready </p>
+                       
+          <p>Data: <br>
+  &nbsp;&nbsp;&nbsp; $05 + getdata <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; go Data until ready </p>
+                       
+          <p>&nbsp;&nbsp;&nbsp; $00 + dummydata <br>
+  Config: <br>
+  &nbsp;&nbsp;&nbsp; $04 + getdata <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; goto Config until ready </p>
+                       
+          <p>Vpp down</p>
+            </td>
+    <td valign="top">generate Vpp                       
+          <p>&nbsp;&nbsp;&nbsp; $00 + dummydata <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; $04 + getdata </p>
+                       
+          <p>Vpp down <br>
+  &nbsp;</p>
+            </td>
+    <td valign="top">ERASE (see next column)                       
+          <p>generate Vpp </p>
+                       
+          <p>Prog: <br>
+  &nbsp;&nbsp;&nbsp; $04 + getdata <br>
+  &nbsp;&nbsp;&nbsp; if not already ok <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $02 + putdata <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $08 <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay(writecycle) <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $04 + getdata&nbsp; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in case of errors here <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retries are entered&nbsp; <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; go Prog until ready </p>
+                       
+          <p>Data: <br>
+  &nbsp;&nbsp;&nbsp; $05 + getdata <br>
+  &nbsp;&nbsp;&nbsp; if not already ok <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $03 + putdata <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $08 <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay(writecycle) <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $05 + getdata&nbsp; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in case of errors here <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retries are entered&nbsp; <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; go Data until ready </p>
+                       
+          <p>Config: <br>
+  &nbsp;&nbsp;&nbsp; $00 + getdata <br>
+  &nbsp;&nbsp;&nbsp; if not already ok <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $02 + putdata <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $08 <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay(writecycle) <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $04 + getdata&nbsp; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in case of errors here <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retries are entered&nbsp; <br>
+  &nbsp;&nbsp;&nbsp; $06 <br>
+  &nbsp;&nbsp;&nbsp; go Config until ready </p>
+                       
+          <p>Vpp down</p>
+            </td>
+    <td valign="top">Generate Vpp                       
+          <p>&nbsp;&nbsp;&nbsp; $00+$1FFF80 </p>
+                       
+          <p>for 1 to 7 do&nbsp; <br>
+  &nbsp;&nbsp;&nbsp; $06 </p>
+                       
+          <p>&nbsp;&nbsp;&nbsp; $01 <br>
+  &nbsp;&nbsp;&nbsp; $07 <br>
+  &nbsp;&nbsp;&nbsp; $08 <br>
+  &nbsp;&nbsp;&nbsp; delay(writecycle) <br>
+  &nbsp;&nbsp;&nbsp; $01 <br>
+  &nbsp;&nbsp;&nbsp; $07 </p>
+                       
+          <p> </p>
+                       
+          <hr width="100%">This part only yields for protocol 2, "erase datasegment" 
+           <br>
+            <font face="Arial,Helvetica"><font color="#000000">&nbsp;&nbsp;&nbsp; 
+ $03 + $1FFF80</font></font> <br>
+            <font face="Arial,Helvetica"><font color="#000000">&nbsp;&nbsp;&nbsp; 
+ $01</font></font> <br>
+            <font face="Arial,Helvetica"><font color="#000000">&nbsp;&nbsp;&nbsp; 
+ $07</font></font> <br>
+            <font face="Arial,Helvetica"><font color="#000000">&nbsp;&nbsp;&nbsp; 
+ $08</font></font> <br>
+            <font face="Arial,Helvetica"><font color="#000000">&nbsp;&nbsp;&nbsp; 
+ delay(writecycle)</font></font> <br>
+            <font face="Arial,Helvetica"><font color="#000000">&nbsp;&nbsp;&nbsp; 
+ $01</font></font> <br>
+            <font face="Arial,Helvetica"><font color="#000000">&nbsp;&nbsp;&nbsp; 
+ $07</font></font> <br>
+                         
+          <hr width="100%">                       
+          <p>Vpp down</p>
+            </td>
+   </tr>
+                 
+      </tbody>          
+    </table>
+    <br>
+  &nbsp; </p>
+
+
+           
+    
+<p><b><font face="Arial,Helvetica"><font color="#3333ff">Write / Erase 
+ cycle time</font></font></b> </p>
+
+
+           
+    
+<blockquote><font face="Arial,Helvetica">16F84 = 20 msec (see note 1)</font>
+   <br>
+        <font face="Arial,Helvetica">16F84A = 10 msec (specification is 8 
+msec  maximum)</font></blockquote>
+
+
+   <font face="Arial,Helvetica">note1: Microchip isn't clear about this parameter, 
+ the official datasheet only specifies a typical value of 10 msec, no maximum 
+ value is specified. In the migration document 16F84 ==&gt; 16F84A, a maximum 
+ value of 20 msec is specified for the 16F84. But from my own experiments 
+I conclude that this is too low for a reliable programming of the device (even
+with retries).</font> <br>
+
+
+  &nbsp;&nbsp;               
+      
+<div align="right">              
+      <table border="1" width="90%">
+   <tbody>
+            <tr>
+   <td valign="top" width="30%"><b><font color="#3333ff">Question&nbsp;</font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+              </a> <br>
+  What is the erase/cycle time of 16F84 ? <br>
+  I'm developing a prototype programmer and miss the specification for the
+ erase/write cycletime of the 16F84-10.&nbsp; Your datasheet DS 30430C only
+ specifies a "typical" value <br>
+  of 10 msec. In the migration document DS 30072A you specify a maximum value
+ of 20 msec. So I first designed the programmer with a erase/write cycletime
+ of 20 msec, the results were totally unpredictable, sometimes it worked
+sometimes  it didn't. After increasing the erase/write cycle time to 50 msec,
+programming  errors didn't occure anymore.</td>
+    <td><b><font color="#3333ff">Answer from Microchip&nbsp;</font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+              </a> <br>
+  The erase write cycle time is the same for all parts as they all use the
+ same die. The difference between parts lies in how <br>
+  they are tested. The erase/write times are a function of the die itself 
+rather than the testing process. The data sheet has a footnote which explains 
+that the erase/write times are characterised but not tested i.e we have designed
+ the device to operate within these parameters but we do not test for this
+ since it is not a critical operating parameter. Therefore it is possible 
+            <br>
+  for the timing to be slightly greater than the design maximum on this parameter.
+ To gain an avarage you may wish to program a larger set of parts from the
+ same and different batches to determine a statistical average for the devices
+ and then adjust your programming time c/w a margin of error to suit the
+average.&nbsp;                           
+            <p>Best Regards, UK Techhelp <br>
+  THIS TRANSMITTAL AND ACCOMPANYING DOCUMENTS ARE INTENDED ONLY AS SUGGESTION. 
+             <br>
+  No representation or warranty is given and no liability is assumed by Microchip
+ Technology Inc. with respect to accuracy or use of such information, or
+infringement  of patents arising from such use or otherwise. Microchip Technology
+Inc. recommends that you test all suggestions for suitability in your application.</p>
+              </td>
+   </tr>
+                     
+        </tbody>              
+      </table>
+        </div>
+
+
+   <font face="Arial,Helvetica"><b><font color="#3333ff">Write protocol is 
+different</font></b> , see program source.</font> <br>
+
+
+  &nbsp;               
+      
+<p><a name="differences between 16f84 en 16f84a"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Differences between 16F84 en 16F84A&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+        </a> <br>
+        <font face="Arial,Helvetica">The A-type has a maximum oscillator
+frequency  of 20 MHz (instead of 10 MHz).</font> <br>
+        <font face="Arial,Helvetica">There are some small timing differences, 
+ of which the most important seems to be: MCLR low puls width, erase/program 
+ cycle time.</font> <br>
+        <font face="Arial,Helvetica">For simple programmers, which dereive 
+their supply power from the RS232 lines, their is one other difference, although
+ the specified maximum supply current during programming is 10 mA, the specified
+ typical value is for the 16F84 is more then twice as high as for the 16F84A.
+ See for further details&nbsp; <a href="http://www.microchip.com/download/lit/migrat/30072a.pdf">
+  PIC16F84 to PIC16F84A Migration</a>. Remark: the mentioned write/erase-cycle
+ time of the PIC16F84 is not correct (see above).</font> <br>
+  &nbsp; </p>
+
+
+               
+      
+<p><a name="hex file format"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Hex file format&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+        </a> <br>
+        <font face="Arial,Helvetica">INHX8M, this format produces one 8-bit 
+ hex file with a low byte, high byte combination. Since each address can only
+contain 8 bits in this format, all addresses are doubled. This file format
+is useful for transferring PICmicro MCU series code to PRO MATE II, PICSTART
+Plus and third party PICmicro MCU programmers.</font> <br>
+        <font face="Arial,Helvetica">Each data record begins with a 9 character 
+ prefix and ends with a 2-character checksum. Each record has the following 
+ format:</font> </p>
+
+
+               
+      
+<p><font face="Arial,Helvetica">:BBAAAATTHHHH....HHHCC</font> </p>
+
+
+               
+      
+<p><font face="Arial,Helvetica">where:</font> <br>
+        <font face="Arial,Helvetica">BB - is a two digit hexadecimal byte 
+count  representing the number of data bytes that will appear on the line.</font>
+   <br>
+        <font face="Arial,Helvetica">AAAA - is a four digit hexadecimal address 
+ representing the starting address of the data record.</font> <br>
+        <font face="Arial,Helvetica">TT - is a two digit record type record 
+ type that will always be '00' except for the end-of-file record, which will
+ be '01'.</font> <br>
+        <font face="Arial,Helvetica">HH - is a two digit hexadecimal data 
+byte,  presented in low-byte/high-byte combinations.</font> <br>
+        <font face="Arial,Helvetica">CC - is a two digit hexadecimal checksum 
+ that is the two's complement of the sum of all preceding bytes in the record.</font>
+   <br>
+  &nbsp; </p>
+
+
+               
+      
+<p><a name="program history"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Program History&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+        </a>               
+      <table border="1" width="100%">
+   <tbody>
+            <tr>
+      <td style="vertical-align: top; text-align: center;">V1.9<br>
+      </td>
+      <td style="vertical-align: top;"><img src="redarrow.gif" style="height: 12px; width: 14px;" title="" alt=""> Non-contiguous blocks weren't programmed correctly, bug fixed</td>
+    </tr>
+<tr>
+   <td align="center">V1.8<br>
+              </td>
+    <td><img src="redarrow.gif" height="12" width="14">
+  On startup 1 second delay, (with this, hanging if launched from JALcc should 
+be prevented)<br>
+             <img src="redarrow.gif" height="12" width="14">
+  Send inc(x) added, start at $00<br>
+  - edit program area, what for ?<br>
+              </td>
+   </tr>
+    <tr>
+              <td valign="top" align="center">V1.7<br>
+              </td>
+              <td valign="top"><img src="redarrow.gif" height="12" width="14">
+   When programmer starts, now both RTS and DTR are made low, holding the 
+PIC in reset-mode<br>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top" align="center">V1.6<br>
+              </td>
+              <td valign="top"><img src="redarrow.gif" height="12" width="14">
+   Some experiments with sending $00 instead of $FF to generate program voltage,
+ should be better theoretical, but was worse om practice, so removed again<br>
+              </td>
+            </tr>
+            <tr>
+   <td>                           
+            <center>V1.5</center>
+   </td>
+    <td><img src="redarrow.gif" height="12" width="14">
+   fast serial debug facility (115 kB) <br>
+             </td>
+   </tr>
+    <tr>
+   <td>                           
+            <center>V1.4 <br>
+  16-12-2002</center>
+   </td>
+    <td><img src="redarrow.gif" height="12" width="14">
+   program data was only shown upto $400 (has no effect on programming) <br>
+              <img src="redarrow.gif" height="12" width="14">
+   debug window reading/displaying the serial port at 1200 Baud</td>
+   </tr>
+    <tr>
+   <td align="center">V1.3 <br>
+  8-11-2001</td>
+    <td><img src="redarrow.gif" height="12" width="14">
+   User can set which line (DTR / RTS) is used for data / clock <br>
+              <img src="redarrow.gif" height="12" width="14">
+   User can set how the return lines (DSR / CTS) are connected <br>
+              <img src="redarrow.gif" height="12" width="14">
+   Bug in verifying device-ID fixed</td>
+   </tr>
+    <tr>
+   <td align="center">V1.2 <br>
+  27-10-2001</td>
+    <td>                           
+            <ul>
+   <li> Only comport 2 could be selected, bug fixed</li>
+    <li> Test window added, so you can easily test &amp; measure the voltage
+ generated by the circuit</li>
+    <li> Command read device-ID didn't work well, bug fixed</li>
+    <li> Toolbuttons added</li>
+    <li> Commandline parameters added, so the programmer can be started from
+ another program (i.e. JAL-IDE)</li>
+    <li> After reading a PIC, the oscillator settings were not displayed
+correct,  bug fixed</li>
+    <li> Some report that the first program command didn't work, starting 
+a second program command did word,&nbsp; I'll hope this strange problem is
+ solved (both timing and algoritmen are improved)</li>
+    <li> All PIC info is stored in an file, so you can add your own PIC if
+ it isn't there through Tools / Pic Definitions / ..</li>
+    <li> Progsize + datasize is not fixed anymore but read from PIC info
+in  ini-file</li>
+    <li> Button added, to reset the PIC if it's switched to RUN-mode</li>
+    <li> Timing is improved by holding DTR high (hold +13Volt) inbetween
+commands</li>
+    <li> Device-ID is now derived with a ID-mask, so a better comparison
+can  be made</li>
+    <li> Programming didn't wait untill $FF were all send, this was unreliable, 
+ bug fixed</li>
+    <li> CodeProtection checkbox is removed, because the differences between
+ the devices are to large (should be done by the hexfile) In the future probably 
+ all the other checkboxes, including oscillator settings will be removed, 
+because also these parameters should be set by the hex file.</li>
+    <li> All those redundancies, form the former point, already removed,
+the  line at address $2000 now can be edited instead</li>
+    <li> Edit data area, (but what for ?)</li>
+    <li> Fast programming (100 bytes in less tahn 3 seconds): disable read
+ device-ID, disable bulkerase, stop if 20* $3FFF</li>
+    <li> Fast switching between program/run</li>
+                             
+            </ul>
+   </td>
+   </tr>
+    <tr>
+   <td>September 2001, V1.1</td>
+    <td>Erase/write cycle time of 16F84A + unknown changed from 10 to 50
+msecS</td>
+   </tr>
+    <tr>
+   <td><font face="Arial,Helvetica">September 2001, V1.0</font></td>
+    <td><font face="Arial,Helvetica">First release, with explicit facilities 
+ for 16F84 and 16F84A</font></td>
+   </tr>
+                     
+        </tbody>              
+      </table>
+    </p>
+
+
+               
+      
+<p><a name="downloads"></a><b><font face="Arial,Helvetica"><font color="#3333ff">
+  Downloads&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height="14" width="14">
+        </a>               
+      <table border="1" width="97%">
+   <tbody>
+            <tr>
+      <td style="vertical-align: top;"><a href="../download/mind_picprogv1_9.zip">Mind_PicProgV1_9.zip</a> (300 kB)<br>
+      </td>
+      <td style="vertical-align: top;">Zip-file, containing <font face="Arial,Helvetica">executable program
+             <br>
+  (for help files, download and extract first V1.3)<br>
+      </font></td>
+    </tr>
+<tr>
+   <td><a href="../download/mind_picprogv1_7.zip">Mind_PicProgV1_7.zip</a>
+   (300kB)<br>
+              </td>
+    <td>Zip-file, containing <font face="Arial,Helvetica">executable program
+             <br>
+  (for help files, download and extract first V1.3,<br>
+  sorry for this inconveniance, but I'm rearanging all my html files)</font><br>
+              </td>
+   </tr>
+    <tr>
+   <td><a href="../download/mind_picprogv1_4.zip">Mind_PicProgV1_4.zip</a>
+   (500kB)</td>
+    <td><font face="Arial,Helvetica">Zip-file, containing executable program 
+ (see for help files V1.3)</font></td>
+   </tr>
+    <tr>
+   <td><a href="../download/mind_picprog_v1-3.exe">Mind_PicProgV1_3.exe</a>
+   (500kB)</td>
+    <td><font face="Arial,Helvetica">Selfextracting zip-file, containing
+executable  program and help files</font></td>
+   </tr>
+    <tr>
+   <td><font face="Arial,Helvetica"><a href="../download/mind_picprogv1_1.exe">
+  Mind_PicProgV1_1.exe</a> (315kB)</font></td>
+    <td><font face="Arial,Helvetica">Selfextracting zip-file, containing
+executable  program and help files</font></td>
+   </tr>
+    <tr>
+   <td><font face="Arial,Helvetica">Mind_PicProgrammer_sources.zip</font>
+             <br>
+              <font face="Arial,Helvetica">(... kB)</font></td>
+    <td><font face="Arial,Helvetica">Containing all sources of the latest 
+version,  including</font>                           
+            <ul>
+   <li> <font face="Arial,Helvetica">comdrv32, component, encapsulation of
+ the serial commport driver from Marco Cocco</font></li>
+    <li> <font face="Arial,Helvetica">texecfile, component to lauch applications 
+ by Kevin Savko</font></li>
+                             
+            </ul>
+   <font face="Arial,Helvetica">Mail me, and I'll upload the latest version.</font></td>
+   </tr>
+                     
+        </tbody>              
+      </table>
+    </p>
+
+
+               
+      </body></html>

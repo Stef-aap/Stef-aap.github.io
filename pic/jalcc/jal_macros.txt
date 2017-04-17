@@ -1,0 +1,5 @@
+2 jkasd\=
+R const usart_asynch = true\=const baudrate     = "baudrate"\=asynch_send_hw (
+1_ help \= beer \=
+R_ const usart_asynch = true\=const baudrate     = "baudrate"\=asynch_send_hw (
+D_ )\=asynch_read_hw ( "byte received" )\=

@@ -1,0 +1,37 @@
+FUNCTION get ARG 1
+FUNCTION getint ARG 1
+FUNCTION put ARG 2
+FUNCTION putint ARG 2
+
+FSTART getint DE
+ASM
+	LD E, (HL)
+	INC HL
+	LD D, (HL)
+	EX DE, HL
+ENDASM
+FEND
+
+FSTART get HL
+ASM
+	LD A, (HL)
+	LD L, A
+	LD H, 0
+ENDASM
+FEND
+
+FSTART put DE A
+ASM
+	LD (DE), A
+ENDASM
+FEND
+
+FSTART putint DE HL
+ASM
+	EX DE, HL
+	LD (HL), E
+	INC HL
+	LD (HL), D
+ENDASM
+FEND
+

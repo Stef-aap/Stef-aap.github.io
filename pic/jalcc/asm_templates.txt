@@ -1,0 +1,58 @@
+to accu
+CLRW\=
+ANDWF  "reg",w\=
+IORWF  "reg",w\=
+XORWF  "reg",w\=
+ADDWF  "reg",w\=
+SUBWF  "reg",w\=
+MOVF   "reg",w\=
+DECF   "reg",w\=
+INCF   "reg",w\=
+DECFSZ "reg",w\=
+INCFSZ "reg",w\=
+COMF   "reg",w\=
+SWAPF  "reg",w\=
+RLF    "reg",w\=
+RRF    "reg",w\=
+
+SLEEP\=
+NOP\=
+|
+to register
+CLRF   "reg"\=
+ANDWF  "reg",f\=
+IORWF  "reg",f\=
+XORWF  "reg",f\=
+ADDWF  "reg",f\=
+SUBWF  "reg",f\=
+MOVWF  "reg"\=
+DECF   "reg",f\=
+INCF   "reg",f\=
+DECFSZ "reg",f\=
+INCFSZ "reg",f\=
+COMF   "reg",f\=
+SWAPF  "reg",f\=
+RLF    "reg",f\=
+RRF    "reg",f\=
+-
+BCF     "reg","bit"\=
+BSF     "reg","bit"\=
+BTFSC   "reg","bit"\=
+BTFSS   "reg","bit"\=
+|
+const to accu
+CLRWDT\=
+ANDLW "const"\=
+IORLW "const"\=
+XORLW "const"\=
+ADDLW "const"\=
+SUBLW "const"\=
+MOVLW "const"\=
+
+-
+
+GOTO    "address"\=
+CALL    "address"\=
+RETURN\=
+RETFIE\=
+RETLW   "const"\=

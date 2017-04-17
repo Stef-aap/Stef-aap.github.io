@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Deployment</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="92" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Deployment </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp; ( june 2009 )</span></p>
+<p><span class=rvts10>Application Designer / Domain Expert / Control Designer / Core Developer</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Because most programs are build dynamically, simply using py2exe to build a distro doesn't work. Besides that a lot of standard packages are very hard to include in a distro. Therefor we build an easy to use tool with a graphical user interface that does all the hard work.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=647 valign=top style="background-color: #ffffd4;">
+<p>The principle of the building process is shown on the right.</p>
+<p><br></p>
+<p>The <span class=rvts10>_setup_init.py</span> creates the place holders for defining the executable program and for the specific files we want to include in our distro. This file is a standard part of the deployment program and should never be changed.</p>
+<p><br></p>
+<p>The <span class=rvts10>_init_final.py</span> contains the actual build process and all the hard to discover problems of the specific standard packages. This file is part of the standard environment of the deployment package and should only be changed if new hard to deploy standard packages are added. This program is intensively controlled by the GUI of the deployment program.</p>
+<p><br></p>
+<p>The <span class=rvts10>setup_.....py</span> is the deployment definition of the program to be distributed. The top line and the bottom line links this definition to the final build process. This file can be as simple as defining the <span class=rvts10>executable file</span> and preferable a <span class=rvts10>version</span>, which will be used to name the created install files. Below an example</p>
+<p><br></p>
+<p><img width=474 height=120 alt="" src="pw_deployment_img5.png"></p>
+</td>
+<td width=219 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=203 height=371 alt="" src="pw_deployment_img4.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Configuration</span></p>
+<p>Most of the configuration settings of the build process can be done by the checkboxes in the GUI. In fact if more settings are needed, you should extend the checkboxes and implement the new setting in the same way.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=702 valign=top style="background-color: #ffffd4;">
+<p>The top part ( not indented ) are settings / actions that take place before py2exe is started.</p>
+<p>The bottom part ( not indented ) are settings that will influence the process, after py2exe has done the job.</p>
+<p>The middle part ( indented ) are settings that influence the py2exe process directly. These settings can be overriden in the user setup file. For instance if you want always to include MatPlotLin in this specific distro, add the following line in your setup file:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=223 height=22 alt="" src="pw_deployment_img7.png"></p>
+<p><br></p>
+<p>The name of the variable is exactly like the label of the checkbox, except for ignoring leading spaces and replacing the other spaces with underscores.</p>
+</td>
+<td width=164 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=151 height=175 alt="" src="pw_deployment_img6.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Configuration Switches</span></p>
+<div><table width="100%" border=1 style="border-width : 0px" cellpadding=5 cellspacing=0 style="background-color: #d4d0c8;">
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; background-color: #ffffd4;">
+<p><span class=rvts10>Clear Shell Before</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-left: none; background-color: #ffffd4;">
+<p>Clears the shell logging window at the bottom, so it will only contain the notes of the current run</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>Clear Distro Before</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Clear Distro Directory, the directory itself is not removed, so you can safely leave a DOS box pointing to that directory.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>Clear Build Before</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Delete the build directory before running the build process</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>Remove PYC Files</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Remove ALL pyc and pyo files from the whole Python project tree</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>Garantee INIT Files</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Garantee that all subdirectories will contain an __init__ file, by copying it from the setup directory</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>&nbsp;&nbsp;&nbsp; Include Dummy Imports</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Append "dummy_imports.py" to the Exe_Files.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>&nbsp;&nbsp;&nbsp; Include MatPlotLib</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Needed to include MatPlotLib files that aren't detected by Py2Exe</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>&nbsp;&nbsp;&nbsp; Include VPython</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Needed to include VPython files that aren't detected by Py2Exe</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>&nbsp;&nbsp;&nbsp; Condensed Display</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>If checked, just a brief logging appears</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>&nbsp;&nbsp;&nbsp; None Console Application</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Check it, if you don't want that ugly DOS box</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>Clear Build After</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Delete the build directory after running the build process</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>Rebuild Inno</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Rebuild the Inno setup file, needed change things like version information</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>Run Inno After</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Run Inno Setup after the Py2Exe build process</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=196 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; background-color: #ffffd4;">
+<p><span class=rvts10>Launch Builded</span></p>
+</td>
+<td width=670 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-top: none; border-left: none; background-color: #ffffd4;">
+<p>Launch either the Inno Setup File ( if created) or the executable from the distro directory</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Build Script</span></p>
+<p><br></p>
+<p><span class=rvts10>Important</span>: In specifying datafiles, it's important that the second parameter in the tupple ( &lt;realative destination&gt;, [ files] ) is a list, even if you want to copy just 1 file. </p>
+<p>&nbsp;&nbsp;&nbsp; <span class=rvts10>wrong:&nbsp;&nbsp;&nbsp; </span><img width=390 height=19 alt="" hspace=1 vspace=1 src="pw_deployment_img9.png"></p>
+<p>&nbsp;&nbsp;&nbsp; <span class=rvts10>OK:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=423 height=25 alt="" hspace=1 vspace=1 src="pw_deployment_img8.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Because PyLab_Works is a very dynamical program, a standard run of py2exe will fail. So we use a trick to get a good windows binary distro: add an extra dummy program that does nothing, but imports all libraries. There's another reason why we don't want py2exe to compile our programs, we want to distribute the sources and not the compiled pyc-files. Therefor we don't let py2exe create exe-files from our programs directly, but we use a small startup python file, that starts the real application dynamically.</p>
+<p><br></p>
+<p>Here is the program "_launch_gui_support.py", that will dynamically launch the real program "support/gui_support.py"</p>
+<p>This program is generated by Setup_PW3.py.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=398 height=142 alt="" src="pw_deployment_img1.png"></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=475 height=230 alt="" src="pw_deployment_img3.png"></p>
+<p><br></p>
+<p><span class=rvts2>setup-3.py</span></p>
+<p>This is the GUI for the distribution, very pre-mature.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Setup_PW3.py</span></p>
+<p>Contains everything to make both the full Inno-installer for windows and a zipped archive with the sources only.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Deploy.py</span></p>
+<p>This program performs the following taks:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>removes all pyc / pyo files, which will give trouble because they might contain absolute paths. </li>
+<li>Guarantees that _Init__ from the root will be copied to all necessary places </li>
+<li>Deletes other temporary files </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

@@ -1,0 +1,38 @@
+-- -----------------------------------------------------------------------------
+-- <title IR remote control definitions
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2005 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- THE DOCUMENTATION OF THIS FILE SHOULD BE IMPROVED (also add exmples)
+--
+-- overview of the available routines
+--  byte3_TWOS_complement
+--
+-- <Version: 1.0  06-08-2005, Stef Mientki
+--   - orginal release
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- <Example RS232
+; -- define settings
+; const usart_asynch = true      ;true = RS232, false = SPI
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+
+-- -----------------------------------------------------------------------------
+-- Definitions of remote control types
+-- -----------------------------------------------------------------------------
+const IR_raw  = 0
+const IR_AKAI_RCX121E = 1
+const IR_JVC_RMSUXP3R  = 2
+const IR_SONY_RM883 = 3
+-- -----------------------------------------------------------------------------
+
+

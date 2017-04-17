@@ -1,0 +1,114 @@
+PIC "Type"
+FREQ "Frequency(kHz)"
+OSCILLATOR "RC/Xtal"
+  "Program Body"
+END
+
+
+PIC 16f877
+'
+' this file simply executes a bunch of intrinsics. by compiling it,
+' you will be able to determine what is not available on your platform
+'
+' *do not* run the output of this file as it will do nothing of interest
+'
+' define your PIC above
+
+
+
+byte x
+byte aap
+'include "eeprom.bsc"
+
+'=======================================
+'JALcc test
+constant byte test_const=33
+byte test_var
+byte TT2
+
+
+'=================================
+'this is an explanation of the subroutine test_procedure
+'this text is shown as help information about TEST_PROCEDURE
+'is asked, both from the Object Explorer Tree and from the Editor
+'=================================
+proc test_procedure (test_var)
+  test_var = 5
+end proc
+'=======================================
+
+
+
+
+
+
+
+
+
+
+call test_procedure(TT2)
+test_var = TT2 + 2
+
+interrupt_enable
+interrupt_disable
+print "hello"
+'
+' ADC functions
+'
+IR_ADC_begin
+  x = x + 1
+IR_ADC_end
+
+aap = 5
+
+adc_config 1, 1, 0, 0, 1
+adc_on
+adc_off
+adc_start
+adc_store x
+adc_wait
+'
+' pwm functions
+'
+IR_PWM_begin
+  x = x + 1
+IR_PWM_end
+
+pwm_config 50.0, 0, 3, 1
+pwm_duty   50, 3
+pwm_off all
+pwm_period 50.
+'
+' port i/o -- i only do setport, if it succeeds the remainder will also
+'
+setport a, 0
+setport b, 0
+setport c, 0
+setport d, 0
+setport e, 0
+'
+' usart commands
+'
+IR_RX_Begin
+  x = x + 1
+IR_RX_End
+
+usart_config rx, 8, 38.4, 1
+rx_err_check x
+tx_load x
+wait_rx
+wait_tx
+'
+' timer commands
+'
+ir_timer_begin
+  x = x + 1
+ir_timer_end
+
+timer_config 50.0, 1
+timer_read x
+timer_start
+timer_stop
+timer_write x
+timer_countdown
+

@@ -1,0 +1,60 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>d1_d3_to_d5_problems</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">Delphi 5</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><font face="Arial,Helvetica"><font color="#000000"><a href="#vertalen van d1,d3 naar d5">D1,D3
+naar D5</a></font></font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Problemen</font></font></b></td>
+</tr>
+</table>
+
+<p><a name="vertalen van d1,d3 naar d5"></a><b><font color="#000099">Vertalen
+van D1,D3 naar D5&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Bij dynamische creatie van bepaalde forms, treedt de foutmelding "coinitialize
+not called" op, en vervolgens wordt het betreffende form niet gecreeerd.
+Dit schijnt iets te maken te hebben met multi-threaded OLE-servers (en
+ook met o.a. richedit objects). De remedie lijkt simpel (empirisch bepaald,
+niet dat ik het snap), plaats in de programma source, als eerste regel
+na <b>begin</b>
+<br><b>&nbsp;&nbsp;&nbsp; application.initialize;</b>
+<br>
+<hr WIDTH="100%">
+<br><b>DSGNINTF</b> and deployment
+<br>DSGNINTF.DCU is no longer shipped with Delphi.
+<br>Thus, component developers should consider
+<br>segregating design-time code into separate units
+<br>from runtime code. Runtime code should not refer
+<br>to those units.
+<br>If this approach is not feasible, you do have the
+<br>option of compiling DSGNINTF.PAS (located in
+<br>your \source\toolsapi\ directory). This should be
+<br>considered a stopgap measure, however, and may
+<br>not be available as an option in future releases.
+<br>
+<hr WIDTH="100%">
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p>
+<hr WIDTH="100%"><font size=-2>&copy; Copyright Instrumentele Dienst, 2000</font>
+<br><a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height=18 width=29></a><font size=-2>
+SM, last updated 07-02-2000&nbsp;</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+</body>
+</html>

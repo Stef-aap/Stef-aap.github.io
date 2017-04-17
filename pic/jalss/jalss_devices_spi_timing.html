@@ -1,0 +1,31 @@
+<HTML><HEAD><TITLE>SPI timing</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>May 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, SPI timing</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;</SPAN></P>
+<P>SPI timing is faked a little, to be able to use the maximum SPI frequency, without slowing down the simulation.</P>
+<P>(Full speed SPI needs a 4-phase clock, while the simulator just has a 2-phase clock)</P>
+<P>So not the falling edge, yields a valid data point, but a logic high value of the SPI clock in the first phase of the system clock (logic high) yields a valid data point.</P>
+<P>When the master reads from a slave, the reading cycle is shifted 1 system clock cycle.&nbsp; For the total time this is not an unrealistic simulation, because in the real world there will be an extra delay when switching from master-write to master-read.</P>
+<P>Especially when these signals are viewed by the scope or when designing new devices, it's necessary to be aware of these facts.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=732 height=246 src="spia.gif"></P>
+<P>SPI timing, frequency lower then maximum frequency</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=644 height=248 src="spib.gif"></P>
+<P>SPI timing, frequency equals maximum frequency</P>
+</BODY></HTML>

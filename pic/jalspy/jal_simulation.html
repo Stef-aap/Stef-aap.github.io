@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JAL Function Simulation in Python</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>may 2007</span></p>
+<p><span class=rvts1>JALsPy&nbsp;&nbsp; Functional Simulation</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <a href="punthoofd.gif"><img width=16 height=17 alt="" src="punthoofd.gif"></a>&nbsp; <a class=rvts4 href="../jalcc/jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>First of all, for the moment this is just a weird experiment, with a unknown future.</p>
+<p>For larger PIC programs it would be desirable to have test methods at several levels of the design, a functional simulator at the top level, an assembler simulator at the intermediate level and the real hardware as final test object. At the intermediate level there are several simulators (e.g. uDev, JALss, PICsim), which all have there strong and there weak points, neither of them being perfect. The major problems with an assembler simulator are, it's unknown which and how many bugs they contain and because these are quiet complex programs, with lot's of changes for each new PIC, it's very difficult to maintain them (and to find people how can and will contribute to such a developement). </p>
+<p>A functional level simulator is relative easy to realize and after the initial design is done it can easily be maintained (just small changes for new PICs).&nbsp; And this is major advantage, because now it must be easy for everyone to join the maintainance. The design of a functional simulator can be started at a very high abstraction level, and future adding of details is quit easy and can be done at the moment they are desired.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Preliminary Goal and Conditions</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>so easy that every JAL programmer should be able to extend the simulator </li>
+<li>written in a open-source environment (BSD license) </li>
+<li>must run under Windows and Linux (preferable OS-independent) </li>
+<li>no fancy graphical interface is needed (but it would be nice) </li>
+<li>should support 100% of JAL v2 syntax </li>
+<li>syntax preferable in PyAstra style </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Preliminary Choices</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Python as the program language </li>
+<li>Python as the simulation language </li>
+<li>wxWidgets as the graphical user interface </li>
+<li>start at the highest abstraction level </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>First experiment: Blinking LED</span></p>
+<p>For the first experiment we took the famous "Blinking Led" example. Below on the left is the original JAL code, on the right is the translated Python code. This first example was translated manual, but the resemblance is very good, so it shouldn't be too difficult to create an automatic translation.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=349 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>JAL code</span></p>
+</td>
+<td width=368 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Python translation</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=349 valign=top style="background-color: #ffffd4;">
+<p><img width=354 height=189 alt="" src="jal_simulation_img6.png"></p>
+</td>
+<td width=368 valign=top style="background-color: #ffffd4;">
+<p><img width=444 height=201 alt="" src="jal_simulation_img7.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Register Watch</span></p>
+<p>And yes, this is the real output (shown in PyScripter, a&nbsp; Python IDE) of a run in Python of the above code, running in real-time ! The table shows the port changes of all the ports and time in milli-seconds expired since the previous line dump. And as you can see bit 3 of the A-port is really toggling.</p>
+<p><span class=rvts10>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p><span class=rvts10>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=607 height=238 alt="" src="jal_simulation_img1.png"></p>
+<p><br></p>
+<p><span class=rvts2>Abstraction Level</span></p>
+<p>This paragraph shows how the JAL simulation can start with a very tiny and simple piece of code (highest abstraction level), and can very easily be extended in the future with capabilities to find bugs, difficult to find with low-level simulators and even it is able to find JAL compiler bugs.</p>
+<p>To see what I mean by abstraction level, let's look at an typical example. For the example we take the RS232 serial write procedure, because it's used in almost every program, if not as functional code then at least as debugging tool. At the highest abstraction level, we just want to see the value send over the serial port, and thus the code we've to implement in Python is very simple:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=335 height=41 alt="" src="jal_simulation_img9.png"></p>
+<p><br></p>
+<p>and if the function is used in the JAL program, like this,</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=268 height=42 alt="" src="jal_simulation_img12.png"></p>
+<p><br></p>
+<p>we get a beautiful output, whichever Python IDE you might use:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=83 height=38 alt="" src="jal_simulation_img13.png"></p>
+<p><br></p>
+<p>Now a first extension could be the addition of a trace buffer, so at any moment in the program we could see the last 1000 or so bytes transmitted over the RS232 line. Now the Python code becomes:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=387 height=77 alt="" src="jal_simulation_img14.png"></p>
+<p><br></p>
+<p>Note: In Python the above code might better be written as an object, but this deliberately not done, to make the Python code understandable by people not familiar with Object Oriented Programming.</p>
+<p><br></p>
+<p>If we want to get more detailed information, the next step could be to also display the actual RS232 settings. With just a small extension we get a lot more information:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=622 height=94 alt="" src="jal_simulation_img15.png"></p>
+<p><br></p>
+<p>resulting in the following output</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=507 height=41 alt="" src="jal_simulation_img16.png"></p>
+<p><br></p>
+<p>Now we're sunk so deep, we need to add things that will really give us additional simulation / debug information. What can go wrong. Well first of all the Serial_HW_Write procedure is at least 5 years old, has survived JAL v0.4 up to JAL v2.1, so we can fairly say that this procedure is 100% bug free. There's only a few things that can go wrong, some other parts of the JAL code (or the JAL-compiler) can change the settings of the serial RS232 port. Another failure may be caused by code that places byte in the serial transmit buffer. So by a little extension we can catch these errors:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=380 height=204 alt="" src="jal_simulation_img18.png"></p>
+<p><br></p>
+<p>And of course we can still go to a lower abstraction level, by implementing the complete assembler simulation. I don't think this would be very wise, because Python is a scripting language, it will be too slow for these kind of tasks.</p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

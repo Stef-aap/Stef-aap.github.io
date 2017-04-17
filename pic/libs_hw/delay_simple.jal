@@ -1,0 +1,37 @@
+
+-- Simple_delay.jal written by Stef Mientki
+--
+-- this is very dirty routine to realize delay with a 20MHz Xtal.
+-- I wrote this routine because the orginal didn't support 20 MHz,
+-- maybe now it does ?
+--
+-- look for JDELAY.JAL written by Wouter van Ooijen,
+-- which is a well written library
+
+procedure delay_1us( byte in x = 1 ) is
+  for x loop
+    asm nop
+  end loop
+end procedure
+
+
+procedure delay_100uS( byte in x = 1 ) is
+   for x loop
+      delay_1uS( 50 )
+   end loop
+end procedure
+
+
+procedure delay_10ms( byte in x = 1 ) is
+   for x loop
+      delay_100uS( 100 )
+   end loop
+end procedure
+
+
+procedure delay_1s( byte in x = 1 ) is
+   for x loop
+      delay_10mS( 100 )
+   end loop
+end procedure
+

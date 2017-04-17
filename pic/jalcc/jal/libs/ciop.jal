@@ -1,0 +1,81 @@
+--
+-- file      : ciop.jal
+-- author    : Wouter van Ooijen
+-- date      : 23-APR-1999
+-- purpose   : cio IO pin assignment
+-- includes  : jpic
+-- used by   : cio
+-- pins      : b0 .. b5
+--
+-- Copyright (C) 1998 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+
+
+-- PIC pins used
+-- don't forget to adapt the init procedure accordingly!
+-- don't use pin_a4 as output pin because its is open-drain
+var bit _cio_out_data           is pin_b0
+var bit _cio_out_load           is pin_b1
+var bit _cio_out_clock          is pin_b2
+var bit _cio_in_data            is pin_b3
+var bit _cio_in_load            is pin_b4
+var bit _cio_in_clock           is pin_b5
+
+-- pin polarity
+-- high means 
+--   active low-to-high (edge sensitive)
+--   active high (level sensitive)
+--   not-inverted (data pins)
+const bit _cio_out_load_active  = high
+const bit _cio_out_data_active  = high
+const bit _cio_out_clock_active = high
+const bit _cio_in_load_active   = high
+const bit _cio_in_data_active   = high
+const bit _cio_in_clock_active  = high
+
+-- must a load be accompanied by a clock pulse?
+const bit _cio_out_clocked_load = false
+const bit _cio_in_clocked_load  = true
+
+-- options
+const bit _cio_input            = true
+const bit _cio_output           = true
+const bit _cio_out_use_load     = true
+const bit _cio_shared_clocks    = false
+
+-- pin direction initialisation
+-- must be adapted when other PIC pins are used!
+procedure _cio_init is
+   if _cio_output then
+      pin_b0_direction = output
+      pin_b1_direction = output
+      pin_b2_direction = output
+   end if
+   if _cio_input then
+      pin_b3_direction = input
+      pin_b4_direction = output
+      pin_b5_direction = output
+   end if
+end procedure
+
+-- delay between transitions
+-- Typically no delay is needed or an asm nop is sufficient.
+procedure _cio_delay is
+--   delay_1mS
+end procedure
+

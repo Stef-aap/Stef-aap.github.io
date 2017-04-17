@@ -1,0 +1,203 @@
+<HTML><HEAD><TITLE>PIC-RCX</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>December 2002</SPAN></P>
+<P><SPAN class=RVTS1>PIC - RCX</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>With PICs it should be much easier to interface sensors and actuators to the RCX. Although some have used PICs in combination with the RCX, I couldn't find much on the web. This page decribes in brief the choices I've made and how I use PICs at the moment.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=712 height=292 src="pic_pc.jpg"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><TABLE width=97% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><A name="what_is_a_pic"></A>
+<SPAN class=RVTS2>What is a PIC</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>PIC stands for Pheripheral Interface Controller or Programmable Interface Controller (other translations are also mentioned, in fact the real name is "Programmable Intelligent Computer, later revised to "Programmable Intelligent Controller").&nbsp;</P>
+<P>The PIC is a micro-controler with integrated program memory, volatile and non-volatile RAM, IO ports, timers and much more.&nbsp;</P>
+<P>The modern PICs (like 16F628, 16F877) also contains IO-pins to perform analog actions, like comparators, AD-converters and DA-converters, which makes them ideal for sensor preprocessing and sensor interfacing.&nbsp;</P>
+<P>The PIC I selected for my first project (16F628) is a medium heavy PIC, with a small size and a high performance/price ratio. Besides it's (almost) upwards compatible with the very popular 16F84, so you can find a lot of examples on the web.</P></TD>
+<TD valign=top>
+<P><A name="features_16f628"></A>
+features 16F628&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>price $5&nbsp;</LI>
+<LI>18 pins DIP,SOIC or 20 SSOP&nbsp;</LI>
+<LI>2k program EEprom&nbsp;</LI>
+<LI>128 bytes data EEprom&nbsp;</LI>
+<LI>224 bytes RAM&nbsp;</LI>
+<LI>15 IO pins&nbsp;</LI>
+<LI>3 timers + watchdog&nbsp;</LI>
+<LI>UART / SCI (uptil 5 Mhz)&nbsp;</LI>
+<LI>4 analog comparators&nbsp;</LI>
+<LI>4 bit DA-Converter&nbsp;</LI>
+<LI>PWM DA-converter&nbsp;</LI>
+<LI>sleep mode (with change on pin wakeup)&nbsp;</LI>
+<LI>.....&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+</TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><A name="programming_software"></A>
+<SPAN class=RVTS2>Programming Software</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>PICs are often programmed in assembler, but now the program memory is getting larger and the processor speed increases, the higher level languages like Basic, C and JAL are gaining popularity.&nbsp;</P>
+<P>I've chosen JAL for its simplicity, it's Pascal-like apperance and close resemblance to NQC. Of course it's possible to insert pure assembler statements in the JAL-files.&nbsp;</P>
+<P>JAL (Just Another Language) is developed and still maintained by Wouter van Ooijen (Thanks Wouter !). JAL is freeware (GNU license), although I heard Wouter likes to receive a dollar ;-)&nbsp;</P>
+<P>There's an active&nbsp;<A class=RVTS4 href="http://groups.yahoo.com/group/jallist/">JAL-community</A>&nbsp;, where both novices and experts discuss their findings and problems. The "hardcore" experts are very patient with answering question of both experts and newcommers. Without them I would never have come so far (thanks !). Although you can read and post messages through the use of your webbrowser, it's very slow and and you keep a good survey. Therefore it's better to subscribe to the newsgroup and choose to receive every individual message by mail (your mail address remains hidden).&nbsp;</P></TD>
+<TD valign=top>
+<P><A name="jal_example_blink_a_led"></A>
+JAL example, blink a LED&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>(text starting with "--" is comment)&nbsp;</P>
+<P>-- make the standard library available&nbsp;</P>
+<P>include jlib&nbsp;</P>
+<P>-- configure pin A0 as output&nbsp;</P>
+<P>pin_a0_direction = output&nbsp;</P>
+<P>forever loop -- endless loop&nbsp;</P>
+<P>pin_a0 = on -- LED on&nbsp;</P>
+<P>delay_1s -- wait a second&nbsp;</P>
+<P>pin_a0 = off -- LED off&nbsp;</P>
+<P>delay_1s -- wait 1 second again&nbsp;</P>
+<P>end loop -- repeat ad infinitum&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=254 valign=top>
+<P><A name="programming_environement"></A>
+<SPAN class=RVTS2>Programming Environment</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>There's a IDE (Integrated Development Environment) called JAL command center (JALcc), which is very similar to BricxCC. It's directly derived from BricxCC and uses the same highlighting editor. Thanks to Mark Overmars and John Hansen for their work on RCXcc / BricxCC !&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Uses orginal JAL compiler, without seeing any DOS windows&nbsp;</LI>
+<LI>Multiple Editor with different syntax highlighting&nbsp;</LI>
+<LI>Multiple Templates with automatic insertion&nbsp;</LI>
+<LI>Automatic Project Manager&nbsp;</LI>
+<LI>Manager for all kind of (help) information&nbsp;</LI>
+<LI>Can be fully integrated with your hardware programmer&nbsp;</LI>
+<LI>Includes automatic microchip inc-file translator&nbsp;</LI>
+<LI>No registration in the windows registry, so your computer stays clean and fast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+</TD>
+<TD width=453 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=472 height=460 src="jalcc/jalcc1.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=312 valign=top>
+<P><A name="programmer_hardware"></A>
+<SPAN class=RVTS2>Programmer Hardware</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>For single chip programming, most often normal programmers or the so called NOP (NO Parts) programmers (like the very popular&nbsp;<A class=RVTS4 href="http://www.jdm.homepage.dk/newpic.htm">JDM</A>&nbsp;) are used.&nbsp;</P>
+<P>For PIC's more complex than 16F628 also bootloaders can be used (see for instance&nbsp;<A class=RVTS4 href="http://www.xs4all.nl/%7ewf/wouter/pic/wloader/index.html">Wouters page</A>&nbsp;).&nbsp;</P>
+<P>The most important factor in choosing a programmer, is to get the software and hardware from the same place. In the case of problems it's clear where your questions should be handled.&nbsp;</P>
+<P>After trying some of the combinations and not having stable results, I decided to build my own NOP-programmer hardware (shown on the right) and software. No power supply is needed, as both the PIC and application are supplied from the serial port of the PC.&nbsp;</P>
+<P>All (including sources) is available for free.&nbsp;</P>
+<P><A class=RVTS4 href="picprog/picprogrammer_hardware.html">Prog. Hardware</A></P>
+<P><A class=RVTS4 href="picprog/picprogrammer_software.html">Prog. Software</A></P></TD>
+<TD width=395 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=437 height=432 src="picprog/programmer_hw1.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=370 valign=top>
+<P><A name="debugging"></A>
+<SPAN class=RVTS2>Debugging Tools</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>For debugging several tools can be used&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>a LED connected through a resistor to an output pin&nbsp;</LI>
+<LI>serial feedback to the PC&nbsp;</LI>
+<LI>scope&nbsp;</LI>
+<LI>test statements in JAL&nbsp;</LI>
+</UL>
+<P>A Led is very easy to connect, but it's feedback information is very limited.&nbsp;</P>
+<P>Almost as easy (or even more easy, if you've build it into the programmer) is the use of serial feedback. The capabilities (certainly for the high speed UART versions) are far beyond the capabilities of one or more LEDs. I think almost every program can be well debugged with the serial feedback. Therefor I even build an RS232 receiver in the programming software (see on the right). The programming hardware already contains a (software, slow) serial communication port that is also used to program the PIC. By adding 2 transistors, you can also use the hardware (fast) uart in the PIC.&nbsp;</P>
+<P>Rarely you'll find a scope more useful for debugging. In developing the RCX remote control (long complex IR strings) I even found serial feedback more useful than a scope.&nbsp;</P>
+<P>Test statements in JAL I didn't use yet (example shown on the right).&nbsp;</P></TD>
+<TD width=337 valign=middle>
+<P>RS232 receiver in the programmer software&nbsp;</P>
+<P>&nbsp;<IMG width=207 height=206 src="picprog/prog1.jpg"></P>
+<P>The testfacility in the JAL compiler&nbsp;</P>
+<P>The pragma test assert states that during simulated execution at this point of the program the indicated variable should have the indicated value. The compiler contains an integrated CPU core simulator which is activated by the -t option.&nbsp;</P>
+<P>var byte a, b, c&nbsp;</P>
+<P>a = 5&nbsp;</P>
+<P>b = 6&nbsp;</P>
+<P>c = a * b&nbsp;</P>
+<P>pragma test assert c == 30&nbsp;</P>
+<P>pragma test done&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P><A name="simulation"></A>
+<SPAN class=RVTS2>Simulation</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>You can find several simulation programs on the web.&nbsp;</P>
+<P>And also JAL has a simulator on board, but I don't know how it works.&nbsp;</P>
+<P>I've no experience, because I didn't need them and because I couldn't find (a free) one for the 16F628.&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P><A name="interfacing_to_a_sensorinput"></A>
+<SPAN class=RVTS2>Interfacing to a RCX sensor-input</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;coming soon I hope&nbsp;</P></TD>
+<TD valign=middle>
+<P><A name="interfacing_to_a_rcx_motor-output"></A>
+<SPAN class=RVTS2>Interfacing to a RCX motor-output</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;coming soon I hopex&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P><A name="get_involved_with_pics_in_4_steps"></A>
+<SPAN class=RVTS2>Get involved with PICs</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;<IMG width=12 height=12 src="bludiamd.gif">Download the complete software package, containing JALcc, JAL, libraries, examples and documentation, see&nbsp;<A class=RVTS4 href="jalcc/jalcc_history.html">download section</A></P>
+<P>&nbsp;<IMG width=12 height=12 src="bludiamd.gif">Build the programmer or the&nbsp;<A class=RVTS4 href="projects/rcx_remote_control.html">complete IR-remote</A>&nbsp;. Decide if you want to include the extra options.&nbsp;</P>
+<P>&nbsp;<IMG width=12 height=12 src="bludiamd.gif">Test the programmer with a Voltmeter carefully, before you insert a PIC. See&nbsp;<A class=RVTS4 href="picprog/picprogrammer_software.html#test_hardware">test specs</A>&nbsp;.&nbsp;</P>
+<P>&nbsp;<IMG width=12 height=12 src="bludiamd.gif">Put a pic in the programmer and try to compile and program the example of the blinking LED.&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

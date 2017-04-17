@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Brick PyJamas</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="34" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Brick PyJamas </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; ( march 2009 )</span></p>
+<p><span class=rvts10>Application Designer</span> / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Having huge troubles getting V 0.5 working, I decided to stick to 0.4p1 for the moment.</p>
+<p>Today (august 2009) I decided to try the latest version again.</p>
+<p><br></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>remove old versions of pyjamas from site-packages </li>
+<li>download the latest version and unzip it local, NOT somewhere in the Python Path </li>
+<li>download and install win32 comtypes (necessary for the PyJamas Desktop </li>
+<li>go to the directory where bootstrap.py is and run it: "python bootstrap.py" </li>
+</ul>
+<p>Because I copied the pyjamas directory from another PC, pyjsbuild.py was set Readonly, resulting in the following errror</p>
+<p><img width=564 height=161 alt="" src="pw_brick_pyjamas_img2.png"></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>in the same directory run "python run_bootstrap_first_then_setup.py install" </li>
+<li>go to the examples directory and run""python buildall.py" </li>
+</ul>
+<p><br></p>
+<p>Running the example Hello.py</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>install comtypes </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Problems</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>from __future__ import unicode_literals IS NOT ALLOWED </li>
+<li>if you do an import from a module , say "aap.py", like "import Aap", compilation goes wrong, and if log is on, you can see the message "Aap.js" not found </li>
+<li>min / max functions deosn't seem to work correctly</li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Modifications of PyJamas</span></p>
+<p>P:\Python\Lib\site-packages\pyjd\imputil.py&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _import_top_module in </p>
+<p>P:/Python/Lib/imputil.py</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp; def _import_top_module(self, name):</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # scan sys.path looking for a location in the filesystem that contains</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # the module, or an Importer object that can import the module.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for item in sys.path:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if isinstance(item, _StringType):</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; module = self.fs_imp.import_from_dir(item, name)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; elif isinstance ( item, basestring ) :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ## &lt;== ADDED</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; module = self.fs_imp.import_from_dir ( str(item), name)&nbsp; ## &lt;== ADDED</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; module = item.import_top(name)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if module:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return module</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return None</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>IE desktop unblocking</span></p>
+<p><img width=406 height=452 alt="" src="pw_brick_pyjamas_img5.png"></p>
+<p><br></p>
+<p><span class=rvts2>Javascript debugging</span></p>
+<p><br></p>
+<p><span class=rvts10>Mozilla</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>download and install Venkman-javascript debugger </li>
+<li>Install FireBug </li>
+<li>start </li>
+</ul>
+<p><br></p>
+<p>with switch "-venkman" </p>
+<p><a class=rvts4 href="http://www.mozilla.org/projects/venkman/venkman-walkthrough.html">http://www.mozilla.org/projects/venkman/venkman-walkthrough.html</a></p>
+<p><br></p>
+<p><span class=rvts10>IE7</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Download / install script debugger&nbsp; <a class=rvts4 href="http://bealers.com/2007/01/12/debugging-javascript-in-ie7/">Debugging Javascript in IE7  Darren Beale</a></li>
+<li> Donwload / install IE developers toolbar <a class=rvts4 href="http://bealers.com/2007/01/12/debugging-javascript-in-ie7/">Debugging Javascript in IE7  Darren Beale</a></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2> Printing the Book</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=431 height=149 alt="" src="pw_brick_pyjamas_img1.png"></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

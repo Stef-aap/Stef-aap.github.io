@@ -1,0 +1,13 @@
+addlw
+asm
+assembler
+bank
+chip
+keep
+local
+mac
+macro
+page
+pragma
+target
+test

@@ -1,0 +1,616 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="476" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts8>january 2007</span></li>
+</ul>
+<p><span class=rvts1> MediLab Scientific</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>First of all, this module is not yet released, and for now it's not sure it will be released ever.</p>
+<p>This module is a very powerful data-acquisition / data-analysis package, capable of sampling data through several AD converters, real-time (or off-line) data-analysis through embedded MatLab or embedded Python and of course data storage. Despite it's enormous flexibility (due to the embedded scripting and templates), it's very-very simple in it's use. Scripting is even further enhanced by a pre-processor, letting you do complex analysis, even without any knowledge of Python or MatLab. Let's first take a look at the total screen, where the view is set to show as much as possible (During normal operation, normally the control tree will be hidden).</p>
+<p>If this all sounds too magic, you might want to watch this video: ...\medilab.avi (.. minutes, .. MB). Due to the low frame rate, signals don't appear as fluently as in real-time).</p>
+<p><br></p>
+<p><img width=723 height=499 alt="" src="jalcc_data_acquisition_img43.png"></p>
+<p><br></p>
+<p><span class=rvts2>A.</span> The main <span class=rvts10>graphical view</span>, capable of showing both real-time signals and calculated signals. The display has click-able upper and lower bounds and time-base. With calipers you can do also manual measurements. The signals in the above graphical screen, shows a signals sampled at 100 Hz, arterial blood-pressure (blue), Electro-Cardio-Gram (sea-green), with embedded MatLab calculated systolic pressure (red). Notice that the calculated signals are automatically delayed, so the time relation between sampled and calculated data is fully compensated. For the future we're considering to add multiple clip-able regions.</p>
+<p><br></p>
+<p><span class=rvts2>B. </span>The main <span class=rvts10>numerical view</span>, the only thing the user has to do is to select the signals that should be visible in the numerical window, all the rest is done fully automatically by the program.</p>
+<p><br></p>
+<p><span class=rvts2>C. </span>The <span class=rvts10>graphical time-base</span> shows 1 selected signal over the total acquisition time. The compression is either done in min-max mode or in mean-SD mode, which can be toggled by clicking on the signal name. With a characteristic signal this gives a powerful tool to locate and select a certain part in the recorded signals and even gives the possibility to look-back during recording (see also F). In this window also the markers are shown.</p>
+<p><br></p>
+<p><span class=rvts2>D. </span>The <span class=rvts10>control tree</span>, with edit and full drag and drop facilities, is completely build up by the user !! The items in the tree are all buttons, performing real active tasks. With the builtin and very easy extendible templates, you can build this custom tree within a minute !! Of course the control tree is part of the measurement configuration and therefor stored, so it can be reused in future experiments.</p>
+<p><br></p>
+<p><span class=rvts2>E. </span><span class=rvts10>Tabbed pages</span> for additional information, this feature is very premature.</p>
+<p><br></p>
+<p><span class=rvts2>F. </span><span class=rvts10>Recording line</span>, showing which part of the acquisition is recorded (green is recorded, red is not recorded). Clicking on this line, enables you to look back in the recording, while acquisition and storing of the sampled signals continuous normally.</p>
+<p><br></p>
+<p><span class=rvts2>G. </span>The <span class=rvts10>status-bar</span>, where all colored fields are action buttons. Because this status-bar contains the most important buttons, you normally don't need to make the control tree visible.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Control Tree</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=177 valign=top style="background-color: #ffffd4;">
+<p><img width=161 height=234 alt="" src="jalcc_data_acquisition_img44.png"></p>
+</td>
+<td width=665 valign=top style="background-color: #ffffd4;">
+<p>The top item is the main Python or MatLab script, used for analysis.</p>
+<p><br></p>
+<p><span class=rvts10>blue icon</span>: the signal is shown both in the graphical and in the numerical window</p>
+<p><span class=rvts10>red icon</span>: the signal is shown only in the graphical window</p>
+<p><span class=rvts10>green icon</span>: the signal is shown only in the numerical window</p>
+<p><span class=rvts10>yellow icon</span>: the signal is not shown at all (but is still recorded)</p>
+<p>Clicking or pressing the Enter key, toggles the visibility of the signals through the above mentioned 4 states.</p>
+<p><br></p>
+<p><span class=rvts10>Blue signals names</span> are the real signals,</p>
+<p><span class=rvts10>Red signals names</span> are calculated signals</p>
+<p>At this moment the units in the signals (if specified), override the units from the Python / MatLab script file, but I'm not sure yet what the best solution is.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>MatLab / Python Scripting</span></p>
+<p>Again the magic word is templates.</p>
+<p><br></p>
+<p><span class=rvts2>Future Plans</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Graphical regions, clip in region = field </li>
+<li>Exporting / Reporting </li>
+<li></li>
+<li>AC-signal distorted </li>
+<li>Python highlighter, doesn't recognize pre-processor (initialize, decription, ...) </li>
+<li>bug when adcfile open and try again </li>
+<li>save as geeft lege file ???? </li>
+<li>NCALC splitsen in Ncalc_in Ncalc_out </li>
+<li>markers </li>
+<li>afspelen </li>
+<li>all ADC converters </li>
+<li>MatLab error gives beep, how to fetch error ? </li>
+<li>After start, and files are opened, coupling between MatLab sources and data acquisition </li>
+<li>Total recording window: initial start not ok because maxv/minv, click to view back (+marker), overgang na compressie vertoont spikes, time tick marks and time display actual? halfway? full?, display of markers,... </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><span class=rvts2>Main Signal Window</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Total Recording Window</span></p>
+<p>In the total recording window, one pre-selected signal will be shown, over the total recording time. The signal is always autoscaled and is displayed with min-max or stripchart drawing. Everytime the signal reaches the end of the time window, the compression of the signal is doubled.</p>
+<p>Another feature of the total recording window, is that you can look back during recording, by simply clicking at the right position in the window.</p>
+<p><br></p>
+<p><span class=rvts2>Settings Tree</span></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=218 height=303 alt="" src="jalcc_data_acquisition_img36.png"></p>
+<p><br></p>
+<p><span class=rvts10>Amplitude Settings</span></p>
+<p>The amplitude settings can be used for each <span class=rvts3>individual signal</span>, and also for all <span class=rvts3>selected channels</span>.</p>
+<p>The <span class=rvts3>range, upper and lower</span> bound can be set to an <span class=rvts3>absolute value</span>, by using the equal sign.</p>
+<p><span class=rvts3>Upper and Lower</span> bound can also be changed in a <span class=rvts3>relative way, by +,-,/,*</span> followed by an integer value.</p>
+<p><span class=rvts3>AutoScale_On</span> turns the auto-scaling on and resets the conditions (new max and min will be determined). If Auto-Scaling is on, it will continuously work and update the range settings at the end of the display (without resetting the min, max values). <span class=rvts3>AutoScale_Off</span> turns the auto-scaling off.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=149 height=207 alt="" src="jalcc_data_acquisition_img4.png">&nbsp; </p>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=127 valign=top>
+<p><img width=134 height=95 alt="" src="jalcc_data_acquisition_img6.png"></p>
+</td>
+<td width=513 valign=top>
+<p>Sets Range limits, but doesn't change AC/DC setting</p>
+<p><br></p>
+<p>Sets DC and Range</p>
+<p>Sets AC and Range</p>
+<p>Sets time-constant of AC</p>
+<p>Sets AC</p>
+</td>
+</tr>
+</table>
+</div>
+<p><span class=rvts8><br></span></p>
+<p><br></p>
+<p><span class=rvts10>Time Axis</span></p>
+<p>The time axis is defined by 2 parameters, the <span class=rvts3>time/division</span> and the <span class=rvts3>number of divisions</span> (it doesn't matter if the grid is visible or not). Also realize that the erase-block has a width of 1 division, therefor it's not advised to set the number of divisions below 5. The word "sec" in the tree below is optional and may be omitted.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=163 height=103 alt="" src="jalcc_data_acquisition_img1.png"></p>
+<p><br></p>
+<p><span class=rvts10>Grid Settings</span></p>
+<p>Grid Visibility is a toggle switch that changes between <span class=rvts3>Grid_Hide</span> and <span class=rvts3>Grid_Visible</span>.</p>
+<p>Grid Style is a toggle switch that changes between <span class=rvts3>Grid_Style_Solid</span> and <span class=rvts3>Grid_Style_Dot</span>.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=129 height=82 alt="" src="jalcc_data_acquisition_img2.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Calibration</span></p>
+<p>By pressing calibration, the window shown below pops up. Now you can edit the 4 edit-boxes to get the right 2-points calibration.&nbsp; A more practical way is to offer first the low calibration value and just click on the left vertical bar, or left on the horizontal bar, so the actual ADC value is transported to the upper edit fields. The same yields for the right upper edit field. Increasing the Low Pass filter can stabilize the reading in case of noisy signals.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=254 height=133 alt="" src="jalcc_data_acquisition_img55.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Signal Templates</span></p>
+<p><br></p>
+<div><table width="100%" border=0 cellpadding=5 cellspacing=0 style="background-color: #d4d0c8;">
+<tr valign=top>
+<td width=181 valign=top style="background-color: #ffffd4;">
+<p><img width=182 height=332 alt="" src="jalcc_data_acquisition_img37.png"></p>
+</td>
+<td width=493 valign=top style="background-color: #ffffd4;">
+<p>The templates section of the action tree, contains actions sets for all kinds of signals, completely configured by the user. The templates section is NOT part of the ADC protocol, but is part of JALcc and therefor is also stored in a plain textfile "JALcc_adc_templates.txt" in the root directory. The templates can be created in the active ADC protocol or with a simple ASCII editor. Here an example of the templates file:</p>
+<p><br></p>
+<p><span class=rvts12>==FinaPres [mmHg]</span></p>
+<p><span class=rvts12>Color</span></p>
+<p><span class=rvts12>Calibration</span></p>
+<p><span class=rvts12>==ECG [mV]</span></p>
+<p><span class=rvts12>Color</span></p>
+<p><span class=rvts12>Calibration</span></p>
+<p><span class=rvts12>AC = -2 .. 2</span></p>
+<p><span class=rvts12>AC = -5 .. 5</span></p>
+<p><span class=rvts12>AC = -10 .. 10</span></p>
+<p><span class=rvts12>AC 5 sec</span></p>
+<p><span class=rvts12>AutoScale_On</span></p>
+<p><span class=rvts12>AutoScale_Off</span></p>
+<p><span class=rvts12><br></span></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>MatLab PreProcessor</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>more elegant function calls </li>
+<li>add some special sections (like initialization) </li>
+<li>creates hierarchical file overview </li>
+<li>execute selected </li>
+<li>color highlighted printing </li>
+<li>more procedures in 1 file </li>
+<li>transports information both to JALcc and MatLab </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Embedded MatLab</span></p>
+<p>Creating a new MatLab (real-time) calculating function is very easy through the templates. E.g. the complete skeleton, including IO-section, initialization section and procedure section can be inserted from the templates with just 1 click. An embedded MatLab file can contain the following sections:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>ADC section </li>
+<li>main section </li>
+<li>interactive section </li>
+<li>initialization section </li>
+<li>string section </li>
+<li>procedure section </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>ADC section</span></p>
+<p>The first part of a data-acquisition program should always be the ADC part (even in playback), defining the type of ADC-converter and the used ADC-channels. In most cases there is only 1 ADC-converter connected to the PC, in which case it might be a good idea to include the ADC section into the main-template.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Not yet determined how to set the ADC-type. </li>
+</ul>
+<p>By attaching a unique name (case-sensitive) to an ADC-channel of the ADC-converter (e.g. ECG to ADC-channel 2 in the figure below), the signal is made available for displaying, calculations and recording. The numbering of the ADC-channels is human-like, i.e. they starts at "1". Channels that are not assigned to a signal name, like ADC-channel 3 in the figure below, are not available, nor for displaying, nor for calculations, nor for recording. Depending on the type of ADC-converter, intermediate ADC-channels that are not connected may or may be not transported to the program, but for the user this doesn't make any difference (except for speed issues with many channels and high sample rates), the user always use the signals by their unique name. </p>
+<p>For your own convenience, it's allowed to remove the lines with not connected ADC-channels.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>I'm not sure this is the right place, but at the moment a signal name can specify optional the units in which the specific signal is represented, by adding in the units in square brackets, e.g. [mV] for the ECG signal. One of the problems is that you can define units like [%]. It also doesn't seem to be most logical place. </li>
+</ul>
+<p>Once a recording has started, changes in this part of the code has no effect, until the file is completely restarted.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=537 height=208 alt="" src="jalcc_data_acquisition_img35.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>IO section</span></p>
+<p>The main IO-section is defined by a block as shown below. After this block is inserted from the templates, connect the input pins, by giving them a name of a real existing signal. (This action performs 2 tasks, the existing signal will be fed to the MatLab program, and these signals can now be used for calculations within the MatLab module). Later on you can connect signals to the output pins.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=454 height=123 alt="" src="jalcc_data_acquisition_img26.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>main section</span></p>
+<p>Here the actual calculations can be written, which in most cases is just a matter of inserting one or more functions from the template window and connecting the input pins, by typing the correct signal names.</p>
+<p>Below an example where a Blood Pressure analysis function is inserted. The only action is to connect the input signal and if needed you can change the clipping values of some the output signals.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=458 height=342 alt="" src="jalcc_data_acquisition_img28.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>Initialization section</span></p>
+<p>The initialization section is automatically included, and executes some initial tasks once. In general you don't have to change anything here, but for some situations you could add your own initialization commands here.</p>
+<p><br></p>
+<p><img width=625 height=371 alt="" src="jalcc_data_acquisition_img30.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>String Section</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>Interactive Section</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>Procedure section</span></p>
+<p>Not yet implemented. The idea here is that you're able to write procedures in the main file, without the necessity of using many different files.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Interactive Function</span></p>
+<p>An interactive function is basically a normal MatLab function, but it has an extra user interface in which the user can graphical correct one or more calculated properties. Look at the next example:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=327 height=437 alt="" src="jalcc_data_acquisition_img33.png"></p>
+<p><br></p>
+<p>MatLab has detected some trigger-points in the signals, in this case the rising edge (onset) of a blood-pressure signal, and MatLab has calculated the derivate of this rising edge, indicating the speed of the blood. In the lower figure, the blue line indicates this derivate and the speed is also given in human manner in one of the edit fields on the right. Now the user can move and rotate the blue line, which calls a special MatLab section, that will update the edit fields. Both the automatically calculated and manual corrected values of the fields will be exported.</p>
+<p><br></p>
+<p>The usage or call of this function is just like any normal function</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=419 height=104 alt="" src="jalcc_data_acquisition_img34.png"></p>
+<p><br></p>
+<p>To see how an interactive function should be created, look in the MatLab file "Demo_InterActive.m", which has some good documented code.</p>
+<p><br></p>
+<p><span class=rvts2>Embedded Python, technical details</span></p>
+<p>Definition of global vars</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=296 height=60 alt="" src="jalcc_data_acquisition_img45.png"></p>
+<p><br></p>
+<p>initialization</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=652 height=635 alt="" src="jalcc_data_acquisition_img46.png"></p>
+<p><br></p>
+<p>Each sample</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=535 height=190 alt="" src="jalcc_data_acquisition_img47.png"></p>
+<p><br></p>
+<p>At end of buffer</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=510 height=223 alt="" src="jalcc_data_acquisition_img48.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=679 height=607 alt="" src="jalcc_data_acquisition_img49.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=614 height=201 alt="" src="jalcc_data_acquisition_img50.png"></p>
+<p><br></p>
+<p>Interaktive part</p>
+<p>&nbsp; ....</p>
+<p><br></p>
+<p>Init script</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=453 height=383 alt="" src="jalcc_data_acquisition_img52.png"></p>
+<p><br></p>
+<p>test1_next.py</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=737 height=311 alt="" src="jalcc_data_acquisition_img53.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Embedded MatLab, technical details</span></p>
+<p>The input signals are transported through the 2-dimensional array IOI ( 1:Nsignal+1, 1:Signal_length).</p>
+<p>The output signals are transported through the 2-dimensional array IOO ( 1:Nsignal+1, 1:Signal_length).</p>
+<p><br></p>
+<p>The last input signal IOI (Nsignal+1, 1:Signal_length) is used to transport all kind of settings</p>
+<p><br></p>
+<p>The top line of a function call, will cause the function to be included in the main section. So in the example below, in the main section the next line will be added (note that all function names, included in this way, will be preceeded by "JALcc_":</p>
+<p><br></p>
+<p>Ctrl-Enter on a procedure name, will try to open the file in the editor. The file is searched in the main MatLab directory first, then in the default MatLab library directory (...). The procedure name will be preceeded by "JALcc_" to form the filename. The file must contain a plain MatLab script, no function definitions.</p>
+<p><br></p>
+<p>Connecting a name to a function output signal, generates a new array with that name, which can be used in further calculations. In general there's no need for doing this, (it consumes extra time and memory) because you can use the signal "BP_Sys" directly in further calculations.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=485 height=90 alt="" src="jalcc_data_acquisition_img31.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Real-Time MatLab</span></p>
+<p><br></p>
+<p><img width=358 height=151 alt="" src="jalcc_data_acquisition_img11.png"></p>
+<p>Moving Average over a length of 5</p>
+<p><br></p>
+<p><img width=330 height=150 alt="" src="jalcc_data_acquisition_img12.png"></p>
+<p>First order Low Pass at 8 Hz, history length 50</p>
+<p><br></p>
+<p><img width=337 height=157 alt="" src="jalcc_data_acquisition_img13.png"></p>
+<p>First order Low Pass at 8 Hz, history length 5</p>
+<p><br></p>
+<p><img width=348 height=181 alt="" src="jalcc_data_acquisition_img14.png"></p>
+<p>First order Low Pass at 8 Hz, history length 10</p>
+<p><br></p>
+<p><br></p>
+<p>The average sloop method on the raw signal works better than the diff function on the filtered signal</p>
+<div><table width="100%" border=0 cellpadding=5 cellspacing=0 style="background-color: #d4d0c8;">
+<tr valign=top>
+<td width=274 valign=top style="background-color: #ffffd4;">
+<p><img width=276 height=237 alt="" src="jalcc_data_acquisition_img15.png"></p>
+</td>
+<td width=370 valign=top style="background-color: #ffffd4;">
+<p><br></p>
+<p>top:</p>
+<p>Bloodpressure</p>
+<p>Filtered Bloodpressure (first order 8 Hz, history length 10)</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>bottom:</p>
+<p>red=average sloop method, length 3*3</p>
+<p>blue=simply "diff" on the filtered bloodpressure</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<div><table width="100%" border=0 cellpadding=5 cellspacing=0 style="background-color: #d4d0c8;">
+<tr valign=top>
+<td width=274 valign=top style="background-color: #ffffd4;">
+<p><img width=281 height=225 alt="" src="jalcc_data_acquisition_img16.png"></p>
+</td>
+<td width=370 valign=top style="background-color: #ffffd4;">
+<p><br></p>
+<p>top:</p>
+<p>Bloodpressure</p>
+<p>Filtered Bloodpressure (first order 8 Hz, history length 10)</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>bottom:</p>
+<p>red=average sloop method, length 3*2</p>
+<p>blue=simply "diff" on the filtered bloodpressure</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=0 cellpadding=5 cellspacing=0 style="background-color: #d4d0c8;">
+<tr valign=top>
+<td width=274 valign=top style="background-color: #ffffd4;">
+<p><img width=399 height=232 alt="" src="jalcc_data_acquisition_img17.png"></p>
+</td>
+<td width=370 valign=top style="background-color: #ffffd4;">
+<p><br></p>
+<p>top:</p>
+<p>Bloodpressure</p>
+<p>Filtered Bloodpressure (first order 8 Hz, history length 10)</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>bottom:</p>
+<p>red = average sloop method, length 3*3</p>
+<p>blue = BP &gt; treshold</p>
+<p>black = derivate &gt; 0</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><img width=265 height=234 alt="" src="jalcc_data_acquisition_img18.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=0 cellpadding=5 cellspacing=0 style="background-color: #d4d0c8;">
+<tr valign=top>
+<td width=274 valign=top style="background-color: #ffffd4;">
+<p><img width=304 height=239 alt="" src="jalcc_data_acquisition_img19.png"></p>
+</td>
+<td width=370 valign=top style="background-color: #ffffd4;">
+<p><br></p>
+<p>top:</p>
+<p>Bloodpressure</p>
+<p>Filtered Bloodpressure (first order 8 Hz, history length 10)</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>bottom:</p>
+<p>red = average sloop method, length 3*3</p>
+<p>blue = BP &gt; treshold</p>
+<p>black = derivate &gt; 0</p>
+<p><br></p>
+<p>Now the black puls should be "removed" if there's no blue puls in. And the moment of BP top is determined by the falling edge of a good black puls.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><img width=465 height=200 alt="" src="jalcc_data_acquisition_img20.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=0 cellpadding=5 cellspacing=0 style="background-color: #d4d0c8;">
+<tr valign=top>
+<td width=274 valign=top style="background-color: #ffffd4;">
+<p><img width=396 height=184 alt="" src="jalcc_data_acquisition_img21.png"></p>
+</td>
+<td width=370 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>Skipping the wrong peaks</span> (black ones without a blue inlay).</p>
+<p><br></p>
+<p><span class=rvts9>The positive blue</span> peak indicates the treshold passing of the filtered BloodPressure.</p>
+<p><br></p>
+<p><span class=rvts9>The negative blue peak</span> is the zerocrossing of the derivate of the BloodPressure, or in other words the peak location of the BloodPressure.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Matlab debugging</span></p>
+<p>The MatLab command window can be shown by ..</p>
+<p>The MatLab workspace can be shown by ...</p>
+<p>The editor has the ability (through the RM-menu) to comment in/out complete blocks of code.</p>
+<p>When there's an error in the MatLab code, every block, an error beep will sound. As soon as an error in the MatLab script is encountered, the script will be aborted, but the same script will be send to MatLab each block.</p>
+<p>A few important notes:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>When the MatLab workspace is open, never close it manual, because this will cause an error when the file is closed in JALcc. </li>
+<li>When you think the scripts run well (after modifications), it's strongly advised to close the data acquisition file and retry to run the data-acquisition file. The reason for this is that with each new data-acquisition run, MatLab starts with a clean and empty workspace. </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Delphi Debug File</span></p>
+<p>By clicking in the display window a "permanent" cursor-line appears (the thick fuchsia line in the figure below). Now the numerical values on the right don't display the actual value, but the values at the cursor-line. The cursor-line can be removed by dragging the cursor-line out of the image.</p>
+<p>After the cursor-line is placed, it can also be moved with the arrow-left and arrow-right keys, and with the PageUp, PageDown keys (step 5 samples).</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=477 height=374 alt="" src="jalcc_data_acquisition_img7.png"></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=475 height=274 alt="" src="jalcc_data_acquisition_img8.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=171 height=203 alt="" src="jalcc_data_acquisition_img9.png"></p>
+<p><br></p>
+<p><span class=rvts2>ADC-types</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=124 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Type</span></p>
+</td>
+<td width=516 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Remarks</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=124 valign=top style="background-color: #ffffd4;">
+<p>0, Random Signals</p>
+</td>
+<td width=516 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=124 valign=top style="background-color: #ffffd4;">
+<p>1, FysioFlex Files</p>
+</td>
+<td width=516 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=124 valign=top style="background-color: #ffffd4;">
+<p>2, Delphi Debug File</p>
+</td>
+<td width=516 valign=top style="background-color: #ffffd4;">
+<p>answer file: second line contains the signal names</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=124 valign=top style="background-color: #ffffd4;">
+<p>3, FysioFex-2,3</p>
+</td>
+<td width=516 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=124 valign=top style="background-color: #ffffd4;">
+<p>4, NI DAQmx</p>
+</td>
+<td width=516 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=124 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=516 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>ADC-Communication</span></p>
+<p>The main program and MidacADC.exe should be in the same directory.NONONO</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Main Program</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>MidacADC</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>Launches MidacADC.exe</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>Creates a file MIDADC_START.TXT,</p>
+<p>containing:</p>
+<p>&nbsp;&nbsp;&nbsp; ADCType/Nchannels/SampFreq/MaxFileSize</p>
+<p>e.g.&nbsp; </p>
+<p>&nbsp; 1/5/1000/30000</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>Waits till a nonzero length file MIDADC_START.TXT,</p>
+<p>then starts AD-conversion and</p>
+<p>creates a file MIDADC_ANSWER.TXT</p>
+<p>containing the actual settings</p>
+<p>&nbsp;&nbsp;&nbsp; ADCType/Nchannels/SampFreq/MaxFileSize</p>
+<p>e.g.&nbsp; </p>
+<p>&nbsp; 1/4/100</p>
+<p>In this case the ADC could only support 4 of the 5 channels and the nearest sample frequency is 100 Hz</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>The ADC now starts writing the samples in the files MIDADC1.DAT and MIDADC2.DAT</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>Main Program can read the data from the files, and should jump to the other file when MaxFileSize is reached.</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>When the main program wants to stop acquisition or change the settings, just remove the file MIDADC_START.TXT.</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>As soon as the MIDADC_START.TXT is missing, sampling is stopped and the file MIDADC_ANSWER.TXT is removed.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>When completely finished, a file MIDADC_KILL.TXT should be created.</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>When the KILL file is detected, sampling is stopped (if it was running), the ANSWER file is removed and the KILL file is removed. DAT files are released.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>If wanted (e.g. for a fresh restart), the main program can wait until KILL (and ANSWER) file has vanished.</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+
+</body></html>

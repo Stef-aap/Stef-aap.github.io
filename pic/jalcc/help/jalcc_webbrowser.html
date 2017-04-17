@@ -1,0 +1,220 @@
+<HTML><HEAD><TITLE>WebBrowser</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS7>october 2004</SPAN></P>
+<P><SPAN class=RVTS1>Webbrowser</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>The main goal was to have an integrated html-viewer, better suited for searching and organizing interesting web-information and integrating this web-information with the other project information.</P>
+<P>Started as a simple viewer for html pages (locally and on the web), this module has become an almost full featured tabbed-webbrowser. The webbrowser is based on existing browsing machines and the intention was (and still is) to let the user choose between a Mozilla-based and an IE-based browser. At this moment unfortunatly, the Mozilla-machine has not implemented enough features to fullfill my needs, so only the IE-based browser is implemented.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS7>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><IMG width=700 height=439 src="jalcc_webbrowser_img6.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>As the sample above shows, it's very easy to order in a hierarchical way the&nbsp; interesting websites. With just one click you can open all websites from the selected branch. Grouping, ordering and saving links to all open webpages, can be done by drag&amp;drop the tabs (assisted by equally colors for related websites), and finally pressing the save-tabs button.</P>
+<P>&nbsp;&nbsp;</P>
+<P>The main parts of the webbrowser are</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Main-menu, merged into the application menu&nbsp;</LI>
+<LI>Navigation buttons (and buttons for the most frequently used tasks)&nbsp;</LI>
+<LI>Smart opening of all results of a search engine&nbsp;</LI>
+<LI>Treelist, containing open pages, tab-sets, bookmarks and history&nbsp;</LI>
+<LI>The browser window&nbsp;</LI>
+<LI>Favourites / History list, (not working yet see&nbsp;&nbsp;<A class=RVTS4 href="http://www.euromind.com/iedelphi/urlhistory.htm">Url History</A>)&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS2>Browser window</SPAN></P>
+<P>The browser window consists of a number of tabs, with on each tab a webbrowser. Opening a webpage from outside the browser window will open the webpage in a new tab. Tabs opened from within the browser will stay in the same tab, or can be redirected to a new tab through the right mouse menu. In the latter case the color of the new tab will be equal to the color of the tab where the link was launched.&nbsp;</P>
+<P>The tabs have it's own rightmouse menu, to close all other or all other colored tabs.&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=165 height=43 src="jalcc_webbrowser_img9.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Opening of a website can also be done from the main documentlist in JALcc, dragging a URL or html file into the browser window, by pressing the open-file button, or by inserting the URL into the editbox (followed by Enter).</P>
+<P>The right mouse menu is different for links and normal text. Both menus depends also on the browser selected in JALcc and the applications you've installed in that browser. In my case the right mouse menus look like this</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=302 height=412 src="jalcc_webbrowser_img7.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=261 height=283 src="jalcc_webbrowser_img8.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Navigation Buttons</SPAN></P>
+<P><TABLE width=100% bgcolor=#C0C0C0 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=60 bgcolor=#EBEBEB valign=top>
+<P>&nbsp;<IMG width=64 height=32 src="jalcc_webbrowser_img10.gif"></P></TD>
+<TD width=701 bgcolor=#EBEBEB valign=top>
+<P>Decrease or increase the fontsize of all the browsers. This will only work for pages that has relative fonts.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=60 bgcolor=#EBEBEB valign=top>
+<P>&nbsp;<IMG width=31 height=32 src="jalcc_webbrowser_img11.gif"></P></TD>
+<TD width=701 bgcolor=#EBEBEB valign=top>
+<P>Save all open webpages as a new tabset</P></TD>
+</TR>
+<TR valign=top>
+<TD width=60 bgcolor=#EBEBEB valign=top>
+<P>&nbsp;<IMG width=33 height=32 src="jalcc_webbrowser_img12.gif"></P></TD>
+<TD width=701 bgcolor=#EBEBEB valign=top>
+<P>Change the settings of the webbrowser</P></TD>
+</TR>
+<TR valign=top>
+<TD width=60 bgcolor=#EBEBEB valign=top>
+<P>&nbsp;<IMG width=28 height=30 src="jalcc_webbrowser_img13.gif"></P></TD>
+<TD width=701 bgcolor=#EBEBEB valign=top>
+<P>Toggle the visibility of the treelist</P></TD>
+</TR>
+<TR valign=top>
+<TD width=60 bgcolor=#EBEBEB valign=top>
+<P>&nbsp;<IMG width=27 height=27 src="jalcc_webbrowser_img14.gif"></P></TD>
+<TD width=701 bgcolor=#EBEBEB valign=top>
+<P>Open all links from the active webpage, with special parsing of google and ixquick search results, see below.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=60 bgcolor=#EBEBEB valign=top>
+<P>&nbsp;<IMG width=58 height=31 src="jalcc_webbrowser_img15.gif"></P></TD>
+<TD width=701 bgcolor=#EBEBEB valign=top>
+<P>Within with 1 browser goto previous or next page.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=60 bgcolor=#EBEBEB valign=top>
+<P>&nbsp;<IMG width=26 height=29 src="jalcc_webbrowser_img16.gif"></P></TD>
+<TD width=701 bgcolor=#EBEBEB valign=top>
+<P>Reload the active webpage</P></TD>
+</TR>
+<TR valign=top>
+<TD width=60 bgcolor=#EBEBEB valign=top>
+<P>&nbsp;<IMG width=24 height=29 src="jalcc_webbrowser_img17.gif"></P></TD>
+<TD width=701 bgcolor=#EBEBEB valign=top>
+<P>Close the active webpage (and remove it from the first branch in the treelist).</P></TD>
+</TR>
+<TR valign=top>
+<TD width=60 bgcolor=#EBEBEB valign=top>
+<P>&nbsp;<IMG width=33 height=33 src="jalcc_webbrowser_img18.gif"></P></TD>
+<TD width=701 bgcolor=#EBEBEB valign=top>
+<P>Starts an opendialog, for opening a html-file.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=60 bgcolor=#EBEBEB valign=top>
+<P>&nbsp;<IMG width=34 height=30 src="jalcc_webbrowser_img19.gif"></P></TD>
+<TD width=701 bgcolor=#EBEBEB valign=top>
+<P>The animation, which will animate during loading of a page.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS2>Open all links</SPAN></P>
+<P>This function opens all the links in the active page in separate tabs with just 1 click.</P>
+<P>All tabs will be given the special color, reserved for this function.</P>
+<P>For some search engines, filters have been implemented, to get rid of all AD-ware links.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Open all links, Google filter</SPAN></P>
+<P>Simply filters all with ".google.", which works quiet well.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Open all links, Ixquick filter</SPAN></P>
+<P>The Ixquick filter is quiet complex, and unfortunatly, it sometimes filters a little too much.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS2>Treelist</SPAN></P>
+<P>The treelist contains a list of URLs, organized as tabsets, bookmarks and/or history.</P>
+<P>Each element is just a label (without a link), or it's the title of a link and also really contains a link. The icon indicates whether an item is just a label, a local file or an internet file. When clicking on an item, the hint will reveal the URL-link.</P>
+<P>Each element in the list has a icon and a textlabel. The icons are determined by the program. When inserting new items (paste, insert, drop), it's important to notice that it makes a difference if inserting on the icon or on the label. Inserting on the icon will insert the new item(s) as children of the selected item, while inserting on the label will insert the item(s) above the selected item.</P>
+<P>The labeltext of a html page, will initial be the URL of that page. As a page is opened, the link is added to the first branch, initially still with the URL as text. As soon as the page is loaded, the textlabel in the first branch of the treeview will be replaced by the title of the page. When saving the open webpages to a new branch in the treelist, the label is copied. This is the reason why some pages are listed with their URL and others are listed with their title.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Drag &amp; Drop</SPAN></P>
+<P>not yet working</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Treelist Storage</SPAN></P>
+<P>If you want to use the same information on more then 1 computer, you need to transport the treelist storage.</P>
+<P>The treelist is stored in the file&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; &lt;inifilename&gt;_browser_tree.bin</P>
+<P>The &lt;inifilename&gt;, is the name of the inifile, without extension. This is either the name op the application or the filename specified in the first commandline parameter.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Right Mouse menu&nbsp;</SPAN></P>
+<P>The Right Mouse click is also set to select the item.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=202 height=227 src="jalcc_webbrowser_img1.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Insert New Label (Ins)</SPAN></P>
+<P>Inserts a new label in the tree, which can serve as an identifier for a tabset. Each label (tabset) can hold a hierarchic tree, of which all items can be opened with just 1 click.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Insert Active Page (Shift+Ins)</SPAN></P>
+<P>Insert a link to the currently active webpage.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Edit Title / URL (Shift+Enter)</SPAN></P>
+<P>Let's you edit the title, and URL.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS7>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><IMG width=356 height=111 src="jalcc_webbrowser_img24.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Open (Enter / Double-Click)</SPAN></P>
+<P>Opens the selected item. If the item is already open, it will be activated (brought on top). If the selected item is a label, all it's children will be opened (if not already) and the first child will be activated.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Open in default Browser (Ctrl+Enter)</SPAN></P>
+<P>Opens the selected item in your own default browser.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Scan Active Page (Ctrl+L)</SPAN></P>
+<P>Scans the selected page for embedded links and will open all of them.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Copy with Children (Ctrl+C)</SPAN></P>
+<P>Copies the selected link and all it's children to the clipboard.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Paste (Ctrl+V)</SPAN></P>
+<P>Inserts the item(s) from the clipboard.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Cut (Ctrl+X)</SPAN></P>
+<P>Copies the selected item (and all it's children) to the clipboard and then deletes the item(s).</P>
+<P>The user is NOT asked for a confirmation (because he can always get the information back through paste).</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Delete with Children (Del)</SPAN></P>
+<P>Deletes the selected item and all it's children. The user is asked for a confirmation.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Browser Settings</SPAN></P>
+<P>For this moment the browser settings only consists of the colors of the tabs. Just click on a colored panel and change the color thorugh the color-dialog.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=228 height=277 src="jalcc_webbrowser_img20.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Printing</SPAN></P>
+<P>Printing is done directly through windows and browser, therefor the next images can differ, depending on the windows and browser you've installed.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=460 height=413 src="jalcc_webbrowser_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=390 height=402 src="jalcc_webbrowser_img2.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Todo</SPAN></P>
+<P><SPAN class=RVTS3>Viewwindow</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Find from the mainmenu doesn't work&nbsp;</LI>
+<LI>popup killer&nbsp;</LI>
+<LI>Enter key, als submit button&nbsp;</LI>
+<LI>autocomplete addressbar ??&nbsp;</LI>
+</UL>
+<P><SPAN class=RVTS3>treelist</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>voorlopig geen multi-select&nbsp;</LI>
+<LI>icon, based on label/URL&nbsp;</LI>
+<LI>if page has no title, use URl als label text&nbsp;</LI>
+<LI>Treelist Settings: bg-color, font label/url&nbsp;</LI>
+<LI>drag &amp; drop from the outside&nbsp;</LI>
+<LI>bookmarks? / history&nbsp;</LI>
+<LI>hint appearing&nbsp;</LI>
+</UL>
+<P><SPAN class=RVTS3>open all links</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>framed pages, scan not the frame but the active page(s?)&nbsp;</LI>
+</UL>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;</SPAN></P>
+</BODY></HTML>

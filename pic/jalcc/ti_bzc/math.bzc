@@ -1,0 +1,99 @@
+#include <asmlib.h>
+#jal_processor
+
+// include all the TI-basic equivalents
+//include ti_basic_library.bzc
+
+mem aap 6
+Byte_Array  beer 12
+//Byte_Array  beer  [12]
+;Word_Array  war   [10,4]
+
+byte coala
+
+//-----------------------------------------------------
+// MAIN PROGRAM
+//-----------------------------------------------------
+START
+  PRINTF "aap"
+  put beer 28
+  put (beer+1) (27+12)
+
+  beer[1] = 13
+  coala = beer[1] + beer[1]
+
+byte key
+byte AA =73
+  Case AA of
+    92: Key = 1
+    93: Key = 2
+    94: Key = 3
+    82: Key = 4
+    else 
+      Key = 0
+  End_Case
+
+  printf num key
+  printf num coala
+  printf num (get (beer+1))
+
+  
+;  Basic_Text_   30, 30, "aap"
+;  Basic_Text_   40, 30, "coala"
+;  Basic_Text_   50, 30, "beer"
+;  Basic_Line_   10, 50, 60, 50, 1
+;  Basic_Line_   10, 20, 60, 20, 2
+;  PRINTF "aap"
+
+
+;
+;  PRINTF key
+END
+
+
+//
+//FSTART printf A DE
+//  ASM
+//    EX DE, HL
+//    CP 1
+//    JP Z, printf_string
+//    CP 2
+//    JP Z, printf_char
+//  ENDASM
+//    _DispHL
+//  ASM
+//    JP printf_end
+//printf_string:
+//  ENDASM
+//    _PutS
+//  ASM
+//    JP printf_end
+//printf_char:
+//    LD A, L
+//  ENDASM
+//    PutC
+//  ASM
+//printf_end:
+//  ENDASM
+//    _NewLine
+//FEND
+//
+//START
+//  INT number = 12
+//
+//  cls
+//  PRINTF 0 0 "Number:"
+//  PRINTF 0 NumRight number
+//  PRINTF 1 0 " + 16:"
+//  number += 16
+//  PRINTF 1 NumRight number
+//  PRINTF 2 0 " / 3:"
+//  number /= 3
+//  PRINTF 2 NumRight number
+//  PRINTF 3 0 " * 8:"
+//  number *= 8
+//  PRINTF 3 NumRight number
+//  PRINTF 4 0 "Remainder (/5):"
+//  number %= 5
+//  PRINTF 5 NumRight number
+//END

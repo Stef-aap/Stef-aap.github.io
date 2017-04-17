@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Menu Support</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="36" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Menu Support </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp; (november 2008)</span></p>
+<p>Application Designer / Domain Expert / Control Designer / <span class=rvts10>Core Developer</span></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>The module menu_support, has convenience procedures for</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>menubar </li>
+<li>popup menu </li>
+<li>toolbar menu </li>
+</ul>
+<p><br></p>
+<p><span class=rvts2>MenuBar</span></p>
+<p>The MenuBar support has the following features:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Automatic creation of a default menu </li>
+<li>Easy creation of a menubar through a dictionary </li>
+<li>Easy dynamic extension of default or other menu </li>
+<li>Default actions for a number of standard menu-items </li>
+<li>Automatic binding of methods of the form "OnMenu_&lt;menuitem&gt;" </li>
+<li>Easy binding from within controls on the frame </li>
+<li>Automatic enable / disable menu-items based on focused control </li>
+</ul>
+<p><br></p>
+<p>The MenuBar, definied as the class <span class=rvts10>Class_Menus</span>, has a default menu, which should be preferable used, so all forms will have the same menus. So in general the menu can be created in a frame, like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=359 height=24 alt="" src="pw_core_menu_support_img7.png"></p>
+<p><br></p>
+<p>NOTE: some components that will be placed on the frame, will try to hook them self into the menu. For the moment this is done by looking for a control named "MenuBar" in the Frame. It would be better to look for the control of the type "MenuBar".</p>
+<p><br></p>
+<p>Now you can bind actions to existing or new menu items, e.g. to bind a method to the menu<span class=rvts10> File, </span>item<span class=rvts10> Save</span> :</p>
+<p>( If the menu and / or the item doesn't exist yet, it's automatically added. Main items are inserted just before the last one. )</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=439 height=87 alt="" src="pw_core_menu_support_img8.png"></p>
+<p><br></p>
+<p>It's not strictly necessary to do the bindings in the frame, often it's even far more convenient to place both the bindings and the completion methods in a component. e.g. it's very logical that a scintilla textcontrol binds actions to printing menu items, which could look something like this (so this piece of code is not from the frame but from the editor class !!) :</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=558 height=142 alt="" src="pw_core_menu_support_img9.png"></p>
+<p><br></p>
+<p>The menubar will register all the owners of the methods, so it can automate the whole menu handling by itself. On popup of the menu, the menubar itself will enable / disable the correct items, depending on which control on the form has focus. So when you've 2 editors on the form and you launch a print command, the editor that has focus will be printed.</p>
+<p><br></p>
+<p>I don't have a nice feature to enable / disable the menus itself (but I think that's of less importance).</p>
+<p><br></p>
+<p>For a number of menu-items, there's a default action bound (but of course you can override it):</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=153 height=185 alt="" src="pw_core_menu_support_img6.png"></p>
+<p><br></p>
+<p>For menuitems which are already in the menu at the moment the menubar is created, it's not necessary to bind the event, but instead you can also realize the binding by taking care the method "OnMenu_&lt;item&gt;" exists in the frame.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Main Control or Sub Control</span></p>
+<p>In many situations a control can catch all the events, but often the main control ( frame ) will want to pre-process and / or even Veto the action.</p>
+<p>As this is written in the very premature stage of the concept, we might change it in the future.</p>
+<p>Method 1 is the method which performs the above actions, but it can perform this for the standard menu items. So here we already have our first reason to improve this handling in the future.</p>
+<p><br></p>
+<p>Goal:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>The event is first captured by the frame </li>
+<li>The event handler of the frame determines if the event handler of the control will be called or not </li>
+<li>The control determines if a menu item is enabled or disabled </li>
+</ul>
+<p><br></p>
+<p>In the frame we bind to the default menu-item, by defining a event_handler with the correct name: line 14 in the picture below.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=504 height=242 alt="" src="pw_core_menu_support_img10.png"></p>
+<p><br></p>
+<p>In the control that's placed somewhere on the frame, we bind to the menu-item, with the special method Bind_MenuItem, at line 27 in the picture below. The event handler at line 32 will be called if not captured by the parent frame, or if the parent frame issues an event.Skip().</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=544 height=254 alt="" src="pw_core_menu_support_img11.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

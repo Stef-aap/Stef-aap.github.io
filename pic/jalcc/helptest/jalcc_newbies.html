@@ -1,0 +1,74 @@
+<HTML><HEAD><TITLE>the first steps</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>October 2001</SPAN></P>
+<P><SPAN class=RVTS1>JALcc, first steps</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Installation</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Leave as much as possible "default" during the installation.&nbsp;</LI>
+<LI>At least install the program with the following points in mind&nbsp;</LI>
+<LI>short pathnames, without any points in it&nbsp;</LI>
+<LI>install close to the root of the harddrive&nbsp;</LI>
+<LI>Do not set any compatibility switches (if you don't know what this is: perfect !)&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>First steps with JAL</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Start the program and wait untill all the windows have opened&nbsp;</LI>
+<LI>press F5, this will compile the active program, and as an result you'll see an new window occuring, containing the assembler listing. Perfect: you compiled your first program correctly. If this doesn't work this way, look in the page about&nbsp;<A class=RVTS4 href="jalcc_problems.html">problems.</A></LI>
+<LI>Now we're going to make anonther program active (you can leave all the windows open for the moment). On the left you see a white panel with 4 tabpages, go to the projectgroup page, abbreviated as "PG". Double click on the program e0002 (or click and press on open at the bottom). The tabs will jump back to the active project ("Proj"), the main jal file "e0002.jal" will be opened in the editor an you can see the hierachical structure of the program and it's relevant files. In this case all files (except the mainfile) are preceeded by an asterisk, indicating they are loaded from the general library path.&nbsp;</LI>
+<LI>press F5 again to compile the program. Now the compiler should give an error message and the editor should jump into the position where the error is, now try to correct the error .&nbsp;</LI>
+<LI>press F5 again, still another error is there, but now in one of the library files, which will be opened automatically. Correct this error ... Now you compiled your second program.&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Next steps with XCSB</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>download XCSB basic from the orginal site.&nbsp;</LI>
+<LI>JALcc has already made directories for the executables of XCSB:&nbsp;&nbsp;&nbsp; ....\ JALcc \ XCSbasic \....&nbsp;</LI>
+<LI>Go to the tab projectgroup and doubleclick test01.xcb. The XCSB project is opened, you get to see the file-hierarchy and the mainfile will be opened in the editor.&nbsp;</LI>
+<LI>press F5, in this case 2 errors should be reported and the cursor will jump into the first error. Correct the fisrt error.&nbsp;</LI>
+<LI>click in the errorlist on the second error and the file where the error is will be opened and cursor will jump into the error line. Correct the error and compile again. By now you should have compiled your first "doing nothing XCS basic" program ;-).&nbsp;</LI>
+</UL>
+<P>At this point it would be a good idea to read the helppages, to get an idea of what is possible with this IDE.</P>
+<P>On the other hand, the program has a good&nbsp; windows-look-and-feel, so you could also use the trial and error method to find out.</P>
+<P>Just one advise, for those who have no experience with projects and projectgroups, read at least the chapter "Projects".</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>My own programming with JAL</SPAN></P>
+<P>There's one testproject of my own in the projectgroup "stepper_test". It is a double 4-phase-stepper motor device, controled by an RS232 line.</P>
+<P>WARNING: You you should only look at this example, after you've some experience with JAL.</P>
+<P>You may notice some remarkable differences with the previous sampleprojects.</P>
+<P>Remark how few lines the main program contains, combined with the fact that all the included files are preceeded by an asterisk (you should now by now what that means).</P>
+<P>Now just look at the mainfile and click on the blue-book-button at the top, see what happens.</P>
+<P>What you'll still miss at this moment:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>collegues, who ran into the same problems&nbsp;</LI>
+<LI><A class=RVTS4 href="http://www.piclist.com/techref/piclist/index.htm">piclist</A></LI>
+<LI><A class=RVTS4 href="http://groups.yahoo.com/group/jallist/">jallist</A></LI>
+<LI><A class=RVTS4 href="http://www.piclist.com/techref/piclist/jal/index.htm">jal-piclist</A></LI>
+<LI><A class=RVTS4 href="http://www.voti.nl/jal/">Wouter's pages</A></LI>
+<LI><A class=RVTS4 href="http://www.xcprod.com/titan/xcsb/index.html">xcsb-home</A></LI>
+<LI>connecting your own programmer to the IDE, can be set through "edit / general preferences&nbsp;</LI>
+<LI>libraries, to prevent you reinventing every wheel, see under collegues&nbsp;</LI>
+<LI>simulator for debugging, sorry I couldn't find onr, so I'm building my own, just wait and see .....&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Installing new JAL versions</SPAN></P>
+<P>The default installation paths of JALcc are&nbsp; ... \ JALcc \ JAL \ ...</P>
+<P>you can change most paths through "Edit / general preferences"</P>
+<P>In case of bugs, problems not documented in the help files, email me&nbsp;<A href="mailto:s.mientki@mailbox.kun.nl"><IMG width=29 height=18 src="../mail.gif"></A></P>
+</BODY></HTML>

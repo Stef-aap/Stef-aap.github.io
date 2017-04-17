@@ -1,0 +1,242 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>Versie_beheer_eerste_concept</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><font face="Arial,Helvetica"><b><font color="#000099">Status</font></b>,</font>
+<br><font face="Arial,Helvetica">eerste concept door SM,</font>
+<br><font face="Arial,Helvetica">voorgelegd aan GvV en RvB</font></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">ID-SPON,
+Versie Beheer Software</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><font face="Arial,Helvetica"><font color="#000000"><a href="#inleiding">Inleiding</a></font></font></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">eerste
+concept</font></font></b></td>
+</tr>
+</table>
+
+<p><a name="inleiding"></a><b><font face="Arial,Helvetica"><font color="#000099">Inleiding&nbsp;</font></font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Dit is een eerste aanzet om te komen tot een eenduidig versiebeheer
+van software, dat tracht de doelen van het ISO kwaliteits systeem te realiseren,
+zonder een onwerkbaar corset te vormen.
+<br>Allereerst wordt daarom de doelstelling in de kern gedefini&euml;erd.
+<br>Daarna wordt de problemen rondom software, welke te maken hebben met
+de realisatie van de deze doelstelling, besproken. Tijdens deze probleem
+inventarisatie komen de zwakke punten en daarmee gepaars gaande verbeteringen
+vanzelf naar boven.
+<br>Tenslotte wordt op basis hiervan een procedure voorgesteld.
+<br>&nbsp;
+<p><a name="doel"></a><b><font color="#000099">Doel&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<ol>
+<li>
+Uitgegeven versies moeten traceerbaar zijn</li>
+
+<li>
+Geconstateerde fouten moeten gereconstrueerd kunnen worden</li>
+</ol>
+
+<p><a name="probleem omschrijving"></a><b><font color="#000099">Probleem
+omschrijving&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Een aantal software programma's is continue in ontwikkeling (b.v. TestOrganizer,
+Midac). Deze programma's&nbsp; worden tijdens de ontwikkeling (bewust)
+uitgegeven aan klanten om te worden getest onder normale bedrijfsomstandigheden.
+Het wordt de klanten ook verteld dat het programma meer dan 200 (kleinere)
+bugs bevat.
+<p>De ontwikkeling van de programma's vindt plaats op basis van gewijzigde
+hardware componenten, specifieke vragen en wensen van klanten en algemene
+ontwikkelingen gericht op de toekomst van het pakket.
+<p>Naast de ontwikkeling, vindt herstel van (hinderlijke) bugs plaats,
+op grond van garantievoorwaarden , op opdracht van een klant, of worden
+ze meegenomen met de fundamentele revisie van bepaalde modulen binnen het
+programma.
+<br>Een deel van de bugs / wensen van klanten is bekend bij de ontwikkelaars
+van de betreffende projecten. Het zou wenselijk zijn deze te documenteren
+en ook voor iedereen (inclusief klanten) zichtbaar te maken.
+<br>Verbeteringen worden reeds op 2 manieren gedocumenteerd, als commentaar
+in het programma (voorzien van datum en naam uitvoerende) en in een gedateerde
+lijst "Nieuw", welke laatste ook in diverse vormen voor klanten beschikbaar
+is (ingesloten help ,intranet en internet). Gerealiseerd moet worden dat
+deze programma's voor zeer verschillende doelen, door zeer verschillende
+gebruikers worden gebruikt, waardoor wat voor de een bug is, voor de ander
+nooit zal voorkomen.
+<p>Een extra probleem vormt de omvang van de bestanden, voor de complete
+MID-TestOrganizer : Sources 60 MB, Installatie 30 MB, Tools 300 MB. Ter
+informatie de broncode van de module Midac, zal naar schatting dit jaar
+de grens van 100.000 regels passeren (oftewel 1400 pagina's A4).
+<br>Vanwege deze omvang is de standaard? backup faciliteit op het netwerk
+ook onmogelijk. Derhalve wordt de normale backup gegarandeerd door 2 PC's
+(werk en thuis) synchroon te houden middels het programma ZIPUPD95.EXE.
+<br>Is er eigenlijk wel een backup procedure tijdens ontwikkeling beschreven
+??
+<p>Naast de reeds genoemde documentatie vormen voor het bijhouden van wijzigingen,
+zijn er een aantal aspekten te noemen, welke inherent bijdragen aan de
+stabiliteit van de programma's en de vastlegging van veranderingen:
+<ul>
+<li>
+programma's worden geschreven in een hoge zelf-documenting taal (Pascal)</li>
+
+<li>
+er wordt zo veel mogelijk object-oriented geprogrammeerd</li>
+
+<li>
+de programma's zijn altijd ruim voorzien van commentaar</li>
+
+<li>
+er wordt pas gebruik gemaakt van objecten van anderen, nadat de source
+code is bestudeerd (indien de source code niet beschikbaar is, wordt een
+externe module slechts gebruikt in geval van uiterste nood)</li>
+
+<li>
+essenti&euml;le wijzingen worden altijd met meerder mensen op meerder tijdstippen
+besproken, zodat een besluit over het doorvoeren pas na een bezinkingsperiode
+wordt ge&euml;ffectueerd</li>
+</ul>
+Momenteel is er voor de TestOrganizer en bijbehorende modulen, mondeling
+een versiebeheer en backup afgesproken. Deze komt erop neer dat iedere
+module zijn eigen versienummer en sub-versienummer heeft. Het versienummer
+wordt gewijzigd bij essenti&euml;le veranderingen, het sub-versienummer
+bij kleine/onbelangrijke wijzigingen. Indien het versienummer wordt gewijzigd,
+worden alle sources op ZIP gebackuped. Soms wordt bijgehouden aan wie,
+welke versie wordt verstrekt. De eerlijkheid gebied ook te zeggen dat sommige
+kleinde wijzingingen in een dermate haast gebeuren, dat ophogen van het
+subversie nummer achterweg blijft. Daarnaast wordt een lijst met vernieuwingen
+(help doc, intranet en internet) bijgehouden, wel in het algemeen wel goed
+en detailistisch wordt bijgehouden.
+<br>Het is duidelijk dat hierin verbetering valt aan te brengen.
+<p>Een andere biezonderheid vormt de zogenaamde M-drive, hierop staat continue
+de laatste versie van de programma's. De meeste klanten zijn hierover ge&iuml;nformeerd
+en kunnen op eigen risico (eigen risico geldt niet voor degene, waarvoor
+deze nieuwe versie er specifiek is opgezet) een nieuwere versie downloaden.
+(Omdat momenteel met update contracten wordt gewerkt, zou niet iedereen
+deze programma's meer mogen downloaden.)
+<p>Het toepassen van de procedure "wijzigingsvoorstel ISO" op dit soort
+software zou tot een onwerkbare situatie leiden, welke meer kwaad dan goed
+doet (redundante informatie is niet beheersbaar).
+<br>&nbsp;
+<p><a name="procedure software beheer"></a><b><font color="#000099">Procedure
+Software beheer&nbsp;</font></b><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+<br>Uitgangspunt is een werkzame situatie te cre&euml;ren, welke enerzijds
+beantwoord aan de ISO beheers voorwaarden en welke anderzijds geschikt
+is voor administratieve beheersing van continue in onwikkeling zijnde software.
+Ontwikkeling, documentatie, archivering en uitlevering vormen een logisch
+geheel, daarom zullen in de onderstaande alinea's soms activiteiten dubbel
+worden genoemd.
+<p>Tijdens de ontwikkeling (van een bestaand programma), is de ontwerper
+verantwoordelijk voor het bijhouden van de <b>documentatie</b> in het programma
+en de <b>"Nieuw" lijst</b>. De ontwerper zelf is hiervoor verantwoordelijk
+(het is ondoenlijk hierop te dubbel checken).
+<br>Indien door meerdere ontwerpers aan een programma is gesleuteld, zullen
+alle wijzigingen aan het licht komen bij het "mergen" (ineenvlechten) van
+de bestanden. Dit is echter beperkt (en zonder garanties), omdat het "mergen"
+door &eacute;&eacute;n van de deelnemende ontwerpers gebeurt.
+<p>Ophogen van het (hoofd-)<b>versienummer</b> en/of expliciete <b>uitlevering</b>
+van het pakket aan een klant, vormen de momenten waarop <b>archivering</b>
+van bronbestanden en eventuele andere documentatie plaatsvindt.
+<br>De projectleider is hiervoor verantwoordelijk.
+<br>&nbsp;
+<p><b>Documentatie en "Nieuw"-lijst</b>
+<br>Bij onbelangrijke wijzigingen in een bestaand programma (versienummer>=1),
+worden door de ontwerper in het programma alle wijzigingen als commentaar
+gedocumenteerd, voorzien van datum en initialen. Ge&iuml;nactiveerde code
+wordt niet verwijderd, maar omgezet in commentaar.
+<br>Tevens worden deze wijzigingen (op een voor de gebruikers duidelijke
+manier) genoteerd in de gedateerde lijst "Nieuw". De uitvoeringvorm van
+deze lijst wordt niet nader gespecificeerd, deze is immers afhankelijk
+van het programma, waarin deze lijst ook via de help documentatie moet
+kunnen worden opgeroepen.
+<p>Belangrijke wijzigingen worden besproken in het projectteam.
+<br>Indien besloten wordt de veranderingen door te voeren, wordt dit schriftelijk
+vastgelegd.
+<br>Alvorens tot uitvoering van de wijziging over te gaan, wordt het subversie
+nummer van de laatste broncodes opgehoogd, en worden alle sources gearchiveerd.
+<br>Het versienummer wordt vervolgens opgehoogd.
+<br>Tijdens de uitvoering van belangrijke wijzingingen, kunnen voorgaande
+wijzigingen en documentatie in de broncode w&eacute;l worden verwijderd.
+De wijzigingen in het programma worden nu op de normale manier gedocumenteerd
+en behoeven dus niet voorzien te zijn van datum en initialen, De "Nieuw"-lijst
+wordt uiteraard wel bijgehouden.
+<br>&nbsp;
+<p><b>Versie nummering</b>
+<br>Ieder programma heeft een versie- en een sub-versienummer.
+<br>In de eerste ontwikkel faze en tijdens de eerste beta-testen wordt
+versienummer=0 gebruikt. In deze fase behoeft de wijzigings-documentatie
+in het programma en de nieuw lijst niet bijgehouden te worden.
+<br>Het versie- en sub-versienummer is &oacute;f direct zichtbaar in het
+hoofdvenster van een module &oacute;f is op de standaard windows manier
+(help/about) op te vragen. Indien technisch en logistiek mogelijk, wordt
+het versie- en sub-versienummer volgens de microsoft conventies opgeslagen
+in het exe-bestand.
+<br>Bij essenti&euml;le wijzigingen wordt het versie-nummer opgehoogd (en
+het subversienummer op nul gezet), ongeacht of deze versie op dat moment
+aan een klant wordt uitgeleverd of niet.
+<br>Bij kleine en onbelangrijke wijzigingen wordt enkel het subversie nummer
+opgehoogd, maar pas zodra een versie aan een klant wordt uitgeleverd&nbsp;
+Immers de lijst "Nieuw" en de inwendige programma documentatie zijn voldoende
+tijdens de ontwikkeling.
+<br>&nbsp;
+<p><b>Archivering</b>
+<br>Bij continue in ontwikkeling zijnde software, vindt archivering op
+de volgende momenten plaats
+<ol>
+<li>
+bij expliciete uitlevering aan een klant, tenminste als het subversie nummer
+ongelijk is aan het laatst uitgeleverde subversie-nummer</li>
+
+<li>
+bij (interne) acceptatie van een nieuwe hoofd versie</li>
+
+<li>
+minstens 1 maal per jaar (januari)</li>
+</ol>
+<b>ad.1</b>
+<br>Als er geen enkele wijziging, sinds de vorige uitlevering (dus zelfde
+subversie nummer) is uitgevoerd, behoeft geen archivering plaats te vinden.
+<br>Ge&auml;rchiveerd worden de <b>broncodes</b>. (Gezien de omloop snelheid
+is het niet zinvol tools en installatie te archiveren)
+<p><b>ad.2</b>.
+<br>Een nieuwe hoofdversie betreft belangrijke wijzigingen, derhalve dient
+altijd en volledig gearchiveerd te worden, onafhankelijk of het programma
+op dat moment wordt uitgeleverd of niet.
+<br>Ge&auml;rchiveerd worden <b>broncodes, tools en installatie</b>.
+<p><b>ad.3</b>
+<br>Omdat 1 jaar ongeveer de levensduur van de gebruikte tools is, en om
+te voorkomen dat belangrijke wijzigingen ten onrechte als onbelangrijk
+in een subversie (of nog erger helemaal niet omdat niet uitgeleverd is)
+verloren gaan, vindt 1 maal per jaar een volledige archivering plaats,
+dus <b>broncodes, tools en installatie.</b>
+<br>&nbsp;
+<p><b>Uitgifte</b>
+<br>Bij iedere uitlevering wordt gecontroleerd of er wijzigingen hebben
+plaatsgevonden sinds de vorige uitlevering en zoja of dit aanleiding is
+tot het ophogen van het subversie nummer. Zoja, dan ook archiveren.
+<br>Tevens worden bij iedere uitlevering de gegevens aan de uitleverlijst
+(bevat datum, klant en versienummers) toegevoegd. Momenteel bestaat deze
+lijst nog niet.
+<br>&nbsp;
+<br>&nbsp;
+<p>In bovenstaande tekst zijn de volgende <b>definities</b> gehanteerd:
+<br><b>broncode</b>: alle door ID-SPON (of in opdracht van ID-SPON door
+extern) geschreven code
+<br><b>tools</b>: compilers, benodigde bibliotheken (momenteel COM, EXE,
+OCX, VXD, DLL en license bestanden), verzamelde Delphi bibliotheken etc.
+<br><b>installatie</b>: een bestand (of verzameling van bestanden), dat
+alle run-time bestanden bevat, voorbeeld data en een installatie programma
+<p>
+<hr WIDTH="100%"><font size=-2>&copy; Copyright Instrumentele Dienst, 1999</font>
+<br><a href="mailto:id.postbus@ids.kun.nl"><img src="mail.gif" height=18 width=29></a><font size=-2>
+SM, last updated 14-03-2000&nbsp;</font><a href="#top"><img src="top_page.gif" height=14 width=14></a>
+</body>
+</html>

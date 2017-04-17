@@ -1,0 +1,183 @@
+-- --------------------------------------------------------------------
+-- library to use the MSSP-SPI module
+-- limitations:
+--     - only master mode supported
+--		 - only SysClock  /4  /16  /64 supported, otherwise error message
+--     - Clock/Data timing always according Texas Instruments / Burr Brown SPI
+
+-- procedure SPI_init_mssp
+-- procedure SPI_enable_mssp
+-- procedure SPI_disable_mssp
+-- procedure SPI_init_mssp
+-- procedure SPI_mssp_wait_until_ready
+-- procedure SPI_send_mssp ( byte in x )
+-- procedure SPI_read_mssp( byte out x )
+
+-- Version: 1.2  17-10-2003  Stef Mientki
+--   - SMP-bit (in SSPSTAT) was set wrong, I think ??
+--   - const SPI_mode now can select TI, HP modes
+--	 - Setting of C3 and C5 direction was not through shadow, fixed !
+--
+-- Version: 1.1  1-03-2003  Stef Mientki
+--   - procedure SPI_mssp_wait_until_ready added
+-- Version: 1.0  1-03-2003  orginal release
+-- Author : Stef Mientki
+-- --------------------------------------------------------------------
+
+
+
+-- --------------------------------------------------------------------
+-- set the SPI-clock frequency, wanted by the user
+-- at the moment only System_clock /4  /16  /64 are supported
+-- for other frequencies TMR2 is required
+-- User must set the required SPI clock rate before including this library
+-- User must select a protocol, to define clock-idle and sampling-edge
+-- EXAMPLE
+;
+; const SPI_clock = target_clock / 16  ;20Mc/16 = 1_250_000
+; const SPI_mode  = 1                  ;0=TI, 1=HP
+; include master_sync_ser_port				 ;include library and initialize
+;
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- global variables
+-- --------------------------------------------------------------------
+var volatile bit _SPI_clock_idle
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- calculation of the clockfrequency
+-- this code is just evaluated during compilation and generates no code
+-- --------------------------------------------------------------------
+-- this will calculate the SSPM bits 1 too high
+-- and if no equality was found the result is zero
+const __SPI_clock =  1 * ( SPI_clock ? (target_clock / 4)  ) +
+                     2 * ( SPI_clock ? (target_clock / 16) ) +
+                     3 * ( SPI_clock ? (target_clock / 64) )
+-- so the real bits are found by rotating the result
+-- 1 step left in the modulo-4 space
+const _SPI_clock = ( __SPI_clock + 3 ) % 4
+
+-- at the moment only clock derived from system clock is supported
+-- so no TMR2 support
+if _SPI_clock == 3 then
+  pragma error  -- at the moment to TMR2 support
+end if 
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- enable SPI-mssp
+-- this routine will also clear IF and set the correct TRIS registers
+-- --------------------------------------------------------------------
+procedure SPI_enable_mssp is
+  -- enable SPI, CKP(bit4)=clock idle, according to chosen mode
+  if _SPI_clock_idle == high then
+    SSPCON = 0b_0011_0000 | _SPI_clock 
+  else
+    SSPCON = 0b_0010_0000 | _SPI_clock 
+  end if
+  
+  -- start condition for fast asynchronuous SPI
+  SSPIF = true
+
+  -- set clock and SDO as outputs
+  port_C_direction = port_C_direction  & 0b_1101_0111
+end procedure
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- disable SPI-mssp
+-- --------------------------------------------------------------------
+procedure SPI_disable_mssp is
+  -- disable SPI, clock idle=low
+  SSPCON = SSPCON & 0b_1101_1111
+end procedure
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- init and enable SPI-mssp
+-- The following protocols are implemented
+-- TI=0 : clock_idle=low, sampling on falling edge
+-- HP=1 : clock_idle=high, sampling on rising edge
+-- --------------------------------------------------------------------
+procedure SPI_init_mssp is
+  -- disable all MSSP interrupts
+  _PIE1 = _PIE1 & (! _b_SSPIE)
+
+  -- SSPSTAT = SMP - CKE - ...
+  -- TI:        0     0
+  -- HP:        0     0
+  ; SSPSTAT = 0b_1000_0000  Volgens mij is dit niet juist 17-10-2002
+  ; immers dit zet SMP=1, dwz een verschoven input data ????
+  SSPSTAT = 0b_0000_0000
+  
+  if SPI_mode == 0 then
+    _SPI_clock_idle = low   -- TI
+  else
+    _SPI_clock_idle = high	-- HP
+  end if
+
+  SPI_enable_mssp
+end procedure
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- wait till last command (read or write) is finished
+-- so calling program can release CS
+-- --------------------------------------------------------------------
+procedure SPI_mssp_wait_until_ready is
+  -- wait till transmission ready 
+  while ! SSPIF loop end loop
+end procedure
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- Send a SPI byte
+-- assumes SPI is enabled, waits till transmission finished
+-- --------------------------------------------------------------------
+procedure SPI_send_mssp ( byte in x ) is
+  -- wait till transmission ready 
+  while ! SSPIF loop end loop
+  -- fill SPI buffer
+  SSPBUF = x
+  -- clear SSPIF, realy necessary !!
+  SSPIF = false
+end procedure
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- Read a SPI byte
+-- assumes SPI is enabled
+-- --------------------------------------------------------------------
+procedure SPI_read_mssp ( byte out x ) is
+  -- wait till transmission ready 
+  while  ! SSPIF loop end loop
+  
+  -- maybe strange, but reception is started by transmitting something !!
+  SSPBUF = 0
+
+  -- clear SSPIF
+  SSPIF = false
+  
+  -- transport the read data
+  while  ! SSPIF loop end loop
+  x = SSPBUF
+end procedure
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- initialization, depending on the parameters set by the user
+-- --------------------------------------------------------------------
+spi_init_mssp
+-- --------------------------------------------------------------------
+

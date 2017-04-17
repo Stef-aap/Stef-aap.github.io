@@ -1,0 +1,50 @@
+-- -----------------------------------------------------------------------------
+-- demo JAL v2: hardware RS232
+-- This demo waits for a character on the RS232 receiver
+-- and then echoes the inversed byte through the RS232 transmitter
+-- -----------------------------------------------------------------------------
+-- Tested
+--    16F877, 20 MHz: ok
+--    12F675, 4 MHz (internal, calibrated): no hardware usart available 
+--    JALss + 16F877: ok
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- include hardware definitions
+-- select the appropriate devive library
+-- -----------------------------------------------------------------------------
+include jal_v2_demo_16F877 ;external 20 MHz Xtal
+-- The 12F675 doesn't have a hardware usart !!
+;include jal_v2_demo_12F675 ;internal 4 MHz (calibrated)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- serial definition and initialisation
+-- -----------------------------------------------------------------------------
+-- although there's a software uart definied on the same pins 
+-- (see jal_v2_demo_16F877), these settings will be overruled 
+-- by the overruled by the hardware uart
+const USART_HW_Serial     = true     ;true = RS232, false = SPI
+const Serial_HW_Baudrate  = 19_200   ;set the BaudRate
+include serial_hardware
+Serial_HW_init
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- start of the main program
+-- -----------------------------------------------------------------------------
+var byte ASCII
+forever loop
+  -- if a character is received
+  if Serial_HW_Read( ASCII ) then
+    -- echo the inversed character
+    Serial_HW_Write(! ASCII)
+  end if
+  
+  -- lots of time to do other things
+  -- ....
+end loop
+-- -----------------------------------------------------------------------------

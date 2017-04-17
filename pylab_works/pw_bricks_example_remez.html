@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="320" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Example Building a Brick </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; ( june 2009 )</span></p>
+<p>Application Designer / <span class=rvts10>Domain Expert</span> / Control Designer / Core Developer</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This chapter gives an example of how to build and test a new Brick, by just following the manual, and assuming we're an expert on the given domain. As we don't have an appropriate library to place this component, we'll also create a new Brick-library.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Creating a new Brick's library</span></p>
+<p>Let's create a new file, called brick_Signal_Processing.py and put this file in the directory&nbsp; PyLab_Works/bricks/. Now the next time PyLab_Works is started, it will find this file, and puts "Signal_Processing" in the library tree.</p>
+<p>We just copy the top of another library, containing the basic imports, and the basic library settings. Now adapt the basic library settings Library_Color, Library_Icon and Description with the appropriate values and the base of the library is ready. Now all classes in this library, starting with "t_" will be recognized as Bricks.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=526 height=326 alt="" src="pw_bricks_example_remez_img10.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Function of the Brick</span></p>
+<p>From the new Brick we expect that it will filter time signals, with some kind of stable filter, namely the Remez FIR-Filter. The parameters of the filter need to be changeable in an easy way. So the brick might look somewhat like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=402 height=176 alt="" src="pw_bricks_example_remez_img2.png"></p>
+<p><br></p>
+<p>As a domain expert I know that the calculation of the filter is already available in the library scipy.signal.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scipy.signal.remez(<span class=rvts3>numtaps</span>, <span class=rvts3>bands</span>, <span class=rvts3>desired</span>, <span class=rvts3>weight=None</span>, <span class=rvts3>Hz=1</span>, <span class=rvts3>type='bandpass'</span>, <span class=rvts3>maxiter=25</span>, <span class=rvts3>grid_density=16</span>) </p>
+<p><br></p>
+<p>If you use this formula every day, it might be clear what the parameters all mean. But if you use this formula every day, but in different packages, like Python and MatLab, it will be hard to remember the exact meaning of these parameters, because the slightly differ in the packages. So an important task will be to give enough information, so everyone will understand the parameters at any moment. Another important issue with this filter is, that you can't predict the exact behavior, given a certain set of parameters. Therefor there's a necessity to design the filter by trial and error and to compare the different results, and it might be worth to watch other results from the filter than the response on the available signal (e.g. Impulse Response, Phase Characteristics, etc.).</p>
+<p><br></p>
+<p>And also from the scipy library we have a formula to calculate the filtered output signal:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scipy.signal.lfilter(<span class=rvts3>b</span>, <span class=rvts3>a</span>, <span class=rvts3>x</span>, <span class=rvts3>axis=-1</span>, <span class=rvts3>zi=None</span>) </p>
+<p><br></p>
+<p>Before we start the design of the Brick, it's always wise to see how others solved this problem:</p>
+<p><br></p>
+<p>In<span class=rvts10> LabView</span> (with Digital Filter Design Toolkit):</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=331 height=123 alt="" src="pw_bricks_example_remez_img4.png"></p>
+<p><br></p>
+<p>In <span class=rvts10>MatLab</span>:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=402 height=227 alt="" src="pw_bricks_example_remez_img5.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=448 height=339 alt="" src="pw_bricks_example_remez_img6.png"></p>
+<p><br></p>
+<p><br></p>
+<p>Now let's turn back to our formula</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scipy.signal.remez(<span class=rvts3>numtaps</span>, <span class=rvts3>bands</span>, <span class=rvts3>desired</span>, <span class=rvts3>weight=None</span>, <span class=rvts3>Hz=1</span>, <span class=rvts3>type='bandpass'</span>, <span class=rvts3>maxiter=25</span>, <span class=rvts3>grid_density=16</span>) </p>
+<p><br></p>
+<p>From this formula, knowing what every parameter means, we can directly construct the following window for our Brick:</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=247 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=218 alt="" src="pw_bricks_example_remez_img3.png"></p>
+</td>
+<td width=456 valign=top style="background-color: #ffffd4;">
+<p>On the left we specify a lowpass filter form 0 .. 10 Hz, with an order of about 20. </p>
+<p><br></p>
+<p>MatLab users might notice that the Gain vector and the Weight vector are just half the size of the band vector, which is logical, so MatLab demands redundant information.</p>
+<p>The third form of this filter ( the Hilbert Transform) is not supported by Scipy.</p>
+<p><br></p>
+<p>Compared to both MatLab and LabView, the solution on the left is much more readable. Looking at the flatness of information, the solution on left is superior to the LabView solution. </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p>The the two parameters maxiter and density are in general of no interest, they specify only how the result is reached, and hardly what result is reached.&nbsp; These parameters are also missing in MatLab and LabView. </p>
+<p><br></p>
+<p>Now the above window can be realized with the following Brick definition:</p>
+<p><br></p>
+<p><img width=703 height=665 alt="" src="pw_bricks_example_remez_img11.png"></p>
+<p>&nbsp; </p>
+<p>Quit straight forward, and all texts are already prepared for multi-language support.</p>
+<p><br></p>
+<p>Now it's time to use our Brick, e.g. like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=292 height=277 alt="" src="pw_bricks_example_remez_img12.png"></p>
+<p><br></p>
+<p>While there's still no generate output signals function, running won't show anything relevant.</p>
+<p>So let's add the filter implementation, like this:</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Sprucing up</span></p>
+<p><span class=rvts10>Multi Signals</span></p>
+<p><br></p>
+<p><span class=rvts10>Input Selector</span></p>
+<p><br></p>
+<p><span class=rvts10>Characteristics Output</span></p>
+<p><br></p>
+<p><span class=rvts10>Catching Errors</span></p>
+<p><br></p>
+<p><span class=rvts10>Filter to File</span></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

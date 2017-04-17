@@ -1,0 +1,134 @@
+-- -----------------------------------------------------------------------------
+-- demo JAL v2: pwm motor control through software RS232
+-- This demo shows how you can control a motor through PWM.
+-- The speed and direction are controlled by the serial port,
+-- the most significant bit determines the direction,
+-- while the other 7 bits control the speed.
+-- -----------------------------------------------------------------------------
+-- Tested
+--    16F877, 20 MHz: ok
+--    12F675, 4 MHz (internal, calibrated): 
+--    JALss + 16F877: ok
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- include hardware definitions
+-- select the appropriate devive library
+-- -----------------------------------------------------------------------------
+include jal_v2_demo_16F877 ;external 20 MHz Xtal
+;include jal_v2_demo_12F675 ;internal 4 MHz (calibrated)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- definition and initialisation
+-- -----------------------------------------------------------------------------
+-- define 1 motor with feedback on half port (e.g. J1L, J1R)
+-- for the RPD, the following macro can be used: 
+--     <mac> RPD_Motor_L272  motor = J3L
+var volatile bit motor_Hbridge_1 is pin_B0
+var volatile bit motor_Hbridge_2 is pin_B1
+pin_B0_direction = output
+pin_B1_direction = output
+;var volatile bit motor_Hbridge_1 is pin_A1
+;var volatile bit motor_Hbridge_2 is pin_A2
+;pin_A1_direction = output
+;pin_A2_direction = output
+
+-- definition of a interrupt timer at 1 msec
+-- intialize TMR0, including prescaler
+-- XTAL = 20 MHz,  period = 100 usec (*128 = 1 msec)
+T0CS = false                                 -- set TMR0 to main oscillator
+PSA = false                                  -- enable prescaler for TMR0
+-- read the manual how to set the next values
+-- ( I use a macro that generates the OPTIMAL solution below)
+--      <mac>  TMR0  20, 1000  ;20 MHz, 1000 usec
+if target_chip == PIC_16F877 then
+  OPTION_REG = ( OPTION_REG & 0xF8 ) | 0x02    -- set prescaler to 0 = 1:2
+else
+  OPTION_REG = ( OPTION_REG & 0xF8 ) | 0x00    -- set prescaler to 0 = 1:2
+end if
+var volatile byte _tmr0_preset = 0
+
+-- global vars and constants
+var   byte Motor_Speed = 0
+var   bit  Motor_Direction  = true
+var   byte ISR_Speed
+const byte PWM_period = 128
+var   byte ISR_counter
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Interrupt Service Routine,
+-- sets a global flag "wait_100ms_flag" every 100 msec 
+-- -----------------------------------------------------------------------------
+procedure ISR is
+-- tell the compiler this is (part of) the interrupt service routine
+pragma interrupt
+
+  -- this part of the interrupt proces will only be handled,
+  -- if there's a timer0 overflow
+  if T0IF then
+    -- first thing to do is always to reload the counter with its preset value
+    -- because at this point we could have missed some counts,
+    -- we do ADDITION instead of simple ASSIGNING,
+    -- which assures that missed counts are also included
+    TMR0 = TMR0 + _tmr0_preset      
+
+    -- decrement period counter
+    ISR_counter = ISR_counter - 1
+
+    -- if period is finished
+    if ISR_counter == 0 then
+    
+      -- load new speed and direction
+      ISR_Speed = Motor_Speed
+      Motor_Hbridge_2 = Motor_Direction
+      
+      -- we alwasy start with no power on the motor
+      motor_Hbridge_1 = motor_Hbridge_2
+      
+      -- reload period counter
+      ISR_counter = PWM_period
+    end if
+
+    -- if we reach the point were the period equals the speed
+    -- we put power on the motor
+    if ISR_counter < ISR_Speed then
+      motor_Hbridge_1 = ! motor_Hbridge_2
+    end if
+    
+    -- finally we reset the interrupt flag  
+    T0IF = false
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- enable interrupts
+-- -----------------------------------------------------------------------------
+T0IE = true   -- enable TMR0 interrupt
+GIE  = true   -- enable general interrupts
+T0IF = false  -- clear TMR0 interrupt flag
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- start of the main program
+-- -----------------------------------------------------------------------------
+var byte Data
+forever loop
+  -- test if character is received
+  if Serial_SW_read ( Data ) then
+    -- echo character
+    Serial_SW_Data = Data
+    
+    -- calculate speed and direction
+    Motor_Direction = Data > 127
+    Motor_Speed     = Data & 0x7F
+  end if
+end loop
+-- -----------------------------------------------------------------------------

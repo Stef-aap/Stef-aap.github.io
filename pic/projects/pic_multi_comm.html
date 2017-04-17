@@ -1,0 +1,503 @@
+<HTML><HEAD><TITLE>SM-bus</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>April 2003</SPAN></P>
+<P><SPAN class=RVTS1>Multi-PIC communication</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;<IMG width=666 height=209 src="master_slave_0.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Slave PIC</SPAN></P>
+<P>The minimum PIC at the slave side is determined to be a 12F629 or 12F675, running on it's internal (calibrated) 4 MHz clock.</P>
+<P>Communication Bus</P>
+<P>The connections to the slaves provides the slave with power and are also used to communicate between Slaves and Master.</P>
+<P>Because this will require at least 3 lines and probably 4 lines (to be fast enough), we'll go for 5 lines.</P>
+<P>By choosing 5 lines, these connections can also be used to (re-)program the PIC in the slave.</P>
+<P>There's one other reason for choosing 5 lines, it fits exactly in a 2 width Lego-brick.</P>
+<P>Maybe it's even possible to hook a slave-device directly (or with a few passive components in the DB9 connector) to a serial RS232 port.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=713 height=235 src="master_slave_6.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Because the simple PICs in the slave devices don't have a hardware uart, it's necessary to look what the fastest receive and transmit loop in software is.&nbsp;</P>
+<P>For 115kBaud, bit-period is about 8.7 usec, so a 9 usec cycle, with each fourth cycle of 8 usec, will do very well.</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>;fastest transmit routine (for 1 bit)</P>
+<P>;with equidistant high and low</P>
+<P>assembler</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; btfsc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;1&nbsp;&nbsp;&nbsp; 2</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bit1_high&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;2</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;&nbsp;&nbsp;&nbsp;&nbsp; 1</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data_pin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;&nbsp;&nbsp;&nbsp;&nbsp; 1,&nbsp; subtotal = 4</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bit1_low&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;&nbsp;&nbsp;&nbsp;&nbsp; 2</P>
+<P>&nbsp; bit1_high:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bsf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data_pin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; subtotal = 4</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bit1_low&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;2</P>
+<P>&nbsp;&nbsp;&nbsp; bit1_low:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;=6&nbsp;&nbsp; =6</P>
+<P>end assembler&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;that's 165 kBaud @4MHz</P>
+<P>-- -------------------------------------------------------</P>
+<P>; an another far more faster routine</P>
+<P>assembler</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rlf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data,f&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;1</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rlf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data_port,f&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;1&nbsp; assumes pin0 is data_pin</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;=2</P>
+<P>end assembler&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;that's 500 kBaud @4MHz</P></TD>
+<TD valign=middle>
+<P>;fastest receive routine (for 1 bit)</P>
+<P>&nbsp; data = 0xFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;start with received all ones</P>
+<P>assembler</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; btfsc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data_pin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;1&nbsp;&nbsp;&nbsp; 2</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bit1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;2</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;&nbsp;&nbsp;&nbsp;&nbsp; 1</P>
+<P>&nbsp; bit1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;=3&nbsp;&nbsp; =3</P>
+<P>end assembler</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;that's 330 kBaud @4MHz</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>OSCCAL</P>
+<P>$00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8.0 usec</P>
+<P>$70&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.0 usec</P>
+<P>$7C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.8 usec</P>
+<P>$FC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.8 usec</P></TD>
+<TD valign=middle>
+<P>12F675</P>
+<P>Calibration word at $3FF was $347C&nbsp; ("retlw&nbsp;&nbsp; $7C"), which gives a calibration of $7C (only the 6 msbits are used for the calibration.</P>
+<P>On the left some measurements @5V supply, (@Ta 25...40 Celcius ??).</P>
+<P>Software was written to give an exact square wave with a period of 6 usec.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Slave in standard circuit</P></TD>
+<TD valign=middle>
+<P>Programming a slave</P></TD>
+<TD valign=middle>
+<P>Slave "direct" to RS232</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=209 height=128 src="master_slave_2.gif"></P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=213 height=185 src="master_slave_1.gif"></P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=287 height=193 src="master_slave_5.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>PIC</P></TD>
+<TD valign=middle>
+<P>Slave</P></TD>
+<TD valign=middle>
+<P>Programming</P></TD>
+<TD valign=middle>
+<P>RS232</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>1</P></TD>
+<TD valign=middle>
+<P>Vdd</P></TD>
+<TD valign=middle>
+<P>+5V</P></TD>
+<TD valign=middle>
+<P>+5V</P></TD>
+<TD valign=middle>
+<P>RTS (+5V)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>2</P></TD>
+<TD valign=middle>
+<P>GP5 (T1,noAD)</P></TD>
+<TD valign=middle>
+<P>&nbsp; - application</P></TD>
+<TD valign=middle>
+<P>-</P></TD>
+<TD valign=middle>
+<P>&nbsp; - application</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>3</P></TD>
+<TD valign=middle>
+<P>GP4 (gate1,Fosc/4)</P></TD>
+<TD valign=middle>
+<P>&nbsp; - application</P></TD>
+<TD valign=middle>
+<P>-</P></TD>
+<TD valign=middle>
+<P>&nbsp; - application</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>4</P></TD>
+<TD valign=middle>
+<P>GP3 (input only)</P></TD>
+<TD valign=middle>
+<P>Master-Slave IN</P></TD>
+<TD valign=middle>
+<P>Vpp</P></TD>
+<TD valign=middle>
+<P>DTR (Master Slave IN)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>5</P></TD>
+<TD valign=middle>
+<P>GP2 (T0)</P></TD>
+<TD valign=middle>
+<P>&nbsp; - application</P></TD>
+<TD valign=middle>
+<P>-</P></TD>
+<TD valign=middle>
+<P>&nbsp; - application</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>6</P></TD>
+<TD valign=middle>
+<P>GP1 (Vref)</P></TD>
+<TD valign=middle>
+<P>Bidirectional Data Line</P></TD>
+<TD valign=middle>
+<P>program clock</P></TD>
+<TD valign=middle>
+<P>RxD (via FET)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>7</P></TD>
+<TD valign=middle>
+<P>GP0</P></TD>
+<TD valign=middle>
+<P>Master-Slave OUT</P></TD>
+<TD valign=middle>
+<P>program data</P></TD>
+<TD valign=middle>
+<P>Master_Slave OUT</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>8</P></TD>
+<TD valign=middle>
+<P>Vss</P></TD>
+<TD valign=middle>
+<P>GND</P></TD>
+<TD valign=middle>
+<P>GND</P></TD>
+<TD valign=middle>
+<P>GND (GND)</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>Disadvantages:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Vref (GP1) is used on the connection pin (because it's needed as the program clock)&nbsp;</LI>
+<LI>direct connection to an RS232, inhibits sending messages from PC to the PIC&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=276 valign=middle>
+<P><SPAN class=RVTS2>Direct RS232 connection</SPAN></P>
+<P>The idea is to connect a slave (or more slaves) "directly" to a RS232 line, without any external power supply.</P>
+<P>Basically all inactive lines are negative (-12V). Because the RxD line will be more inactive then active, the line must be held passive low. Therefor the PIC must be placed between positive (RTS) and ground. The power supply is limited by zener (D1) and buffered by C1. Further we have to use a P-FET (Q1) to control the RxD line.</P>
+<P>For control of the Master-Slave input, we must use DTR. Because it's connected to the Vpp of the PIC we must use a (shottky) clamp diode (D2).</P>
+<P>Now the only available line to generate the negative power supply is TxD. So unfortunatly wecan't send messages to the slave.</P>
+<P>Master-Slave OUT, can still be used to connect other slaves.</P></TD>
+<TD width=441 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=463 height=193 src="master_slave_4.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Commands</SPAN></P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Code</P></TD>
+<TD valign=middle>
+<P>Master / Slave signal</P></TD>
+<TD valign=middle>
+<P>Description</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>-</P></TD>
+<TD valign=middle>
+<P>too short negative puls (noise spike)</P></TD>
+<TD valign=middle>
+<P>Slave ignores this puls</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>-</P></TD>
+<TD valign=middle>
+<P>short negative puls,</P>
+<P>Master frees dataline</P></TD>
+<TD valign=middle>
+<P>On the trailing edge of this puls, the first slave starts to transmit its data, then it frees the dataline and sets the same short negative puls on the master/slave output, so the next slave can transport it's data.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>-</P></TD>
+<TD valign=middle>
+<P>long negative puls,</P>
+<P>Master frees dataline,</P>
+<P>after</P></TD>
+<TD valign=middle>
+<P>If the puls lasts long, the slave puts a low puls to it's master/slave output, to signal the rest of the slaves.</P>
+<P>&nbsp; or&nbsp; ???</P>
+<P>If the puls lasts long, slave recognizes this as a command and ... the slave puts a low puls to it's master/slave output, to signal the rest of the slaves.</P>
+<P>After the trailing edge, (now all the slaves are supposed tobe listening), the master sends a command.</P>
+<P>The command is either a genereral command for all slaves or a addressed command for the specific slave.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Code</P></TD>
+<TD valign=middle>
+<P>Master Command</P></TD>
+<TD valign=middle>
+<P>Slave Respons</P></TD>
+<TD valign=middle>
+<P>Description</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Identify Yourself</P></TD>
+<TD valign=middle>
+<P>ID-number</P>
+<P>Number of databytes at each transmission</P>
+<P>maximum output frequency</P></TD>
+<TD valign=middle>
+<P>Every unique device has an unique ID-number.</P>
+<P>Number of bytes in range [0..31]</P>
+<P>Frequency = 1, 10, 100, 1000 Hz (coded by 00,01,10,11).</P>
+<P>By this query, the master knows how many devices are present, which devices are present and what the global specifications of the devices are.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Here's your address</P></TD>
+<TD valign=middle>
+<P>-</P></TD>
+<TD valign=middle>
+<P>After a reset, all devices have no address.</P>
+<P>When the master starts to deal the addresses, the first address is given to the first device, the second address to the second device and so on.</P>
+<P>Slave stores the address (in ram) for future use.</P>
+<P>Most commands will be for 1 specific device, whoes address is given.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Code</P></TD>
+<TD valign=middle>
+<P>Address +</P>
+<P>Command</P></TD>
+<TD valign=middle>
+<P>Description</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Calibrate</P></TD>
+<TD valign=middle>
+<P>The Slave will give a calibration puls on the dataline.</P>
+<P>The calibration puls should be 1 msec in length.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Calibrate +1</P></TD>
+<TD valign=middle>
+<P>The slave will increase the pulslength, by lowering the oscillator calibration word.</P>
+<P>Then the slave agains gives a calibration puls on the dataline.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Calibrate -1</P></TD>
+<TD valign=middle>
+<P>The slave will decrease the pulslength, by increasing the oscillator calibration word.</P>
+<P>Then the slave agains gives a calibration puls on the dataline.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Calibrate OK</P></TD>
+<TD valign=middle>
+<P>The slave stores the calibration word in EEPROM for futher use.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>dsd</P>
+<P>dsdsf f sf sdf sd&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><A name="goal"></A>
+<SPAN class=RVTS2>OLD GOAL</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>The main purpose of this project&nbsp; is to combine the datastream of 1 to a maximum of 8 PICs to a serial or USB port&nbsp; of the PC, as shown on the right.&nbsp;</P>
+<P>The "datageneration" is done by 16F628's, running at 20 MHz, and producing datastreams of about 100 kb/s.&nbsp;</P>
+<P>The total datastream to the PC is reduced by some algoritm and is limited to about 200 kb/s.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Besides the main datastreams, there are small datastreams (commands) in the opposite direction.</P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=304 height=361 src="pic_multi_comm1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Some choices seems to be very obvious:&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>it's preferable to use also a 16F628 as the collection PIC&nbsp;</LI>
+<LI>some kind of master-slave protocol, where the collection PIC is the master and all other PICs are slaves&nbsp;</LI>
+<LI>the communication must be quiet fast, otherwise the PICs won't have enough time to their primary job&nbsp;</LI>
+<LI>the communication must be done in software, because the USART of the collect PIC is needed for the PC-interface&nbsp;</LI>
+<LI>the collect PIC must receive the data parallel, otherwise it's too slow&nbsp;</LI>
+<LI>as few lines as possible must be used&nbsp; for the inter-PIC communication, otherwise the collect PIC won't have enough IO-lines&nbsp;</LI>
+</UL>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Basic master-slave communication</P></TD>
+<TD valign=top>
+<P>Master</P>
+<P>&nbsp;Send_Command&nbsp; ( command )&nbsp;</P>
+<P>if&nbsp;&nbsp; command_read&nbsp; then&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp; Receive_Bytes&nbsp;</P>
+<P>endif&nbsp;</P>
+<P>Do_Calculations&nbsp;</P>
+<P>Send_to_PC</P></TD>
+<TD valign=top>
+<P>Slave</P>
+<P>&nbsp;Read_Command&nbsp; ( command )&nbsp;</P>
+<P>if&nbsp;&nbsp; command_read&nbsp;&nbsp; then&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; Send_Bytes&nbsp;</P>
+<P>else&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; Do_Something_Else&nbsp;</P>
+<P>endif&nbsp;</P>
+<P>Gather_New_Data</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>The next step is to look in more detail to the lower level&nbsp; communication, to see if the requirements can be satisfied.&nbsp;</P>
+<P>First choices:&nbsp;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>one bi-directional data line for each slave processor&nbsp;</LI>
+<LI>one clock line, which is used in wired-or by all slaves and the master&nbsp;</LI>
+</UL>
+<P>This approch uses a minimum of IO-lines, and will give enough flexibility for the needed command/data structure.&nbsp;</P>
+<P>There's one important IF, all slaves should by synchronized, so they'll have their data ready at the same time.&nbsp;</P>
+<P>At the moment it's assumed that this synchronization demand can be satisfied.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><SPAN class=RVTS2>Master-Slave communication details</SPAN></P>
+<P>&nbsp;The algoritmes on the right only take in considerations the major datastreams from slaves to master.&nbsp;</P>
+<P>There's one tricky point, that needs a closer investigation, when data is read by the master the master sets clock low and after that, there must be enough time for all slaves to see this low clock !!</P></TD>
+<TD width=120 valign=top>
+<P>Master</P>
+<P>&nbsp;loop:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; set clock high&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; wait till clock high&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; read data&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; set clock low&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp; -- tricky, wait ??&nbsp;</P>
+<P>end loop</P></TD>
+<TD width=120 valign=top>
+<P>Slave</P>
+<P>&nbsp;loop:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; setup data&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; set clock high&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; wait till clock high&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; wait till clock low&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; set clock low&nbsp;</P>
+<P>end loop</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>A:&nbsp; here we wait till all devices (slaves and master) put their clockline in high impedance state, so the clockline will go high., indicating everyone is ready, slaves are listening and master can start a communication.</P>
+<P>B: Master sets up the first bit, 0=reading data stream from slave to master, 1=master sends a command to the slaves</P>
+<P>C: Master pulls the clockline low, indicating to the slaves a valid databit</P>
+<P>D: Only a very short time after C (because all slaves are listening), the data is removed by the master.</P>
+<P>E:&nbsp;</P>
+<P>G: master sets clock low,&nbsp; indicating reading databit done</P>
+<P>H: slaves setup the new databit</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=598 height=153 src="pic_multi_comm3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=398 height=238 src="pic_multi_comm2.gif">&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

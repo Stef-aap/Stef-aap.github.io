@@ -1,0 +1,557 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Signal WorkBench, Actilog analysis</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="1343" />
+<meta name="spellcheck" content="132115" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>april 2007</span></p>
+<p><span class=rvts1>Signal Workbench, Actilog Analysis</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This demo shows how you can use Signal WorkBench to find an appropriate analyses method for data collected with an human activity monitor.</p>
+<p><br></p>
+<p>ActiLog is ...</p>
+<p>signals look like ...</p>
+<p><br></p>
+<p><img width=789 height=189 alt="" src="jalcc_swb_akto_img23.png"></p>
+<p>(1354a, ak=80)</p>
+<p><img width=528 height=192 alt="" src="jalcc_swb_akto_img24.png">&nbsp; <img width=82 height=270 alt="" src="jalcc_swb_akto_img25.png"></p>
+<p><br></p>
+<p><img width=576 height=59 alt="" src="jalcc_swb_akto_img26.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>Signals</p>
+<p>- Gaussian --&gt; scheve verdeling</p>
+<p><br></p>
+<p><span class=rvts2>Starting the Calculation Tree</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=146 valign=top style="background-color: #ffffd4;">
+<p><img width=150 height=82 alt="" src="jalcc_swb_akto_img4.png"></p>
+</td>
+<td width=790 valign=top style="background-color: #ffffd4;">
+<p>We just create some nodes, with more or less logical names.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Main-Node</span></p>
+<p>The main-node will eventually hold all the basic code, but to start we only need to read the datafile. The filename comes from the parent node, which gives us more flexibility during development of the code.</p>
+<p>After the main-node has run once, all basic data will be available to the child-nodes. Just as "filename" is available as a global from the parent node.</p>
+<p><br></p>
+<p><img width=892 height=169 alt="" src="jalcc_swb_akto_img3.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Selecting the datafile</span></p>
+<p>Finally "selecting the datafile" will become part of the main program, but during development it's more convenient to put the data file selection in an extra node, on top of the main-node. The advantage of such an extra node is that you can run all nodes below, without the need to select the file each time you want to test a small piece of code.</p>
+<p><br></p>
+<p><img width=806 height=176 alt="" src="jalcc_swb_akto_img2.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Experimental node</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=621 height=163 alt="" src="jalcc_swb_akto_img6.png"></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=308 height=400 alt="" src="jalcc_swb_akto_img1.bmp"></p>
+<p><br></p>
+<p><br></p>
+<p>First we want to skip small signal, because they are not real activity and could be caused for example by moving your leg while sitting relaxed in a chair.</p>
+<p>So we write the next script, and after pressing F9, we can see right away the results of the calculation. In the graph we've zoomed in, and we've given the calculated signal a little higher gain, so we get to see both signals well. So we see that the algorithm does what we wanted.</p>
+<p><img width=397 height=142 alt="" src="jalcc_swb_akto_img10.png">&nbsp; <img width=308 height=400 alt="" src="jalcc_swb_akto_img1.bmp"></p>
+<p><br></p>
+<p><br></p>
+<p>Because the data is only stored every 5 minutes, we can have different results for the same activity. Suppose we have an activity level of 300, during 5 minutes, this could have also been registered as activity level of 150 during 10 minutes, or could even been spread out over 15 minutes. So the idea is to find periods of activity and non-activity, determine the mean (or mean integrated over time ?) during an activity period and replace that activity period with it's mean.</p>
+<p>So we extend our script with a check if the signal is larger than zero. We also introduce an intermediate variable "test_day", so we can easily look what the calculations will do if we select another day.</p>
+<p><img width=412 height=242 alt="" src="jalcc_swb_akto_img11.png"><span class=rvts8>&nbsp; </span><img width=308 height=400 alt="" src="jalcc_swb_akto_img2.bmp"></p>
+<p><br></p>
+<p><br></p>
+<p>Now we can detect the edges of the activity periods, and of course as previous MatLab users we know and use the diff-function, ...</p>
+<p>... which works slightly different ...</p>
+<p>I've switched off the original signal in the display (right mouse menu) and we see some weird things (from a MatLab point of view),</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>the difference signal comes 1 sample too early (I can't remember if this was also the case in MatLab) </li>
+<li>both the positive and negative edges result in a diff = 1 </li>
+</ul>
+<p><img width=417 height=320 alt="" src="jalcc_swb_akto_img12.png">&nbsp;&nbsp; <img width=308 height=400 alt="" src="jalcc_swb_akto_img3.bmp"></p>
+<p><br></p>
+<p>Let's first investigate in more detail what the signal "afgel" looks like,</p>
+<p>this can be done by just typing a print command in the interactive window</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=649 height=135 alt="" src="jalcc_swb_akto_img14.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (bug: SWB displays floats if "afgel" is in output signals ???)</p>
+<p><br></p>
+<p>and we get a good demonstration of the better performance / optimization of SciPy. In MatLab all variables are floats and will stay float, in SciPy the variable is converted to the smallest possible one. So it's logical that the signal "s" can only take 2 values and therefor will be a boolean. Apparently SciPy can't increase the resulting variable size and therefor the signal "afgel=diff(s)" will also result in a boolean result, which will be True at all edges, whether positive or negative.</p>
+<p>Now we are aware of this phenomena, the solution is simple. Now we also add an extra False at the beginning (there are numerous ways to do that), so the difference signal will be shifted to the right place.</p>
+<p><img width=412 height=323 alt="" src="jalcc_swb_akto_img20.png">&nbsp; <img width=296 height=360 alt="" src="jalcc_swb_akto_img4.bmp"></p>
+<p><br></p>
+<p><br></p>
+<p>The next step is to compute the average over every active part of the signal. Now we put this together with the edge detection in one function which we'll place in our standard library. And this is how the function looks:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=544 height=645 alt="" src="jalcc_swb_akto_img21.png"></p>
+<p><br></p>
+<p>Now our test script will look much simpler and we can watch the result</p>
+<p><br></p>
+<p><img width=446 height=276 alt="" src="jalcc_swb_akto_img22.png">&nbsp; <img width=296 height=360 alt="" src="jalcc_swb_akto_img5.bmp"></p>
+<p><br></p>
+<p><br></p>
+<p>So it's time to view at a histogram, of the complete</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><img width=308 height=400 alt="" src="jalcc_swb_akto_img1.bmp">&nbsp;&nbsp; <img width=308 height=400 alt="" src="jalcc_swb_akto_img2.bmp"><img width=308 height=400 alt="" src="jalcc_swb_akto_img3.bmp"></p>
+<p>1354a, ak=85, Not Calibrated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Calibrated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smooth calibrated</p>
+<p><br></p>
+<p>#&lt;&lt; snijpunt= 100.0</p>
+<p>#&lt;&lt; [ tau&nbsp;&nbsp; /&nbsp; mean&nbsp; /&nbsp; SD&nbsp; /&nbsp; A&nbsp; /&nbsp; B ]</p>
+<p>#&lt;&lt; [&nbsp; 12.30548153&nbsp; 119.84717957&nbsp; 132.42905616&nbsp; 352.51517018&nbsp;&nbsp; 59.95836701]</p>
+<p>#&lt;&lt; D:\Akto_yk\Gijs_problemen_April_2007\1354a.dat</p>
+<p><br></p>
+<p>#&lt;&lt; [ tau&nbsp;&nbsp; /&nbsp; mean&nbsp; /&nbsp; SD&nbsp; /&nbsp; A&nbsp; /&nbsp; B ]</p>
+<p>#&lt;&lt; [&nbsp; 17.9282202&nbsp;&nbsp; 150.36781469&nbsp; 118.01076737&nbsp; 317.14267291&nbsp;&nbsp; 58.93539309]</p>
+<p><br></p>
+<p>#&lt;&lt; [ tau&nbsp;&nbsp; /&nbsp; mean&nbsp; /&nbsp; SD&nbsp; /&nbsp; A&nbsp; /&nbsp; B ]</p>
+<p>#&lt;&lt; [&nbsp; 17.21361982&nbsp; 146.73730914&nbsp; 121.37234058&nbsp; 321.72739784&nbsp;&nbsp; 58.68596152]</p>
+<p><br></p>
+<p>Energy_mean</p>
+<p>#&lt;&lt; [ tau&nbsp;&nbsp; /&nbsp; mean&nbsp; /&nbsp; SD&nbsp; /&nbsp; A&nbsp; /&nbsp; B ]</p>
+<p>#&lt;&lt; [&nbsp;&nbsp; 1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 170.67140106&nbsp;&nbsp; 38.24161208&nbsp;&nbsp;&nbsp; 1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 146.13630098]</p>
+<p><br></p>
+<p><br></p>
+<p><img width=788 height=308 alt="" src="jalcc_swb_akto_img8.png"></p>
+<p><br></p>
+<p><a href="jalcc_swb_akto_img1.bmp"><img width=296 height=360 alt="" src="jalcc_swb_akto_img1.bmp"></a></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="jalcc_swb_akto_img1.bmp"><img width=308 height=400 alt="" src="jalcc_swb_akto_img1.bmp"></a><span class=rvts8>&nbsp; 1354a.dat</span></p>
+<p><span class=rvts8><br></span></p>
+<p><br></p>
+<p><br></p>
+<p><img width=495 height=423 alt="" src="jalcc_swb_akto_img1.png"></p>
+<p><br></p>
+<p style="page-break-before: always;"><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=57 valign=middle style="background-color: #00ccff;">
+<p>165(ijk)</p>
+</td>
+<td width=65 valign=middle style="background-color: #00ccff;">
+<p>157</p>
+</td>
+<td width=62 valign=middle style="background-color: #00ccff;">
+<p>182</p>
+</td>
+<td width=45 valign=middle style="background-color: #00ccff;">
+<p>191</p>
+</td>
+<td width=597 valign=middle style="background-color: #00ccff;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=57 valign=middle style="background-color: #ffffd4;">
+<p>107</p>
+</td>
+<td width=65 valign=middle style="background-color: #ffffd4;">
+<p>126</p>
+<p>(+18%)</p>
+</td>
+<td width=62 valign=middle style="background-color: #ffffd4;">
+<p>103</p>
+<p>(-4%)</p>
+</td>
+<td width=45 valign=middle style="background-color: #ffffd4;">
+<p>105</p>
+<p>(-2%)</p>
+</td>
+<td width=597 valign=middle style="background-color: #ffffd4;">
+<p>Originele meting Lonneke</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=57 valign=middle style="background-color: #ffffd4;">
+<p>119</p>
+</td>
+<td width=65 valign=middle style="background-color: #ffffd4;">
+<p>123</p>
+<p>(+3%)</p>
+</td>
+<td width=62 valign=middle style="background-color: #ffffd4;">
+<p>113</p>
+<p>(-5%)</p>
+</td>
+<td width=45 valign=middle style="background-color: #ffffd4;">
+<p>109</p>
+<p>(-8%)</p>
+</td>
+<td width=597 valign=middle style="background-color: #ffffd4;">
+<p>B= Nieuwe yking, kale lineair-regressie, over alle punten</p>
+<p>165LB:&nbsp; 0.92 * MEET + -22.40 (R = 0.97)</p>
+<p>157LB:&nbsp; 0.89 * MEET + -27.30 (R = 0.98)</p>
+<p>182LB:&nbsp; 0.89 * MEET + -13.82 (R = 0.99)</p>
+<p>191LB:&nbsp; 0.93 * MEET + -26.42 (R = 0.98)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=57 valign=middle style="background-color: #ffffd4;">
+<p>101</p>
+</td>
+<td width=65 valign=middle style="background-color: #ffffd4;">
+<p>106</p>
+<p>(+5%)</p>
+</td>
+<td width=62 valign=middle style="background-color: #ffffd4;">
+<p>98</p>
+<p>(-3%)</p>
+</td>
+<td width=45 valign=middle style="background-color: #ffffd4;">
+<p>93</p>
+<p>(-8%)</p>
+</td>
+<td width=597 valign=middle style="background-color: #ffffd4;">
+<p>New, alleen waarden (voor yk) tussen 30 .. 300</p>
+<p>165LB:&nbsp; 0.58 * MEET + 18.61 (R = 0.81)</p>
+<p>157LB:&nbsp; 0.70 * MEET + -8.94 (R = 0.91)</p>
+<p>182LB:&nbsp; 0.78 * MEET + -13.32 (R = 0.97)</p>
+<p>191LB:&nbsp; 0.72 * MEET + -6.52 (R = 0.92)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=57 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+<td width=65 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+<td width=62 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+<td width=45 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+<td width=597 valign=middle style="background-color: #ffffd4;">
+<p>New, alleen waarden (voor yk) tussen 5 .. 300</p>
+<p>165LB:&nbsp; 0.63 * MEET +&nbsp; 6.10 (R = 0.87)</p>
+<p>157LB:&nbsp; 0.70 * MEET + -11.07 (R = 0.94)</p>
+<p>182LB:&nbsp; 0.77 * MEET + -13.36 (R = 0.98)</p>
+<p>191LB:&nbsp; 0.72 * MEET + -7.89 (R = 0.94)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=57 valign=middle style="background-color: #ffffd4;">
+<p>106</p>
+</td>
+<td width=65 valign=middle style="background-color: #ffffd4;">
+<p>115</p>
+<p>(+8%)</p>
+</td>
+<td width=62 valign=middle style="background-color: #ffffd4;">
+<p>102</p>
+<p>(-4%)</p>
+</td>
+<td width=45 valign=middle style="background-color: #ffffd4;">
+<p>99</p>
+<p>(-7%)</p>
+</td>
+<td width=597 valign=middle style="background-color: #ffffd4;">
+<p>New, alleen waarden (voor yk) tussen 5 .. 500</p>
+<p>165LB:&nbsp; 0.76 * MEET + -7.44 (R = 0.92)</p>
+<p>157LB:&nbsp; 0.81 * MEET + -20.99 (R = 0.96)</p>
+<p>182LB:&nbsp; 0.84 * MEET + -19.18 (R = 0.98)</p>
+<p>191LB:&nbsp; 0.81 * MEET + -15.47 (R = 0.96)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=57 valign=middle style="background-color: #ffffd4;">
+<p>119</p>
+</td>
+<td width=65 valign=middle style="background-color: #ffffd4;">
+<p>124</p>
+</td>
+<td width=62 valign=middle style="background-color: #ffffd4;">
+<p>114</p>
+</td>
+<td width=45 valign=middle style="background-color: #ffffd4;">
+<p>108</p>
+</td>
+<td width=597 valign=middle style="background-color: #ffffd4;">
+<p>B, maar nauwkeuriger yking</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><img width=856 height=423 alt="" src="jalcc_swb_akto_img34.png"></p>
+<p><br></p>
+<p><img width=440 height=403 alt="" src="jalcc_swb_akto_img27.png"><img width=440 height=403 alt="" src="jalcc_swb_akto_img28.png"></p>
+<p><br></p>
+<p><img width=313 height=323 alt="" src="jalcc_swb_akto_img29.png"><img width=268 height=323 alt="" src="jalcc_swb_akto_img30.png"></p>
+<p><img width=254 height=323 alt="" src="jalcc_swb_akto_img31.png"><img width=417 height=323 alt="" src="jalcc_swb_akto_img33.png"></p>
+<p><br></p>
+<p><br></p>
+<p style="page-break-before: always;"><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 600</span></p>
+<p><span class=rvts12>#&lt;&lt; 165LB:&nbsp; 0.92 * MEET + -23.11 (R = 0.97)</span></p>
+<p><span class=rvts12>#&lt;&lt; 157LB:&nbsp; 0.89 * MEET + -27.95 (R = 0.98)</span></p>
+<p><span class=rvts12>#&lt;&lt; 182LB:&nbsp; 0.93 * MEET + -24.18 (R = 0.99)</span></p>
+<p><span class=rvts12>#&lt;&lt; 191LB:&nbsp; 0.93 * MEET + -26.74 (R = 0.98)</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; 165LB:&nbsp; 0.76 * MEET + -7.03 (R = 0.93)</span></p>
+<p><span class=rvts12>#&lt;&lt; 157LB:&nbsp; 0.80 * MEET + -18.93 (R = 0.96)</span></p>
+<p><span class=rvts12>#&lt;&lt; 182LB:&nbsp; 0.82 * MEET + -15.97 (R = 0.98)</span></p>
+<p><span class=rvts12>#&lt;&lt; 191LB:&nbsp; 0.80 * MEET + -15.06 (R = 0.96)</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 100</span></p>
+<p><span class=rvts12>#&lt;&lt; 165LB:&nbsp; 0.31 * MEET + 18.97 (R = 0.64)</span></p>
+<p><span class=rvts12>#&lt;&lt; 157LB:&nbsp; 0.51 * MEET + -1.86 (R = 0.88)</span></p>
+<p><span class=rvts12>#&lt;&lt; 182LB:&nbsp; 0.61 * MEET + -4.73 (R = 0.92)</span></p>
+<p><span class=rvts12>#&lt;&lt; 191LB:&nbsp; 0.50 * MEET +&nbsp; 3.74 (R = 0.83)</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 100 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; 165LB:&nbsp; 0.91 * MEET + -33.31 (R = 0.95)</span></p>
+<p><span class=rvts12>#&lt;&lt; 157LB:&nbsp; 0.84 * MEET + -28.09 (R = 0.93)</span></p>
+<p><span class=rvts12>#&lt;&lt; 182LB:&nbsp; 0.92 * MEET + -40.99 (R = 0.97)</span></p>
+<p><span class=rvts12>#&lt;&lt; 191LB:&nbsp; 0.85 * MEET + -21.86 (R = 0.95)</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 50</span></p>
+<p><span class=rvts12>#&lt;&lt; 165LB:&nbsp; 0.11 * MEET + 14.02 (R = 0.48)</span></p>
+<p><span class=rvts12>#&lt;&lt; 157LB:&nbsp; 0.33 * MEET +&nbsp; 3.86 (R = 0.78)</span></p>
+<p><span class=rvts12>#&lt;&lt; 182LB:&nbsp; 0.41 * MEET +&nbsp; 0.99 (R = 0.80)</span></p>
+<p><span class=rvts12>#&lt;&lt; 191LB:&nbsp; 0.29 * MEET +&nbsp; 9.18 (R = 0.66)</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 50 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; 165LB:&nbsp; 0.85 * MEET + -17.92 (R = 0.95)</span></p>
+<p><span class=rvts12>#&lt;&lt; 157LB:&nbsp; 0.84 * MEET + -29.17 (R = 0.95)</span></p>
+<p><span class=rvts12>#&lt;&lt; 182LB:&nbsp; 0.88 * MEET + -29.76 (R = 0.98)</span></p>
+<p><span class=rvts12>#&lt;&lt; 191LB:&nbsp; 0.84 * MEET + -21.73 (R = 0.95)</span></p>
+<p><span class=rvts12>#&lt;&lt; ++++++++++</span></p>
+<p><span class=rvts12><br></span></p>
+<p style="page-break-before: always;"><br></p>
+<p><span class=rvts12>for fs in range(1,5):</span></p>
+<p><span class=rvts12>&nbsp; MID = 30 </span></p>
+<p><span class=rvts12>&nbsp; gain1, offset1 = do_range_fileset (fs, 0, MID)</span></p>
+<p><span class=rvts12>&nbsp; gain2, offset2 = do_range_fileset (fs, MID, 500)</span></p>
+<p><span class=rvts12>&nbsp; </span></p>
+<p><span class=rvts12>&nbsp; if gain2&lt;&gt;gain1:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; snijpunt = (offset1-offset2)/(gain2-gain1)</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; print 'snijpunt=',snijpunt</span></p>
+<p><span class=rvts12>&nbsp; else: print "PROBLEMS"</span></p>
+<p><span class=rvts12>&nbsp; </span></p>
+<p><span class=rvts12>&nbsp; </span></p>
+<p><span class=rvts12>&nbsp; data, data_ok1, data_zazo, data_week, gain0, offset0 = Read_Akto_File(filename3, Calibrated=False, Print_Info=False )</span></p>
+<p><span class=rvts12>&nbsp; data = data_ok1.flatten()</span></p>
+<p><span class=rvts12>&nbsp; </span></p>
+<p><span class=rvts12>&nbsp; # Berekening op de oude wijze</span></p>
+<p><span class=rvts12>&nbsp; N = 0</span></p>
+<p><span class=rvts12>&nbsp; SUM = 0</span></p>
+<p><span class=rvts12>&nbsp; for i in range(len(data)):</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; if data[i]&gt;2:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N = N + 1</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SUM = SUM + data[i]/gain0 - offset0</span></p>
+<p><span class=rvts12>&nbsp; #print "Sum", int(SUM / N)</span></p>
+<p><span class=rvts12>&nbsp; # levert voor 165 / 157 / 182 / 191 = 120 / 140 / 110 / 116</span></p>
+<p><span class=rvts12>&nbsp; # hetgeen goed overeenkomt met het aktometer programma</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; # nieuwe berekening met snijpunt</span></p>
+<p><span class=rvts12>&nbsp; N = 0</span></p>
+<p><span class=rvts12>&nbsp; NEWSUM = 0</span></p>
+<p><span class=rvts12>&nbsp; for i in range(len(data)):</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; if data[i]&gt;3:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N = N + 1</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if data[i]&lt;snijpunt: newdata = gain1 * data[i] + offset1</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else: newdata = gain2 * data[i] + offset2</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if newdata &lt; 0: newdata = 0</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NEWSUM = NEWSUM + newdata</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; """&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; if data[i]&gt;0:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N = N + 1</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if data[i]&lt;snijpunt: newdata = gain1 * data[i] + offset1</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else: newdata = gain2 * data[i] + offset2</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if newdata &lt; 8: newdata = 0</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NEWSUM = NEWSUM + newdata</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; """</span></p>
+<p><span class=rvts12>&nbsp; print "NEWSum", int(SUM / N), int(NEWSUM / N)</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; </span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 30</span></p>
+<p><span class=rvts12>#&lt;&lt; 165LB:&nbsp; 0.23 * MEET +&nbsp; 5.54 (R = 0.61)&nbsp;&nbsp;&nbsp; Error = -1.000</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 30 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; 165LB:&nbsp; 0.76 * MEET + -5.95 (R = 0.90)&nbsp;&nbsp;&nbsp; Error = 0.000</span></p>
+<p><span class=rvts12>#&lt;&lt; snijpunt= 21.5211769688</span></p>
+<p><span class=rvts12>#&lt;&lt; gain/offset= 1.45 1.0 1 49</span></p>
+<p><span class=rvts12>#&lt;&lt; pppp</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 127 137</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 30</span></p>
+<p><span class=rvts12>#&lt;&lt; 157LB:&nbsp; 0.23 * MEET +&nbsp; 4.81 (R = 0.68)&nbsp;&nbsp;&nbsp; Error = 0.000</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 30 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; 157LB:&nbsp; 0.84 * MEET + -28.47 (R = 0.95)&nbsp;&nbsp;&nbsp; Error = 0.000</span></p>
+<p><span class=rvts12>#&lt;&lt; snijpunt= 55.3917322236</span></p>
+<p><span class=rvts12>#&lt;&lt; gain/offset= 1.23 1.08 14 14</span></p>
+<p><span class=rvts12>#&lt;&lt; pppp</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 148 143</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 30</span></p>
+<p><span class=rvts12>#&lt;&lt; 182LB:&nbsp; 0.29 * MEET +&nbsp; 3.20 (R = 0.71)&nbsp;&nbsp;&nbsp; Error = 0.000</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 30 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; 182LB:&nbsp; 0.87 * MEET + -25.78 (R = 0.98)&nbsp;&nbsp;&nbsp; Error = 0.000</span></p>
+<p><span class=rvts12>#&lt;&lt; snijpunt= 50.3903549304</span></p>
+<p><span class=rvts12>#&lt;&lt; gain/offset= 1.36 1.0 11 50</span></p>
+<p><span class=rvts12>#&lt;&lt; pppp</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 119 132</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 30</span></p>
+<p><span class=rvts12>#&lt;&lt; 191LB:&nbsp; 0.12 * MEET + 11.79 (R = 0.37)&nbsp;&nbsp;&nbsp; Error = 0.000</span></p>
+<p><span class=rvts12>#&lt;&lt; Range 30 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; 191LB:&nbsp; 0.83 * MEET + -20.46 (R = 0.96)&nbsp;&nbsp;&nbsp; Error = 0.000</span></p>
+<p><span class=rvts12>#&lt;&lt; snijpunt= 45.0865841144</span></p>
+<p><span class=rvts12>#&lt;&lt; gain/offset= 1.28 0.97 9 49</span></p>
+<p><span class=rvts12>#&lt;&lt; pppp</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 129 131</span></p>
+<p style="page-break-before: always;"><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 30 : 400</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 10</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 64&nbsp;&nbsp; 0.23&nbsp;&nbsp; 0.65&nbsp;&nbsp; 5.54&nbsp;&nbsp; 9.20</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 68&nbsp;&nbsp; 0.23&nbsp;&nbsp; 0.75&nbsp;&nbsp; 4.81&nbsp; -16.60</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 62&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.81&nbsp;&nbsp; 3.20&nbsp; -17.97</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 62&nbsp;&nbsp; 0.12&nbsp;&nbsp; 0.77&nbsp; 11.79&nbsp; -12.07</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 30 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 10</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 67&nbsp;&nbsp; 0.23&nbsp;&nbsp; 0.76&nbsp;&nbsp; 5.54&nbsp; -5.95</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 72&nbsp;&nbsp; 0.23&nbsp;&nbsp; 0.84&nbsp;&nbsp; 4.81&nbsp; -28.47</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 64&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.87&nbsp;&nbsp; 3.20&nbsp; -25.78</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.12&nbsp;&nbsp; 0.83&nbsp; 11.79&nbsp; -20.46</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 40 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 10</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 71&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.84&nbsp; 11.31&nbsp; -16.88</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 72&nbsp;&nbsp; 0.30&nbsp;&nbsp; 0.84&nbsp;&nbsp; 3.93&nbsp; -28.05</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 64&nbsp;&nbsp; 0.36&nbsp;&nbsp; 0.88&nbsp;&nbsp; 2.20&nbsp; -28.03</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.20&nbsp;&nbsp; 0.84&nbsp; 11.02&nbsp; -22.73</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 40 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 3</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 71&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.84&nbsp; 11.31&nbsp; -16.88</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 73&nbsp;&nbsp; 0.30&nbsp;&nbsp; 0.84&nbsp;&nbsp; 3.93&nbsp; -28.05</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 65&nbsp;&nbsp; 0.36&nbsp;&nbsp; 0.88&nbsp;&nbsp; 2.20&nbsp; -28.03</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.20&nbsp;&nbsp; 0.84&nbsp; 11.02&nbsp; -22.73</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 50 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 3</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 71&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.85&nbsp; 14.02&nbsp; -17.92</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 73&nbsp;&nbsp; 0.33&nbsp;&nbsp; 0.84&nbsp;&nbsp; 3.86&nbsp; -29.17</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 64&nbsp;&nbsp; 0.41&nbsp;&nbsp; 0.88&nbsp;&nbsp; 0.99&nbsp; -29.76</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.84&nbsp;&nbsp; 9.18&nbsp; -21.73</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 20 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 3</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 67&nbsp;&nbsp; 0.20&nbsp;&nbsp; 0.76&nbsp;&nbsp; 4.40&nbsp; -6.62</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 72&nbsp;&nbsp; 0.17&nbsp;&nbsp; 0.83&nbsp;&nbsp; 4.85&nbsp; -26.57</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 65&nbsp;&nbsp; 0.22&nbsp;&nbsp; 0.85&nbsp;&nbsp; 2.87&nbsp; -21.99</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.08&nbsp;&nbsp; 0.81&nbsp;&nbsp; 9.11&nbsp; -16.53</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 30 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 3</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 68&nbsp;&nbsp; 0.23&nbsp;&nbsp; 0.76&nbsp;&nbsp; 5.54&nbsp; -5.95</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 73&nbsp;&nbsp; 0.23&nbsp;&nbsp; 0.84&nbsp;&nbsp; 4.81&nbsp; -28.47</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 65&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.87&nbsp;&nbsp; 3.20&nbsp; -25.78</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.12&nbsp;&nbsp; 0.83&nbsp; 11.79&nbsp; -20.46</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 50 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 3</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 71&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.85&nbsp; 14.02&nbsp; -17.92</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 73&nbsp;&nbsp; 0.33&nbsp;&nbsp; 0.84&nbsp;&nbsp; 3.86&nbsp; -29.17</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 64&nbsp;&nbsp; 0.41&nbsp;&nbsp; 0.88&nbsp;&nbsp; 0.99&nbsp; -29.76</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.84&nbsp;&nbsp; 9.18&nbsp; -21.73</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 50 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 10</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 71&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.85&nbsp; 14.02&nbsp; -17.92</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 72&nbsp;&nbsp; 0.33&nbsp;&nbsp; 0.84&nbsp;&nbsp; 3.86&nbsp; -29.17</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 64&nbsp;&nbsp; 0.41&nbsp;&nbsp; 0.88&nbsp;&nbsp; 0.99&nbsp; -29.76</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.84&nbsp;&nbsp; 9.18&nbsp; -21.73</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 50 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 0</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 71&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.85&nbsp; 14.02&nbsp; -17.92</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 73&nbsp;&nbsp; 0.33&nbsp;&nbsp; 0.84&nbsp;&nbsp; 3.86&nbsp; -29.17</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 65&nbsp;&nbsp; 0.41&nbsp;&nbsp; 0.88&nbsp;&nbsp; 0.99&nbsp; -29.76</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.84&nbsp;&nbsp; 9.18&nbsp; -21.73</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 50 : 550</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 0</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 73&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.91&nbsp; 14.02&nbsp; -28.27</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 75&nbsp;&nbsp; 0.33&nbsp;&nbsp; 0.91&nbsp;&nbsp; 3.86&nbsp; -40.83</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 66&nbsp;&nbsp; 0.41&nbsp;&nbsp; 0.96&nbsp;&nbsp; 0.99&nbsp; -42.81</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 67&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.92&nbsp;&nbsp; 9.18&nbsp; -34.65</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 50 : 650</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 0</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 76&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.99&nbsp; 14.02&nbsp; -41.43</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 77&nbsp;&nbsp; 0.33&nbsp;&nbsp; 0.96&nbsp;&nbsp; 3.86&nbsp; -50.05</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 67&nbsp;&nbsp; 0.41&nbsp;&nbsp; 0.99&nbsp;&nbsp; 0.99&nbsp; -48.04</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 68&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.99&nbsp;&nbsp; 9.18&nbsp; -45.55</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 50 : 600</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 0</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 76&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.99&nbsp; 14.02&nbsp; -41.43</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 77&nbsp;&nbsp; 0.33&nbsp;&nbsp; 0.96&nbsp;&nbsp; 3.86&nbsp; -50.05</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 67&nbsp;&nbsp; 0.41&nbsp;&nbsp; 0.99&nbsp;&nbsp; 0.99&nbsp; -48.04</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 68&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.99&nbsp;&nbsp; 9.18&nbsp; -45.55</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 50 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 0</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 71&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.85&nbsp; 14.02&nbsp; -17.92</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 73&nbsp;&nbsp; 0.33&nbsp;&nbsp; 0.84&nbsp;&nbsp; 3.86&nbsp; -29.17</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 65&nbsp;&nbsp; 0.41&nbsp;&nbsp; 0.88&nbsp;&nbsp; 0.99&nbsp; -29.76</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.84&nbsp;&nbsp; 9.18&nbsp; -21.73</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 50 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 0</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 71&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.85&nbsp; 14.02&nbsp; -17.92</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 73&nbsp;&nbsp; 0.33&nbsp;&nbsp; 0.84&nbsp;&nbsp; 3.86&nbsp; -29.17</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 65&nbsp;&nbsp; 0.41&nbsp;&nbsp; 0.88&nbsp;&nbsp; 0.99&nbsp; -29.76</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.84&nbsp;&nbsp; 9.18&nbsp; -21.73</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 40 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 0</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 71&nbsp;&nbsp; 0.11&nbsp;&nbsp; 0.84&nbsp; 11.31&nbsp; -16.88</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 73&nbsp;&nbsp; 0.30&nbsp;&nbsp; 0.84&nbsp;&nbsp; 3.93&nbsp; -28.05</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 64&nbsp;&nbsp; 0.36&nbsp;&nbsp; 0.88&nbsp;&nbsp; 2.20&nbsp; -28.03</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.20&nbsp;&nbsp; 0.84&nbsp; 11.02&nbsp; -22.73</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 30 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 0</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 68&nbsp;&nbsp; 0.23&nbsp;&nbsp; 0.76&nbsp;&nbsp; 5.54&nbsp; -5.95</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 72&nbsp;&nbsp; 0.23&nbsp;&nbsp; 0.84&nbsp;&nbsp; 4.81&nbsp; -28.47</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 65&nbsp;&nbsp; 0.29&nbsp;&nbsp; 0.87&nbsp;&nbsp; 3.20&nbsp; -25.78</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 64&nbsp;&nbsp; 0.12&nbsp;&nbsp; 0.83&nbsp; 11.79&nbsp; -20.46</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>#&lt;&lt; Range 0 : 20 : 500</span></p>
+<p><span class=rvts12>#&lt;&lt; Threshold = 0</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 63 67&nbsp;&nbsp; 0.20&nbsp;&nbsp; 0.76&nbsp;&nbsp; 4.40&nbsp; -6.62</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 75 72&nbsp;&nbsp; 0.17&nbsp;&nbsp; 0.83&nbsp;&nbsp; 4.85&nbsp; -26.57</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 58 65&nbsp;&nbsp; 0.22&nbsp;&nbsp; 0.85&nbsp;&nbsp; 2.87&nbsp; -21.99</span></p>
+<p><span class=rvts12>#&lt;&lt; NEWSum 62 63&nbsp;&nbsp; 0.08&nbsp;&nbsp; 0.81&nbsp;&nbsp; 9.11&nbsp; -16.53</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+
+</body></html>

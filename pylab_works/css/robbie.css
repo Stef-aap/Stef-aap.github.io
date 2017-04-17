@@ -1,0 +1,18 @@
+.cm-s-robbie span.cm-comment { font-weight: bold; color: #a86; }
+.cm-s-robbie span.cm-keyword { font-weight: bold; color: blue; }
+.cm-s-robbie span.cm-string { font-weight: bold; color: #a22; }
+.cm-s-robbie span.cm-builtin { font-weight: bold; color: #077; }
+.cm-s-robbie span.cm-special { font-weight: bold; color: #0aa; }
+.cm-s-robbie span.cm-variable { font-weight: bold; color: black; }
+.cm-s-robbie span.cm-number, .cm-s-robbie span.cm-atom { font-weight: bold; color: #3a4; }
+.cm-s-robbie span.cm-meta {font-weight: bold; color: #555;}
+.cm-s-robbie span.cm-def {font-weight: bold; color: #00f;}
+.cm-s-robbie span.cm-variable-2 {font-weight: bold; color: #05a;}
+.cm-s-robbie span.cm-variable-3 {font-weight: bold; color: #0a5;}
+.cm-s-robbie span.cm-property {font-weight: bold; color: black;}
+.cm-s-robbie span.cm-operator {font-weight: bold; color: black;}
+.cm-s-robbie span.cm-error {font-weight: bold; color: #f00;}
+.cm-s-robbie span.cm-qualifier {font-weight: bold; color: #555;}
+.cm-s-robbie span.cm-bracket {font-weight: bold; color: #cc7;}
+.cm-s-robbie span.cm-tag {font-weight: bold; color: #170;}
+.cm-s-robbie span.cm-attribute {font-weight: bold; color: #00c;}

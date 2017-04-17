@@ -1,0 +1,31 @@
+#include <asmlib.h>
+
+FUNCTION minus1 ARG 1
+FUNCTION get8
+FUNCTION add ARG 2
+
+START
+	INT y
+	INT x = 8
+
+	y = add (x - 2) 3 / minus1 (add 5 3)
+
+	x *= 2 * get8 / minus1 (get8) + add (x - 2) 3 / minus1 ( add 5 3 )
+	PRINTF x
+	
+	x = 8
+	x *= 2 * get8 / minus1 (get8) + y
+	PRINTF x
+END
+
+FSTART get8
+	RETURN 8
+FEND
+
+FSTART minus1 y
+	RETURN y - 1
+FEND
+
+FSTART add y z
+	RETURN y + z
+FEND

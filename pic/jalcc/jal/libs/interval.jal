@@ -1,0 +1,529 @@
+-- --------------------------------------------------------------------
+--
+-- file      : interval.jal
+-- author    : Wouter van Ooijen
+-- date      : 2001-03-29
+-- purpose   : interval delay procedures
+-- includes  : jpic
+-- note      : Xtal must be 4, 10 or 20 MHz
+-- 
+-- Copyright (C) 1998, 2002 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--  
+-- 15-may-2002  20 MHz added
+-- --------------------------------------------------------------------
+
+
+
+-- include the required libraries
+-- include jpic
+
+-- prescaler settings
+-- 8 assigns the prescaler to the watchdog
+const byte _prescaler_1   = 8
+const byte _prescaler_2   = 0
+const byte _prescaler_4   = 1
+const byte _prescaler_8   = 2
+const byte _prescaler_16  = 3
+const byte _prescaler_32  = 4
+const byte _prescaler_64  = 5
+const byte _prescaler_128 = 6
+const byte _prescaler_256 = 7
+
+-- locals
+var byte _tmr0_start
+var byte _tmr1_start
+var byte _tmr2_start
+var byte _tmr1
+var byte _tmr2
+
+-- the interrupt handler updates _tmr1 and _tmr2, 
+-- and reset tmr0 to _tmr0_start
+procedure interrupt_handler is
+   pragma interrupt
+   
+   -- update counters
+   tmr0 = _tmr0_start
+   _tmr1 = _tmr1 - 1
+   if _tmr1 == 0 then
+      _tmr1 = _tmr1_start
+      _tmr2 = _tmr2 - 1
+   end if
+   
+   -- clear TOIF to re-enable timer interrupts
+   asm bcf 11, 2
+  
+end procedure
+
+-- the dead time (in instructions) before tmr0 is set again
+const byte _tmr0_dead_time = 14
+
+procedure _init_interval( byte in prescale ) is
+
+   if ( target_cpu != pic_14 ) then
+      pragma error -- not yet supported for SX
+   end if
+
+   while intcon_gie loop
+      intcon_gie = false
+   end loop
+   
+   -- opt = ( opt & 0b_1101_0000 ) + prescale
+   var byte opt at 0x01
+   assembler
+      bsf    status, 5
+      movfw  opt
+      bcf    status, 5
+      andlw  0b_1101_0000
+      addwf  prescale, w
+      bsf    status, 5
+      clrwdt
+      movwf  opt
+      bcf    status, 5
+   end assembler
+   
+   tmr0              = _tmr0_start 
+   _tmr1             = _tmr1_start
+   _tmr2             = _tmr2_start
+
+   intcon_t0ie       = true
+   intcon_gie        = true
+
+end procedure
+
+procedure next_interval is
+   while _tmr2 != 0 loop end loop
+   _tmr2 = _tmr2_start
+end procedure
+
+procedure init_interval_1uS( byte in n = 1 ) is
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 0.5 * 1 * 5 * 1 = 2.5 ) = 1_000_000
+      _tmr2_start = 1
+      _tmr1_start = 5
+      var byte x = n
+      _tmr0_start = - ( x - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 0.5 * 1 * 5 * 1 = 2.5 ) = 1_000_000
+      -- one bit of precision is lost!
+      _tmr2_start = 1
+      _tmr1_start = 5
+-- bug in the squasher for this code:
+--      _tmr0_start = - ( ( n / 2 ) - _tmr0_dead_time )
+      var byte x = n / 2
+      _tmr0_start = - ( x - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 1 * 1 * 1 = 1 ) = 1_000_000
+      _tmr2_start = 1    
+      _tmr1_start = 1
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_2uS( byte in n = 1 ) is
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 1 * 10 * 1 = 5 ) = 500_000
+      _tmr2_start = 1
+      _tmr1_start = 10
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 1 * 5 * 1 = 5 ) = 500_000
+      _tmr2_start = 1
+      _tmr1_start = 5
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 1 * 2 * 1 = 2 ) = 500_000
+      _tmr2_start = 1    
+      _tmr1_start = 2
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_5uS( byte in n = 1 ) is
+   if target_clock == 10_000_000 then
+      -- 5_000_000 / ( 1 * 1 * 25 * 1 = 12.5 ) = 200_000
+      _tmr2_start = 1
+      _tmr1_start = 25
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 0.5 * 1 * 25 * 1 = 12.5 ) = 200_000
+      -- one bit of precision is lost!
+      _tmr2_start = 1
+      _tmr1_start = 25
+      _tmr0_start = - ( ( n / 2 ) - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 1 * 5 * 1 = 5 ) = 200_000
+      _tmr2_start = 1    
+      _tmr1_start = 5
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_10uS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 1 * 50 * 1 = 25 ) = 100_000
+      _tmr2_start = 1
+      _tmr1_start = 50
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 1 * 25 * 1 = 25 ) = 100_000
+      _tmr2_start = 1
+      _tmr1_start = 25
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 1 * 10 * 1 = 10 ) = 100_000
+      _tmr2_start = 1
+      _tmr1_start = 10
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_100uS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 2 * 250 * 1 = 250 ) = 10_000
+      _tmr2_start = 2
+      _tmr1_start = n
+      _tmr0_start = - ( 250 - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 1 * 250 * 1 = 250 ) = 10_000
+      _tmr2_start = 1
+      _tmr1_start = n
+      _tmr0_start = - ( 250 - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 1 * 100 * 1 = 100 ) = 10_000
+      _tmr2_start = 1
+      _tmr1_start = 100
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_200uS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 4 * 250 * 1 = 500 ) = 5_000
+      _tmr2_start = 4
+      _tmr1_start = n
+      _tmr0_start = - ( 250 - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 2 * 250 * 1 = 500 ) = 5_000
+      _tmr2_start = 2
+      _tmr1_start = n
+      _tmr0_start = - ( 250 - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 1 * 100 * 1 = 200 ) = 5_000
+      _tmr2_start = 2
+      _tmr1_start = 100
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_500uS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 10 * 250 * 1 = 1_250 ) = 2_000
+      _tmr2_start = 10
+      _tmr1_start = n
+      _tmr0_start = - ( 250 - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 5 * 250 * 1 = 1_250 ) = 2_000
+      _tmr2_start = 5
+      _tmr1_start = n
+      _tmr0_start = - ( 250 - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 5 * 100 * 1 = 500 ) = 2_000
+      _tmr2_start = 5
+      _tmr1_start = 100
+      _tmr0_start = - ( n - _tmr0_dead_time )
+      _init_interval( _prescaler_1 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_1mS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 5 * 250 * 4 = 2_500 ) = 1_000
+      _tmr2_start = n
+      _tmr1_start = 5
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 5 * 125 * 4 = 2_500 ) = 1_000
+      _tmr2_start = n
+      _tmr1_start = 5
+      _tmr0_start = -125
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 1 * 250 * 4 = 1_000 ) = 1_000
+      _tmr2_start = n
+      _tmr1_start = 1
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_2mS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 10 * 250 * 4 = 5_000 ) = 500
+      _tmr2_start = n
+      _tmr1_start = 10
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 10 * 125 * 4 = 5_000 ) = 500
+      _tmr2_start = n
+      _tmr1_start = 10
+      _tmr0_start = -125
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 2 * 250 * 4 = 2_000 ) = 500
+      _tmr2_start = n
+      _tmr1_start = 2
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_5mS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 25 * 250 * 4 = 12_500 ) = 200
+      _tmr2_start = n
+      _tmr1_start = 25
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 25 * 125 * 4 = 12_500 ) = 200
+      _tmr2_start = n
+      _tmr1_start = 25
+      _tmr0_start = -125
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 5 * 250 * 4 = 5_000 ) = 200
+      _tmr2_start = n
+      _tmr1_start = 5
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_10mS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 50 * 250 * 4 = 25_000 ) = 100
+      _tmr2_start = n
+      _tmr1_start = 50
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 25 * 250 * 4 = 25_000 ) = 100
+      _tmr2_start = n
+      _tmr1_start = 25
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 10 * 250 * 4 = 10_000 ) = 100
+      _tmr2_start = n
+      _tmr1_start = 10
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_20mS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 100 * 250 * 4 = 50_000 ) = 50
+      _tmr2_start = n
+      _tmr1_start = 100
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 50 * 250 * 4 = 50_000 ) = 50
+      _tmr2_start = n
+      _tmr1_start = 50
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 20 * 250 * 4 = 20_000 ) = 50
+      _tmr2_start = n
+      _tmr1_start = 20
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_50mS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 250 * 250 * 4 = 125_000 ) = 20
+      _tmr2_start = n
+      _tmr1_start = 250
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 125 * 250 * 4 = 125_000 ) = 20
+      _tmr2_start = n
+      _tmr1_start = 125
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 50 * 250 * 4 = 10_000 ) = 20
+      _tmr2_start = n
+      _tmr1_start = 50
+      _tmr0_start = -250
+      _init_interval( _prescaler_4 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_100mS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 125 * 250 * 16 = 250_000 ) = 10
+      _tmr2_start = n
+      _tmr1_start = 125
+      _tmr0_start = -250
+      _init_interval( _prescaler_16 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 125 * 125 * 16 = 250_000 ) = 10
+      _tmr2_start = n
+      _tmr1_start = 125
+      _tmr0_start = -125
+      _init_interval( _prescaler_16 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 50 * 250 * 8 = 100_000 ) = 10
+      _tmr2_start = n
+      _tmr1_start = 50
+      _tmr0_start = -250
+      _init_interval( _prescaler_8 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_200mS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- 5_000_000 / ( 250 * 250 * 16 = 500_000 ) = 5
+      _tmr2_start = n
+      _tmr1_start = 250
+      _tmr0_start = -250
+      _init_interval( _prescaler_16 )
+   elsif target_clock == 10_000_000 then
+      -- 2_500_000 / ( 125 * 250 * 16 = 500_000 ) = 5
+      _tmr2_start = n
+      _tmr1_start = 250
+      _tmr0_start = -125
+      _init_interval( _prescaler_16 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 100 * 250 * 8 = 200_000 ) = 5
+      _tmr2_start = n
+      _tmr1_start = 100
+      _tmr0_start = -250
+      _init_interval( _prescaler_8 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_500mS( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- not very accurate!
+      -- 5_000_000 / ( 38 * 256 * 256 = 1_245_134 ) ~= 2
+      _tmr2_start = n
+      _tmr1_start = 38
+      _tmr0_start = -256
+      _init_interval( _prescaler_256 )
+   elsif target_clock == 10_000_000 then
+      -- not very accurate!
+      -- 2_500_000 / ( 19 * 256 * 256 = 1_245_134 ) ~= 2
+      _tmr2_start = n
+      _tmr1_start = 19
+      _tmr0_start = -256
+      _init_interval( _prescaler_256 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 250 * 250 * 8 = 500_000 ) = 2
+      _tmr2_start = n
+      _tmr1_start = 250
+      _tmr0_start = -250
+      _init_interval( _prescaler_8 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure
+
+procedure init_interval_1S( byte in n = 1 ) is 
+   if target_clock == 20_000_000 then
+      -- not very accurate!
+      -- 5_000_000 / ( 38 * 256 * 256 = 2_490_368 ) ~= 1
+      _tmr2_start = n
+      _tmr1_start = 76
+      _tmr0_start = -256
+      _init_interval( _prescaler_256 )
+   elsif target_clock == 10_000_000 then
+      -- not very accurate!
+      -- 2_500_000 / ( 38 * 256 * 256 = 2_490_368 ) ~= 1
+      _tmr2_start = n
+      _tmr1_start = 38
+      _tmr0_start = -256
+      _init_interval( _prescaler_256 )
+   elsif target_clock == 4_000_000 then
+      -- 1_000_000 / ( 250 * 250 * 16 = 1_000_000 ) = 1
+      _tmr2_start = n
+      _tmr1_start = 250
+      _tmr0_start = -250
+      _init_interval( _prescaler_16 )
+   else
+      pragma error -- clock must be 4, 10 or 20 MHz
+   end if
+end procedure

@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Scope Plot</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="1" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>ScopePlot </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; (march 2008)</span></p>
+<p><span class=rvts10>Application Designer</span> / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This is an <span class=rvts10>interactive</span> display, special designed for <span class=rvts10>realtime</span> display and control. Some or all of the recorded signals can be shown in the main signal window. Settings of the signals can be done through the labels on top and bottom, with the <span class=rvts10>speed-buttons</span> on the left and through an extensive grid on the second page. On the bottom you see an <span class=rvts10>history window</span> where one of the signals can be displayed in min/max mode for the <span class=rvts10>total recording</span> (auto compression). This window can also be used to <span class=rvts10>look back in time</span>, while recording continuous. Although not strictly necessary, this control will often be the only control in a brick.</p>
+<p>The picture shows a realtime ECG and bloodpressure signal with <span class=rvts10>online analysis</span> of the bloodpressure (yellow line is the calculated Systolic Pressure). Each signal can be <span class=rvts10>delayed to compensate</span> for realtime filter delays. During freeze, 2 measurement cursors are available.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=444 height=261 alt="" src="pw_gui_controls_img13.png"></p>
+<p><span class=rvts2><br></span></p>
+<p>The main parts of the scope display:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>A: main graph display</span>, displaying either the actual signal or a part of the already recorded history </li>
+<li><span class=rvts10>B: history display</span>, displaying the whole history in some kind of min/max mode with auto time compression </li>
+<li><span class=rvts10>C: numerical display</span>, display the current value of some of the signals </li>
+<li><span class=rvts10>D: speed buttons</span>, for a quick change of the signals setings in the graph display </li>
+<li><span class=rvts10>E: extended settings</span>, let's you layout the complete display in more detail </li>
+</ul>
+<p><br></p>
+<p>In general a brick will only contains this control, in which case it might look like this:</p>
+<p>The brick has a number of inputs, each can handle multipe vectors and one control output (callback), that can be used to start / stop an AD-converter.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=160 height=90 alt="" src="pw_gui_controls_img15.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Main Graph Display</span></p>
+<p>The main graph display is used to show either the actual signals or some part of the already recorded signals. Scaling and shigting can be done in numerous ways: clicking bottom / top labels, speed-buttons and extended settings. In the extended settings you can also change the delay of an individual signal, AC/DC setting, colors etc. In freeze mode you can popup 2 measurement cursors for detailed measurement. Through the RM-menu a memo can be popped up, to make some notes in case you want to save the total image. The memo is placed at the position of the cursor and can be toggled (and thus moved) through the RM-menu.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=471 height=283 alt="" src="pw_scope_plot_img2.png"></p>
+<p><br></p>
+<p><span class=rvts2>History Graph</span></p>
+<p>The history graph can display 1 signal over the whole recording session in strip-chart mode (all samples are shown). The amplitude is automatically scaled according to some mean/SD algorithm, with auto compression on the time base. Depending on the type of signal you choose, it might be a valuable way to get an overall view of the experiment, in generel you will be able to see special events during the session.</p>
+<p>Clicking into this window will show the history (if recorded) in the main graph menu.</p>
+<p>In playback mode the history graph can used to cut some parts from the recording.</p>
+<p><br></p>
+<p><span class=rvts2>Numerical Display</span></p>
+<p>This part shows the actual values of the selected signals (refresh rate half second)</p>
+<p><br></p>
+<p><span class=rvts2>Speed Buttons</span></p>
+<p>By either clicking on a numerical signal label or by clicking on the top or bottom label in the main graph window, the signal is selected to be handled by the speed buttons.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=22 valign=top style="background-color: #ffffd4;">
+<p><img width=24 height=50 alt="" src="pw_scope_plot_img3.png"></p>
+</td>
+<td width=672 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>stop AD</span> converter (or recording)</p>
+<p><br></p>
+<p><span class=rvts10>start AD</span> converter</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=22 valign=top style="background-color: #ffffd4;">
+<p><img width=24 height=47 alt="" src="pw_scope_plot_img4.png"></p>
+</td>
+<td width=672 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>increase the gain</span> of the selected signal with a factor 2</p>
+<p><br></p>
+<p><span class=rvts10>decrease the gain</span> of the selected signal with a factor 2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=22 valign=top style="background-color: #ffffd4;">
+<p><img width=22 height=46 alt="" src="pw_scope_plot_img5.png"></p>
+</td>
+<td width=672 valign=top style="background-color: #ffffd4;">
+<p>shift the selected signal<span class=rvts10> half a screen up</span></p>
+<p><br></p>
+<p>shift the selected signal<span class=rvts10> half a screen down</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=22 valign=top style="background-color: #ffffd4;">
+<p><img width=24 height=49 alt="" src="pw_scope_plot_img6.png"></p>
+</td>
+<td width=672 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>change the color</span> of the selected signal</p>
+<p><br></p>
+<p><span class=rvts10>the selected signal</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Extended Settings</span></p>
+<p>In the extended settings panel, all the details of the graphical and numerical display can be changed.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=650 height=154 alt="" src="pw_scope_plot_img8.png"></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>name</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>The name of the signal and the units in which it is measured. The units must be specified in square brackets. if no signal name is available, the signal will not be displayed.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>On</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>Select, to show the signal in the main graph window</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>NumOn</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>Select, to show the signal in the numerical window</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Lower</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>The lower border value (in world coordinates) in the main graph window</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Upper</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>The upper border value (in world coordinates) in the main graph window.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>AC</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>Select, if the signal should be drawn in AC-mode in the main graph window</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>AC[s]</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>The time constant of the AC-setting</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Delay[s]</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>The delay of the signal in the main graph window. If you're using real-time filters (which always will have a time delay), you can also delay the original signal synchronous.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>LineColor</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>The color of the signal in both main graph window and numerical window.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>LineWidth</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>The linewidth in the main graph window</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>World-1</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>For 2-point calibration, the world value which will correspond to the AD-value "Cal-1"</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Cal-1</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>AD-value for world value World-1</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>World-2</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>For 2-point calibration, the world value which will correspond to the AD-value "Cal-2"</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=110 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Cal-2</span></p>
+</td>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p>AD-value for world value World-2</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+
+</body></html>

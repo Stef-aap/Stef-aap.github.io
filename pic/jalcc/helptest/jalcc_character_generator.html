@@ -1,0 +1,62 @@
+<HTML><HEAD><TITLE>Character Generator</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS7>august 2004</SPAN></P>
+<P><SPAN class=RVTS1>Character Generator</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>This tool is meant to create graphics and special characters for LCD devices and or moving LEDs, like the famous Bob Blicks propellor clock.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Todo list</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>recreate images after resize&nbsp;</LI>
+<LI>better sizing of animation&nbsp;</LI>
+<LI>faster animation and real fainting&nbsp;</LI>
+<LI>animation of rotating LEDs, with user definied centre&nbsp;</LI>
+<LI>clipboard button&nbsp;</LI>
+<LI>autoinsert into JALcc&nbsp;</LI>
+<LI>define character spacing</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Drawing</SPAN></P>
+<P>First set the number of rows and columns, at the bottom of the edit window.</P>
+<P>Select the colors of background and LEDs on the code page.</P>
+<P>The shape of the LEDs can be set from the edit page.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Now select a color, from the top of the page (selected color will get a fat border), and start drawing by clicking or dragging with the left mouse button. Erasing is done by selecting the background color from the top of the page or Middle Mouse button. During drawing, Middle Mouse button toggles between erase-tool and last selected LED color.</P>
+<P>If more then 1 color is selected in the same box, colors are added. In this way you can simulate multiple LED's near each other.</P>
+<P>Because I've chosen yellow (instead of green), yellow+red will stay yellow.</P>
+<P>Below the edit window is an animation window where the total image can be viewed. Erase factor and speed (depending on your computers capabilities) can be adjusted.</P>
+<P>&nbsp;<IMG width=545 height=491 src="jalcc_character_generator_img6.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Inserting, deleting, copying, pasting of (multiple) columns is done through the right mouse button. In these cases the selected column is the left starting point of the action. (Pasting is done as inserting)</P>
+<P>&nbsp;<IMG width=186 height=157 src="jalcc_character_generator_img5.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Text can be inserted through the built in 5*7 fontset. Type the text in the box at the bottom of the edit page, select the starting column and then select form the right mouse menu "Insert Text".</P>
+<P>&nbsp;<IMG width=544 height=493 src="jalcc_character_generator_img7.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Code generation</SPAN></P>
+<P>By pressing the button "Generate Code" (on the code page), the code is generated in the memo. The memo can be edited and copied to your application.</P>
+<P>For each LED color a complete set is generated (not necessarilly of equal length). The program will try to generate the shortest possible code that's upto the last line containing "all LEDs of one color off".</P>
+<P>Each set consists of the length of that section, followed by all the individual values.</P>
+<P>Prefix is the text at the beginning of each line, postfix is the text at the end of each line.</P>
+<P>The code is generated in normal decimal notation, because hex-notation differs for each compiler.</P>
+<P>Code can be inverted and/or upside down (bits swapped).</P>
+<P>The example below is for storing the values in data EEprom with JAL.</P>
+<P>&nbsp;<IMG width=542 height=490 src="jalcc_character_generator_img4.gif"></P>
+</BODY></HTML>

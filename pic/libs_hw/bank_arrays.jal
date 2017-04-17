@@ -1,0 +1,401 @@
+-- -----------------------------------------------------------------------------
+-- <title Arrays in JAL
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- Library for the control of arrays in all banks
+--
+-- The array pointers are stores at the highest RAM locations (=common to all banks),
+-- ensuring the indices will be available in all banks.
+--
+-- After reading or writing a specific array location, the pointer is set to
+-- the next element of the array.
+--
+-- If constant ARRAY_CHECK_INDICES is true, the array index is tested to be valid,
+-- this check is not full proof, because all calculations are done modula 256.
+-- But the check will ensure that never will be written outside the array.
+-- If the test fails, the value is written to the last element in the array.
+--
+-- <non-tag
+-- Array declarations
+--    array0 , array1 , array2 , array3
+--
+-- Array pointers
+--    array0_get_index , array1_get_index , array2_get_index , array3_get_index
+--    array0_put_index , array1_put_index , array2_put_index , array3_put_index
+--
+-- USE (through pseudo vars):
+--    array1_index = 0
+--    array1 = 23          ; array1 [ 0 ] = 23  (and array1_index = 1)
+--    array1 = 56          ; array1 [ 1 ] = 56  (and array1_index = 2)
+--
+--    array1_index = 5
+--    x = array1           ; x = array1 [ 5 ]  (and array1_index = 6)
+--
+-- Constants: maximum array index (array length = max + 1)
+-- declaration: array0 = array of byte [ 0 .. array0_max ]
+--    array0_max , array1_max , array2_max , array3_max
+--
+-- <Version 2.1, 29-11-2003, Stef Mientki
+--   - if interrupts were used, array-pointer at 0x7F was destroyed
+--
+-- <Version 2.0, 10-04-2003, Stef Mientki
+--   - if index too large it's set to 0, so always within the array bounds
+--	 - different indices for read and write
+--	 - auto init, set all indices at start
+--
+-- Author : Stef Mientki
+-- <Version: 1.0  17-03-2002,  Stef Mientki
+--   -  orginal release
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- <Example Array usage
+; -- ----------------------------------------------------------------------------
+; -- these constants are meant to define arrays in all of the banks
+; -- if array not wished, define endpointer smaller than startpointer
+; --
+; -- If constant ARRAY_CHECK_INDICES is true, the array index is tested to be valid,
+; -- this check is not full proof, because all calculations are done modula 256.
+; -- But the check will ensure that never will be written outside the array.
+; -- If the test fails, the value is written to the last element in the array.
+; -- ----------------------------------------------------------------------------
+; const array_check_indices = false
+;
+; const array0_start = 0x70       -- no array in bank 0 wanted
+; const array0_end   = 0x6F       --   so make end-index smaller than start_index
+; const array1_start = 0xA0
+; const array1_end   = 0xEF
+; const array2_start = 0x120
+; const array2_end   = 0x14F
+; const array3_start = 0x1F1      -- 16F628 doesn't have free registers in bank 3
+; const array3_end   = 0x1F0      --   so make end-index smaller than start_index
+;
+; -- Usage(through pseudo vars):
+; array1_index = 0
+; array1 = 23          ; array1 [ 0 ] = 23  (and array1_index = 1)
+; array1 = 56          ; array1 [ 1 ] = 56  (and array1_index = 2)
+;
+; array1_index = 5
+; x = array1           ; x = array1 [ 5 ]  (and array1_index = 6)
+-- -----------------------------------------------------------------------------
+
+
+
+-- <code
+
+-- ----------------------------------------------------------------------------
+-- definition of maximum array index
+--   array length = max + 1
+-- declaration: array0 = array of byte [ 0 .. array0_max ]
+-- ----------------------------------------------------------------------------
+const array0_max = array0_end - array0_start
+const array1_max = array1_end - array1_start
+const array2_max = array2_end - array2_start
+const array3_max = array3_end - array3_start
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- definition of array pointers
+-- ----------------------------------------------------------------------------
+-- array indices are stored at the highest memory locations,
+-- because these memory locations are always shared beween all banks,
+-- it's easy to communicate with these pointers
+-- bank array0 will used the least, 
+--   therefor their pointers are stored clossest to the normal vars
+var volatile byte array0_get_index at 0x78
+var volatile byte array0_put_index at 0x77
+
+var volatile byte array1_get_index at 0x7E
+var volatile byte array1_put_index at 0x7D
+
+var volatile byte array2_get_index at 0x7C
+var volatile byte array2_put_index at 0x7B
+
+var volatile byte array3_get_index at 0x7A
+var volatile byte array3_put_index at 0x79
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- writes a variable to the array in bank 0, at location array0_index,
+-- i.e.  ARRAY0 [ ARRAY0_INDEX ]
+-- the index ARRAY0_INDEX is automatic increment after the store operation
+--
+-- If constant ARRAY_CHECK_INDICES is true, the array index is tested to be valid,
+-- this check is not full proof, because all calculations are done modula 256.
+-- But the check will ensure that never will be written outside the array.
+-- If the test fails, the value is written to the last element in the array.
+-- ----------------------------------------------------------------------------
+procedure array0'put ( byte in data ) is
+  -- if checking of index requiered
+  -- (first IF-statment will be removed by the compiler)
+  -- (if first IF-statement false, all will be removed by the compiler)
+  if array_check_indices then
+    if array0_put_index >= array0_max then
+      array0_put_index = 0
+    end if
+  end if
+  
+	FSR = array0_start + array0_put_index  -- calculate position in array
+
+  -- check bank and set IRP
+  -- (IF-statement will be removed by compiler)
+  if array0_start < 0x100 then
+    IRP = false
+  else
+    IRP = true
+  end if
+
+	INDF = data                       -- store data in array
+  array0_put_index = array0_put_index + 1   -- auto increment of array index
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- reads a variable from the array in bank 0, at location array0_index,
+-- the index ARRAY0_INDEX is automatic increment after the store operation
+-- see further description of procedure ARRAY0'PUT
+-- ----------------------------------------------------------------------------
+function array0'get return byte is
+  -- if checking of index requiered
+  -- (first IF-statment will be removed by the compiler)
+  -- (if first IF-statement false, all will be removed by the compiler)
+  if array_check_indices then
+    if array0_get_index >= array0_max then
+      array0_get_index = 0
+    end if
+  end if
+  
+	FSR = array0_start + array0_get_index  -- calculate position in array
+
+  -- check bank and set IRP
+  -- (IF-statement will be removed by compiler)
+  if array0_start < 0x100 then
+    IRP = false
+  else
+    IRP = true
+  end if
+
+  array0_get_index = array0_get_index + 1   -- auto increment of array index
+  return INDF                       -- get data from array
+end function
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- write a variable to the array in bank 1, at location array1_index,
+-- example: array1 [ 3 ] = 23
+--   array1_index = 3
+--   array1 = 23
+-- ----------------------------------------------------------------------------
+procedure array1'put ( byte in data ) is
+  -- if checking of index requiered
+  -- (first IF-statment will be removed by the compiler)
+  -- (if first IF-statement false, all will be removed by the compiler)
+  if array_check_indices then
+    if array1_put_index >= array1_max then
+      array1_put_index = 0
+    end if
+  end if
+  
+	FSR = array1_start + array1_put_index  -- calculate position in array
+
+  -- check bank and set IRP
+  -- (IF-statement will be removed by compiler)
+  if array1_start < 0x100 then
+    IRP = false
+  else
+    IRP = true
+  end if
+
+	INDF = data                       -- store data in array
+  array1_put_index = array1_put_index + 1   -- auto increment of array index
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- reads a variable from the array in bank 1, at location array1_index,
+-- example: x = array1 [ 3 ]
+--   array1_index = 3
+--   x = array1
+-- ----------------------------------------------------------------------------
+function array1'get return byte is
+  -- if checking of index requiered
+  -- (first IF-statment will be removed by the compiler)
+  -- (if first IF-statement false, all will be removed by the compiler)
+  if array_check_indices then
+    if array1_get_index >= array1_max then
+      array1_get_index = 0
+    end if
+  end if
+  
+	FSR = array1_start + array1_get_index  -- calculate position in array
+
+  -- check bank and set IRP
+  -- (IF-statement will be removed by compiler)
+  if array1_start < 0x100 then
+    IRP = false
+  else
+    IRP = true
+  end if
+
+  array1_get_index = array1_get_index + 1   -- auto increment of array index
+  return INDF                       -- get data from array
+end function
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- write a variable to the array in bank 2, at location array2_index,
+-- example: array2 [ 3 ] = 23
+--   array2_index = 3
+--   array2 = 23
+-- ----------------------------------------------------------------------------
+procedure array2'put ( byte in data ) is
+  -- if checking of index requiered
+  -- (first IF-statment will be removed by the compiler)
+  -- (if first IF-statement false, all will be removed by the compiler)
+  if array_check_indices then
+    if array2_put_index >= array2_max then
+      array2_put_index = 0
+    end if
+  end if
+  
+	FSR = array2_start + array2_put_index  -- calculate position in array
+
+  -- check bank and set IRP
+  -- (IF-statement will be removed by compiler)
+  if array2_start < 0x100 then
+    IRP = false
+  else
+    IRP = true
+  end if
+
+	INDF = data                       -- store data in array
+  array2_put_index = array2_put_index + 1   -- auto increment of array index
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- reads a variable from the array in bank 2, at location array2_index,
+-- example: x = array2 [ 3 ]
+--   array2_index = 3
+--   x = array2
+-- ----------------------------------------------------------------------------
+function array2'get return byte is
+  -- if checking of index requiered
+  -- (first IF-statment will be removed by the compiler)
+  -- (if first IF-statement false, all will be removed by the compiler)
+  if array_check_indices then
+    if array2_get_index >= array2_max then
+      array2_get_index = 0
+    end if
+  end if
+  
+	FSR = array2_start + array2_get_index  -- calculate position in array
+
+  -- check bank and set IRP
+  -- (IF-statement will be removed by compiler)
+  if array2_start < 0x100 then
+    IRP = false
+  else
+    IRP = true
+  end if
+
+  array2_get_index = array2_get_index + 1   -- auto increment of array index
+  return INDF                       -- get data from array
+end function
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- write a variable to the array in bank 3, at location array3_index,
+-- example: array3 [ 3 ] = 23
+--   array3_index = 3
+--   array3 = 23
+-- ----------------------------------------------------------------------------
+procedure array3'put ( byte in data ) is
+  -- if checking of index requiered
+  -- (first IF-statment will be removed by the compiler)
+  -- (if first IF-statement false, all will be removed by the compiler)
+  if array_check_indices then
+    if array3_put_index >= array3_max then
+      array3_put_index = 0
+    end if
+  end if
+  
+	FSR = array3_start + array3_put_index  -- calculate position in array
+
+  -- check bank and set IRP
+  -- (IF-statement will be removed by compiler)
+  if array3_start < 0x100 then
+    IRP = false
+  else
+    IRP = true
+  end if
+
+	INDF = data                       -- store data in array
+  array3_put_index = array3_put_index + 1   -- auto increment of array index
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- reads a variable from the array in bank 3, at location array3_index,
+-- example: x = array3 [ 3 ]
+--   array3_index = 3
+--   x = array3
+-- ----------------------------------------------------------------------------
+function array3'get return byte is
+  -- if checking of index requiered
+  -- (first IF-statment will be removed by the compiler)
+  -- (if first IF-statement false, all will be removed by the compiler)
+  if array_check_indices then
+    if array3_get_index >= array3_max then
+      array3_get_index = 0
+    end if
+  end if
+  
+	FSR = array3_start + array3_get_index  -- calculate position in array
+
+  -- check bank and set IRP
+  -- (IF-statement will be removed by compiler)
+  if array3_start < 0x100 then
+    IRP = false
+  else
+    IRP = true
+  end if
+
+  array3_get_index = array3_get_index + 1   -- auto increment of array index
+  return INDF                       -- get data from array
+end function
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- initialisation
+-- ----------------------------------------------------------------------------
+array0_get_index = 0
+array1_get_index = 0
+array2_get_index = 0
+array3_get_index = 0
+array0_put_index = 0
+array1_put_index = 0
+array2_put_index = 0
+array3_put_index = 0
+

@@ -1,0 +1,93 @@
+<HTML><HEAD><TITLE>Communication</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>May 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, Communication&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>For Basix87x</SPAN>&nbsp; there is an&nbsp;<A class=RVTS4 href="basic_87x__terminal.html">intelligent terminal</A>.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 style='{border-width : 0px}' cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=500 valign=top style='{border-width : 1px; }'>
+<P><SPAN class=RVTS2>RS232 Terminal</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>At the top on the right, the normal terminal window is shown. The window is sizeable.</P>
+<P>The top of the window contains the transmission data, the bottom contains the receiving data. By the blue splitter, the space for both memos can be divided.</P>
+<P>Both normal ASCII and numbers can be used, see below.</P>
+<P>Any baudrate can be set and will yield for both transmission and receiving.</P>
+<P>On receiving framing errors are detected on just 1 stopbit, and if a framing error occurs, the blue splitterbar will color Red.</P>
+<P>Parity is not yet implemented.</P>
+<P>Build in FIFO buffers are very large.</P>
+<P>When ASCII is selected, normal typing on a keyboard is active.</P>
+<P>When hex is selected, you've to type numbers, separated by spaces, representing the ascii characters. A number preceded by a dollar sign "$" is interpreted as a HEX number.</P>
+<P>When invert is selected, the output signal is inverted (restvalue = high)</P>
+<P>When Direct is selected, characters are send just after they are typed, else the whole line is transmitted as a burst when the ENTER key is pressed.</P>
+<P>When no CR,LF is selected, the ENTER key doesn't transmit anything.</P>
+<P>When CR is selected the ENTER key will transmit a CR.</P>
+<P>When CR + LF is selected, pressing the ENTER key will transmit a CR and a LF.</P>
+<P>The lower ASCII, hex, invert keys are for receiving and have the same meaning as for tranmission.</P>
+<P>When the baudrate is edited, it's value will take effect, after pressing the ENTER key. Then the deviation of the baudrate is calculated on basis of the main-frequency and the deviation is shown.</P>
+<P>By editing the deviation, you can introduce deliberatly introduce baudrate errors.</P>
+<P>It's also possible to increase / decrease the Baudrate error by the up/down buttons on the right.</P>
+<P>Baudrate errors both yield for transmission and receiving.</P>
+<P>This device can be connected in parallel to a real commport.</P>
+<P>In that way you can simulate your application even in a more realistic way.</P>
+<P>You also could use for example hyperterminal to log the RS232 communication or to send complete files to the simulator.</P>
+<P>Only the available (and free) comm ports will show up enabled in the figure on the right.</P>
+<P>The dropdown list contains a list of standard baudrate values. You can enter any baudrate, by just typing the value in the combobox and pressing ENTER to activate the baudrate setting. It depends ofcourse on the possibilities of your PC which baudrates are possible.</P></TD>
+<TD width=215 valign=middle style='{border-width : 1px; border-left: none; }'>
+<P class=RVPS3>top = TRANSMISSION</P>
+<P class=RVPS3>bottom = RECEIVE</P>
+<P class=RVPS3>&nbsp;<IMG width=208 height=218 src="device_rs232_1.gif"></P>
+<P class=RVPS3>&nbsp;<IMG width=212 height=220 src="device_rs232_2.gif"></P>
+<P class=RVPS3>&nbsp;<IMG width=222 height=253 src="device_rs232_3.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Function</P></TD>
+<TD valign=top>
+<P>TestMethod</P></TD>
+<TD valign=top>
+<P>Result</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>Receiving</P></TD>
+<TD valign=top>
+<P>Software routine RS232_SW is used in 1200 and 115_200 Baud.</P>
+<P>The PIC was running at 20 MHz, so the highest system frequency was 5 MHz.</P>
+<P>Cyclic sending of all characters $00 to $FF.</P>
+<P>At 115_200 Baud the clockrate error&nbsp; of the RS232-terminal could be changed between -3% and +6% without detecting any errors.</P></TD>
+<TD valign=middle>
+<P class=RVPS2>Ok</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>Transmitting</P></TD>
+<TD valign=top>
+<P>Tested at 115 kBaud, by connecting receiver (after receiever was tested) to transmitter.</P>
+<P>(Both single characters and complete strings tested)</P></TD>
+<TD valign=middle>
+<P class=RVPS2>Ok</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

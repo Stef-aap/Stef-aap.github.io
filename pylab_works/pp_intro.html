@@ -1,0 +1,423 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>PocketPyGUI</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>April 2008</span></p>
+<p><span class=rvts1>PocketPyGUI Emulator </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"></p>
+<p><span class=rvts2><br></span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>As wxPython for windows-mobile hasn't been updated for about 2 years, I assume it's dead, and possible we can expect problems with the newer win-Mobile versions, like Win-Mobile-6. PocketPyGUI (developed by Alexandre Delattre) looks like a good replacement, although it has a different syntax from wxPython and there's no cross platform development tool (yet). </p>
+<p><br></p>
+<p>This is a first attempt to make a cross platform emulator for PPyGui.</p>
+<p>Downloads:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class=rvts4 href="http://code.google.com/p/pylab-works/downloads/list">api.zip</a>&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Limitations / ToDo</span></p>
+<p><span class=rvts10>Creation of the mainform</span> in the parameter-list of the application creation is not allowed. In wxPython ( and most other GUI) it's not allowed to create forms before the application is created.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=364 height=25 alt="" src="pp_intro_img11.png"></p>
+<p><br></p>
+<p>So you've to create the application first (which is also allowed in PPyGui), and then assign an instance of the mainframe</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=288 height=54 alt="" src="pp_intro_img23.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Sizer defaults</span>, PPyGui uses proportion = 1, IF the control has no best size. In wxPython the notebook has a best size, so the default will be proportional = 0, whereas PPyGui uses proportional = 1. Probably there will be more of such situations.</p>
+<p><br></p>
+<p><span class=rvts10>UniCode</span>, as my current installation is an ANSI version of wxPython, I can't test unicode support</p>
+<p><br></p>
+<p><span class=rvts10>Fonts</span>, mobile uses one of the following fonts ( 'Tahoma', 'Segoe', 'Nina'), the program will try to load one of these. Due to copyright these fonts are not allowed to be distibuted.</p>
+<p><br></p>
+<p><span class=rvts10>Dialogs Position</span>, under windows positioning of dialogs in wxPython is always screen-center and not application center.</p>
+<p><br></p>
+<p><span class=rvts10>FileDialogs</span>, the control under windows/wxPython is very bad, no positioning, nostyle settings and besides that, the layout in win-CE is completely different. These should be recreated as native components, without the use of windows explorer.</p>
+<p><br></p>
+<p><span class=rvts10>SIP</span>, for this moment, only keyboard is supported</p>
+<p><br></p>
+<p><span class=rvts10>VSizer</span>, because it's a legacy control, it's deliberately not supported</p>
+<p><br></p>
+<p><span class=rvts10>Skin</span>, my artistic talents are below zero, so I'm not able to create a nice looking skin</p>
+<p><br></p>
+<p><span class=rvts10>Platforms</span>, the program is only tested under Win-XP, but most things should work on any platform. Known issues:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>softkeyboard is only working under Windows, due to the sendkeys library </li>
+<li>Mobile fonts are probably only available on Windows </li>
+</ul>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=507 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Bugs:</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>At start on, some of the underlying windows are visible, don't know yet how to solve that bug !! </li>
+</ul>
+</td>
+<td width=233 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=246 height=320 alt="" src="pp_intro_img27.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=563 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Including API</span></p>
+<p><br></p>
+<p>With the code shown on the right, the correct api is loaded, depending of the actual system is a mobile device or not.</p>
+</td>
+<td width=325 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=335 height=173 alt="" src="pp_intro_img25.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=561 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Virtual Keyboard</span></p>
+<p><br></p>
+<p>From the virtual input devices, only the keyboard is supported.</p>
+<p>From what I've read this only works under windows, so if anyone has a platform independent solution....</p>
+</td>
+<td width=246 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=246 height=320 alt="" src="pp_intro_img21.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=603 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Labels</span></p>
+<p><br></p>
+<p>ToDo:</p>
+<p>- find out what font resemblance the CE font the most</p>
+<p><br></p>
+<p>For this moment also the bug in PPyGui is implemented: changing the font color only, changes the size of the font to 9/10 ?</p>
+</td>
+<td width=202 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=246 height=320 alt="" src="pp_intro_img12.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=607 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Buttons</span></p>
+</td>
+<td width=198 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=246 height=320 alt="" src="pp_intro_img17.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=587 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Spin / Slider / Progress</span></p>
+</td>
+<td width=218 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=246 height=320 alt="" src="pp_intro_img16.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=587 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Edits</span></p>
+<p><br></p>
+<p>ToDo:</p>
+<p>- style = "number"</p>
+</td>
+<td width=218 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=246 height=320 alt="" src="pp_intro_img7.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=553 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Lists</span></p>
+<p><br></p>
+<p>I don't understand yet what this list should do ??</p>
+<p>When I click on a list item,</p>
+<p>some kind of double list is created,</p>
+<p>see image on the right ????</p>
+<p><br></p>
+</td>
+<td width=252 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=291 height=460 alt="" src="pp_intro_img18.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=573 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Tables</span></p>
+<p><br></p>
+<p>Todo:</p>
+<p>- multi-row select</p>
+<p><br></p>
+</td>
+<td width=232 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=246 height=320 alt="" src="pp_intro_img13.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=611 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Common Dialogs</span></p>
+<p><br></p>
+<p>Here the standard windows dialogs are used, which have one major disadvantage, they are always screen centered.</p>
+</td>
+<td width=194 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=245 height=320 alt="" src="pp_intro_img15.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=591 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>File Dialogs</span></p>
+<p><br></p>
+<p>For the moment these are implemented as standard windows file dialogs, which can't be controlled fully and are completely different from the CE-view as shown on the right.</p>
+<p><br></p>
+<p>In the future it might be valuable ( because manipulating such complex data on such a small screen is difficult) to build these dialogs with native components.</p>
+</td>
+<td width=214 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=245 height=327 alt="" src="pp_intro_img14.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><span class=rvts8><br></span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=652 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Date</span></p>
+<p><br></p>
+<p>Time is not implemented.</p>
+<p><br></p>
+<p>Generates a Calendar, which disappears when either a new date is selected or focus is lost.</p>
+<p><br></p>
+<p>ToDo:</p>
+<p>- highlighting not perfect</p>
+</td>
+<td width=236 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=244 height=318 alt="" src="pp_intro_img24.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=613 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>HTML</span></p>
+<p><br></p>
+<p>enableshrink is not available in wxPython</p>
+<p><br></p>
+<p><br></p>
+</td>
+<td width=192 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=246 height=320 alt="" src="pp_intro_img19.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts1>A real world application</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=358 valign=top style="background-color: #ffffd4;">
+<p><img width=244 height=323 alt="" src="pp_intro_img30.png"></p>
+</td>
+<td width=356 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=320 alt="" src="pp_intro_img29.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=242 height=327 alt="" src="pp_intro_img32.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=320 alt="" src="pp_intro_img31.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=244 height=329 alt="" src="pp_intro_img34.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=320 alt="" src="pp_intro_img33.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=245 height=324 alt="" src="pp_intro_img35.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=320 alt="" src="pp_intro_img36.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=243 height=323 alt="" src="pp_intro_img38.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=320 alt="" src="pp_intro_img37.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=242 height=324 alt="" src="pp_intro_img40.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=320 alt="" src="pp_intro_img39.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=243 height=324 alt="" src="pp_intro_img48.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=244 height=293 alt="" src="pp_intro_img49.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=242 height=324 alt="" src="pp_intro_img45.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=320 alt="" src="pp_intro_img44.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=242 height=325 alt="" src="pp_intro_img47.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=320 alt="" src="pp_intro_img46.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=244 height=323 alt="" src="pp_intro_img52.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=320 alt="" src="pp_intro_img51.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=243 height=326 alt="" src="pp_intro_img54.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=320 alt="" src="pp_intro_img53.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=243 height=325 alt="" src="pp_intro_img56.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=246 height=320 alt="" src="pp_intro_img55.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts8><br></span></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Rapid Prototyping Board</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #feffe6;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="65" />
+<meta name="spellcheck" content="3" /></head>
+<body>
+
+<p class=rvps3><span class=rvts7>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; july 2005</span></p>
+<p><span class=rvts1>PIC Rapid Prototyping Board</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; <img width=32 height=32 alt="" src="rbd.png">&nbsp; <a class=rvts4 href="rapid_prototyping_devices.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Up till now I mostly used a breadboard (and/or simulation) for PIC prototyping. For simple designs, with just a few sensors / actuators this method is quite adequate. For larger designs a breadboard is not the most optimal tool. I've looked for commercial available prototyping boards, but none of them fits my needs. Therefor I designed a PIC prototyping board, on a simple veroboard, that hopefully does fit my needs.</p>
+<p>This is not meant as some kind of universal bus-system (although it may look like), but a prototyping system to test functional designs that will be realized as a stand alone system (with 1 PIC) and to develop and test the software during the time the real printed circuit board is being produced.</p>
+<p>June 2006: After using the board for about a year, building dozens of applications on it, just finished the assembly of a batch of 15 boards, I only can say it's really a "RAPID" and it's really "PROTOTYPING" !!</p>
+<p><br></p>
+<p>The final board not only contains the normal RPD connectors, but also contains 4 Dwarf (TM from <a class=rvts4 href="http://www.voti.nl">Voti</a>) connectors, which extends the use of the RPD with all Dwarf devices.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=601 height=364 alt="" src="prototyping_board_img5.png"></p>
+<p><br></p>
+<p><br></p>
+<p>Below on the left a detail of the USB interface, based on K-USB-2-232 from <a class=rvts4 href="http://www.voti.nl">Voti</a>, on the right details of the RS232 interface, based on a MAX232 chip. The USB version has the main advantage, that it can draw up to 0.5 A of current from the USB bus, so you need no extra power supply. The disadvantage of the USB interface it has a higher price (17 Euro, against about 3 Euro for the RS232). Another (small) advantage of the USB interface are: you can use Baudrates up to 1.25 MBaud.</p>
+<p>For new designs it's far more better to fit a FT232RL right into the board. This USB chip contains all components of the K-USB_1 board and costs only 9 Euro.</p>
+<p><span class=rvts10>Beware that there are different versions of the K-USB-module, with exchanged Rx and Tx !!</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=296 height=217 alt="" src="prototyping_board_img6.png">&nbsp;&nbsp; <img width=291 height=199 alt="" src="prototyping_board_img8.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>PCB</span></p>
+<p>My (first) PCB has a few errors. If you're using USB interface you can use the original layout (just 1 wire extra), if you want to use the serial connection, you might want to correct the PCB layout. Also the position of the connectors J8 and J9 is exchanged, but that doesn't harm.</p>
+<p>Version 1: The schematic and PCB layout in Eagle format of the original design can be found here ...</p>
+<p>Version 2: The corrected schematic and the not finished PCB layout can be found here ... </p>
+<p>To control the connection of the different grounds, I had them manually connected with a short circuit at the right place. Unfortunately I forgot the ground of the 12/24 V. So to correct, you need to add one wire.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=297 height=203 alt="" src="prototyping_board_img9.png">&nbsp; </p>
+<p><br></p>
+<p>The second error occurred when using the MAX232 which I never used, the TTL side and RS232 side were exchanged. (So never design a PCB with components you've never used ;-) </p>
+<p>This modification is only needed when you need the RS232 interface.</p>
+<p>Cut the lines (with a sharp m=knife) as shown in the pictures below</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=263 height=219 alt="" src="prototyping_board_img11.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=270 height=216 alt="" src="prototyping_board_img12.png"></p>
+<p><br></p>
+<p>And add the 6 wires shown in the picture below</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=295 height=214 alt="" src="prototyping_board_img10.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Loading the bootloader</span></p>
+<p>I would suggest the Tiny bootloader.</p>
+<p>For the 16F877A, the config word should be 3F3A, as shown in the picture below.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=600 height=487 alt="" hspace=1 vspace=1 src="prototyping_board_img13.png"></p>
+<p><br></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>14-5-2006</span></p>
+<p>programmer module is started, with just a few components on the module board, we build a universal PIC programmer completely in JAL.</p>
+<p><br></p>
+<p><span class=rvts2>Driginal esign Goals</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>supports 12F675, (16F628), 16F87x, 16F8x, 16F81x </li>
+<li>Xtal selectable (to simulate the build in oscillator of the smaller chips) </li>
+<li>easy debugging through USB (or RS232) bootloader </li>
+<li>multi motor support, both DC and stepper, and voltages upto 24V </li>
+<li>support of LCD, keymatrix </li>
+<li>support of SPI devices </li>
+<li>support of Dallas 1-wire devices </li>
+<li>multi-processor support ?? </li>
+<li>maximum number of analog inputs available </li>
+<li>all IO available </li>
+</ul>
+<p>&nbsp; </p>
+<p><span class=rvts2>Device Connector</span></p>
+<p>The choice of the connector is an important choice. A too large connector spills too many IO-pins, in the case of many small sensors / actuators. A too small connector makes it difficult to connect a device with many IO-pins. Therefor a good compromise seems to be the following solution:</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=276 height=158 alt="" src="prototyping_board_img1.gif"></p>
+<p><span class=rvts7>&nbsp; </span></p>
+<p><span class=rvts7>&nbsp; </span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=252 valign=top style="{background-color: #ffffe6;}">
+<p><img width=240 height=214 alt="" src="prototyping_board_img27.gif"></p>
+</td>
+<td width=163 valign=top style="{background-color: #ffffe6;}">
+<p>&nbsp;&nbsp; </p>
+<p>black = 10 = A0 </p>
+<p>white = 9 = A1 </p>
+<p>gray = 8 = analog ground </p>
+<p>purple = 7 = digital ground </p>
+<p>blue = 6 = analog +5V </p>
+<p>green = 5 = digital +5V&nbsp; </p>
+<p>yellow = 4 = B0 </p>
+<p>orange = 3 = B2 </p>
+<p>red = 2 = B1 </p>
+<p>brown = 1 = B3</p>
+</td>
+<td width=287 valign=top style="{background-color: #ffffe6;}">
+<p>&nbsp;&nbsp; </p>
+<p>A0 = black </p>
+<p>A1 = white </p>
+<p>Agnd = gray </p>
+<p>Dgnd = purple </p>
+<p>A+5V = blue </p>
+<p>D+5V = green </p>
+<p>B0 = yellow </p>
+<p>B2 = orange </p>
+<p>B1 = red </p>
+<p>B3 = brown</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>I've chosen a 10-pins connector, that contains 4 digital IO-pins, 2 analog/digital pins. Half of the signals is shared with the connector on the left, the other half is shared with the connector on the right.&nbsp; With the above arrangement you can either use the full connector (making all the pins available) or just the left or the right part of the connector (making just 2 digital IO-pins and 1 analog/digital IO-pin available.</p>
+<p>The connector is a ML10 connector (flatcable connector), which gives the possibility to either plug in the device-board directly or connect the device-board with a standard flat-cable.</p>
+<p>To get reasonable analog performance, each connector contains analog and digital ground / power supply.</p>
+<p>I also considered to add 3 or 4 extra connectors, compatible with dwarf boards, but I couldn't find the space for it.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>PIC connector</span></p>
+<p>The PIC connector consists of a 40-pins WDIP-connector, in which an 8-pins DIP-connector and a 28-pins DIP-connector are mounted. So 12F675 and 16F87x can be mounted directly into the sockets. I haven't figured out yet how to connect 16F8x and 16F81x PIC-devices.</p>
+<p>The Xtal is mounted on a header, so it can be exchanged easily.</p>
+<p>For the 12F675 a low voltage program header is mounted on the left (all other planned PIC-devices have bootloader capabilities). LVP should also be possible through the standard USB interface, but I don't have any software for using the FTDI chip as a programmer.</p>
+<p>I really doubt if all these connectors are of much use. Why not always develop on the largest PIC: 16F877 ? With the posibility of changing the Xtal easy and the flexibility of JAL in pin-swapping, down-scaling is always very easy.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; <img width=369 height=316 alt="" src="prototyping_board_img3.gif">&nbsp;&nbsp;&nbsp; <img width=307 height=410 alt="" src="proto_foto_pic_sockect.jpg"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>USB-interface</span></p>
+<p>For the USB interface I've chozen Wouter's K-USB-1 module. This module has an FTDI chip + additional eeprom. The eeprom is needed to allow multiple boards connected to your PC and allowing to draw more than 100 mA from the USB-bus. In combination with a modified Shane Tolmie's bootloader this makes a perfect combination, with following functionalities:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>5V, 500mA power from USB available for on board use </li>
+<li>bootloader, for easy reloading software into the PIC </li>
+<li>serial debugging through the USB-bus </li>
+</ul>
+<p>&nbsp; </p>
+<p>The USB-module is connected to the rest of the module through a jumper box, so you can easily select which signals from the USB will be used on the board.</p>
+<p>This part also shows the power supply, with the split analog and digital powers. The splitting is done to get the optimal performance for the analog inputs. The analog and digital ground should be physical connected at or close to the PIC-pins. The capacitors should not be chozen too large (10uF), because each device will have additional&nbsp; capacitors on it (and distributed capacity is better).</p>
+<p>The outgoing signals from the USB module (TxD and DTR) have an series resistor of 180 Ohm as an extra protection to short-circuiting.</p>
+<p>At the bottom of this diagram, the reset circuit is shown.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=501 height=307 alt="" src="prototyping_board_img17.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=407 height=302 alt="" src="prototyping_board_img25.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Device Bus</span></p>
+<p>Below is the schematic of the total bus and a picture of the total board. It's advisable to use the extra (dummy) 12V header on every device board, because it gives the device-board extra mechanical stabilty.</p>
+<p>&nbsp; </p>
+<p><img width=718 height=404 alt="" src="prototyping_board_img15.gif"></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=504 height=308 alt="" src="prototyping_board_img24.gif"></p>
+<p><br></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Quick Reference 16F877</span></p>
+<p><img width=806 height=251 alt="" src="prototyping_board_img18.gif"></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Quick Reference 12F675</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=456 height=110 alt="" src="prototyping_board_img19.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Serial Comm / Bootloader</span></p>
+<p>If serial communication and/or bootloader is used, the odd row of J7 and the even row of J8 (shaded purple area) are not available for other purposes. In fact this area always contains the special reset pin (MCLR). For normal use it's best to block these parts of the connectors, by plugging in a dummy connector, as shown on the photo below.</p>
+<p>The bootloader source is a slightly modified version of Shanie's&nbsp; 62019 - bootldr-v26-16F876-77-20Mhz-19200bps.hex. You have to change the configuration word to turn LVP off and thereby gaining the normal use of RB3&nbsp; ( 2007: 3FB2 ==&gt; 3F32). Bootloader_IDSPON_16F87x_20MHz_19200Baud.hex</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=205 height=138 alt="" src="prototyping_board_img14.gif"><span class=rvts1>&nbsp;&nbsp; </span><img width=194 height=155 alt="" src="prototyping_board_img22.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>SPI-bus</span></p>
+<p>The SPI-bus is completely available at J6. Connector J6 has besides the SPI-bus, 1 extra pin available for selection of the SPI device. So SPI device boards should have some kind of cascading possibilities.</p>
+<p>If SPI is used, the odd row of J5 and the even row of J7 (green shaded area) are not available for other device boards.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=252 height=261 alt="" src="prototyping_board_img13.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Example of RPD-device</span></p>
+<p>Here a very simple device is shown, containing 6 LEDs and thereby consuming a whole connector. This device can serve as a general purpose test device, and is here used as an example, to show that part of the power of the rapid prototyping board lies in the software.</p>
+<p>The connector used here as the female part from a flatcable connector, not ideal, but it works. Print connectors of this type are hard to get, possible Farnell: 973-658, is the only more or less suitable connector I found. So maybe the ML10 is the wrong choice after all ?</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=255 height=250 alt="" src="prototyping_board_img21.gif"><span class=rvts1>&nbsp;&nbsp; </span><img width=217 height=190 alt="" src="prototyping_board_img23.gif"></p>
+<p>&nbsp; </p>
+<p>By changing just 1 character in the software, a walking LED can be set on any of the connectors of the rapid prototyping board. Unfortunatly this cann't be done in plain JAL, you've to use some macro-capable preprocessor like JALcc to get hold of this ultimate power. The JAL code below explains itself, you only have to change line 7 to place the walking LED on another connector.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=431 height=596 alt="" src="prototyping_board_img20.gif"></p>
+<p>&nbsp; </p>
+<p>The software power comes from the macro expansion,</p>
+<p>below, on the left the JALcc macro call, and on the right the expanded macro code:</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=304 height=36 alt="" src="rapid_prototyping_devices_img1.gif">&nbsp;&nbsp;&nbsp;&nbsp; <img width=278 height=202 alt="" src="rapid_prototyping_devices_img2.gif"></p>
+<p>&nbsp; </p>
+<p>If you've a rapid prototyping device, just send me the code and I'll implement a macro in JALcc.</p>
+<p>And to complete the examples, lets take a look how simple it's to connect a real life example</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>5* motors, all with feedback </li>
+<li>1* LCD </li>
+<li>1* 6-LED indicator (could have been a 3*3 switch matrix) </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=336 height=155 alt="" src="prototyping_board_img26.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Future Improvements</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>12/24V MUST BE disconnect if the USB power is disconnected </li>
+<li>selectable working voltage of 5V or 3V3 </li>
+<li>external power supply for more then 500 mA (preferabele 12V or 24 V with on board 5V / 3V3 regulator) </li>
+<li>3 or 4 "Dwarf" connectors (see ...) </li>
+<li>connection pins for measurement devices (scope etc) </li>
+<li>LED indication of power available </li>
+<li>lots of text on the board </li>
+<li>shielding plane (not ground !) under the USB module&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
+</ul>
+
+</body></html>

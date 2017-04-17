@@ -1,0 +1,26 @@
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+-- define an UltraSound Ranger
+;;;;;<;mac> RPD_US_ranger   US = J11R
+var volatile bit US_transmit_pin is J11R2
+var volatile bit US_receive_pin is J11R3
+var volatile bit US_transmit_direction is J11R2_direction
+var volatile bit US_receive_direction is J11R3_direction
+include US_ranger_lib
+;;;;;<;/mac>
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+forever loop
+  -- US detection should not be called
+  -- more often the 30 msec
+  delay_1ms(40)
+  if detect_US then
+    asynch_send_hw (US_distance)
+  end if
+end loop
+

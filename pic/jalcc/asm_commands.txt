@@ -1,0 +1,3 @@
+SetSensor
+SetSensorType
+SetSensorMode

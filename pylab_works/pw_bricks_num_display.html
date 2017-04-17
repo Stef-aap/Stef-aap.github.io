@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Bricks, create Numeric Display</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="115" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>april 2008</span></p>
+<p><span class=rvts1>Bricks, create Numeric Display </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Suppose we want to display a numerical value and there's no numerical display control yet. Using an editbox as the control doesn't work, because an editbox requires a string as input, so it will fail when numbers are used as input.</p>
+<p><br></p>
+<p>The first thing to do is to claim an <span class=rvts10>unique ID in bricks.py</span>:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=548 height=240 alt="" hspace=1 vspace=1 src="pw_bricks_num_display_img2.png"></p>
+<p><span class=rvts10><br></span></p>
+<p>As wxPython doesn't have a numerical display yet, we've to create one. One of the simplest way to do this, is to derive the new control from wx.StaticText. And the only method we've to add/override is the SetValue method. So our new control might look like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=365 height=125 alt="" hspace=1 vspace=1 src="pw_bricks_num_display_img3.png"></p>
+<p><br></p>
+<p>As this component is so simple, we put in directly in PyLab_Works_appform.py, where also the control will be created and handled. Now we're going to use this component, to create the new control:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=655 height=193 alt="" hspace=1 vspace=1 src="pw_bricks_num_display_img4.png"></p>
+<p><br></p>
+<p>Now we have the control, we can make a Brick, containing this component:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=548 height=305 alt="" hspace=1 vspace=1 src="pw_bricks_num_display_img6.png"></p>
+<p><br></p>
+<p>The above Brick is very straight forward, except line 71: </p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Input Channel 1, will control Params[1], and as Params are processed automatically, we don't need any further action to let the control work.</li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p>You can spruce up the component, giving it another color, a larger font etc., like this ...</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=465 height=132 alt="" hspace=1 vspace=1 src="pw_bricks_num_display_img7.png"></p>
+<p><br></p>
+<p>... but then of course you have to expand the Numerical Display control to act on this issues.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

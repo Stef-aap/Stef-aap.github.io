@@ -1,0 +1,24 @@
+// "comment"\=
+const "name" = "value"\=
+const char "name" = "value"\=
+const int  "name" = "value"\=
+const long "name" = "value"\=
+
+char "name"\=
+int  "name"\=
+long "name"\=
+-
+if "condition" then\>"body"\<endif\=
+if "condition" then\>"body"\<else\>"body"\<endif\=
+
+for "number" while "condition" do\>"body"\<done\=
+
+while "condition" do\>"body"\<done\=
+|
+proc "name" is\>"body"\<endproc\=
+proc "type" "name" ( "argument list" ) is\>"body"\<endproc\=
+return
+return "expression"
+-
+
+asm_start\>"body"\<asm_end\=

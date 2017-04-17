@@ -1,0 +1,80 @@
+//----------------------------------------------------------------------
+//----------------------------------------------------------------------
+// simple LCD test program
+//
+// This program writes a stream of characters to the attached LCD
+//
+// All characters in the LCD character set are displayed one after the
+// other. A very short delay between characters is deliberatly inserted
+// to allow the user time to see the LCD update.
+
+
+//----------------------------------------------------------------------
+//----------------------------------------------------------------------
+
+include "MCU-CONFIG/hwreg-p16f628.h"
+
+pragma cpu_fosc 4000000
+
+pragma cpu_config CFG_INTRC_OSC_NOCLKOUT
+pragma cpu_config CFG_WDT_OFF
+pragma cpu_config CFG_PWRTE_ON
+pragma cpu_config CFG_MCLRE_OFF
+pragma cpu_config CFG_BODEN_ON
+pragma cpu_config CFG_LVP_OFF
+pragma cpu_config CFG_CP_OFF
+pragma cpu_config CFG_DATA_CP_OFF
+
+pragma cpu_heartbeat 20
+
+pragma build_config BLD_OPT_PORTA_DIGITAL_IO
+
+include "LIB/hd44780_lib.bas"
+
+
+//----------------------------------------------------------------------
+//----------------------------------------------------------------------
+proc main()
+
+	ubyte	x, y, ch
+
+	int	j
+
+
+	hd44780_init()
+
+	x = 0
+	y = 0
+	ch = 0
+
+	while 1 do
+
+		x += 1
+
+		if x > 15 then
+			x = 0
+			y += 1
+
+			if y > 1 then
+				y = 0
+			endif
+		endif
+
+		hd44780_set_pos(x, y)
+
+		hd44780_putchar(ch)
+
+		ch += 1
+
+		for j=0 while j<100 step j+=1 do
+			delay_m4clk 250
+		done
+	done
+
+endproc
+
+
+//----------------------------------------------------------------------
+//----------------------------------------------------------------------
+proc intserv()
+endproc

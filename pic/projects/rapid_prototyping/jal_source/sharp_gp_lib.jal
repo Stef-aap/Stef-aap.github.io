@@ -1,0 +1,33 @@
+
+
+GP_clock_pin = high
+GP_clock_direction = output
+GP_data_direction = input
+
+var bit GP_state = true
+var byte GP_data
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+function read_GP_sharp return bit is
+var bit data_bit at GP_data : 0
+  if GP_state then
+    GP_clock_pin = low
+    GP_state = false
+  else
+    for 8 loop
+      GP_data = GP_data << 1      ;create space for new databit
+      GP_clock_pin = high
+      delay_10us(7)
+      GP_clock_pin = low
+      delay_10us(4)
+      data_bit = GP_data_pin      ;add new databit to databyte
+      delay_10us(3)
+    end loop
+    GP_clock_pin = high
+    GP_state = true
+  end if
+  return GP_state
+end function
+-- -----------------------------------------------------------------------------
+

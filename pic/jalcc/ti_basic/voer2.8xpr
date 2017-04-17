@@ -1,0 +1,449 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 08/26/06, 14:35
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 05 0D 00 2B 05 <pp> <progname>  00 00 2B 05 29 05
+; program name: Voer2
+; file is NOT protected
+
+; unkown codes are inserted as "%%HH%%"
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+
+;*******************************************
+; Use of the Variables
+;*******************************************
+; A = temp var for Test_If_Won
+; B = Result of Test_If_Won
+; N = Counter for Test_If_Won
+; P = Player (-1,1)
+; R = Row in visible field (1..7)
+; X = Column in history array
+; Y = Row in history array
+; Z = Visibility, 1=draw, 0=erase
+;*******************************************
+
+
+
+;************************************************************
+; Waits until a valid user input is received
+; Also checks if the column has free space
+; If all conditions are satisfied, this procedure will return
+; with a new coin positioned at (C,R) in the visible field
+; and (X,Y) indicating the position in the array
+; see <a href="voer2.8xp">voer2.8xp </a> endsee
+;************************************************************
+Procedure Get_User_Input
+  ; wait for a valid key 0..9 (X>0)
+  ; in a column that's not completely full
+  Repeat X
+    ; Wait for a keyboard input
+    Getkey->X
+
+    ; Translate key codes
+    ; 72  73  74
+    ; 82  83  84
+    ; 92  93  94
+    ; 102
+     (Ans=92)+2(Ans=93)+3(Ans=94)+|
+    4(Ans=82)+5(Ans=83)+6(Ans=84)+|
+    7(Ans=72)+8(Ans=73)+9(Ans=74)+|
+    10(Ans=102)->X
+    
+    ; If K<>0 then we have a visible column
+    ; so check if there's empty space in that column
+    if X:Then
+      ; Make K a valid array index (step over the 3-sized border)
+      X+3->X
+      
+      ; Search for a Zero in the specified column
+      ; We don't boundery check, because there are always 
+      ; zeroes around the visible part of the array
+      3->Y
+      Repeat [A](X,Y)=0
+        Y+1->Y
+      End
+
+      ; Now "I" holds the lowest row that's empty
+      ; So check if row position is in the visible part
+      ; otherwise clear K
+      X(1-(Y>10))->X  
+    End
+  End
+End_Procedure
+;************************************************************
+
+
+
+;************************************************************
+;************************************************************
+Procedure Draw_Cross (Draw_Erase)
+;  (X-4)8+14->C
+;  Ans+4->D
+;  (Y-3)8-2->R
+;  Ans-4->S
+;  Line(C,R,D,S,Z)
+;  Line(C,S,D,R,Z)
+  Line(X8-18,Y8-26,X8-14,Y8-30,Draw_Erase)
+  Line(X8-18,Y8-30,X8-14,Y8-26,Draw_Erase)
+
+  ;I'ld expect much faster, 
+  ;but in facts it's only 2 bytes longer
+  ;8X->X
+  ;8Y->Y
+  ;Line(X-18,Y-26,X-14,Y-30,1)
+  ;Line(X-18,Y-30,X-14,Y-26,1)
+End_Procedure
+;************************************************************
+
+         
+
+
+;************************************************************
+;************************************************************
+Procedure Draw_circle_old (Draw_Erase)
+;  (X-4)8+12->C
+;X8-20
+;  (Y-3)8-8->R
+;Y8-32  
+  Line(X8-19,Y8-28,X8-17,Y8-26,Draw_Erase)
+  Line(X8-19,Y8-29,X8-17,Y8-31,Draw_Erase)
+  Line(X8-16,Y8-31,X8-14,Y8-29,Draw_Erase)
+  Line(X8-16,Y8-26,X8-14,Y8-28,Draw_Erase)
+End_Procedure
+;************************************************************
+
+
+;************************************************************
+;************************************************************
+Procedure Draw_circle (Draw_Erase)
+;  (X-4)8+12->C
+;X8-20
+;  (Y-3)8-8->R
+;Y8-32  
+  Line(X8-19,Y8-28,X8-17,Y8-26,Draw_Erase)
+  Line(X8-19,Y8-29,X8-17,Y8-31,Draw_Erase)
+  Line(X8-16,Y8-31,X8-14,Y8-29,Draw_Erase)
+  Line(X8-16,Y8-26,X8-14,Y8-28,Draw_Erase)
+End_Procedure
+;************************************************************
+
+
+;************************************************************
+; This procedure checks if a new inserted coin,
+; by player P, placed at (X,Y) in the history array
+; results in a winning situation
+; 
+;************************************************************
+Procedure Test_If_Won
+  ; We will look for 3 consecutive coins in all directions
+  ; So the sum of these 3 elements should be 3*P
+  3P->A
+  
+  ;clear the result
+  Delvar B
+  
+  ; scan the horizontal line 
+  [A](X-3,Y)+[A](X-2,Y)+[A](X-1,Y)=A or |
+  [A](X-2,Y)+[A](X-1,Y)+[A](X+1,Y)=A or |
+  [A](X-1,Y)+[A](X+1,Y)+[A](X+2,Y)=A or |
+  [A](X+1,Y)+[A](X+2,Y)+[A](X+3,Y)=A->N
+  B+(N=1)->B
+
+  ; scan the vertical line
+  [A](X,Y-3)+[A](X,Y-2)+[A](X,Y-1)=A or |
+  [A](X,Y-2)+[A](X,Y-1)+[A](X,Y+1)=A or |
+  [A](X,Y-1)+[A](X,Y+1)+[A](X,Y+2)=A or |
+  [A](X,Y+1)+[A](X,Y+2)+[A](X,Y+3)=A->N
+  B+2(N=1)->B
+
+  ; scan the diagonal from bottom-left to top-right
+  [A](X-3,Y-3)+[A](X-2,Y-2)+[A](X-1,Y-1)=A or |
+  [A](X-2,Y-2)+[A](X-1,Y-1)+[A](X+1,Y+1)=A or |
+  [A](X-1,Y-1)+[A](X+1,Y+1)+[A](X+2,Y+2)=A or |
+  [A](X+1,Y+1)+[A](X+2,Y+2)+[A](X+3,Y+3)=A->N
+  B+4(N=1)->B
+  
+  ; scan the diagonal from top-left to bottom-right
+  [A](X-3,Y+3)+[A](X-2,Y+2)+[A](X-1,Y+1)=A or |
+  [A](X-2,Y+2)+[A](X-1,Y+1)+[A](X+1,Y-1)=A or |
+  [A](X-1,Y+1)+[A](X+1,Y-1)+[A](X+2,Y-2)=A or |
+  [A](X+1,Y-1)+[A](X+2,Y-2)+[A](X+3,Y-3)=A->N
+  B+8(N=1)->B
+End_Procedure
+;************************************************************
+;************************************************************
+
+
+;************************************************************
+; Start of MAIN PROGRAM
+;************************************************************
+:"Four on a Row
+Repeat Z
+  ; Clear screen and graph
+  PlotsOff:FnOff:ClrDraw:AxesOff:ZStandard
+  ; Set the graph origin and scaling
+  0->Xmin
+  1->_delta_X
+  0->Ymin
+  1->_delta_y
+  
+  ;Draw the field
+  ; draw the horizontal lines
+  For(L,0,62,8)
+    Line(12,L,92,L)
+  End
+  ; draw the vertical lines
+  For(L,1,11)
+    Text(0,8L+6,L(L<10))
+    Line(8L+4,0,8L+4,55)
+  End
+  
+  
+  ; Create an array to hold the coin positions
+  ; although the visible coin area is only 10 width and 7 high,
+  ; we create a larger matrix, of 16 by 13,
+  ; so that on each side there are 3 positions extra
+  ; The advantage is that we don't need to calculate 
+  ; with special boundery conditions
+  ; A newly array will always be cleared ???
+  Delvar [A]
+  {16,13}->dim([A])
+  
+  ; Set the first Player
+  1->P
+  
+  ; Initialize the position where current player is indicated
+  3->X
+  4->Y
+  
+  ; repeat until WON
+  Repeat B
+    If P=1:Then
+      ; place the new coin of the user P=1
+  ;    Call Draw_Circle(1)
+  
+      ; Erase the current Player P=1
+      3->X
+      4->Y
+      Call Draw_Circle(0)
+  
+      ; Set new current Player P=-1
+      Call Draw_Cross(1)
+    Else  ;and here the same for the other player
+  ;    Call Draw_Cross(1)
+      3->X
+      4->Y
+      Call Draw_Cross(0)
+      Call Draw_Circle(1)
+    End
+   
+    ; wait for a valid key 0..9
+    ; in a column that's not completely full
+    Call Get_User_Input
+ 
+    
+X->M
+Y->N
+    If P=1:Then
+  ; Erase the current Player P=1
+  3->X
+  4->Y
+  Call Draw_Cross(0)
+      ; place the new coin of the user P=1
+M->X
+N->Y
+      Call Draw_Cross(1)
+    Else  ;and here the same for the other player
+  3->X
+  4->Y
+  Call Draw_Circle(0)
+M->X
+N->Y
+      Call Draw_Circle(1)
+    End
+
+
+  
+    ; Here we have a new valid coin position,
+    ; In the visible field indicated by coordinates (C,R)
+    ; In the history array indicated by coordinates (X,Y)
+    ; So store the result
+    P->[A](X,Y)
+  
+    ; test if this is a winning situation, result in B
+    Call Test_If_won
+  
+    ; Change to the other Player
+    (-)P->P
+  End
+  
+
+  
+  Vertical 8*(X-4)+16
+  Horizontal 8*(Y-4)+4
+
+  Text(0,14,"Press  Key  to  Continue  "
+  Repeat Getkey
+    RandInt(4,10)->Y
+    RandInt(4,13)->X
+    If P=1:then
+      Call Draw_Cross(0)
+      Call Draw_Circle(1)
+    else
+      Call Draw_Circle(0)
+      Call Draw_Cross(1)
+    end
+  end
+    
+  Text(7,14,"1. New Game "
+  Text(15,14,"2. Exit     "
+
+    ; Wait for a keyboard input
+  Repeat Ans
+    Getkey->Z
+  end
+  (Ans!=92)->Z
+end
+
+
+;If B>0:Pause B
+;stop
+
+
+  ;3->X
+  ;For(Y,4,11)
+  ;  If P=1:Then
+  ;    Call Draw_Circle(1)
+  ;  Else
+  ;    Call Draw_Cross(1)
+  ;  End
+  ;End
+
+
+
+
+;no_optimize
+;1->[A](1,4)
+;1->[A](2,4)
+;1->[A](3,4)
+;0->[A](4,1)
+;0->[A](5,1)
+;0->[A](6,1)
+;  0->N
+;  4->X
+;  4->Y
+;  3->A
+;
+;  [A](X-3,Y)+[A](X-2,Y)+[A](X-1,Y)=A or |
+;  [A](X-2,Y)+[A](X-1,Y)+[A](X+1,Y)=A or |
+;  [A](X-1,Y)+[A](X+1,Y)+[A](X+2,Y)=A or |
+;  [A](X+1,Y)+[A](X+2,Y)+[A](X+3,Y)=A->N
+;  B+(N=1)->B
+;  
+;  [A](X,Y-3)+[A](X,Y-2)+[A](X,Y-1)=A or |
+;  [A](X,Y-2)+[A](X,Y-1)+[A](X,Y+1)=A or |
+;  [A](X,Y-1)+[A](X,Y+1)+[A](X,Y+2)=A or |
+;  [A](X,Y+1)+[A](X,Y+2)+[A](X,Y+3)=A->N
+;  B+2(N=1)->B
+;
+;  [A](X-3,Y-3)+[A](X-2,Y-2)+[A](X-1,Y-1)=A or |
+;  [A](X-2,Y-2)+[A](X-1,Y-1)+[A](X+1,Y+1)=A or |
+;  [A](X-1,Y-1)+[A](X+1,Y+1)+[A](X+2,Y+2)=A or |
+;  [A](X+1,Y+1)+[A](X+2,Y+2)+[A](X+3,Y+3)=A->N
+;  B+4(N=1)->B
+;  
+;  [A](X-3,Y+3)+[A](X-2,Y+2)+[A](X-1,Y+1)=A or |
+;  [A](X-2,Y+2)+[A](X-1,Y+1)+[A](X+1,Y-1)=A or |
+;  [A](X-1,Y+1)+[A](X+1,Y-1)+[A](X+2,Y-2)=A or |
+;  [A](X+1,Y-1)+[A](X+2,Y-2)+[A](X+3,Y-3)=A->N
+;  B+8(N=1)->B
+;
+;disp B
+
+;  ;the new coin is inserted at C=column ,R=Row
+;  ;new coin at [A](X,Y)
+;  
+;  ;;horizontal scan
+;  [A](X-3,Y)+[A](X-2,Y)+[A](X-1,Y)=A or | 
+;  [A](X-2,Y)+[A](X-1,Y)+[A](X+1,Y)=A or |
+;  [A](X-1,Y)+[A](X+1,Y)+[A](X+2,Y)=A or |
+;  [A](X+1,Y)+[A](X+2,Y)+[A](X+3,Y)=A->N
+;
+;  ;;vertical scan
+;  [A](X,Y-3)+[A](X,Y-2)+[A](X,Y-1)=A or | 
+;  [A](X,Y-2)+[A](X,Y-1)+[A](X,Y+1)=A or |
+;  [A](X,Y-1)+[A](X,Y+1)+[A](X,Y+2)=A or |
+;  [A](X,Y+1)+[A](X,Y+2)+[A](X,Y+3)=A->N
+;  
+;  ;diagonal scan
+;  [A](X-3,Y-3)+[A](X-2,Y-2)+[A](X-1,Y-1)=A or | 
+;  [A](X-2,Y-2)+[A](X-1,Y-1)+[A](X+1,Y+1)=A or |
+;  [A](X-1,Y-1)+[A](X+1,Y+1)+[A](X+2,Y+2)=A or |
+;  [A](X+1,Y+1)+[A](X+2,Y+2)+[A](X+3,Y+3)=A->N
+;  
+;  ;diagonal scan
+;  [A](X-3,Y+3)+[A](X-2,Y+2)+[A](X-1,Y+1)=A or | 
+;  [A](X-2,Y+2)+[A](X-1,Y+1)+[A](X+1,Y-1)=A or |
+;  [A](X-1,Y+1)+[A](X+1,Y-1)+[A](X+2,Y-2)=A or |
+;  [A](X+1,Y-1)+[A](X+2,Y-2)+[A](X+3,Y-3)=A->N
+;  
+;
+;  ;horizontal scan 14 sec
+;  ;  the new coin is inserted at [A](X+3,Y)
+;    [A](X,Y)+[A](X+1,Y)+[A](X+2,Y)=A or | 
+;  [A](X+1,Y)+[A](X+2,Y)+[A](X+4,Y)=A or |
+;  [A](X+2,Y)+[A](X+4,Y)+[A](X+5,Y)=A or |
+;  [A](X+4,Y)+[A](X+5,Y)+[A](X+6,Y)=A->N
+;
+;
+;;15sec
+;  Repeat (B=0) or (L=3)
+;    ([A](L+X,1)=1)->B
+;    N+Ans->N
+;    L+1->L
+;  End
+;  Repeat (B=0) or (L=5)
+;    ([A](L,1)=1)->B
+;    N+Ans->N
+;    L+1->L
+;  End
+;Repeat (B=0) or (L=5)
+;  If [A](L+R,1)=1:Then
+;    N+1->N
+;  Else
+;    DelVar B
+;  End
+;  L+1->L
+;End
+;Repeat (B=0) or (L=5)
+;  If [A](L,1)=1:Then
+;    N+1->N
+;  Else
+;    0->B
+;  End
+;  L+1->L
+;End
+;;15 sec
+;Repeat (B=0) or (L=5)
+;  N+([A](L,1)=1)->N
+;  If [A](L,1)!=1:0->B
+;  L+1->L
+;End
+;
+;;werkt niet
+;For(L,1,5)
+;  N+([A](L,1)=1)->N
+;  If [A](L,1)!=1:End
+;End
+
+
+;Rondje
+;Line(2+X,4+Y,4+X,6+Y
+;Line(2+X,3+Y,4+X,1+Y
+;Line(5+X,1+Y,7+X,3+Y
+;Line(5+X,6+Y,7+X,4+Y
+
+
+

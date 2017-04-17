@@ -1,0 +1,171 @@
+<HTML><HEAD><TITLE>JALss overview</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>March 2003</SPAN></P>
+<P><SPAN class=RVTS1>JALss, Overview</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="jalss_design.html">Development</A></P>
+<P><A class=RVTS4 href="../download/jalss_demo_prog.zip">Demo exe</A>&nbsp;(600kB&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>General</P></TD>
+<TD valign=top>
+<P>Simulation</P></TD>
+<TD valign=top>
+<P>Devices 1</P></TD>
+<TD valign=top>
+<P>Devices 2</P></TD>
+<TD valign=top>
+<P>Development</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P><A class=RVTS4 href="#introduction_">Introduction</A></P>
+<P><A class=RVTS4 href="../download/demo2_jalss.zip">Demo AVI</A>&nbsp; (1.5 Mb)</P>
+<P><A class=RVTS4 href="jalss_history.html">History / Downloads</A></P>
+<P><A class=RVTS4 href="jalss.html#add_device_">Add Devices</A></P>
+<P><A class=RVTS4 href="jalss.html#add_connection_">Add Connections</A></P>
+<P><A class=RVTS4 href="jalss_connections.html">Connection details</A></P>
+<P><A class=RVTS4 href="jalss.html#changing_device_settings_">Device Settings</A></P>
+<P><A class=RVTS4 href="jalss.html#circuit_overview_">Circuit Overview</A></P></TD>
+<TD valign=top>
+<P><A class=RVTS4 href="jalss_devices_scope.html">Scope</A></P>
+<P>Simulation</P>
+<P>Single&nbsp;&nbsp;&nbsp;&nbsp; Step</P>
+<P><A class=RVTS4 href="jalss_jal_demo.html">PIC-JAL-demo</A></P>
+<P><A class=RVTS4 href="jalss_rcx_demo.html">Lego-RCX-demo</A></P>
+<P><A class=RVTS4 href="jalss_rcx_devices.html">Lego-RCX</A></P>
+<P><A class=RVTS4 href="jalss_rcx_car_lr1.html">RCX car LR</A></P>
+<P><A class=RVTS4 href="jalss_rcx_amp1.html">RCX amp-1</A></P>
+<P><A class=RVTS4 href="virtual_rcx_in_bricxcc.html">b2j</A></P></TD>
+<TD valign=top>
+<P><A class=RVTS4 href="jalss_devices_pic.html">PICs</A></P>
+<P><A class=RVTS4 href="jalss_devices_displays.html">Displays / LEDs</A></P>
+<P><A class=RVTS4 href="jalss_devices_motors.html">Motors</A></P>
+<P><A class=RVTS4 href="jalss_devices_keys.html">Keyboards</A></P>
+<P><A class=RVTS4 href="jalss_devices_counters.html">Counter / Dividers</A></P>
+<P><A class=RVTS4 href="jalss_devices_communication.html">RS232 terminal</A></P>
+<P><A class=RVTS4 href="basic_87x__terminal.html">Basic87x terminal</A></P>
+<P><A class=RVTS4 href="jalss_devices_conversion.html">Conversion</A></P>
+<P><A class=RVTS4 href="jalss_devices_i2c_memory.html">I2C memory</A></P></TD>
+<TD valign=top>
+<P><A class=RVTS4 href="jalss_devices_analog.html">Analog Circuits</A></P>
+<P><A class=RVTS4 href="jalss_devices_ad_da.html">AD / DA converters</A></P>
+<P>SSI / SPI devices</P>
+<P>Speaker</P>
+<P>Video</P>
+<P><A class=RVTS4 href="jalss_devices_generators.html">Generators</A></P>
+<P><A class=RVTS4 href="jalss_devices_file.html">File Data</A></P>
+<P><A class=RVTS4 href="jalss_devices_photospectrometry.html">PhotoSpectroMetry</A></P></TD>
+<TD valign=top>
+<P><A class=RVTS4 href="jalss_building_devices.html">Building Devices</A></P>
+<P>Class Hierachy</P>
+<P><A class=RVTS4 href="jalss_devices_spi_timing.html">Timing</A></P>
+<P>IO-pins</P>
+<P>general Device</P>
+<P>14-bit core</P>
+<P>PIC Device</P>
+<P><A class=RVTS4 href="jalss_devices_exmples.html">Examples</A></P>
+<P><A class=RVTS4 href="jalss_devices__overview.html">Device Overview</A></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=400 valign=top>
+<P><A name="introduction_"></A>
+<SPAN class=RVTS2>Introduction&nbsp;</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>JALss is simple logic simulator (for M$-Windows), special designed to simulate PICs and other MCUs. Although it's basically designed for logical signals, it also has limited support for analog signals. JALss has special features from PIC programs written in JAL and is capable of communicating with JALcc (a JAL IDE)</P>
+<P>JALss is freeware.</P>
+<P>JALss has entry points to hook your own devices in the form of a DLL. A user device-DLL can be written in any language that supports the writing of windows-DLLs.&nbsp;</P>
+<P>The simulation is done with a 2-phase system clock. The frequency of this system clock is derived from the device with the highest frequency.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>In the first phase all the devices read their input signals.&nbsp;</LI>
+<LI>In the second phase all the devices generate their output signals&nbsp;</LI>
+</UL>
+<P>Calculation of the output signals can be done either in the first or the second phase, depending on where the calculation is done. So either the input signals or the output signals should be stored temporary depending on where the calculations are done.</P></TD>
+<TD width=329 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=340 height=409 src="device_scope_1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=547 valign=top>
+<P><A name="add_device_"></A>
+<SPAN class=RVTS2>Add Device</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>On the right the list of available devices is shown.</P>
+<P>By selecting a device, followed by the ENTER key or the right-mouse button, a new instance of that device is created.</P>
+<P>The organization of the list can be adapted by the user, through editing the file ....</P>
+<P>see for more information ...</P>
+<P>To each device, the user can make some small personal notes which are shown below the treelist.</P>
+<P>With the blue splitter, the user can devide the space between the treelist and the notes.</P></TD>
+<TD width=182 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=190 height=377 src="available_devices.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=616 valign=top>
+<P><A name="changing_device_settings_"></A>
+<SPAN class=RVTS2>Changing Device Settings</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>All devices hae a visual controls, to control the specific parameters of that device.&nbsp;</P>
+<P>All settings are automatically stored in the project file.</P></TD>
+<TD width=113 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=99 height=70 src="device_counters.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=526 valign=top>
+<P><A name="add_connection_"></A>
+<SPAN class=RVTS2>Add Connection</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>By clicking on a input pin of a device (the green pins for digital, the blue pins for analog), a form is shown with all available output signals.</P>
+<P>SELECT: connects to the selected output</P>
+<P>CUT: disconnects the input</P>
+<P>CANCEL: doesn't change anything</P>
+<P>If a device is selected (instead of a pin of a device, nothing will happen (same as Cancel).</P>
+<P>The STATIC outputs are not from any visible device, but are just there.</P></TD>
+<TD width=203 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=202 height=196 src="available_outputs.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=426 valign=top>
+<P><A name="circuit_overview_"></A>
+<SPAN class=RVTS2>Circuit Overview</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>An (textual) overview of the complete circuit, including all the settings of the indivual devices can be made by pressing ....</P>
+<P>With the print button or through the file menu, the circuit overview can be printed.</P></TD>
+<TD width=303 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=294 height=426 src="circuit_overview.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

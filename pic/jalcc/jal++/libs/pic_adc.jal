@@ -1,0 +1,364 @@
+-- -----------------------------------------------------------------------------
+-- <title PIC-AD
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- Library to use the PIC's AD converter
+-- see the example below, how to use it
+--
+--  procedure PIC_ADC_init			 	
+--  procedure PIC_ADC_read_low_res (chan, sample)
+--  procedure PIC_ADC_read         (chan, highsample, lowsample)
+--
+--  hardware, see 16F87x datasheet (DS30292C, p112)
+--  number of channels, behind "--" yields only for 16F874 and 16F877
+--  no external Vref: Nchan = 1,3,5 -- 6,8
+--  only external +Vref: Nchan = 2,4 -- 5,7
+--  both external +Vref and - Vref: Nchan = 1,2,3 -- 4,6
+--
+--  analog channels can still be used as digital outputs, by setting
+--      pin = output
+--
+--  relevant IO pins
+--  RA0 = AN0
+--  RA1 = AN1
+--  RA2 = AN2  or  -Vref
+--  RA3 = AN3  or  +Vref
+--  RA4 = no analog IO
+--  RA5 = AN4
+--  next pins only for 16F874 and 16F877
+--  RE0 = AN5
+--  RE1 = AN6
+--  RE2 = AN7
+--
+-- Background Information
+-- I mixed the following libraries with my own ideas
+--    f877_modules.jal from Javi
+--    janalog.jal from Vasile
+--
+--
+-- Rick Turtel has extended the library with 16F88 support,
+-- see http://www.geocities.com/fun_4_me_now20012000/jal_page.html
+--
+-- <Version: 2.2 23-03-2004, Stef Mienti
+--    - errors in IO-direction assignment corrected (was pin_a2=input)
+--      (Thanks to Rick Turtel)
+--
+-- <Version: 2.1 16-10-2003, Stef Mientki, 
+--    - 16F87x, 1 channel + NoRef didn't work, bug fixed
+--
+-- <Version: 2.0 05-04-2003, Stef Mientki, 
+--    - 12F675 support added
+--
+-- <Version: 1.0  10-04-2003, Stef Mientki
+--    - orginal release
+--    - _PIC_ADC_init_1_Vref  (not tested)
+--    - _PIC_ADC_init_2_Vref  (not tested)
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+-- <Example PIC-AD
+; -- (if you use JALcc, you can copy the complete example below and "uncomment" it)
+; -- define the AD converter settings
+; const PIC_ADC_Nchan	 	 	 	 	 	= 5	 	 	 	 ;number of selected channels
+; const PIC_ADC_NVref						= 0				 ;number of external references
+; const PIC_ADC_Rsource					= 20_000   ;maximum source resistance (max recommended = 10 kOhm)
+; const PIC_ADC_high_resolution = true		   ;true = high resolution = 10 bits
+;												   ;false = low resolution = 8 bits
+; -- get the library, after defining the constants
+; include pic_adc
+;
+; -- initialize the AD converter according to the above parameters
+; PIC_ADC_init
+;
+; -- now take a sample 
+; -- (choose the correct routine according to the selected resolution)
+; PIC_ADC_read (chan, xH, xL)
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+
+-- -----------------------------------------------------------------------------
+-- local variables
+-- -----------------------------------------------------------------------------
+var volatile byte _ADCON0_shadow = 0
+var volatile byte _PIC_ADC_conversion_time
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Does an AD conversion with low resolution (8 bit) on the selected channel
+-- -----------------------------------------------------------------------------
+procedure PIC_ADC_read_low_res 
+  (byte in PIC_ADC_chan, byte out PIC_ADC_byte) is
+  
+  if target_chip == pic_12F675 then
+    ADCON0 = _ADCON0_shadow | ((PIC_ADC_chan & 0x03) << 2) -- setup multiplexer
+	else 
+    ADCON0 = _ADCON0_shadow | ((PIC_ADC_chan & 0x07) << 3) -- setup multiplexer
+  end if
+  delay_10us (_PIC_ADC_conversion_time)	 -- wait acquisition time
+  GO = true	 														 -- start conversion
+  while GO loop end loop								 -- wait till conversion finished
+  PIC_ADC_byte = ADRESH									 -- read high byte 
+																				 --   (low resolution is left justified !!)
+  if target_clock <= (5_000_000 / 16)	then														
+    delay_10us	  											 -- to satisfy 2*Tad for next conversion
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Does an AD conversion with high resolution (10 bit) on the selected channel
+-- -----------------------------------------------------------------------------
+procedure PIC_ADC_read 
+  (byte in PIC_ADC_chan, byte out PIC_ADC_Hbyte, byte out PIC_ADC_Lbyte) is
+  
+  PIC_ADC_read_low_res (PIC_ADC_chan,PIC_ADC_Hbyte)	  -- do conversion and get high byte	
+  PIC_ADC_Lbyte = ADRESL													-- get low byte
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine, that
+-- calculates aquisition time
+-- and determines if right or left justification is optimal
+-- -----------------------------------------------------------------------------
+procedure _ad_init_general is
+	-- if high resolution, right justified, read H + L
+	-- if low  resolution, left  justified, only read H
+  if target_chip == pic_12F675 then
+  	if PIC_ADC_high_resolution then _ADCON0_shadow = _ADCON0_shadow | 0x80 end if
+  else
+  	if PIC_ADC_high_resolution then ADCON1 = ADCON1 | 0x80 end if
+  end if
+		
+	-- select the highest possible clock rate
+	-- that satisfies Tad > 1.6 usec
+	-- AD converter is always turned ON
+  if target_chip == pic_12F675 then
+    ADCON1 = ADCON1 & 0b_0000_1111
+		if    target_clock > 40_000_000       then ADCON1 = ADCON1 | 0b_0111_0000
+		elsif target_clock > 20_000_000       then ADCON1 = ADCON1 | 0b_0110_0000
+		elsif target_clock > 10_000_000       then ADCON1 = ADCON1 | 0b_0010_0000
+		elsif target_clock >  5_000_000       then ADCON1 = ADCON1 | 0b_0101_0000
+		elsif target_clock > (5_000_000 / 2)  then ADCON1 = ADCON1 | 0b_0001_0000
+		elsif target_clock > (5_000_000 / 4)  then ADCON1 = ADCON1 | 0b_0100_0000
+		elsif target_clock > (5_000_000 / 8)  then ADCON1 = ADCON1 | 0b_0000_0000
+		else ADCON1 = ADCON1 | 0b_0111_0000
+		end if
+  else
+		if    target_clock >  5_000_000       then _ADCON0_shadow = 0b_1000_0001	 
+		elsif target_clock > (5_000_000 / 4)  then _ADCON0_shadow = 0b_0100_0001	 
+		elsif target_clock > (5_000_000 / 16) then _ADCON0_shadow = 0b_0000_0001	
+		else _ADCON0_shadow = 0b_1100_0001
+		end if
+	end if
+	
+	-- calculate AD-conversion time in 10 usec units
+	-- an extra 10 usec is added to ensure the minimum acquistion time
+  const PIC_ADC_conversion_delay = (10 + 15 + (PIC_ADC_Rsource / 1_000  )) / 10
+	_PIC_ADC_conversion_time = PIC_ADC_conversion_delay
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- initializes the PIC AD-converter, when no external Vref is present
+-- settings are done according to the special ADC constants
+-- sets all the analog pins to input
+-- calculates aquisition time
+-- and determines if right or left justification is optimal
+-- -----------------------------------------------------------------------------
+procedure _PIC_ADC_init_no_Vref is
+  if target_chip != pic_12F675 then
+	  -- start with left justified
+	  if    PIC_ADC_Nchan == 1 then  -- chan = 0
+	    ADCON1 = 0b_0000_1110  
+			pin_A0_direction = input	 		 		 
+	  elsif PIC_ADC_Nchan == 3 then	 -- chan = 0,1,3  (special case!!)
+	    ADCON1 = 0b_0000_0100
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A3_direction = input	 		 		 
+	  elsif PIC_ADC_Nchan == 5 then	 -- chan = 0,1,2,3,4
+	    ADCON1 = 0b_0000_0010
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A2_direction = input	 		 		 
+			pin_A3_direction = input	 		 		 
+			pin_A5_direction = input	 		 		 
+	  elsif (PIC_ADC_Nchan == 6) & (target_chip == PIC_16F877) then -- chan = 0..5
+	    ADCON1 = 0b_0000_1001
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A2_direction = input	 		 		 
+			pin_A3_direction = input	 		 		 
+			pin_A5_direction = input	 		 		 
+			pin_E0_direction = input	 		 		 
+	  elsif (PIC_ADC_Nchan == 8) & (target_chip == PIC_16F877) then -- chan = 0..7
+	    ADCON1 = 0b_0000_0000
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A2_direction = input	 		 		 
+			pin_A3_direction = input	 		 		 
+			pin_A5_direction = input	 		 		 
+			pin_E0_direction = input	 		 		 
+			pin_E1_direction = input	 		 		 
+			pin_E2_direction = input	 		 		 
+	  else
+		  pragma error    -- this number of channels is not available
+		end if
+		
+		-- calculate aquisition delay and optimize justify
+		_ad_init_general
+	end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- initializes the PIC AD-converter, when only +Vref is present
+-- settings are done according to the special ADC constants
+-- sets all the analog pins to input
+-- calculates aquisition time
+-- and determines if right or left justification is optimal
+-- -----------------------------------------------------------------------------
+procedure _PIC_ADC_init_1_Vref is
+  if target_chip != pic_12F675 then
+	  -- start with left justified
+	  if    PIC_ADC_Nchan == 2 then  -- chan = 0,1
+	    ADCON1 = 0b_0000_0101
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A3_direction = input					 		 -- +Vref
+	  elsif PIC_ADC_Nchan == 4 then	 -- chan = 0,1,2
+	    ADCON1 = 0b_0000_0011
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A2_direction = input	 		 		 
+			pin_A3_direction = input	 		 		 
+	  elsif (PIC_ADC_Nchan == 5) & (target_chip == PIC_16F877) then -- chan = 0,1,2,4,5
+	    ADCON1 = 0b_0000_1001
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A2_direction = input	 		 		 
+			pin_A3_direction = input	 		 		 
+			pin_A5_direction = input	 		 		 
+			pin_E0_direction = input	 		 		 
+	  elsif (PIC_ADC_Nchan == 7) & (target_chip == PIC_16F877) then -- chan = 0,1,2,4,5,6,7
+	    ADCON1 = 0b_0000_0000
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A2_direction = input	 		 		 
+			pin_A3_direction = input	 		 		 
+			pin_A5_direction = input	 		 		 
+			pin_E0_direction = input	 		 		 
+			pin_E1_direction = input	 		 		 
+			pin_E2_direction = input	 		 		 
+	  else
+		  pragma error    -- this number of channels is not available
+		end if
+		
+		-- calculate aquisition delay and optimize justify
+		_ad_init_general
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+-- -----------------------------------------------------------------------------
+-- initializes the PIC AD-converter, when both +Vref and -Vref are present
+-- settings are done according to the special ADC constants
+-- sets all the analog pins to input
+-- calculates aquisition time
+-- and determines if right or left justification is optimal
+-- -----------------------------------------------------------------------------
+procedure _PIC_ADC_init_2_Vref is
+  if target_chip != pic_12F675 then
+	  -- start with left justified
+	  if    PIC_ADC_Nchan == 1 then  -- chan = 0
+	    ADCON1 = 0b_0000_1111
+			pin_A0_direction = input	 		 		 
+			pin_A2_direction = input	 		 		 		 -- -Vref
+			pin_A3_direction = input					 		 -- +Vref	 		 		 
+	  elsif PIC_ADC_Nchan == 2 then  -- chan = 0,1
+	    ADCON1 = 0b_0000_1101
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A2_direction = input	 		 		 		 -- -Vref
+			pin_A3_direction = input					 		 -- +Vref	 		 		 
+	  elsif PIC_ADC_Nchan == 3 then	 -- chan = 0,1,4
+	    ADCON1 = 0b_0000_1100
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A2_direction = input	 		 		 		 -- -Vref
+			pin_A3_direction = input					 		 -- +Vref	 		 		 
+			pin_A4_direction = input	 		 		 
+	  elsif (PIC_ADC_Nchan == 4) & (target_chip == PIC_16F877) then -- chan = 0,1,4,5
+	    ADCON1 = 0b_0000_1011
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A2_direction = input	 		 		 		 -- -Vref
+			pin_A3_direction = input					 		 -- +Vref	 		 		 
+			pin_A5_direction = input	 		 		 
+			pin_E0_direction = input	 		 		 
+	  elsif (PIC_ADC_Nchan == 6) & (target_chip == PIC_16F877) then -- chan = 0,1,4,5,6,7
+	    ADCON1 = 0b_0000_1000
+			pin_A0_direction = input	 		 		 
+			pin_A1_direction = input	 		 		 
+			pin_A2_direction = input	 		 		 		 -- -Vref
+			pin_A3_direction = input					 		 -- +Vref	 		 		 
+			pin_A5_direction = input	 		 		 
+			pin_E0_direction = input	 		 		 
+			pin_E1_direction = input	 		 		 
+			pin_E2_direction = input	 		 		 
+	  else
+		  pragma error    -- this number of channels is not available
+		end if
+		
+		-- calculate aquisition delay and optimize justify
+		_ad_init_general
+	end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- initializes the PIC AD-converter,
+-- by calling the correct routine according to the number of external references
+-- settings are done according to the special ADC constants
+-- sets all the analog pins to input
+-- calculates aquisition time
+-- and determines if right or left justification is optimal
+-- -----------------------------------------------------------------------------
+procedure PIC_ADC_init is
+  if target_chip == pic_12F675 then
+    if    PIC_ADC_NVref == 0 then
+		  _ADCON0_shadow = 1
+		else
+		  _ADCON0_shadow = 0x41
+		end if
+
+    ADCON1 = PIC_ADC_Nchan
+
+		-- calculate aquisition delay and optimize justify
+		_ad_init_general
+  else
+	  if    PIC_ADC_NVref == 0 then _PIC_ADC_init_NO_Vref
+	  elsif PIC_ADC_NVref == 1 then _PIC_ADC_init_1_Vref
+	  else                          _PIC_ADC_init_2_Vref
+	  end if
+	end if
+end procedure
+-- -----------------------------------------------------------------------------
+

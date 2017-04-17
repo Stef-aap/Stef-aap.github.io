@@ -1,0 +1,144 @@
+int power;
+int punt;
+int tijd = 20;  // 20*10 = 200 msec
+
+#define blauw_aan  OnFwd (OUT_C);
+#define blauw_uit  Off (OUT_C);
+#define rood_aan   OnFwd (OUT_B);
+#define rood_uit   Off (OUT_B);
+
+
+task main ()
+{
+  SetSensorType (SENSOR_1, SENSOR_TYPE_NONE);
+  SetSensorMode (SENSOR_1, SENSOR_MODE_RAW );
+
+  SetSensorType (SENSOR_3, SENSOR_TYPE_TOUCH);
+
+  //motor
+  SetPower (OUT_A,8);
+  Off (OUT_A);
+
+  OnRev (OUT_B);
+  SetPower (OUT_B,8);
+
+  OnFwd (OUT_C);
+  SetPower (OUT_C,8);
+
+  power = 0;
+  punt  = 0;
+  SetUserDisplay (punt, 0);
+
+  start opstarten;
+  start dubbel_sensor;
+  start flipper;
+  start doe_iets;
+}
+
+task opstarten()
+{
+  repeat (4)
+  {
+    rood_aan
+    blauw_uit
+    Wait (tijd);
+    rood_uit
+    blauw_aan;
+    Wait (tijd);
+    PlaySound (SOUND_FAST_UP);
+  }
+  blauw_uit
+}
+
+
+task dubbel_sensor ()
+{
+  while (true)
+  {
+    while (SENSOR_1 >990) {}
+    ClearSound ();
+    if (SENSOR_1<810)
+    {
+      PlaySound (SOUND_LOW_BEEP);
+    }
+    else
+    {
+      if (SENSOR_1<885)
+      {
+        blauw_aan
+        rood_aan
+        PlaySound (SOUND_FAST_UP);
+        punt = punt + 20;
+        SetUserDisplay (punt, 0);
+        blauw_uit
+        rood_uit
+      }
+      else
+      {
+        rood_aan
+        PlaySound (SOUND_DOUBLE_BEEP);
+        punt = punt + 30;
+        SetUserDisplay (punt, 0);
+        blauw_uit
+        rood_uit
+      }
+    }
+    while (SENSOR_1 <990) {}
+  }
+}
+
+task flipper ()
+{
+  while (true)
+  {
+    while (SENSOR_3==1) {}
+    punt = punt + 10 ;
+    
+    PlaySound (SOUND_UP);
+
+    SetUserDisplay (punt, 0);
+    if (power==0)
+    {
+      power = 1;
+      OnRev (OUT_A);
+      start knipper;
+    }
+    else
+    {
+      power = 0;
+      Off (OUT_A);
+    }
+
+    while (SENSOR_3==0) {}
+  }
+}
+
+
+task knipper()
+{
+  repeat (10)
+  {
+    blauw_aan
+    Wait (10);
+    blauw_uit
+    Wait (10);
+  }
+}
+
+task doe_iets ()
+{
+  while (true)
+  {
+    Wait (500);
+    blauw_aan
+    Wait (10);
+    blauw_uit
+    Wait (30);
+    OnRev (OUT_A);
+    Wait (100);
+    Off (OUT_A);
+  }
+
+}
+
+

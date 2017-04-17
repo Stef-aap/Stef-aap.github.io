@@ -1,0 +1,117 @@
+-- -----------------------------------------------------------------------------
+-- demo JAL v2: Switch Debouncing
+-- This demo shows switch bouncing and how to prevent it.
+-- The program has 2 modes:
+--   - showing the number of bounces
+--   - debounced, sends 0x33 if ok (should be always)
+--                sends 0xFF is still bouncing
+-- The program starts with no debouncing,
+-- so everytime a key is pressed it reports the number of bounces.
+-- When sending 0xAA form the serial line, the mode is switched.
+-- NOTE: if you've a bad switch that shows bouncing at 20 MHz,
+-- it might well be working correct on 4 MHz, due to the slower sample rate.
+-- -----------------------------------------------------------------------------
+-- Tested
+--    16F877, 20 MHz: ok
+--    12F675, 4 MHz (internal, calibrated): ok 
+--    JALss + 16F877: ok (switch 100 msec / bounce 5 msec)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- include hardware definitions
+-- select the appropriate devive library
+-- -----------------------------------------------------------------------------
+include jal_v2_demo_16F877 ;external 20 MHz Xtal
+;include jal_v2_demo_12F675 ;internal 4 MHz (calibrated)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- definition and initialisation
+-- -----------------------------------------------------------------------------
+-- define where the key is located
+var bit key is pin_B2
+;var bit key is pin_A2
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- start of the main program
+-- -----------------------------------------------------------------------------
+const bit debouncing = true
+var byte Counter
+var byte Data
+var bit  Old_Key = Key
+var bit  Mode = ! Debouncing
+
+forever loop
+  -- no debouncing mode
+  if mode == ! debouncing then
+
+    -- if a change of key is detected
+    if Key != Old_Key then
+
+      -- loop for a while and count all changes
+      Counter = 0
+      for 1000 loop
+
+        -- if a bounce is detected
+        if key != Old_Key then
+
+          -- incremenet the counter
+          Counter = Counter + 1
+
+          -- and remember the last value
+          Old_Key = Key
+        end if
+      end loop
+    
+      -- send the number of bounces to the serial port
+      Serial_SW_Data = Counter
+    end if
+
+
+  -- debouncing mode
+  else
+
+    -- if change is detected
+    if Key != Old_Key then
+
+      -- wait for a while
+      delay_1ms(20)
+
+      -- and see if cgange is still the same
+      if Key != Old_Key then
+
+        -- if ok, then send 0x33
+        Serial_SW_Data = 0x33
+      else
+
+        -- if not ok, then send 0xFF
+        Serial_SW_Data = 0xFF
+      end if
+
+      -- remember the last key state
+      Old_Key = Key
+    end if
+  end if
+  
+  -- see if there's any data from the serial line
+  if Serial_SW_read ( Data ) then
+
+    -- echo the received data
+    Serial_SW_Data = Data
+
+    -- test if the received data is the special charecter
+    if Data == 0xAA then
+
+      -- if special character, change the mode
+      mode = ! mode
+
+      -- and send an extra feedback to the serial line
+      Serial_SW_Data = ! Data
+    end if
+  end if
+end loop
+-- -----------------------------------------------------------------------------

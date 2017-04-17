@@ -1,0 +1,37 @@
+<HTML><HEAD><TITLE>Calculator</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FEFFE6;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>December 2005</SPAN></P>
+<P><SPAN class=RVTS1>Calculator</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>Just a good calculator, with a clear overview of parameters, formulas and results, which are also automatically saved.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>Here a typical example, how to use the calculator, specific for calculations of the PIC-usart parameters. Of course this can easily extended to all kind of other calculations for timers etc. In this example, just fill in the Xtal frequency in T and the desired baudrate in B, and the optimal setting is calculated, with the realised accuracy.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=502 height=355 src="jalcc_calculator_img1.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>You can use hexadecimal constants, using the Pascal notation, e.g. 32 (in decimal) = $20 (in hex).</P>
+<P>You can use underscores in constants, to make them more readible.</P>
+<P>A new calculation is performed, on the whole datasheet, unless otherwise specified:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>pressing Calculate key&nbsp;</LI>
+<LI>changing Output format&nbsp;</LI>
+<LI>pressing Enter in one of the constant cells&nbsp;</LI>
+<LI>typing the equal sign ("=") in the memo (this will only calculate the current line and insert a new line afterwards.&nbsp;</LI>
+</UL>
+<P>The information from the calculator (constants and memo) is stored in a file called "RKMCH.TXT", in the same directory as the main inifile used in this instance of JALcc. So you will have different storages for different instances of JALcc.</P>
+<P>&nbsp;</P>
+</BODY></HTML>

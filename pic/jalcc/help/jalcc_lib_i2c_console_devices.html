@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>january 2006</span></p>
+<p><span class=rvts1>I2C - Library</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>The <span class=rvts4>I2C_main</span>&nbsp; library supports all I2C master functionality, both software and hardware I2C-port is supported and both high-level and low-level procedures are available. The high level procedures uses virtual I2C-devices and virtual I2C-ports, so it's very easy to switch between different devices or different ports. But if you're really interested in the low level details, you could read the <span class=rvts4>I2C bus specifications.pdf</span>&nbsp; first.</p>
+<p><br></p>
+<p>Starting with I2C devices often seems to be very difficult, and when you finally think you understand the I2C bus, and have your first I2C device working, connecting your second I2C device seems to start the problems all over again. Now with a short introduction, and the libraries described here, starting with I2C becomes very easy, and adding your second I2C device shouldn't give you many problems.</p>
+<p><br></p>
+<p>The first problem occures because most datasheets will try to explain subdetails, details and concept in just&nbsp; one figure. The second problem occures when connecting devices with different hardware specifications (speed, power supply, voltage levels).</p>
+<p><br></p>
+<p>So let's try to explain the I2C concept (not the details). Writing to or reading from an I2C device always consists of the following 3 parts:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=407 height=47 alt="" src="jalcc_lib_i2c_console_devices_img5.png"></p>
+<p><br></p>
+<p><span class=rvts10>Device Address</span></p>
+<p>1 byte, each type of I2C-component has a unique address. Sometimes a component may have a range of addresses, and the component gets its unique address by hardwiring some of its pins. (In case a device type has a range of addresses, you can connect more than 1 of such devices to the same I2C bus). The LSB of the device address also serves to indicate if the next bytes will be written to the device or read from the device (therefore a device will at least have 2 addresses, even and odd).</p>
+<p><br></p>
+<p><span class=rvts10>Command Bytes</span></p>
+<p>After a device is addressed, you will send 1 or 2 command bytes to the device, to tell the device your intentions. E.g. for an eeprom you would give the eeprom-address where you want to write, for a graphical LCD you would specify the row and column where you want to put your data.</p>
+<p><br></p>
+<p><span class=rvts10>DataByte</span></p>
+<p>The databyte to be written or read. Write of read is in general determined by the command bytes and or the LSB of the device address.</p>
+<p><br></p>
+<p><span class=rvts10>Examples</span></p>
+<p>First a few examples to show how easy you can communicate with I2C devices, using this library. For the moment we forget about the initialization part and show some functional calls.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=393 height=90 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img26.png"></p>
+<p><br></p>
+<p>As you can see, you don't have to know anything about subdetails, like timing specifications, or about details like startbit, restartbit, stopbit, ackn, nack, r/w. Moreover these routines will just do their job. Take for instance the most often used eeproms, their write-time varies from 5 .. 10 msec, so after you've performed a write, you've to wait 5..10 msec, before you can initiate the next write. The I2C_Write_3 procedure solves in more convenient way, it will write as fast as possible, just by trying in a close loop to get in contact with the device as soon as possible. If the write doesn't succeed within 10 msec (the slowest memory available nowadays), or if the device cann't be found due to a hardware faillure, the function will return false.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=389 height=36 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img27.png"></p>
+<p><br></p>
+<p>If you look in the datasheet of an I2C-EEprom, you'll see that a read is much more complicated than a write, involving a restart and sending the address twice. Nothing of this complexity can be found in the procedure above.</p>
+<p><br></p>
+<p>If we have to do a lot of sequential writing (or reading) to an I2C device, the above procedures are rather time-intensive, especially when using the old EEproms with their 5..10 msec write delay (the newer Ferro EEprom has a zero write delay). Therefore the somewhat lower level procedures are also available.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=438 height=172 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img28.png"></p>
+<p><br></p>
+<p>We're using the same write procedure as above, but the last parameter is false, meaning no stop bit will be transmitted. Now we can add a number of databytes with the procedure I2C_Write_Next, knowing the I2C device will accept that and autoincrement its internal address counter. Finally, when we're finished with our datastream we send a stopbit.Although the routines at this level will give you all flexibility you'll need, even the lower level routines are of course available.</p>
+<p><br></p>
+<p>Another example, to quickly test which I2C devices are available (and functioning under certain conditions) on our bus, we can use the following code:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=302 height=38 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img29.png"></p>
+<p><br></p>
+<p>The procedure Enumerate_I2C will step through all I2C devices (only the even addresses will be tested) on the specified bus (in this case a I2C software port), and if an I2C device is responding, it will output the address to the RS232 hardware port. Because speed and bus level can be specified, this procedure can also be used to investigate your hardware under different conditions.</p>
+<p><br></p>
+<p><span class=rvts10>Initialisation</span></p>
+<p>The initialisation of each I2C device is done fully under water, and the only thing that needs to be done, is the declaration of some device specific parameters.</p>
+<p><br></p>
+<p><img width=645 height=206 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img30.png"></p>
+<p><br></p>
+<p>Above we see the definition for three I2C-devices, the first one is a graphical LCD, followed by 2 EEproms. The first parameter is the device-address, specified in the datasheet, sometimes in combination with some hardwired connections, like done for the EEproms. The second parameter is the speed (1=100kHz, 4=400kHz, 10=1 MHz), it's no problem to connect devices with different speed to the same bus. (The speed of the software bus is momentary fixed at 100 kHz). The last parameter selects the bus levels, 1 = I2C-levels, 0 = SMbus levels. Different bus levels may be mixed on the same I2C-bus. Generally you can use I2C-levels when the supply voltage of PIC and I2C device are equal and use SMbus levels if you use a 5Volt PIC and 3Volt I2C devices, but this is certainly not always true.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>High level procedures</span></p>
+<p>The high level procedures gives you only read/write access with just 1 databyte at a time. The big advantage is that it's very easy to use, the disadvantage is that there's a lot of overhead for each data transfer. The latter can be especially hinderly, if you've to write sequential data to old EEproms (5..10 msec per transfer).</p>
+<p>The next image gives an overview of all the available high level procedures. The "stop" parameter, which sends a I2C stop sign, should always be true, a false value is only needed to use these same procedures at the medium level.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=482 height=240 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img31.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Medium level procedures</span></p>
+<p>The medium level routines, are a little more difficult to use, but the main advantage is that you'll have full control over the I2C sequence and therefore you can create any data-transfer you like. The medium level procedures consists of the high level procedures (with stop parameter = false) and the next set of procedures.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=326 height=139 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img33.png"></p>
+<p><br></p>
+<p>Here is an example of how to do a page write of 16 bytes (in one I2C sequence, so for EEprom this will only require 1 write delay of&nbsp; 5..10 msec) to an I2C device.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=459 height=156 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img37.png"></p>
+<p><br></p>
+<p>Also the test routines are available at the medium level, and now can test only the devices you specify. This might be handy, if you want to do an endurance test of 1 or more I2C devices at different conditions.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=331 height=88 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img34.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Low level procedures</span></p>
+<p>The low level procedures are only to be used by experienced users, and for those the sourcefile will contain enough information. Therefore we only give an overview of the (highest) low level procedures, yes indeed there's even a lower level !!</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=489 height=138 alt="" src="jalcc_lib_i2c_console_devices_img20.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Library hierachy</span></p>
+<p>Below the library hierachy is shown. For each project it's the best to make a local copy of I2C_console_defs, because this file contains a list of connected I2C devices and defines the pins for software I2C-communication. If you're using a new I2C device which is not yet definied in the I2C_console_defs file, it's adviced to first add the new device, before making a local copy. In that way the original I2C_console_defs file will always contain definitons for all devices you've ever used.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=178 height=84 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img35.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=167 height=83 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img36.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Adding new device</span></p>
+<p>Adding a non-yet existing device to the library, you've to 3 simple steps:</p>
+<p><br></p>
+<p>1. add the device to the device list, with a unique name and unique number</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=565 height=193 alt="" src="jalcc_lib_i2c_console_devices_img22.png"></p>
+<p><br></p>
+<p>2. set the desired parameters for the device</p>
+<p><br></p>
+<p><img width=645 height=206 alt="" hspace=1 vspace=1 src="jalcc_lib_i2c_console_devices_img30.png"></p>
+<p><br></p>
+<p>3. add a small initialisation part to the procedure _get_I2C_parameters. This part is written so that will not consume any memory space if this device is not used.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=487 height=137 alt="" src="jalcc_lib_i2c_console_devices_img24.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>I2C software settings</span></p>
+<p>Just assign the desired pin numbers to the following variables. If you don't use the software I2C module, you can simple assign any pin to these variables (the library will do nothing with it, but the compiler wants them).</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=446 height=134 alt="" src="jalcc_lib_i2c_console_devices_img25.png"></p>
+<p><br></p>
+
+</body></html>

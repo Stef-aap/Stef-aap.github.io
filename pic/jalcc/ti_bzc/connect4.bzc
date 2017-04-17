@@ -1,0 +1,302 @@
+;-----------------------------------------------------
+; include all the standard necessary libraries (always needed)
+;-----------------------------------------------------
+#include <asmlib.h>
+
+
+;-----------------------------------------------------
+; Switch enhanced pre-processor on
+;-----------------------------------------------------
+#jal_processor
+
+
+;-----------------------------------------------------
+; include all the TI-basic equivalents
+;-----------------------------------------------------
+include ti_basic_library.bzc
+
+
+;-----------------------------------------------------
+; Global variables
+;-----------------------------------------------------
+; Create an array to hold the coin positions
+; although the visible coin area is only 10 width and 7 high,
+; we create a larger matrix, of 16 by 13,
+; so that on each side there are 3 positions extra
+; The advantage is that we don't need to calculate 
+; with special boundery conditions
+Byte_Array Play_Field  [16,13]
+
+; X and Y indicates the position of the new inserted coin
+Byte X
+Byte Y
+
+; currently active player
+Byte Player
+
+
+;-----------------------------------------------------
+; Wait for a valid key 0..9
+; in a column that's not completely full
+;-----------------------------------------------------
+Function_Def Get_User_Input
+Byte Oke
+Byte Key
+
+  ;BUG:  Loop While Key>=0 AND Key<=9 ;AND Row<9
+  Oke = 0
+  Loop While Oke == 0 
+    _GetKey
+    Key = A - K0
+    // Key 0 is translated to 10
+    If Key == 0 Then
+      Key = 10
+    EndIf
+    // translate the key array index 
+    X = Key + 3
+
+    Y = 4
+    Loop While Play_Field[X,Y]>0 
+      Y = Y + 1
+    EndLoop
+
+    //BUG: if Key>=0 AND Key<=9 AND Y<11 Then
+    If Key>=0 Then
+      If Key<=10 Then
+        If Y<11 Then
+          Oke = 1
+        EndIf
+      EndIf
+    EndIf
+  Endloop
+End_Function_Def
+;-----------------------------------------------------
+
+
+;-----------------------------------------------------
+; Test if Loose in one direction, indicated by DX and DY,
+; Logically (or more human) you would test WIN,
+; but because we're missing "<>" and/or the "NOT"
+; it was far more easy to implement "Loose"
+;-----------------------------------------------------
+Function_Def Test_Loose  DX, DY
+Byte I
+Byte Loose
+
+//Limitation, because array indices must be a single VAR or CONST
+// we need to use some intermediate variables
+Byte X1
+Byte X2
+Byte Y1
+Byte Y2
+
+  // If Loose=0=false, we've 4 consecutive coins of current Player
+  //BUG: unary minus not supported
+  Loose = 0 - 4 * Player
+
+  // Calculate the result of the 4 most left,
+  // starting 3 left of the last inserted coin 
+  // uptil and including the last inserted coin
+  For I = 1 to 4
+    //BUG  X1 = X +DX*(I-4) is not allowed
+    X1 = X + DX*I - DX*4
+    Y1 = Y + DY*I - DY*4
+    Loose = Loose + Play_Field[X1,Y1]
+  End_For  
+
+  // if we still are loosing,
+  // move the test 1 place to the right,
+  // by removing the most left one and adding one on the right
+  If Loose Then
+    // we have to do a maximum of 3 shifts
+    For I = 1 To 3 
+      If Loose Then
+        // index of the most left coin (to be removed)
+        X1 = X + DX*I - DX*4
+        Y1 = Y + DY*I - DY*4
+        // index of the new to add coin at the right
+        X2 = X + DX*I 
+        Y2 = Y + DY*I 
+        // perform the new calculation
+        Loose = Loose - Play_Field[X1,Y1] + Play_Field[X2,Y2]
+      EndIf
+    End_For
+  EndIf
+
+  Return Loose
+End_Function_Def
+;-----------------------------------------------------
+
+
+;-----------------------------------------------------
+; This procedure checks if a new inserted coin,
+; by player P, placed at (X,Y) in the history array
+; results in a winning situation,
+; by checking all 4 directions
+;-----------------------------------------------------
+Function_Def Test_If_Won
+Byte Loose
+
+  ; scan the horizontal line: dx=1, dy=0
+  Loose = Test_Loose 1 0
+
+  ; scan the vertical line dx=0, dy=1
+  If Loose Then
+    Loose = Test_Loose 0 1
+    
+    ; scan the diagonal from bottom-left to top-right: dx=1, dy=1
+    If Loose Then
+      Loose = Test_Loose 1 1
+      
+      ; scan the diagonal from top-left to bottom-right: dx=1, dy=-1
+      If Loose Then
+        Loose = Test_Loose 1 (0-1)
+      EndIf
+    EndIf
+  EndIf
+
+  Return Loose
+End_Function_def
+;-----------------------------------------------------
+
+
+;-----------------------------------------------------
+; Draws a cross at position X,Y on the screen
+; The playing field, starts at left-bottom=4,4 !!
+;-----------------------------------------------------
+Function_Def Draw_Cross   Draw_Erase
+  Basic_Line_(X*8-18),(Y*8-25),(X*8-14),(Y*8-29),Draw_Erase
+  Basic_Line_(X*8-18),(Y*8-29),(X*8-14),(Y*8-25),Draw_Erase
+End_Function_Def
+;-----------------------------------------------------
+
+
+;-----------------------------------------------------
+; Draws a circle at position X,Y on the screen
+; The playing field, starts at left-bottom=4,4 !!
+;-----------------------------------------------------
+Function_Def Draw_Circle   Draw_Erase
+  Basic_Line_(X*8-19),(Y*8-27),(X*8-17),(Y*8-25),Draw_Erase
+  Basic_Line_(X*8-19),(Y*8-28),(X*8-17),(Y*8-30),Draw_Erase
+  Basic_Line_(X*8-16),(Y*8-30),(X*8-14),(Y*8-28),Draw_Erase
+  Basic_Line_(X*8-16),(Y*8-25),(X*8-14),(Y*8-27),Draw_Erase
+End_Function_Def
+;************************************************************
+
+
+
+;************************************************************
+; MAIN PROGRAM
+;************************************************************
+Begin
+Byte Game = 1
+Byte Key  
+Byte L
+
+  Loop While Game
+    // clear the playfield array
+    For X = 0 to 15
+      For Y = 0 to 12
+        Play_Field[X,Y]=0
+      EndFor
+    EndFor
+    Basic_ClrHome_
+  
+    // draw the horizontal lines
+    For L = 0 TO 9; step 8
+      Basic_Line_ 12,(L*8+1),92,(L*8+1),1
+    EndFor
+
+    // draw the vertical lines and a number above each column
+    // clumsy, but it works for now
+    String column_chars = "1     2     3   4    5    6    7    8    9    0"
+    Basic_Text_ 0,14, column_chars
+    For L = 1 TO 11
+      //Basic_Text_ 0,(8*L+7), column_chars
+      Basic_Line_ (8*L+4),0,(8*L+4),56,2
+    EndFor
+    
+    ;************************************************************
+    ; playing the game
+    ;************************************************************
+    ; Set the first Player
+    Player = 1
+    Loop While Game
+      // to initialize random generator we call it each move
+      Random
+      
+      // Change Player and display which Player is currently active
+      X = 3
+      Y = 4
+      If Player == 1 Then
+        Player = 5
+        Draw_Cross  0
+        Draw_Circle 1
+      Else
+        Player = 1
+        Draw_Circle 0
+        Draw_Cross  1
+      EndIf
+    
+      // wait for valid user input
+      Get_User_Input
+    
+      // draw the new coin 
+      If Player == 1 Then
+        Draw_Cross  1
+      Else
+        Draw_Circle 1
+      EndIf
+
+      // and store it in the play_field array
+      Play_field[X,Y] = Player
+    
+      // Game will become zero if current player has won
+      Game = Test_If_won  
+    EndLoop
+    ;************************************************************
+  
+    // Draw a cross hair at the winning coin
+    Basic_Line_ (X*8-16),0,(X*8-16),100,1
+    Basic_Line_ 0,(Y*8-27),100,(Y*8-27),1
+    
+    String press = "Press  A  Key  to  Continue"
+    Basic_Text_ 0,14, press
+  
+    Key = 0
+    Loop While Key == 0
+      ; While waiting for any keypress,
+      ; fill the complete playing field at random
+      ; with the winning symbol
+      X = Basic_RandInt_  4 13
+      Y = Basic_RandInt_  4 10
+      If Player == 1 Then
+        Draw_Circle 0
+        Draw_Cross  1
+      Else
+        Draw_Cross  0
+        Draw_Circle 1
+      EndIf
+      // Test if Key pressed, without waiting
+      _GetCSC
+      Key = A
+    EndLoop
+
+    // Let the users choose to play again or to quit  
+    Menu_Definition My_Menu "Make a Choice"
+      "New Game"
+      "Exit"
+    End_Menu_Definition
+    Game = Menu  My_Menu
+    Game = Game - 2
+
+    // we need a short delay here,
+    // otherwise the key will recognized in the following part
+    Sleep 1
+  EndLoop
+
+  // when finished, we clear the screen completely
+  Basic_ClrHome_
+End
+;************************************************************
+

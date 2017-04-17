@@ -1,0 +1,168 @@
+<HTML><HEAD><TITLE>Website Generation</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FEFFE6;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>september, 2005</SPAN></P>
+<P><SPAN class=RVTS1>Generating WebSites</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>From every branch in the treeview a framed website can be created, verified and uploaded, with just a few mouseclicks. Let's start with an example, which is far more clear than all my words. Here is view of part of the treeview, where I want to make website from:</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=169 height=164 src="punthoofd_websites_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>and here is the website created from it, by RM-menu "Generate WebSite".</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=689 height=430 src="punthoofd_websites_img5.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The website is created, starting at the selected branch of the treeview upto the next branch at the same level. The first branch starts always expanded, while the other branches starts collapsed. In this way you can use the first branch for often used items or announcements like "New". Clicking on a title, + , - , toggles expansion / collapse of branches.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Example step by step</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>This examples supposes that you already have a number html-pages about the subject to be published.</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#BCCDF5 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=592 bgcolor=#FFFFE1 valign=top>
+<P>Start with a new item in the treeview (here JALcc Home),&nbsp;</P>
+<P>set it as a new html-file, give it a filename with the word "frame" in it (here JALcc_frame.html)&nbsp;</P>
+<P>place it in the same directory as the available html-pages (or preferable on level up).&nbsp;</P>
+<P>Don't edit this document, because it will be filled in by the program.</P></TD>
+<TD width=145 bgcolor=#FFFFE1 valign=top>
+<P>&nbsp;<IMG width=140 height=89 src="punthoofd_websites_img2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>Now add (drag&amp;drop) html-files to this newly created node, either from other parts of the list or from a normal windows explorer. In this example 4 files are dropped on the icon of item "JALcc Home". Because the 4 files in this example all had a nice html-title, the title of each page is shown in the treeview (instead of the filename).</P>
+<P>&nbsp;&nbsp;</P>
+<P>Now select the newly created item (JALcc Home), right click, and select "Generate WebSite". Now a modal form will popup, with all the templates, preview and verify windows.</P>
+<P>If you're convinced your pages are correct, yes press UPLOAD and all pages will be uploaded to your website.</P>
+<P>In case of doubt, you'ld better perform some tests, by pressing VERIFY.</P>
+<P>And of course you can change one or more of the templates.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Website verification</SPAN></P>
+<P>This function can check and correct a complete website. The website is assumed to start in the directory of the current document, and checks this directory and all it's subdirectories.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=357 height=369 src="punthoofd_verify_website_img1.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>After selecting the actions to be performed, pressing the GO-button will execute all tasks.</P>
+<P><SPAN class=RVTS3>Change local files+links to lowercase</SPAN></P>
+<P>Because on Unix machines (most webservers) lowercase and uppercase are assumed different, it's essential that the case of links is correct. Testing the website locally on a windows machine, won't reveal these errors. So here you get the possibility to standarize on lowercase.</P>
+<P>First of all, the directory and subdirectories are scanned for uppercase and if such paths are found, they are translated to lowercase.&nbsp;</P>
+<P class=RVPS1>In windows-XP, although it works, shows a strange behaviour: The path will showup in windows explorer with some uppercase characters. But don't worry, it works !!</P>
+<P>After the (sub-)directories are all changed to lowercase, all the filenames are changed to lowercase.</P>
+<P>Then all html-files are scanned for "local" links, and if they contain links with uppercase characters, they are converted to lowercase.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=207 height=62 src="punthoofd_verify_website_img2.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Change local tags+links to lowercase</SPAN></P>
+<P>not implemented yet</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Change local files+links from "htm" to "html"</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=226 height=44 src="punthoofd_verify_website_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Change absolute links to relative</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=307 height=63 src="punthoofd_verify_website_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Report local broken links</SPAN></P>
+<P>Reports internal broken links. An internal link is assumed broken, if it's either an absolute link or if&nbsp; the file doesn't exist. This action doensn't perform a case check !!</P>
+<P>If the action "convert absolute links to relative" is already done, the action "report broken links" will not detect the absolute addresses (unless the file doesn't exist), because they are all fixed.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=318 height=95 src="punthoofd_verify_website_img5.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;Below the same scan as above, but now "convert absolute" was also on.</P>
+<P>&nbsp;In this case the "ABS" broken links will be missing (because they are already fixed).</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=234 height=103 src="punthoofd_verify_website_img7.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>By double-clicking a broken link, the editor will open at the position of the broken link, so you can correct it right away.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=664 height=325 src="punthoofd_websites_img6.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Report external broken links</SPAN></P>
+<P>not implemented yet.</P>
+<P>This might be a problem nowadays, because when a link get's broken, most webservers show some kind of ad-page for their own services.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Report empty files</SPAN></P>
+<P>Some uploaders, like SSH, have problems (hangs) when they try to upload an empty file.</P>
+<P>Why do empty files exist in the first place ??</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Report only</SPAN></P>
+<P>In this mode the selected actions are executedperformed, but not stored on disk.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Some hints</SPAN>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>By adding more new or existing files, more frame-pages, you can create a user friendly website in just a few mouseclicks.</P>
+<P>A few advises:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>use the word "frame" in the filename of a frame page&nbsp;</LI>
+<LI>leave the readonly-flag of the frame page checked and don't try to edit it&nbsp;</LI>
+<LI>be sure that the first page after a frame is not a frame (otherwise you get nested frames)&nbsp;</LI>
+<LI>all files in one directory will have the same style (thanks to the use CSS)&nbsp;</LI>
+<LI>give all documents a short-powerfull html-title&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Branch with children</SPAN></P>
+<P>A branch that has children can be expanded in two different ways, depending on the filename of that branch (btw, the name of the branch has nothing todo with the filename and is in general equal to the title of the underlying html-file).</P>
+<P>If the filename of the branch has the word&nbsp;<SPAN class=RVTS3>"frame"</SPAN>&nbsp;in it, the file is assumed to be a subframe, with no real content, so it is only used as the title of the next tree.</P>
+<P>If the filename doesn't contain the word&nbsp;<SPAN class=RVTS3>"frame"</SPAN>&nbsp;, then the branch is assumed to have relevant content and therefor, it's both used as the title of the next tree, but it will also be included as the first child of that same tree.</P>
+<P>This feature opens the possibility to create sub-websites from the same treeview.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=165 height=171 src="punthoofd_websites_img8.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Standard template files</SPAN></P>
+<P>The standard gifs used in the website generation should be available in the directory where the initfile of PuntHoofd resides (initially they will be copied from the PuntHoofd executable directory). On generating the the website, they are copied to the website location, unless files with these names already exists in that directory. So by putting your own images in the initfile directory, you'll ensure that all websites will get the same images. By putting images in a generated directory, these new images will be used in the future for this website (path) only.</P>
+<P>The standard pictures can easily be changed by clicking onone of the images. If for instance you click on the plus.gif image, you can select another gif-image that will be copied to "plus.gif".</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=198 height=217 src="punthoofd_websites_img9.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The template_frame.txt file definies the frame and can be edited (by editing, you only change the file in the final directory). The file may contain 3 items that will automatically be replaced by JALcc:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; will be replaced by the title of the first page</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %indexpage&nbsp; will be replaced by a link to the treelist</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %mainpage&nbsp;&nbsp; will be replaced by a link to the first (main) page</P>
+<P>&nbsp;<IMG width=510 height=280 src="punthoofd_websites_img10.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Template_List_start.txt contains the first part of the treelist, in this example, besides the javascript for the tree control it contains a search box that starts a php script. The parameter %collapse_id will be replaced by JALcc to a number of calls to close all the treenodes (except the first) at startup.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=579 height=367 src="punthoofd_websites_img11.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Templates_List_style.txt contains all the style elements of the treeview. In this example it contains a lot more which I should be removed some day when I've time to understand this style code.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>IE / Mozilla view</SPAN></P>
+<P>I would like to test my websites on both browsers, but unfortunatly the interface to the Mozilla activeX component is too unstable at the moment, so only IE-view is shown. These browser are fully functional, so can step through the complete website.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Uploading</SPAN></P>
+<P>This looks like an awfull lot of complex work, but normally you've to fill in it only once and parts are filled in automatically.</P>
+<P>There are a number of macro substitutions that can be used, in specifying the parameters for the upload program:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>%cp = Local Current Path, is derived from the document where the web generation was started&nbsp;</LI>
+<LI>%wb = Web BasePath, which should be the weblocation at the same level as Local BasePath&nbsp;</LI>
+<LI>%pd = the difference between the Local Current Path and the Local BasePath&nbsp;</LI>
+<LI>%pw = the password, which is encrypted stored in the inifile&nbsp;</LI>
+<LI>%f&nbsp;&nbsp;&nbsp; = the individual filename (not used at the moment, this maybe of use when future expansion "upload only new files" will be implemented)&nbsp;</LI>
+</UL>
+<P>The FTP program, used to upload all the necessary files to the website, must be a commandline uploader, in which you can pass the password through the commandline. I've good experiences with Putty and his derivates. PSFTP doesn't work for my site (the last slash always gets lost), but PSCP works perfectly. .</P>
+<P>By pressing "Start Upload &amp; Exit", the FTP program is started in the background (minimized), and the web generation window is closed.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=482 height=404 src="punthoofd_websites_img12.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=486 height=325 src="punthoofd_websites_img13.gif"></P>
+</BODY></HTML>

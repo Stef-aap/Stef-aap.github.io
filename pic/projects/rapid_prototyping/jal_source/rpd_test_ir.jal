@@ -1,0 +1,85 @@
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+-- do be sure no other portB pins generates interrupts
+-- we set all pins to output
+port_B_direction = all_output
+
+-- define an IR-remote control on J2R
+-- because we need interrupt on change (RB4 .. RB7)
+const IR_check_twice = false
+;;;;;<;mac> RPD_IR_remote    IR = J2R, JVC_RMSUXP3R
+include IR_remote_lib_defs
+const IR_remote = IR_JVC_RMSUXP3R
+var volatile bit IR_receiver_pin is J2R2
+J2R2_direction = input
+var volatile bit IR_transmit_pin is J2R3
+J2R3 = low
+J2R3_direction = output
+include IR_remote_lib
+;;;;;<;/mac>
+;<mac> RPD_IR_remote    IR = J2R, RAW
+;<mac> RPD_IR_remote    IR = J2R, AKAI_RCX121E
+;<mac> RPD_IR_remote    IR = J2R, SONY
+
+-- including of IR_remote_lib is already done by RPD_IR_remote
+-- but JALcc can't yet generate the interrupt macros,
+-- so temporary we include it here manual
+include IR_remote_lib
+
+-- generate ISR from all libraries
+;;;;;<;mac> interrupt_main
+procedure xzxzxzxz is
+pragma interrupt
+  if t0if then 
+     isr_ir_t0   ;priority=5
+  end if
+  if rbif then 
+     isr_ir_rb   ;priority=5
+  end if
+end procedure
+;;;;;<;/mac>
+
+-- -----------------------------------------------------------------------------
+-- main program,
+-- receive data from remote control
+-- and send it to the RS232 port
+-- -----------------------------------------------------------------------------
+var bit old_gie
+const bit IR_send_receive = false ;true
+forever loop
+  if IR_send_receive then
+    old_gie = GIE
+    GIE = false
+
+    -- JVC audio on/off
+    ;IR_byte2 = 0x17
+    ;IR_byte1 = 0xA3
+    ;IR_send_JVC_Audio
+    
+    -- SONY channel +
+    IR_byte2 = 0
+    IR_byte1 = 0x90
+    IR_send_SONY_RM883
+
+
+    GIE = old_GIE
+    delay_100ms(10)
+  else
+
+    -- IR_valid_code should be called at least every 1 msec
+    if IR_valid_code then
+      -- some protocols use 4 bytes
+      if IR_Nbytes == 4 then
+        asynch_send_hw (IR_byte4)
+        asynch_send_hw (IR_byte3)
+      end if
+      asynch_send_hw (IR_byte2)
+      asynch_send_hw (IR_byte1)
+    end if
+  end if
+end loop
+-- -----------------------------------------------------------------------------
+

@@ -1,0 +1,4208 @@
+sdk83pguide.pdf: _ACOSRAD
+Adding jumptable calls ROM v1.10, Pass 1: _OP5SET0
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+  83-ROM.TXT      A Programmer's Guide to TI-83 ROM Calls       Version 0.2.5
+                              by Henk Poley
+-----------------------------------------------------------------------------
+                         Known ROM versions:
+         1.0200, 1.0300, 1.0400, 1.0600, 1.0700, 1.0800, 1.10, 1.1001
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+
+Foreword
+--------
+Much heard about the idea of making a Ti-83 ROMcall reference. But no one
+has made it to post one. So I thought:"Let's go for it." And here you see
+the result. It's not quite finished, not even all 'documented' ROMcalls
+are documented in this document... :)
+I will add (and search for descriptions of) al documented ROMcalls myself,
+but if you know an 'undocumented' one, please mail it to me. Or you know
+how that 'strange not fully documented' one works, feel free...
+(preferably in the format prescribed below)
+NOTE: I'll have already had ONE reaction, about how nice it was that I
+      would share my knowledge to 'the world'. BTW, I wrote this reference
+      because I knew, that I knew nothing.
+
+mailto:HPoley@DDS.nl
+
+
+version history
+---------------
+ver 0.1   -  5-Oct-2000 - finally made entries to all ROMcalls in Ti83asm.inc
+                          next thing to do: Document them all!
+ver 0.1.5 - 10-Oct-2000 - about halfway, with adding documentation from
+                          http://www.ti.com/calc and AsmGuru v4
+ver 0.2   - 11-Oct-2000 - Finally added ALL docs, except some of those OPxTOOPy
+                          and OPxEXOPy. I think I have to make some sort
+                          of table for these.
+                          NOTE: didn't do that because they are not after
+                                each other in the ROM...
+ver 0.2.1 - 12-Oct-2000 - Added some of the dozen OPxTOOPy and OPxEXOPy calls.
+                          Began with adding jumptable calls. From $4000 there
+                          is a jumptable, which jumps to the actual routine.
+                          If it seems that all calls are pointing to the same
+                          value in all ROM versions, you will be able to squeeze
+                          some more speed out of your program. (17 clock less)
+                          And I've heard that some calls are even jumping to
+                          another call!
+                          So: jump, jump, [jump,..,] routine.
+ver 0.2.2 - 18-Oct-2000 - Began with adding entries from Squish.inc
+                          Whowww 'thousands' of new ROMcalls!!!  yay :(
+                          I'm beginning to ask why I began with this...
+                          Well I'm off for holidays for a week, so some
+                          time to 'recover' (Aargh, no PC/Ti for 1 week :)
+                          I've decided to leave all the _CPYxx's for later...
+ver 0.2.3 - 16-Nov-2000 - Thought I should release a new version, Jumps from the
+                          RST's have been added, and a couple of (+-20) ROMcalls
+                          from Squish.Inc
+ver 0.2.4 - 16-Dec-2000 - All RST's have now a description, thanks to Assembly83!
+                          I now have a document from Ti self, which describes the
+                          ROMcalls in the Ti-83+, they are almost the same so
+                          it is useful. (thanks to Emir Sakic giving me the URL)
+                          Also began with adding entries from "ROMcalls optimised
+                          by Frank Schoep - ROM version 1.07". He made a little
+                          program that scans the ROM-dump for useful optimizations
+                          (the ones like jump, jump, [jump,..,] routine)
+                          And last but not least, I'm getting help from Assembly83
+                          Thanks, you all!!!
+                          I know, I know, I doing to much at the same time...
+ver 0.2.5 - 23-Dec-2000 - Finished adding the entries from "ROMcalls optimised
+                          by Frank Schoep". I defenitely have to mail that guy
+                          to ask if I can have that program too (which makes such
+                          'optimized' include-files).
+                          Added again lots of ROM v1.10 'optimized' equates + new
+                          ones from SQUISH.INC
+
+                          ...
+                          ...
+
+ver ?.?.? - ??-Aug-2002 - Probably the last version, I don't think I'll go on with
+                          the Ti-stuff after finishing school.
+                          But you can always ask...
+
+
+Format of this document
+-----------------------
+Each of the functions in this document has a header like the one shown below.
+  (All addresses are in Hex, unless...)
+
++-Name of function described -------+-------+-------+-------+-------+-------+
+| Address called    |  1.02 |  1.03 |  1.04 |  1.06 |  1.07 |  1.08 |  1.10 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Jump/Call to:     | optimi|zed adr|ess for| this R|OM vers|ion ...| ...   |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
+The Name field holds the name of the function, and the next fields hold the
+addresses to call for the different ROM versions. Sometimes some of the fields
+are empty, this means the address of the function has not been found for that
+ROM version. If you find it please mail me the information.
+
+For most of the functions there will be an explanation of the function right
+below the header. The explanation will normally tell you how to call this
+function, what it does, and which registers it uses.
+
+The Ti-83 ROM is located from $0000 to $7FFF, and consist of 16x16Kb ROM-Pages.
+Which are swapped via port 2.
+Can somebody tell me MORE about this ???
+Or even make an "Ti-83 ports reference", people from the GameBoy development
+Kit ( http://gbdk.sourceforge.net/ ) have asked this too.
+
+I know that there is a new ROM version 1.1001, but I think it has only a new
+number because Ti made a new case to it. I'll have to check that. (binary
+compare of ROM dumps)
+
+
+Questions, questions...
+-----------------------
+Are port 2 and 4 ("ROM page changing" and "Interrupt control") used the same
+ way as on the Ti-82???
+ - I've learned from ZMBOOST, that setting port 4 to 0 (xor a / out (4),a)
+   doesn't freeze your calc, as on the Ti-82.
+   So they are not exactly the same.
+
+Give me some docs about the memory handling routines, _INSTERTMEMA,
+_DELETEMEMA, _CREATEPICT..var..prgm.., etc.
+
+Anyway, can somebody tell me how all the new ROMcalls in Squish.inc work?
+Most of them are really new to me... :(
+
++========================+
+|The ROM calls themselves|
++========================+
+
++- Startup ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  0000 |  0000 |  0000 |  0000 |  0000 |  0000 |  0000 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Jump to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  017D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+result: This is the place where the processor starts executing instructions,
+        after it has been reseted, this is almost always because of power-
+        failure, e.g. batteries taken out.
+   !!!CALLING THIS ROUTINE MEANS RESETING YOUR CALC!!!
+note: Although you may think your calc should be resetted by this call, it
+      just simply crashes, even if no interrupt program is installed. This is
+      maybe because Ti suspects that all registers are zeroed when the CPU
+      is executing this code, like after a power-failure. If it isn't like
+      after executing a program, this ROMcall will 'fial'...
+
+++ RST 8h ----------+
++-  _OP1TOOP2    +-------+-------+-------+-------+-------+-------+-------+
+|                   |  0008 |  0008 |  0008 |  0008 |  0008 |  0008 |  0008 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Jump to:          |  ???? |  ???? |  ???? |  ???? |  19A5 |  ???? |  19E4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: Copy OP1 to OP2
+
+             -Linus Akkeson/Jimmy Conner
+
++- ???? ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  000B |  000B |  000B |  000B |  000B |  000B |  000B |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+description: Checks bit zero of offset seven of the flags. This is more of
+             an internal flag that doesn't have too much use externally.
+             It has to do with whether or not there is a returned result in
+             OP1 or not. The parser uses it.
+             
+             - Dan Englender
+
+++ RST 10h ---------+
++-  _FINDSYM     +-------+-------+-------+-------+-------+-------+-------+
+|                   |  0010 |  0010 |  0010 |  0010 |  0010 |  0010 |  0010 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Jump to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  224C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: Find variable in VAT
+
+             -Linus Akkeson/Jimmy Conner
+
++- ???? ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  0013 |  0013 |  0013 |  0013 |  0013 |  0013 |  0013 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+description: Checks bit four of offset two in the flags. This particular
+             flag keeps track whether or the function graphing mode is set,
+             and is used by the TIOS when it needs to check for function
+             graph-mode (since calling this address is one byte smaller than
+             checking the flag manually)
+
+             - Dan Englender
+
+++ RST 18h ---------+
++-  RPUSHREALO1  +-------+-------+-------+-------+-------+-------+-------+
+|                   |  0018 |  0018 |  0018 |  0018 |  0018 |  0018 |  0018 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Jump to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  29BE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: Same as "call _PUSHREALOP1", but RST is shorter (1 byte)
+
+             -Linus Akkeson/Jimmy Conner
+
++- ???? ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  001B |  001B |  001B |  001B |  001B |  001B |  001B |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+description: Calling this address will set the graph screen to "dirty",
+             'set 0,(IY+3h)'. This means that the graph screen needs to be
+             redrawn if any graph related stuff needs to be used. Whenever
+             you "draw" on the graph screen, this flag is set so that the
+             system knows that the graph has to be redrawn if it is to be used.
+
+             - Dan Englender
+             
+++ RST 20h ---------+
++-  _MOV9TOOP1   +-------+-------+-------+-------+-------+-------+-------+
+|                   |  0020 |  0020 |  0020 |  0020 |  0020 |  0020 |  0020 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Jump to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1AB6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: Move 9 bytes at HL to OP1
+
+             -Linus Akkeson/Jimmy Conner
+
++- ???? ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  0023 |  0023 |  0023 |  0023 |  0023 |  0023 |  0023 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+description: Checks whether or not address 913Ch is zero or not.
+             (returns zero-flag...)
+
+             That particular memory address holds the first letter of
+             the variable that is acting as the current input buffer.
+
+             IE: If you're running a program, it will be the first letter
+             of the program name. If you're on the homescreen, it will
+             be 23h (the homescreen buffer program variable).
+
+             Keep in mind, this value is only initialised and used as such
+             during the error context, and is used if you choose the "Goto"
+             option. If you're not in the error context, this value will
+             be zero.
+
+             - Dan Englender
+
+++ RST 28h ---------+
++-  _FPMULT      +-------+-------+-------+-------+-------+-------+-------+
+|                   |  0028 |  0028 |  0028 |  0028 |  0028 |  0028 |  0028 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Jump to:          |  ???? |  ???? |  ???? |  ???? |  0983 |  ???? |  09C2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: OP1 * OP2 -> OP1
+
+             -Linus Akkeson/Jimmy Conner
+
++- ???? ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  002B |  002B |  002B |  002B |  002B |  002B |  002B |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+description: Sets the memory address 913C to zero (see 0023h for an extended
+             description of that address).
+
+             - Dan Englender
+
+++ RST 30h ---------+
++-  _FPADD       +-------+-------+-------+-------+-------+-------+-------+
+|                   |  0030 |  0030 |  0030 |  0030 |  0030 |  0030 |  0030 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Jump to:          |  ???? |  ???? |  ???? |  ???? |  0896 |  ???? |  08D5 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: OP1 + OP2 -> OP1
+
+             -Linus Akkeson/Jimmy Conner
+
++- LD_HL_MHL (1) ---+-------+-------+-------+-------+-------+-------+-------+
+| UNDOCUMENTED      |  ???? |  ???? |  ???? |  ???? |  0033 |  ???? |  0033 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: Address in HL
+output: A = (HL)
+        L = (HL)   \ which means, 
+        H = (HL+1) / HL = the two bytes at (HL) and (HL+1)
+destroyed: A is now (HL)
+description: Load 2 bytes in HL from (HL) and (HL+1)
+
+Actual code of ROM v1.10 (and the others?):
+	ld    a,(hl)
+	inc   hl
+	ld    h,(hl)
+	ld    l,a
+	ret
+NOTE: There is a call to this a routine at 4000 (all ROM-versions). But I think
+      this one is faster, at least no ROMpage changing. Which isn't the case in
+      ROM 1.10
+NOTE2: Good chance that this is on al ROM versions, SQRXS uses it and I never
+       heard things about crashes
+
++- RST_38h ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  0038 |  0038 |  0038 |  0038 |  0038 |  0038 |  0038 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: Begin of TIOS interupt.
+
+
++            +--+
+| The Jumptable |
++--+            +
+
+++ LD_HL_MHL (2) ---+
++- _ldHLind --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4000 |  4000 |  4000 |  4000 |  4000 |  4000 |  4000 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0033 |  ???? |  0033 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: Adress in HL
+output: A = (HL)   \
+        L = (HL)    > which means, HL = the two bytes at (HL)
+        H = (HL+1) /
+destroyed: A is now (HL)
+
+see LD_HL_MHL (1) at $0033 for further instructions.
+
+++ CP_HL_DE --------+
++-  _cphlde          +-------+-------+-------+-------+-------+-------+-------+
+|                   |  4004 |  4004 |  4004 |  4004 |  4004 |  4004 |  4004 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  010F |  ???? |  010F |
++-------------------+-------+-------+-------+-------+--^^^^-+-------+--^^^^-+
+input: HL = number (1)
+       DE = number (2)
+output: carry-flag is set if(DE > HL)
+        zero-flag is set if(DE = HL)
+destroyed: ????
+description: Non destructive compare of HL & BC:  SBC HL,BC
+             This one is fairly well documented,  It's code is:
+
+	         push  hl
+	         or    a
+	         sbc   hl,de
+	         pop   hl
+	         ret
+
+	     ...So the outputs are as expected by the above code.
+	        Carry will be set if DE>HL and zero will be set if DE=HL.
+
+             - Dan Englender
+
++- UNPACK_HL -------+-------+-------+-------+-------+-------+-------+-------+
+| UNDOCUMENTED      |  4008 |  4008 |  4008 |  4008 |  4008 |  4008 |  4008 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  011B |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+Input: HL = value to unpack from
+Result: A  = value unpacked from HL
+destroyed: HL = changed, to allow unpacking of next number (?? HL incremented ??)
+Description: Same as on the TI-82
+             This function "unpacks" one number from HL. It works from right
+             to left, unpacking the one-number first, then the 10-number and
+             so on. It is used to convert HL into characters that can be
+             displayed using the standard functions in decimal form. This
+             function is used by D_HL_DECI. (_dispHL on Ti-83)
+description(2): divides HL by 10 and stores the modulo in a.
+NOTE: this function destroys the contents of HL.
+
+Example:
+   ld   de,StringPlace+4        ;Location to store string
+   ld   b,5                     ;A word fits into 5 characters
+ConvLoop:
+   call UNPACK_HL               ;Unpack the next number
+   add  a,'0'                   ;Now A is the CHARACTER for this value
+   ld   (de),a                  ;Put that character into the string
+   dec  de                      ;Point DE to the next byte in the string
+   djnz ConvLoop                ;Convert all the 5 characters
+
++- _divHLbyA -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  400C |  400C |  400C |  400C |  400C |  400C |  400C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  011D |  ???? |  011D |
++-------------------+-------+-------+-------+-------+--^^^^-+-------+--^^^^-+
+input: HL = divident, number to be divided
+       A  = divisor, number by which to divide
+output: HL = HL / A
+        A  = remainder
+destroyed: ????
+description: HL/A  -->  divide HL by A
+
++- _kbdScan --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4010 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  01CA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ?? Something like 'keyboardScan' ??
+
++- _getcsc ---------+
++  GET_KEY          +-------+-------+-------+-------+-------+-------+-------+
+| UNDOCUMENTED      |  4014 |  4014 |  4014 |  4014 |  4014 |  4014 |  4014 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  026D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: A = key pressed OR 0 if no key pressed
+destroyed: ????
+
+the return values:
+
+G_NONE   = $00
+G_DOWN   = $01
+G_LEFT   = $02
+G_RIGHT  = $03
+G_UP     = $04
+G_ENTER  = $09
+G_PLUS   = $0A
+G_MINUS  = $0B
+G_TIMES  = $0C
+G_DIV    = $0D
+G_CARROT = $0E
+G_CLEAR  = $0F
+G_NEG    = $11
+G_3      = $12
+G_6      = $13
+G_9      = $14
+G_PARENR = $15
+G_TAN    = $16
+G_VARS   = $17
+G_PERIOD = $19
+G_2      = $1A
+G_5      = $1B
+G_8      = $1C
+G_PARENL = $1D
+G_COS    = $1E
+G_PRGM   = $1F
+G_STAT   = $20
+G_0      = $21
+G_1      = $22
+G_4      = $23
+G_7      = $24
+G_COMMA  = $25
+G_SIN    = $26
+G_MATRIX = $27
+G_XTO    = $28
+G_ON     = $29
+G_STO    = $2A
+G_LN     = $2B
+G_LOG    = $2C
+G_SQR    = $2D
+G_INVE   = $2E
+G_MATH   = $2F
+G_ALPHA  = $30
+G_GRAPH  = $31
+G_TRACE  = $32
+G_ZOOM   = $33
+G_WINDOW = $34
+G_YEDIT  = $35
+G_2ND    = $36
+G_SECOND = $36
+G_MODE   = $37
+G_DEL    = $38
+
++- _coorMon --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4018 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| JP to:            |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  02A6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: mon is the main loop of TIOS. I wrote down some comments about
+             it in a file somewhere. I don't have that hard drive here right
+             now, but I'll see what I can do.
+
+             Linus Akesson
+
++- _mon ------------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  401B |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| JP to:            |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  02B0 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: see _coorMon
+
++- _monForceKey ----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  401E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| JP to:            |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  02C4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: see _coorMon
+
++- _sendKPress -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4021 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| JP to:            |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0383 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ????
+
++- _JforceCmdNoChaR +-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4024 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| JP to:            |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  043A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+       Monitor vectors should be set to the Application loader
+       (?? 83+ only ??)
+output: none
+        The HomeScreen is given control
+destroyed: all
+description: Exits the application (=program?) an returns to the HomeScreen.
+
+             This routine will be used in most applications to Close the
+             application and return controll to the Ti-83 system.
+
+             Before and application jumps to this entry point it must make
+             certain the system monitor vectors are set to the Appliction
+             loader context. (?? 83+ only ??)
+
+Note: This routine will set the stack level back to a save level.
+Note2: This info is taken from an 83+ SDK, so some things maybe incorrect...
+
++- _JforceCmd ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4027 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| JP to:            |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  043B |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: This is the same as JForceCmdNoChar, except it passes a key to
+             the homescreen (actually, in reality JForceCmdNoChar is the same
+             as JForceCmd, except it *doesn't* pass a key to the homescreen).
+
+             The keypress should be in register A.
+             See JForceCmdNoChar for further info.
+
++- _sysErrHandler --+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  402A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  045A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: This passes control to the TIOS error handler. The error screen
+             will pop up, and it will quit to the homescreen when the user
+             chooses quit.  You should load the memory address errNo with
+             the error code of the error you want to trigger. You should only
+             use this if the error you want to trigger does not have a direct
+             access entry point.
+
+             - Dan Englender
+
+             Dan Englender wrote that calling this will abort your program and
+             display the error screen. This may be true, but that is not really
+             the purpose of the routine. You can push and pop error handlers.
+             They are stored as structures on the hardware stack. When an error
+             occurs, an error routine (e.g. _ERRNOTENOUGHMEM) is called. This
+             routine puts an error code in the accumulator (or somewhere in
+             memory, I don't remember) and calls the error handler at the top
+             of the stack. This error handler can then catch the error
+             (like catch in Java) or pass it on to the next error handler on
+             the stack. At the bottom of the stack is the system error handler,
+             and _sysErrHandler tells us where in the ROM it is. That doesn't
+             mean we should ever call _sysErrHandler. (There are even floating
+             point constants in the ROM that have stubs in rompage 12; just
+             because we can call them doesn't make them any useful. =))
+
+             - Linus Akkeson
+
++- _newContext -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  402E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0473 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: This call switches the current context to another one.
+             The context you want to load should be in register A. Basically
+             this is switching what "application" is currently running
+             (homescreen, graph screen, stat editor, etc). I can't think
+             of any instance in which you'd want to use this call from an
+             assembly program.
+
+             - Dan Englender
+
++- _newContext0 ----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4032 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0497 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: This routine is called from NewContext. It does the actual
+             context switching. All NewContext does is save the current ROM
+             page, clear the keypress, and then call NewContext0. Again,
+             I don't think this is a good one to call from an assembly program.
+
+             - Dan Englender
+
++- _A2POINTHLIND ---+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4036 |  4036 |  4036 |  4036 |  4036 |  4036 |  4036 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  057D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = adress where to begin
+       A  = how many words (2 bytes) further...
+output: HL = (HL + A + A) = what's on adress HL plus 2 times A
+destroyed: ????
+description: Lets say we wan't to read something...
+             It's on the third entry in this table
+
+             BarfTable:
+             .dw 613
+             .dw 894
+             .dw 53  <= This one !!!
+             .dw _Help
+
+             We would do the following:
+
+             ld    HL,BarfTable
+             ld    A,3            ;The magic word
+             call  _A2POINTHLIND
+
+             And now HL == 53
+
++- _POINTHLIND -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  403A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  057E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = adress where to begin
+       A  = how many bytes further
+output: HL = (HL + A)
+destroyed: ????
+description: See _A2POINTHLIND, only now we are adding A one time to HL...
+
++- _PPutAwayPrompt -+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  403E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0585 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ?? has something to do with quiting a program ??
+
++- _PPutAway -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4042 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0590 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ?? has something to do with quiting a program ??
+
++- _PutAway --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4046 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0599 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ?? has something to do with quiting a program ??
+
++- _SizeWind -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  404A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  05AC |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ????
+
++- _ErrorEP --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  404E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  05BD |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ????
+
++- _callMain -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4052 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  05D2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ????
+
++- _monErrHand -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4056 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  05E4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ????
+
++- _appInit --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  405A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0603 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ?? Same as 405A ?? .DB CD,03,06,C9
+
++- _appInitIfDec ---+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  405E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0603 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ?? Same as 405A ?? .DB CD,03,06,C9
+
++- _initialize -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4062 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  073C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ????
+
++- _lcd_busy -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4066 |  4066 |  4066 |  4066 |  4066 |  4066 |  4066 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  07AC |  ???? |  07DE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: returns after ???? T-states
+destroyed: none
+description: The Z80 is much faster than LCD-driver-chip. So you have to built
+             in a delay between writes.
+
+TIP: _lcd_busy waists bytes, so use the next one instaid:
+   EX SP,(HL)
+   EX SP,(HL)
+This is with 38 T-states a long enough delay and is 1 byte smaller than
+a "call _lcd_busy". And it won't hurt any register.
+
++- _MIN ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  406A |  406A |  406A |  406A |  406A |  406A |  406A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  083C |  ???? |  087B |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = FP number, argument one
+       OP2 = FP number, argument two
+output: OP1 = min(OP1,OP2)
+        OP2 = preserved, intact
+        OP3 = argument one (the input from OP1)
+        OP4 = argument two (the input from OP2)
+destroyed: A, BC, DE, HL
+          (?? flags preserved ??)
+description: min(OP1,OP2)
+             Computes the minimum of two floating point numbers (OP1 and OP2)
+Note: Beware of the error-handler
+
++- _MAX ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  406E |  406E |  406E |  406E |  406E |  406E |  406E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0845 |  ???? |  0884 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = FP number, argument one
+       OP2 = FP number, argument two
+output: OP1 = max(OP1,OP2)
+        OP2 = preserved, intact
+     ?? OP3 = argument one (the input from OP1) ??
+     ?? OP4 = argument two (the input from OP2) ??
+destroyed: All registers
+description: max(OP1,OP2)
+             returns the maximum of two floatingpoint numbers (OP1 and OP2)
+Note: Beware of the error-handler
+
++- _ABSO1PABSO2 ----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4072 |  4072 |  4072 |  4072 |  4072 |  4072 |  4072 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0892 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = floatingpoint number
+       OP2 = floatingpoint number
+output: OP1 = abs(abs(OP1)+abs(OP2))
+destroyed: A, BC, DE, HL
+description: abs(abs(OP1)+abs(OP2))
+             Calculates the sum of the absolute values of the floatingpoint
+             in OP1 plus the floating point in OP2.
+
++- _INTGR ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4076 |  4076 |  4076 |  4076 |  4076 |  4076 |  4076 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  085B |  ???? |  089A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = floatingpoint number
+output: OP1 = floating point result
+destroyed: A, BC, DE, HL
+description: intgr(OP1)
+             Returns the integer of OP1
+NOTE: Beware of the error-handler
+
++- _TRUNC ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  407A |  407A |  407A |  407A |  407A |  407A |  407A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0871 |  ???? |  08B0 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = floatingpoint number
+output: OP1 = Trunc(OP1)
+destroyed: All registers & OP2
+description: ipart(OP1) = integer part of OP1
+NOTE: Beware of the error-handler
+
++- _INVSUB ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  407E |  407E |  407E |  407E |  407E |  407E |  407E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0875 |  ???? |  08B4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: OP1 = ((-OP1) + OP2) = (OP2 - OP1)
+destroyed: A, BC, DE, HL
+description: OP2 - OP1
+NOTE: Beware of the error-handler
+
++- _TIMES2 ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4082 |  4082 |  4082 |  4082 |  4082 |  4082 |  4082 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  087A |  ???? |  08B9 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1 = OP1 * 2
+        OP2 = 2
+destroyed: A, BC, DE, HL
+           OP2 = 2  (the multiplication factor)
+description: OP1 times 2 (OP1 * 2  -or-  OP1 + OP1)
+NOTE: Beware of the error-handler
+
++- _PLUS1 ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4086 |  4086 |  4086 |  4086 |  4086 |  4086 |  4086 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  087D |  ???? |  08BC |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1 = OP1 + 1
+destroyed: All registers
+description: OP1 + 1
+             I've read somewhere that it should be OP1 - 1, but...
+NOTE: Beware of the error-handler
+
++- _MINUS1 ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  408A |  408A |  408A |  408A |  408A |  408A |  408A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  088C |  ???? |  08CB |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1 = OP1 - 1
+destroyed: All registers
+description: OP1 - 1
+NOTE: Beware of the error-handler
+
++- _FPSUB ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  408E |  408E |  408E |  408E |  408E |  408E |  408E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  088F |  ???? |  08CE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: OP1 = OP1 - OP2
+destroyed: All registers
+description: OP1 - OP2
+NOTE: Beware of the error-handler
+
++- _FPADD ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4092 |  4092 |  4092 |  4092 |  4092 |  4092 |  4092 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0896 |  ???? |  08D5 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: OP1 = OP1 + OP2
+destroyed: All registers
+description: OP1 + OP2
+NOTE: Beware of the error-handler
+
++- _DTOR -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4096 |  4096 |  4096 |  4096 |  4096 |  4096 |  4096 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0963 |  ???? |  09A2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = degree floatingpoint number
+output: OP1 = rad(OP1)
+destroyed: All registers
+           OP2, OP3
+description: Make OP1 to radians (OP1 -> rads)
+             Converts the floatingpoint number in OP1 from degrees angle to
+             a radian angle.
+NOTE: Beware of the error-handler
+
++- _RTOD -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  409A |  409A |  409A |  409A |  409A |  409A |  409A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  096C |  ???? |  09AB |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 =  radian floatingpoint number
+output: OP1 = deg(OP1)
+destroyed: All registers
+           OP2, OP3
+description: Make OP1 to degrees (OP1 -> degrees)
+             Converts the floatingpoint number in OP1 from a radian angle to
+             a degree angle.
+NOTE: Beware of the error-handler
+
++- _CUBE -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  409E |  409E |  409E |  409E |  409E |  409E |  409E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0975 |  ???? |  09B4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = Number to be "cube'd"
+output: OP1 = OP1^3
+destroyed: A, BC, DE, HL
+           OP2, OP3
+description: OP1 = OP1^3
+NOTE: Beware of the error-handler
+
++- _TIMESPT5 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40A2 |  40A2 |  40A2 |  40A2 |  40A2 |  40A2 |  40A2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  097A |  ???? |  09B9 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1 = OP1 * 0.5
+        OP2 = 0.5
+destroyed: A, BC, DE, HL
+           OP2 = 0.5
+description: OP1 * 1/2  -or-  OP1 * 0.5
+NOTE: Beware of the error-handler
+
++- _FPSQUARE -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40A6 |  40A6 |  40A6 |  40A6 |  40A6 |  40A6 |  40A6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0982 |  ???? |  09C1 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1 = OP1 * OP1
+        OP2 = inputted OP1
+destroyed: All registers
+           OP2, OP3
+description: OP1 = SQUARE(OP1) = OP1 * OP1 = OP1^2
+NOTE: Beware of the error-handler
+
++- _FPMULT ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40AA |  40AA |  40AA |  40AA |  40AA |  40AA |  40AA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0983 |  ???? |  09C2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: OP1 = OP1 * OP2
+destroyed: All registers
+           OP2, OP3
+description: OP1 = OP1 * OP2
+NOTE: Beware of the error-handler
+
++- _LJRND ----------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  40AE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0AB9 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ????
+
++- _INVOP1SC -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40B2 |  40B2 |  40B2 |  40B2 |  40B2 |  40B2 |  40B2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0ABC |  ???? |  0AFB |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1(/OP2)
+output: OP1 = OP1 * -1
+        OP2 = OP2 * -1
+destroyed: A
+description: OP1 = -OP1
+             Used to negate a complex number in OP1/OP2 by negating both
+             OP1 and OP2. If (OP1 = 0) or (OP2 = 0), then that OP register
+             is set positive.
+NOTE: Beware of the error-handler
+
++- _INVOP1S --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40B6 |  40B6 |  40B6 |  40B6 |  40B6 |  40B6 |  40B6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0ABF |  ???? |  0AFE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1 = -OP1
+destroyed: A
+description: OP1 = -OP1
+             Negates OP, if (OP1 = 0) then it sets OP1 = positive
+NOTE: Beware of the error-handler
+
++- _INVOP2S --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40BA |  40BA |  40BA |  40BA |  40BA |  40BA |  40BA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0ACF |  ???? |  0B0E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2
+output: OP2 = - OP2
+destroyed: A
+description: OP2 = -OP2
+             Negates OP, if (OP2 = 0) then it sets OP2 = positive
+NOTE: Beware of the error-handler
+
++- _FRAC -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40BE |  40BE |  40BE |  40BE |  40BE |  40BE |  40BE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0AE5 |  ???? |  0B24 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1
+destroyed: All registers
+description: fpart(OP1)
+             OP1 = floating part (mantisse/fractional part) of OP1
+NOTE: Beware of the error-handler
+
++- _FPRECIP --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40C2 |  40C2 |  40C2 |  40C2 |  40C2 |  40C2 |  40C2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0B3F |  ???? |  0B7E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1 = 1 / OP1
+        OP2 = input OP1
+destroyed: All registers
+           OP2, OP3
+description: reciproke of OP1  =>  1/OP1  =>  OP1^-1
+NOTE: Beware of the error-handler
+
++- _FPDIV ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40C6 |  40C6 |  40C6 |  40C6 |  40C6 |  40C6 |  40C6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0B43 |  ???? |  0B82 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: OP1 = OP1 / OP2
+        OP2 = intact, preserved
+destroyed: All registers
+           OP3
+description: divide OP1 by OP2
+NOTE: Beware of the error-handler
+
++- _SQROOT ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40CA |  40CA |  40CA |  40CA |  40CA |  40CA |  40CA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0C16 |  ???? |  0C55 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = positive floatingpoint number
+output: OP1 = sqrt(OP1)
+        error if OP1 was negative
+destroyed: All registers
+           OP2, OP3
+description: sqrt(OP1)  =>  Square root of OP1
+NOTE: Beware of the error-handler
+
++- _RNDGUARD -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40CE |  40CE |  40CE |  40CE |  40CE |  40CE |  40CE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0CF1 |  ???? |  0D30 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1 = round(OP1)
+destroyed: All registers
+description: round(OP1) to ten mantissas digits
+NOTE: Beware of the error-handler
+
++- _RNFX -----------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  40D2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0D4A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = floatingpoint number to be rounded
+       Fix = value
+             ?? Where is it located in RAM ??
+output: OP1 = input rounded at maximum of 10 mantissa digits
+destroyed: All registers
+description: Rounds a floatingpoint number to the current FIX setting for
+             the calculator. this will round the digits following the
+             decimal point.
+
++- _INT ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40D6 |  40D6 |  40D6 |  40D6 |  40D6 |  40D6 |  40D6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0D14 |  ???? |  0D53 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = floatingpoint number
+output: OP1 = int(OP1)
+destroyed: All registers
+description: int(OP1)
+             Rounds a floatingpoint number ro an integer
+NOTE: Beware of the error-handler
+
++- _ROUND ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40DA |  40DA |  40DA |  40DA |  40DA |  40DA |  40DA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0D16 |  ???? |  0D55 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = number
+       D   = number of decimals to keep (0 - 9)
+output: OP1
+destroyed: All registers
+description: Round(OP1) to D decimal places
+             If D = 0FFh no rounding will be done (floating point)
+             'LD  D,(fmtDigits)' to round to current Fix-value
+NOTE: Beware of the error-handler
+
++- _LNX ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40DE |  40DE |  40DE |  40DE |  40DE |  40DE |  40DE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0D8A |  ???? |  0DC9 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1 = ln(OP1)
+destroyed: All registers
+           OP2, OP3, OP4, OP5
+description: ln(OP1)
+             Returns natural log of OP1.
+             Error if OP1 is negative
+NOTE: Beware of the error-handler (if OP1 is negative)
+
++- _LOGX -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40E2 |  40E2 |  40E2 |  40E2 |  40E2 |  40E2 |  40E2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0DA3 |  ???? |  0DE2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1
+destroyed: All registers
+           OP2, OP3, OP4, OP5
+description: log(OP1)
+             Returns log base 10 of OP1
+             Error if OP1 is negative
+NOTE: Beware of the error-handler (if OP1 is negative)
+
++- _LJNORND --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  40E6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  0F1B |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ????
+
++- _ETOX -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40EA |  40EA |  40EA |  40EA |  40EA |  40EA |  40EA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0F7C |  ???? |  0FBB |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = Floating point number
+utput: OP1 = e^OP1 = 10^(OP1*LOG(e))
+destroyed: All registers
+           OP2, OP3, OP4
+description: e^OP1  =>  natural logarithm of OP1
+NOTE: Beware of the error-handler
+
++- _TENX -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40EE |  40EE |  40EE |  40EE |  40EE |  40EE |  40EE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  0F86 |  ???? |  0FC5 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1 = 10^OP1
+destroyed: All registers
+           OP2, OP3, OP4
+description: 10^OP1
+NOTE: Beware of the error-handler
+
++- _SINCOSRAD ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  40F2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  10DB |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = floating point number
+output: OP1 = sin(OP1)
+        OP2 = cos(OP1)
+destroyed: All registers
+           OP3, OP4, OP5
+description: Computes the sine and cosine of OP1, Radian mode is forced
+
++- _SIN ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40F6 |  40F6 |  40F6 |  40F6 |  40F6 |  40F6 |  40F6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  10A0 |  ???? |  10DF |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = Number
+       current angle mode (Degree-, Radian-flags)
+output: OP1 = sin(OP1)
+destroyed: All registers
+           OP2, OP3, OP4, OP5
+description: Sinus of OP1
+NOTE: Beware of the error-handler
+
++- _COS ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40FA |  40FA |  40FA |  40FA |  40FA |  40FA |  40FA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  10A4 |  ???? |  10E3 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = Number
+       current angle mode (Degree-, Radian-flags)
+output: OP1 = cos(OP1)
+destroyed: All registers
+           OP2, OP3, OP$, OP5
+description: Cosinus of OP1
+NOTE: Beware of the error-handler
+
++- _TAN ------------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  40FE |  40FE |  40FE |  40FE |  40FE |  40FE |  40FE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  10A8 |  ???? |  10E7 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = Number
+       current angle mode (Degree-, Radian-flags)
+output: OP1 = tan(OP1)
+destroyed: All registers
+           OP2, OP3, OP4, OP5
+description: Tangens of OP1
+NOTE: Beware of the error-handler
+
++- __SINHCOSH ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  4102 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  14C3 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = floating point number
+output: OP1 = sinh(OP1) = hyperbolic sine of OP1
+        OP2 = cosh(OP1) = hyperbolic cosine of OP1
+destroyed: All registers
+           OP3, OP4, OP5
+description: Computes the hyperbolic sine and cosine of OP1
+
++- _TANH -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4106 |  4106 |  4106 |  4106 |  4106 |  4106 |  4106 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1488 |  ???? |  14C7 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = Number
+output: OP1 = tanh(OP1)
+destroyed: All registers
+           OP2, OP3, OP4, OP5
+description: Tangens hyperbolicus of OP1
+NOTE: Beware of the error-handler
+
++- _COSH -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  410A |  410A |  410A |  410A |  410A |  410A |  410A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  148C |  ???? |  14CB |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = Number
+output: OP1 = cosh(OP1)
+destroyed: All registers
+           OP2, OP3, OP4, OP5
+description: Cosinus hyperbolicus of OP1
+NOTE: Beware of the error-handler
+
++- _SINH -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  410E |  410E |  410E |  410E |  410E |  410E |  410E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1490 |  ???? |  14CF |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = Number
+output: OP1 = sinh(OP1)
+destroyed: All registers
+           OP2, OP3, OP4, OP5
+description: Sinus hyperbolicus of OP1
+NOTE: Beware of the error-handler
+
++- _ACOSRAD --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4112 |  4112 |  4112 |  4112 |  4112 |  4112 |  4112 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1566 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _ATANRAD --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4116 |  4116 |  4116 |  4116 |  4116 |  4116 |  4116 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  156C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _ATAN2RAD -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  411A |  411A |  411A |  411A |  411A |  411A |  411A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1571 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _ASINRAD --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  411E |  411E |  411E |  411E |  411E |  411E |  411E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1577 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _ACOS -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4122 |  4122 |  4122 |  4122 |  4122 |  4122 |  4122 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  153D |  ???? |  157C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = Number
+output: OP1 = inv cos(OP1)
+destroyed: ????
+description: ArcCosinus of OP1
+NOTE: Beware of the error-handler
+
++- _ATAN -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4126 |  4126 |  4126 |  4126 |  4126 |  4126 |  4126 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1547 |  ???? |  1586 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = Number
+output: OP1 = inv tan(OP1)
+destroyed: ????
+description: ArcTangens of OP1
+NOTE: Beware of the error-handler
+
++- _ASIN -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  412A |  412A |  412A |  412A |  412A |  412A |  412A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  154F |  ???? |  159E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = Number
+output: OP1 = inv sin(OP1)
+destroyed: ????
+description: ArcSinus of OP1
+NOTE: Beware of the error-handler
+
++- _ATAN2 ----------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  412E |  412E |  412E |  412E |  412E |  412E |  412E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  15E6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _ATANH ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4132 |  4132 |  4132 |  4132 |  4132 |  4132 |  4132 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1761 |  ???? |  17A0 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1
+destroyed: ????
+description: ArcTanh(OP1)  Whateveritmaybe
+NOTE: Beware of the error-handler
+
++- _ASINH ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4136 |  4136 |  4136 |  4136 |  4136 |  4136 |  4136 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  17AE |  ???? |  17ED |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1
+destroyed: ????
+description: ArcSinh(OP1)
+NOTE: Beware of the error-handler
+
++- _ACOSH ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  413A |  413A |  413A |  413A |  413A |  413A |  413A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  17BC |  ???? |  17FB |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1
+destroyed: ????
+description: ArcCosh(OP1)
+NOTE: Beware of the error-handler
+
++- _PTOR -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  413E |  413E |  413E |  413E |  413E |  413E |  413E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3A70 |  ???? |  3AAF |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: ?? OP1 ??
+destroyed: ????
+description: (OP1,OP2) pol>rect
+NOTE: Beware of the error-handler
+
++- _RTOP -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4142 |  4142 |  4142 |  4142 |  4142 |  4142 |  4142 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3A76 |  ???? |  3AB5 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: ?? OP1 ??
+destroyed: ????
+description: (OP1,OP2) rect,pol
+NOTE: Beware of the error-handler
+
++- _HLTIMES9 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4146 |  4146 |  4146 |  4146 |  4146 |  4146 |  4146 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  18E1 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: HL = HL * 9
+
++- _CKOP1CPLX ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  414A |  414A |  414A |  414A |  414A |  414A |  414A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  18EB |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _CKOP1REAL ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  414E |  414E |  414E |  414E |  414E |  414E |  414E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  18B4 |  ???? |  18F3 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: A      = object type of OP1
+        Z-flag = set, if type is 'real'
+destroyed: ????
+description: extract object type from OP1 into A
+
++- _ANGLE ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4152 |  4152 |  4152 |  4152 |  4152 |  4152 |  4152 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  18BA |  ???? |  18F2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _COP1SET0 -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4156 |  4156 |  4156 |  4156 |  4156 |  4156 |  4156 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  190C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ?? if carry = set ==> OP1 = 0 ??
+
++- _CPOP4OP3 -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  415A |  415A |  415A |  415A |  415A |  415A |  415A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  192F |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOV9OP2CP ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  415E |  415E |  415E |  415E |  415E |  415E |  415E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1937 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _ABSO1O2CP ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4162 |  4162 |  4162 |  4162 |  4162 |  4162 |  4162 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  193C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _CPOP1OP2 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4166 |  4166 |  4166 |  4166 |  4166 |  4166 |  4166 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1903 |  ???? |  1942 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: carry     = set     : OP1 <  OP2
+                  = not set : OP1 >= OP2
+        zero-flag = set     : OP1 =  OP2
+destroyed: ????
+description: Non destructive compare of OP1 and OP2  =>  OP1 == OP2
+NOTE: Beware of the error-handler
+
++- _OP3TOOP4 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  416A |  416A |  416A |  416A |  416A |  416A |  416A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1959 |  ???? |  1998 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP3
+output: OP4
+destroyed: ????
+description: OP4 = OP3
+note: error-handler?
+
++- _OP1TOOP4 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  416E |  416E |  416E |  416E |  416E |  416E |  416E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1962 |  ???? |  19A1 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP4
+destroyed: ????
+description: OP4 = OP1
+
++- _OP2TOOP4 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4172 |  4172 |  4172 |  4172 |  4172 |  4172 |  4172 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  196B |  ???? |  19AA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2
+output: OP4
+destroyed: ????
+description: OP4 = OP2
+
++- _OP4TOOP2 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4176 |  4176 |  4176 |  4176 |  4176 |  4176 |  4176 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1974 |  ???? |  19B3 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP4
+output: OP2
+destroyed: ????
+description: OP4 = OP2
+
++- _OP3TOOP2 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  417A |  417A |  417A |  417A |  417A |  417A |  417A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  197D |  ???? |  19BC |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP3
+output: OP3
+destroyed: ????
+description: OP2 = OP3
+
++- _OP1TOOP3 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  417E |  417E |  417E |  417E |  417E |  417E |  417E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1985 |  ???? |  19C4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP3
+destroyed: ????
+description: OP3 = OP1
+
++- _OP5TOOP2 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4182 |  4182 |  4182 |  4182 |  4182 |  4182 |  4182 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  198D |  ???? |  19CC |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2
+output: OP5
+destroyed: ????
+description: OP2 = OP5
+
++- _OP5TOOP6 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4186 |  4186 |  4186 |  4186 |  4186 |  4186 |  4186 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1995 |  ???? |  19D4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP5
+output: OP6
+destroyed: ????
+description: OP6 = OP5
+
++- _OP5TOOP4 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  418A |  418A |  418A |  418A |  418A |  418A |  418A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  199D |  ???? |  19DC |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP5
+output: OP4
+destroyed: ????
+description: OP4 = OP5
+
++- _OP1TOOP2 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  418E |  418E |  418E |  418E |  418E |  418E |  418E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19A5 |  ???? |  19E4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP2
+destroyed: ????
+description: OP2 = OP1
+
++- _OP6TOOP2 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4192 |  4192 |  4192 |  4192 |  4192 |  4192 |  4192 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19AD |  ???? |  19EC |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP6
+output: OP2
+destroyed: ????
+description: OP2 = OP6
+
++- _OP6TOOP1 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4196 |  4196 |  4196 |  4196 |  4196 |  4196 |  4196 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19B5 |  ???? |  19F4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP6
+output: OP1
+destroyed: ????
+description: OP1 = OP6
+
++- _OP4TOOP1 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  419A |  419A |  419A |  419A |  419A |  419A |  419A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19BA |  ???? |  19F9 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP4
+output: OP1
+destroyed: ????
+description: OP1 = OP4
+
++- _OP5TOOP1 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  419E |  419E |  419E |  419E |  419E |  419E |  419E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19BF |  ???? |  19FE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP5
+output: OP1
+destroyed: ????
+description: OP1 = OP5
+
++- _OP3TOOP1 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41A2 |  41A2 |  41A2 |  41A2 |  41A2 |  41A2 |  41A2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19C4 |  ???? |  1A03 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP3
+output: OP1
+destroyed: ????
+description: OP1 = OP3
+
++- _OP6TOOP5 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41A6 |  41A6 |  41A6 |  41A6 |  41A6 |  41A6 |  41A6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19C9 |  ???? |  1A08 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP6
+output: OP5
+destroyed: ????
+description: OP5 = OP6
+
++- _OP4TOOP5 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41AA |  41AA |  41AA |  41AA |  41AA |  41AA |  41AA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19CE |  ???? |  1A0D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP4
+output: OP5
+destroyed: ????
+description: OP5 = OP4
+
++- _OP3TOOP5 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41AE |  41AE |  41AE |  41AE |  41AE |  41AE |  41AE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19D6 |  ???? |  1A15 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP3
+output: OP5
+destroyed: ????
+description: OP5 = OP3
+
++- _OP2TOOP5 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41B2 |  41B2 |  41B2 |  41B2 |  41B2 |  41B2 |  41B2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19DE |  ???? |  1A1D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2
+output: OP5
+destroyed: ????
+description: OP5 = OP2
+
++- _OP2TOOP6 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41B6 |  41B6 |  41B6 |  41B6 |  41B6 |  41B6 |  41B6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19E6 |  ???? |  1A25 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2
+output: OP6
+destroyed: ????
+description: OP6 = OP2
+
++- _OP1TOOP6 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41BA |  41BA |  41BA |  41BA |  41BA |  41BA |  41BA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19EE |  ???? |  1A2D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP6 = OP1
+destroyed: ????
+description: copy OP1 to OP6
+
++- _OP1TOOP5 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41BE |  41BE |  41BE |  41BE |  41BE |  41BE |  41BE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19F6 |  ???? |  1A35 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP5 = OP1
+destroyed: ????
+description: copy OP1 to OP5
+
++- _OP2TOOP1 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41C2 |  41C2 |  41C2 |  41C2 |  41C2 |  41C2 |  41C2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  19FE |  ???? |  1A3D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2
+output: OP1
+destroyed: ????
+description: OP1 = OP2
+
++- _movreg ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41C6 |  41C6 |  41C6 |  41C6 |  41C6 |  41C6 |  41C6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A34 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOV10B ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41CA |  41CA |  41CA |  41CA |  41CA |  41CA |  41CA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A45 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOV9B ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41CE |  41CE |  41CE |  41CE |  41CE |  41CE |  41CE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A47 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ?? Same as 41D2 ??
+
++- _MOV18 ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41D2 |  41D2 |  41D2 |  41D2 |  41D2 |  41D2 |  41D2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A47 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: ?? Same as 41CE ??
+
++- _MOV8B ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41D6 |  41D6 |  41D6 |  41D6 |  41D6 |  41D6 |  41D6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A49 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOV7B ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41DA |  41DA |  41DA |  41DA |  41DA |  41DA |  41DA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A4B |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOV14 ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41DE |  41DE |  41DE |  41DE |  41DE |  41DE |  41DE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A4B |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOV6B ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41E2 |  41E2 |  41E2 |  41E2 |  41E2 |  41E2 |  41E2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A4D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOV5B ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41E6 |  41E6 |  41E6 |  41E6 |  41E6 |  41E6 |  41E6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A4F |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOV4B ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41EA |  41EA |  41EA |  41EA |  41EA |  41EA |  41EA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A51 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOV3B ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41EE |  41EE |  41EE |  41EE |  41EE |  41EE |  41EE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A53 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOV2B ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41F2 |  41F2 |  41F2 |  41F2 |  41F2 |  41F2 |  41F2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1A55 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _OP2TOOP3 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41F6 |  41F6 |  41F6 |  41F6 |  41F6 |  41F6 |  41F6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1A5D |  ???? |  1A9C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2
+output: OP3
+destroyed: ????
+description: OP3 = OP2
+
++- _OP4TOOP3 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41FA |  41FA |  41FA |  41FA |  41FA |  41FA |  41FA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1A65 |  ???? |  1AA4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP4
+output: OP3
+destroyed: ????
+description: OP3 = OP4
+
++- _OP5TOOP3 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  41FE |  41FE |  41FE |  41FE |  41FE |  41FE |  41FE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1A6A |  ???? |  1AA9 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP5
+output: OP3
+destroyed: ????
+description: OP3 = OP5
+
++- _OP4TOOP6 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4202 |  4202 |  4202 |  4202 |  4202 |  4202 |  4202 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1A6F |  ???? |  1AAE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP4
+output: OP6
+destroyed: ????
+description: OP6 = OP4
+
++- _MOV9TOOP1 ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4206 |  4206 |  4206 |  4206 |  4206 |  4206 |  4206 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1AB6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOV9OP1OP2 -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  420A |  420A |  420A |  420A |  420A |  420A |  420A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1ABB |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _???????? -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  420E |  420E |  420E |  420E |  420E |  420E |  420E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1ABC |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _MOVFROP1 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4212 |  4212 |  4212 |  4212 |  4212 |  4212 |  4212 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1A82 |  ???? |  1AC1 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: (DE),(DE+1),(DE+x),(DE+8) = (??first??) 9 bytes of OP1
+destroyed: ????
+description: Move 9 bytes form OP1 to (DE)
+
++- _OP4SET1 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4216 |  4216 |  4216 |  4216 |  4216 |  4216 |  4216 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1A87 |  ???? |  1AC6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP4
+destroyed: ????
+description: OP4 = 1
+
++- _OP3SET1 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  421A |  421A |  421A |  421A |  421A |  421A |  421A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1A8C |  ???? |  1ACB |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP3
+destroyed: ????
+description: OP3 = 1
+
++- _OP2SET8 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  421E |  421E |  421E |  421E |  421E |  421E |  421E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1A91 |  ???? |  1AD0 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP2
+destroyed: ????
+description: OP2 = 8
+
++- _OP2SET5 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4222 |  4222 |  4222 |  4222 |  4222 |  4222 |  4222 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1A98 |  ???? |  1AD7 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP2
+destroyed: ????
+description: OP2 = 5
+
++- _OP2SETA --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4226 |  4226 |  4226 |  4226 |  4226 |  4226 |  4226 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1A9A |  ???? |  1AD9 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: OP2
+destroyed: ????
+description: OP2 = ??
+
++- _OP2SET4 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  422A |  422A |  422A |  422A |  422A |  422A |  422A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1A9F |  ???? |  1ADE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP2
+destroyed: ????
+description: OP2 = 4
+
++- _OP2SET3 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  422E |  422E |  422E |  422E |  422E |  422E |  422E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1AA6 |  ???? |  1AE5 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP2
+destroyed: ????
+description: OP2 = 3
+
++- _OP1SET1 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4232 |  4232 |  4232 |  4232 |  4232 |  4232 |  4232 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1AAE |  ???? |  1AED |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP1
+destroyed: ????
+description: OP1 = 1
+
++- _OP1SET4 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4236 |  4236 |  4236 |  4236 |  4236 |  4236 |  4236 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1AB3 |  ???? |  1AF2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP1
+destroyed: ????
+description: OP1 = 4
+
++- _OP1SET3 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  423A |  423A |  423A |  423A |  423A |  423A |  423A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1ABA |  ???? |  1AF9 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP1
+destroyed: ????
+description: OP1 = 3
+
++- _OP3SET2 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  423E |  423E |  423E |  423E |  423E |  423E |  423E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1AC1 |  ???? |  1B00 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP3
+destroyed: ????
+description: OP3 = 2
+
++- _OP1SET2 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4242 |  4242 |  4242 |  4242 |  4242 |  4242 |  4242 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1AC6 |  ???? |  1B05 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP1
+destroyed: ????
+description: OP1 = 2
+
++- _OP2SET2 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4246 |  4246 |  4246 |  4246 |  4246 |  4246 |  4246 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1ACB |  ???? |  1B0A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP2
+destroyed: ????
+description: OP2 = 2
+
++- _SETNUM2 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  424A |  424A |  424A |  424A |  424A |  424A |  424A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1B0D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _SETMANT1 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  424E |  424E |  424E |  424E |  424E |  424E |  424E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1B11 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _OP2SET1 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4252 |  4252 |  4252 |  4252 |  4252 |  4252 |  4252 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1AD6 |  ???? |  1B15 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP2
+destroyed: ????
+description: OP2 = 1
+
++- _SETNUM1 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4256 |  4256 |  4256 |  4256 |  4256 |  4256 |  4256 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1B18 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _SETNUM ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  425A |  425A |  425A |  425A |  425A |  425A |  425A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1B1A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _SETNUMA --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  425E |  425E |  425E |  425E |  425E |  425E |  425E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1B1F |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _SETMANT --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4262 |  4262 |  4262 |  4262 |  4262 |  4262 |  4262 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1B20 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _ZERO16D --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4266 |  4266 |  4266 |  4266 |  4266 |  4266 |  4266 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1B24 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _SET16A ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  426A |  426A |  426A |  426A |  426A |  426A |  426A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1B25 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _SET14A ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  426E |  426E |  426E |  426E |  426E |  426E |  426E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1B26 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _SET14D ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4272 |  4272 |  4272 |  4272 |  4272 |  4272 |  4272 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  1B27 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _OP5SET0 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4276 |  4276 |  4276 |  4276 |  4276 |  4276 |  4276 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1AF6 |  ???? |  1B35 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP5
+destroyed: ????
+description: OP5 = 0
+
++- _OP4SET0 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  427A |  427A |  427A |  427A |  427A |  427A |  427A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1AFB |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP4
+destroyed: ????
+description: OP4 = 0
+
++- _OP3SET0 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  427E |  427E |  427E |  427E |  427E |  427E |  427E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1B00 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP3
+destroyed: ????
+description: OP3 = 0
+
++- _OP2SET0 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4282 |  4282 |  4282 |  4282 |  4282 |  4282 |  4282 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1B0C |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP2
+destroyed: ????
+description: OP2 = 0
+
++- _OP1SET0 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4286 |  4286 |  4286 |  4286 |  4286 |  4286 |  4286 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1B0F |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP1
+destroyed: ????
+description: OP1 = 0
+
++- _ZEROOOP1 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  428E |  428E |  428E |  428E |  428E |  428E |  428E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1B1A |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP1
+destroyed: ????
+description: Fill OP1 with zeros
+
++- _ADDPROP --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  42CE |  42CE |  42CE |  42CE |  42CE |  42CE |  42CE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _ADDPROPLP ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  42D2 |  42D2 |  42D2 |  42D2 |  42D2 |  42D2 |  42D2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _ADD14D ---------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  42DA |  42DA |  42DA |  42DA |  42DA |  42DA |  42DA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _OP2EXOP6 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  42E6 |  42E6 |  42E6 |  42E6 |  42E6 |  42E6 |  42E6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1CFE |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2,OP6
+output: OP2,OP6
+destroyed: ????
+description: OP2 <=> OP6
+
++- _OP5EXOP6 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  42EA |  42EA |  42EA |  42EA |  42EA |  42EA |  42EA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D03 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _OP1EXOP5 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  42EE |  42EE |  42EE |  42EE |  42EE |  42EE |  42EE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D0B |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _OP1EXOP6 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  42F2 |  42F2 |  42F2 |  42F2 |  42F2 |  42F2 |  42F2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D10 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _OP2EXOP4 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  42F6 |  42F6 |  42F6 |  42F6 |  42F6 |  42F6 |  42F6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D15 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _OP2EXOP5 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  42FA |  42FA |  42FA |  42FA |  42FA |  42FA |  42FA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D1A |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _OP1EXOP3 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  42FE |  42FE |  42FE |  42FE |  42FE |  42FE |  42FE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D22 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _OP1EXOP4 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4302 |  4302 |  4302 |  4302 |  4302 |  4302 |  4302 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D27 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP4
+output: OP1,OP4
+destroyed: ????
+description: OP1 <=> OP4
+
++- _OP1EXOP2 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4306 |  4306 |  4306 |  4306 |  4306 |  4306 |  4306 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D35 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: OP1,OP2
+destroyed: ????
+description: OP1 <=> OP2
+
++- _CKOP1CO --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  430E |  430E |  430E |  430E |  430E |  430E |  430E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CKOP1FP0 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4312 |  4312 |  4312 |  4312 |  4312 |  4312 |  4312 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D4C |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: zero-flag
+          0, OP1 != 0
+          1, OP1  = 0
+destroyed: ????
+description: check for OP1 = zero
+
++- _CKOP2FP0 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4316 |  4316 |  4316 |  4316 |  4316 |  4316 |  4316 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D51 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2
+output: zero-flag
+          0, OP2 != 0
+          1, OP2  = 0
+destroyed: ????
+description: check for OP2 = zero
+
++- _CKPOSINT -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  431E |  431E |  431E |  431E |  431E |  431E |  431E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D60 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ?? if OP1 is a positive integer ??
+      ...Didn't find any Ti docs..
+
++- _CKINT ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4322 |  4322 |  4322 |  4322 |  4322 |  4322 |  4322 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D69 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = Pointer to exponent of number to check (ex: ld HL,OP1)
+output: Zero-flag
+          0, not integer
+          1, integer
+destroyed: ????
+description: Check digit of floating point number
+
++- _CKODD ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4326 |  4326 |  4326 |  4326 |  4326 |  4326 |  4326 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1D6D |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = Pointer to exponent of number to check (ex: ld HL,OP1)
+output: Zero-flag
+          0, odd
+          1, even
+destroyed: ????
+description: Check if floating point number is odd/even
+
++- _CKOP1M ---------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  432A |  432A |  432A |  432A |  432A |  432A |  432A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CKOP2POS -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4356 |  4356 |  4356 |  4356 |  4356 |  4356 |  4356 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1E8D |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2
+output: A = sign digit
+        Zero-flag
+          0, negative OR zero
+          1, positive
+destroyed: ????
+description: Check OP2 for positive mantissa sign
+
++- _CKOP1POS -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  435A |  435A |  435A |  435A |  435A |  435A |  435A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1E93 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: A = sign digit
+        Zero-flag
+          0, negative OR zero
+          1, positive
+destroyed: ????
+description: Check OP1 for positive mantissa sign
+
++- _CLROP2S --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  435E |  435E |  435E |  435E |  435E |  435E |  435E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1E99 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2
+output: OP2 = positive
+destroyed: ????
+description: Clear the mantissa sign bit in OP2 (bit 7)
+
++- _CLROP1S --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4362 |  4362 |  4362 |  4362 |  4362 |  4362 |  4362 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1E9E |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1 = positive
+destroyed: ????
+description: Clear the mantissa sign bit in OP1 (bit 7)
+
++- _HTIMESL --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4382 |  4382 |  4382 |  4382 |  4382 |  4382 |  4382 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  1F0F |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: H<>0 = numner (1)
+       L    = number (2)
+output: HL = H*L
+destroyed: ????
+description: H * L  -->  H times L
+             Do a fixed point Hex multiply (H*L)
+             Cannot overflow :)
+
++- _CHKTEMPDIRT ----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  43AE |  43AE |  43AE |  43AE |  43AE |  43AE |  43AE  |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CHKERRBREAK ----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  43BA |  43BA |  43BA |  43BA |  43BA |  43BA |  43BA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CKOP2REAL ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4412 |  4412 |  4412 |  4412 |  4412 |  4412 |  4412 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  215E |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP2
+output: A = object type from OP2
+        Zero-flag
+          0, type is not 'real'
+          1, type is 'real'
+destroyed: ????
+description: extract object type from OP2 into A
+
++- _memchk ---------+-------+-------+-------+-------+-------+-------+-------+
+| UNDOCUMENTED      |  441A |  441A |  441A |  441A |  441A |  441A |  441A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: HL = amount of free user memory
+destroyed: ????
+
++- _CMPPRGNAMLEN1 --+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  441E |  441E |  441E |  441E |  441E |  441E |  441E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ?? checks if OP1 could be a programs name (length-check) ??
+
++- _CMPPRGNAMLEN ---+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4422 |  4422 |  4422 |  4422 |  4422 |  4422 |  4422 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CHKFINDSYM -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  442A |  442A |  442A |  442A |  442A |  442A |  442A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  2208 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1(MSB)  = type of variable
+       OP1[1..7] = name of var to lookup (zero terminated string)
+output: if(!exists)
+         carry = set
+        if( exists)
+         carry = unset/zero
+         A     = variable type
+         OP1   = variable value (and type)
+         HL    = pointer to start of symbol entry in VAT
+         DE    = pointer to the data
+destroyed: ????
+description: Finds a non-real system variable in the symbol table
+
++- _INSERTMEM ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4432 |  4432 |  4432 |  4432 |  4432 |  4432 |  4432 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: DE = place from where to allocate
+       HL = size to be allocated
+output: DE = beginning of inserted memory
+destroyed: ????
+description: ????
+
++- _INSERTMEMA -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4436 |  4436 |  4436 |  4436 |  4436 |  4436 |  4436 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _createpict -----+-------+-------+-------+-------+-------+-------+-------+
+| UNDOCUMENTED      |  4482 |  4482 |  4482 |  4482 |  4482 |  4482 |  4482 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = 07h, 60h, picture number:
+	+----------+
+	| 0 = Pic1 |
+	| 1 = Pic2 |
+	| ..       |
+	| 9 = Pic0 |
+      +----------+
+output: an empty picture is created
+	  DE = pointer to new picture
+destroyed: ????
+description: create a new picture
+NOTE: first 2 bytes of picture are size bytes
+
++- _createprog -----+-------+-------+-------+-------+-------+-------+-------+
+| UNDOCUMENTED      |  448A |  448A |  448A |  448A |  448A |  448A |  448A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = 05h, name-string (zero terminated, ASCIIZ)
+output: a new program is created
+	  DE = pointer to new program
+destroyed: ????
+description: create a new program
+NOTE: first 2 bytes of program are size bytes
+
++- _CHKDELA --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4492 |  4492 |  4492 |  4492 |  4492 |  4492 |  4492 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _ADJPARSER ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4496 |  4496 |  4496 |  4496 |  4496 |  4496 |  4496 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _ADJMATH --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  449A |  449A |  449A |  449A |  449A |  449A |  449A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _DELMEMA --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  44B2 |  44B2 |  44B2 |  44B2 |  44B2 |  44B2 |  44B2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _DELVAR ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  44AA |  44AA |  44AA |  44AA |  44AA |  44AA |  44AA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  26FF |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = Pointer to symbol entry in the VAT
+       DE = Pointer to data
+output: Symbol is removed form VAT
+        Data is deleted
+destroyed: ????
+description: delete a variable
+
++- _DELMEM ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  44B2 |  44B2 |  44B2 |  44B2 |  44B2 |  44B2 |  44B2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: DE = place where to deallocate from
+       HL = how much bytes to deallocate
+output: mem deleted
+destroyed: ????
+description: ?? the space is zeroed ??
+
++- _ALLOCFPS1 ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  451E |  451E |  451E |  451E |  451E |  451E |  451E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _PUSHREALO1 -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4536 |  4536 |  4536 |  4536 |  4536 |  4536 |  4536 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  297F |  ???? |  29BE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: Pushes OP1 onto FPST (Floating Point STack)
+    ...I really need some more docs about the FPST...
+
++- _CPYTO1FPS1 -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  45D6 |  45D6 |  45D6 |  45D6 |  45D6 |  45D6 |  45D6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _CPYTO1FPS2 -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  45E2 |  45E2 |  45E2 |  45E2 |  45E2 |  45E2 |  45E2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _putmap ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4701 |  4701 |  4701 |  4701 |  4701 |  4701 |  4701 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3D1C |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: A = character to print
+       (CURROW)
+       (CURCOL)
+       textInverse,(iy+textflags)
+         0, normal
+         1, inverted
+       AppTextSave,(iy+..)
+         0, TextShadow is preserved
+         1, TextShadow is also affected
+output: character in A is diplayed at current cursor position
+destroyed: ????
+NOTE: The cursor-position is NOT updated
+
++- _putc -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4705 |  4705 |  4705 |  4705 |  4705 |  4705 |  4705 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3FB6 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: A = character to print
+       (CURROW)
+       (CURCOL)
+       textInverse,(iy+textflags)
+         0, normal
+         1, inverted
+       appTextSave,(iy+appFlags)
+         0, TextShadow is preserved
+         1, TextShadow is also affected
+       appAutoScroll,(iy+appFlags)
+         0, no automatic scrolling
+         1, text is automaticly scrolled up if
+             end of screen has been reached
+output: character in A is displayed at current cursor position
+        (CURCOL) = incremented (or zero'd if end of line)
+        (CURROW) = incremented if end of line (or zero'd if end of screen)
+        textScrolled,(iy+textflags)
+          0, no scrolling occured
+          1, the text has scrolled (the routine
+              reached the end of the screen)
+destroyed: ????
+
++- _dispHL ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4709 |  4709 |  4709 |  4709 |  4709 |  4709 |  4709 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3E84 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = number to display
+       (CURROW)
+       textInverse,(iy+textflags)
+         0, normal
+         1, inverted
+       AppTextSave,(iy+..)
+         0, TextShadow is preserved
+         1, TextShadow is also affected
+output: number in HL is displayed at the end of the line
+        OP1[0..5] = 5 digit number string
+        (CURROW) updated
+        (CURCOL) updated
+destroyed: OP1
+description: convert contents of HL to printable decimal and send it to the
+             screen.
+
++- _puts -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  470D |  470D |  470D |  470D |  470D |  470D |  470D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3E7E |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = pointer to zero terminated string (ASCIIZ)
+       (CURROW)
+       (CURCOL)
+       textInverse,(iy+textflags)
+         0, normal
+         1, inverted
+       AppTextSave,(iy+..)
+         0, TextShadow is preserved
+         1, TextShadow is also affected
+output: string at (HL) is displayed
+        Carry
+          0, if it ran off the screen
+          1, if entire string was displayed
+        (CURROW) updated
+        (CURCOL) updated
+destroyed: ????
+description: Display a zero terminated string (ASCIIZ), like:
+             "HELLO",0  ; string with zero-terminator
+
++- _putps ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4715 |  4715 |  4715 |  4715 |  4715 |  4715 |  4715 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3D28 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = pionter to string (the length byte of it)
+       (CURROW)
+       (CURCOL)
+       AppTextSave,(iy+..)
+         0, TextShadow is preserved
+         1, TextShadow is also affected
+output: string is displayed
+        (CURROW) updated
+        (CURCOL) updated
+destroyed: ????
+description: Display a length byte indexed string, like:
+             5,"HELLO"  ; 5 characters in string, no zero-terminator needed
+
++- _newline --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  473D |  473D |  473D |  473D |  473D |  473D |  473D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3D6A |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: AppTextSave,(iy+..)
+         0, TextShadow is preserved
+         1, TextShadow is also affected
+output: (CURROW) = if(CURROW < 8), incremented
+                    else the screen is scrolled
+        (CURCOL) = 0
+destroyed: ????
+description: Increments cursor row, and sets cursor column to 0.
+
++- _moveDown -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4741 |  4741 |  4741 |  4741 |  4741 |  4741 |  4741 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3D70 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: (CURROW)
+output: Carry
+          0, screen scrolled
+          1, cursor moved
+destroyed: ????
+description: Move cursor down. Scroll screen up if necessary to keep the
+             cursor on the screen.
+
++- _scrollUp -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4745 |  4745 |  4745 |  4745 |  4745 |  4745 |  4745 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3D76 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: AppTextSave,(iy+..)
+         0, TextShadow is preserved
+         1, TextShadow is also affected
+output: display is scrolled UP 8 pixels
+destroyed: ????
+description: Scroll window up one display line
+
++- _moveup ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  474D |  474D |  474D |  474D |  474D |  474D |  474D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3D88 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: (CURROW)
+       AppTextSave,(iy+..)
+         0, TextShadow is preserved
+         1, TextShadow is also affected
+output: Positive status if cursor moved.
+        Negative status if screen scrolled.
+     ...Okay, and WHAT ON EARTH is that 'status', Carry maybe...
+destroyed: ????
+description: Move cursor up, scroll screen down if necessary to keep the
+             cursor on the screen.
+
++- _scrollDown -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4751 |  4751 |  4751 |  4751 |  4751 |  4751 |  4751 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3D8E |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: AppTextSave,(iy+..)
+         0, TextShadow is preserved
+         1, TextShadow is also affected
+output: display is scrolled DOWN 8 pixels
+destroyed: ????
+description: Scroll lines (within current window) down one display line.
+
++- _CLRLCDFULL -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4755 |  4755 |  4755 |  4755 |  4755 |  4755 |  4755 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3EA8 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: LCD is cleared (NOT the buffers)
+destroyed: ????
+NOTE: Ignores Horizontal-split-mode flag
+
++- _clrScrnFull ----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  475D |  475D |  475D |  475D |  475D |  475D |  475D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3D94 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: AppTextSave,(iy+..)
+         0, TextShadow is preserved
+         1, TextShadow is also cleared
+output: LCD is cleared, buffer is cleared depending on flag
+destroyed: ????
+NOTE: Ignores Horizontal-split-mode flag
+
++- _CLRTXTSHD ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4765 |  4765 |  4765 |  4765 |  4765 |  4765 |  4765 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3D9A |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: TextShadow is cleared
+destroyed: ????
+NOTE: Ignores Horizontal-split-mode flag
+
++- _eraseEOL -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  476D |  476D |  476D |  476D |  476D |  476D |  476D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3DA6 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: apptextsave,(iy+..)
+         0, don't affect TextShadow
+         1, affect TextShadow
+output: Text is erased
+destroyed: Erase from current cursor location to end of line.
+          No cursor update.
+
++- _homeUp ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4775 |  4775 |  4775 |  4775 |  4775 |  4775 |  4775 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3DB8 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: (CURROW) = 0
+        (CURCOL) = 0
+destroyed: ????
+description: cursor(0,0), cursor to top-left corner
+             Put the cursor on the top row of the SCREEN
+
++- _vputmap --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  477D |  477D |  477D |  477D |  477D |  477D |  477D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3DC4 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: A = character to print
+       (PENROW)
+       (PENCOL)
+       textInverse,(iy+textflags)
+         0, normal
+         1, inverse
+       textEraseBelow,(iy+..)
+         0, nomal
+         1, erase line below character
+       textwrite,(iy+..)
+         0, write only to LCD
+         1, write to LCD and PLOTSSCREEN
+output: Carry = set, if character couldn't fit on the line
+        (PENCOL) updated
+        (PENROW) updated
+destroyed: ????
+description: character in A is displayed in variable font at current 'pen' position
+
++- _vputs ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4781 |  4781 |  4781 |  4781 |  4781 |  4781 |  4781 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3DCA |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = pointer to zero terminated string (ASCIIZ)
+       (PENROW)
+       (PENCOL)
+       textInverse,(iy+textflags)
+       textEraseBelow,(iy,..)
+         0, normal
+         1, erase line below character
+       textwrite,(iy+..)
+         0, LCD only
+         1, LCD and PLOTSSCREEN
+output: String at (HL) is displayed in variable width characters
+        (PENROW) updated
+        (PENCOL) updated
+     (?) Carry-flag is set if it ran off the screen (?)
+destroyed: ????
+
++- _vputsn ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4785 |  4785 |  4785 |  4785 |  4785 |  4785 |  4785 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3DD0 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ???? well, something is displayed in BIG text
+destroyed: ????
+description: HELP, I DIDN'T FIND ANY DOCS
+
++- _runIndicOn -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4791 |  4791 |  4791 |  4791 |  4791 |  4791 |  4791 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3E62 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: runindicator is (re)displayed
+destroyed: ????
+
++- _runIndicOff ----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4795 |  4795 |  4795 |  4795 |  4795 |  4795 |  4795 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3F4A |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: runindicator isn't displayed anymore
+destroyed: ????
+
++- _SAVESHADOW -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  479D |  479D |  479D |  479D |  479D |  479D |  479D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3DEE |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: HELP, I DIDN'T FIND ANY DOCS
+
++- _RSTRSHADOW -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  47A1 |  47A1 |  47A1 |  47A1 |  47A1 |  47A1 |  47A1 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3DFA |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: HELP, I DIDN'T FIND ANY DOCS
+
++- _dispDone -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  47F1 |  47F1 |  47F1 |  47F1 |  47F1 |  47F1 |  47F1 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3E6C |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: (CURROW)
+       textInverse,(iy+textflags)
+       apptextsave,(iy+..)
+output: "Done" diplayed at the end of the line, just like quiting a BASIC
+        program.
+destroyed: ????
+
++- _savedisp -------+
++- _SaveOscreen ----+-------+-------+-------+-------+-------+-------+-------+
+| UNDOCUMENTED      |  4859 |  4859 |  4859 |  4859 |  4859 |  4859 |  4859 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: PLOTSSCREEN is copied to APD_BUF
+destroyed: ????
+description: Saves the current screen to the APD-buffer
+
++- _AbortPrgmode ---+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4861 |  4861 |  4861 |  4861 |  4861 |  4861 |  4861 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
+
++- _ADRMELE --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  486D |  486D |  486D |  486D |  486D |  486D |  486D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3B00 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: DE = pointer to matrix (size bytes of it)
+    ...DE+2 = pointer to first element (1,1)...
+       B  = row
+       C  = element
+output: HL = pointer to element.
+destroyed: ????
+description: This computes the address of a matrix element.
+
++- _GETMTOOP1 ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  487D |  487D |  487D |  487D |  487D |  487D |  487D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3B18 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: DE = pointer to matrix (size bytes of it)
+       B  = row to read from (0..99)
+       C  = element to read from (0..99)
+output: OP1 = value of matrix element
+       (What if unsuccesfull?)
+destroyed: ????
+description: Takes element from matrix and puts it in OP1.
+
++- _PUTTOMAT -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4889 |  4889 |  4889 |  4889 |  4889 |  4889 |  4889 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3B2A |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = number to store
+       DE  = pointer to matrix (size bytes of it)
+       B   = row to store to (0..99)
+       C   = element to store to (0..99)
+output: OP1 is written to element of the matrix
+       (What if unsuccesfull?)
+destroyed: ????
+description: Stores OP1 to element of matrix.
+
++- _CMATFUN --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4891 |  4891 |  4891 |  4891 |  4891 |  4891 |  4891 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _ADRLELE --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  489D |  489D |  489D |  489D |  489D |  489D |  489D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3A88 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: DE = pointer to list (size bytes)
+    ...DE+1 = adress of element 1...
+       HL = element number you want
+output: HL = pointer to element
+        A  = 0 if number is 'real'
+destroyed: ????
+description: This computes the address of a list element.
+
++- _GETLTOOP1 ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  48A9 |  48A9 |  48A9 |  48A9 |  48A9 |  48A9 |  48A9 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3A94 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = element to get
+       DE = pointer to list (size bytes of list)
+output: OP1 = value of list element (OP1/OP2 id complex)
+       (What if unsuccesfull?)
+destroyed: ????
+description: Takes element HL from list, at (DE), and puts it in OP1.
+
++- _PUTTOL ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  48BD |  48BD |  48BD |  48BD |  48BD |  48BD |  48BD |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3AB2 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = number to store
+            (and OP2 if complex)
+       DE  = pointer to list (size bytes of list)
+       HL  = element to store to
+output: OP1(and OP2) is/are stored to element of list
+destroyed: ????
+description: Puts OP1 (OP1/OP2 if complex) to list at (DE), element number HL
+
++- _tofrac ---------+-------+-------+-------+-------+-------+-------+-------+
+| UNDOCUMENTED      |  48D5 |  48D5 |  48D5 |  48D5 |  48D5 |  48D5 |  48D5 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = value to convert
+output: if(succesfull)
+          carry = 0,unset
+          OP1   = numerator
+          OP2   = denominator.
+        if(!succesfull)
+          carry = 1,set
+          OP1   = original input
+destroyed: OP1,OP2,OP3,OP4,OP5,OP6
+description: Convert number in OP1 to fraction
+NOTE: Later on somebody got his hands on the TI documentation of this romcall,
+      but this was not 'officialy' released.
+
++- _CMP_NUM_INIT ---+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  48E1 |  48E1 |  48E1 |  48E1 |  48E1 |  48E1 |  48E1 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _BINOPEXEC ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  48E5 |  48E5 |  48E5 |  48E5 |  48E5 |  48E5 |  48E5 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- COMPLEX_EXEC ----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4A14 |  4A14 |  4A14 |  4A14 |  4A14 |  4A14 |  4A14 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _GetK -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4A18 |  4A18 |  4A18 |  4A18 |  4A18 |  4A18 |  4A18 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  36F8 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP2 = key that is pressed
+        OP2 = 0, if no key was pressed
+destroyed: ????
+description: Just like 'GetKey' in BASIC, doesn't wait till a keypress.
+             The return values are the same as from _getkey (4CFE).
+
++- _SFONT_LEN ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4A6C |  4A6C |  4A6C |  4A6C |  4A6C |  4A6C |  4A6C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3CE6 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = character value
+output: B      = width of character
+        (HL+1) = first byte of character font
+destroyed: ????
+description: return the length of variable width display char
+
++- _SETXXOP1  ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4A74 |  4A74 |  4A74 |  4A74 |  4A74 |  4A74 |  4A74 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  370A |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: A = number (0 - 63h , 0 - 99d)
+output: OP1 = A (converted to FP notation)
+destroyed: ????
+description: OP1 = number in A
+
++- _SETXXOP2  ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4A78 |  4A78 |  4A78 |  4A78 |  4A78 |  4A78 |  4A78 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3710 |  ???? |  374F |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: A = number (0 - 63h , 0 - 99d)
+output: OP2 = A (converted to FP notation)
+destroyed: ????
+description: OP2 = number in A
+
++- _SETXXXXOP2  ----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4A7C |  4A7C |  4A7C |  4A7C |  4A7C |  4A7C |  4A7C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3AEE |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: HL = number (0 - FFFFh)
+output: OP2 = HL (converted to FP notation)
+destroyed: ????
+description: OP2 = number in HL
+
++- _CLine ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4A84 |  4A84 |  4A84 |  4A84 |  4A84 |  4A84 |  4A84 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3458 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP4 = y1-coord  =|=  OP1 = x1-coord
+       OP3 = x1-coord  =|=  OP2 = y1-coord
+       OP2 = y2-coord  =|=  OP3 = x2-coord
+       OP1 = x2-coord  =|=  OP4 = y2-coord
+output: ????
+destroyed: ????
+description: Draw a clipped line from (OP3,OP4) to (OP1,OP2)
+NOTE: * Clipping occurs if points are outside of current RANGE
+      * All points are relative to current RANGE window
+      * Graphics always written to graphics buffer and/or
+        display RAM and, depending on current context active
+
++- _XROOTY ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4A8C |  4A8C |  4A8C |  4A8C |  4A8C |  4A8C |  4A8C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3920 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: OP1
+destroyed: ????
+description: OP1 ^ (1 / OP2)
+
++- _YTOX -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4A90 |  4A90 |  4A90 |  4A90 |  4A90 |  4A90 |  4A90 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3902 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: OP1
+destroyed: ????
+description: OP1 ^ OP2
+
++- _CMPBOXINFO -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4AB0 |  4AB0 |  4AB0 |  4AB0 |  4AB0 |  4AB0 |  4AB0 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CIRCCMD --------+
++  _circcmd         +-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4AD4 |  4AD4 |  4AD4 |  4AD4 |  4AD4 |  4AD4 |  4AD4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: FPS (Floating Point Stack):
+       1. first pop the x-coord of the centre to the FPS
+       2. than the y-coord of the centre to the FPS
+       3. and as last the radius
+       4. call this routine
+output: a circle is drawn
+destroyed: ????
+description: Draw a circle
+
++- _grphCirc -------+-------+-------+-------+-------+-------+-------+-------+
+| UNDOCUMENTED      |  4AD8 |  4AD8 |  4AD8 |  4AD8 |  4AD8 |  4AD8 |  4AD8 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: curgx2 = (8870h) x-coord centre
+       curgy2 = (886Fh) y-coord centre
+       curgx  = (886Eh) x-coord on circle
+       curgy  = (886Dh) y-coord on circle
+output: a circle is drawn
+destroyed: ????
+description: Draw a circle
+NOTE: This one is slightly strange though, for one, the coordinates are not
+      coordinates, but pixel numbers but it seems like 0,0 is down at the
+      bottom left of the screen?! If someone figures out why, or proves me
+      wrong, please write to me.
+      (** like in _IPoint, Henk**)
+
++- _ILINE ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4AE4 |  4AE4 |  4AE4 |  4AE4 |  4AE4 |  4AE4 |  4AE4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3386 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: B, C - First coordinate  (x1, y1)
+       D, E - Second coordinate (x2, y2)
+       H    - Drawing Method:
+              +--------------------+
+              | 0 - Turn off points|
+              | 1 - Turn on points |
+              | 2 - XOR points     |
+              +--------------------+
+       bit ...,(IY+...) (draw only to screen/buffer, etc)
+output: Line drawn at given coordinates
+destroyed: ????
+description: Draw an unclipped line from (B,C) to (D,E), no clipping!
+NOTE: Coordinate values input are integer, and assumed within screen values.
+
++- _IPOINT ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4AE8 |  4AE8 |  4AE8 |  4AE8 |  4AE8 |  4AE8 |  4AE8 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3392 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: B = x-coord in pixels (0..94
+       C = y-coord in pixels (1..63)
+       D = Drawing Method:
+              +-----------------------------+
+              | 0 - light                   |
+              | 1 - dark                    |
+              | 2 - reverse                 |
+              | 3 - test pixel              |
+              | 4 - copy from display buffer|
+              +-----------------------------+
+      bit ...,(IY+...) (draw only to screen/buffer, etc)
+output: point drawn at given coordinates
+        If(D = 3), zero-flag = set/res if pixel was off/on
+destroyed: if(PixelTest), all regs are destroyed
+          if(!PixelTest), no regs are destroyed
+description: Change a point on the screen, no clipping!
+NOTE: * Coordinate values input are integer and	assumed within screen values
+      * All register and flags are preserved
+        UNLESS PIXEL TEST IS THE COMMAMD THEN NO REGS ARE
+        PRESERVED.
+      * No plotting occurs if point is outside of current RANGE.
+      * (BC) is (X,Y), the (0,0) point is lower left corner
+      * Graphics always	written to  graphics buffer and/or
+        display RAM and, depending on PlotLoc flag								       |
+
++- _CPointS --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4B00 |  4B00 |  4B00 |  4B00 |  4B00 |  4B00 |  4B00 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  338C |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: FPS1 = x-coord of point to change
+       FPST = y-coord of point to change
+       A    = command to perform:
+              +--------------------+
+              | 0 - Turn on points |  DIFFERENT
+              | 1 - Turn off points|    FROM
+              | 2 - XOR points     |   _ILINE
+              +--------------------+
+output: point is changed
+destroyed: ????
+description: Change a windowed point on the screen
+NOTE: * To set FPS1,FPS2 do the following
+         1) set OP1 = x-coord value
+         2) call _PUSHREALO1
+         3) set OP1 = y-coord value
+         4) call _PUSHREALO1
+      * Clipping occurs if point is outside of current RANGE.  <= ??
+      * Point drawn is relative to current RANGE window.       <= ??
+      * Graphics always written to graphics buffer and/or      <= ??
+        display RAM and, depending on current context active.  <= ??
+
++- _GDISPTOKEN -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4B20 |  4B20 |  4B20 |  4B20 |  4B20 |  4B20 |  4B20 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3290 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: (CURGY) = y-coord/pixel row to start writing
+       (CURGX) = x-coord/pixel col to start writing
+       DE      = token to display
+output: carry = set if it hit right edge of screen
+destroyed: ????
+description: Decode a token an write it's string to the LCD & PLOTSSCREEN
+             using variable font.
+
++- _COORDDISP ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4B2C |  4B2C |  4B2C |  4B2C |  4B2C |  4B2C |  4B2C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _COPYRNG --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4B40 |  4B40 |  4B40 |  4B40 |  4B40 |  4B40 |  4B40 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CPTDELY --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4B5C |  4B5C |  4B5C |  4B5C |  4B5C |  4B5C |  4B5C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CPTDELX --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4B60 |  4B60 |  4B60 |  4B60 |  4B60 |  4B60 |  4B60 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description:
+
++- _ALLEQ ----------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4BAC |  4BAC |  4BAC |  4BAC |  4BAC |  4BAC |  4BAC |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CHKTEXTCURS ----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4BC8 |  4BC8 |  4BC8 |  4BC8 |  4BC8 |  4BC8 |  4BC8 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _REGRAPH --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4BCC |  4BCC |  4BCC |  4BCC |  4BCC |  4BCC |  4BCC |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3EB4 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: Equations (Y= & Stat-plots) graphed to LCD & PLOTSSCREEN 
+destroyed: BC
+          HL
+          DE
+         (only A is preserved)
+description: Graphs all equations and Stat-plots
+
++- _Ceiling --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4BE0 |  4BE0 |  4BE0 |  4BE0 |  4BE0 |  4BE0 |  4BE0 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  33A4 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1,OP2
+output: OP1
+destroyed: ????
+description: -intgr(OP1,OP2)
+
++- _PUTXY ----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4BE4 |  4BE4 |  4BE4 |  4BE4 |  4BE4 |  4BE4 |  4BE4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  .... |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: real 'X'
+       real 'Y'
+output: coordinates displayed at the bottom of the screen
+destroyed: ????
+description: display x/y coordinate on graphics screen
+
++- _PDspGrph -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4BEB |  4BEB |  4BEB |  4BEB |  4BEB |  4BEB |  4BEB |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3428 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: graph dirty/clean flag
+
+utput: if(clean), copy backup-buffer (PLOTSSCREEN, gbuf) to LCD
+        if(dirty), full regraph (plot all Y= functions and Stat-plots)
+                    => call _REGRAPH
+destroyed: ????
+description: Display graph via program control, or annotation. If graph is
+             "clean" then copy backup to disp else invoke a full regraph.
+
++- _HORIZCMD -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4BEF |  4BEF |  4BEF |  4BEF |  4BEF |  4BEF |  4BEF |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  31A0 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = y-coord of horizontal line
+output: horizontal line drawn
+destroyed: ????
+description: Horizontal line drawn at y-coord in OP1
+
++- _VERTCMD --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4BF3 |  4BF3 |  4BF3 |  4BF3 |  4BF3 |  4BF3 |  4BF3 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  31A6 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = x-coord of vertical line
+output: Vertical line drawn
+destroyed: ????
+description: Vertical line drawn at x-coord in OP1
+
++- _VPUTBLANK ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4C53 |  4C53 |  4C53 |  4C53 |  4C53 |  4C53 |  4C53 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  33E6 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: write to buffer flag (????)
+       ?? black/white text flag ??
+output: a space is written to the screen
+        (PENCOL) updated
+        (PENROW) updated
+destroyed: ????
+description: Write a space in variable font to display (penrow,pencol).
+             Update(PENROW),(PENCOL)
+
++- _BUFPEEK --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4C82 |  4C82 |  4C82 |  4C82 |  4C82 |  4C82 |  4C82 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _BUFPEEK2 -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4C8A |  4C8A |  4C8A |  4C8A |  4C8A |  4C8A |  4C8A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _BUFPEEK3 -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4C8E |  4C8E |  4C8E |  4C8E |  4C8E |  4C8E |  4C8E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _BufToBtm -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4C92 |  4C92 |  4C92 |  4C92 |  4C92 |  4C92 |  4C92 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _getkey ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4CFE |  4CFE |  4CFE |  4CFE |  4CFE |  4CFE |  4CFE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3F56 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: runindiconly,(iy+indicflags)
+         0, run-indicator and APD is done
+         1, only run-indicator is shown, no APD'ing
+output: A = key that was pressed
+          = 0 (zero) if [ON] key pressed
+            (interrupt handler gets on this one first)
+destroyed: ????
+description: Waits till a key is pressed (low powermode, with HALT), and
+             returns the corresponding value. Automatic power-down counter
+             (APD) is turned on until a valid key has been received.
+              This routine also handles:
+                1.  [2nd] and [Alpha] shift keys.
+                2.  Contrast settings.
+   ... See other docs for return values...
+
++- _formDCplx ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4D2E |  4D2E |  4D2E |  4D2E |  4D2E |  4D2E |  4D2E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  317C |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1/OP2 = complex number to format
+output: (fmtString) = (929Ah) = string of characters (zero terminated, ASCIIZ)
+        BC          = length of string
+        OP1 type    = splxobj
+destroyed: ????
+description: This routine converts the complex number pair in OP1/OP2 to
+             displayable characters according to the current format settings.
+
++- _formReal -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4D32 |  4D32 |  4D32 |  4D32 |  4D32 |  4D32 |  4D32 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3176 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: A   = maximum width of output (max. number of characters)
+       OP1 = 'real number' to be formated
+output: OP3/OP4 = string of characters (zero terminated, ASCIIZ)
+        BC      = length of string
+destroyed: ????
+description: This routine converts the number in OP1 to displayable
+             characters according to the current format settings
+
++- _CONVKEYTOTOK ---+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4DBE |  4DBE |  4DBE |  4DBE |  4DBE |  4DBE |  4DBE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _AutoSelect -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4D72 |  4D72 |  4D72 |  4D72 |  4D72 |  4D72 |  4D72 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CONVLCTOLR -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4DEE |  4DEE |  4DEE |  4DEE |  4DEE |  4DEE |  4DEE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _inclistsize ----+-------+-------+-------+-------+-------+-------+-------+
+| UNDOCUMENTED      |  4DF6 |  4DF6 |  4DF6 |  4DF6 |  4DF6 |  4DF6 |  4DF6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: A  = type of list.
+       DE = pointer to data size of list (use _chkfindsym)
+
+output: DE = updated pointer to begin of the list.
+        HL = the new size of the list.
+destroyed: ????
+description: Increment list size by one
+
++- _CLOSEPROG ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4E06 |  4E06 |  4E06 |  4E06 |  4E06 |  4E06 |  4E06 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ?? closes a program (BASIC/ASM) ??
+
++- _CMPSYMS --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4E22 |  4E22 |  4E22 |  4E22 |  4E22 |  4E22 |  4E22 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CLEANALL -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4E2A |  4E2A |  4E2A |  4E2A |  4E2A |  4E2A |  4E2A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CONVLRTOLC -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4E32 |  4E32 |  4E32 |  4E32 |  4E32 |  4E32 |  4E32 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CATALOGCHK -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4E64 |  4E64 |  4E64 |  4E64 |  4E64 |  4E64 |  4E64 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _BC2NONREAL -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4E74 |  4E74 |  4E74 |  4E74 |  4E74 |  4E74 |  4E74 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _parseinp  ------+-------+-------+-------+-------+-------+-------+-------+
+| UNDOCUMENTED      |  4E8C |  4E8C |  4E8C |  4E8C |  4E8C |  4E8C |  4E8C |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = name of expression to “parse”.
+output: Results vary, 'refer to tutorials'
+        which means that I, Henk Poley, have to find out how this one works
+destroyed: ????
+description: Parses information in OP1. This can have various results,
+             ranging from evaluating expressions, to running BASIC programs.
+
++- _CKENDLINERR ----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4EA4 |  432A |  432A |  432A |  432A |  432A |  432A |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _OP2SET60 -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4EA8 |  4EA8 |  4EA8 |  4EA8 |  4EA8 |  4EA8 |  4EA8 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  2FBA |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP2
+destroyed: ????
+description: OP2 = 60
+
++- _CMP_STATPTR ----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4EB0 |  4EB0 |  4EB0 |  4EB0 |  4EB0 |  4EB0 |  4EB0 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _STOSYSTOK ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4EB8 |  4EB8 |  4EB8 |  4EB8 |  4EB8 |  4EB8 |  4EB8 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3584 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: A   = number of system variable (see ti83asm.inc)
+       OP1 = value to store in system variable
+output: OP1 is saved in system token given in A
+        OP1 is preserved
+destroyed: ????
+description: Store value in OP1 to system variable (specified by token in A)
+
++- _STOY -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4EC8 |  4EC8 |  4EC8 |  4EC8 |  4EC8 |  4EC8 |  4EC8 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  322A |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1/OP2 = number to be stored in 'Y' (OP1 and OP2 if complex)
+output: OP1 is saved in 'Y' if possible
+        if 'Y' wasn't created, it will be created
+destroyed: ????
+
+--comment--
+OUTPUT : DATA STORED IF POSSIBLE.
+         ORIGINAL CONTENTS OF OP1 RETURNED IF REAL  <= ????
+         OR COMPLEX, ELSE Y VAR NAME                <= ????
+--comment--
+
++- _CONVOP1 --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4ECF |  4ECF |  4ECF |  4ECF |  4ECF |  4ECF |  4ECF |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3AF4 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: A  = LSB of hex value
+        DE = entire hex value
+destroyed: ????
+description: Convert OP1 to a 2 byte hex value in DE
+NOTE: Error if exponent of OP1 is bigger than 3
+       => error if('OP1 exp' > 3)
+      ERROR-HANDLER!!!
+
++- _STOX -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4ED4 |  4ED4 |  4ED4 |  4ED4 |  4ED4 |  4ED4 |  4ED4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3224 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1/OP2 = number to be stored in 'X' (OP1 and OP2 if complex)
+output: OP1 is saved in 'X' if possible
+        if 'X' wasn't created, it will be created
+destroyed: ????
+
+--comment--
+OUTPUT : DATA STORED IF POSSIBLE.
+         ORIGINAL CONTENTS OF OP1 RETURNED IF REAL  <= ????
+         OR COMPLEX, ELSE X VAR NAME                <= ????
+--comment--
+
++- _STOOTHER -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4ED8 |  4ED8 |  4ED8 |  4ED8 |  4ED8 |  4ED8 |  4ED8 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3746 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1  = variable name (user vars only)
+       FPST = value to store (Floating Point STack)
+output: number in FPST is stored to variable named in OP1
+        if store was possible:
+          value is popped from FPST into OP1 (and OP2 if complex)
+        is store was impossible:
+          OP1 = variable name
+destroyed: ????
+description: Stores into a specified user variable
+NOTE: Error if variable is already Program,?? DB ??, Picture
+      (If variable has the wrong type...)
+
+example:
+	call	_OP1SET4	; OP1 = 4
+	call	_PUSHREALO1	; Push OP1 on FPST
+	call	_ZEROOOP1	; OP1 = all 0
+
+ld	hl,'W'
+	ld	(OP1+1),hl	; OP1 = name of variable 'W'
+	call	_STOOTHER	; Store 4 variable 'W'
+
++- _RCLY -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4EE0 |  4EE0 |  4EE0 |  4EE0 |  4EE0 |  4EE0 |  4EE0 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  343A |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP1/OP2 = value of variable
+destroyed: ????
+description: Recalls value of 'real Y' in OP1 (and OP2 if complex)
+
++- _RCLX -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4EE8 |  4EE8 |  4EE8 |  4EE8 |  4EE8 |  4EE8 |  4EE8 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3758 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP1/OP2 = value of variable
+destroyed: ????
+description: Recalls value of 'real X' in OP1 (and OP2 if complex)
+
++- _RCLVARSYM ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4EEC |  4EEC |  4EEC |  4EEC |  4EEC |  4EEC |  4EEC |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  371C |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1(MSB)  = type of variable
+       OP1(rest) = name of var to recall (zero terminated string, ASCIIZ)
+output: if real or complex:
+          OP1/OP2 = value of variable
+        if not real or complex:
+          A         = data type of symbol
+          carry     = unset, 0
+          OP1(MSB)  = type of variable
+          OP1(rest) = name of var to recall (ASCIIZ)
+          HL        = pointer to start of sybol entry in VAT
+          DE        = pointer to data
+destroyed: ????
+description: Recalls value of variable to OP1 (and OP2 as well if complex)
+NOTE: Error if variable does not exist!
+
++- _RCLSYSTOK ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  4EF0 |  4EF0 |  4EF0 |  4EF0 |  4EF0 |  4EF0 |  4EF0 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  353C |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: A = system variable token (see ti83asm.inc)
+output: OP1 = value/contents of system variable
+destroyed: ????
+description: Recalls value of a system variable
+
++- _COMMAERRF ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4F8E |  4F8E |  4F8E |  4F8E |  4F8E |  4F8E |  4F8E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _COMMAERR -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4F97 |  4F97 |  4F97 |  4F97 |  4F97 |  4F97 |  4F97  |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CKFETCHVAR -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4FCD |  4FCD |  4FCD |  4FCD |  4FCD |  4FCD |  4FCD |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- PARSER_EXEC -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4FDF |  4FDF |  4FDF |  4FDF |  4FDF |  4FDF |  4FDF |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CKENDEXP -------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4FF5 |  4FF5 |  4FF5 |  4FF5 |  4FF5 |  4FF5 |  4FF5 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CKPARSEND ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  4FFE |  4FFE |  4FFE |  4FFE |  4FFE |  4FFE |  4FFE |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CONVDIM --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  5010 |  5010 |  5010 |  5010 |  5010 |  5010 |  5010 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CONVDIM00 ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  5019 |  5019 |  5019 |  5019 |  5019 |  5019 |  5019 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _AHEADEQUAL -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  5022 |  5022 |  5022 |  5022 |  5022 |  5022 |  5022 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _ANSNAME --------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  503D |  503D |  503D |  503D |  503D |  503D |  503D |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _BRKINC ---------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  5097 |  5097 |  5097 |  5097 |  5097 |  5097 |  5097 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- PGMIO_EXEC ------+
++  pgmio_exec       +-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  50B2 |  50B2 |  50B2 |  50B2 |  50B2 |  50B2 |  50B2 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: 'See tutorials'  (Well, I have to find out how this one works)
+output: 'See tutorials' (idemdito)
+destroyed: ????
+description: From AsmGuru:
+             "Not too sure about this one, used in getting input.
+             Basically, Linus says that this uses the value in ASM_IND_CALL
+             to determine what other romcalls and sequences to be called.
+             ...Complicated..."
+
+ASM_IND_CALL = 0d   String input   :
+               1d   Numerical input:
+
++- _RANDOM ---------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  50B6 |  50B6 |  50B6 |  50B6 |  50B6 |  50B6 |  50B6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  39BC |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: OP1
+destroyed: HL
+          ????
+description: OP1 = (pseudo) random number
+
++- _STORAND --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  50BA |  50BA |  50BA |  50BA |  50BA |  50BA |  50BA |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  2F2A |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _FACTORIAL ------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  50C6 |  50C6 |  50C6 |  50C6 |  50C6 |  50C6 |  50C6 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  3914 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1
+output: OP1
+destroyed: ????
+description: OP1 = (OP1)!
+NOTE: beware of the error-handler
+
++- _EXEC_ASSEMBLY --+
++  _exec_assembly   +-------+-------+-------+-------+-------+-------+-------+
+|                   |  5102 |  5102 |  5102 |  5102 |  5102 |  5102 |  5102 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: OP1 = 05h, program name (zero terminated, ASCIIZ)
+output: ????
+destroyed: ????
+description: Execute an non-squished assembly program.
+             Something like:
+             :ABCD12
+             :C9
+             :End
+             :0000
+             :End
+NOTE: Only use this ROMcall if you know EXACTLY what you are doing.
+      It is very easy to mess thing up (crash/RAM FAIL/etc.)
+
++- _outputExpr -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  5106 |  5106 |  5106 |  5106 |  5106 |  5106 |  5106 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  2F54 |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: H = column number (1..16)
+       L = row number (1..8)
+       OP1(+OP2) = value to display
+         OP1     can be a real number
+         OP1/OP2 can be a complex number
+         OP1     can be a variable name of any displayable type
+output: value displayed at H,L (x,y)
+destroyed: ????
+description: position cursor then display value
+
++- _CKVALDELX ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  5149 |  5149 |  5149 |  5149 |  5149 |  5149 |  5149 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _CKVALDELTA -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  5152 |  5152 |  5152 |  5152 |  5152 |  5152 |  5152 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _GRBUFCLR -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  515B |  515B |  515B |  515B |  515B |  515B |  515B |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  .... |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: PLOTSSCREEN, GraphBuffer, is cleared
+destroyed: ????
+
++- _GRBUFCPY_V -----+-------+-------+-------+-------+-------+-------+-------+
+|                   |  5164 |  5164 |  5164 |  5164 |  5164 |  5164 |  5164 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  .... |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: PLOTSSCREEN, GraphBuffer is written to the screen
+destroyed: ????
+
+TIP: Use _IonFastCopy, or paste it into your program if you don't use Ion
+     (The routine is included in Ion.zip, you'll find it at www.TiCalc.org).
+     It is much much faster.
+
++- _CLRGRAPHXY -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  5176 |  5176 |  5176 |  5176 |  5176 |  5176 |  5176 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- GRAPH_EXEC ------+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  5188 |  5188 |  5188 |  5188 |  5188 |  5188 |  5188 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ????
+output: ????
+destroyed: ????
+description: ????
+
++- _Axes -----------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  519E |  519E |  519E |  519E |  519E |  519E |  519E |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  .... |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ?? factors ??
+output: ????
+destroyed: ????
+description: Plot the axes on the screen based on current factors
+
++- _setPenX --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  51A7 |  51A7 |  51A7 |  51A7 |  51A7 |  51A7 |  51A7 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  .... |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: (PENROW)
+        (PENCOL)
+destroyed: ????
+description: Set pen location (PENROW, PENCOL) to  'zone X'.
+             (Where graph writes 'x' in function trace)
+
++- _setPenY --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  51B0 |  51B0 |  51B0 |  51B0 |  51B0 |  51B0 |  51B0 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  .... |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: (PENROW)
+        (PENCOL)
+destroyed: ????
+description: Set pen location (PENROW, PENCOL) to  'zone Y'.
+             (Where graph writes 'y' in function trace)
+
++- _setPenT --------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  51B9 |  51B9 |  51B9 |  51B9 |  51B9 |  51B9 |  51B9 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  .... |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: none
+output: (PENROW)
+        (PENCOL)
+destroyed: ????
+description: Set pen location (PENROW, PENCOL) to  'zone T'.
+             (Where graph writes 't' in parametric trace)
+
++- _DISPOP1A -------+-------+-------+-------+-------+-------+-------+-------+
+|                   |  51D4 |  51D4 |  51D4 |  51D4 |  51D4 |  51D4 |  51D4 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| Call to:          |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: A   = Maximum number of characters to be displayed
+       OP1 = FP number to be displayed
+       (PENROW)
+       (PENCOL)
+       textInverse,(iy+textflags)
+       textWrite,(iy+textflags)
+output: number in OP1 is rounded and displayed in small font
+destroyed: ????
+description: round(OP1) to current 'fix' value, then display it in variable font.
+
++- IO_EXEC ---------+
++  _IO_EXEC         +-------+-------+-------+-------+-------+-------+-------+
+|                   |  51EF |  51EF |  51EF |  51EF |  51EF |  51EF |  51EF |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input: ASM_IND_CALL
+output: ????
+destroyed: ????
+description: IO operation is made (link-port)
+NOTE: Beware of the error-handler
+
+ASM_IND_CALL = 11d  SENDABYTE    : This routine sends a byte of data across
+                                   the data lines using the TI-83 bit protocol.
+                                   If there is no response within about 2
+                                   seconds an error is generated. The data to
+                                   be sent needs to be in the accumulator.
+
+               19d  REC1STBYTE   : This routine goes into idle or low power
+                                   mode and waits for the data lines to change.
+                                   Then reads a byte of data using the TI-83 bit
+                                   protocol. This only reads the 1st byte of
+                                   data. The byte is returned in the accumlator.
+
+               20d  REC1STBYTENC : The same as REC1STBYTE except that the cursor
+                                   does not flash. The byte is returned in the
+                                   accumulator.
+
+               22d  RECABYTE     : This routine looks at the data lines for
+                                   activity for about 2 seconds and reads in a
+                                   single byte of data. If no data is found an
+                                   error will be generated. The byte is returned
+                                   in the accumulator.
+
++- EXECUTE_Z80 -----+-------+-------+-------+-------+-------+-------+-------+
+| SQUISH.INC        |  52E5 |  52E5 |  52E5 |  52E5 |  52E5 |  52E5 |  52E5 |
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+| JP to:            |  ???? |  ???? |  ???? |  ???? |  ???? |  ???? | (9327)|
++-------------------+-------+-------+-------+-------+-------+-------+-------+
+input:
+output:
+destroyed:
+description: The last romcall in the jumptable (ROM 1.10)

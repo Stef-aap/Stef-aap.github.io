@@ -1,0 +1,264 @@
+-- --------------------------------------------------------------------
+-- <title scan extended keymatrix
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- this library should be used
+--    by inserting "SCAN_MATRIX_INS.JAL" in the program,
+--    adept the hardware pins to your keymatrix
+--
+-- and on reguralar intervals, call
+--    scan_keymatrix_ext
+--
+-- scans the extended keymatrix and decodes multiple keys.
+-- every scan only 1 key is returned
+-- if a key is pressed during more than 1 scan,
+--    key = 0 (means no key) is inserted inbetween
+-- if multiple keys are pressed, every scan a higher key will be detected.
+-- Example: if key 3 and 7 are pressed, succeeding scans will return
+-- (remark, here also the zero-key will be inserted)
+--    3 , 7 , 0 , 3 , 7 , 0, 3
+--
+-- for hardware details on the extended keymatrix, see
+--   http://baserv.uci.kun.nl/~smientki/Lego_Knex/Lego_electronica/PicProg/Pic_switch.htm
+--
+-- <Version 1.1   ,24-11-2001, Stef Mientki
+--    - bug in key-decoding removed
+-- <Version 1.0   ,22-11-2001, Stef Mientki
+--    - first release
+-- --------------------------------------------------------------------
+
+-- -----------------------------------------------------------------------------
+-- <Example Scan Matrix
+; -- define settings
+; const usart_asynch = true      ;true = RS232, false = SPI
+; const baudrate     = 115_200   ;Baudrate
+;
+; var byte xx
+; forever loop
+;   -- if character received, echo inverted
+;   if asynch_read_hw (xx) then
+;     asynch_send_hw ( ! xx)
+;   end if
+;   ... do other things here
+; end loop
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+
+-- --------------------------------------------------------------------
+-- define the pin direction bits
+-- this seems a lot of energy to reach the right direction bits,
+-- but this seems to be the only way
+-- (we don't want the user to do double declarations,
+--  he/she already declared KEY_SCANPIN_1 etc)
+-- --------------------------------------------------------------------
+procedure key_scandir_1'put( bit in x) is
+  if key_port == PORTA then
+    var volatile bit xx at trisa_shadow : key_scanpin_1
+    xx = x
+    _trisa_flush
+  else -- PORTB
+    var volatile bit xx at trisb_shadow : key_scanpin_1
+    xx = x
+    _trisb_flush
+  end if
+end procedure
+-- --------------------------------------------------------------------
+procedure key_scandir_2'put( bit in x) is
+  if key_port == PORTA then
+    var volatile bit xx at trisa_shadow : key_scanpin_2
+    xx = x
+    _trisa_flush
+  else -- PORTB
+    var volatile bit xx at trisb_shadow : key_scanpin_2
+    xx = x
+    _trisb_flush
+  end if
+end procedure
+-- --------------------------------------------------------------------
+procedure key_scandir_3'put( bit in x) is
+  if key_port == PORTA then
+    var volatile bit xx at trisa_shadow : key_scanpin_3
+    xx = x
+    _trisa_flush
+  else -- PORTB
+    var volatile bit xx at trisb_shadow : key_scanpin_3
+    xx = x
+    _trisb_flush
+  end if
+end procedure
+-- --------------------------------------------------------------------
+procedure key_scandir_4'put( bit in x) is
+  if key_port == PORTA then
+    var volatile bit xx at trisa_shadow : key_scanpin_4
+    xx = x
+    _trisa_flush
+  else -- PORTB
+    var volatile bit xx at trisb_shadow : key_scanpin_4
+    xx = x
+    _trisb_flush
+  end if
+end procedure
+-- --------------------------------------------------------------------
+procedure key_scandir_5'put( bit in x) is
+  if key_port == PORTA then
+    var volatile bit xx at trisa_shadow : key_scanpin_5
+    xx = x
+    _trisa_flush
+  else -- PORTB
+    var volatile bit xx at trisb_shadow : key_scanpin_5
+    xx = x
+    _trisb_flush
+  end if
+end procedure
+-- --------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- definitions of internal constants and vars
+-- -----------------------------------------------------------------------------
+var byte _key = 0      -- the value of the detected key (0=no key, 1...=key)
+var byte _key_old = 0  -- the previous detected key
+var byte _key_base     -- counts the active scanline and is used to calculate _key
+
+-- define a variable to be read from the scanlines port
+-- and define all scanlines within this variable
+var byte _key_port_read
+var volatile bit _key_scanline_1 at _key_port_read : key_scanpin_1
+var volatile bit _key_scanline_2 at _key_port_read : key_scanpin_2
+var volatile bit _key_scanline_3 at _key_port_read : key_scanpin_3
+var volatile bit _key_scanline_4 at _key_port_read : key_scanpin_4
+var volatile bit _key_scanline_5 at _key_port_read : key_scanpin_5
+
+-- define for every scanline a mask
+const byte _km1 = 0b0000_0001 << key_scanpin_1
+const byte _km2 = 0b0000_0001 << key_scanpin_2
+const byte _km3 = 0b0000_0001 << key_scanpin_3
+const byte _km4 = 0b0000_0001 << key_scanpin_4
+const byte _km5 = 0b0000_0001 << key_scanpin_5
+
+-- now calculate the total mask for all scanlines
+const byte _key_mask = _km1 | _km2 | _km3 | _km4 | _km5
+if ( key_nr_scanlines < 2 ) | ( key_nr_scanlines > 5 ) then
+  pragma error  -- number of scanlines must be between 2 and 5
+end if
+
+-- define special total mask, in which the active scanline is ignored
+const byte _kmask1 = ! ( _key_mask - _km1 )
+const byte _kmask2 = ! ( _key_mask - _km2 )
+const byte _kmask3 = ! ( _key_mask - _km3 )
+const byte _kmask4 = ! ( _key_mask - _km4 )
+const byte _kmask5 = ! ( _key_mask - _km5 )
+
+-- make all outputs low, especially doen for the keyboard scanmatrix
+key_port = ! _key_mask
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- Decodes a read value from the passive scanlines
+-- if no key is found:  _key=0
+-- -----------------------------------------------------------------------------
+procedure _keymatrix_ext_decode_scanline is
+  -- set the base value of the active scanline
+  _key = key_nr_scanlines * _key_base + 1
+  
+  -- now step through all scanlines to find a pressed key,
+  -- which is greater than the previous key
+  if _key_scanline_1 | ( _key <= _key_old ) | ( key_nr_scanlines < 1 )  then
+    _key = _key + 1
+    if _key_scanline_2 | ( _key <= _key_old) | ( key_nr_scanlines < 2 )  then
+      _key = _key + 1
+      if _key_scanline_3 | ( _key <= _key_old) | ( key_nr_scanlines < 3 )  then
+        _key = _key + 1
+        if _key_scanline_4 | ( _key <= _key_old) | ( key_nr_scanlines < 4 ) then
+          _key = _key + 1
+          if _key_scanline_5 | ( _key <= _key_old) | ( key_nr_scanlines < 5 ) then
+            _key = 0
+          end if
+        end if
+      end if
+    end if
+  end if
+
+  -- if any key detected, save the detected key
+  -- for repeating the same key:
+  --    if it was the last scan line, also save no key detected
+  if (_key != 0 ) | ( _key_base == ( key_nr_scanlines - 1 ) ) then
+     _key_old = _key
+  end if
+  
+  -- increment key_base for the next active scanline
+  _key_base = _key_base + 1
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- scans the extended keymatrix and decodes multiple keys.
+-- every scan only 1 key is returned
+-- if a key is pressed during more than 1 scan,
+--    key = 0 (means no key) is inserted inbetween
+-- if multiple keys are pressed, every scan a higher key will be detected.
+-- Example: if key 3 and 7 are pressed, succeeding scans will return
+-- (remark, here also the zero-key will be inserted)
+--    3 , 7 , 0 , 3 , 7 , 0, 3
+-- -----------------------------------------------------------------------------
+procedure scan_keymatrix_ext ( byte out key2 ) is
+  -- initialize the basevalue of the first scanline
+  _key_base = 0
+
+  -- if still no key found and scanlines to do
+  if ( key_nr_scanlines >= 1 ) then
+    -- activate scanline (the output latch is already set to low !!)
+    key_scandir_1 = output
+    -- read the port, mask non-scanlines and mask the active scanline
+    _key_port_read = ( key_port & _key_mask ) | _kmask1
+    -- deactivate the scanline
+    key_scandir_1 = input
+    -- decode the keys
+    _keymatrix_ext_decode_scanline
+  end if
+
+  -- if still no key found and scanlines to do
+  if ( _key == 0 ) & ( key_nr_scanlines >= 2 ) then
+    key_scandir_2 = output
+    _key_port_read = ( key_port & _key_mask ) | _kmask2
+    key_scandir_2 = input
+    _keymatrix_ext_decode_scanline
+  end if
+
+  if ( _key == 0 ) & ( key_nr_scanlines >= 3 )  then
+    key_scandir_3 = output
+    _key_port_read = ( key_port & _key_mask ) | _kmask3
+    key_scandir_3 = input
+    _keymatrix_ext_decode_scanline
+  end if
+
+  if ( _key == 0 ) & ( key_nr_scanlines >= 4 )  then
+    key_scandir_4 = output
+    _key_port_read = ( key_port & _key_mask ) | _kmask4
+    key_scandir_4 = input
+    _keymatrix_ext_decode_scanline
+  end if
+
+  if ( _key == 0 ) & ( key_nr_scanlines >= 5 )  then
+    key_scandir_5 = output
+    _key_port_read = ( key_port & _key_mask ) | _kmask5
+    key_scandir_5 = input
+    _keymatrix_ext_decode_scanline
+  end if
+  
+  -- transport key to the outher world
+  key2 = _key
+end procedure
+-- -----------------------------------------------------------------------------

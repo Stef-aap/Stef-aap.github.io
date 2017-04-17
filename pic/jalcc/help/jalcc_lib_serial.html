@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="45" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>january 2006</span></p>
+<p><span class=rvts1>JAL Serial Libraries</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This document gives an overview of the available/definied serial uart libraries, available for JAL V5.0 and up. There are also libraries (examples) how to use even higher level routines, see <span class=rvts4>Console_Devices</span>.</p>
+<p>First some advise for unexperienced users:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>start with the hardware uart, it's less time critical and has fifos </li>
+<li>start at a low Baudrate (19_200 or less) </li>
+<li>start with procedure-type interface, it's behaviour is much easier to understand and more stable. </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Library overview</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts4>Serial_Hardware</span>,&nbsp;&nbsp; full hardware control, high Baudrates,interrupt safe </li>
+<li><span class=rvts4>Serial_Hardware2</span>, ditto for second usart (preliminary) </li>
+</ul>
+<p><br></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts4>Serial_Software</span>,&nbsp;&nbsp; high Baudrates, non-inverted and inverted data, interrupt safe </li>
+<li><span class=rvts4>Serial_Software2</span>&nbsp; (jpic,jdelay,interval), low Baudrates, not interrupt safe (not working) </li>
+<li><span class=rvts4>Serial_Software3</span>, extended version of Serial_Software1, but extended with interrupt driven receiving and FIFOs. (preliminary) </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Serial_Hardware</span></p>
+<p>This library supports RS232 communication through the hardware USART on 16F and 12F pics (maybe 18F too ??). It supports all available Baudrates (also non-standard), at any clock speed, and the settings are optimized for the smallest Baudrate error. If a Baudrate error larger than 3% is detected the compiler will generate an error. The number of databits is fixed at 8, there's no parity support, 1 startbit and 1 stopbit. The library supports both the variable-type-use and the procedure-type-use, see examples below. The definition of UART settings is done through constants (to save memory). The UART can be switched on and off, so the the pins can be multiplexed for other functionality. The library is interrupt safe and has no dependancies. Note: the hardware USART can also be used for synchronuous communication, e.g. see <span class=rvts4>SPI_Hardware1</span>.</p>
+<p><br></p>
+<p><span class=rvts10>Initialisation</span></p>
+<p>The Baudrate is specified in bits/sec and is only limited by the combination of clock frequency and the available hardware. The init procedures calculates the Baudrate settings, initializes the pin directions and enables the USART for asynchronuous communication. The disable routine disables the USART, so the pins can be used for other purposes (IO-direction of the pins is left unchanged)</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=533 height=106 alt="" src="jalcc_lib_serial_img18.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=386 height=106 alt="" src="jalcc_lib_serial_img19.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Procedure-type-use</span></p>
+<p>This is the simplest method to use the serial library, because it's fully unambiguous. If a new valid dataword is received, the function will return true. Sending of the data is done directly (the USART has a 1.5 byte transmit FIFO). If the transmit FIFO cann't except more data, the write procedure will wait until it can drop the data in the FIFO.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=426 height=69 alt="" src="jalcc_lib_serial_img5.png"></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=369 height=198 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Example Procedure-type-use</span></p>
+<p><br></p>
+<p>This example shows the use of the serial procedures. The read function only returns true, if new data is available.</p>
+</td>
+<td width=195 height=198 valign=top style="{background-color: #ffffd4;}">
+<p class=rvps3><img width=323 height=192 alt="" src="jalcc_lib_serial_img2.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Variable-type-use (1)</span></p>
+<p>These methods (here declared as variables, to clearify the explanation), are especially usefull, if you want to use the received result directly (e.g. in a formula or as a parameter for some other procedure). Before using the receive part (Serial_HW_data on the right side of an assignment) you can test if there is data available, by testing the flag Serial_HW_data_available. This is not strictly necessary, because Serial_HW_Data will check this flag too.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=378 height=71 alt="" src="jalcc_lib_serial_img4.png"></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=324 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Example Variable-type-use(1)</span></p>
+<p><br></p>
+<p>This example shows the use of the serial IO routines just like normal variables. To test if there's new input data available you must check the flag Serial_HW_data_available.</p>
+</td>
+<td width=221 valign=top style="{background-color: #ffffd4;}">
+<p class=rvps3><img width=327 height=189 alt="" src="jalcc_lib_serial_img1.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Variable-type-use (2)</span></p>
+<p>These are the most complex routines to use. Apperently you can use the transmit and receive routines just like variables, but both should be tested before use !!!&nbsp; Look at the example below how it works.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=348 height=106 alt="" src="jalcc_lib_serial_img17.png"></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=293 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Example Variable-type-use(2)</span></p>
+<p><br></p>
+<p>These routines are only to be used by experienced users, and only have sense when using extra software FIFOs.</p>
+</td>
+<td width=252 valign=top style="{background-color: #ffffd4;}">
+<p class=rvps3><img width=333 height=187 alt="" src="jalcc_lib_serial_img16.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Serial_Hardware2</span></p>
+<p>This library supports the second hardware U(S)ART, available on some PICs and is equivalent to Serial_Hardware1.</p>
+<p>-- preliminary --</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Serial_Software</span></p>
+<p>This library supports RS232 communication through any IO-pins of the PIC. The procedures are kept identical as in Serial_Hardware1, thus apart from the initialization part, the use of this library is equal to the hardware equivalent, which makes it easy to switch between hardware and software uart. It will also make it easy to construct "console" read/write routines, see "<span class=rvts4>JAL Console library</span>".</p>
+<p>It supports all available Baudrates (also non-standard), at any clock speed, and the settings are optimized for the smallest Baudrate error. For example at a clock speed of 20 MHz, it can set the Baudrate form smaller than 110 Baud upto 230_400 Baud. If the baudrate can not be realized (either too low or too high), a compiler error is generated. Number of databits is fixed to 8, no parity, 1 stop bit and 2 stopbits. The polarity of the serial communication can be set inverted (this is the normal setting if you're using somekind of level-shifting chip, like MAX232 or FTDI232) or non-inverted.</p>
+<p>The library supports only the procedure-type-use, and variable-type-use send procedures, because the variable-type-use in receiving mode seems only meaningfull when receiving is done by interrupts. The definition of UART settings is done through constants (to save memory). The UART can be switched on and off, so the pins can be multiplexed with other functions. The library has no dependancies and is interrupt safe, due to the fact that during transmission or receive interrupts are blocked.</p>
+<p><br></p>
+<p><span class=rvts10>Initialisation</span></p>
+<p>In the initialization part a number of constants (Baudrate / inverted) should be set and the relevant IO-pins should be specified. Because this library is fast (upto 230_400 Baud at 20 MHz), you've to specify a lot of details of the pins, at which port it's located, what's the name of the shadow buffer etc. Below is an example which uses JALcc macros to make this task easy. For those not using JALcc, there's an include file <span class=rvts4>Serial_Software1_defs</span>&nbsp; where all these items are specified.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=401 height=205 alt="" src="jalcc_lib_serial_img15.png"></p>
+<p><br></p>
+<p><span class=rvts10>Procedures</span></p>
+<p>The normal read procedure, tries to read a byte from the serial input pin and if it succeeds within the timeout period, it returns true and a valid data-byte, otherwise it will return false and no data. The timeout period can be set by .... The wait-version of the read routine, waits (infinitly) untill a databyte is received.</p>
+<p>The write routine is both available as a procedure and as pseudo-variable. The data will be sent immediatly.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=395 height=157 alt="" src="jalcc_lib_serial_img10.png"></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=369 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Example 1</span></p>
+<p><br></p>
+<p>This example shows the most prefered use of the serial procedures. The read function only returns true, if new data is available.</p>
+</td>
+<td width=195 valign=top style="{background-color: #ffffd4;}">
+<p class=rvps3><img width=329 height=140 alt="" src="jalcc_lib_serial_img13.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=324 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Example 2</span></p>
+<p><br></p>
+<p>This example shows the use of the serial IO routines, where the transmit is done through a pseudo variable.</p>
+</td>
+<td width=221 valign=top style="{background-color: #ffffd4;}">
+<p class=rvps3><img width=322 height=137 alt="" src="jalcc_lib_serial_img12.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=324 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Example 3</span></p>
+<p><br></p>
+<p>This example shows the use of the serial IO routines, where the complete program is stopped waiting for serial data to arive.</p>
+</td>
+<td width=221 valign=top style="{background-color: #ffffd4;}">
+<p class=rvps3><img width=327 height=121 alt="" src="jalcc_lib_serial_img14.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Serial_Software2</span></p>
+<p>Because this library is depending on a number of not working libraries (jpic,jdelay,interval) in JAL V5, this library cann't not be used at the moment.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Serial_Software3</span></p>
+<p>This library is an improved/extended version of Serial_Software1, it handles serial input by interrupts and stores the received data in a FIFO. This library can handle more data at higher Baudrates at it's receive pin. For transmitting this library has no advantage over Serial_Software1.</p>
+<p>-- preliminary --</p>
+<p><br></p>
+
+</body></html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffff;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="176" />
+<meta name="spellcheck" content="1" /></head>
+<body>
+
+<p><span class=rvts2>Eenvoudige&nbsp; </span><span class=rvts1>JAL</span><span class=rvts2>&nbsp; compiler naar een nieuw hoogtepunt</span></p>
+<p><span class=rvts10><br></span></p>
+<p>Het JAL v2 beta-team kondigt hierbij vol trots de vrijgave van JAL versie 2.0 aan.</p>
+<p><br></p>
+<p><span class=rvts10>JALv2</span> is een hogere programmeer taal voor Microchip TM PIC microcontrollers</p>
+<p><br></p>
+<p>JAL – <span class=rvts10>J*</span>ust <span class=rvts10>A*</span>nother <span class=rvts10>L*</span>anguage is oorspronkelijk geschreven door Wouter van Ooijen voor "De Jonge Onderzoekers", die hiermee de mogelijkheid kregen om de moeilijke PIC architectuur eenvoudig vanuit een hogere taal te controleren. JAL vertoont grote overeenkomsten met Pascal en is inmiddels uitgegroeid tot een degelijke en stabiele taal met een enthousiaste gebruikers-club.</p>
+<p><br></p>
+<p><br></p>
+<p>JAL v2 is van de grond af opnieuw opgebouwd door Kyle York, tevens auteur van <span class=rvts10>PICbsc </span><a class=rvts4 href="http://www.casadeyork.com/robot/picbsc/">(http://www.casadeyork.com/robot/picbsc/).</a><span class=rvts3> </span>Op basis van de bewezen kern van PICbsc, heeft Kyle een hoogwaardige en zeer goed geoptimaliseerde compiler geschreven, en daarmee de eenvoud, syntax en stijl van JAL tot een nieuw hoogtepunt gebracht.</p>
+<p><br></p>
+<p>JAL v2 introduceert een groot aantal nieuwe en krachtige eigenschappen, bovenop de reeds bestaande krachtige eigenschappen van JAL, zoals:</p>
+<p><span class=rvts10>Nieuwe Eigenschappen:</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>8, 16 en 32 bit words worden volledig ondersteund</li>
+<li>Zowel Signed als Unsigned variabelen worden ondersteund</li>
+<li>Andere typen kunnen door de gebruiker worden gedefinieerd</li>
+<li>Automatische BANK afhandeling </li>
+<li>Automatische PAGE afhandeling </li>
+<li>Meerdere interrupt routines toegestaan</li>
+<li>Ingebouwde ondersteuning voor meerdere tabellen, welke ieder 255 waarden mogen bevatten</li>
+<li>Volwaardige en efficiënte BIT ondersteuning&nbsp; OR, XOR, AND, NOT, Set, Test </li>
+<li>Arithmetic shift bij signed types </li>
+<li>Variabele en constante Array functies</li>
+<li>Zeer nauwkeurige delay functie ingebouwd </li>
+<li>Volledige Inline assembler ondersteuning</li>
+<li>Ondersteunt alle populaire bootloaders </li>
+<li>Sterk verbeterde en gebruikersvriendelijke documentatie</li>
+</ul>
+<p class=rvps1><br></p>
+<p class=rvps1><br></p>
+<p><span class=rvts2>Ondersteunde Devices:</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Gebruikers hebben de mogelijkheid om iedere 16F en de meeste 12F (14-bit instructies) PICs te definieren. </li>
+<li>Middels een bijgeleverd tool (INC2JAL) kunnen eenvoudig de niet-meegeleverde chip-definities zelf worden aangemaakt.</li>
+</ul>
+<p> </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Belangrijke Eigenschappen:</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Gebruiksgemak: de gebruiker kan vrij beschikken over registers en variabelen, zonder zich zorgen te hoeven maken over de vreemde banking structuur van PICs.</li>
+<li>Minimaal Stack gebruik: ondanks de beperkte stack van PICs en de Pascal-achtige structuur van JAL, zorgt de compiler voor een minimaal gebruik van de stack, waardoor zelden problemen zullen ontstaan.</li>
+<li>Snelheid: door de eenvoud van de taal en de uitgebreide set bibliotheken, kan snel een functionerend programma worden gebouwd.</li>
+<li>Optimale Code, de compiler optimaliseert de gegenereerde assembler code tot zeer compacte, maar nog steeds goed leesbare code. </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Systeem Eisen:</span></p>
+<p>Win98, Win2000, WinXP, Linux, freeBSD, MAC </p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>WINDOWS installatie programma beschikbaar, zie hieronder</li>
+<li>LINUX &amp; FreeBSD&nbsp; - JALv2 is getest onder LINUX en FreeBSD. De gebruiker wordt aangeraden om ANSI C source zelf te compileren met hun eigen favoriete compiler.</li>
+<li>MAC - JALv2 is geschreven in ANSI C en kan dus direct worden gecompileerd onder MAC</li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Prijs en Beschikbaarheid</span></p>
+<p>JAL en alle bijbehorende tools zijn volkomen gratis en direct beschikbaar. De compiler zelf is open source onder FreeBSD licentie.</p>
+<p><br></p>
+<p>JALv2 windows installer- basis pakket, bevat JALedit, handleiding, bibliotheken:</p>
+<p><a class=rvts4 href="http://www.wattystuff.net/jal2pic/downloads/jal_v2_package_very_small.exe">http://www.wattystuff.net/jal2pic/downloads/jal_v2_package_very_small.exe (1.8 MB)</a></p>
+<p><br></p>
+<p>JALv2 windows installer- volledig pakket, bevat JALedit, handleiding, bibliotheken,&nbsp; JALss (simulator), INC2JAL (Microchip TM  register vertaling):</p>
+<p><a class=rvts4 href="http://www.wattystuff.net/jal2pic/downloads/jal_v2_package.exe">http://www.wattystuff.net/jal2pic/downloads/jal_v2_package.exe (5.2 MB)</a></p>
+<p><br></p>
+<p>JALv2- laatste windows executable:</p>
+<p><a class=rvts4 href="http://www.casadeyork.com/jalv2.zip">www.casadeyork.com/jalv2.zip</a></p>
+<p><br></p>
+<p>Source files-&nbsp; (freeBSD licentie) is beschikbaar op:</p>
+<p><a class=rvts4 href="http://www.casadeyork.com/jalv2src.zip">www.casadeyork.com/jalv2src.zip</a></p>
+<p><br></p>
+<p><span class=rvts2>Libraries en Documentatie</span></p>
+<p>Basis voorbeelden zijn reeds aanwezig in de Windows distributie </p>
+<p>en gedocumenteerd in het nieuwe verbeterde handleiding,</p>
+<p>dat in diverse formaten beschikbaar is:</p>
+<p><a class=rvts4 href="http://www.wattystuff.net/jal2pic/downloads/pjal_doc_html.zip">http://www.wattystuff.net/jal2pic/downloads/pjal_doc_html.zip</a></p>
+<p><a class=rvts4 href="http://www.wattystuff.net/jal2pic/downloads/pjal_doc_pdf_a4.zip">http://www.wattystuff.net/jal2pic/downloads/pjal_doc_pdf_a4.zip</a></p>
+<p><a class=rvts4 href="http://www.wattystuff.net/jal2pic/downloads/pjal_doc_pdf_letter.zip">http://www.wattystuff.net/jal2pic/downloads/pjal_doc_pdf_letter.zip</a></p>
+<p><a class=rvts4 href="http://www.wattystuff.net/jal2pic/downloads/pjal_doc_sources.zip">http://www.wattystuff.net/jal2pic/downloads/pjal_doc_sources.zip</a></p>
+<p><br></p>
+<p>De JAL bibliotheken van Stef Mientki zijn allemaal omgezet naar JALv2, </p>
+<p>en de laatste versie is te vinden onder de tab "JAL-libraries" op&nbsp;  </p>
+<p><a class=rvts4 href="http://pic.flappie.nl/">http://pic.flappie.nl</a></p>
+<p><br></p>
+<p>Demo Programma's, inclusief alle bibliotheken (deze zijn reeds aanwezig in de windows distributie)</p>
+<p><a class=rvts4 href="http://www.wattystuff.net/jal2pic/downloads/jal_v2_demos.zip">http://www.wattystuff.net/jal2pic/downloads/jal_v2_demos.zip (120 kB)</a></p>
+<p><span class=rvts2><br></span></p>
+<p>JAL V2 Migration Document&nbsp; - "updating from JAL 0.4xx and&nbsp; additional notes under the tab JAL-v2" on  </p>
+<p><a class=rvts4 href="http://pic.flappie.nl/">http://pic.flappie.nl</a></p>
+<p><span class=rvts2><br></span></p>
+<p><span class=rvts2>Additionele Tools</span></p>
+<p><span class=rvts10>JALedit </span></p>
+<p>(geschreven door Sunish Issac) is een simpele, maar zeer volledig Editor / IDE (Integrated Development Environment), en is geheel aangepast om volledig geintergreerd met JALv2, alle mogelijkheden van de nieuwe compiler en de bijbehorende tools volledig uit te nutten. JALeditv2 wordt door het beta-team aanbevolen als dé windows werkomgeving voor JAL. JALeditv2 is apart beschikbaar op:</p>
+<p><a class=rvts4 href="http://www.wattystuff.net/tiki/tiki-index.php?page=JALedit">http://www.wattystuff.net/tiki/tiki-index.php?page=JALedit</a></p>
+<p><br></p>
+<p><span class=rvts10>TextPad</span></p>
+<p>Gebruikers van Textpad kunnen gebruik maken van onderstaande configuratie</p>
+<p><a class=rvts4 href="http://www.wattystuff.net/tiki/tiki-index.php?page=TextPad">http://www.wattystuff.net/tiki/tiki-index.php?page=TextPad</a></p>
+<p><br></p>
+<p><span class=rvts10>ViM</span></p>
+<p>ViM editor Linux is eveneens door het beta-team getest op JAL en goed bevonden:</p>
+<p><a class=rvts4 href="http://www.vim.org/">http://www.vim.org/</a></p>
+<p><br></p>
+<p><span class=rvts10>INC2JAL TRANSLATION</span></p>
+<p>Dit is een Windows-only tool om MPASM chip definitie files te vertalen naar JAL: </p>
+<p><a class=rvts4 href="http://www.wattystuff.net/jal2pic/downloads/inc2jal.zip">http://www.wattystuff.net/jal2pic/downloads/inc2jal.zip (330 kB)</a></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Overige Informatie:</span></p>
+<p>Ondersteuning kan worden verkregen via de JAL gebruikers-club op Yahoo:<a class=rvts4 href="http://www.groups.yahoo.com/group/jallist">http://www.groups.yahoo.com/group/jallist</a></p>
+<p>Microchip Technology&nbsp; <a class=rvts4 href="http://www.microchip.com/">http://www.microchip.com</a>&nbsp; is de wereldmarkt leider op het gebied van 8-bit microcontrollers, zowel in aantal verkochte chips alsook in omzet:&nbsp; <a class=rvts4 href="http://biz.yahoo.com/ibd/060516/general01.html">http://biz.yahoo.com/ibd/060516/general01.html</a></p>
+<p><span class=rvts12> </span></p>
+<p><br></p>
+<p>Het Beta Team (alfabetische volgorde):</p>
+<p>Bert van Dam, Sunish Issac, Dave Lagzdin, Javier Martinez</p>
+<p>Stef Mientki, Wouter van Ooijen, Michael Reynolds, André Steenveld</p>
+<p>Joep Suijs, Vasile Surducan, Michael Watterson, Kyle York</p>
+<p><span class=rvts12><br></span></p>
+
+</body></html>

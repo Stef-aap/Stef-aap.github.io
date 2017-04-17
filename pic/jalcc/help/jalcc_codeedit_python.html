@@ -1,0 +1,622 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="36" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>december 2006</span></p>
+<p><span class=rvts1>Python - CodeEditor</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p><br></p>
+<p><span class=rvts10>CAD / flowchart</span></p>
+<p>&nbsp; <a class=rvts4 href="http://www.pythoncad.org/">PythonCAD</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.pygame.org/docs/">Pygame Documentation</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.pygame.org/readme.html">Pygame Readme</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.pygame.org/shots/355.png">355.png (PNG Image, 646x512 pixels)</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.gnome.org/projects/dia/news.html">Dia's News</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.pygame.org/install.html">Pygame Installation</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.blendernation.com/2006/05/06/cad-tool-caliper-script/">CAD Tool Blender Caliper Script at BlenderNation</a></p>
+<p><br></p>
+<p><span class=rvts10>UML</span></p>
+<p>&nbsp; <a class=rvts4 href="http://gaphor.sourceforge.net/">httpgaphor.sourceforge.net</a></p>
+<p>&nbsp; <a class=rvts4 href="http://openswarm.sourceforge.net/">httpopenswarm.sourceforge.net</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.gnome.org/projects/dia/">Dia a drawing program</a></p>
+<p>&nbsp; <a class=rvts4 href="http://myhdl.jandecaluwe.com/doku.php/overview">Overview [MyHDL]</a></p>
+<p>&nbsp; <a class=rvts4 href="http://myhdl.jandecaluwe.com/doku.php/faq">Frequently Asked Questions [MyHDL]</a></p>
+<p>&nbsp; <a class=rvts4 href="http://jandecaluwe.com/Tools/MyHDL/manual/MyHDL.html">The MyHDL manual</a></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>misc</span></p>
+<p>&nbsp; <a class=rvts4 href="http://bleyer.org/pyusb/">PyUSB - A Python native interface port of the FTDI D2XX USB driver</a></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>simulator</span></p>
+<p>&nbsp; <a class=rvts4 href="http://claymore.engineer.gvsu.edu/%7Esteriana/Software/EVBUdocs/index.html#Limitations">EVBU -- An Open Source 68HC11 Simulator</a></p>
+<p>&nbsp; <a class=rvts4 href="http://claymore.engineer.gvsu.edu/%7Esteriana/Software/EVBUdocs/index.html#Limitations">EVBU -- An Open Source 68HC11 Simulator</a></p>
+<p>&nbsp; <a class=rvts4 href="http://claymore.engineer.gvsu.edu/~steriana/Python/">Andrew Sterian</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.ibiblio.org/obp/py4fun/mm/simulator.py">Untitled</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.evilbitz.com/2006/12/23/a-simple-python-cpu-emulator/">A Simple Python CPU Emulator » The Zana Zen</a></p>
+<p>&nbsp; <a class=rvts4 href="http://pyrorobotics.org/?page=PyroScreenShots">Pyro, Python Robotics PyroScreenShots</a></p>
+<p>&nbsp; <a class=rvts4 href="http://pyrorobotics.org/?page=The_20Pyrobot_20Simulator">Pyro, Python Robotics The_20Pyrobot_20Simulator</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.whiteaudio.com/soft/pyspice.html">White Audio Designs</a></p>
+<p>&nbsp; <a class=rvts4 href="http://xcircuit.ece.jhu.edu/welcome.html">XCircuit drawing program home page</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.thedigitalmachine.net/eispice.html">eispice</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.sbmac.org.br/tema/seletas/docs/v7_2/13-grigoletti.pdf">13-grigoletti.pdf (applicationpdf Object)</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.opencollector.org/collector.php">OpenCollector Database</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.modelica.org/events/Conference2005/online_proceedings/Session6/Session6c3.pdf">Session6c3.pdf (applicationpdf Object)</a></p>
+<p>&nbsp; <a class=rvts4 href="http://myhdl.jandecaluwe.com/doku.php/overview">Overview [MyHDL]</a></p>
+<p>&nbsp; <a class=rvts4 href="http://myhdl.jandecaluwe.com/doku.php/faq">Frequently Asked Questions [MyHDL]</a></p>
+<p>&nbsp; <a class=rvts4 href="http://jandecaluwe.com/Tools/MyHDL/manual/MyHDL.html">The MyHDL manual</a></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>tutorials</span></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.awaretek.com/tutorials.html">Python Tutorials, more than 300, updated October 16, 2006, and carefully sorted by topic and category</a></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>scipy</span></p>
+<p><span class=rvts9>&nbsp; </span><a class=rvts4 href="http://www.rexx.com/~dkuhlman/scipy_course_01.html">SciPy Course Outline</a></p>
+<p><br></p>
+<p><span class=rvts9>numpy</span></p>
+<p><span class=rvts9><br></span></p>
+<p><span class=rvts9>&nbsp; </span><a class=rvts4 href="http://www.scipy.org/Tentative_NumPy_Tutorial">Tentative NumPy Tutorial -</a></p>
+<p><br></p>
+<p><span class=rvts10>MatPy = old</span></p>
+<p><br></p>
+<p><span class=rvts10>PyMat</span></p>
+<p>PyMat is an interface between NumPy and a MATLAB engine session. It can be used to support NumPy's functionality with the features of MATLAB. An example module is included that presents a very simple interface to MATLAB's plotting functions. This allows you to, for example, plot NumPy arrays in a MATLAB plot window.</p>
+<p>&nbsp; <a class=rvts4 href="http://sourceforge.net/projects/pymat">SourceForge.net PyMat</a></p>
+<p>&nbsp; <a class=rvts4 href="http://claymore.engineer.gvsu.edu/%7Esteriana/Software/Pymat22.zip">Pymat22.zip</a>&nbsp; [14K] for Python 2.2 and Matlab 6.5 (contributed by Axel Kowald)</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Python for Delphi</span></p>
+<p>There are several packages available, they differ in version and in the additional examples that are included. For the first start I've chozen P4D.exe , this is version 3.32 and it detected during installation I had Python 2.4 installed, so there were the components created for.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=466 height=70 alt="" src="jalcc_codeedit_python_img1.png"></p>
+<p><br></p>
+<p>relevant links:</p>
+<p>&nbsp; <a class=rvts4 href="http://membres.lycos.fr/marat/delphi/python.htm">This is the Python for Delphi page !</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.atug.com/andypatterns/pythonDelphiAndy.htm">Andy's Extensions</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.atug.com/andypatterns/PythonDelphiExample1.htm">Example1</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.atug.com/andypatterns/PythonDelphiLatest.htm">Latest Techniques</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.atug.com/andypatterns/Default.htm">Andy Bulka's Patterns &amp; Articles</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.atug.com/andypatterns/pythonDeploy.htm">Deployment Issues</a></p>
+<p>&nbsp; <a class=rvts4 href="http://www.atug.com/andypatterns/pythonDelphiTalk.htm">Python for Delphi</a></p>
+<p>&nbsp; <a class=rvts4 href="http://code.google.com/p/pyscripter/source">pyscripter - Google Code</a></p>
+<p><br></p>
+<p><span class=rvts2>Using Python components.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts10>1) A simple Python evaluator: (Kylix ready)</span></p>
+<p><span class=rvts12>TPythonGUIInputOutput</span></p>
+<p><span class=rvts12>TPythonEngine</span></p>
+<p><span class=rvts12>&nbsp; PythonEngine1.ExecStrings( Memo1.Lines );</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts10>2) Evaluate a Python expression (Kylix ready)</span></p>
+<p><span class=rvts12>WARNING !!! The evaluation of an expression works only for arithmetic expressions and not for instructions ! The use of variables and functions is of course allowed but constructs like for, def, class, print, import... are not allowed. Use Exec... instead (like ExecStrings).</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>TPythonGUIInputOutput</span></p>
+<p><span class=rvts12>TPythonEngine</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts10>3) Defining Python/Delphi vars (simple case): (Kylix ready)</span></p>
+<p><span class=rvts12>Warning ! If you access the Python/Delphi vars with the variant interface, you'll have to use simple types like integers, floats or strings.If you want to use any Python object type, don't use variants, but use the Extended interface OnExtGetData, OnExtSetData and the ValueObject property. But in this case, be careful with the reference counting ! Study carefully the Demo4 example.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>TPythonDelphiVar</span></p>
+<p><span class=rvts12>TPythonEngine</span></p>
+<p><span class=rvts12>&nbsp; ShowMessage( 'Value = ' + PythonDelphiVar1.ValueAsString );</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>So, you can read/write the variable's content in both Python and Delphi !</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts10>4) Defining Python/Delphi vars (advanced case): (Kylix ready)</span></p>
+<p><span class=rvts12>see notes example 3</span></p>
+<p><span class=rvts12>PythonDelphiVar1 object, show its events</span></p>
+<p><span class=rvts12>&nbsp; Run the application, and type in the source window:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; print "Current value of var test is: ", varname</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; varname.Value = "New value set by Python"</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; print "-----------------------------------------------------"</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; class C:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; def __init__(Self, Arg):</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Self.Arg = Arg</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; def __str__(Self):</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return "&lt;C instance contains: " + str(Self.Arg) + "&gt;"</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; print "Current value of var object is: ", object</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; object.Value = C("Hello !")</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; print "New value is:", object</span></p>
+<p><span class=rvts12>&nbsp; Click on the Execute button, and look at the Edit1 component.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>5) Defining a new Module: (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>&nbsp; Drop a TPythonModule</span></p>
+<p><span class=rvts12>&nbsp; Connect its Engine attribute to PythonEngine1</span></p>
+<p><span class=rvts12>&nbsp; Change the ModuleName attribute to "spam"</span></p>
+<p><span class=rvts12>&nbsp; Select its events, and Double-click on "OnInitialization" and add:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; with Sender as TPythonModule do</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AddMethod( 'foo', spam_foo, 1, 'foo' );</span></p>
+<p><span class=rvts12>&nbsp; Before the PythonModule1Initialization procedure, add:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; function spam_foo( self, args : PPyObject ) : PPyObject; cdecl;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; with GetPythonEngine do</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ShowMessage( 'args of foo: '+PyObjectAsString(args) );</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Result := Py_None;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Py_IncRef(Result);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; end;</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; Run the application, and type in the source window:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; import spam</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; print spam.foo( "Hello", 1 )</span></p>
+<p><span class=rvts12>&nbsp; Click on the Execute button, and look at the Message dialog.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>6) Defining a new Type: (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>&nbsp; A new type is more complex, because you must define a record</span></p>
+<p><span class=rvts12>&nbsp; that contains the objects attributes. It must always contain</span></p>
+<p><span class=rvts12>&nbsp; the two attributes at first:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; ob_refcnt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Integer;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; ob_type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : PPyTypeObject;</span></p>
+<p><span class=rvts12>&nbsp; Drop a TPythonType</span></p>
+<p><span class=rvts12>&nbsp; Connect its Engine attribute to PythonEngine1</span></p>
+<p><span class=rvts12>&nbsp; Change the TypeName attribute to "MyObject"</span></p>
+<p><span class=rvts12>&nbsp; You must define procedures that will handle all kind of access</span></p>
+<p><span class=rvts12>&nbsp; to the object: Destructor, Get attribute, Set attribute, print...</span></p>
+<p><span class=rvts12>&nbsp; You must define its own methods</span></p>
+<p><span class=rvts12>&nbsp; You'll need a function in a module that will create an</span></p>
+<p><span class=rvts12>&nbsp; instance of that object.</span></p>
+<p><span class=rvts12>&nbsp; You must set the attributes of the Type record.</span></p>
+<p><span class=rvts12>&nbsp; Add the Objects's methods to the PythonType.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; Look at the demo6 for more information about this.</span></p>
+<p><span class=rvts12>&nbsp; There's a complete implementation of a new type</span></p>
+<p><span class=rvts12>&nbsp; object "Point", which contains two attributes (x and y),</span></p>
+<p><span class=rvts12>&nbsp; and one method (OffsetBy).</span></p>
+<p><span class=rvts12>&nbsp; The object is created by the function CreatePoint of</span></p>
+<p><span class=rvts12>&nbsp; the spam module.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>7) Using Delphi methods as Python functions (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>&nbsp; This demo is the same as the previous one (6) but it introduces</span></p>
+<p><span class=rvts12>&nbsp; the use of Delphi methods instead of global functions for the</span></p>
+<p><span class=rvts12>&nbsp; python functions of Modules or Types.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; Note: Look at (21) for the new Events feature, which will ease the</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; declaration of new Python functions.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>8) Using Delphi classes for new Python types (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>&nbsp; Warning for Python version below 2.0: </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Python must be correctly installed otherwise this demo</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; will fail. It needs indeed the file exceptions.py</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; located in the lib folder of the Python distribution</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in order to initialize correctly the Exceptions as</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Python objects instead of strings.</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If you want to distribute your application with the</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Python Dll, don't forget to copy this file (and maybe the</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; whole lib folder) and use the event OnPathInitialization</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; of TPythonEngine to initialize properly your Python</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; environment.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; Note: Look at (21) for the new Events feature, which will ease the</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; declaration of new Python methods.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; Note: Loot at (26) if you're interested in building a new type that</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; may be subclassed inside Python.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; Note: Look at (32) if you're using Delphi7 or later as it can make</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; your life much easier when trying to expose a regular Delphi</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; class to Python. See also the WrapDelphi.pas unit.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; Look at demo8, it's a default template that yous should follow</span></p>
+<p><span class=rvts12>&nbsp; if you want to build new Python types.</span></p>
+<p><span class=rvts12>&nbsp; Create a new project.</span></p>
+<p><span class=rvts12>&nbsp; Drop a TRichEdit</span></p>
+<p><span class=rvts12>&nbsp; Drop a TPythonGUIInputOutput for displaying Python's messages</span></p>
+<p><span class=rvts12>&nbsp; Drop a TPythonEngine on the form.</span></p>
+<p><span class=rvts12>&nbsp; Connect the attribute IO of the TPythonEngine to the TPythonGUIInputOutput.</span></p>
+<p><span class=rvts12>&nbsp; Connect the attribute Output of TPythonGUIInputOutput to the TRichEdit.</span></p>
+<p><span class=rvts12>&nbsp; Drop a TMemo</span></p>
+<p><span class=rvts12>&nbsp; Drop a TButton</span></p>
+<p><span class=rvts12>&nbsp; Double click on it and add:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; PythonEngine1.ExecStrings( Memo1.Lines );</span></p>
+<p><span class=rvts12>&nbsp; Drop a TPythonModule</span></p>
+<p><span class=rvts12>&nbsp; Change its property "ModuleName" to "spam"</span></p>
+<p><span class=rvts12>&nbsp; Connect it to the PythonEngine1</span></p>
+<p><span class=rvts12>&nbsp; Double-click on the property "Errors"</span></p>
+<p><span class=rvts12>&nbsp; Add an error</span></p>
+<p><span class=rvts12>&nbsp; name it "PointError"</span></p>
+<p><span class=rvts12>&nbsp; set it to etClass</span></p>
+<p><span class=rvts12>&nbsp; Add an error</span></p>
+<p><span class=rvts12>&nbsp; name it "EBadPoint"</span></p>
+<p><span class=rvts12>&nbsp; set it to etClass</span></p>
+<p><span class=rvts12>&nbsp; Double-click on "ParentClass"</span></p>
+<p><span class=rvts12>&nbsp; Set Name to "PointError"</span></p>
+<p><span class=rvts12>&nbsp; Drop a TPythonType</span></p>
+<p><span class=rvts12>&nbsp; Connect it to the PythonEngine1</span></p>
+<p><span class=rvts12>&nbsp; Change the property "TypeName" to "Point"</span></p>
+<p><span class=rvts12>&nbsp; Connect the property "Module" to the PythonModule1</span></p>
+<p><span class=rvts12>&nbsp; Define the services you'll use in the property "Services"</span></p>
+<p><span class=rvts12>&nbsp; Double-click on its event "OnInitialization" and add:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; PythonType1.PyObjectClass := TPyPoint;</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>9) Making a Python module as a Dll (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>&nbsp; The demo9 contains 2 delphi projects: one for the application</span></p>
+<p><span class=rvts12>&nbsp; and one for the dll. The dll extension is renamed as ".pyd".</span></p>
+<p><span class=rvts12>&nbsp; The application script does an "import demodll" that will try</span></p>
+<p><span class=rvts12>&nbsp; to find first an internal module, then a "demodll.dll" or a</span></p>
+<p><span class=rvts12>&nbsp; "demodll.pyd".</span></p>
+<p><span class=rvts12>&nbsp; Python executes a procedure named initXXX in the dll, where</span></p>
+<p><span class=rvts12>&nbsp; XXX must be the name of the module (in this case it will be</span></p>
+<p><span class=rvts12>&nbsp; "demodll"). So, your dll must export only one procedure like this:</span></p>
+<p><span class=rvts12>&nbsp; procedure initXXX; cdecl;</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; In the function initXXX of our DLL, we create an instance of</span></p>
+<p><span class=rvts12>&nbsp; TPythonEngine and we define its property "AutoFinalize" to False,</span></p>
+<p><span class=rvts12>&nbsp; because TPythonEngine must absolutely not call the function</span></p>
+<p><span class=rvts12>&nbsp; Py_Finalize. After you call its method LoadDll.</span></p>
+<p><span class=rvts12>&nbsp; Then we create an instance of TPythonModule, we setup its name,</span></p>
+<p><span class=rvts12>&nbsp; the engine used, add the methods and finally call Initialize.</span></p>
+<p><span class=rvts12>&nbsp; At last, you add a finalize section in order to free the two instances.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; WARNING !!! Python cares about letter case, so check if the</span></p>
+<p><span class=rvts12>&nbsp; resulting Dll is "demodll.pyd", all in lowercase, otherwise</span></p>
+<p><span class=rvts12>&nbsp; the "import demodll" statement won't find the module.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>10) Mapping Delphi VCL components inside Python.</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Full mapping of TTable and TQuery that lets you access</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Database from inside Python as you would do it with Delphi.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Look at the demo, I tried to put some comments and I think it is</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; self-explicit.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; It shows you how you can use Delphi class inheritence for</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; making new Python types and avoid duplication of code.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; It shows you how to use some special object services like</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; sequences.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; It shows you how you can subclass any Python object, using</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; a Proxy class (see example 6).</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>11) Using Threads inside Python. (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Look at Demo11.</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Note: there's a bug with the multi-interpreter method.</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if you click 3 times on the button "three interpreters"</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; then 1 time on the button "one interpreter", you'll get</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; an exception that will terminate the application.</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So, use the "one" interpreter method, it's safer.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>12) Using PythonAtom. (Deprecated since Delphi 6, See VarPyth instead)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Look at Demo12</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Simply add the PythonAtom in the uses clause, declare a new var of type OleVariant</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; and call the function getAtom( any Python object ). It will return a new OleVariant</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; that will let you access properties or methods very simply, as you would do with Word !</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pObject : PPyObject;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myAtom : OleVariant;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myString : String;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pObject := ... a python object ...(using a TPythonDelphiVar.ValueObject for example);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myAtom := getAtom(pObject); // This is the magic object</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myAtom.myMethod();</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myString := myAtom.myProperty.myProperty2;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myAtom.myProperty.myProperty3:='Olivier';</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ShowMessage(myAtom.myMethod2('Olivier'));</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ShowMessage(myAtom.myListProperty[3]);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Or anything ! Note that type conversion are automatic !</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;&nbsp; </span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Note that if you use TPythonDelphiVar.ValueObject, you must decrement the reference on</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; the returned object !</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>13) Using TPythonDatabase.</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Look at Demo13</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; This demo is based on the Demo10, but uses the TPythonDatabase</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; component that was built from the Demo10, in order to let</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; you easily access a Database from Python.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>14) Making a Dll with TPythonDatabase</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Here's how you can make a Dll that will contain the Database components</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; in order to let you access a database from any Python application, even</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; from the Python console !</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Please, compile the database.dpr project prior to Project1.dpr !</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; If you want to use this module, from anywhere, you must copy the file</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; database.pyd in a folder that's in Python's path, like ...\Python\Lib</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; WARNING !!! Python cares about letter case, so check if the</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; resulting Dll is "database.pyd", all in lowercase, otherwise</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; the "import database" statement won't find the module.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>15) Using a TDataset descendant with Python, except TTable and TQuery.</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; If you're using a special Dataset object, like TClientDataset or</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; a FlashFiler table, this demo is for you !</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Note, that this will only allow you to use the TDataset interface and</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; not the methods introduced in the TDataset subclass ! If you need to,</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; then study the unit pyDBTables.pas and do the same as we do for a</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; TTable or a TQuery !</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Add the pyDB unit to your uses clause.</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; In the module event OnAfterInitialization, of your dedicated module,</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; or simply just before you execute your instructions, do the following things:</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; - Instanciate your Delphi dataset subclass:&nbsp;&nbsp;&nbsp; ds := TClientDataset.Create(nil);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; - Initialize it properly:&nbsp; ds.DatabaseName := 'DBDemos';</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ds.TableName := 'animals.dbf';</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ds.Active := True;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; - Create the Python interface:&nbsp;&nbsp; obj := NewDataset(ds, True)</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; where 'True' means that the Python wrapper will own the delphi dataset object and</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; free it. It avoids memory crashes if the TDataset subclass is destroyed</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; before the Python engine is finalized. If you encounter such a problem,</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can use the PythonEngine1.Finalize explicit method before any object is</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; destroyed in your form.</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; - Define a var containing our object : PythonModule1.SetVar( 'Dataset', obj );</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; where PythonModule1 is the TPythonModule object you want to use</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Dataset' is the var name in the module that will contain our dataset object</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; obj contains the Python object interface</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; - Don't forget to decrement 'obj': GetPythonEngine.Py_XDecRef(obj);</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; This demo shows you how to add a function to your module, that will allow your</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Python script to create its own instances of the Dataset subclass (look at the</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; DoCreateTable function).</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>16) Using a TDelphiVar or Module methods ? (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Here are examples of 2 differents solutions that let you read/write properties stored</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; in your Delphi application (this examples were posted on the Python for Delphi</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; mailing list) :</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; - The first example uses a DelphiVar that contains a dictionary.</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; - The second example uses a new modules (props) that publishes 3 functions</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; GetProperty, SetProperty and GetPropertyList</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; In both examples, I show you how you can simplify any implementation with a</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Proxy class that will use either the DelphiVar or the module functions.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts10>17) Using variant arrays of 2 dimensions (Kylix ready)</span></p>
+<p><span class=rvts12>This demo creates a variant array of 2 dimensions, then converts it to a Python object (a list of sub lists) with the method VariantAsPyObject. The Python list is then converted back to a variant array with PyObjectAsVariant, but notice that it is not an array of 2 dimensions, but an array of variant arrays. Because when PyObjectAsVariant converts a Python sequence it returns a variant array and this method is recursive. So, if we have another sequence as an item, we'll get an array that will be stored in the array. This way lets you have any depth of sub-sequences, but you can only convert 1, 2 or 3 dimensions variant arrays to Python sequences.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts10>18) C++ Builder: using the Python Dll in a console application</span></p>
+<p><span class=rvts12>Create a new project application using the console</span></p>
+<p><span class=rvts12>Edit the project options and adds the folder &lt;INSTALLDIR&gt;\Components\Include to </span></p>
+<p><span class=rvts12>the Include directory.</span></p>
+<p><span class=rvts12>Adds #include &lt;python.h&gt; at the beginning of your source</span></p>
+<p><span class=rvts12>followed by: using namespace Py;</span></p>
+<p><span class=rvts12>Drop the py15.lib to your project folder and add it to the project</span></p>
+<p><span class=rvts12>Write Python code and compile !</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>19) C++ Builder: this is a replicate of the Delphi Demo05</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>20) C++ Builder: this is a replicate of the Delphi Demo08</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>21) Using Events in TPythonModule or TPythonType (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>This demo is inspired of the demos 7 and 8, but uses the new feature of the TPythonModule </span></p>
+<p><span class=rvts12>and TPythonType: now there's a collection property called Events, which lets you add</span></p>
+<p><span class=rvts12>easily your own Module functions, or Type methods.</span></p>
+<p><span class=rvts12>Simply double click on the Events property, then add a new CollectionItem, name your event, add</span></p>
+<p><span class=rvts12>a DocString if you want to document your function, and double click on the OnExecute event,</span></p>
+<p><span class=rvts12>then write the code to implement your function. That's all !</span></p>
+<p><span class=rvts12>Note the difference with a TPythonType: you don't use the Adjust procedure, put simply use the</span></p>
+<p><span class=rvts12>PythonToDelphi function to convert the PSelf argument to a Delphi instance pointer.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>22) Using Threading, Windows Console and Command line arguments (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>When doing multithreading, be sure that the calling thread finishes after all created threads, </span></p>
+<p><span class=rvts12>otherwise your application will hang ! This is easily done by using the threading module of the </span></p>
+<p><span class=rvts12>standard Python distribution, and calling the "join" method of the thread objects.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>If you want to display messages in your threads, you can't use the PythonForDelphi redirection to</span></p>
+<p><span class=rvts12>a memo, as the VCL is not thread safe !</span></p>
+<p><span class=rvts12>So, a simple way is to use the new TPythonEngine.UseWindowsConsole property which will use a</span></p>
+<p><span class=rvts12>Windows threadsafe console.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>In this demo, we use the sys.argv list which contains the command line arguments.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>Note for Python 1.5.2:</span></p>
+<p><span class=rvts12>if you're using the threading module, you should do a TPythonEngine.Finalize in the</span></p>
+<p><span class=rvts12>OnClose event of your form, otherwise you'll get an access violation ! I don't know why ?</span></p>
+<p><span class=rvts12>Because it works fine with new 1.6 version !</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>23) Using Threading and Delphi log window. (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>This is the same demo as Demo22, but we use the Delphi log window for displaying Python output,</span></p>
+<p><span class=rvts12>instead of the Windows console.</span></p>
+<p><span class=rvts12>The main advantage is that you can scroll the log window, and save its content to a file, </span></p>
+<p><span class=rvts12>but the drawback is that you must run Delphi !</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>To do it, you must drop a TPythonInputOutput component (instead of the TPythonGUIInputOutput),</span></p>
+<p><span class=rvts12>connect it to the TPythonEngine through the IO property, double-click on the TPythonInputOutput.OnSendData</span></p>
+<p><span class=rvts12>event and write:</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>procedure TForm1.PythonInputOutput1SendData(Sender: TObject;</span></p>
+<p><span class=rvts12>&nbsp; const Data: String);</span></p>
+<p><span class=rvts12>begin</span></p>
+<p><span class=rvts12>&nbsp; OutputDebugString( PChar(Data) );</span></p>
+<p><span class=rvts12>end;</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>24) Using TAtomPythonEngine (Deprecated since Delphi 6, See VarPyth instead)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>This demo describes how you can make Delphi methods that are going to be</span></p>
+<p><span class=rvts12>used from python without even thinking about conversion and reference</span></p>
+<p><span class=rvts12>counting by the use of PythonAtoms and AtomPythonEngine. The Demo is a</span></p>
+<p><span class=rvts12>modified version of Demo 5, but the techniques described here can be used</span></p>
+<p><span class=rvts12>in aspects of python/delphi programming as well.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>The demo describes the use of the PyObjectAsVariant method defined in</span></p>
+<p><span class=rvts12>AtomPythonEngine. It returns PythonAtoms when the Python object isn't of a</span></p>
+<p><span class=rvts12>standard variant type (string, integer, array etc.). AtomPythonEngine is a</span></p>
+<p><span class=rvts12>drop in for PythonEngine with all functionality inherited except for the</span></p>
+<p><span class=rvts12>PyObjectAsVariant that is extended as stated above.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>The VariantAsPyObject of PythonEngine is also shown to work on</span></p>
+<p><span class=rvts12>PythonAtoms.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>25) Using VarPyth.pas (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>Here's a unit test for demonstrating most of what you can do with the</span></p>
+<p><span class=rvts12>new custom variant that wraps up the Python objects.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>26) Demo8 revisited to allow the new Python type to be subclassed</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>Warning! Type subclassing is allowed only in Python 2.2 and later.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp; Note: Look at (32) if you're using Delphi7 or later as it can make</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; your life much easier when trying to expose a regular Delphi</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; class to Python. See also the WrapDelphi.pas unit.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>You should not override GetAttr and SetAttr anymore and you should not</span></p>
+<p><span class=rvts12>select the Basic services flags [bsGetAttr, bsSetAttr].</span></p>
+<p><span class=rvts12>Instead, simply select the flags [bsGetAttrO, bsSetAttrO] and the class</span></p>
+<p><span class=rvts12>TPyObject does simply call PyObject_GenericGetAttr in GetAttrO</span></p>
+<p><span class=rvts12>and PyObject_GenericSetAttr in SetAttrO.</span></p>
+<p><span class=rvts12>The Python Generic Get/Set functions will use new slots introduced in</span></p>
+<p><span class=rvts12>the type object for specifying a list of members (class fields),</span></p>
+<p><span class=rvts12>a list of get/set functions (like properties in Delphi) and a list</span></p>
+<p><span class=rvts12>of methods. That way a subclass can introduce its own members/get,set/methods</span></p>
+<p><span class=rvts12>and call the others coming from the base classes.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>So, now You can override the class methods RegisterMembers and RegisterGetSets</span></p>
+<p><span class=rvts12>for allowing your type to be subclassed and offer attributes and</span></p>
+<p><span class=rvts12>methods to its subclasses.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>This demo declares two members for x and y fields, and one get/set for </span></p>
+<p><span class=rvts12>accessing the name fields which is a Delphi string and thus needs to</span></p>
+<p><span class=rvts12>be converted from/to Python object.</span></p>
+<p><span class=rvts12>The old way of registering methods has not changed at all.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>27) Container indexing</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>#index:</span></p>
+<p><span class=rvts12>s[0]</span></p>
+<p><span class=rvts12>#slice</span></p>
+<p><span class=rvts12>s[0:2]</span></p>
+<p><span class=rvts12>#ellipsis</span></p>
+<p><span class=rvts12>s[...]</span></p>
+<p><span class=rvts12>#extended slice</span></p>
+<p><span class=rvts12>s[0:2:2]</span></p>
+<p><span class=rvts12>#multidimensional slice:</span></p>
+<p><span class=rvts12>s[10, 10:20, 20:100:5, ...]</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>28) Iterator (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>This demo implements a new container type wrapping a TStringList</span></p>
+<p><span class=rvts12>and shows how to return an iterator that will browse the container's content.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>29) Using Python Imaging Library (PAL)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>This demo shows how to exchange images between Delphi and the</span></p>
+<p><span class=rvts12>Python Imaging Library.</span></p>
+<p><span class=rvts12>This demo relies on VarPyth.pas and thus on Delphi 6 or above.</span></p>
+<p><span class=rvts12>You need also the library that you can get at:</span></p>
+<p><span class=rvts12>http://www.pythonware.com/products/pil/</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>30) Using Named Parameters (Kylix ready)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>This demo shows how you can use named parameters when invoking Python functions or methods.</span></p>
+<p><span class=rvts12>This requires VarPyth.</span></p>
+<p><span class=rvts12>Look at the code in TForm1.Button1Click</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>31) Using WrapDelphi to access Delphi Form attributes (Requires Delphi5 or later)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>This Demo shows how you expose a Delphi Form to Python, or your</span></p>
+<p><span class=rvts12>own custom Delphi classes.</span></p>
+<p><span class=rvts12>Note that it will use its full potential with Delphi7 or later.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>32) Demo08 revisited using WrapDelphi (Requires Delphi7 or later)</span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>This Demo shows how you can expose a Delphi class much simpler</span></p>
+<p><span class=rvts12>using WrapDelphi.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>--------------------------------------------------------------</span></p>
+<p><span class=rvts12>That's all folks !!!</span></p>
+<p><span class=rvts12>Hope this helps to build cool Python/Delphi applications.</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>Morgan</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>pytw = Python Tiddly Wiki</span></p>
+<p>&nbsp; <a class=rvts4 href="http://blog.checkettsweb.com/2005/10/13/quick-and-easy-install-for-pytw-on-dreamhost/">Clint’s Thoughts » Quick and easy install for pytw on DreamHost</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.cs.utexas.edu/~joeraii/pytw/#">pytw - very simple.</a></p>
+<p><br></p>
+<p>WyPy: A Minimal (11 line) Python Wiki</p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://infomesh.net/2003/wypy/">WyPy A Minimal 11 Line Python Wiki</a></p>
+<p><br></p>
+<p><span class=rvts10>General Python Links</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <a class=rvts4 href="http://code.enthought.com/enthon/">code.enthought.com - Python-Enthought Edition</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://python.startpagina.nl/">python.startpagina.nl</a></p>
+<p><br></p>
+
+</body></html>

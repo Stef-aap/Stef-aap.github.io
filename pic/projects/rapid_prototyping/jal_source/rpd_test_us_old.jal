@@ -1,0 +1,232 @@
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+const tuning_N1 = 2
+const tuning_N2 = 0
+const tuning_N3 = 0
+const tuning_large_step   = 5
+const short_command       = 5
+const tuning_command_base = 0x0
+include data_eeprom_tuning
+include data_eeprom
+
+pragma eedata     14,14
+var byte _US_puls_width
+var byte _US_puls_count
+procedure get_new_parameters is
+  eeprom_get(0, _US_puls_width)
+  eeprom_get(1, _US_puls_count)
+end procedure
+get_new_parameters
+
+
+
+-- D7
+var volatile bit US1_receive_pin is J11R3
+var volatile bit US1_receive_direction is J11R3_direction
+var volatile bit US1_transmit_pin is J11R2
+var volatile bit US1_transmit_direction is J11R2_direction
+US1_receive_direction = input
+US1_receive_pin = high
+US1_transmit_direction = input
+US1_transmit_pin = low
+-- delay of _US_puls_width usec
+procedure delay_half_period_US is
+var byte counter1
+    assembler
+    nop
+    local delay0
+        movfw     _US_puls_width
+               ;
+        movwf     counter1    ;
+        nop
+        nop                  ;
+      delay0:                 ;
+        decfsz    counter1,f  ;
+        goto      delay0      ;
+    end assembler
+end procedure
+
+var bit high_power = true
+var byte ascii
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure _raw_US_with_parameter_control is
+  if high_power then
+;  pin_d5_direction = output
+;  US1_receive_direction = output
+
+
+;    US1_transmit_pin = low
+;    US1_transmit_direction = output
+
+;  for _US_puls_count loop
+;    US1_transmit_pin = low
+;    delay_half_period_US
+;    US1_transmit_pin = high
+;    delay_half_period_US
+;  end loop
+
+
+  ;delay_10us(50)
+  ;pin_d5_direction = input
+  ;  US1_direction = input
+;  delay_10us(100)
+;  US1_receive_direction = input
+;
+;
+;
+  else
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+var byte US_time
+var byte _US_state
+var byte _US_search_time
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+function _detect_US_reflection return bit is
+var bit _US_found
+  -- puls will have minimum width of 200 us
+  -- so we're going to poll with 100 us
+  _US_found = false
+  delay_10us(10)
+  while (! _US_found) & (US_time < _US_search_time) loop
+    delay_10us(7)
+    US_time = US_time + 1
+    _US_found = US1_receive_pin
+  end loop
+  return _US_found
+end function
+-- -----------------------------------------------------------------------------
+var byte detect_US_ranges
+var bit detect_US_ranges_low    at detect_US_ranges : 0
+var bit detect_US_ranges_medium at detect_US_ranges : 1
+var bit detect_US_ranges_high   at detect_US_ranges : 2
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+function detect_US return bit is
+
+-- initialization
+var bit result = false
+
+  -- start with a very low energy puls
+  if detect_US_ranges_low then
+  high_power = true
+
+  _US_search_time = 50
+  US1_transmit_pin = low
+  US1_transmit_direction = output
+  US1_transmit_pin = high
+  -- the next delay will determine the transmitted power
+  -- lowest power is acheived by NO delay
+  -- maximum power in this mode is about 14 usec
+  delay_10us
+  delay_4us
+
+  US1_transmit_direction = input
+  delay_10us
+  US_time = 0
+  if _detect_US_reflection then
+    asynch_send_hw (US_time)
+    result = true
+  end if
+  
+  
+  if (! result) & detect_US_ranges_medium then
+    -- no reflection found at low energy,
+    -- so try medium energy
+
+    _US_search_time = 150
+    US1_transmit_pin = low
+    US1_transmit_direction = output
+
+    for 1 loop
+      US1_transmit_pin = low
+      delay_half_period_US
+      US1_transmit_pin = high
+      delay_half_period_US
+    end loop
+
+    US1_transmit_direction = input
+
+    delay_10us(100)
+    US_time = 50
+
+    if _detect_US_reflection then
+      asynch_send_hw (US_time)
+      result = true
+    end if
+  end if
+  
+  -- no reflection found at lower energy,
+  -- so try high energy if enabled
+  if (! result) & detect_US_ranges_high then
+    _US_search_time = 250
+    US1_transmit_pin = low
+    US1_transmit_direction = output
+
+    for 8 loop ;_US_puls_count loop
+      US1_transmit_pin = low
+      delay_half_period_US
+      US1_transmit_pin = high
+      delay_half_period_US
+    end loop
+
+    US1_transmit_direction = input
+
+    delay_10us(250)
+    US_time = 80
+
+    if _detect_US_reflection then
+      asynch_send_hw (US_time)
+      result = true
+    end if
+
+    end if
+  end if
+
+  return result
+end function
+-- -----------------------------------------------------------------------------
+
+
+detect_US_ranges_low    = true
+detect_US_ranges_medium = true;false
+detect_US_ranges_high   = true;false
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+forever loop
+  delay_1ms(40)
+
+detect_US
+;  if detect_US then
+;    asynch_send_hw (US_time)
+;  end if
+
+  if asynch_read_hw (ascii) then
+    if (ascii >= tuning_command_base) &
+       (ascii <= (tuning_command_base + 5)) then
+
+      tuning_command(ascii)
+      -- get new values if they were changed
+      if tuning_EEprom_changed then
+        get_new_parameters
+        tuning_EEprom_changed = false
+      end if
+    end if
+  end if
+end loop
+
+

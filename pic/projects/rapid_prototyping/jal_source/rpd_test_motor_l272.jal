@@ -1,0 +1,249 @@
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+
+-- define a JoyStick on J1
+;;;;;<;mac> RPD_JoyStick    JoyStick = J1
+-- define all IO-pins
+var volatile bit JoyStick_LED1 is J1L2
+var volatile bit JoyStick_LED2 is J1L3
+var volatile bit JoyStick_LED3 is J1R2
+var volatile bit JoyStick_LED4 is J1R3
+var volatile bit JoyStick_SWITCH1 is J1L2
+var volatile bit JoyStick_SWITCH2 is J1L3
+var volatile bit JoyStick_SWITCH3 is J1R2
+var volatile bit JoyStick_SWITCH4 is J1R3
+
+-- define storage for potmeter NULL position
+var volatile byte JoyStick_POTX_NULL
+var volatile byte JoyStick_POTY_NULL
+
+-- Define Debounced Switches
+var byte JoyStick_Switches_Shadow = 0xFF
+var bit JoyStick_S1 at JoyStick_Switches_Shadow : 4
+var bit JoyStick_S2 at JoyStick_Switches_Shadow : 5
+var bit JoyStick_S3 at JoyStick_Switches_Shadow : 6
+var bit JoyStick_S4 at JoyStick_Switches_Shadow : 7
+
+-- Define RAW Switches
+var bit JoyStick_S1_raw at JoyStick_Switches_Shadow : 0
+var bit JoyStick_S2_raw at JoyStick_Switches_Shadow : 1
+var bit JoyStick_S3_raw at JoyStick_Switches_Shadow : 2
+var bit JoyStick_S4_raw at JoyStick_Switches_Shadow : 3
+
+-- all LED/Switch pins are set to outputs
+-- so the LEDs can be controled
+J1L2_direction = output
+J1L3_direction = output
+J1R2_direction = output
+J1R3_direction = output
+-- all LEDs are set off (IO-pin made high
+J1L2 = high
+J1L3 = high
+J1R2 = high
+J1R3 = high
+
+-- Define the ADC-channels for the potmeters
+const bit JoyStick_POTX = 0
+const bit JoyStick_POTY = 1
+
+-- Define functions for raw potmeter values
+function JoyStick_X return byte is
+  return PIC_ADC_low_res(0)
+end function
+function JoyStick_Y return byte is
+  return PIC_ADC_low_res(1)
+end function
+
+-- Measure the NULL position of the potmeters 
+JoyStick_POTX_NULL = JoyStick_X
+JoyStick_POTY_NULL = JoyStick_Y
+
+-- Define functions for 2s-complement potmeter values
+function JoyStick_X_2s return byte is
+  return JoyStick_X - JoyStick_POTX_NULL
+end function
+function JoyStick_Y_2s return byte is
+  return JoyStick_Y - JoyStick_POTY_NULL
+end function
+
+-- function to derive all the debounced and raw switch values
+function JoyStick_Switches'get return byte is
+var bit new_bit
+
+  J1L2_direction = input
+  new_bit = J1L2
+  J1L2_direction = output
+  if new_bit != JoyStick_S1_raw then JoyStick_S1_raw = JoyStick_S1 end if
+  JoyStick_S1 = new_bit
+
+  J1L3_direction = input
+  new_bit = J1L3
+  J1L3_direction = output
+  if new_bit != JoyStick_S2_raw then JoyStick_S2_raw = JoyStick_S2 end if
+  JoyStick_S2 = new_bit
+
+  J1R2_direction = input
+  new_bit = J1R2
+  J1R2_direction = output
+  if new_bit != JoyStick_S3_raw then JoyStick_S3_raw = JoyStick_S3 end if
+  JoyStick_S3 = new_bit
+
+  J1R3_direction = input
+  new_bit = J1R3
+  J1R3_direction = output
+  if new_bit != JoyStick_S4_raw then JoyStick_S4_raw = JoyStick_S4 end if
+  JoyStick_S4 = new_bit
+
+  return JoyStick_Switches_Shadow
+end function
+;;;;;<;/mac>
+;;;;;<;mac> RPD_Motor_L272  Motor    = J3R
+var volatile bit Motor_potm is J3R1
+var volatile bit Motor_Hbridge_1 is J3R2
+var volatile bit Motor_Hbridge_2 is J3R3
+J3R1_direction = input
+J3R2_direction = output
+J3R3_direction = output
+;;;;;<;/mac>
+
+
+var byte ISR_count
+var bit  ISR_flag
+const byte max_kracht = 32
+
+
+-- for the timer we take 1 msec,
+-- so this is also the bandwidth of the feedback loop = 1 kHz
+-- which allow us to do 5000 instructions in each loop
+var volatile byte _tmr0_preset
+const t100us = 5
+;;;;;<;mac>  TMR0  20, 500      ;20 MHz, 1000 usec
+  -- intialize TMR0, including prescaler
+  -- XTAL = 20 MHz,  period = 500 usec
+  OPTION_REG = ( OPTION_REG & ! ( _b_T0CS ))   -- set TMR0 to main oscillator
+  OPTION_REG = ( OPTION_REG & ! ( _b_PSA ))    -- enable prescaler for TMR0
+  OPTION_REG = ( OPTION_REG & 0xF8 ) | 0x03    -- set prescaler to 3 = 1:16
+  _tmr0_preset = -156
+;;;;;<;/mac>
+
+-- motor 1
+var byte doel1
+var bit motor1_dummy
+var byte kracht1
+var bit new_motor1_dummy
+var byte new_kracht1
+var byte PID_motor1_Prev_Error2,PID_motor1_Prev_Error1
+var byte PID_motor1_Sum_Error2,PID_motor1_Sum_Error1
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure ISR is
+pragma interrupt
+
+  if T0IF then
+    -- ADDITION instead of SETTING,
+    -- assures that missed interrupts are also included
+    TMR0 = TMR0 + _tmr0_preset  -- preset counter again
+    ISR_count = ISR_count - 1
+
+    if ISR_count < new_kracht1 then Motor_Hbridge_1 = ! new_motor1_dummy
+    else Motor_Hbridge_1 = new_motor1_dummy
+    end if
+
+    if ISR_count == 0 then
+      ISR_count = max_kracht
+
+      new_kracht1 = kracht1
+      new_motor1_dummy = motor1_dummy
+      Motor_Hbridge_2 = new_motor1_dummy
+      Motor_Hbridge_1 = new_motor1_dummy
+
+      ISR_flag = true
+    end if
+
+    -- must be the last statement, to prevent reentrance
+    T0IF = false        -- clear TMR0 interrupt flag
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+procedure split_value_sign (byte in out Y1, bit out sign) is
+  if Y1 > 127 then
+    sign = true
+    Y1 = ! Y1
+    Y1 = Y1 + 1
+  else
+    sign = false
+  end if
+end procedure
+
+function abs_X (bit out sign) return byte is
+var byte temp
+  temp = JoyStick_X_2s
+  split_value_sign(temp, sign)
+  return temp
+end function
+
+function abs_Y (bit out sign) return byte is
+var byte temp
+  temp = JoyStick_Y_2s
+  split_value_sign(temp, sign)
+  return temp
+end function
+
+-- -----------------------------------------------------------------------------
+-- enable interrupts
+-- -----------------------------------------------------------------------------
+T0IE = true   -- enable TMR0 interrupt
+GIE  = true   -- enable general interrupts
+T0IF = false  -- clear TMR0 interrupt flag
+-- -----------------------------------------------------------------------------
+
+
+var byte sec = 0
+var byte speed
+var bit sign
+JoyStick_LED1 = low
+JoyStick_LED3 = low
+forever loop
+  delay_1ms(10)
+  sec = sec + 1
+  if sec >= 10 then
+    asynch_send_hw(JoyStick_X)
+    asynch_send_hw(JoyStick_Y)
+
+    speed = JoyStick_X
+    sign = speed >= JoyStick_POTX_NULL
+    if sign then speed = speed - JoyStick_POTX_NULL
+    else speed = JoyStick_POTX_NULL - speed
+    end if
+    speed = speed >> 2
+    if speed < 9 then speed = 0 else speed = speed - 9 end if
+    -- transport PID-value to ISR
+    GIE = false
+      motor1_dummy = ! sign
+      kracht1 = speed
+    GIE = true
+    asynch_send_hw(speed)
+
+    asynch_send_hw(JoyStick_Switches)
+
+    JoyStick_LED1 = JoyStick_S1_raw
+    JoyStick_LED2 = JoyStick_S2_raw
+    JoyStick_LED3 = JoyStick_S3_raw
+    JoyStick_LED4 = JoyStick_S4_raw
+
+;    JoyStick_LED1 = ! JoyStick_LED1
+;    JoyStick_LED2 = ! JoyStick_LED2
+;    JoyStick_LED3 = ! JoyStick_LED3
+;    JoyStick_LED4 = ! JoyStick_LED4
+
+    sec = 0
+  end if
+end loop
+

@@ -1,0 +1,6 @@
+; JAL StateMachine Generator, by Diagram Designer
+; Initialisation of StateMachine: DEMO
+const byte sm_Demo_init   = 1
+const byte sm_Demo_state1 = 2
+const byte sm_Demo_test   = 3
+var byte sm_Demo = sm_Demo_init

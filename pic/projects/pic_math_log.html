@@ -1,0 +1,396 @@
+<HTML><HEAD><TITLE>LOG conversion</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>Februari 2002</SPAN></P>
+<P><SPAN class=RVTS1>LOG math</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><A name="goal"></A>
+<SPAN class=RVTS2>Goal</SPAN></P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=362 valign=middle>
+<P>These routines were written to perform a logarithmic conversion on a 24-bit AD-value and to return the result back into a 20 bit DA-converter.</P>
+<P>So besides log conversion (and some other calculations) a fairly high gain has to be used to achieve a large dynamic range.</P>
+<P>Both AD-converter and DA-converter can be controlled in offset binary, which is most easy to handle for these kind of calculations (log can only be calculated for positive numbers)</P>
+<P>This document describes some background information about the log calculation.</P>
+<P>Description and download, see&nbsp;<A class=RVTS4 href="jal_libraries.html#byte3_math">JAL routines</A></P>
+<P>On the right is a simulation of the algoritme (6 bits lookup) with JALss.</P>
+<P>The circuit consists of a photospectrometer, 3* 24-bit ADC, PIC-16F628 and 2* 20-bit DAC. The output of the photospectrometer is an exponential signal of the form</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; V&nbsp;&nbsp; =&nbsp; V0&nbsp; *&nbsp;&nbsp; exp&nbsp; (&nbsp; - concentration *&nbsp;&nbsp; constant&nbsp; )</P>
+<P>So the expected output, due to a linear increasing concentration, should be a perfect right line, which it is, for both small and large dynamic range.</P>
+<P>(note the purple point on the right, is an overflow of the ADC)</P></TD>
+<TD width=345 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=370 height=257 src="pic_log2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="table_lookup"></A>
+<SPAN class=RVTS2>Table Look-up + linear Interpolation</SPAN></P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=469 valign=top>
+<P>From (<A class=RVTS4 href="pic_math_log.html#ref1">&nbsp;ref1</A>) it seems obvious that table lookup with linear interpolation is the most easy way to compute the logarithm.</P>
+<P>In calculating a logarithm, it doesn't matter which base is chozen, because another base just results in (another) gain-factor. So it's logical to choose logbase=2, in which case determining the log is in principle just a matter of detremining the left most "1".</P>
+<P>On the right is a intuitive explanation of the logarithm on the base 2:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Characteristic is determined by the left-most&nbsp; "1"&nbsp;</LI>
+<LI>A fixed number of significant (left bit must be "1") bits determine the index of a pre-calculated lookup table&nbsp;</LI>
+<LI>Linear interpolation of the fraction between the looked up value and the next value in the table is added to the result&nbsp;&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+</TD>
+<TD width=263 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=250 height=187 src="pic_log.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>The basics</SPAN></P>
+<P>of the algoritm is now quiet simple:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>shift the argument left until the msb = "1"&nbsp;&nbsp; (remember the number of shifts performed&nbsp; X_SHL)&nbsp;</LI>
+<LI>use the most significant bits as the index for the lookup table&nbsp; ( LUT [ i ] )&nbsp;</LI>
+<LI>perform a linear interpolation of the fraction between LUT [ i ]&nbsp; and&nbsp; LUT&nbsp; [ i + 1 ]&nbsp;</LI>
+<LI>now correct for the initial shift&nbsp; X_SHL&nbsp;</LI>
+</UL>
+<P>TOT_Nbits = 24;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {total number of bits used for all calculations}</P>
+<P>LUT_Nbits = 3;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {number of bits used to search in the lookup table}</P>
+<P>The llokup table is derived by the following formula:</P>
+<P>LUT [ i ] =&nbsp; GAIN&nbsp; *&nbsp; log2&nbsp; (&nbsp; i&nbsp; +&nbsp; n&nbsp; )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for&nbsp;&nbsp; i&nbsp; =&nbsp; 0&nbsp; ....&nbsp;&nbsp; (1 shl (LUT_Nbits-1))</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>The gain factor GAIN should be chozen in such a way that the maximum dynamic range is achieved.</P>
+<P>To keep aritmethic simple, the GAIN might be chosen just a little bit smaller, so multiplying becomes shifting.</P>
+<P>The optimal GAIN is only dependent on the total number of bits used.</P>
+<P>I lost my notes, so I can't explain anymore what the base of these formulas is. So if anyone knows ?</P>
+<P>If you don't add the minus 1, the calculated value will overflow at it's maximum value with just one value !!</P>
+<P>Another way to keep calculations simple and still avoiding overflow, would be to subtract 1 from the final result.</P>
+<P>Fot the 24 bit case, leaving the factor (4/3) out makes life much easier (of course also the -1 can be left out in that case). The factor 4/3 , because 24 is not a power of 2, so 32/24 = 4/3.</P>
+<P>With 24 bit and leaving out the factor 4/3, the dynamic range goes upto 0x_C0_00_00.</P></TD>
+<TD width=220 valign=top>
+<P>TOT_Nbits:&nbsp; optimal GAIN</P>
+<P>8:&nbsp;&nbsp;&nbsp; GAIN&nbsp; =&nbsp; -1 + ( 1&nbsp; SHL&nbsp; 5 )</P>
+<P>16:&nbsp; GAIN&nbsp; =&nbsp; -1 + ( 1&nbsp; SHL&nbsp; 12 )</P>
+<P>24:&nbsp; GAIN&nbsp; =&nbsp; -1 + ( 1&nbsp; SHL&nbsp; 19 )&nbsp; * 4/3</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Maximum Error</SPAN></P>
+<P>&nbsp;The logarithm function is a monotonic (slowly) increasing function.</P>
+<P>The largest error will occur, where the distances in the lookup table is largest.</P>
+<P>Therefore the largest deviation will occur with small input values, with a lookup value about halfway the first and second table value.</P>
+<P>From simulations (all 24 bit values, and lookup tables from 3 bits to 6 bits) it can be seen that the maximum error indeed occurs at small values, exactly inbetween the first 2 points of the lookup table.</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Therefore the maximum error can easily be calculated with the following formula</P>
+<P>value where maximum error will occure :&nbsp; X&nbsp; = ( 2 ^ N ) + 1</P>
+<P>calc_log ( X )&nbsp; = 0.5 * ( LUT [ 0 ]&nbsp; +&nbsp; LUT [ 1 ] )</P>
+<P>On the right are the results form simulations over all 24 bit numbers,</P>
+<P>indicating above assumption is indeed correct.</P>
+<P>In the JAL routines the value of N can be set from 3 ... 6.</P></TD>
+<TD valign=top>
+<P>N&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max errror&nbsp;</P>
+<P>3&nbsp;&nbsp;&nbsp; 0x09&nbsp;&nbsp;&nbsp; 0.3 %</P>
+<P>4&nbsp;&nbsp;&nbsp; 0x11&nbsp;&nbsp;&nbsp; 0.06 %</P>
+<P>5&nbsp;&nbsp;&nbsp; 0x21&nbsp;&nbsp;&nbsp; 0.013 %</P>
+<P>6&nbsp;&nbsp;&nbsp; 0x41&nbsp;&nbsp;&nbsp; 0.003 %</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Background Info</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>(<A name="ref1"></A>
+&nbsp;&nbsp; 1) a collection of logarithms calculations by&nbsp;<A class=RVTS4 href="http://www.dattalo.com/technical/theory/logs.html">Scott Dattalo</A></LI>
+<LI>(<A name="ref2"></A>
+&nbsp;&nbsp; 2) 8 bit implementation of table lookup + interpolation by&nbsp;<A class=RVTS4 href="http://www.dattalo.com/technical/software/pic/piclog.html">Scott Dattalo</A></LI>
+<LI>(<A name="ref3"></A>
+&nbsp;&nbsp; 3) some other log algorithms by&nbsp;<A class=RVTS4 href="http://www.piclist.com/techref/microchip/math/power/16lr-ng.htm">Nikolai Golovchenko</A></LI>
+<LI>(<A name="ref4"></A>
+&nbsp;&nbsp; 4) Stamp II math notes by&nbsp;<A class=RVTS4 href="http://www.emesystems.com/bs2math3.htm">Tracy Allen</A></LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><A name="testvalues"></A>
+TestValues</P>
+<P>&nbsp;; PIC 24 bits log tables</P>
+<P>; for 3 bits lookup</P>
+<P>; gainfactor = $080000</P></TD>
+<TD valign=top>
+<P>1 = 0</P>
+<P>2 = 0x_08_00_00</P>
+<P>3 = 0x_0C_AE_01</P>
+<P>4 = 0x_10_00_00</P>
+<P>8 = 0x_18_00_00</P></TD>
+<TD valign=top>
+<P>0x_00_00_10&nbsp; = 0x_20_00_00</P>
+<P>0x_00_01_00&nbsp; = 0x_40_00_00</P>
+<P>0x_00_10_00&nbsp; = 0x_60_00_00</P>
+<P>0x_FF_FF_FF&nbsp; =0x_BF_FF_F9</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>24 bits lookup tables</SPAN></P>
+<P>&nbsp;All are optimized for maximum output without overflow.</P>
+<P>gain factor is set to&nbsp;&nbsp;&nbsp; GAIN = -1+ (1 SHL (TOT_Nbits-5))*4/3</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>; PIC 24 bits log tables</P>
+<P>; for 3 bits lookup</P>
+<P>; gainfactor = $080000</P>
+<P>; largest value = $00BFFFF9</P>
+<P>;&nbsp; MSB table (3bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x10</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x12</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x14</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x16</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x18</P>
+<P>;&nbsp; middle table (3bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x93</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xAE</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x75</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P>
+<P>;&nbsp; LSB table (3bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x4F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x01</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x76</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P></TD>
+<TD valign=top>
+<P>; PIC 24 bits log tables</P>
+<P>; for 4 bits lookup</P>
+<P>; gainfactor = $080000</P>
+<P>; largest value = $00BFFFF7</P>
+<P>;&nbsp; MSB table (4bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x18</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x19</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x1A</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x1B</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x1C</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x1D</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x1E</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x1F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x20</P>
+<P>;&nbsp; middle table (4bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x5C</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x93</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xAC</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xAE</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x9A</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x75</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x41</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P>
+<P>;&nbsp; LSB table (4bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x02</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x4F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xEA</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x01</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x80</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x76</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x50</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P></TD>
+<TD valign=top>
+<P>; PIC 24 bits log tables</P>
+<P>; for 5 bits lookup</P>
+<P>; gainfactor = $080000</P>
+<P>; largest value = $00BFFFF6</P>
+<P>;&nbsp; MSB table (5bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x20</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x20</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x21</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x21</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x22</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x23</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x23</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x24</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x24</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x25</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x25</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x26</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x26</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x26</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x27</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x27</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x28</P>
+<P>;&nbsp; middle table (5bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xB3</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x5C</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xFB</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x93</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x23</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xAC</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x30</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xAE</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x26</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x9A</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x0A</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x75</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xDD</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x41</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xA2</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P>
+<P>;&nbsp; LSB table (5bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x20</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x02</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xC1</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x4F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x77</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xEA</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x41</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x01</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x9E</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x80</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x02</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x76</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x25</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x50</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x32</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>; PIC 24 bits log tables</P>
+<P>; for 6 bits lookup</P>
+<P>; gainfactor = $080000</P>
+<P>; largest value = $00BFFFFA</P>
+<P>;&nbsp; MSB table (6bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x28</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x28</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x28</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x29</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x29</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x29</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x29</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2A</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2A</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2A</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2B</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2B</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2B</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2B</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2C</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2C</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2C</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2C</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2D</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2D</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2D</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2D</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2E</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2E</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2E</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2E</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2E</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x2F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x30</P></TD>
+<TD valign=top>
+<P>;&nbsp; middle table (6bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x5A</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xB3</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x08</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x5C</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xAC</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xFB</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x48</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x93</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xDC</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x23</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x68</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xAC</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xEF</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x30</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x6F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xAE</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xEA</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x26</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x61</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x9A</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xD2</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x0A</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x40</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x75</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xA9</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xDD</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x0F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x41</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x72</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xA2</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xD1</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P></TD>
+<TD valign=top>
+<P>;&nbsp; LSB table (6bit)</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xEB</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x20</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xC6</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x02</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xF6</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xC1</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x81</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x4F</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x44</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x77</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xFD</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xEA</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x51</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x41</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xCC</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x01</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xED</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x9E</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x21</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x80</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xC8</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x02</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x3A</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x76</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xC2</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x25</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0xA7</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x50</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x26</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x32</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x78</P>
+<P>&nbsp;&nbsp; retlw&nbsp;&nbsp; 0x00</P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

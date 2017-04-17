@@ -1,0 +1,267 @@
+<HTML><HEAD><TITLE>fdgds</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>september 2004</SPAN></P>
+<P><SPAN class=RVTS1>Undocumented JAL</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P>see also&nbsp;<A class=RVTS4 href="http://www.voti.nl/jal/faq.html">Wouters FAQ</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Procedure nesting</SPAN></P>
+<P>Although procedure nesting is supported, it contains a nasty bug.</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=449 bgcolor=#FFFFFF valign=top>
+<P>In the code on the right, the procedure "wait_for_command" is always called, wether "_data_boot" is false or true.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Probably this has something to do with the code optimalisation, which replaces calls at the end by gotos.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Dave Milton has worked out a work-around, put an ASSEMBLER RETURN as the last statement of the outer procedure.</P></TD>
+<TD width=256 bgcolor=#FFFFFF valign=top>
+<P>procedure data_booter is</P>
+<P>&nbsp;&nbsp;&nbsp; procedure wait_for_command is</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asynch_read_hw (x1)</P>
+<P>&nbsp;&nbsp;&nbsp; end procedure</P>
+<P>&nbsp;&nbsp;&nbsp; if _data_boot then</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait_for_command</P>
+<P>&nbsp;&nbsp;&nbsp; end if</P>
+<P>end procedure</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>But as I often will forget such a return, I think my adagio is "JAL doesn't support procedure nesting"</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Output Shadowing</SPAN></P>
+<P>Because all settings of output bits is done through Read/Modify/Write, shadowing is an absolute must.</P>
+<P>Therefor PORTA etc should never be used (inc translation should rename these!!)</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>If an io-pin is definied through the JALcc macro&nbsp;</P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; &lt;mac&gt;&nbsp; io_pin&nbsp;&nbsp; out2 = pin_A0</SPAN></P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#FFEEDD valign=top>
+<P>Then in assembler an output bit can be set through</P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; bsf&nbsp;&nbsp;&nbsp;&nbsp; out2_buffer,out2_nr&nbsp; ;set bit in shadow register</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; movf&nbsp;&nbsp;&nbsp; out2_buffer,w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;copy shadow register to w</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; movwf&nbsp;&nbsp; out2_port&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;w to the hardware port</SPAN></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="interrupts"></A>
+<SPAN class=RVTS2>Interrupts&nbsp;</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI><SPAN class=RVTS3>PORTS</SPAN>&nbsp;may not be set in interrupt, if they are also set outside the interrupt, here the translation by the JAL compiler of setting a port (everything is due to the shadowing of the output port)&nbsp;</LI>
+</UL>
+<P class=RVPS1><SPAN class=RVTS12>movlw&nbsp;&nbsp; H'44'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;move value to accu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN></P>
+<P class=RVPS1><SPAN class=RVTS12>movwf&nbsp;&nbsp; H'02A'&nbsp;&nbsp;&nbsp;&nbsp; ;move accu to shadow register</SPAN></P>
+<P class=RVPS1><SPAN class=RVTS12>movf&nbsp;&nbsp;&nbsp; H'02A',w&nbsp;&nbsp; ;move shadow to accu</SPAN></P>
+<P class=RVPS1><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;=== if an interrupt occures here,&nbsp;</SPAN></P>
+<P class=RVPS1><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;=== it's action on the port will be lost</SPAN></P>
+<P class=RVPS1><SPAN class=RVTS12>movwf&nbsp;&nbsp; H'005'&nbsp;&nbsp;&nbsp;&nbsp; ;move accu to port</SPAN></P>
+<P class=RVPS1><SPAN class=RVTS12>return</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI><SPAN class=RVTS3>Global variables,&nbsp;</SPAN>needed in the ISR (that should hold their value) should be declared outside the ISR. Nothing strange but an often over-looked issue. AND MORE (call ISR, or use var afterwards ??)&nbsp;</LI>
+<LI><SPAN class=RVTS3>Yields only for jal&lt;4.44</SPAN>&nbsp; The last statement in an interrupt procedure may never be a call to an procedure or function. Due to the optimization in JAL the last call is always translated into a jump. In the case of an interrupt routine, therefor the registers won't be restored. Remedy add the following statement to the end of an interrupt procedure "asm&nbsp; nop"&nbsp;</LI>
+<LI><SPAN class=RVTS3>Yields only for jal&lt;4.44</SPAN>&nbsp;&nbsp; If a procedure is called only in the interrupt procedure, the compiler generates an NULL error. This is because the procedure is stuffed away. Remedy: call the procedure at some place where it can't harm, for instance after the main program loop.&nbsp;</LI>
+<LI>JAL has some limitations with fuctions in the interrupt procedure, functions like&nbsp;</LI>
+<LI>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'if func()'get then ...' or 'var1 = var2 &gt;&gt; var3' etc. are restricted too.&nbsp;</LI>
+<LI>(Don't know what this means, picked it up in the jallist, I think the next point clarifies everything)&nbsp;</LI>
+<LI>A problem is that local variables (and parameters) of procedures and functions have a fixed address. Now a procedure (or function) that is executed by the main program, interrupted, and called again by the interrupt will find its variables screwed up when the interrupt returns. And some innocent looking operators like *, %, /, &lt;&lt; and &gt;&gt; (shifts by more than 1) are implementated as procedures/functions....&nbsp;</LI>
+<LI><SPAN class=RVTS3>JAL doesn't count the stackposition</SPAN>&nbsp;for the interrupt !! So when using interrupts be aware that the stacksize mentioned by the compiler is &lt;=7 !!!&nbsp; (with the newer compilers&nbsp;</LI>
+<LI>Interrupts use the general ram location 0x7F, so this location is not available for the user&nbsp;</LI>
+<LI>entering and leaving an interrupt, each costs about 10 instructions (@20 MHz that's&nbsp; enter=2usec, leaving=2 usec)&nbsp;</LI>
+<LI><SPAN class=RVTS3>IRP is not known on entering an interrupt</SPAN>, and therefor if indirect addressing is used in interrupt routine, IRP should always be definied in an interrupt routine&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="calculations"></A>
+<SPAN class=RVTS2>Calculations&nbsp;</SPAN></P>
+<P>Use as many parenthesis, so that only operations on 2 operands are calculated.</P>
+<P>For instance</P>
+<P>&nbsp;&nbsp;&nbsp; A = B - C - D</P>
+<P>is calculated as</P>
+<P>&nbsp;&nbsp;&nbsp; A = B - ( C - D )</P>
+<P>so the correct way to write it is</P>
+<P>&nbsp;&nbsp;&nbsp; A = ( B - C ) - D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A&nbsp; =&nbsp; B&nbsp; -&nbsp; ( C + D )</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="pragma_target_chip"></A>
+<SPAN class=RVTS2>Pragma target Chip</SPAN></P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Definition</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pragma target chip 16f628</P>
+<P>&nbsp;can be used to create conditional compilation (note the syntax !)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if target_chip == PIC_16F628 then</P>
+<P>But this pragma is only limited implemented, see on the right.</P></TD>
+<TD valign=top>
+<P><SPAN class=RVTS3>Working Ok</SPAN></P>
+<P>pic_16c84</P>
+<P>pic_16f84</P>
+<P>pic_16f877</P>
+<P>pic_12ce674</P></TD>
+<TD valign=top>
+<P><SPAN class=RVTS3>Translated to PIC_12CE674</SPAN></P>
+<P>pic_12c509a</P>
+<P>pic_12c508</P>
+<P>pic_16f628</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="page"></A>
+<SPAN class=RVTS2>Page&nbsp;</SPAN><IMG width=14 height=14 src="top_page.gif"></P>
+<P>The "page" instruction is only needed when including assembler parts in programs that (can) exceed the 2k program memory size.</P>
+<P>In fact "page &lt;label&gt;" is just a macro that will generate (sometimes !!) 2 instructions that will set bits 3 and 4 of&nbsp; PCLATH, according to the address of &lt;label&gt;. These bits are necessary to compute the full address for a CALL or GOTO statement (and are also needed for instruction with the PCL register as a destination. If the JAL compiler comes to the conclusion that the PCLATH bits settings are not necessary (because they are already set in the correct way), the compiler will not generate these 2 instructions. In designing accurate timing routines, you can force the compiler to generate these 2 lines of code (when inserting a page-instruction) by&nbsp; using the "pragma keep page" instruction. The scope of&nbsp; "pragma keep page" is the line where this statement is given until the end of the current subroutine. But (from Wouter) it's not garanteed that "pragma keep page" will work in all situations.</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>In general the construction on the right will work.</P>
+<P>You must be sure that between the setting of the page bits and the CALL or GOTO the PCLATH bits reamin the same.</P>
+<P>Especially when there are more labels in one subroutine, the best way is to place a "page" statement&nbsp; just before every CALL or GOTO.</P></TD>
+<TD valign=middle>
+<P>&lt;JAL&gt;</P>
+<P>procedure ....</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp; pragma keep page</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp; assembler</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .....</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loop1:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ....</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; page loop1</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto loop1</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .....</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; page loop1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --must be before the conditional statement</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; btfss&nbsp;&nbsp; zero</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto loop1</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .....</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp; end assembler</P>
+<P>&lt;/JAL&gt;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="pragmas"></A>
+<SPAN class=RVTS2>PRAGMA's</SPAN></P>
+<P>pragma target chip</P>
+<P>pragma test assert</P>
+<P>pragma test done</P>
+<P>pragma test catch: I use it to verify that the compiler rejects invlid programs. I can not imagine how you could use it.</P>
+<P>pragma jump table&nbsp; (only for tables uptil 256 bytes)</P>
+<P>pragma keep bank</P>
+<P>pragma keep page</P>
+<P>pragma raw_interrupt</P>
+<P>pragma keep var: prevent an unused variable from being optimized away</P>
+<P>var a,x,y,z</P>
+<P>pragma keep var x, y, z</P>
+<P>-- the compiler will 'keep' space for x,y,z.&nbsp;</P>
+<P>-- usefull only when address of a is used as base address of an 'array', (in that case it isn't optimized away)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; movlw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; get the address of x in accumulator</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; movwf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; store the address of x in xa,&nbsp; xa = @ x</P>
+<P>pragma config fuses</P>
+<P>pragma eedata</P>
+<P>pragma error</P>
+<P>pragma name</P>
+<P>pragma interrupt</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="strings"></A>
+<SPAN class=RVTS2>Strings&nbsp;</SPAN></P>
+<P>Double quote " must be declared as an number</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myvar = 0x22 -- """</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="jal__assembler"></A>
+<SPAN class=RVTS2>JAL &amp; Assembler&nbsp;</SPAN></P>
+<P>Testing a JAL bit in assembler</P>
+<P>&nbsp;&nbsp;&nbsp; var bit test</P>
+<P>Normal bit test in assembler</P>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp; BTFSC&nbsp; register, bit</P>
+<P>To test a "JAL" bit</P>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp; BTFSC&nbsp; test</P>
+<P>TRIS doesn't work for argument &gt;=8</P>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp; tris 8</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Calling JAL procedures from within assembler</SPAN></P>
+<P>From Javier Martinez (alias Javi), take care with this. For a success, use only procedures with no inputs or outputs parameters:</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>-- For a success, use only procedures with</P>
+<P>-- no inputs or outputs parameters:</P>
+<P>&lt;JAL&gt;</P>
+<P>procedure myproc is&nbsp;</P>
+<P>...</P>
+<P>end procedure</P>
+<P>assembler</P>
+<P>&nbsp;&nbsp;&nbsp; call myproc</P>
+<P>end assembler</P>
+<P>&lt;/JAL&gt;</P></TD>
+<TD valign=middle>
+<P>-- State machine, by using tail-chain call</P>
+<P>-- only valid if there are no page-crossings</P>
+<P>&lt;JAL&gt;</P>
+<P>&nbsp;&nbsp;&nbsp; -- normal procedure, assuming no IO parameters</P>
+<P>&nbsp;&nbsp; procedure SS1 is&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...</P>
+<P>&nbsp;&nbsp; end procedure</P>
+<P>&nbsp;&nbsp; procedure mySS (byte in SS_state) is</P>
+<P>&nbsp;&nbsp;&nbsp; assembler</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; movfw SS_state&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; statemachine counter</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addwf PCL,f&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; calculate table address</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto SS1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; state 1</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto SS2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; state 2</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto SS3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; state 3</P>
+<P>&nbsp;&nbsp;&nbsp; end assembler</P>
+<P>&nbsp; end procedure</P>
+<P>&lt;/JAL&gt;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="error:_null_pointer"></A>
+<SPAN class=RVTS2>error: NULL pointer&nbsp;</SPAN></P>
+<P>this is a compiler error which can occure in the following situations</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>pragma test assert&nbsp; aap == 10</P>
+<P>pragma test assert SPBRG == 11</P>
+<P>pragma test done</P></TD>
+<TD valign=top>
+<P>If simulation is set to a large number (&gt;1000) of lines, the testline SPBRG will raize this error.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>procedure EEDATA'put( byte in x ) is</P>
+<P>.....</P>
+<P>asm&nbsp; movfw&nbsp; EEDATA</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

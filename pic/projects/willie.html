@@ -1,0 +1,80 @@
+<HTML><HEAD><TITLE>np</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>August 2005</SPAN></P>
+<P><SPAN class=RVTS1>Willie / RobbieBot</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 style='{border-width : 0px}' cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=115 bgcolor=#FFFFE6 style='{border-width : 1px; border-color : #000000; border-style: solid; }'>
+<P>&nbsp;&nbsp;
+<BR>&nbsp;&nbsp;
+<BR><IMG width=121 height=192 src="willie_img1.gif"></P></TD>
+<TD width=544 bgcolor=#FFFFE6 style='{border-width : 1px; border-color : #000000; border-style: solid; border-left: none; }'>
+<P>All scripting is stored in one file:&nbsp; &lt;application-path&gt;\robbie_script.txt
+<BR>The script file can contain more then 1 program, because an empty line serves as the end of a program.
+<BR>A program (or part of it) is started, by putting the cursor on the line where the scrpt should start and then pressing ctrl-enter.
+<BR>&nbsp;&nbsp;
+<BR>Scripting is not case-sensitive.
+<BR>A line starting with a semi-collon ";" is interpreted as comment.&nbsp;&nbsp;
+<BR>The general command structure is&nbsp; "&lt;MOTOR&gt;&nbsp;&nbsp;&nbsp; &lt;POSITION&gt;"
+<BR>For the moment &lt;POSITION&gt; is not translated into degrees, but just send as a raw value to RobbieBot. Hex values may be entered, by preceeding them by a dollar-sign "$".
+<BR>&nbsp;&nbsp;
+<BR>D&nbsp; =&nbsp; draai
+<BR>A&nbsp; =&nbsp; arm1
+<BR>B&nbsp; =&nbsp; arm2
+<BR>K&nbsp; =&nbsp; knijper ( 0 or 1)
+<BR>W =&nbsp; wait&nbsp; (units of 100 msec, determined by getting a complete position line form RobbieBot)</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Scripting is executed as fast as possible, but execution pauzes on one of the following conditions:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>a command for a motor is given, while the previous command for that motor has not finished</LI>
+<LI>a wait command is encountered</LI>
+</UL>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 style='{border-width : 0px}' cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=202 bgcolor=#FFFFE6 style='{border-width : 1px; border-color : #000000; border-style: solid; }'>
+<P><IMG width=209 height=205 src="willie_img2.gif"></P></TD>
+<TD width=457 bgcolor=#FFFFE6 style='{border-width : 1px; border-color : #000000; border-style: solid; border-left: none; }'>
+<P class=RVPS2>&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 style='{border-width : 0px}' cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=162 bgcolor=#FFFFE6 style='{border-width : 1px; border-color : #000000; border-style: solid; }'>
+<P><IMG width=161 height=134 src="willie_img3.gif"></P></TD>
+<TD width=497 bgcolor=#FFFFE6 style='{border-width : 1px; border-color : #000000; border-style: solid; border-left: none; }'>&nbsp;
+</TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=614 height=461 src="robbie_arm/arm1.jpg">&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=128 height=220 src="willie_sensorr.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;</P>
+</BODY></HTML>

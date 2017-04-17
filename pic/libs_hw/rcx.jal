@@ -1,0 +1,671 @@
+-- -----------------------------------------------------------------------------
+-- <title RCX remote
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- Remote control by IR of the RCX
+--
+-- <version 1.0  somwhere 2002,  Stef Mientki
+--   - original release
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- <Example RCX
+; var volatile bit IR_out is pin_a4           -- IR diode
+; var volatile bit IR_dir is pin_a4_direction -- to set it as an ouput
+; const bit        IR_off =  high             -- IR diodes between IO and +5V
+;                                             -- if IR diodes between IO and GND
+;                                             -- then set IR_off = low
+; include RCX
+-- -----------------------------------------------------------------------------
+
+
+
+-- remote commands 0xD2 (always 2 arguments)
+const byte RCX_remcmd           = 0xD2
+const byte RCX_remcmd_stop      = 0
+const byte RCX_remcmd_Prog1     = 1
+const byte RCX_remcmd_Prog2     = 2
+const byte RCX_remcmd_Prog3     = 3
+const byte RCX_remcmd_Prog4     = 4
+const byte RCX_remcmd_Prog5     = 5
+const byte RCX_remcmd_motA_forw = 6
+const byte RCX_remcmd_motA_back = 7
+const byte RCX_remcmd_motB_forw = 8
+const byte RCX_remcmd_motB_back = 9
+const byte RCX_remcmd_motC_forw = 10
+const byte RCX_remcmd_motC_back = 11
+const byte RCX_remcmd_mess1     = 12
+const byte RCX_remcmd_mess2     = 13
+const byte RCX_remcmd_mess3     = 14
+const byte RCX_remcmd_sound     = 15
+
+const byte RCX_sound2           = 16
+
+const RCX_cmd_motorON_AC        = 17
+const RCX_cmd_motorOFF_AC       = 18
+const RCX_cmd_inc_power_AC      = 19
+const RCX_cmd_dec_power_AC      = 20
+
+const RCX_cmd_motor_A_forw      = 21
+const RCX_cmd_motor_A_back      = 22
+const RCX_cmd_motor_B_forw      = 23
+const RCX_cmd_motor_B_back      = 24
+const RCX_cmd_motor_C_forw      = 25
+const RCX_cmd_motor_C_back      = 26
+
+const RCX_cmd_motor_power       = 27
+const RCX_cmd_motor_direction   = 28
+const RCX_cmd_motor_on          = 29
+const RCX_cmd_motor_off         = 30
+
+const RCX_motor_change          = 31
+const RCX_cmd_NULL              = 32
+
+const byte RCX_cmd_playtone     = 0x02  -- var=? , duration (1/100 sec)
+
+
+-- motorlist ..mmm = ..CBA
+const byte _RCX_cmd_setpower_AC = 0x13  -- 0000_0mmm , 2 , 0..7
+const byte _RCX_cmd_setpower_B  = 0x13  -- 0000_0mmm , 2 , 0..7
+const byte _RCX_cmd_motor       = 0x21  -- sc00_0mmm  s=ON, c=OFF, sc=FLOAT
+
+
+var byte _RCX_motor_power_AC    = 0
+var byte _RCX_motor_power_B     = 0
+
+var byte RCX_motor_list      -- xxxx_xCBA
+var byte RCX_motor_power     -- 0..7
+var bit  RCX_motor_direction -- forward = $80, backwards = 00
+
+-- const byte _RCX_cmd_A_forw      = 0xE1
+-- const RCX_cmd_motor_A_forw      = 21
+--      ($E1,$16,0),   {Set Motor Direction}
+--      ($13,$E4,0),   {Set Motor Power}
+--      ($21,$D6,0),   {Set Motor On/Off}
+
+--      ($10,$E7,0),   {Alive}
+--      ($30,$C7,2),   {Get Battery Power}
+--      ($22,$D5,0),   {Set Time}
+--      ($31,$C6,0),   {Set Transmitter Range}
+--      ($B1,$46,0),   {Set Power Down Delay}
+--      ($60,$97,0),   {Power Off}
+
+--      ($05,$F2,0),   {Set Source}
+
+--      ($12,$E5,2),   {Get Value}
+--      ($14,$E3,0),   {Set Var}
+--      ($24,$D3,0),   {Add to Var}
+--      ($34,$C3,0),   {Subtract Var}
+--      ($54,$A3,0),   {Multiply Var}
+--      ($44,$B3,0),   {Divide Var}
+--      ($84,$73,0),   {AND Var}
+--      ($94,$63,0),   {OR Var}
+--      ($74,$83,0),   {Absolute Value}
+--      ($64,$93,0),   {Sign Var}
+
+--      ($52,$A5,1),   {Set Datalog Size}
+--      ($62,$95,1),   {Datalog Next}
+--      ($A4,$53,$FF), {Upload DataLog}
+
+--      ($42,$B5,0),   {Set Sensor Mode}
+--      ($32,$C5,0),   {Set Sensor Type}
+--      ($D1,$26,0),   {Clear Sensor}
+--      ($A1,$56,0),   {Clear Timer}
+
+--      ($E1,$16,0),   {Set Motor Direction}
+--      ($13,$E4,0),   {Set Motor Power}
+--      ($21,$D6,0),   {Set Motor On/Off}
+
+--      ($51,$A6,0),   {Play Sound}
+--      ($23,$D4,0),   {Play Tone}
+--      ($33,$C4,0),   {Set Display}
+
+--      ($91,$66,0),   {Set Program Number}
+--      ($71,$86,0),   {Start Task}
+--      ($25,$D2,1),   {Start Task Download}
+--      ($45,$B2,1),   {Transfer Data}
+--      ($81,$76,0),   {Stop Task}
+--      ($50,$A7,0),   {Stop All Tasks}
+--      ($61,$96,0),   {Delete Task}
+--      ($40,$B7,0),   {Delete All Tasks}
+--      ($35,$C2,1),   {Start Subroutine Download}
+--      ($C1,$36,0),   {Delete Subroutine}
+--      ($70,$87,0),   {Delete All Subroutines}
+
+--      ($15,$E2,4),   {Unlock Brick}
+--      ($75,$82,1),   {Start Firmware Download}
+--      ($A5,$52,25),  {Unlock Firmware}
+--      ($65,$92,0),   {Delete Firmware}
+--      ($20,$D7,188), {Get Memory Map}
+
+--      ($D2,$00,0)    {remote command, no reply !!}
+
+
+-- -----------------------------------------------------------------------------
+-- "local" variables,
+-- which are global in this unit
+-- -----------------------------------------------------------------------------
+var byte _IR_send_byte          -- current IR byte to send
+var byte _IR_send_bitcnt = 0xFF -- disable IR-transmission
+var bit  _IR_send_busy = true   -- must be false
+var bit  _IR_out_bit            -- IR send bit transported to interrupt routine
+
+-- 2* 38 kHz / 2400 Baud = 31.7 half-cycles
+const byte IR_half_cycles_in_bit = 32
+
+var byte _IR_send_bytecnt       -- state counter for sending RCX string
+var byte _IR_send_RCX_cmd       -- RCX command
+var byte _IR_send_RCX_narg      -- number of arguments, depending on RCX command
+var byte _IR_send_RCX_arg1      -- first argument to send
+var byte _IR_send_RCX_arg2      -- second argument to send
+var byte _IR_send_RCX_arg3      -- second argument to send
+
+var byte _last_RCX_cmd = 0      -- necessary for toggling 0x08 bit
+
+var byte _counter_hf_pulses     = 0  -- incremented by interrupt routine
+var byte _counter_hf_pulses_old = 0  -- to count the number of interrupts
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure interrupt_init is
+  -- disable all interrupts and wait till condition satisfied
+  while gie loop gie = false end loop
+
+  var byte opt at 0x01
+  assembler
+    bsf    _status, 5      -- goto BANK 1
+    movfw  opt             -- W = option
+    andlw  0b_0101_0000    -- Enable pull ups,T0source=clkout,
+                           -- Prescaler->T0, prescaler=0
+    iorlw  0b_0000_1000    -- set PSA, (prescaler to watchdog)
+    clrwdt                 -- clear watchdog timer, why ??
+    movwf  opt             -- option = W
+    bcf    _status, 5      -- goto BANK 0
+  end assembler
+
+  T0ie = true      -- unmask T0 interrupt
+  gie  = true      -- enable (unmasked) interrupts
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- 38 kHz oscillator/modulator for the IR-transmitter
+-- the oscillator is modulated by IR_OUT_BIT,
+-- which is manipulated by the program main loop
+--
+-- timing is based on a 20 Mc X-tal
+-- delay fully in timer0 register, to get as less interrupts as possible
+-- -----------------------------------------------------------------------------
+procedure IR_send_interrupt_handler is
+;;;;;<;mac> interrupt_sub IR_send_interrupt_handler T0IF 5
+;;;;;<;/mac>
+  -- first action: preset timer0 counter again
+  -- 38 kHz, half period = 13.2 usec
+  -- Xtal 20 MHz, T0 = 5 Mhz => 0.2 usec
+  -- so there should be 13.2 / 0.2 = 66 ticks ==> tmr0=-65
+  -- for some reason we loose some ticks/instructions, pushes ??
+  tmr0 = -46
+
+  -- only control IR diode if necessary,
+  -- portpin maybe also used for other purposes
+  if _IR_send_bytecnt > 0 then
+    -- toggle IR output if "1" else turn it off
+    if _IR_out_bit then IR_out = ! IR_out
+    else IR_out = IR_off
+    end if
+  end if
+
+  -- increment counter for the outside world
+  _counter_hf_pulses = _counter_hf_pulses + 1
+
+  -- last action: clear TOIF to re-enable timer interrupts
+  t0if = false
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- IR send of next bit, sets up the information for the interrupt routine,
+-- which does the IR-modulation 38 kHz .. 40 kHz
+-- to start, put data in IR_send_byte, set IR_send_bitcnt=0
+-- then waiting for IR_send_bitcnt=11 gives 1 stopbit
+-- then waiting for IR_send_bitcnt=12 gives 2 stopbits
+-- -----------------------------------------------------------------------------
+procedure IR_send_next_bit is
+var bit _current_bit at _IR_send_byte : 0     -- start with LSB
+var bit _IR_send_parity
+
+  if _IR_send_bitcnt == 0 then
+    _IR_out_bit = true                        -- 1 start bit
+    _IR_send_parity = false                   -- initialize parity
+
+  elsif _IR_send_bitcnt == 9 then
+    _IR_out_bit = _IR_send_parity             -- parity bit
+
+  elsif _IR_send_bitcnt >= 10
+    then _IR_out_bit = false                  -- rest stop bits
+
+  else
+    _IR_out_bit = ! _current_bit              -- data is inverted !!
+                                              -- IR modulation if "0"
+    if _current_bit then
+      _IR_send_parity = ! _IR_send_parity     -- track parity
+    end if
+    _IR_send_byte = _IR_send_byte >> 1        -- get next bit
+  end if
+  
+  if _IR_send_bitcnt < 0xFF then              -- prevent overflow
+    _IR_send_bitcnt = _IR_send_bitcnt + 1     -- update bit count
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- to start:
+-- set IR_send_bytecnt to N+1
+-- (initially, set IR_send_bitcnt = 0xFF = no start of IR transmitting yet)
+--
+-- In normal RCX communication as well in remote control commands,
+-- all information is transported in a packet.
+-- Every command or every complete download is packed in a packet.
+-- The packet consists of
+--  * HEADER, always 55 FF 00 (in receiving the first byte "55" isn't always
+--    reliable)
+--  * DATABYTES, where each databyte is followed by it's complement.
+--    So if you've to send "55 F7", you would have to send "55 AA F7 08"
+--  * CHECKSUM, that is the sum over all real databytes.
+--    Also the checksum is followed by its complement !
+--  IMPORTANT, RCX never executes same exact opcode twice in a row,
+--  therefor every command has 2 occurences, one with the third bit set and
+--  the other with third bit reset.
+--  So you've to toggle this third bit if you want a command sent twice.
+-- -----------------------------------------------------------------------------
+procedure IR_send_next_RCX_byte is
+  if _IR_send_bitcnt <= 10 then IR_send_next_bit end if
+  
+  -- this must be a separate if-loop, because RCX expects only 1 stopbit,
+  -- on sending the last bit (IR_send_bitcnt = 10 ==> 11),
+  -- both the previous loop and this loop must be executed
+  if _IR_send_bitcnt >= 11 then
+    -- if still more bytes to send, continue
+    if _IR_send_bytecnt > 0 then
+      if _IR_send_bytecnt == 14 then _IR_send_byte = 0x55
+      elsif _IR_send_bytecnt == 13 then _IR_send_byte = 0xFF
+      elsif _IR_send_bytecnt == 12 then _IR_send_byte = 0x00
+      elsif _IR_send_bytecnt == 11 then
+        if _last_RCX_cmd == _IR_send_RCX_cmd then
+          _IR_send_RCX_cmd = _IR_send_RCX_cmd ^ 0x08
+        end if
+        _last_RCX_cmd = _IR_send_RCX_cmd
+        _IR_send_byte = _IR_send_RCX_cmd
+      elsif _IR_send_bytecnt == 10 then _IR_send_byte = _IR_send_RCX_cmd ^ 0xFF
+      elsif _IR_send_bytecnt == 9 then
+        if _IR_send_RCX_narg >= 1 then _IR_send_byte = _IR_send_RCX_arg1
+        else _IR_send_bytecnt = 3 end if
+      elsif _IR_send_bytecnt == 8 then _IR_send_byte = _IR_send_RCX_arg1 ^ 0xFF
+      elsif _IR_send_bytecnt == 7 then
+        if _IR_send_RCX_narg >= 2 then _IR_send_byte = _IR_send_RCX_arg2
+        else _IR_send_bytecnt = 3 end if
+
+      elsif _IR_send_bytecnt == 6 then _IR_send_byte = _IR_send_RCX_arg2 ^ 0xFF
+      elsif _IR_send_bytecnt == 5 then
+        if _IR_send_RCX_narg >= 3 then _IR_send_byte = _IR_send_RCX_arg3
+        else _IR_send_bytecnt = 3 end if
+
+
+      elsif _IR_send_bytecnt == 4 then _IR_send_byte = _IR_send_RCX_arg3 ^ 0xFF
+      end if
+
+      -- new test, because in the previous test some states could be jumped over
+      if _IR_send_bytecnt == 3 then
+        if _IR_send_RCX_narg >= 1 then
+          _IR_send_RCX_cmd = _IR_send_RCX_cmd + _IR_send_RCX_arg1
+          if _IR_send_RCX_narg >= 2 then
+            _IR_send_RCX_cmd = _IR_send_RCX_cmd + _IR_send_RCX_arg2
+            if _IR_send_RCX_narg >= 3 then
+              _IR_send_RCX_cmd = _IR_send_RCX_cmd + _IR_send_RCX_arg3
+            end if
+          end if
+        end if
+        _IR_send_byte = _IR_send_RCX_cmd
+      elsif _IR_send_bytecnt == 2 then _IR_send_byte = _IR_send_RCX_cmd ^ 0xFF
+      end if
+
+      -- update byte counter, and start transmission of next byte if not ready
+      _IR_send_bytecnt = _IR_send_bytecnt - 1
+      if _IR_send_bytecnt > 0 then _IR_send_bitcnt = 0 end if
+    end if
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+procedure IR_send_next_RCX_byte2 is
+  if _IR_send_bitcnt <= 10 then IR_send_next_bit end if
+
+  -- this must be a separate if-loop, because RCX expects only 1 stopbit,
+  -- on sending the last bit (IR_send_bitcnt = 10 ==> 11),
+  -- both the previous loop and this loop must be executed
+  if _IR_send_bitcnt >= 11 then
+    -- if still more bytes to send, continue
+    if _IR_send_bytecnt > 0 then
+      if _IR_send_bytecnt == 12 then _IR_send_byte = 0x55
+      elsif _IR_send_bytecnt == 11 then _IR_send_byte = 0xFF
+      elsif _IR_send_bytecnt == 10 then _IR_send_byte = 0x00
+      elsif _IR_send_bytecnt == 9 then
+        if _last_RCX_cmd == _IR_send_RCX_cmd then
+          _IR_send_RCX_cmd = _IR_send_RCX_cmd ^ 0x08
+        end if
+        _last_RCX_cmd = _IR_send_RCX_cmd
+        _IR_send_byte = _IR_send_RCX_cmd
+      elsif _IR_send_bytecnt == 8 then _IR_send_byte = _IR_send_RCX_cmd ^ 0xFF
+      elsif _IR_send_bytecnt == 7 then
+        if _IR_send_RCX_narg >= 1 then _IR_send_byte = _IR_send_RCX_arg1
+        else _IR_send_bytecnt = 3 end if
+      elsif _IR_send_bytecnt == 6 then _IR_send_byte = _IR_send_RCX_arg1 ^ 0xFF
+      elsif _IR_send_bytecnt == 5 then
+        if _IR_send_RCX_narg >= 2 then _IR_send_byte = _IR_send_RCX_arg2
+        else _IR_send_bytecnt = 3 end if
+      elsif _IR_send_bytecnt == 4 then _IR_send_byte = _IR_send_RCX_arg2 ^ 0xFF
+      end if
+
+      -- new test, because in the previous test some states could be jumped over
+      if _IR_send_bytecnt == 3 then
+        if _IR_send_RCX_narg >= 1 then
+          _IR_send_RCX_cmd = _IR_send_RCX_cmd + _IR_send_RCX_arg1
+          if _IR_send_RCX_narg >= 2 then
+            _IR_send_RCX_cmd = _IR_send_RCX_cmd + _IR_send_RCX_arg2
+          end if
+        end if
+        _IR_send_byte = _IR_send_RCX_cmd
+      elsif _IR_send_bytecnt == 2 then _IR_send_byte = _IR_send_RCX_cmd ^ 0xFF
+      end if
+
+      -- update byte counter, and start transmission of next byte if not ready
+      _IR_send_bytecnt = _IR_send_bytecnt - 1
+      if _IR_send_bytecnt > 0 then _IR_send_bitcnt = 0 end if
+    end if
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- checks if the duration of 1 bit-time is passed
+-- -----------------------------------------------------------------------------
+function RCX_bittime return bit is
+var byte _delta
+
+  -- calculate how many TMR0 interrupts have occured
+  _delta = _counter_hf_pulses - _counter_hf_pulses_old
+
+  -- correct for possible overflow
+  if (_delta & 0x80 ) != 0 then
+    _delta = ( ! _delta ) + 1
+  end if
+
+  if _delta >= IR_half_cycles_in_bit then
+     _counter_hf_pulses_old = _counter_hf_pulses
+    return false
+  else
+    return true
+  end if
+
+end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- prepares are global variables to send a complete RCX-command
+-- -----------------------------------------------------------------------------
+procedure RCX_send_command ( byte in RCX_cmd ) is
+  -- because in the case of a remote command always 1 argument is zero,
+  -- it's somewhat more efficient to set both to zero at the start
+  _IR_send_RCX_cmd = RCX_remcmd     -- remote command
+  _IR_send_RCX_arg1 = 0x00          -- nothing
+  _IR_send_RCX_arg2 = 0x00          -- nothing
+  _IR_send_RCX_arg3 = 0x00          -- nothing
+
+  if RCX_cmd == RCX_cmd_NULL then   -- special "inbetween" command
+  elsif RCX_cmd == RCX_remcmd_prog1 then
+    _IR_send_RCX_arg1 = 0x02    -- Program 1
+  elsif RCX_cmd == RCX_remcmd_prog2 then
+    _IR_send_RCX_arg1 = 0x04    -- Program 2
+  elsif RCX_cmd == RCX_remcmd_prog3 then
+    _IR_send_RCX_arg1 = 0x08    -- Program 3
+  elsif RCX_cmd == RCX_remcmd_prog4 then
+    _IR_send_RCX_arg1 = 0x10    -- Program 4
+  elsif RCX_cmd == RCX_remcmd_prog5 then
+    _IR_send_RCX_arg1 = 0x20    -- Program 5
+  elsif RCX_cmd == RCX_remcmd_stop then
+    _IR_send_RCX_arg1 = 0x40    -- Stop all programs and motors
+  elsif RCX_cmd == RCX_remcmd_motA_forw then
+    _IR_send_RCX_arg2 = 0x08    -- motor A forward
+  elsif RCX_cmd == RCX_remcmd_motA_back then
+    _IR_send_RCX_arg2 = 0x40    -- motor A backward
+  elsif RCX_cmd == RCX_remcmd_motB_forw then
+    _IR_send_RCX_arg2 = 0x10    -- motor B forward
+  elsif RCX_cmd == RCX_remcmd_motB_back then
+    _IR_send_RCX_arg2 = 0x80    -- motor B forward
+  elsif RCX_cmd == RCX_remcmd_motC_forw then
+    _IR_send_RCX_arg2 = 0x20    -- motor C forward
+  elsif RCX_cmd == RCX_remcmd_motC_back then
+    _IR_send_RCX_arg1 = 0x01    -- nothing
+  elsif RCX_cmd == RCX_remcmd_mess1 then
+    _IR_send_RCX_arg2 = 0x01    -- nothing
+  elsif RCX_cmd == RCX_remcmd_mess2 then
+    _IR_send_RCX_arg2 = 0x02    -- RCX message 1
+  elsif RCX_cmd == RCX_remcmd_mess3 then
+    _IR_send_RCX_arg2 = 0x04    -- nothing
+  elsif RCX_cmd == RCX_sound2 then
+    _IR_send_RCX_cmd  = 0x51    -- playsound
+    _IR_send_RCX_arg1 = 0x02    -- sound = 2
+
+  elsif RCX_cmd == RCX_cmd_motorON_AC  then
+    _IR_send_RCX_cmd  = _RCX_cmd_motor
+    _IR_send_RCX_arg1 = 0x85
+
+  elsif RCX_cmd == RCX_cmd_inc_power_AC  then
+    if _RCX_motor_power_AC <= 7 then
+      _IR_send_RCX_cmd  = _RCX_cmd_setpower_AC
+      _IR_send_RCX_arg1 = 0x85
+      _IR_send_RCX_arg2 = 2     -- source is constant
+      _RCX_motor_power_AC = _RCX_motor_power_AC + 1
+      _IR_send_RCX_arg3 = _RCX_motor_power_AC
+    end if
+  elsif RCX_cmd == RCX_cmd_dec_power_AC  then
+    if _RCX_motor_power_AC > 0 then
+      _IR_send_RCX_cmd  = _RCX_cmd_setpower_AC
+      _IR_send_RCX_arg1 = 0x85
+      _IR_send_RCX_arg2 = 2     -- source is constant
+      _RCX_motor_power_AC = _RCX_motor_power_AC - 1
+      _IR_send_RCX_arg3 = _RCX_motor_power_AC
+    end if
+-- const RCX_cmd_motor_power =
+-- const RCX_cmd_motor_direction =
+-- const RCX_cmd_motor_on =
+-- const RCX_cmd_motor_off =
+var byte RCX_motor_list     -- xxxx_xCBA
+var byte RCX_motor_power
+
+
+  elsif  RCX_cmd == RCX_cmd_motor_power then
+    _IR_send_RCX_cmd  = 0x13
+    _IR_send_RCX_arg1 = RCX_motor_list  -- 0000_0CBA
+    _IR_send_RCX_arg2 = 2               -- source is a constant
+    _IR_send_RCX_arg3 = RCX_motor_power -- power 0..7
+                                          -- on RCX displayed as 1..8
+      
+  elsif  RCX_cmd == RCX_cmd_motor_direction then
+    _IR_send_RCX_cmd  = 0xE1
+    if RCX_motor_direction then
+      _IR_send_RCX_arg1 = RCX_motor_list | 0x80
+    else
+      _IR_send_RCX_arg1 = RCX_motor_list
+    end if
+    
+  elsif  RCX_cmd == RCX_cmd_motor_on then
+    _IR_send_RCX_cmd  = 0x21
+    _IR_send_RCX_arg1 = RCX_motor_list | 0x80
+  elsif  RCX_cmd == RCX_cmd_motor_off then
+    _IR_send_RCX_cmd  = 0x21
+    _IR_send_RCX_arg1 = RCX_motor_list | 0x40
+
+
+      
+-- const byte _RCX_cmd_A_forw      = 0xE1
+-- const RCX_cmd_motor_A_forw      = 21
+--      ($E1,$16,0),   {Set Motor Direction}
+--      ($13,$E4,0),   {Set Motor Power}
+--      ($21,$D6,0),   {Set Motor On/Off}
+
+-- motorlist ..mmm = ..CBA
+const byte _RCX_cmd_setpower_AC = 0x13  -- 0000_0mmm , 2 , 0..7
+const byte _RCX_cmd_setpower_B  = 0x13  -- 0000_0mmm , 2 , 0..7
+const byte _RCX_cmd_motor       = 0x21  -- sc00_0mmm  s=ON, c=OFF, sc=FLOAT
+var byte _RCX_motor_power_AC    = 0
+var byte _RCX_motor_power_B     = 0
+
+
+  else
+    _IR_send_RCX_arg1 = 0x80    -- remote sound
+  end if
+
+  -- last 2 bits of cmd is nr args
+  _IR_send_RCX_narg = _IR_send_RCX_cmd & 0x03
+
+  -- bytecount is always 12 (maximum numebr of bytes to send)
+  _IR_send_bytecnt = 12
+
+  -- set no start of IR transmitting yet, see procedure IR_send_next_RCX_byte
+  _IR_send_bitcnt = 0xFF
+
+  -- if the port was used for something else,
+  -- ensure it's output now for sending IR data to the RCX
+  IR_dir = output
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- transmit complete RCX-commandstring and
+-- wait till transmission is completed
+--
+-- it's possible to put these statements into the main program loop,
+-- to do something else in the time left (very little),
+-- but this is not encouraged, because the timing is very critical
+-- -----------------------------------------------------------------------------
+procedure RCX_send_command_and_wait ( byte in cmd) is
+
+  -- prepare RCX command
+  -- (start of IR-modulator is done by IR_send_next_RCX_byte)
+  RCX_send_command ( cmd )
+
+  -- initialize bittimer
+  _counter_hf_pulses_old = _counter_hf_pulses
+
+  -- loop untill all bytes are sent
+  while _IR_send_bytecnt > 0 loop
+
+    -- start next bit or byte
+    -- (also starts the first bit)
+    IR_send_next_RCX_byte
+    
+    -- now wait for the duration of 1 bit
+    while RCX_bittime loop
+    end loop
+
+  end loop
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- For non-remote commands, the RCX will give a respons. So the next command
+-- from the remote control must wait until this respons is finished.
+--
+-- This routine may be called for other delay purposes.
+-- The delay is about 35 msec
+-- -----------------------------------------------------------------------------
+procedure RCX_wait_for_respons is
+var bit xxx
+  for 50 loop  -- 40 is too low
+    for 250 loop
+      xxx = ! xxx
+    end loop
+  end loop
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- motorlist ..mmm = ..CBA
+-- const byte _RCX_cmd_setpower_AC = 0x13  -- 0000_0mmm , 2 , 0..7
+-- const byte _RCX_cmd_setpower_B  = 0x13  -- 0000_0mmm , 2 , 0..7
+-- const byte _RCX_cmd_motor       = 0x21  -- sc00_0mmm  s=ON, c=OFF, sc=FLOAT
+
+
+const motor_A = 1
+const motor_B = 2
+const motor_C = 4
+var byte RCX_motor_dir_on = 0   -- 0CBA_0CBA msb=forward=0, lsb=on=1
+var byte RCX_motor_directions is RCX_motor_dir_on
+
+var bit RCX_motor_A_on        at RCX_motor_dir_on : 0
+var bit RCX_motor_B_on        at RCX_motor_dir_on : 1
+var bit RCX_motor_C_on        at RCX_motor_dir_on : 2
+var bit RCX_motor_A_direction at RCX_motor_dir_on : 4
+var bit RCX_motor_B_direction at RCX_motor_dir_on : 5
+var bit RCX_motor_C_direction at RCX_motor_dir_on : 6
+
+const RCX_motor_forward = true
+const RCX_motor_backward = ! RCX_motor_forward
+const RCX_motor_on      = true
+
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure RCX_update_motor ( byte in motor ) is
+  -- not always necessary, but to keep it simple,
+  -- always send all motor information
+  
+  -- first prepare status bytes
+  RCX_motor_list = motor
+  RCX_motor_direction = (RCX_motor_dir_on & (motor << 4) ) > 0
+
+  -- first send motorpower
+  RCX_send_command_and_wait ( RCX_cmd_motor_power )
+  RCX_wait_for_respons
+
+  -- then send motor direction
+  RCX_send_command_and_wait ( RCX_cmd_motor_direction )
+  RCX_wait_for_respons
+
+  -- then send motor on/off
+  if ( RCX_motor_dir_on & motor ) > 0 then
+    RCX_send_command_and_wait ( RCX_cmd_motor_on )
+  else
+    RCX_send_command_and_wait ( RCX_cmd_motor_off )
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+;procedure aap (byte in x, byte op in out = 5) is
+;end procedure
+
+
+
+
+-- -----------------------------------------------------------------------------
+-- INITIALIZATION
+-- -----------------------------------------------------------------------------
+  interrupt_init
+
+

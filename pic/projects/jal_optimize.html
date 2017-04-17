@@ -1,0 +1,88 @@
+<HTML><HEAD><TITLE>JAL compiler optimization</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>JAL optimizations</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>This page contains some personal notes on the JAL compiler and it's use, in respect to optimization.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>PCLATH</SPAN></P>
+<P>Bits &lt;4:3&gt; contains the address bits for addresses higher then 2K.</P>
+<P>To optimize for speed,</P>
+<P>I often use</P>
+<P>&nbsp; pragma target chip 16F628</P>
+<P>even when using 16F877.</P>
+<P>Now just passing the 2K boundery,</P>
+<P>I was thinking of using</P>
+<P>&nbsp; pragma target chip 16F874</P>
+<P>(for use with a 16F877)</P>
+<P>Unfortunatly, it still generated all the PCLATH &lt;3:4&gt; instructions,</P>
+<P>while PCLATH &lt;4&gt; has no function, because it's just a 4k device</P>
+<P>:-(</P>
+<P>Is there another pragma target chip,</P>
+<P>which will only control PCLATH &lt;3&gt; ??</P>
+<P>Wouldn't it be nice if we could say</P>
+<P>&nbsp;&nbsp; "pragma&nbsp; target&nbsp; programsize&nbsp; 4k"</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Meaningless instructions</SPAN></P>
+<P>What I do see, are some funny compiler constructions,</P>
+<P>which are not very meaningfull:</P>
+<P>-- here the result is in w and should be transported to reg28</P>
+<P>-- x and y are temporary registers</P>
+<P>mov&nbsp;&nbsp; w, x</P>
+<P>mov&nbsp;&nbsp; x, w</P>
+<P>mov&nbsp;&nbsp; w, y</P>
+<P>mov&nbsp;&nbsp; y, w</P>
+<P>mov&nbsp; w, 28</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Tris flushing optimization</SPAN></P>
+<P>&nbsp;</P>
+<P>;; 029 : pin_a3_direction = low</P>
+<P>&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; H'022',3</P>
+<P>&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; H'00A',3</P>
+<P>&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; H'00A',4</P>
+<P>&nbsp; call&nbsp;&nbsp;&nbsp; _5832__vector</P>
+<P>&nbsp;</P>
+<P>;; 745 : procedure pin_a3_direction'put( bit in d at trisa_shadow : 3 ) is</P>
+<P>p_5832__pin_a3_direction__put_t: ; 0185</P>
+<P>_5832__vector: ; 0185</P>
+<P>; var H'022:003' d</P>
+<P>p_5832_put: ; 0185</P>
+<P>&nbsp;</P>
+<P>;; 746 :&nbsp;&nbsp;&nbsp; _trisa_flush</P>
+<P>&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; H'00A',3</P>
+<P>&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; H'00A',4</P>
+<P>&nbsp; goto&nbsp;&nbsp;&nbsp; _5382__vector</P>
+<P>&nbsp;</P>
+<P>_5382__vector: ; 0195</P>
+<P>p_5382__trisa_flush: ; 0195</P>
+<P>&nbsp;</P>
+<P>;; 665 :&nbsp;&nbsp;&nbsp;&nbsp; asm movfw trisa_shadow</P>
+<P>&nbsp; movf&nbsp;&nbsp;&nbsp; H'022',w</P>
+<P>&nbsp;</P>
+<P>;; 666 :&nbsp;&nbsp;&nbsp;&nbsp; bank_1</P>
+<P>&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; H'00A',3</P>
+<P>&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; H'00A',4</P>
+<P>&nbsp; call&nbsp;&nbsp;&nbsp; _5232__vector</P>
+<P>&nbsp;</P>
+<P>;; 667 :&nbsp;&nbsp;&nbsp;&nbsp; asm movwf&nbsp; 0x5</P>
+<P>&nbsp; movwf&nbsp;&nbsp; H'005'</P>
+<P>&nbsp;</P>
+<P>;; 668 :&nbsp;&nbsp;&nbsp;&nbsp; bank_0</P>
+<P>&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; H'00A',3</P>
+<P>&nbsp; bcf&nbsp;&nbsp;&nbsp;&nbsp; H'00A',4</P>
+<P>&nbsp; goto&nbsp;&nbsp;&nbsp; _5213__vector</P>
+<P>e_5382__trisa_flush: ; 019D</P>
+<P>&nbsp;</P>
+</BODY></HTML>

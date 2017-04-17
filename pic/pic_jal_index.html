@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="keywords" content="Lego; Mindstorms; PIC; JAL; JALcc; Robotics">
+  <meta name="author" content="Stef Mientki">
+  <title>Pic_header</title>
+  <link rel="STYLESHEET" type="text/css" href="styles.txt" title="none">
+
+<style>
+a {font-family:verdana;font-size:12px}
+.topic {font-size:12px;color:#005500;margin-bottom:2px;cursor:pointer}
+.level {margin-left:10px}
+div {margin-bottom:4px}
+img {margin-right:2px}
+</style>
+
+<script language="JavaScript">
+  function Toggle(node) {
+	// Unfold the branch if it isn't visible
+	  if (node.nextSibling.style.display == 'none')	{
+ 		// Change the image (if there is an image)
+		  if (node.childNodes.length > 0) {
+			  if (node.childNodes.item(0).tagname == "IMG") {
+				  node.childNodes.item(0).src = "minus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = '';
+	  }
+	  // Collapse the branch if it IS visible
+	  else {
+		// Change the image (if there is an image)
+		  if (node.childNodes.length > 0)	{
+        if (node.childNodes.item(0).tagname == "IMG") {
+   				node.childNodes.item(0).src = "plus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = 'none';
+	  }
+  }
+
+  function collapse(pId) {
+  var node
+    node=document.getElementById(pId)
+    node.childNodes.item(0).src = "plus.gif"
+    node.nextSibling.style.display = 'none'
+
+  }
+
+  function main() {
+    collapse("ID1")
+    collapse("ID2")
+    collapse("ID3")
+    collapse("ID4")
+    collapse("ID5")
+    collapse("ID6")
+    collapse("ID7")
+    collapse("ID8")
+    collapse("ID9")
+    collapse("ID10")
+    collapse("ID11")
+    collapse("ID12")
+    collapse("ID13")
+    collapse("ID14")
+    collapse("ID15")
+    collapse("ID16")
+  }
+</script>
+
+
+</head>
+<body>
+
+<body text="#000000" vlink="#5584aa" link="#006699" bgcolor="white" onload="main()">
+
+<table cellspacing="0" cellpadding="15" width="100%" height="88%">
+<tbody><tr><td class="bodyline" bgcolor="#ffffff" valign="top">
+
+<div><img src="dot.gif"><a href="jal/pragma.html" target="a">JAL manual - language - pragma's</a></div>
+<div><img src="dot.gif"><a href="jal/quick.html" target="a">JAL manual - quick reference</a></div>
+<div><img src="dot.gif"><a href="jal/random.html" target="a">JAL manual - libraries - random3</a></div>
+<div><img src="dot.gif"><a href="jal/serial.html" target="a">JAL manual - libraries - serial</a></div>
+<div><img src="dot.gif"><a href="jal/stats.html" target="a">JAL manual - language - statements</a></div>
+<div><img src="dot.gif"><a href="jal/sub.html" target="a">JAL manual - language - subprograms</a></div>
+<div><img src="dot.gif"><a href="jal/summary.html" target="a">JAL manual - summary</a></div>
+<div><img src="dot.gif"><a href="jal/sx.html" target="a">JAL manual - SX</a></div>
+<div><img src="dot.gif"><a href="jal/target.html" target="a">JAL manual - library - target specification files</a></div>
+<div><img src="dot.gif"><a href="jal/title.html" target="a">JAL manual</a></div>
+<div><img src="dot.gif"><a href="jal/types.html" target="a">JAL manual - language - types</a></div>
+<div><img src="dot.gif"><a href="jal/vars.html" target="a">JAL manual - language - variables</a></div>
+<div><img src="dot.gif"><a href="jal/e0001.jal" target="a">e0001</a></div>
+<div><img src="dot.gif"><a href="jal/e0002.jal" target="a">e0002</a></div>
+<div><img src="dot.gif"><a href="jal/e0003.jal" target="a">e0003</a></div>
+<div><img src="dot.gif"><a href="jal/e0004.jal" target="a">e0004</a></div>
+<div><img src="dot.gif"><a href="jal/e0005.jal" target="a">e0005</a></div>
+<div><img src="dot.gif"><a href="jal/e1008.jal" target="a">e1008</a></div>
+<div><img src="dot.gif"><a href="jal/jal.doc" target="a">jal</a></div>
+<div><img src="dot.gif"><a href="jal/e1008.tcl" target="a">e1008</a></div>
+<div><img src="dot.gif"><a href="jal/16x84.html" target="a">JAL manual - 16x84</a></div>
+<div><img src="dot.gif"><a href="jal/basics.html" target="a">JAL manual - language - basics</a></div>
+<div><img src="dot.gif"><a href="jal/cio.html" target="a">JAL manual - libraries - cio</a></div>
+<div><img src="dot.gif"><a href="jal/codegen.html" target="a">JAL manual - code generation</a></div>
+<div><img src="dot.gif"><a href="jal/compiler.html" target="a">JAL manual - compiler</a></div>
+<div><img src="dot.gif"><a href="jal/const.html" target="a">JAL manual - language - constants</a></div>
+<div><img src="dot.gif"><a href="jal/exa.html" target="a">JAL manual - examples</a></div>
+<div><img src="dot.gif"><a href="jal/exp.html" target="a">JAL manual - language - expressions</a></div>
+<div><img src="dot.gif"><a href="jal/hd44780.html" target="a">JAL Manual - JAL Libraries - hd447804, hd447808</a></div>
+<div><img src="dot.gif"><a href="jal/i2c.html" target="a">JAL manual - libraries - i2c</a></div>
+<div><img src="dot.gif"><a href="jal/index.html" target="a">JAL manual</a></div>
+<div><img src="dot.gif"><a href="jal/interval.html" target="a">JAL manual - library - interval</a></div>
+<div><img src="dot.gif"><a href="jal/intro.html" target="a">JAL manual - introduction</a></div>
+<div><img src="dot.gif"><a href="jal/jascii.html" target="a">JAL manual - library - jascii</a></div>
+<div><img src="dot.gif"><a href="jal/jdelay.html" target="a">JAL manual - library - jdelay</a></div>
+<div><img src="dot.gif"><a href="jal/jlib.html" target="a">JAL manual - library - jlib</a></div>
+<div><img src="dot.gif"><a href="jal/jpic.html" target="a">JAL manual - library - jpic</a></div>
+<div><img src="dot.gif"><a href="jal/jprint.html" target="a">JAL manual - libraries - jprint</a></div>
+<div><img src="dot.gif"><a href="jal/jseven.html" target="a">JAL manual - library - jseven</a></div>
+<div><img src="dot.gif"><a href="jal/jstepper.html" target="a">JAL manual - library - jstepper</a></div>
+<div><img src="dot.gif"><a href="jal/lang.html" target="a">JAL manual - language</a></div>
+<div><img src="dot.gif"><a href="jal/lib.html" target="a">JAL manual - libraries</a></div>
+<div><img src="dot.gif"><a href="jal/literals.html" target="a">JAL manual - language - literals</a></div>
+<div><img src="dot.gif"><a href="jal/lm75.html" target="a">JAL manual - libraries - lm75</a></div>
+<div><img src="dot.gif"><a href="jal/manual.html" target="a">JAL manual - contents</a></div>
+<div><img src="dot.gif"><a href="jal/notes.html" target="a">JAL manual - relase notes</a></div>
+</div>
+<div></div>
+
+</td></tr><tr></tr>
+</tbody></table>
+<form name=search method="post" target="a" action=search.php>
+  <input name=query length=40
+    <?if (isset($query))
+     echo("value=\"".htmlspecialchars($query)."\"");?>
+  <input type=submit value='search'><br>
+  <input type=radio checked=true name=m value=and>All words<br>
+  <input type=radio name=m value=or>At least one word
+ </input>
+</form>
+</body></html>

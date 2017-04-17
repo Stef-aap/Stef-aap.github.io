@@ -1,0 +1,441 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 03/28/06, 13:26
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 5A 0F 0D 00 49 0F <pp> <progname>  00 00 49 0F 47 0F
+; program name: V5RIJ1
+; file is NOT protected
+
+; unkown codes are inserted as "%%HH%%"
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+"COpYRIGHT"
+"HpFALTZGRAFF"
+Lbl B
+PlotsOff
+FnOff
+Clrhome
+AxesOff
+Lbl BE
+ClrDraw
+12->dim(L_1
+12->dim(L_1
+Fill(0,L_1
+Fill(0,L_1
+Clrhome
+"A=VELDMATRIX"
+RandInt(2,3)->F
+RandInt(2,3)->G
+RandInt(2,3)->H
+RandInt(2,3)->I
+[[(-)9,0,0,0,1][0,1,F,1,0][0,G,5,H,0][0,1,I,1,0][0,0,0,0,0]]->[A]
+"B=BEZETMATRX"
+{5,5}->dim([B])
+Fill(0,[B])
+(-)9->[B](1,1)
+"------------"
+ClrDraw
+Text(0,33,"V5RIJ1")
+Text(6,8,"SpELEN  TEGEN  DE  TI83")
+Text(12,1,"-----------------------------")
+Text(18,3,"GEBRUIK  CURSORpIJLTJES:")
+Text(25,13,"3  Op  RIJ  IS  1  pUNT")
+Text(31,13,"4  Op  RIJ  IS  2  pUNTEN")
+Text(37,13,"5  Op  RIJ  IS  3  pUNTEN")
+Text(45,0,"- HORIZONTAAL"
+Text(51,0,"- VERTICAAL")
+Text(57,0,"- DIAGONAAL")
+Text(57,68,"[ENTER]")
+Pause:Clrhome
+ClrDraw
+0->Xmin:0->Ymax
+94->Xmax:(-)62->Ymin
+GridOff:AxesOff:FnOff:ClrDraw
+For(X,8,40,8)
+  Line(X,0,X,(-)40)
+End
+For(Y,(-)40,(-)8,8)
+  Line(0,Y,40,Y)
+End
+Line(8,0,40,0)
+Line(0,(-)8,0,(-)40)
+StorePic 9
+Text(57,0,"ZET  KRUIS  MET  [ENTER]")
+4->X:(-)4->Y:0->Z
+1->Q
+"GETKEY-LUS"
+"----------"
+Lbl 0
+Pt_On(X,Y,3)
+While 1
+  Getkey->A
+  While A=0
+    Getkey->A
+  End
+  "CURSORpIJLEN"
+  "------------"
+  Pt_Off(8E-4,4-8F)
+  Pt_Off(X,Y,3)
+  If A=26 and X<=28:Then
+    X+8->X
+    Goto 0
+  End
+  If A=34 and Y>=(-)28:Then
+    Y-8->Y
+    Goto 0
+  End
+  If A=24 and X>=12:Then
+    X-8->X
+    Goto 0
+  End
+  If A=25 and Y<=(-)12:Then
+    Y+8->Y
+    Goto 0
+  End
+  If A=105 and X=4 and Y=(-)4:Then
+    Goto 0
+  End
+  If A=105:Then
+    Goto 1
+  Else
+    Goto 0
+  End
+  Lbl 1
+  (4-Y)/8->R
+  (4+X)/8->K
+  If [B](R,K)!=0:Then
+    Goto 0
+  End
+  "pLAATS X"
+  Line(X-2,Y+2,X+2,Y-2)
+  Line(X-2,Y-2,X+2,Y+2)
+  Text(57,0,"                                                                            ")
+  Text(57,0,"WACHT  EVEN . . .")
+  10R+K->L
+  1->[B](R,K):1->Q
+  "-----------"
+  "LAATSTE ZET"
+  If Z=11:Then
+    For(I,1,5)
+      For(J,1,5)
+        If [B](I,J)=0:Then
+          I->F:J->E:12->Z
+          (-)1->[B](I,J)
+          E->K:F->R:1->Q
+          Goto pO
+        End
+      End
+    End
+  End
+  "------------"
+  "VELDINST.[A]"
+  "------------"
+  Lbl VE
+  "VERT"
+  0->T
+  For(I,1,5)
+    [B](I,K)->B
+    If B=0:Then
+      If Q=(-)1 and T>=2:2T-1->T
+        [A](I,K)+T->[A](I,K):0->T
+    Else
+      If B=Q:Then
+        T+1->T
+      Else
+        0->T
+      End
+    End
+  End
+  0->T
+  For(I,5,1,(-)1)
+    [B](I,K)->B
+    If B=0:Then
+      If Q=(-)1 and T>=2:2T-1->T
+        [A](I,K)+T->[A](I,K):0->T
+    Else
+      If B=Q
+      Then
+        T+1->T
+      Else
+        0->T
+      End
+    End
+  End
+  "HOR"
+  0->T
+  For(J,1,5)
+  [B](R,J)->B
+    If B=0:Then
+      If Q=(-)1 and T>=2:2T-1->T
+        [A](R,J)+T->[A](R,J):0->T
+    Else
+      If B=Q:Then
+        T+1->T
+      Else
+        0->T
+      End
+    End
+  End
+  0->T
+  For(J,5,1,(-)1)
+    [B](R,J)->B
+    If B=0:Then
+      If Q=(-)1 and T>=2:2T-1->T
+        [A](R,J)+T->[A](R,J):0->T
+    Else
+      If B=Q:Then
+        T+1->T
+      Else
+        0->T
+      End
+    End
+  End
+  "DIAGONUp"
+  0->T
+  If R+K>=4 and R+K<=8:Then
+    For(I,1,5)
+      R+K-I->J
+      If J<=5 and J>=1:Then
+        [B](I,J)->B
+        If B=0:Then
+          If Q=(-)1 and T>=2:2T-1->T
+            [A](I,J)+T->[A](I,J):0->T
+        Else
+          If B=Q:Then
+            T+1->T
+          Else
+            0->T
+          End
+        End
+      End
+    End
+  End
+  0->T
+If R+K>=4 and R+K<=8
+Then
+For(I,5,1,(-)1)
+R+K-I->J
+If J<=5 and J>=1
+Then
+[B](I,J)->B
+If B=0
+Then
+If Q=(-)1 and T>=2:2T-1->T
+[A](I,J)+T->[A](I,J):0->T
+Else
+If B=Q
+Then
+T+1->T
+Else
+0->T
+End:End:End:End:End
+"DIAGODOWN"
+0->T
+If abs(R-K)<=2
+Then
+For(J,1,5)
+R-K+J->I
+If I>=1 and I<=5
+Then
+[B](I,J)->B
+If B=0
+Then
+If Q=(-)1 and T>=2:2T-1->T
+[A](I,J)+T->[A](I,J):0->T
+Else
+If B=Q
+Then
+T+1->T
+Else
+0->T
+End:End:End:End:End
+0->T
+If abs(R-K)<=2
+Then
+For(J,5,1,(-)1)
+R-K+J->I
+If I>=1 and I<=5
+Then
+[B](I,J)->B
+If B=0
+Then
+If Q=(-)1 and T>=2:2T-1->T
+[A](I,J)+T->[A](I,J):0->T
+Else
+If B=Q
+Then
+T+1->T
+Else
+0->T
+End:End:End:End:End
+"ZOEK MAXVELD"
+If Q=1
+Then
+0->S
+For(I,1,5)
+For(J,1,5)
+If [B](I,J)=0
+Then
+[A](I,J)->T
+If T>S
+Then
+T->S:I->R:J->K
+End:End:End
+End:End
+(-)1->[B](R,K)
+K->E:R->F
+If Q=1
+Then
+(-)1->Q:E->K:F->R
+Goto VE
+End
+"-----------"
+If Q=(-)1
+Then
+Z+1->Z
+E->K:F->R
+4->X:(-)4->Y:1->Q
+"pLAATS O"
+Lbl pO
+Text(57,0,"                                                 ")
+Text(57,0,"ZET  [ENTER]"
+Line(8E-6,6-8F,8E-6,2-8F)
+Line(8E-2,6-8F,8E-2,2-8F)
+Line(8E-5,6-8F,8E-3,6-8F)
+Line(8E-5,2-8F,8E-3,2-8F)
+Pt_On(8E-4,4-8F)
+Text(44,0,"RIJ: ",R)
+Text(44,22,"KOL: ",K)
+10R+K->L
+If Z=12:Goto pT
+1->Q:Goto 0
+End
+1->Q
+"------------
+Lbl pT
+"VERT"
+Text(57,0,"BEREKENING   EINDSTAND . . .")
+0->S:0->T:0->U
+For(K,1,5)
+For(R,1,5)
+If [B](R,K)=Q
+Then
+S+1->S
+If S>T:S->T
+Else
+If S>=3:S->T
+0->S
+End:End
+If T>=3:U+T-2->U
+0->S:0->T
+End
+"HOR"
+0->S:0->T
+For(R,1,5)
+For(K,1,5)
+If [B](R,K)=Q
+Then
+S+1->S
+If S>T:S->T
+Else
+If S>=3:S->T
+0->S
+End:End
+If T>=3:U+T-2->U
+0->S:0->T
+End
+"DIAUp"
+0->S:0->T
+For(M,4,8)
+For(I,1,5)
+M-I->J
+If J<=5 and J>=1
+Then
+If [B](I,J)=Q
+Then
+S+1->S
+If S>T:S->T
+Else
+If S>=3:S->T
+0->S
+End:End:End
+If T>=3:U+T-2->U
+0->S:0->T
+End
+"DIADOWN"
+0->S:0->T
+For(M,(-)2,2)
+For(I,1,5)
+I-M->J
+If J<=5 and J>=1
+Then
+If [B](I,J)=Q
+Then
+S+1->S
+If S>T:S->T
+Else
+If S>=3:S->T
+0->S
+End:End:End
+If T>=3:U+T-2->U
+0->S:0->T
+End
+"-----------
+If Q=1
+Then
+U->X:(-)1->Q
+Goto pT
+End
+U->O
+Text(18,60,"X:  ",X)
+Text(28,60,"O:  ",O)
+Text(51,0,"                                             ")
+Text(57,0,"                                                                             ")
+If X=O
+Then
+Text(57,0,"REMISE  . . .")
+End
+If X>O
+Then
+Text(57,0,"JE HEBT  GEWONNEN !")
+End
+If X<O
+Then
+Text(57,0,"JE HEBT  VERLOREN . . .")
+End
+Text(57,68,"[ENTER]")
+Pause
+Clrhome
+Lbl ME
+Menu("  HOE VERDER","STOppEN",ST,"SpEL NASpELEN",NA)
+Lbl NA
+ClrDraw
+RecallPic 9
+Text(57,0,"                                                                             ")
+Text(57,50,"DRUK  [ENTER]")
+Pause
+For(Z,1,12)
+L
+iPart(A/10)->R
+10*fPart(A/10)->K
+8R-7->X:8K-5->Y
+Text(X,Y,"X")
+Pause
+iPart(B/10)->R
+10*fPart(B/10)->K
+8R-7->X:8K-5->Y
+Text(X,Y,"O")
+Pause
+End
+Goto ME
+Lbl ST
+AxesOn
+ClrDraw
+Clrhome
+
+
+
+
+
+
+

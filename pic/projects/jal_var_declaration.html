@@ -1,0 +1,456 @@
+<HTML><HEAD><TITLE>JAL variables from INC file</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>February 2002</SPAN></P>
+<P><SPAN class=RVTS1>VAR Declaration</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Use of INC Files</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>Byte</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>JAL</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>Assembler</P>
+<P class=RVPS2>&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>in bank 0</P>
+<P>in bank 1</P>
+<P>in bank 2</P>
+<P>in bank 3</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PIR1 = 234</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EEDATA&nbsp; =&nbsp;&nbsp; EEDATA&nbsp; + 4</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EEDATA&nbsp; =&nbsp;&nbsp; EEDATA&nbsp; + 4</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EEDATA&nbsp; =&nbsp;&nbsp; EEDATA&nbsp; + 4</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; MOVWF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PIR1</P>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; MOVWF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _EEDATA</P>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; MOVWF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __EEDATA</P>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; MOVWF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ___EEDATA</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>&nbsp;
+</TD>
+<TD valign=top>&nbsp;
+</TD>
+<TD valign=top>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>Bit</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>JAL</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>Assembler</P>
+<P class=RVPS2>&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>in bank 0</P>
+<P>in bank 1</P>
+<P>in bank 2</P>
+<P>in bank 3</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TMR1IF = high</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TXSTA = TXSTA&nbsp;&nbsp; |&nbsp;&nbsp; _b_BRGH</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TXSTA = TXSTA&nbsp;&nbsp; |&nbsp;&nbsp; _b_BRGH</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TXSTA = TXSTA&nbsp;&nbsp; |&nbsp;&nbsp; _b_BRGH</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; BTFSC&nbsp;&nbsp;&nbsp;&nbsp; TMR1IF</P>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; BSF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _BRGH</P>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; BSF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __BRGH</P>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; BSF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ___BRGH</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>The goal is to achieve device independant programming of PICs.</P>
+<P>That is, porting code (JAL and assembler language) from one type of PIC to another type of PIC, without changing anything.</P>
+<P>If that's not possible, then at least&nbsp; I want to achieve is, the generation of compiler errors when porting of code needs code adaption.</P>
+<P>Most of the problems will come from the banking mechanism, which is used by PIC's,&nbsp; but is not supported by JAL (yet), and is not supported by the assembler in JAL</P>
+<P>In JAL there are some special constructions, ( Pseudo variables, Alias , Location , Constants ) which could be used to solve the problem.</P>
+<P>Further targets:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>use of the official Microchip names as definied in the device.INC files, both in JAL and Assembler&nbsp;</LI>
+<LI>deriving all the naming automatically form the device.inc files&nbsp;</LI>
+<LI>working both for byte variables and bit variables&nbsp;</LI>
+<LI>support of special function registers, which are available in more than 1 bank, from all available banks&nbsp;</LI>
+<LI>full and automatic support for the SFR's that needs shadowing, like TRIS&nbsp; (PORTS ?)&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Looking at a byte variable in bank 0, there's no problem.</P>
+<P>The official microchip name can be used an will be available in both JAL and Assembler.</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>INC-file</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>JAL</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>Assembler</P>
+<P class=RVPS2>&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>PIR1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'000C'</P></TD>
+<TD valign=top>
+<P>var&nbsp;&nbsp; volatile&nbsp;&nbsp; byte&nbsp;&nbsp; PIR1&nbsp;&nbsp;&nbsp;&nbsp; at&nbsp;&nbsp; 0x0C</P>
+<P>&nbsp;</P></TD>
+<TD valign=top>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=top>&nbsp;
+</TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PIR1 = 234</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; MOVWF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PIR1</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Looking at a byte variable in a higher bank , there's a serious problem.</P>
+<P>JAL can't deal with these variables. But you can wrap some assembler in a so called pseudo variable (macro substitution) and then these variables can be accessed in normal JAL syntax.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Now a choice has to be made, who gets the official microchip name ?</P>
+<P>Because JAL is the main language (assembler is only used if it's absolutely necessary), it seems logical that JAL gets the microchip name.</P>
+<P>The consequence is that in assembler another name has to be used, and thus if using assembler code from others, you have to translate all the variable names. But as long as the JAL compiler gives good error messages and code adaption can easily be done, there's no problem.</P>
+<P>&nbsp;&nbsp;</P>
+<P>A obvious choice, is to put for example an underscore before the variable name.</P>
+<P>Because the same variables are at different places in different devices, a good aproach is to use as many underscores as the bank number. In that way there's an extra control mechanism if you're adapting (manual) the assembler code.</P>
+<P>&nbsp;&nbsp;</P>
+<P>for the 16F62X -series</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>INC-file</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>JAL</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>Assembler</P>
+<P class=RVPS2>&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>EEDATA&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'009A'</P></TD>
+<TD valign=top>
+<P>var&nbsp;&nbsp; volatile&nbsp;&nbsp; byte&nbsp; _EEDATA&nbsp;&nbsp;&nbsp;&nbsp; at 0x9A</P>
+<P>&nbsp;</P>
+<P>procedure EEDATA'put( byte in x ) is</P>
+<P>&nbsp;</P>
+<P>function EEDATA'get return byte is</P>
+<P>&nbsp;</P></TD>
+<TD valign=top>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=top>&nbsp;
+</TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EEDATA&nbsp; =&nbsp;&nbsp; EEDATA&nbsp; + 4</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; MOVWF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _EEDATA</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>for the 16F87X -series</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>INC-file</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>JAL</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>Assembler</P>
+<P class=RVPS2>&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>EEDATA&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'010C'</P></TD>
+<TD valign=top>
+<P>var&nbsp;&nbsp; volatile&nbsp;&nbsp; byte&nbsp; __EEDATA&nbsp;&nbsp;&nbsp;&nbsp; at&nbsp; 0x10C</P>
+<P>&nbsp;</P>
+<P>procedure EEDATA'put( byte in x ) is</P>
+<P>&nbsp;</P>
+<P>function EEDATA'get return byte is</P>
+<P>&nbsp;</P></TD>
+<TD valign=top>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=top>&nbsp;
+</TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EEDATA&nbsp; =&nbsp;&nbsp; EEDATA&nbsp; + 4</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; MOVWF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __EEDATA</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>The above situation is quiet acceptable.</P>
+<P>The translation of inc-file to variable declarations (including pseudo-var declarations) can be done automatically.</P>
+<P>The use in JAL is always the same.</P>
+<P>The use of these variables in ASM must be done by handcraft but if wrong, the compiler will give an error message.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Now getting to the bit variables.</P>
+<P>Again when the register is in bank 0 the solution is straight forward.&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>INC-file</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>JAL</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>Assembler</P>
+<P class=RVPS2>&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>PIR1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'000C'</P>
+<P>TMR1IF&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'0000'</P></TD>
+<TD valign=top>
+<P>var&nbsp;&nbsp; volatile&nbsp;&nbsp; byte&nbsp;&nbsp; PIR1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at&nbsp;&nbsp; 0x0C</P>
+<P>var&nbsp;&nbsp; volatile&nbsp;&nbsp; bit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TMR1IF at&nbsp; PIR1 : 0</P>
+<P>&nbsp;</P></TD>
+<TD valign=top>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=top>&nbsp;
+</TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TMR1IF = high</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; BTFSC&nbsp;&nbsp;&nbsp;&nbsp; TMR1IF</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>When the register is in higher bank, for bits the same solution could be choosen as for bytes.</P>
+<P>But, as there are about 8 times as many bits as bytes, this would result in an enormous amount of pseudo variables.</P>
+<P>So another approach could be:</P>
+<P>The registers in the higher banks are much less frequent used then the bank-0 registers.</P>
+<P>Besides these bits can always be controled in JAL through their registers.</P>
+<P>So why not state that they should always be used in assembler (or in manually added pseudo variables).</P>
+<P>In this case it's still very usefull to have the absolute position of the bit in the byte.</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>INC-file</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>JAL</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>Assembler</P>
+<P class=RVPS2>&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>TXSTA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'0098'</P>
+<P>BRGH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'0002'</P></TD>
+<TD valign=top>
+<P>var&nbsp; volatile&nbsp;&nbsp; byte&nbsp;&nbsp; _TXSTA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at&nbsp;&nbsp; 0x98</P>
+<P>const&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _p_BRGH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; 2</P>
+<P>const&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _b_BRGH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp; &lt;&lt;&nbsp;&nbsp;&nbsp; _p_BRGH</P>
+<P>var volatile bit&nbsp; _BRGH at&nbsp; _TXSTA : _p_BRGH</P>
+<P>&nbsp;</P>
+<P>procedure TXSTA'put( byte in x ) is</P>
+<P>&nbsp;</P>
+<P>function TXSTA'get return byte is</P>
+<P>&nbsp;</P></TD>
+<TD valign=top>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=top>&nbsp;
+</TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TXSTA = TXSTA&nbsp;&nbsp; |&nbsp; 0b_0000_0100</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TXSTA = TXSTA&nbsp;&nbsp; |&nbsp;&nbsp; _b_BRGH</P></TD>
+<TD valign=top>
+<P>asm&nbsp;&nbsp;&nbsp;&nbsp; BSF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _BRGH</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or</P>
+<P>asm&nbsp;&nbsp;&nbsp;&nbsp; BSF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _TXSTA ,&nbsp; _p_BRGH</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>Some problems that may occure (and will be difficult to acknowledge)</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>the use of _p_BRGH in JAL is wrong, but will not lead to compiler errors&nbsp;</LI>
+<LI>the use of _b_BRGH in ASM is wrong, but will not lead to compiler errors&nbsp;</LI>
+</UL>
+<P>So it's better to leave one of them out. Again while JAL is the main language it's logical to keep _b_BRGH and to leave _p_BRGH out.</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>INC-file</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>JAL</P>
+<P class=RVPS2>&nbsp;</P></TD>
+<TD valign=top>
+<P class=RVPS2>&nbsp;</P>
+<P class=RVPS2>Assembler</P>
+<P class=RVPS2>&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>TXSTA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'0098'</P>
+<P>BRGH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'0002'</P></TD>
+<TD valign=top>
+<P>var&nbsp; volatile&nbsp;&nbsp; byte&nbsp;&nbsp; _TXSTA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at&nbsp;&nbsp; 0x98</P>
+<P>const&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _b_BRGH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp; &lt;&lt;&nbsp;&nbsp;&nbsp; 2</P>
+<P>var&nbsp; volatile&nbsp;&nbsp; bit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _BRGH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at&nbsp;&nbsp; _TXSTA : 2</P>
+<P>&nbsp;</P>
+<P>procedure TXSTA'put( byte in x ) is</P>
+<P>&nbsp;</P>
+<P>function TXSTA'get return byte is</P>
+<P>&nbsp;</P></TD>
+<TD valign=top>&nbsp;
+</TD>
+</TR>
+<TR valign=top>
+<TD valign=top>&nbsp;
+</TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TXSTA = TXSTA&nbsp;&nbsp; |&nbsp;&nbsp; _b_BRGH</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;&nbsp; asm&nbsp;&nbsp;&nbsp;&nbsp; BSF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _BRGH</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Registers in multiple banks</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>There's no information about these registers in the INC-file.</P>
+<P>I think at least the following registers are mirrorred in all banks</P>
+<P>PCL, STATUS, FSR, PCLATH, INTCON</P>
+<P>So for the moment it'll be enough to mirror these registers, like</P></TD>
+<TD valign=top>
+<P>var&nbsp;&nbsp; volatile&nbsp;&nbsp; byte&nbsp;&nbsp; STATUS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at 0x03</P>
+<P>var&nbsp;&nbsp; volatile&nbsp;&nbsp; byte&nbsp;&nbsp; _STATUS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at 0x83</P>
+<P>var&nbsp;&nbsp; volatile&nbsp;&nbsp; byte&nbsp;&nbsp; __STATUS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at 0x103</P>
+<P>var&nbsp;&nbsp; volatile&nbsp;&nbsp; byte&nbsp;&nbsp; ___STATUS&nbsp;&nbsp;&nbsp;&nbsp; at 0x183</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>General purpose RAM locations</SPAN></P>
+<P>&nbsp;The registers in bank-0 are all possesed by JAL.</P>
+<P>In the higher banks, all the free RAM starts beyond the normal FSR's.</P>
+<P>A problem arises, because some RAM is mirrored in other banks, this information is not in the INC-file.</P>
+<P>Maybe it would be best to manual define all this RAM in a separate file, which is automatically included in the translated INC-file.</P>
+<P>The use of these register would be something like array's</P>
+<P>&nbsp;&nbsp;</P>
+<P>__MAXRAM H'01FF'</P>
+<P>__BADRAM H'07'-H'09', H'0D', H'13'-H'14', H'1B'-H'1E'</P>
+<P>__BADRAM H'87'-H'89', H'8D', H'8F'-H'91', H'93'-H'97', H'9E'</P>
+<P>__BADRAM H'105', H'107'-H'109', H'10C'-H'11F', H'150'-H'16F'</P>
+<P>__BADRAM H'185', H'187'-H'189', H'18C'-H'1EF'</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Configuration Bits</P>
+<P>&nbsp;_BODEN_ON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FFF'</P>
+<P>_BODEN_OFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FBF'</P>
+<P>_CP_ALL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'03FF'</P>
+<P>_CP_75&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'17FF'</P>
+<P>_CP_50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'2BFF'</P>
+<P>_CP_OFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FFF'</P>
+<P>_PWRTE_OFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FFF'</P>
+<P>_PWRTE_ON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FF7'</P>
+<P>_WDT_ON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FFF'</P>
+<P>_WDT_OFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FFB'</P>
+<P>_LVP_ON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FFF'</P>
+<P>_LVP_OFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3F7F'</P>
+<P>_MCLRE_ON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FFF'</P>
+<P>_MCLRE_OFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FDF'</P>
+<P>_ER_OSC_CLKOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FFF'</P>
+<P>_ER_OSC_NOCLKOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FFE'</P>
+<P>_INTRC_OSC_CLKOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FFD'</P>
+<P>_INTRC_OSC_NOCLKOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FFC'</P>
+<P>_EXTCLK_OSC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FEF'</P>
+<P>_LP_OSC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FEC'</P>
+<P>_XT_OSC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FED'</P>
+<P>_HS_OSC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQU&nbsp;&nbsp;&nbsp;&nbsp; H'3FEE'</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</BODY></HTML>

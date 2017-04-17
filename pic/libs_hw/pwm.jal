@@ -1,0 +1,147 @@
+-- -----------------------------------------------------------------------------
+-- <title PWM control
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- library for using the PWM output,
+--   the main program should define frequency, duty-cycle and pin where PWM is
+--   for example through the use of a local copy of PWM_INS.JAL
+--
+--     const pwm_osc_frequency = 40_000   -- pwm frequency in Hz
+--     const pwm_osc_dutycycle = 75       -- dutycycle in percent
+--     var volatile bit  pwm_pin_direction is pin_b3_direction  -- pwm pin, for 16F628
+--
+--
+--  total    period time = 4 * (pr2 + 1) * Tclock * Prescaler2
+--  positive period time =       duty    * Tclock * Prescaler2
+--
+-- version 1.2 03-11-2002,  Stef Mientki
+--    - due to limitations of JAL, calculation of duty cycle was wrong
+--    - some optimization, less memory, les register use
+--    - procedure PWM_START_OSC added
+--    - name of pin_direction changed (to be compatible with macro definitions)
+-- version 1.1 16-03-2002,  Stef Mienti
+--    procedure pwm_osc_stop added
+-- version 1.0 21-01-2002,  Stef Mientki
+--   - first release
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- <Example, 38 kHz IR modulation
+-- --------------------------------------------------------------------
+;   -- define all the parameters and include the library
+;   const pwm_osc_frequency = 38_000   -- pwm frequency in Hz
+;   const pwm_osc_dutycycle = 50       -- dutycycle in percent
+;   <mac> io_pin   pwm_pin = pin_b3
+;;;;;  <;mac> io_pin   pwm_pin = pin_b3;   include pwm
+var volatile bit  pwm_pin_pin       is pin_b3
+var volatile byte pwm_pin_port      is portb
+const             pwm_pin_nr        =  3
+var volatile byte pwm_pin_buffer    is _port_b_buffer
+var volatile bit  pwm_pin_direction is pin_b3_direction
+;;;;;<;/mac>
+;
+;   -- init and start the PWM
+;   pwm_osc_init
+;
+;   -- stop the PWM
+;   pwm_osc_stop
+-- --------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- <Example RS232
+; -- define settings
+; const usart_asynch = true      ;true = RS232, false = SPI
+; const baudrate     = 115_200   ;Baudrate
+;
+; var byte xx
+; forever loop
+;   -- if character received, echo inverted
+;   if asynch_read_hw (xx) then
+;     asynch_send_hw ( ! xx)
+;   end if
+;   ... do other things here
+; end loop
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+-- -----------------------------------------------------------------------------
+-- initializes the PWM oscillator and starts the PWM oscillator
+-- -----------------------------------------------------------------------------
+procedure pwm_osc_init is
+const _pr2_1   = target_clock / ( 1 *  4 * pwm_osc_frequency )
+const _pr2_4   = target_clock / ( 4 *  4 * pwm_osc_frequency )
+const _pr2_16  = target_clock / ( 16 * 4 * pwm_osc_frequency )
+-- due to a limitation in JAL, the brackects below are VERY essential
+const _duty_1  = ((pwm_osc_dutycycle * 4) * _pr2_1) / 100
+const _duty_4  = ((pwm_osc_dutycycle * 4) * _pr2_4) / 100
+const _duty_16 = ((pwm_osc_dutycycle * 4) * _pr2_16) / 100
+
+
+  -- calculate prescaler and divider
+  if _pr2_1 == 0 then
+    pragma error    -- pwm frequency is too high
+
+  elsif _pr2_1 <= 256 then
+    PR2     = _pr2_1 - 1                      -- load timer value (base period)
+    CCPR1L  = _duty_1 / 4                     -- 8 high order bits of dutycycle
+    CCP1CON = ( _duty_1 & 0b_0000_0011 ) * 16 -- 5:4 - 2 least order bits of dutycycle
+    T2CON   = ( T2CON & 0b_1111_1000 ) | 0    -- load tmr2 prescaler, but leave it off
+
+  elsif _pr2_4 <= 256 then
+    PR2     = _pr2_4 - 1
+    CCPR1L  = _duty_4 / 4
+    CCP1CON = ( _duty_4 & 0b_0000_0011 ) * 16
+    T2CON   = ( T2CON & 0b_1111_1000 ) | 1
+
+  elsif _pr2_16 <= 256 then
+    PR2     = _pr2_16 - 1
+    CCPR1L  = _duty_16 / 4
+    CCP1CON = ( _duty_16 & 0b_0000_0011 ) * 16
+    T2CON   = ( T2CON & 0b_1111_1000 ) | 2
+
+  else
+    pragma error  -- pwm frequency is too low to be realized by this routine,
+                  -- use the post scaler and interrupt
+  end if
+
+  -- set PWM mode --11xx
+  CCP1CON = CCP1CON | 0b_0000_1100
+
+  -- set IO-pin to output
+;  pwm_direction_pin = output
+  pwm_pin_direction = output
+
+  -- enable tmr2
+  T2CON = T2CON | 0b_0000_0100
+
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- starts the PWM oscillator
+-- (initializing should have done prior with PWM_OSC_INIT)
+-- -----------------------------------------------------------------------------
+procedure pwm_osc_start is
+  -- enable tmr2
+  T2CON = T2CON | 0b_0000_0100
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- stops the PWM oscillator
+-- -----------------------------------------------------------------------------
+procedure pwm_osc_stop is
+  -- disable tmr2
+  T2CON = T2CON &  !( 0b_0000_0100 )
+end procedure
+-- -----------------------------------------------------------------------------
+

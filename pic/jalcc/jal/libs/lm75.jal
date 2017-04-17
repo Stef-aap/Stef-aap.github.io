@@ -1,0 +1,71 @@
+--
+-- file      : lm75.jal
+-- author    : Wouter van Ooijen
+-- date      : 17-NOV-1998
+-- purpose   : lm75 interface routines
+-- requires  : i2c
+-- pins      : see i2cp
+--
+-- Copyright (C) 1998 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+
+-- include the required library
+include i2c
+
+-- the high bits of an LM75 i2c address
+const byte i2c_address_lm75 = 0b_1001_000
+
+-- read the raw temperature data from an LM75
+procedure lm75_read_raw( 
+   byte in  address, 
+   byte out d1,
+   byte out d2
+) is
+   i2c_read_2( address + i2c_address_lm75, d1, d2 )
+end procedure
+
+-- read and process the temeprature from an LM75
+procedure lm75_read_fdt( 
+   byte  in  address, 
+   bit   out freezing,
+   byte  out degrees,
+   byte  out tenth
+) is
+   var   byte d1, d2
+   var   bit  f  at d1 : 7
+   var   bit  b2 at d2 : 7
+   i2c_read_2( address + i2c_address_lm75, d1, d2 )
+   if f then
+      freezing    = true
+      degrees     = ! d1
+      if b2 then
+         degrees = degrees - 1
+         tenth       = 0
+      else
+         tenth       = 5
+      end if      
+   else
+      freezing    = false
+      degrees     = d1
+      if b2 then
+         tenth       = 5
+      else
+         tenth       = 0
+      end if
+   end if
+end procedure

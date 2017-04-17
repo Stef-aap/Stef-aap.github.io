@@ -1,0 +1,127 @@
+--
+-- file      : jprint.jal
+-- author    : Wouter van Ooijen
+-- date      : 17-DEC-1998
+-- purpose   : print numeric values
+-- requires  : -
+--
+-- Copyright (c) 1998 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+-- corrections to print_binary_8 and print_binary_4
+-- 2001-04-26 (c) Vasile Surducan
+--
+
+
+-- for intertal use only
+procedure _print_base(
+   byte volatile out target,
+   byte in x,
+   byte in out leader
+) is
+   if x == 0 then
+      if leader != 0 then
+         target = leader
+      end if
+   else
+      if x < 10 then
+         target = "0" + x
+      else
+         target = "A" + x - 10
+      end if
+      leader = "0" 
+   end if
+end procedure
+
+-- print a value as in 8 binary positions
+procedure print_binary_8( 
+   byte volatile out target, 
+   byte in x, 
+   byte in leader = "0" 
+) is
+   for 8 loop
+      _print_base( target, x >> 7, leader )
+      x = x << 1
+   end loop
+end procedure
+
+-- print a value as in 4 binary positions
+procedure print_binary_4( 
+   byte volatile out target, 
+   byte in x, 
+   byte in leader = "0" 
+) is
+   for 4 loop
+      _print_base( target, ( x >> 3 ) & 0x01, leader )
+      x = x << 1
+   end loop
+end procedure
+
+      
+-- print a value as in 3 decimal positions
+procedure print_decimal_3( 
+   byte volatile out target, 
+   byte in x, 
+   byte in leader = "0" 
+) is
+   _print_base( target, x / 100, leader )
+   x = x % 100
+   _print_base( target, x / 10, leader )
+   x = x % 10
+   _print_base( target, x , leader )
+end procedure
+
+-- print a value as in 2 decimal positions
+procedure print_decimal_2( 
+   byte volatile out target, 
+   byte in x, 
+   byte in leader = "0" 
+) is
+   x = x % 100
+   _print_base( target, x / 10, leader )
+   x = x % 10
+   _print_base( target, x , leader )
+end procedure
+
+-- print a value as in 1 decimal position
+procedure print_decimal_1( 
+   byte volatile out target, 
+   byte in x, 
+   byte in leader = "0" 
+) is
+   x = x % 10
+   _print_base( target, x , leader )
+end procedure
+
+-- print a value as in 2 hexadecimal positions
+procedure print_hexadecimal_2( 
+   byte volatile out target, 
+   byte in x, 
+   byte in leader = "0" 
+) is
+   _print_base( target, x >> 4, leader )
+   _print_base( target, x & 0x0F, leader )
+end procedure
+
+-- print a value as in 1 hexadecimal position
+procedure print_hexadecimal_1( 
+   byte volatile out target, 
+   byte in x, 
+   byte in leader = "0" 
+) is
+   _print_base( target, x & 0x0F, leader )
+end procedure

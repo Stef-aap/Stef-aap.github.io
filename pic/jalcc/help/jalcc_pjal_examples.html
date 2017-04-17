@@ -1,0 +1,312 @@
+<HTML><HEAD><TITLE>pJAL library examples</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FEFFE6;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>December 2005</SPAN></P>
+<P><SPAN class=RVTS1>pJAL Examples</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>Here are a number of very simple examples, which were created to compare JAL and pJAL and to make and test&nbsp; if all my libraries are compatible with both compilers. With pJAL, it's possible that some libraries still can be optimized somewhat further, due to the extended possibilities of pJAL. It might be interesting to notice that in checking my library files, I found errors in almost every library.</P>
+<P>First is shown, how in general the compiler dependancy is solved with just a small compiler dependant file.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Compiler Dependancy</SPAN></P>
+<P>Because of the compiler differences, the device specific files are "completly" different, and some of the library files are different. To switch easily between the different compilers, I've created the next solution, which seems to work quiet well.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=168 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=222 height=129 src="jalcc_pjal_examples_img11.gif"></P></TD>
+<TD width=640 bgcolor=#FFFFE6 valign=top>
+<P>Here the general hierarchical structure of my programs is shown. The selected line in the tree is the compiler (and device) dependant include file. By changing this line to "pJAL_877" all the programs can be compiled with pJAL instead of JAL.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>The different compiler/device files are shown below:</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=303 bgcolor=#FFFFE6 valign=top>
+<P><SPAN class=RVTS3>JAL_877</SPAN></P></TD>
+<TD width=326 bgcolor=#FFFFE6 valign=top>
+<P><SPAN class=RVTS3>pJAL_877</SPAN></P></TD>
+</TR>
+<TR valign=top>
+<TD width=303 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=347 height=154 src="jalcc_pjal_examples_img12.gif"></P></TD>
+<TD width=326 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=356 height=151 src="jalcc_pjal_examples_img16.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>The JAL file "16F877_inc" is not the old auto-generated inc-file, but is extended with all the necessary bits in higher banks. In the PJAL_877 file there's an extra macro line, telling the macro generator in JALcc to generate code for pJAL instead of JAL. This is especially useful when string macros or other table generating macros are used. When JALcc is not used this macro has no effect.</P>
+<P>A simple program, that can be compiled in both JAL and pJAL, just by changing 1 letter in line 6, looks like this</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=524 height=273 src="jalcc_pjal_examples_img14.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>some of the device specific settings in Rapid_ProtoTyping_Board_16F877 are shown here:</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=422 height=174 src="jalcc_pjal_examples_img15.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Compatible Libraries</SPAN></P>
+<P>These Libraries are compatible with JAL and pJAL, unless otherwise specified.</P>
+<P>Some of the libraries make use of the global constant "pJAL".</P>
+<P>Libraries already checked / converted</P>
+<P><SPAN class=RVTS3>Bit_Calcs</SPAN>, specific bit manipulation</P>
+<P><SPAN class=RVTS3>DAC TLV5638</SPAN>&nbsp;,control of the DAC TLV5638 (2 channel 12 bits SPI-DAC)</P>
+<P><SPAN class=RVTS3>DATA_EEPROM</SPAN>, supports 8 bits data-memory and 14-bits program-memory read/write</P>
+<P><SPAN class=RVTS3>DELAY_20Mc</SPAN>, supports flexible delays at 20 MHz</P>
+<P><SPAN class=RVTS3>HD44780</SPAN>, extended support of HD44780 LCD (including user characters / animations)</P>
+<P><SPAN class=RVTS3>I2C_LIB_SM</SPAN>, supports I2C master behaviour</P>
+<P><SPAN class=RVTS3>master_sync_ser_port</SPAN>, Control of the MSSP-SPI module</P>
+<P><SPAN class=RVTS3>PIC_ADC</SPAN>, full support of PIC ADCs</P>
+<P><SPAN class=RVTS3>PIC_general</SPAN>, General routines, valid for all PICs</P>
+<P><SPAN class=RVTS3>PWM</SPAN>, support of both PWM outputs, choose between accurate frequency or high resolution mode</P>
+<P><SPAN class=RVTS3>RS232_HW</SPAN>, supports both RS232 and SPI trough hardware MSSP-device</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>Libraries to be done</P>
+<P><SPAN class=RVTS3>RS232_SW</SPAN>, supports software RS232 upto 230_400 Baud</P>
+<P>Stepper</P>
+<P>Stepper_RS232</P>
+<P>US</P>
+<P>IR</P>
+<P>PS2</P>
+<P>GP2D02</P>
+<P>GP2D12</P>
+<P>Byte3_Math</P>
+<P>ADS1211</P>
+<P>ADS1255</P>
+<P>DAC1220</P>
+<P>EEprom_tuning</P>
+<P>Data_Booter</P>
+<P>Dallas_1Wire</P>
+<P>LM75</P>
+<P>play_music</P>
+<P>random</P>
+<P>RCX</P>
+<P>scan_matrix</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Bit_Calcs</SPAN>&nbsp;(version 2.0)</P>
+<P>Specific bit operations</P>
+<P>-- procedure reverse_bits ( byte in out x ) is</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>DAC TLV5638</SPAN>&nbsp;(version 2.0)</P>
+<P>Library for the control of the DAC TLV5638 (2 channel 12 bits DAC), SPI control through both USART and MSSP are supported.</P>
+<P>--&nbsp;&nbsp; DAC_TLV5638_init&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set speed, power, Vref</P>
+<P>--&nbsp;&nbsp; DAC_TLV5638_set_AB&nbsp;&nbsp;&nbsp; set both DACs with new value</P>
+<P>--</P>
+<P>-- Data is transported through the variable</P>
+<P>--&nbsp;&nbsp; DAC_TLV5638_A_MSB, DAC_TLV5638_A_, DAC_TLV5638_B_MSB, DAC_TLV5638_B_LSB</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Data_EEPROM</SPAN>&nbsp;(version 2.0)</P>
+<P>Library that can write/read 8-bits data to/from data-eeprom and 14-bits data to/from program-eeprom</P>
+<P>-- write/read 8 bits data DL, from data-eeprom location AL</P>
+<P>--&nbsp;&nbsp;&nbsp; - eeprom_put(AL,DL)</P>
+<P>--&nbsp;&nbsp;&nbsp; - eeprom_get(AL,DL)</P>
+<P>-- write/read 14 bits data DH,DL, from program-eeprom location AH,AL</P>
+<P>--&nbsp;&nbsp;&nbsp; - program_eeprom_put(AH,AL,DH,DL)</P>
+<P>--&nbsp;&nbsp;&nbsp; - program_eeprom_get(AH,AL,DH,DL)</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS12>-- &lt;Example data_eeprom</SPAN></P>
+<P><SPAN class=RVTS12>-- write/read 8 bits data DL&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- from data-eeprom location AL</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; eeprom_put(AL,DL)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; eeprom_get(AL,DL)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- write/read 14 bits data DH,DL&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- from program-eeprom location AH,AL</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; program_eeprom_put(AH,AL,DH,DL)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; program_eeprom_get(AH,AL,DH,DL)</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Delay_20Mc</SPAN>&nbsp;(version 2.0)</P>
+<P>Library for delays at 20 MHz (target_clock is checked). For the smallest time (1 uS) a file to included is available (Delay_1uS_10MC.jal).&nbsp;</P>
+<P>Fixed delays for the small times (without parameters)</P>
+<P>--&nbsp;&nbsp; delay_2uS, delay_3uS, delay_4uS, delay_5uS,</P>
+<P>--&nbsp;&nbsp; delay_6uS, delay_7uS, delay_8uS, delay_9uS</P>
+<P>For the larger delays, routines with paramter N&nbsp; ( 1.. 255)</P>
+<P>--&nbsp;&nbsp; delay_10uS&nbsp; ( N )</P>
+<P>--&nbsp;&nbsp; delay_1mS&nbsp;&nbsp; ( N )</P>
+<P>--&nbsp;&nbsp; delay_100mS ( N )</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>HD44780</SPAN>&nbsp;(version 2.0)</P>
+<P>extended support of HD44780 LCD (including user characters / animations)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>I2C_LIB_SM</SPAN>, (version 2.0)</P>
+<P>I2C master procedures.</P>
+<P>-- procedure I2C_byte_write</P>
+<P>-- function&nbsp; I2C_byte_read</P>
+<P>-- function&nbsp; I2C_byte_read_next</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>master_sync_ser_port</SPAN>, (version 2.0)</P>
+<P>Control of the MSSP-SPI module</P>
+<P>-- limitations:</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; - only master mode supported</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; - only SysClock&nbsp; /4&nbsp; /16&nbsp; /64 supported, otherwise error message</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; - Clock/Data timing always according Texas Instruments / Burr Brown SPI</P>
+<P>-- procedure SPI_init_mssp</P>
+<P>-- procedure SPI_enable_mssp</P>
+<P>-- procedure SPI_disable_mssp</P>
+<P>-- procedure SPI_init_mssp</P>
+<P>-- procedure SPI_mssp_wait_until_ready</P>
+<P>-- procedure SPI_send_mssp ( byte in x )</P>
+<P>-- procedure SPI_read_mssp( byte out x )</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>PIC_ADC</SPAN>&nbsp;(version 3.0)</P>
+<P>Library to use the PIC's AD converter.</P>
+<P>--&nbsp; procedure PIC_ADC_init&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>--&nbsp; function&nbsp;&nbsp;&nbsp; PIC_ADC_low_res (chan)</P>
+<P>--&nbsp; procedure PIC_ADC_read_low_res (chan, sample)</P>
+<P>--&nbsp; procedure PIC_ADC_read (chan, highsample, lowsample)</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS12>-- Example</SPAN></P>
+<P><SPAN class=RVTS12>-- define the AD converter settings</SPAN></P>
+<P><SPAN class=RVTS12>const PIC_ADC_Nchan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;number of selected channels</SPAN></P>
+<P><SPAN class=RVTS12>const PIC_ADC_NVref&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;number of external references</SPAN></P>
+<P><SPAN class=RVTS12>const PIC_ADC_Rsource&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 20_000&nbsp;&nbsp; ;maximum source resistance&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;(max recommended = 10 kOhm)</SPAN></P>
+<P><SPAN class=RVTS12>const PIC_ADC_high_resolution = true&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;true = high resolution = 10 bits</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;false = low resolution = 8 bits</SPAN></P>
+<P><SPAN class=RVTS12>-- get the library, after defining the constants</SPAN></P>
+<P><SPAN class=RVTS12>include pic_adc</SPAN></P>
+<P><SPAN class=RVTS12>-- initialize the AD converter according to the above parameters</SPAN></P>
+<P><SPAN class=RVTS12>PIC_ADC_init</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- now take a sample&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- (choose the correct routine according to the selected resolution)</SPAN></P>
+<P><SPAN class=RVTS12>sample = PIC_ADC_low_res(chan)</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>PIC_general</SPAN>&nbsp;(version 2.0)</P>
+<P>General routines, valid for all PICs</P>
+<P>-- can insert breakpoints for use with JALss</P>
+<P>&nbsp;&nbsp;</P>
+<P>&lt;Example breakpoint</P>
+<P>breakpoint = 5</P>
+<P>&nbsp; ... do other things</P>
+<P>breakpoint = 6</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>PWM</SPAN>&nbsp;(version 2.0)</P>
+<P>Library for using both PWM outputs. The main program should define frequency, duty-cycle.</P>
+<P>There are 2 principal different ways to use the PWMs, either you choose to have a accurate frequency or you choose for a high resolution control.Let's look at the basic parameters</P>
+<P>--&nbsp;&nbsp;&nbsp; total&nbsp;&nbsp;&nbsp; period time = 4 * (pr2 + 1) * Tclock * Prescaler2</P>
+<P>--&nbsp;&nbsp;&nbsp; positive period time =&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; duty&nbsp;&nbsp;&nbsp; * Tclock * Prescaler2</P>
+<P>Now from these figures you can see that the positive period (which determines the dutycycle) can only vary from 0 to (4*(pr2 + 1)). As PR2 is just 8 bits, 4*PR2 has a maximum of 10 bits. So the only way to achieve a 10-bit dutycyle range is to set PR2 = 0xFF !!! In that case there are only 3 fixed frequencies available, determined by the PreScaler2, of 1kHz, 5kHz and 20kHz (to be exact 1.22, 4.88, 19.5 kHz). This choice yields for both pwms. This library supports both settings.&nbsp;</P>
+<P>--&nbsp;&nbsp; - PWM_Init_Resolution (Freq,enable1,enable2)</P>
+<P>--&nbsp;&nbsp; - PWM_Init_Frequency&nbsp; (enable1,enable2)</P>
+<P>--&nbsp;&nbsp; - PWM_Init_MinMax&nbsp;&nbsp;&nbsp;&nbsp; (Min1,Max1,Min2,Max2)</P>
+<P>--</P>
+<P>--&nbsp;&nbsp; - PWM_Set_DutyCycle (duty1,duty2)</P>
+<P>--&nbsp;&nbsp; - PWM_Set_DutyCycle_Limited (duty1,duty2)</P>
+<P>--&nbsp;&nbsp; - PWM_Set_DutyCycle_HighRes (duty1H,duty1L, duty2H,duty2L)</P>
+<P>--</P>
+<P>--&nbsp;&nbsp; - PWM1_start</P>
+<P>--&nbsp;&nbsp; - PWM1_stop</P>
+<P>--&nbsp;&nbsp; - PWM2_start</P>
+<P>--&nbsp;&nbsp; - PWM2_stop</P>
+<P>--&nbsp;&nbsp; - PWM12_start</P>
+<P>--&nbsp;&nbsp; - PWM12_stop</P>
+<P>--&nbsp;&nbsp; - PWM_start_stop (startstop1,startstop2)</P>
+<P><SPAN class=RVTS12>-- --------------------------------------------------------------------</SPAN></P>
+<P><SPAN class=RVTS12>-- &lt;Example</SPAN></P>
+<P><SPAN class=RVTS12>-- --------------------------------------------------------------------</SPAN></P>
+<P><SPAN class=RVTS12>-- PWM for 38 kHz IR modulation</SPAN></P>
+<P><SPAN class=RVTS12>-- define all the parameters and include the library</SPAN></P>
+<P><SPAN class=RVTS12>const pwm_frequency&nbsp; = 38_000&nbsp;&nbsp; -- pwm frequency in Hz</SPAN></P>
+<P><SPAN class=RVTS12>const pwm1_dutycycle = 50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- dutycycle in percent</SPAN></P>
+<P><SPAN class=RVTS12>const pwm1_dutycycle = 50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- dutycycle in percent</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- init and start only PWM1</SPAN></P>
+<P><SPAN class=RVTS12>PWM_init_resolution (true,false)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- stop the PWM</SPAN></P>
+<P><SPAN class=RVTS12>PWM1_stop</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- --------------------------------------------------------------------</SPAN></P>
+<P><SPAN class=RVTS12>-- PWM for control of 2 motors by a joystick</SPAN></P>
+<P><SPAN class=RVTS12>-- define all the parameters and include the library</SPAN></P>
+<P><SPAN class=RVTS12>-- even we don't use these values, the constants must be definied</SPAN></P>
+<P><SPAN class=RVTS12>const pwm_frequency&nbsp; = 38_000&nbsp;&nbsp; -- pwm frequency in Hz</SPAN></P>
+<P><SPAN class=RVTS12>const pwm1_dutycycle = 50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- dutycycle in percent</SPAN></P>
+<P><SPAN class=RVTS12>const pwm1_dutycycle = 50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- dutycycle in percent</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- init and start both PWMs at a rate of 1 kHz</SPAN></P>
+<P><SPAN class=RVTS12>PWM_init_frequency (1,true,true)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- adapt the dutycycle</SPAN></P>
+<P><SPAN class=RVTS12>PWM_Set_DutyCycle (joystick1,joystick2)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- OR, if the joysticks doesn't reach 0 and 0xFF</SPAN></P>
+<P><SPAN class=RVTS12>-- we set the minimum and maximum values first</SPAN></P>
+<P><SPAN class=RVTS12>PWM_Init_MinMax (Min_JoyStick1, Max_JoyStick1,</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Min_JoyStick2, Max_JoyStick2)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>-- and adapt the dutycycle, with regards to min/max</SPAN></P>
+<P><SPAN class=RVTS12>PWM_Set_DutyCycle_limited (joystick1,joystick2)</SPAN></P>
+<P><SPAN class=RVTS12>-- --------------------------------------------------------------------</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>RS232_HW</SPAN>&nbsp;(version 4.0)</P>
+<P>USART hardware control.</P>
+<P>Routines for sending and receiving through the PIC-usart, both RS232 and SPI are supported. Baudrate can simply be set through a human constant, because the baudrate depending registers are calculated by this unit. Baudrate is calculated, starting at the high baudrate flag, which will ensure the highest possible accuracy. SPI routines are setup for more SPI-devices, in which case CS should be controled outside this unit.Transmission parameters are 8 databits, 1 stopbit, no parity, no handshake.</P>
+<P>-- procedure SPI_init is</P>
+<P>-- procedure asynch_init_hw is</P>
+<P>-- procedure asynch_disable_hw</P>
+<P>-- procedure asynch_send_hw( byte in x ) is</P>
+<P>-- function&nbsp; asynch_read_hw( byte out x ) return bit is</P>
+<P>-- procedure SPI_send_hw( byte in x ) is</P>
+<P>-- procedure SPI_read_hw( byte out x ) is</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS12>-- Example</SPAN></P>
+<P><SPAN class=RVTS12>-- define settings</SPAN></P>
+<P><SPAN class=RVTS12>const usart_asynch = true&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;true = RS232, false = SPI</SPAN></P>
+<P><SPAN class=RVTS12>const baudrate&nbsp;&nbsp;&nbsp;&nbsp; = 115_200&nbsp;&nbsp; ;Baudrate</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>var byte ascii</SPAN></P>
+<P><SPAN class=RVTS12>forever loop</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; -- if character received, echo inverted</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; if asynch_read_hw (ascii) then</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; asynch_send_hw ( ! ascii)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; end if</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; ... do other things here</SPAN></P>
+<P><SPAN class=RVTS12>end loop</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Test Programs</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>pJAL_Delay</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>pJAL_ADC</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>pJAL_prog_data_mem</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+</BODY></HTML>

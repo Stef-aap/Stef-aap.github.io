@@ -1,0 +1,634 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Rapid Prototyping Devices</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #efefef;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="76" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts7>september 2005</span></p>
+<p><span class=rvts1>Rapid Prototyping Devices</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Rapid Prototyping Board</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=144 valign=top style="background-color: #ffffe6;">
+<p><img width=196 height=120 alt="" src="rapid_prototyping_devices_img11.png"></p>
+<p class=rvps2><a class=rvts4 href="prototyping_board.html">Details</a></p>
+<p class=rvps2>&nbsp;&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_all_sources.zip">rpd_all_sources.zip</a></p>
+</td>
+<td width=530 valign=top style="background-color: #ffffe6;">
+<p>With about 20 Rapid Prototyping Devices (RPD) you can build almost any functionality in just a few minutes. The board not only contains the normal RPD connectors, but also contains 4 Dwarf (TM from <a class=rvts4 href="http://www.voti.nl">Voti</a>) connectors, which extends the use of the RPD with all Dwarf devices.</p>
+<p>If you're using JALcc, there's a "driver" for each RPD (and also for Dwarf), implemented as a 1 line macro. So you can concentrate directly on the real functionality of the software. </p>
+<p>&nbsp; </p>
+<p>And finally (still just a dream) drawing of the final schematics, completely ready for lay-outing, should be possible with just 1 press on a key !!</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>10 Mbit/s Full Duplex Ethernet </span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=151 valign=top style="background-color: #ffffe6;">
+<p class=rvps2><img width=166 height=108 alt="" src="rapid_prototyping_devices_img12.png"></p>
+<p class=rvps2><br></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_ethernet.html">Details</a></p>
+</td>
+<td width=619 valign=top style="background-color: #ffffe6;">
+<p>This module is a 10 Mbit/s full duplex ethernet, based on the ENC28J60.</p>
+<p>The following protocols are planned ARP / ICMP-ping / UDP / TCP-IP-http.</p>
+<p>Multiple connections are allowed.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts2>Device ProtoTyping Board</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=151 valign=top style="background-color: #ffffe6;">
+<p class=rvps2><img width=215 height=150 alt="" src="rapid_prototyping_devices_img16.png"></p>
+<p class=rvps2>Details</p>
+</td>
+<td width=619 valign=top style="background-color: #ffffe6;">
+<p>Prototyping board, can be cut into half to create 2 pieces of a smaller size.</p>
+<p><br></p>
+<p><img width=245 height=102 alt="" src="rapid_prototyping_devices_img15.png">&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>USB Slave FT232RL</span></p>
+<p><span class=rvts2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=151 valign=top style="background-color: #ffffe6;">
+<p class=rvps2><img width=203 height=183 alt="" src="rapid_prototyping_devices_img14.png"></p>
+<p class=rvps2><br></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_ft232.html">Details</a></p>
+</td>
+<td width=619 valign=top style="background-color: #ffffe6;">
+<p>This module was mainly build to evaluate the FT232R USB slave chip. But it can also be used as an alternative serial interface to the RPD or as an additional serial interface on the RPD.</p>
+<p><br></p>
+<p>To use it as the main serial interface of the RPD,</p>
+<p>- remove the jumpers from the normal serial interface</p>
+<p>- connect this device to J7</p>
+<p>- place jumpers on both the analog and digital power</p>
+<p>- place a jumper on the DTR-reset</p>
+</td>
+</tr>
+</table>
+</div>
+<p><span class=rvts2><br></span></p>
+<p><br></p>
+<p><span class=rvts2>PIC programmer</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=151 valign=top style="background-color: #ffffe6;">
+<p class=rvps2><img width=204 height=127 alt="" src="rapid_prototyping_devices_img6.png"></p>
+<p class=rvps2><span class=rvts4><br></span></p>
+<p class=rvps2><a class=rvts4 href="../../jalcc/help/uploader.html#programmer">Details</a></p>
+</td>
+<td width=619 valign=top style="background-color: #ffffe6;">
+<p>The programmer is a simple, but fully complete, high-voltage programmer, capable of programming every PIC. The programmer can also be used for In Circuit Programming, through a 5-pin connector. The programmer software is divided in the PC-part and the PIC-part. To make it as flexible as possible for most users, the "intelligence" of the programmer is as much as possible put into the PIC. This makes it possible to add any programming algorithm, just by changing the code in the PIC.<span class=rvts7> The PIC code is fully written in JAL.</span></p>
+<p><span class=rvts7><br></span></p>
+<p><span class=rvts7>The programmer should always be connected to J5 (because the program makes use of the PWM outputs)</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Dwarf&nbsp; DB009 / DB010</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=164 valign=top style="background-color: #ffffe6;">
+<p>The Dwarf Module contains 8 small (DB009) or 8 large (DB010) LEDs. </p>
+<p><br></p>
+<p><img width=167 height=92 alt="" src="rapid_prototyping_devices_img5.png"></p>
+<p><br></p>
+<p>Dwarf boards are a trademark of and available from <a class=rvts4 href="http://www.voti.nl">Voti</a>.</p>
+</td>
+<td width=606 valign=top style="background-color: #ffffe6;">
+<p>JALcc has a macro, which makes the LEDs available either as a whole byte or as individual LEDs. The macro also sets the direction bit correctly.</p>
+<p><br></p>
+<p><img width=360 height=40 alt="" src="rapid_prototyping_devices_img9.png"></p>
+<p><br></p>
+<p>The macro compensates for the irregularities in the A-port (combined with the the E-port). Specifying the C-port, will leave RC6 and RC7 free for serial communication. By specifying "C+" instead of "C", you can force the macro to also include the RC6 and RC7 bits. Below the macro expansion for the (normal) portB is shown.</p>
+<p><br></p>
+<p><img width=458 height=274 alt="" src="rapid_prototyping_devices_img8.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Mini Rapid Prototyping Board</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=144 valign=top style="background-color: #ffffe6;">
+<p><img width=204 height=151 alt="" src="rapid_prototyping_devices_img2.png"></p>
+<p class=rvps2><a class=rvts4 href="prototyping_board.html">Details</a></p>
+<p class=rvps2>&nbsp;&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_all_sources.zip">rpd_all_sources.zip</a></p>
+</td>
+<td width=530 valign=top style="background-color: #ffffe6;">
+<p>The Mini Rapid Prototyping Board, is meant to control 1 RPD device with a 12F675. De module is mounted on a standard programmer, which also must supply the power.</p>
+<p>The mini-RPD can also be used as a program adapter, to program the 12F675 from a programmer with a 28-pins 16F877 foot. There's one disadvantage, the RPD-device must be disconnected during programming.</p>
+<p>In the future it might be better to mount 2 ML-10 connectors, so also 2 small RPD devices can be used.</p>
+<p><br></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2><br></span></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; Stepper Unipolar</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+</td>
+<td width=105 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; <img width=112 height=86 alt="" src="rapid_prototyping_devices_img53.gif"></p>
+</td>
+<td width=454 valign=top style="background-color: #ffffe6;">
+<p>Module that controls a 4-coil unipolar stepper motor </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; Stepper SAA1042</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+</td>
+<td width=105 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+</td>
+<td width=454 valign=top style="background-color: #ffffe6;">
+<p>Module that controls a 2-coil bipolar stepper motor with feedback </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; I2C Memory</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=78 valign=top style="background-color: #ffffe6;">
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2><img width=93 height=92 alt="" src="rapid_prototyping_devices_img50.gif"></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_i2c_mem.html">Details</a></p>
+<p class=rvps2>&nbsp;&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_test_i2c.jal">rpd_test_I2C.jal</a></p>
+</td>
+<td width=101 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=119 height=85 alt="" src="rapid_prototyping_devices_img49.gif"></p>
+</td>
+<td width=494 valign=top style="background-color: #ffffe6;">
+<p>Stackable module that can contain 2 8-pins memory ICs (probably also other I2C devices.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><img width=546 height=251 alt="" src="rapid_prototyping_devices_img52.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; I2C Graphical Display</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=78 valign=top style="background-color: #ffffe6;">
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2><img width=93 height=92 alt="" src="rapid_prototyping_devices_img50.gif"></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_i2c_mem.html">Details</a></p>
+<p class=rvps2>&nbsp;&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_test_i2c.jal">rpd_test_I2C.jal</a></p>
+</td>
+<td width=101 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=119 height=85 alt="" src="rapid_prototyping_devices_img49.gif"></p>
+</td>
+<td width=494 valign=top style="background-color: #ffffe6;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; Optical Mouse Sensor</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p class=rvps2><img width=211 height=127 alt="" src="rapid_prototyping_optical_mouse_img4.gif"></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_optical_mouse.html">Details</a></p>
+</td>
+<td width=454 valign=top style="background-color: #ffffe6;">
+<p>Interfaces a optical mouse sensor, like the ADNS 2610 to the SPI-port. </p>
+<p>As&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; Extension Board</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_optical_mouse.html">Details</a></p>
+</td>
+<td width=454 valign=top style="background-color: #ffffe6;">
+<p>This board is special made for easy attaching testing equipment to a module.</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; UltraSonic Range Detector</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><img width=121 height=95 alt="" src="rapid_prototyping_devices_img40.gif"></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_us_ranger.html">Details</a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_test_us.jal">rpd_test_us.jal</a></p>
+</td>
+<td width=111 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=121 height=84 alt="" src="rapid_prototyping_us_ranger_img2.gif"></p>
+</td>
+<td width=548 valign=top style="background-color: #ffffe6;">
+<p>UltraSonic Object Detector.&nbsp; </p>
+<p>Measurement range 2 cm .. 2 m, shortest detectable distance 2 mm. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><img width=287 height=34 alt="" src="rapid_prototyping_us_ranger_img17.gif"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><img width=327 height=141 alt="" src="rapid_prototyping_devices_img46.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; Sharp GP2D02</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=117 valign=top style="background-color: #ffffe6;">
+<p class=rvps2>&nbsp; </p>
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2><img width=87 height=84 alt="" src="rapid_prototyping_devices_img35.gif"></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_sharp_gp2d02.html">Details</a></p>
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_test_gp2d02.jal">rpd_test_gp2d02.jal</a></p>
+</td>
+<td width=102 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><img width=119 height=97 alt="" src="rapid_prototyping_sharp_gp2d02_img2.gif"></p>
+</td>
+<td width=548 valign=top style="background-color: #ffffe6;">
+<p>Module with Sharp GP2D02 optical distance sensor.</p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><img width=322 height=36 alt="" src="rapid_prototyping_devices_img36.gif"></p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><img width=248 height=118 alt="" src="rapid_prototyping_devices_img37.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; BreadBoard</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><img width=114 height=88 alt="" src="rapid_prototyping_devices_img38.gif"></p>
+</td>
+<td width=111 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+</td>
+<td width=548 valign=top style="background-color: #ffffe6;">
+<p>Cable to connect a full RPD-port to a breadboard</p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; 2/4-Button</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><img width=128 height=96 alt="" src="rapid_prototyping_devices_img54.gif"></p>
+</td>
+<td width=111 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+</td>
+<td width=548 valign=top style="background-color: #ffffe6;">
+<p>Module with 4 push buttons, connected to 4 IO-pins.</p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; 4-Button multiplexed</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+</td>
+<td width=111 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+</td>
+<td width=548 valign=top style="background-color: #ffffe6;">
+<p>Module with 4 push buttons, that can either be attached to 4 IO-pins (conuming a full connector), or with special software connected to 2 IO-pins (consuming only half a connctor)</p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; Extension Cable</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+</td>
+<td width=111 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+</td>
+<td width=548 valign=top style="background-color: #ffffe6;">
+<p>With this cable you can place a full or half RPD mdule about 30 cm form the mainboard.</p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; LED6</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p class=rvps2><img width=71 height=62 alt="" src="rapid_prototyping_devices_img16.gif"></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_led6.html">Details</a></p>
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_test_led6.jal">rpd_test_led6.jal</a></p>
+</td>
+<td width=111 valign=top style="background-color: #ffffe6;">
+<p><img width=140 height=81 alt="" src="rapid_prototyping_devices_img17.gif"></p>
+</td>
+<td width=548 valign=top style="background-color: #ffffe6;">
+<p>Module with 6 LEDs. </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=243 height=34 alt="" src="rapid_prototyping_devices_img18.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; IR receiver / transmitter</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=73 valign=top style="background-color: #ffffe6;">
+<p class=rvps2>&nbsp; </p>
+<p class=rvps2><img width=94 height=144 alt="" src="rapid_prototyping_devices_img32.gif"></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_ir.html">Details</a></p>
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_test_ir.jal">rpd_test_ir.jal</a></p>
+</td>
+<td width=145 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+</td>
+<td width=548 valign=top style="background-color: #ffffe6;">
+<p>Module sends and receives modulated IR, like in IR-remote controls.&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=435 height=71 alt="" src="rapid_prototyping_devices_img34.gif"></p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=369 height=137 alt="" src="rapid_prototyping_ir_img9.gif">&nbsp;&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; LCD</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=88 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=69 height=67 alt="" src="rapid_prototyping_devices_img22.gif"></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_lcd.html">Details</a></p>
+<p class=rvps2>&nbsp;&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_test_lcd.jal">rpd_test_lcd.jal</a></p>
+</td>
+<td width=199 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><img width=163 height=77 alt="" src="rapid_prototyping_devices_img19.gif"></p>
+</td>
+<td width=528 valign=top style="background-color: #ffffe6;">
+<p>Module for connecting a standard LCD, based on HD44780 or KS0066. The JALcc macro RPD_LCD makes all the pins available, needed by the library HD44780. The LCD can be connecting directly thorugh a flatcable or through a simple connection board, as shown on the left.&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=362 height=70 alt="" src="rapid_prototyping_devices_img21.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; JoyStick</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=117 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=104 height=85 alt="" src="rapid_prototyping_devices_img24.gif"></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_joystick.html">Details</a></p>
+<p class=rvps2>&nbsp;&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_test_joystick.jal">rpd_test_joystick.jal</a></p>
+</td>
+<td width=123 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=136 height=82 alt="" src="rapid_prototyping_joystick_img6.gif"></p>
+</td>
+<td width=548 valign=top style="background-color: #ffffe6;">
+<p>Module to connect a standard analog PC-joystick (or professional joystick, through jumper selection). Supported are 2 potmeters, 4 switches and 4 LEDs. </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=307 height=36 alt="" src="rapid_prototyping_joystick_img1.gif"></p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><img width=276 height=37 alt="" src="rapid_prototyping_joystick_img2.gif">&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><img width=396 height=102 alt="" src="rapid_prototyping_joystick_img4.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; Motor Dual L272</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p class=rvps2>&nbsp; </p>
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2><a href="rapid_prototyping_devices_img39.gif"><img width=112 height=101 alt="" src="rapid_prototyping_devices_img39.gif"></a>&nbsp; mot_2R&nbsp;&nbsp; mot_1L </p>
+<p class=rvps2>&nbsp;&nbsp; </p>
+<p class=rvps2>&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_motor_dual_l272.html">Details</a></p>
+</td>
+<td width=105 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=160 height=104 alt="" src="rapid_prototyping_devices_img44.gif"></p>
+</td>
+<td width=454 valign=top style="background-color: #ffffe6;">
+<p>Module that controls 2 DC motor with feedback. The advantage of this module over the L293 module is that in this module you can specify the motor voltage for each motor independantly. </p>
+<p>&nbsp; </p>
+<p><img width=411 height=40 alt="" src="rapid_prototyping_motor_dual_l272_img3.gif"></p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><img width=382 height=206 alt="" src="rapid_prototyping_devices_img42.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; Motor L272</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p class=rvps2><img width=64 height=92 alt="" src="rapid_prototyping_devices_img23.gif"></p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_motor_l272.html">Details</a></p>
+<p class=rvps2>&nbsp;&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_test_motor_l272.jal">rpd_test_motor_l272.jal</a></p>
+<p>&nbsp;&nbsp; </p>
+</td>
+<td width=105 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+<p><img width=119 height=95 alt="" src="rapid_prototyping_devices_img26.gif"></p>
+</td>
+<td width=454 valign=top style="background-color: #ffffe6;">
+<p>Module that controls 1 DC motor with feedback </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp; Motor L293</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=66 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><img width=96 height=130 alt="" src="rapid_prototyping_devices_img31.gif">&nbsp;&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_motor_l293.html">Details</a></p>
+<p>&nbsp;&nbsp; </p>
+</td>
+<td width=145 valign=top style="background-color: #ffffe6;">
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><img width=178 height=80 alt="" src="rapid_prototyping_devices_img25.gif"></p>
+</td>
+<td width=528 valign=top style="background-color: #ffffe6;">
+<p>Module that controls 2 DC motors, each with feedback&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=350 height=37 alt="" src="rapid_prototyping_motor_l293_img5.gif"></p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=383 height=206 alt="" src="rapid_prototyping_devices_img41.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>RPD&nbsp;&nbsp; PS2-KeyBoard</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=44 valign=top style="background-color: #ffffe6;">
+<p>&nbsp;&nbsp; </p>
+<p><img width=97 height=72 alt="" src="rapid_prototyping_devices_img27.gif">&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="rapid_prototyping_ps2_keyboard.html">Details</a></p>
+<p class=rvps2>&nbsp;&nbsp;&nbsp; </p>
+<p class=rvps2><a class=rvts4 href="jal_source/rpd_test_ps2.jal">rpd_test_ps2.jal</a></p>
+</td>
+<td width=124 valign=top style="background-color: #ffffe6;">
+<p><img width=114 height=101 alt="" src="rapid_prototyping_ps2_keyboard_img3.gif"></p>
+</td>
+<td width=548 valign=top style="background-color: #ffffe6;">
+<p>Interfaces a PS2-KeyBoard or PS2-mouse. </p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=315 height=39 alt="" src="rapid_prototyping_ps2_keyboard_img6.gif"></p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><img width=270 height=64 alt="" src="rapid_prototyping_devices_img29.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+
+</body></html>

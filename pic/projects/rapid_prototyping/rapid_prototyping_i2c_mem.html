@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>RPD Optical Mouse Sensor</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #efefef;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="3" /></head>
+<body>
+
+<p class=rvps3><span class=rvts7>september 2005</span></p>
+<p><span class=rvts1>RPD&nbsp; I2C Memory</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; <img width=32 height=32 alt="" src="rbd.png">&nbsp; <a class=rvts4 href="rapid_prototyping_devices.html">MainIndex</a></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>Module for 2* I2C memory modules. Designed for 3Volt, 8k*8 memory, but devices with the same pin-out should also fit.</p>
+<p>Because it's an I2C device, the connectors are brought fully to the other side, so the I2C-devices are stackable. If devices are stacked, the SDA and SCLK lines should be pulled up at only 1 device, jumpers mounted. The address lines A2 and A1 can be set through jumpers (mounted is "1").</p>
+<p>Although the PIC is supplied by 5V, there's no problem at all, to connect 3V devices directly to the PIC, because all outputs are open-collector devices. For 3V devices the CKE-bit (SSPSTAT&lt;6&gt;) should be set to 1, to enable SMbus specs (minimum high level input D044A = 1.4Volt), instead of I2C specs (minimal high level D044 = 0.7Vdd = 3.5 Volt).</p>
+<p>Settings of SMP bit (SSPSTAT&lt;7&gt;) are of minor importance (I think). Some discussion and tests at 400kHz and 1MHz are shown below.</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=453 height=312 alt="" src="rapid_prototyping_i2c_mem_img17.gif"></p>
+<p>The dataline is extra protected with a 200 Ohm resistor. Because we assume the PIC is always master, it's necessary to protect the clock line with a series resistor.</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=174 height=166 alt="" src="rapid_prototyping_i2c_mem_img12.gif"><span class=rvts7>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=119 height=85 alt="" src="rapid_prototyping_devices_img49.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><span class=rvts2>JALcc macro call </span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=606 height=154 alt="" src="rapid_prototyping_i2c_mem_img15.gif"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>JALcc use</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=313 height=104 alt="" src="rapid_prototyping_i2c_mem_img14.gif"></p>
+<p>&nbsp; </p>
+<p>For the moment, the next routines are implemented:</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=568 height=88 alt="" src="rapid_prototyping_i2c_mem_img18.gif">&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>JALcc macro expansion</span></p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=674 height=575 alt="" src="rapid_prototyping_i2c_mem_img19.gif">&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>BackGround Information</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>A good JAL explanation of I2C bus, including interrupts is given by Bert van Dam, see&nbsp; <a class=rvts4 href="http://members.home.nl/b.vandam/lonely/pagina19.html">I2C databus</a></p>
+<p>&nbsp;&nbsp; </p>
+<p>Because Microchip is not very clear about bits 6,7 of SSPSTAT, I've done some measurements, shown below.</p>
+<p>What you see are scope recordings of SDC (top-line) and SDA (bottom line), for the I2C startsequence plus the first slave address bits. These measurements should have been made with the FM24LC64 (specs upto 1 MHz), but by a fault where done with M24C64WMN6 (specs upto 400 kHz).</p>
+<p>My raw conclusions are</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>disabling of the slew rate control (SSPSTAT&lt;7&gt; = "1"), slightly increases the falling edge (15 nsec instead of 70 nsec) of both clock and data coming from the PIC. Ringing on the line is somewhat less with slewrate enabled. As the fall times of I2C are specified at a maximum of 300 nsec, so these differences are small compared to the I2C specs. Another way of looking at it: If you achieve the real I2C specifications (which is probably the goal of Microchip), you can transfer at 3.4 MHz with a bus load of 100 pF. As most I2C devices, just have a maximum of 1 Mhz, and if our I2C devices are on a well designed board, creating a maximum of say 30..&nbsp; 50pF, timing can never be a problem. So in general there's just one element valid argument (given by Patrick), always enable slew rate control, to improve the EMC performance. </li>
+<li>enabling SMBus specs (SSPSTAT&lt;6&gt; = "1"), not only makes it possible to couple a 5V PIC directly with a 3V I2C-device, but also makes it about 20% faster. </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=312 height=235 alt="" src="rapid_prototyping_i2c_mem_img7.gif">&nbsp; <img width=312 height=225 alt="" src="rapid_prototyping_i2c_mem_img8.gif"></p>
+<p><span class=rvts7>400 kHz, Slewrate disabled, I2C specs = 0b_00...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 400 kHz,&nbsp; Slewrate enabled, I2C specs = 0b_10...</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><img width=311 height=242 alt="" src="rapid_prototyping_i2c_mem_img9.gif">&nbsp;&nbsp; <img width=315 height=238 alt="" src="rapid_prototyping_i2c_mem_img10.gif"></p>
+<p><span class=rvts7>400 kHz, Slewrate disabled, SMBus specs = 0b_01...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 400 kHz,&nbsp; Slewrate enabled, SMBus specs = 0b_11...</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=268 height=197 alt="" src="rapid_prototyping_i2c_mem_img2.gif"><span class=rvts7>&nbsp; </span><img width=283 height=226 alt="" src="rapid_prototyping_i2c_mem_img3.gif"></p>
+<p><span class=rvts7>1MHz, Slewrate disabled, I2C specs = 0b_00...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1MHz,&nbsp; Slewrate enabled, I2C specs = 0b_10...</span></p>
+<p><span class=rvts7>&nbsp;&nbsp; </span></p>
+<p><span class=rvts7>&nbsp; </span></p>
+<p><img width=289 height=239 alt="" src="rapid_prototyping_i2c_mem_img5.gif"><span class=rvts7>&nbsp;&nbsp;&nbsp; </span><img width=273 height=216 alt="" src="rapid_prototyping_i2c_mem_img4.gif"><span class=rvts7>&nbsp; </span></p>
+<p><span class=rvts7>1MHz, Slewrate disabled, SMBus specs = 0b_01...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1MHz,&nbsp; Slewrate enabled, SMBus specs = 0b_11...</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+
+</body></html>

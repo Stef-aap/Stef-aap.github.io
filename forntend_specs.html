@@ -1,0 +1,154 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<LINK REL=STYLESHEET TYPE="text/css" href="document 1.css" TITLE="none">
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Stef Mientki">
+   <meta name="generator" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>forntend_specs</title>
+</head>
+<body>
+<font color="#000000">beste collegae,</font><font color="#000000"></font>
+<p><font color="#000000">hierbij de kriteria voor een nieuw te defini&euml;ren
+frontend.</font>
+<br><font color="#000000">Gaarne invullen, aanvullen, becommentari&euml;ren
+en retourneren.</font>
+<br><font color="#000000">Ik heb de kriteria in 3 hoofdstukken ingedeeld:</font>
+<ol>
+<li>
+<font color="#000000">De hoofdlijnen</font></li>
+
+<li>
+<font color="#000000">De problemen / hiaten die wij zelf bij onze FysioFlex
+ervaren (ter informatie)</font></li>
+
+<li>
+<font color="#000000">De details</font></li>
+</ol>
+<font color="#000000">Ik denk dat het belangrijk is om eerst de hoofdlijn
+kriteria duidelijk te krijgen, en deze eventueel aan te vullen met andere
+noodzakelijke kriteria, c.q. hierin kriteria te schrappen. Over de details
+denk ik dat er nogal wat verschillende meningen zijn en dat het dus nog
+wel eneige discussie zal vereisen om hier een gemeenschappelijke noemer
+uit te halen.</font><font color="#000000"></font>
+<p>
+<hr WIDTH="100%">
+<br><b><font color="#000099">De Hoofdlijnen</font></b>
+<ul>
+<li>
+systeem moet open en uitbreidbaar zijn ?</li>
+
+<li>
+er moeten veilige en onveilige signalen op aangesloten kunnen worden</li>
+
+<li>
+standaard geschikt voor ExG, weerstandsbrug, ...</li>
+
+<li>
+flexibele connectie met de PC en de software (welke ?)</li>
+
+<li>
+maximaal aantal kanalen ...</li>
+
+<li>
+maximale samplefrequentie per kanaal ...</li>
+
+<li>
+maximale totale throughput (gewogen som van de samplefrequenties van de
+individuele kanalen)...</li>
+
+<li>
+betrouwbare leverancier(s), en gegarandeerd voor ... jaar</li>
+
+<li>
+laag in prijs (ook instapmodel ?)</li>
+</ul>
+
+<hr WIDTH="100%">
+<br><b><font color="#000099">De problemen / hiaten met onze FysioFlex</font></b>
+<ul>
+<li>
+connectie met PC/software is onvoldoende flexibel voor de toekomst (het
+aantal connectors op een labtop neemt iedere maand af, USB of firewire
+is dus een must)</li>
+
+<li>
+connector voor de veilige kanalen (Lemo) is slecht leverbaar en voldoet
+misschien niet aan de normen</li>
+
+<li>
+we missen nog een aantal ingangs modules (bloeddruk, saturatie, huidimpedantie)</li>
+</ul>
+
+<hr WIDTH="100%"><b><font color="#000099">De Details</font></b>
+<br><font color="#000000"></font>&nbsp;<font color="#000000"></font>
+<p><b><font color="#000099">Algemeen</font></b>
+<br>Open &amp; uitbreidbaar ?
+<br>Schakelaars toegestaan op front ?
+<br>Maximaal aantal Veilige kanalen
+<br>Maximaal aantal Onveilige kanalen
+<p><b><font color="#000099">Medische Veiligheid</font></b>
+<br>Minimaal aantal Veilige Ingangen
+<br>Minimaal aantal Onveilige Ingangen
+<br>Isolatieeis BF / CF
+<br>&nbsp;
+<blockquote><b><font color="#000099">leuk probleem</font></b>: patient
+heeft ECG-electroden en EEG-electroden opgeplakt, die beide aan het nieuwe
+medisch frontend zijn aangesloten. Patient krijgt een hart-stilstand en
+moet gedefibrilleerd worden. Mag de patient een tamelijk grote stroomstoot
+door zijn hersenen krijgen en zo niet, hoe voorkom je dat dan ?</blockquote>
+
+<p><br><b><font color="#000099">Medisch Veilige kanalen</font></b>
+<br>Standaard geschikt voor de volgende signalen ...
+<br>Moeten er enkele bipolaire versterkers zijn, of ook unipolaire
+<br>Maximale bandbreedte (ondergrens(AC) en bovengrens)
+<br>Maximale Ruis (0 .. 10 Hz)
+<br>Maximale Ruis (10 Hz .. maxfreq)
+<br>CMMR bij een delta Rin van 1 kOhm, @50 Hz
+<br>Ingangsimpedantie lijkt mij op zich niet interessant, omdat deze altijd
+relatief hoog is en zich verder enkel manifesteert in de CMRR.
+<br>CMMR realiseren voor alle ingangskanalen tegelijkertijd of groepsgewijs
+?
+<br>Maximale offsetdrift (DC-stand)
+<br>Maximale differential DC ingangsspanning
+<br>Maximale differential AC ingangsspanning
+<br>Common mode range
+<br>Brugspanning
+<br>Standaard electrode impedantie meting ?
+<br>Defibrillator beveiliging standaard aanwezig ?
+<br>Welke connector komt er standaard op (lastig probleem !!)
+<br>Hoog doorlaat (Anti-aliasing) filters noodzakelijk ??
+<br>&nbsp;&nbsp;&nbsp; Bessel ??
+<br>&nbsp;&nbsp;&nbsp; orde ??
+<br>Laag door laat filter (AC-stand, 1-orde?)
+<br>Fast Recovery, bij zeer lage frequenties in de AC-stand ??
+<br>Notch filter ??
+<p><b><font color="#000099">Onveilige kanalen</font></b>
+<br>Onveilige kanalen komen altijd uit een ander apparaat en zijn dus in
+het algemeen unipolair, voldoende versterkt. de eisen zijn dus minimaal.
+<br>Maximale bandbreedte (DC en bovengrens)
+<br>Maximale offsetdrift (DC-stand)
+<br>Maximale differential DC ingangsspanning
+<br>Welke connector komt er standaard op (BNC ?!)
+<br>Filters noodzakelijk ?
+<p><b><font color="#000099">AD-converter</font></b>
+<br>24 bit of minder met versterkings instelling ?
+<br>alle kanalen gelijke sample frequentie of sample reductie per kanaal
+in frontend ?
+<p><b><font color="#000099">DAC uitgangen</font></b>
+<br>maximaal aantal
+<br>bandbreedte
+<p><b><font color="#000099">Data communicatie met de PC</font></b>
+<br>Noodzakelijke interface(s)
+<br>Gewenste Interface(s)
+<p><b><font color="#000099">Diversen</font></b>
+<br>Maximaal formaat van de kast
+<br>1 kast of stapelbare dooosjes ?
+<br>Maximale prijs van het basis systeem
+<br>Maximale Prijs per kanaal
+<br>Betrouwbaarheid van de leverancier(s), leverbaarheid van de componenten.
+<br>Synchronisatie met andere systemen ?
+<br>Voeding 230V / Netadapter / batterij ?
+<br>&nbsp;
+</body>
+</html>

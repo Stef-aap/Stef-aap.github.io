@@ -1,0 +1,55 @@
+<HTML><HEAD><TITLE>Tuning by RS232</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>januari 2005</SPAN></P>
+<P><SPAN class=RVTS1>Tuning by RS232</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>Often it's desirable to tune a few parameters at the final location where the circuit is placed (e.g. in case of PID controllers). There are several ways to realize this. You could do it with a few buttons, stepping though a menu and increasing or decreasing the values. Or you could do it with a potmeter connected to one of the analog inputs. As my designs always have somekind of serial interface (either RS232 or USB), combined with the fact that I'm often using a bootloader, serial tuning is a far more comfortable way for tuning.</P>
+<P>&nbsp;&nbsp;</P>
+<P>The method described here, has the following features</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>tuning parameters are stored in data-eeprom&nbsp;</LI>
+<LI>the following types are supported, byte, byte2 and byte3 (can easily extended)&nbsp;</LI>
+<LI>routines are available for easy access of the tuning parameters in the program&nbsp;</LI>
+<LI>the uploader program (for the bootloader), has special commands to easy read, modify and write the tuning parameters&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=239 height=216 src="example_rs232_sw_img1.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Commands</SPAN></P>
+<P>base+0&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; read value from location &lt;index&gt; of tuning-EEprom (0 = all)</P>
+<P>base+0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; read all values from tuning-EEProm, preceeded by the number of byte, byte2, byte3</P>
+<P>base+1&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp; &lt;value&gt;&nbsp;&nbsp;&nbsp;&nbsp; write 1 value to tuning-EEprom (BE CAREFUL, sending 3 or more bytes !!!)</P>
+<P>base+2&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; increment with 1, the value at location &lt;index&gt;&nbsp; of tuning EEprom</P>
+<P>base+3&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; decrement with 1, the value at location &lt;index&gt;&nbsp; of tuning EEprom</P>
+<P>base+4&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; increment with large step, the value at location &lt;index&gt;&nbsp; of tuning EEprom</P>
+<P>base+5&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; decrement with large step, the value at location &lt;index&gt;&nbsp; of tuning EEprom</P>
+<P>&nbsp;&nbsp;</P>
+<P>&lt;index&gt;&nbsp; starts at 1</P>
+<P>&lt;value&gt; is either a byte, a byte2 or a byte3, in case of muiltiple bytes, the MSB comes first.</P>
+<P>BE CAREFUL when sending more then 2 bytes at once, because only 2 of them might be recognized. So insert pauses !!</P>
+<P>&nbsp;&nbsp;</P>
+<P>When a value in tuning-EEporm is changed, though one of the commands above (either by writing or by incrementing), the flag tuning_EEprom_changed is set, so they main program can decide to load the new values and store them in faster ram. The main program is responsible for clearing the tuning_EEprom_changed flag.</P>
+<P>&nbsp;&nbsp;</P>
+<P>pragma eedata 8,0,5</P>
+<P>const tuning_N1 = 3</P>
+<P>const tuning_N2 = 0</P>
+<P>const tuning_N3 = 0</P>
+<P>const short_command&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 0</P>
+<P>const tuning_command_base = 0x0</P>
+<P>const tuning_large_step&nbsp;&nbsp; = 0xF0</P>
+<P>&nbsp;</P>
+</BODY></HTML>

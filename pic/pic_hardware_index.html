@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="keywords" content="Lego; Mindstorms; PIC; JAL; JALcc; Robotics">
+  <meta name="author" content="Stef Mientki">
+  <title>Pic_header</title>
+  <link rel="STYLESHEET" type="text/css" href="styles.txt" title="none">
+
+<style>
+a {font-family:verdana;font-size:12px}
+.topic {font-size:12px;color:#005500;margin-bottom:2px;cursor:pointer}
+.level {margin-left:10px}
+div {margin-bottom:4px}
+img {margin-right:2px}
+</style>
+
+<script language="JavaScript">
+  function Toggle(node) {
+	// Unfold the branch if it isn't visible
+	  if (node.nextSibling.style.display == 'none')	{
+ 		// Change the image (if there is an image)
+		  if (node.childNodes.length > 0) {
+			  if (node.childNodes.item(0).tagname == "IMG") {
+				  node.childNodes.item(0).src = "minus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = '';
+	  }
+	  // Collapse the branch if it IS visible
+	  else {
+		// Change the image (if there is an image)
+		  if (node.childNodes.length > 0)	{
+        if (node.childNodes.item(0).tagname == "IMG") {
+   				node.childNodes.item(0).src = "plus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = 'none';
+	  }
+  }
+
+  function collapse(pId) {
+  var node
+    node=document.getElementById(pId)
+    node.childNodes.item(0).src = "plus.gif"
+    node.nextSibling.style.display = 'none'
+
+  }
+
+  function main() {
+    collapse("ID1")
+    collapse("ID2")
+    collapse("ID3")
+    collapse("ID4")
+    collapse("ID5")
+    collapse("ID6")
+    collapse("ID7")
+    collapse("ID8")
+    collapse("ID9")
+    collapse("ID10")
+    collapse("ID11")
+    collapse("ID12")
+    collapse("ID13")
+    collapse("ID14")
+    collapse("ID15")
+    collapse("ID16")
+  }
+</script>
+
+
+</head>
+<body>
+
+<body text="#000000" vlink="#5584aa" link="#006699" bgcolor="white" onload="main()">
+
+<table cellspacing="0" cellpadding="15" width="100%" height="88%">
+<tbody><tr><td class="bodyline" bgcolor="#ffffff" valign="top">
+
+<div><img src="dot.gif"><a href="picprog/picprogrammer_hardware.html" target="a">Prog. Hardware</a></div>
+<div><img src="dot.gif"><a href="picprog/usb_picprogrammer_software.html" target="a">Prog. Software</a></div>
+<div><img src="dot.gif"><a href="projects/pic_switch.html" target="a">Switches</a></div>
+<div><img src="dot.gif"><a href="projects/pic_ir.html" target="a">IR communication</a></div>
+<div><img src="dot.gif"><a href="projects/rs232_basics.html" target="a">RS232</a></div>
+<div><img src="dot.gif"><a href="projects/optical_mouse/optical_mouse.html" target="a">Optical Mouse</a></div>
+<div><img src="dot.gif"><a href="projects/pic_multi_comm.html" target="a">Multi PIC communication</a></div>
+<div><img src="dot.gif"><a href="projects/jal_var_declaration.html" target="a">JAL VAR declaration </a></div>
+<div><img src="dot.gif"><a href="projects/reflex_charger.html" target="a">Reflex Charger</a></div>
+<div><img src="dot.gif"><a href="http://www.beyondlogic.org/" target="a">Beyond Logic</a></div>
+<div><img src="dot.gif"><a href="http://www.rickard.gunee.com/projects/" target="a">Pics &Video</a></div>
+<div><img src="dot.gif"><a href="http://dt.prohosting.com/pic/vidclock.html" target="a">VideoClock</a></div>
+<div><img src="dot.gif"><a href="http://www.efd.lth.se/%7ee96rg/mc/mc.html" target="a">???</a></div>
+<div><img src="dot.gif"><a href="http://www.hobby-elec.org/e_menu.htm" target="a">Japanes Site</a></div>
+<div><img src="dot.gif"><a href="http://home.clear.net.nz/pages/joecolquitt/txless.html" target="a">230V PIC</a></div>
+<div><img src="dot.gif"><a href="http://www.bytecraft.com/touch.html" target="a">Touch Switch</a></div>
+<div><img src="dot.gif"><a href="http://panda.cs.ndsu.nodak.edu/%7eachapwes/picmicro/ps2/ps2.htm" target="a">PS-2 keyboard</a></div>
+<div><img src="dot.gif"><a href="http://www.alphalink.com.au/%7ederekw/pictalker/main.htm" target="a">Speech</a></div>
+</div>
+<div></div>
+
+</td></tr><tr></tr>
+</tbody></table>
+<form name=search method="post" target="a" action=search.php>
+  <input name=query length=40
+    <?if (isset($query))
+     echo("value=\"".htmlspecialchars($query)."\"");?>
+  <input type=submit value='search'><br>
+  <input type=radio checked=true name=m value=and>All words<br>
+  <input type=radio name=m value=or>At least one word
+ </input>
+</form>
+</body></html>

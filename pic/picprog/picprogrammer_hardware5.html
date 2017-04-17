@@ -1,0 +1,586 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en"><html><head>
+                                             
+  
+  <link rel="STYLESHEET" type="text/css" href="picoverview.css" title="none">
+
+                                                
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+                                                
+  
+  <meta name="author" content="Stef Mientki">
+
+                                                
+  
+  <meta name="generator" content="Mozilla/4.7 [en-gb] (Win98; U) [Netscape]">
+  <title>NOP Serial Port PicProgrammer</title>
+</head>
+
+<body text="#000000" bgcolor="#33ff33" link="#0000ee" vlink="#551a8b" alink="#ff0000">
+       
+<table border="0" cellspacing="2" cellpadding="2" cols="3" width="100%">
+
+      <tbody>
+               
+  </tbody><tbody>
+        <tr>
+          <td valign="top"><br>
+          </td>
+          <td align="center" valign="top">                            
+      <h2>PIC-Programmer V5</h2>
+          </td>
+          <td align="right" valign="top">                            
+      <h3>februari 2002, Stef Mientki</h3>
+          </td>
+        </tr>
+               
+  </tbody>    
+</table>
+
+    <br>
+
+       
+<h1>This page is under construction, information is incomplete and not correct. 
+ Please use one of the previous versions here: <a href="picprogrammer_hardware4.html">
+           version 4</a>         ,&nbsp; <a href="picprogrammer_hardware2.html">
+           version 2</a>         ,&nbsp;         <a href="picprogrammer_hardware1.html">
+   version 1</a></h1>
+
+   <br>
+
+   <br>
+
+       
+<h4><a name="general_description"></a>        General Description <a href="#top"><img src="top_page.gif" height="14" width="14" alt="">
+    </a> </h4>
+
+     The programmer connects to a free RS232 port of the PC and doesn't need
+    external power supply. <br>
+
+           The programmer is tested under windows-98 on a PII-66 and a PIII-1000. 
+    <br>
+
+           Everything, including sources, is available (for free of course).<br>
+
+           The changes in Version 5 are:<br>
+
+           &nbsp; - improved mechanical construction<br>
+
+           &nbsp; - more flexibility<br>
+
+           &nbsp; - better debug facilities<br>
+
+           &nbsp; - improved fast serial communication<br>
+
+           &nbsp; - in circuit programming added<br>
+
+           Previous versions can be found here: <a href="picprogrammer_hardware4.html">
+           version 4</a>         ,&nbsp; <a href="picprogrammer_hardware2.html">
+           version 2</a>         ,&nbsp; <a href="picprogrammer_hardware1.html">
+           version 1<br>
+    </a> <br>
+
+       
+<h4><a name="tested pics (ordened by family)"></a>        Tested PICs (ordened 
+ by family) </h4>
+
+       
+<table border="1" cols="6" width="100%">
+
+      <tbody>
+        <tr>
+          <td>16F8x</td>
+          <td>16F62x</td>
+          <td>16F87x</td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
+          <td>16F84 <br>
+           16F84A</td>
+          <td>16F628</td>
+          <td>16F876</td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+               
+  </tbody>    
+</table>
+
+       
+<h4><br>
+    </h4>
+
+       
+<h4><a name="operating instructions"></a>       Operating Instructions&nbsp;<a href="#top"><img src="top_page.gif" height="14" width="14">
+    </a> </h4>
+
+       
+<p>It's important to follow the steps described below in the right order, 
+     because applying a voltage to the programmer pin of the PIC, without 
+the    PIC is supplied from a +5Volt source, can damage the PIC. </p>
+
+       
+<ol>
+
+      <li> start the program and select the right RS232 port (this will ensure 
+     that the voltage on the programmer will be ok) The voltages generated 
+ by   the circuit can be tested before inserting a PIC, <a href="picprogrammer_software.html#test_hardware">
+           see here</a>        )</li>
+      <li> set the switch on the programmer in the run mode (this will ensure 
+     that the program voltage will not be present until the +5Volt is present)</li>
+      <li> now connect the programmer to the selected RS232 port</li>
+      <li> now you can savely put the switch on the programmer in program 
+mode</li>
+       
+</ol>
+
+       
+<p><br>
+    </p>
+
+       
+<h4><a name="circuit"></a>        Circuit&nbsp;<a href="#top"><img src="top_page.gif" height="14" width="14">
+    </a> </h4>
+
+       
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p><br>
+  </p>
+
+   
+<p>The circuit shown below is straight forward. The major differences with 
+     other simple programmers is the feedback lines for both clock and data 
+  signals   (see for futher details, the <a href="#the%20design">current design</a>
+          ). <br>
+           You can roughly test if your serial port is capable of delivering
+  enough    current, by connecting a resistor between DTR and GND and measuring
+  the  voltage.   </p>
+
+       
+<blockquote>Start the program, Tools / Settings / Commport / ... <br>
+           Connect to right port, enable DTR and measure the voltage between
+  DTR   (pin  4) and GND (pin5) <br>
+           The voltage should be &gt;=5Volt, for the resistor value yields
+   <br>
+           &nbsp;&nbsp;&nbsp;&nbsp; 1 kOhm&nbsp; --&gt; 5 mA&nbsp; (will
+do  for   the   new devices, i.e. 16F84A) <br>
+           &nbsp;&nbsp;&nbsp;&nbsp; 500 Ohm&nbsp; --&gt; 10 mA&nbsp; (necessary 
+   for   old devices, i.e. 16F84</blockquote>
+
+      <br>
+
+           &nbsp;                                  
+  
+<table border="1" width="100%">
+
+        <tbody>
+          <tr>
+            <td valign="top">                                    
+        <h4><a name="the nop programmer circuit"></a>        The NOP programmer 
+ circuit&nbsp;<a href="#top"><img src="top_page.gif" height="14" width="14">
+            </a>         </h4>
+           &nbsp;                                                       
+                                            
+        <p>You can just connect a PIC (without an oscillator X-tal) as shown 
+     below. </p>
+                                       
+        <p>&nbsp;&nbsp; or </p>
+                                       
+        <p>You can connect a complete application to this programmer. <br>
+           In that case the application will also by supplied by the RS232
+ lines.            <br>
+           A good example of this is the RCX-remote control. <br>
+           In this example also a fast serial interface is shown, which can 
+ be  very   useful for debugging. <br>
+           &nbsp; </p>
+                                       
+        <p>IMPORTANT <br>
+           always (dis-)mount the PIC with the switch in "RUN" mode. <br>
+           &nbsp; </p>
+                                       
+        <p>Function of R2 <br>
+           The software controls the reset of the processor through R2. <br>
+           BUT, if the application should also be battery powered, like in
+ the   RCX-remote   control, you should not connect R2 as indicated. The
+reason   for this is that  if no RS232 power is generated, the cicuit around
+Q1 will   draw excessive  current, draining your batteries.</p>
+            </td>
+            <td><img src="programmer_hw1.jpg" border="0" height="432" width="439">
+            </td>
+          </tr>
+                       
+    </tbody>            
+  
+</table>
+
+      <br>
+
+      <br>
+
+               
+  
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+
+        <tbody>
+          <tr>
+            <td valign="top">                                    
+        <h4><a name="device_selection"></a>       Device Selection&nbsp;<a href="#top"><img src="top_page.gif" height="14" width="14">
+            </a>         </h4>
+            <br>
+            <br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+                       
+    </tbody>            
+  
+</table>
+
+      <br>
+
+      <br>
+
+      <br>
+
+               
+  
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+
+        <tbody>
+          <tr>
+            <td valign="top">                                    
+        <h4><a name="fast_serial_debug"></a>       Fast Serial Debug Facility&nbsp;<a href="#top"><img src="top_page.gif" height="14" width="14">
+            </a>         </h4>
+            <br>
+            <br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+                       
+    </tbody>            
+  
+</table>
+
+          &nbsp; <br>
+
+           &nbsp;                              
+  
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+
+        <tbody>
+          <tr>
+            <td valign="top">                                    
+        <h4><a name="logic_probe"></a>       Logic Probe&nbsp;<a href="#top"><img src="top_page.gif" height="14" width="14">
+            </a>         </h4>
+            <br>
+            <br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+                       
+    </tbody>            
+  
+</table>
+
+      <br>
+
+      <br>
+
+               
+  
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+
+        <tbody>
+          <tr>
+            <td valign="top">                                    
+        <h4><a name="in_circuit_programming"></a>       In Circuit Programming&nbsp;<a href="#top"><img src="top_page.gif" height="14" width="14">
+            </a>         </h4>
+            <br>
+            <br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+                       
+    </tbody>            
+  
+</table>
+
+      <br>
+
+      <br>
+
+               
+  
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+
+        <tbody>
+          <tr>
+            <td valign="top">                                    
+        <h4><a name="mechanical_construction"></a>       Mechanical Construction&nbsp;<a href="#top"><img src="top_page.gif" height="14" width="14">
+            </a>         </h4>
+            <br>
+            <br>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+                       
+    </tbody>            
+  
+</table>
+
+      <br>
+
+      <br>
+
+               
+  
+<h4><a name="testing the circuit"></a>       Testing the circuit&nbsp;<a href="#top"><img src="top_page.gif" height="14" width="14">
+      </a>   </h4>
+
+               
+  
+<ol>
+
+        <li> check the wiring</li>
+        <li> always start the program before connecting the circuit to the
+ RS232     port (another program could set the RS232 port totally wrong)
+DON'T  INSERT     THE PIC YET !!</li>
+        <li> goto menu Tools / Settings / Commport / ... CTS and DSR panels 
+ light     yellow</li>
+        <li> set the switch in RUN mode and connect the circuit to the RS232 
+ port</li>
+        <li> now activate the connect checkbox, and CTS and DSR panels should
+     light green</li>
+        <li> activate DTR checkbox and the panel on the right of DTR should 
+ light     red</li>
+        <li> activate RTS checkbox and the panel on the right of RTS should 
+ light     red</li>
+        <li> now set both DTR and RTS inactive</li>
+        <li> Now test if the voltage on the PIC-foot are according to the 
+next      table</li>
+               
+  
+</ol>
+
+               
+  
+<table border="1" width="100%">
+
+        <tbody>
+          <tr>
+            <td>With the switch in RUN mode, approximally the following voltages 
+    should  be measured at the mentioned PIC pins <br>
+           &nbsp;&nbsp;&nbsp; pin&nbsp; 4 (MCLR) = 0 Volt <br>
+           &nbsp;&nbsp;&nbsp; pin 12 (program clock) = 0 Volt <br>
+           &nbsp;&nbsp;&nbsp; pin 13 (data clock) = 1.5 Volt <br>
+           &nbsp;&nbsp;&nbsp; pin 14 (Vdd) = 5 Volt <br>
+           &nbsp;&nbsp;&nbsp; All other pins should read 0 Volt.</td>
+            <td>Setting the program data line (RTS or DTR) active:&nbsp;
+        <br>
+           &nbsp;&nbsp;&nbsp; pin 4 ==&gt; 5 Volt <br>
+           &nbsp;&nbsp;&nbsp; pin 13 ==&gt; 4 Volt                      
+                                                                        
+    
+        <p>Setting the program clock line (DTR or RTS) active:&nbsp; <br>
+           &nbsp;&nbsp;&nbsp; pin 12 ==&gt; 10 ... 14 Volt</p>
+            </td>
+            <td>Set DTR and RTS inactive again, and then the program/run
+swicth     in  "program"                                                
+                                                   
+        <p>Activating DTR and/or RTS and/or send-$FF: <br>
+           &nbsp;&nbsp;&nbsp; pin 4 ==&gt; 10 ... 14 Volt</p>
+            </td>
+          </tr>
+                       
+    </tbody>            
+  
+</table>
+
+               
+  
+<ul>
+
+        <li> Leave the settings window</li>
+        <li> set program/run switch in "run"</li>
+        <li> Disconnect the programmer from the serial port</li>
+        <li> Insert the PIC</li>
+        <li> connect to the serial port again</li>
+        <li> set program/run switch in "program"</li>
+        <li> now everthing should work correctly and you can read for instance 
+     the device ID</li>
+               
+  
+</ul>
+
+      <br>
+
+      <br>
+
+               
+  
+<h4><a name="history"></a>       History&nbsp;<a href="#top"><img src="top_page.gif" height="14" width="14">
+      </a>   </h4>
+
+               
+  
+<table border="1" width="100%">
+
+        <tbody>
+          <tr>
+            <td><br>
+            </td>
+            <td valign="middle"><br>
+            </td>
+          </tr>
+          <tr>
+            <td>ideas for the future</td>
+            <td>                                    
+        <ul>
+              <li> some suggest small capacitors (of 300 pF ?) are needed 
+across     data  and clock lines ?</li>
+                                       
+        </ul>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">16-02-2002<br>
+            </td>
+            <td valign="top">                                    
+        <ul>
+              <li>improved mechanical construction</li>
+              <li>more flexibility</li>
+              <li>better debug facilities</li>
+              <li>improved fast serial communication</li>
+              <li>in circuit programming added</li>
+                                       
+        </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>3-11-2001</td>
+            <td>                                    
+        <ul>
+              <li> disabling the oscillator, in case a X-tal is connected 
+to  the PIC</li>
+              <li> connector with signals for in-circuit-programming of PIC's 
+    on other  boards</li>
+              <li> connecting an external power supply (if more electronics 
+ is    present)</li>
+              <li> make it fully compatible with the cheaper (and complexer) 
+ 16F627/16F628</li>
+                                       
+        </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>October 2001</td>
+            <td>                                    
+        <ul>
+              <li> Idea added to increase the program voltage in case of
+bad  RS232 lines</li>
+                                       
+        </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Septemnber 2001</td>
+            <td>                                    
+        <ul>
+              <li> The first design</li>
+                                       
+        </ul>
+            </td>
+          </tr>
+                       
+    </tbody>            
+  
+</table>
+
+      <br>
+
+           &nbsp; <br>
+
+           &nbsp;                                  
+  </body></html>

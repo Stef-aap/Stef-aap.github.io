@@ -1,0 +1,782 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JALcc macros</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #feffe6;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="3" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>April 2006</span></p>
+<p><span class=rvts1>Migration to JAL v2</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex </a></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts2>Major changes JAL v2</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>new types, sbyte, word, sword, dword, sdword, user defined types </li>
+<li>constant and variable strings and arrays (jumptable not further supported) </li>
+<li>all available banks will be used (without any user-interaction) </li>
+<li>for loop, loopcounter available and may be up to dword type </li>
+<li>arithmetic shift for signed types (sign conservation) </li>
+<li>(multiple task support) but they don't work correctly yet </li>
+<li>assembler actions on named bits may not specify the register </li>
+<li>more than 1 interrupt procedure allowed </li>
+<li>volatile is working as it should be (so be careful using volatile !!) </li>
+<li>due to a better optimization, tris-shadowing isn't necessary anymore </li>
+<li>trinary operator "?" is replaced by normal "==" operator </li>
+<li>default procedure / function parameters not longer supported </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Known bugs / issues</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>raw interrupt not yet implemented </li>
+<li>shift 0, not correctly handled </li>
+</ul>
+<p><br></p>
+<p>&nbsp;&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Performance Comparison&nbsp;&nbsp; JAL &lt;--&gt; pJAL</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td rowspan=2 width=130 valign=top>
+<p>&nbsp; </p>
+</td>
+<td colspan=3 valign=top>
+<p>CodeSize</p>
+</td>
+<td colspan=2 valign=top>
+<p>RamSize</p>
+</td>
+<td colspan=2 width=200 valign=top>
+<p>Stack</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=77 valign=top>
+<p>JAL(1)</p>
+</td>
+<td width=53 valign=top>
+<p>JAL(2)</p>
+</td>
+<td width=51 valign=top>
+<p>pJAL</p>
+</td>
+<td width=42 valign=top>
+<p>JAL</p>
+</td>
+<td width=76 valign=top>
+<p>pJAL</p>
+</td>
+<td width=89 valign=top>
+<p>JAL</p>
+</td>
+<td width=88 valign=top>
+<p>pJAL</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>pJAL_RS232_hw</p>
+</td>
+<td width=77 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=53 valign=top>
+<p>253</p>
+</td>
+<td width=51 valign=top>
+<p>96</p>
+</td>
+<td width=42 valign=top>
+<p>16</p>
+</td>
+<td width=76 valign=top>
+<p>9</p>
+</td>
+<td width=89 valign=top>
+<p>5</p>
+</td>
+<td width=88 valign=top>
+<p>2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>pJAL_delay</p>
+</td>
+<td width=77 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=53 valign=top>
+<p>604</p>
+</td>
+<td width=51 valign=top>
+<p>319</p>
+</td>
+<td width=42 valign=top>
+<p>17</p>
+</td>
+<td width=76 valign=top>
+<p>10</p>
+</td>
+<td width=89 valign=top>
+<p>5</p>
+</td>
+<td width=88 valign=top>
+<p>2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>pJAL_ADC&nbsp; </p>
+</td>
+<td width=77 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=53 valign=top>
+<p>436</p>
+</td>
+<td width=51 valign=top>
+<p>210</p>
+</td>
+<td width=42 valign=top>
+<p>18</p>
+</td>
+<td width=76 valign=top>
+<p>13</p>
+</td>
+<td width=89 valign=top>
+<p>5</p>
+</td>
+<td width=88 valign=top>
+<p>2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>pJAL_prog_data_mem</p>
+</td>
+<td width=77 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=53 valign=top>
+<p>647</p>
+</td>
+<td width=51 valign=top>
+<p>459</p>
+</td>
+<td width=42 valign=top>
+<p>22</p>
+</td>
+<td width=76 valign=top>
+<p>21</p>
+</td>
+<td width=89 valign=top>
+<p>5</p>
+</td>
+<td width=88 valign=top>
+<p>2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>pBJT</p>
+</td>
+<td width=77 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=53 valign=top>
+<p>477</p>
+</td>
+<td width=51 valign=top>
+<p>223</p>
+</td>
+<td width=42 valign=top>
+<p>30</p>
+</td>
+<td width=76 valign=top>
+<p>20</p>
+</td>
+<td width=89 valign=top>
+<p>3</p>
+</td>
+<td width=88 valign=top>
+<p>2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>pJAL_pwm</p>
+</td>
+<td width=77 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=53 valign=top>
+<p>611</p>
+</td>
+<td width=51 valign=top>
+<p>318</p>
+</td>
+<td width=42 valign=top>
+<p>29</p>
+</td>
+<td width=76 valign=top>
+<p>24</p>
+</td>
+<td width=89 valign=top>
+<p>5</p>
+</td>
+<td width=88 valign=top>
+<p>3</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>pJAL_I2C</p>
+</td>
+<td width=77 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=53 valign=top>
+<p>1137</p>
+</td>
+<td width=51 valign=top>
+<p>433</p>
+</td>
+<td width=42 valign=top>
+<p>39</p>
+</td>
+<td width=76 valign=top>
+<p>27</p>
+</td>
+<td width=89 valign=top>
+<p>6</p>
+</td>
+<td width=88 valign=top>
+<p>4</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>pJAL_LCD</p>
+</td>
+<td width=77 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=53 valign=top>
+<p>1264</p>
+</td>
+<td width=51 valign=top>
+<p>844</p>
+</td>
+<td width=42 valign=top>
+<p>45</p>
+</td>
+<td width=76 valign=top>
+<p>42</p>
+</td>
+<td width=89 valign=top>
+<p>5</p>
+</td>
+<td width=88 valign=top>
+<p>5</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=77 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=53 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=51 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=42 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=76 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=89 valign=top>
+<p>&nbsp; </p>
+</td>
+<td width=88 valign=top>
+<p>&nbsp; </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>LED6</p>
+</td>
+<td width=77 valign=top>
+<p>296</p>
+</td>
+<td width=53 valign=top>
+<p>514</p>
+</td>
+<td width=51 valign=top>
+<p>157</p>
+</td>
+<td width=42 valign=top>
+<p>18</p>
+</td>
+<td width=76 valign=top>
+<p>9</p>
+</td>
+<td width=89 valign=top>
+<p>4</p>
+</td>
+<td width=88 valign=top>
+<p>2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>I2C </p>
+</td>
+<td width=77 valign=top>
+<p>454</p>
+</td>
+<td width=53 valign=top>
+<p>716</p>
+</td>
+<td width=51 valign=top>
+<p>361</p>
+</td>
+<td width=42 valign=top>
+<p>28</p>
+</td>
+<td width=76 valign=top>
+<p>21</p>
+</td>
+<td width=89 valign=top>
+<p>4</p>
+</td>
+<td width=88 valign=top>
+<p>4</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 height=16 valign=top>
+<p>LCD</p>
+</td>
+<td width=77 height=16 valign=top>
+<p>573</p>
+</td>
+<td width=53 height=16 valign=top>
+<p>987</p>
+</td>
+<td width=51 height=16 valign=top>
+<p>501</p>
+</td>
+<td width=42 height=16 valign=top>
+<p>19</p>
+</td>
+<td width=76 height=16 valign=top>
+<p>22</p>
+</td>
+<td width=89 height=16 valign=top>
+<p>5</p>
+</td>
+<td width=88 height=16 valign=top>
+<p>5</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>GP2D02&nbsp; </p>
+</td>
+<td width=77 valign=top>
+<p>282</p>
+</td>
+<td width=53 valign=top>
+<p>446</p>
+</td>
+<td width=51 valign=top>
+<p>180</p>
+</td>
+<td width=42 valign=top>
+<p>17</p>
+</td>
+<td width=76 valign=top>
+<p>10</p>
+</td>
+<td width=89 valign=top>
+<p>4</p>
+</td>
+<td width=88 valign=top>
+<p>2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>IR</p>
+</td>
+<td width=77 valign=top>
+<p>477</p>
+</td>
+<td width=53 valign=top>
+<p>733</p>
+</td>
+<td width=51 valign=top>
+<p>397</p>
+</td>
+<td width=42 valign=top>
+<p>33</p>
+</td>
+<td width=76 valign=top>
+<p>20</p>
+</td>
+<td width=89 valign=top>
+<p>6</p>
+</td>
+<td width=88 valign=top>
+<p>7</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 height=16 valign=top>
+<p>Joystick+Motor&nbsp; </p>
+</td>
+<td width=77 height=16 valign=top>
+<p>517</p>
+</td>
+<td width=53 height=16 valign=top>
+<p>797</p>
+</td>
+<td width=51 height=16 valign=top>
+<p>382</p>
+</td>
+<td width=42 height=16 valign=top>
+<p>31</p>
+</td>
+<td width=76 height=16 valign=top>
+<p>29</p>
+</td>
+<td width=89 height=16 valign=top>
+<p>6</p>
+</td>
+<td width=88 height=16 valign=top>
+<p>9 ??</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>PS2</p>
+</td>
+<td width=77 valign=top>
+<p>282</p>
+</td>
+<td width=53 valign=top>
+<p>436</p>
+</td>
+<td width=51 valign=top>
+<p>159</p>
+</td>
+<td width=42 valign=top>
+<p>23</p>
+</td>
+<td width=76 valign=top>
+<p>8</p>
+</td>
+<td width=89 valign=top>
+<p>6</p>
+</td>
+<td width=88 valign=top>
+<p>4</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>US</p>
+</td>
+<td width=77 valign=top>
+<p>407</p>
+</td>
+<td width=53 valign=top>
+<p>649</p>
+</td>
+<td width=51 valign=top>
+<p>366</p>
+</td>
+<td width=42 valign=top>
+<p>19</p>
+</td>
+<td width=76 valign=top>
+<p>16</p>
+</td>
+<td width=89 valign=top>
+<p>4</p>
+</td>
+<td width=88 valign=top>
+<p>3</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>ProgMem</p>
+</td>
+<td width=77 valign=top>
+<p>338</p>
+</td>
+<td width=53 valign=top>
+<p>492</p>
+</td>
+<td width=51 valign=top>
+<p>298</p>
+</td>
+<td width=42 valign=top>
+<p>21</p>
+</td>
+<td width=76 valign=top>
+<p>18</p>
+</td>
+<td width=89 valign=top>
+<p>4</p>
+</td>
+<td width=88 valign=top>
+<p>2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>Stepper</p>
+</td>
+<td width=77 valign=top>
+<p>1770</p>
+</td>
+<td width=53 valign=top>
+<p>2572</p>
+</td>
+<td width=51 valign=top>
+<p>1518</p>
+</td>
+<td width=42 valign=top>
+<p>65</p>
+</td>
+<td width=76 valign=top>
+<p>74</p>
+</td>
+<td width=89 valign=top>
+<p>8</p>
+</td>
+<td width=88 valign=top>
+<p>7</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=130 valign=top>
+<p>bittest suite</p>
+</td>
+<td width=77 valign=top>
+<p>317</p>
+</td>
+<td width=53 valign=top>
+<p>561</p>
+</td>
+<td width=51 valign=top>
+<p>229</p>
+</td>
+<td width=42 valign=top>
+<p>16</p>
+</td>
+<td width=76 valign=top>
+<p>4</p>
+</td>
+<td width=89 valign=top>
+<p>4</p>
+</td>
+<td width=88 valign=top>
+<p>2</p>
+</td>
+</tr>
+</table>
+</div>
+<p>JAL(1) = JAL 0.4.59, compiled for 16F628</p>
+<p>JAL(2) = JAL 0.4.59, compiled for 16F877</p>
+<p>pJAL = JAL 2.0</p>
+<p>The above tests were all done on the Rapid Prototyping Board, with a 16F877 running at 20 MHz. So the programs were all tested with real hardware.</p>
+<p>None of the new features of JAL were tested (except constant arrays).</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>For an overview of the differences, you should first read "jaldiff.txt", available in the downlaod package.</p>
+<p>In general it'll only be necessary to translate the device specific library file, like JPIC.JAL.</p>
+<p>For more complex programs, the following important issues should be checked:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>volatile variables that are not explictly declared volatile (but inherite the volatile parameter from a byte) </li>
+<li>jump tables </li>
+</ul>
+<p>&nbsp; </p>
+<p>Besides these important issues there are some minor points, which are recognized and signaled by the compiler</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>assembler bit pointers </li>
+<li>default function parameters are no longer supported </li>
+</ul>
+<p>&nbsp; </p>
+<p>And of course some code can be optimized and/or made more readible, by making use of the extended capabilities of pJAL.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>signed and larger types </li>
+<li>support of constant and variable arrays </li>
+<li>larger and available for-loop counter </li>
+<li>more interrupt procedures (and porting them to standard libraries) </li>
+<li>complex expression are evaluated correctly (the jal-bracket issue) </li>
+<li>.... </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Compiler switches</span></p>
+<p>Not all compiler switches are listed in the jaldiff.text. Furthermore, for unknown resons, some compiler switches seems to work different on Windows or Linux.</p>
+<p>"-pcode"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p class=rvps1>(default)</p>
+<p>"-nopcode"</p>
+<p>"-long-start"</p>
+<p class=rvps1>if you want to use a bootloader (like Shane Tolmies), this switch assures that the program code start with a long jump at location 0x0000</p>
+<p>"-d"</p>
+<p class=rvps1>same as "-debug" ??</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Volatile</span></p>
+<p>In JAL "volatile" never worked. In pJAL it's fully functional as it should !!</p>
+<p>Because all PIC registers as well as all the indivudal bits are declared volatile in the device library (e.g. JPIC.JAL), and the pJAL compiler supports implicit volatile inheritance, you should never worry about, nor use volatile. In JAL there was never a problem, because non-volatile optimization isn't implemented at all.&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Assembler bits</span></p>
+<p>For setting bits in inline assembler code, in JAL both constructs below where allowed, in pJAL only the construct on the right is allowed. This makes the code more robust, because statements like "asm&nbsp; bsf&nbsp; indf,RB0" (which were valid in JAL) are prevented. The disadvantage comes in when you copy complete code from an assembler program into pJAL, because in assembler mostly (or even only) the construct on the left is used.</p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffe6;}">
+<p>JAL</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffe6;}">
+<p>JAL / pJAL</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffe6;}">
+<p><img width=216 height=73 alt="" src="jalcc_jalxxx_img9.gif"></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffe6;}">
+<p><img width=191 height=68 alt="" src="jalcc_jalxxx_img10.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><span class=rvts2>&nbsp;&nbsp; </span></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>JumpTables</span></p>
+<p>Jump tables are no longer supported in pJAL, but can simply be replaced by constant arrays.</p>
+<p>In JAL we had to define a jumptable and some interface routine, like this</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=560 height=408 alt="" src="jalcc_jalxxx_img4.gif"></p>
+<p>&nbsp; </p>
+<p>in JAL, the jumptable was used&nbsp; by calling the interface routine, like this:</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=366 height=42 alt="" src="jalcc_jalxxx_img7.gif"></p>
+<p>&nbsp; </p>
+<p>in pJAL, we can define a constant array like this</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=598 height=38 alt="" src="jalcc_jalxxx_img6.gif"></p>
+<p>&nbsp; </p>
+<p>in pJAL, we get the value from the table, just be assigning to an array-element, like this</p>
+<p>(or even use the array-element directly)</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=351 height=37 alt="" src="jalcc_jalxxx_img8.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>TRIS shadowing not necessary</span></p>
+<p>In Jal the TRIS registers were shadowed. This was done, because it lead to the smallest codesize (Shadowing of the io-ports is done for completly different reasons, and therefor is still necessary !!). To give the pJAL all possibilities to optimize, it's better not to shadow the TRIS registers.</p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Trinary ?-operator</span></p>
+<p>Replaced by normal equation operator "=="</p>
+<p>C:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; w = x ? y : z</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; where if x is 0, w is assigned z otherwise it's assigned y</p>
+<p>old JAL:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const __SPI_clock =&nbsp; 1 * ( SPI_clock ? (target_clock / 4)&nbsp; ) +</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 * ( SPI_clock ? (target_clock / 16) ) +</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 * ( SPI_clock ? (target_clock / 64) )</p>
+<p>new JAL:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const __SPI_clock =&nbsp; 1 * ( SPI_clock == (target_clock / 4)&nbsp; ) +</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 * ( SPI_clock == (target_clock / 16) ) +</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 * ( SPI_clock == (target_clock / 64) )</p>
+<p><br></p>
+<p>results in __SPI_clock being assigned 1, 2, 3, or 0</p>
+<p><br></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Device specific library</span></p>
+<p>For the 16F877 a JPIC equivalent "PJAL_16F877_INC.JAL"&nbsp; is available here ...</p>
+<p>The hierarchical structure is shown below</p>
+<p>&nbsp; </p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=198 height=197 alt="" src="jalcc_jalxxx_img14.gif">&nbsp; </p>
+<p>&nbsp; </p>
+<p><br></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Default procedure parameters not supported</span></p>
+<p>Although it's allowed to define a default procedure parameter, like</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=356 height=19 alt="" src="jalcc_jalxxx_img11.gif"></p>
+<p>&nbsp; </p>
+<p>it has no effect whatsoever.</p>
+<p>As a consequence it's not allowed to call the procedure without a parameter. So</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=136 height=20 alt="" src="jalcc_jalxxx_img12.gif"></p>
+<p>&nbsp; </p>
+<p>should be replaced by</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=152 height=20 alt="" src="jalcc_jalxxx_img13.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Raw interrupt</span></p>
+<p>Although planned, it's not yet supported.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Constant instead of pragma allowed</span></p>
+<p><span class=rvts2>Some pragma error checking doesn't work</span></p>
+<p>In most(all?) cases it's possible to define the system constants just as a constant instead of pragmas.</p>
+<p>Defining as a constant is encouraged, because that's the only way the compiler knows it's a constant and therefore the user is allowed to use pragma error statements.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;JAL/pJAL&gt;&nbsp;&nbsp;&nbsp; pragma target clock&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20_000_000</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;pJAL&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const target_clock = 20_000_000</p>
+<p>&nbsp; </p>
+<p>In the example below, If use pragma target=16F877 and&nbsp; const byte PIC_ADC_Nchan=1,</p>
+<p>so there should be no pragma error, but it does !!</p>
+<p>&nbsp; </p>
+<p>&nbsp; procedure _PIC_ADC_init_2_Vref is</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; if target_chip != pic_12F675 then</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if&nbsp;&nbsp;&nbsp; PIC_ADC_Nchan == 1 then&nbsp; -- chan = 0</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .....</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pragma error&nbsp;&nbsp;&nbsp; -- this number of channels is not available</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end if</p>
+<p>&nbsp; </p>
+<p>Using </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; const target_chip = pic_16F877</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; const target_clock = 20_000_000</p>
+<p>&nbsp; </p>
+<p>now the pragma error works ok !!</p>
+<p>I think here is still a small bug, because only defining target_clock as constant also works,</p>
+<p>and this has nothing to do with the code shown above ????</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Assembler listing</span></p>
+<p>The assembler listing contains a lot of information, somewhat too much for me. I'm experimenting with filtering and syntax highlighting to get some more compressed listing.</p>
+<p>&nbsp; </p>
+<p><img width=622 height=374 alt="" src="jalcc_jalxxx_img15.gif"></p>
+
+</body></html>

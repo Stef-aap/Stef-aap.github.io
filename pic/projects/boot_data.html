@@ -1,0 +1,62 @@
+<HTML><HEAD><TITLE>JALcc and other compilers</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>Bootloader / DataBooter</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>If you've ever developped a PIC application with a bootloader-tool, you'll always want to use such a bootloader-tool.</P>
+<P>Unfortunatly, a bootloader can only be used by PICs that can program themselfs (i.e. the larger PICs).</P>
+<P>Still there's a need even for the smaller devices to change functionality in an easy way. So even if only the eeprom data section of a PIC could be changed by a bootloader this would be a welcome feature in some projects, in this document I'll call such a tool a DataBooter.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>BootLoader</SPAN></P>
+<P>For the bootloader I always use Shanies ...</P>
+<P>&nbsp;<IMG width=259 height=200 src="boot_data_img1.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>DataBooter</SPAN></P>
+<P>Because the databooter is especially meant for the smaller PICs, it should be designed with the following constraints</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>use as little pins as possible&nbsp;</LI>
+<LI>use as little memory as possible&nbsp;</LI>
+<LI>should work without a hardware RS232 device&nbsp;</LI>
+<LI>should work without a resetpin (reset by powerup)&nbsp;</LI>
+<LI>should work in cooperation with a bootloader&nbsp;</LI>
+<LI>not only suited for data uploading, but also for data-downloading (data logging)&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>So looking at the PIC, there are the following possibilities</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>PIC has bootloader Yes/No&nbsp;</LI>
+<LI>PIC can be reset externally Yes/No&nbsp;</LI>
+<LI>PIC can transmit data Yes/No&nbsp;</LI>
+<LI>PIC can receive data always&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>The minimum connection could be just 1 pin (plus Ground). It's even possible to use this pin as an input during normal operation. So the simplest solution would look something like this:</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=451 height=219 src="boot_data_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Ofcourse there's one restriction on both using a pin for data-booting and also for normal functions, during data-booting it must be high impedance.</P>
+<P>The function of D1 and R1: The PIC must be reset by turning the power on. Then the PIC should detect a recognizable signal at the "TxD" pin. The easiest to detect is a long puls. On windows PC's (and certainly if a USB-module is used) it's not easy to explictly control the TxD line, but the DTR line can be easily controled. So the DTR line is both used to reset devices that can be reset and to generate a long pulse to synchronize devices that have only 1 input pin to communicate.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=769 height=261 src="boot_data_img4.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>F1 = transport data from PIC to PC</P>
+<P>F9 =</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=640 height=400 src="rs232_signals.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=301 height=269 src="serial3.jpg"></P>
+</BODY></HTML>

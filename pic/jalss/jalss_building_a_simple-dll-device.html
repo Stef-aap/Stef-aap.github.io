@@ -1,0 +1,213 @@
+<HTML><HEAD><TITLE>Building simple DLL device</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>Semptember 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, Building simple-DLL-device</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P>For building a simple-DLL-device, you only have to write the following code sections</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>the definitions of the IO-pins of the device in the create section&nbsp;</LI>
+<LI>execution phase-1, the reading of the Input pins (if there are any)&nbsp;</LI>
+<LI>execution phase-2, the writing of the output pins&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=0 cellpadding=0 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=0>
+<TR valign=top>
+<TD valign=top>
+<P>Step 2 can be omitted, if for instance the device is a generator.</P>
+<P>Step 3 should always be present, because that's the only way you can communicate to the "outside-world" or user.</P>
+<P>If necessary, a reset procedure can be implemented.</P>
+<P>Below is the complete code for a simple-DLL-device, written in Delphi.</P>
+<P>In bold the lines you should change to get the desirable functionality.</P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=204 height=101 src="simple_dll_device.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Before writing a device, it's advised to study the&nbsp;<A class=RVTS4 href="jalss_types_and_classes.html">device-types</A>&nbsp;in device_types.pas.</P>
+<P>If you want to write a DLL in other language, you should also translate the type-definitions (device_types.pas) and the message definitions (msg_glob.pas). I'll be glad to host those translations on my&nbsp;<A class=RVTS4 href="jalss_history.html">download page</A>.</P>
+<P>After writing the DLL, you've to "<A class=RVTS4 href="jalss_building_devices.html#register_the_device">register</A>" the device.</P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<HR noshade size=1>
+<P><SPAN class=RVTS12>unit DLL_dev_test_simple_DLL;</SPAN></P>
+<P><SPAN class=RVTS12>(*******************************************************************************</SPAN></P>
+<P><SPAN class=RVTS12>This is a demo of a simple device in a DLL for JALss.</SPAN></P>
+<P><SPAN class=RVTS12>****************************************************************************)</SPAN></P>
+<P><SPAN class=RVTS12>interface</SPAN></P>
+<P><SPAN class=RVTS12>uses</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; Windows, Messages, SysUtils, Classes, Graphics, Controls, Dialogs,</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; StdCtrls, Buttons, janShape</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; ,ComCtrls</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; ,shellapi</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; ,msg_glob&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //message number constants</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; ,device_types&nbsp; //general pin / devices types</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; ;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>(*******************************************************************************</SPAN></P>
+<P><SPAN class=RVTS12>DLL entries</SPAN></P>
+<P><SPAN class=RVTS12>LEAVE THIS UNCHANGED (names are case-sensitive !!!)</SPAN></P>
+<P><SPAN class=RVTS12>*******************************************************************************)</SPAN></P>
+<P><SPAN class=RVTS12>procedure DLL_DEV_CREATE(</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; instance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :integer;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; var DLL_parameters :t_DLL_parameters); export; stdcall;</SPAN></P>
+<P><SPAN class=RVTS12>procedure DLL_DEV_DESTROY(instance:integer);export; stdcall;</SPAN></P>
+<P><SPAN class=RVTS12>procedure DLL_DEV_DO_RESET(instance :integer) export; stdcall;</SPAN></P>
+<P><SPAN class=RVTS12>procedure DLL_DEV_EXECUTE1(</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; instance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :integer;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; var DLL_exe_pars&nbsp;&nbsp; :t_DLL_exe_pars); export; stdcall;</SPAN></P>
+<P><SPAN class=RVTS12>procedure DLL_DEV_EXECUTE2(</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; instance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :integer;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; var DLL_exe_pars&nbsp;&nbsp; :t_DLL_exe_pars); export; stdcall;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>(*******************************************************************************</SPAN></P>
+<P><SPAN class=RVTS12>*******************************************************************************)</SPAN></P>
+<P><SPAN class=RVTS12>const</SPAN></P>
+<P>&nbsp; nio_pins =7;&nbsp;&nbsp;&nbsp;&nbsp; //number of IO-pins</P>
+<P><SPAN class=RVTS12>type</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; Ttest_dev = class</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; private</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; public</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; (*******************************************************************************</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; Standard variables to store important information</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; LEAVE THIS UNCHANGED</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; *******************************************************************************)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; help_path&nbsp;&nbsp; :string;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; dev_nr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :integer;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; typ_nr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :integer;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; //although not all IO-pins are INPUTS,</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; //it's still advisible to declare an entry for each IO-pin</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; input_value :array [0..nio_pins-1] of integer;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; end;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>implementation</SPAN></P>
+<P><SPAN class=RVTS12>(*******************************************************************************</SPAN></P>
+<P><SPAN class=RVTS12>local vars</SPAN></P>
+<P><SPAN class=RVTS12>LEAVE THIS UNCHANGED</SPAN></P>
+<P><SPAN class=RVTS12>*******************************************************************************)</SPAN></P>
+<P><SPAN class=RVTS12>var</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; dev_ar :array [1..max_DLL_instance_count] of Ttest_dev;</SPAN></P>
+<P><SPAN class=RVTS12>(*******************************************************************************</SPAN></P>
+<P><SPAN class=RVTS12>*******************************************************************************)</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>procedure DLL_DEV_CREATE(</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; instance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :integer;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; var DLL_parameters :t_DLL_parameters);</SPAN></P>
+<P><SPAN class=RVTS12>(*******************************************************************************</SPAN></P>
+<P><SPAN class=RVTS12>*******************************************************************************)</SPAN></P>
+<P><SPAN class=RVTS12>begin</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; dev_ar[instance]:=Ttest_dev.create;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; with dev_ar[instance] do</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; begin</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; //retrieve and store parameters device constants into the DLL_parameters;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; with DLL_parameters do</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; begin</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //store important information to communicate with the mainprogram</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_nr:=DLL_dev_nr;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; typ_nr:=DLL_typ_nr;</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_help_path:='JALss_connections.htm';</P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //define all IO pins</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_nio_pin:=nio_pins;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_kind[0]:=DigIn;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_name[0]:='DLL_aapje';</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_kind[1]:=DigOut;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_name[1]:='DLL_beertje';</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_kind[2]:=DigIO;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_name[2]:='DLL_drie';</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_kind[3]:=AnalogOut;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_name[3]:='DLL_vier';</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_kind[4]:=AnalogIn;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_name[4]:='DLL_vijf';</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_kind[5]:=AnalogIO;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_name[5]:='DLL_zes';</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_kind[6]:=AnalogOut;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_IO_name[6]:='DLL_zeven';</P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //fullname of the device</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_name:=pchar('DLL Simple Test Device');</P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Active frequency of this device,</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //the main system clock is derived from the highest active frequency</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //if this device doesn't have a clock, make it zero</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_frequency:=0;</P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Fast devices are called every clockcycle,</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Slow devices are called less often ....</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Static devices are only called once</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_fast_slow:=fast;</P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; end;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; //call the reset function</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;&nbsp; DLL_DEV_DO_RESET(instance);</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; end;</SPAN></P>
+<P><SPAN class=RVTS12>end;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>procedure DLL_DEV_DESTROY(instance:integer);</SPAN></P>
+<P><SPAN class=RVTS12>(*******************************************************************************</SPAN></P>
+<P><SPAN class=RVTS12>Destroys the selected instance of the device and frees the memory</SPAN></P>
+<P><SPAN class=RVTS12>*******************************************************************************)</SPAN></P>
+<P><SPAN class=RVTS12>begin</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; freeandnil(dev_ar[instance]);</SPAN></P>
+<P><SPAN class=RVTS12>end;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>procedure DLL_DEV_DO_RESET(instance :integer);</SPAN></P>
+<P><SPAN class=RVTS12>(*******************************************************************************</SPAN></P>
+<P><SPAN class=RVTS12>Resets the device</SPAN></P>
+<P><SPAN class=RVTS12>*******************************************************************************)</SPAN></P>
+<P><SPAN class=RVTS12>begin</SPAN></P>
+<P>&nbsp; //nothing to do here</P>
+<P><SPAN class=RVTS12>end;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>procedure DLL_DEV_EXECUTE1(</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; instance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :integer;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; var DLL_exe_pars&nbsp;&nbsp; :t_DLL_exe_pars);</SPAN></P>
+<P><SPAN class=RVTS12>(*******************************************************************************</SPAN></P>
+<P><SPAN class=RVTS12>In the first execution phase, all inputs should be read and stored in internal variables.</SPAN></P>
+<P><SPAN class=RVTS12>Alternatively you can calculate the outputs and store the output results instead</SPAN></P>
+<P><SPAN class=RVTS12>of the input signals.</SPAN></P>
+<P><SPAN class=RVTS12>(Calculations can either be done in execution phase 1 or 2.)</SPAN></P>
+<P><SPAN class=RVTS12>*******************************************************************************)</SPAN></P>
+<P><SPAN class=RVTS12>begin</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; with dev_ar[instance] do</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; begin</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp; input_value[0]:=DLL_exe_pars.DLL_input_value[0];</P>
+<P><SPAN class=RVTS12>&nbsp; end;</SPAN></P>
+<P><SPAN class=RVTS12>end;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>procedure DLL_DEV_EXECUTE2(</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; instance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :integer;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; var DLL_exe_pars&nbsp;&nbsp; :t_DLL_exe_pars);</SPAN></P>
+<P><SPAN class=RVTS12>(*******************************************************************************</SPAN></P>
+<P><SPAN class=RVTS12>In the second execution phase, all outputs should be set.</SPAN></P>
+<P><SPAN class=RVTS12>*******************************************************************************)</SPAN></P>
+<P><SPAN class=RVTS12>begin</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; with dev_ar[instance] do</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp; begin</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp; if input_value[0] in [digio_high,digio_pullup,digio_tristate] then</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_exe_pars.DLL_output_value[1]:=digio_low</P>
+<P>&nbsp;&nbsp;&nbsp; else</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DLL_exe_pars.DLL_output_value[1]:=digio_high;</P>
+<P><SPAN class=RVTS12>&nbsp; end;</SPAN></P>
+<P><SPAN class=RVTS12>end;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS12>end.</SPAN></P>
+</BODY></HTML>

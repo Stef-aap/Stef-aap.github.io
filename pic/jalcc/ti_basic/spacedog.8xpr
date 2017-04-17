@@ -1,0 +1,79 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 11/19/05, 14:03
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 93 02 0D 00 82 02 <pp> <progname>  00 80 82 02 80 02
+; program name: SPACEDOG
+; file is NOT protected
+
+; unkown codes are inserted as " %%HH%% "
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+Clrhome
+Lbl 1
+For(A,1,7
+  Disp "
+End
+Output(1,1,"O--O========O--O!//!SPACEDOG!//!O--O========O--O  [O^oM^oM^oM^oMO] ^. ^+ O        O ^+   ^. ^+     ^. ^+                  ^.^.  ^+         ^.^+
+Repeat Ans
+  Getkey
+End
+If Ans=45
+Then
+  Clrhome
+  Output(1,1,"
+  Stop
+End
+Output(2,5,"---GO---
+For(A,1,150
+  1+A->A
+End
+DelVar BDelVar CDelVar DDelVar EDelVar FDelVar GDelVar HDelVar IDelVar JDelVar KDelVar L8->A
+Repeat Ans=45 or A=J or A=K
+  A+(Ans=26 and A!=16)-(Ans=24 and A!=1->A
+  Output(4,A,"M
+  H->J
+  I->K
+  F->H
+  G->I
+  D->F
+  E->G
+  B->D
+  C->E
+  RandInt(1,16->B
+  RandInt(1,16->C
+  Output(4,A,"
+  Disp ""
+  Output(8,B,"^+
+  Output(8,C,"^.
+  L+1->L
+  Getkey
+End
+
+For(B,3,5
+  Output(B,A,"*
+  If A!=1
+    Output(B,A-1,"*
+  If A!=16
+    Output(B,A+1,"*
+End
+
+Output(2,A,"*
+If A>2
+  Output(4,A-2,"*
+Output(6,A,"*
+If A<15
+  Output(4,A+2,"*
+For(B,1,^e2
+  B+1->B
+End
+Output(3,1,"O-O==========O-O!/!**CRASH!**!/!!/[ENTER:PLAY]/!!/[Clr:QUIT]/!/!!/!SCORE:- --!/!O-O==========O-O
+Output(7,11,L
+Repeat Ans=45 or Ans=105
+  Getkey
+End
+If Ans=105
+  Goto 1
+Clrhome
+Output(1,1,"

@@ -1,0 +1,25 @@
+; JAL StateMachine Generator, by Diagram Designer
+; Initialisation of StateMachine: T
+const byte sm_test_init   = 1
+const byte sm_test_state1 = 2
+var byte sm_test = sm_test_init
+
+  -- StateMachine: sm_test
+  if sm_test == sm_test_init then
+  LED2 = on
+  ;LED3 = on
+  = = on
+  on = on
+    sm_test = sm_test_state1
+
+  elsif sm_test == sm_test_state1 then
+  LED2 = on
+  ;LED3 = on
+  = = on
+  on = on
+;WARNING: dead state
+
+  -- to be really sure the statemachine is finite
+  else
+    sm_test = sm_test_init
+  end if

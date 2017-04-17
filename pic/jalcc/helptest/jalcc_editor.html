@@ -1,0 +1,246 @@
+<HTML><HEAD><TITLE>Code-Editor</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>December 2004</SPAN></P>
+<P><SPAN class=RVTS1>CodeEditor</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>This chapter describes only the general aspects of the code-editor. For some code-editors, like Batch and the High-Level-languages JAL,PICbsc and XCSB the code-editor has a lot more features, see the inidividual chapters.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Todo</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>JAL, PICbsc, XCSB Special markers, storage and retrieval, listviews, meaning&nbsp;</LI>
+<LI>PICbsc, XCSB extend with JALcc macros ??&nbsp;</LI>
+<LI>F9 tabel uitbreiden met JALcc macros ??&nbsp;</LI>
+<LI>Editor.HideSelection:=false; (true doesn't work because of deep bug)&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Special Keys</SPAN></P>
+<P>Some keys has changed, compared to versions prior to V1.0. The most important changes are</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Compile actions moved from F5 to (shift-)F9&nbsp;</LI>
+<LI>Block (Un)Indent changed to ctrl+U/I&nbsp; (instead of ctrl+shift+I/U)&nbsp;</LI>
+<LI>Especially for the High-Level-languages, key support is extended&nbsp;</LI>
+<LI>Keys cann't be programmed by the user anymore&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#C0C0C0 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=70 bgcolor=#FFFFFF valign=top>
+<P>F3&nbsp;</P>
+<P>Shift+F3</P></TD>
+<TD width=655 bgcolor=#FFFFFF valign=top>
+<P>Find Next (from search buffer)&nbsp;</P>
+<P>shift-F3 = Find Previous</P></TD>
+</TR>
+<TR valign=top>
+<TD width=70 bgcolor=#FFFFFF valign=top>
+<P>F4&nbsp;</P>
+<P>Shift+F4</P></TD>
+<TD width=655 bgcolor=#FFFFFF valign=top>
+<P>Find Next from word under cursor&nbsp;</P>
+<P>shift+F4 = Find Previous&nbsp;</P>
+<P>This is very handy, when tracing code in the High-Level-language &lt;--&gt; assembler listing.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Block Selection</SPAN></P>
+<P>By holding the Alt-key, you can select a non-zero based block with the left-mouse button. This block can be paste, cut and copied.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=352 height=196 src="jalcc_editor_img29.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Bookmarks</SPAN></P>
+<P><TABLE width=100% bgcolor=#C0C0C0 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=592 bgcolor=#FFFFFF valign=top>
+<P>Bookmarks are used to jump fast from one position in the current file to another position in the current file (The special code-editors can jump through bookmarks to other files and also saves the bookmarks positions).&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>The default keys for Bookmarks are&nbsp;</P>
+<P><SPAN class=RVTS3>Ctrl + Shift + &lt;0..9&gt;</SPAN>&nbsp;&nbsp;&nbsp; set/clear Bookmark &lt;0..9&gt;&nbsp;</P>
+<P><SPAN class=RVTS3>Ctrl + &lt;0..9&gt;</SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; jump to Bookmark &lt;0..9&gt;</P></TD>
+<TD width=95 bgcolor=#FFFFFF valign=top>
+<P>&nbsp;<IMG width=173 height=142 src="jalcc_editor_img2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Autocompletion &amp; Macros</SPAN></P>
+<P>(Syncompletionproposal heeft 2-SM-wijzigingen !!</P>
+<P>cthint+ctparams not ok !!)</P>
+<P>There a number of ways to automate the typing of code. In JALcc, all except one (JALcc-macros), will change the text immediatly. JALcc-macros don't change the text directly, but are used in a preprocessor, between visible screen and file. In fact JALcc-macros cann be seen as inline dynamically changeable procedures or functions.</P>
+<P>The following (direct) completion/substitution mechanisms are available:</P>
+<P>1. Autocompletion while you're type</P>
+<P>2. Shortcut-strings, can evaluate to complete textblocks</P>
+<P>3. Ctrl+Alt+&lt;char&gt; substitution</P>
+<P>4. Template Insertion</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>AutoCompletion by Proposal</SPAN></P>
+<P>This functionality can be turned on/off.</P>
+<P>As soon as the first letter of a new word is entered, autocompletion generates and shows a popup, with all words(sentences) of which the first part matches the typed word. Selection of the right word is done either by selected a word from the list or by typing more letters, until there's just one word left in the list. After selection, the word (or sentence) is inserted in the text.</P>
+<P>With the ESC key you can explicitly hide the list of matches. If the list contains no matches it hides itself.</P>
+<P>The list of words / sentences can be fully edited by the user.</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#F8FCC9 valign=top>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=101 height=100 src="jalcc_editor_img7.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>after pressing enter:&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=81 height=20 src="jalcc_editor_img8.gif"></P></TD>
+<TD width=100 bgcolor=#F8FCC9 valign=top>
+<P>It's important that the most common used words are also the topmost words.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=63 height=61 src="jalcc_editor_img9.gif"></P></TD>
+<TD width=100 bgcolor=#F8FCC9 valign=top>
+<P>If no matches occure, no popup list is shown:&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;<IMG width=40 height=22 src="jalcc_editor_img10.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Complete sentences can be inserted&nbsp;</P>
+<P>&nbsp;<IMG width=282 height=46 src="jalcc_editor_img11.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Editing the Autocompletion strings ..</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>String Macros</SPAN></P>
+<P>Shortcut strings can replace a few letters, with a complete text</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=470 bgcolor=#F8FCC9 valign=top>
+<P>Typing a few (user specified) letters, in this example&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=33 height=16 src="jalcc_editor_img12.gif"></P>
+<P>followed by a Shift+Enter,&nbsp;</P>
+<P>"pi" will be replaced by the text on the right.&nbsp;</P>
+<P>The template can also specify where the cursor should be placed after insertion, in this case at the position where the interrupt completion code should be inserted.&nbsp;</P>
+<P>The list can be fully controlled by the user.&nbsp;</P>
+<P>This feature can be turned on /off.</P></TD>
+<TD width=269 bgcolor=#F8FCC9 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=336 height=117 src="jalcc_editor_img14.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Editing the shortcut strings ...</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Ctrl + Alt + &lt;char&gt;</SPAN></P>
+<P>With the Ctrl+Alt+&lt;char&gt; macro you can insert complete blocks of formatted code, which can contains "fields" that can easily stepped through by the F10-key.</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=576 bgcolor=#F8FCC9 valign=top>
+<P>On the right you can see the result just after the substitution is done, the cursor starts at the first field "number", you can start right away typing the correct letters, which will replace "number" (including the double-quotes).&nbsp;</P>
+<P>There's an equal substitution list for Shift+Ctrl+Alt+&lt;char&gt;.</P></TD>
+<TD width=163 bgcolor=#F8FCC9 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=165 height=49 src="jalcc_editor_img15.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Editing the Ctrl-Alt-lists ...</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Template Insertion</SPAN></P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=612 bgcolor=#F8FCC9 valign=top>
+<P>The visibility of templist is controlled by F9-key.&nbsp;</P>
+<P>After doubleclicking on an item in the template list, the following text (with fields) could be generated:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=141 height=119 src="template_insertion.gif"></P>
+<P>The template list is completly definied by the user.&nbsp;</P>
+<P>For instance you could also add the often used procedures to this list.&nbsp;</P>
+<P>Editing of the template list ...</P></TD>
+<TD width=127 bgcolor=#F8FCC9 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=127 height=261 src="jalcc_editor_img16.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Printing</SPAN></P>
+<P>You can either print the whole file or the selected part. When printing, the general background color is removed.</P>
+<P>If the printed file is the main-language file, there are some extra possibilities to include some project information.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=176 height=138 src="jalcc_editor_img18.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Page Setup gives the possibilities to define marges, headers and footers.</P>
+<P>These page settings are stored in the inifile and only yields for the code-editor.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=629 height=415 src="jalcc_editor_img19.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Insertion of the special items (title, date etc) can be done by the speedbuttons at the top.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=635 height=417 src="jalcc_editor_img20.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The printer dialog doesn't support page selection (there's no real need for, because most code files are relative small and there also exists the possibility to print the selected text only).</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=434 height=324 src="jalcc_editor_img21.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Print Preview</SPAN></P>
+<P>The rendering of the preview is printer dependant, therefor the selected printer and papersize is displayed at the top.</P>
+<P>Only 2 zoomfactors are available: full-page and full-pagewidth.</P>
+<P>The following keys/mouse actions are implemented:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>arrow-down / arrow-up = move 1 line down / up (only in page width view)&nbsp;</LI>
+<LI>page-down / page-up = move 0.5 or 1 (depending on zoomfactor) page down / up&nbsp;</LI>
+<LI>home = move to the top of the document&nbsp;</LI>
+<LI>end = move to the end of the document&nbsp;</LI>
+<LI>Right-Mouse-click = toggle zoomfactor between full-page and full-pagewidth&nbsp;</LI>
+</UL>
+<P>Not implemented (yet ?) are</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>goto to page #n, through editbox in "page #n of N"&nbsp;</LI>
+<LI>scrollwheel scrolling&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=669 height=418 src="jalcc_editor_img17.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=331 valign=top>
+<P><A name="editor templates"></A>
+<SPAN class=RVTS2>Editor Templates</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The templates overview serves two purposes</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Showing all the language statements, with their correct syntax and textpositioning&nbsp;</LI>
+<LI>Insertion of the statements by simply double-clicking&nbsp;</LI>
+</UL>
+<P><TABLE width=100% border=0 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>After double-clicking the third if-statement, the editor will look like this. The first field is automatic selected and you can right start to fill in the condition (or even put in another language statement)&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=141 height=119 src="template_insertion.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>With F10 you can jump to the next insertion field.</P>
+<P>The visibility of the templates window can be toggled by F9.</P>
+<P>If you don't like (or don't need) the templates, you can simply change all of it and use it for some other purposes.</P>
+<P>See template_editing ...</P>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=417 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=427 height=471 src="templates1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

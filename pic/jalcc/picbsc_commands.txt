@@ -1,0 +1,12 @@
+CODE
+DATA
+freq
+include
+INTERRUPT
+oscillator
+pic
+PICLOADER
+pragma
+RESTART
+setwww
+WARN

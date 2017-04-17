@@ -1,0 +1,137 @@
+' "comment"\=
+constant byte "name" = "value"\=
+constant sbyte "name" = "value"\=
+constant word "name" = "value"\=
+constant sword "name" = "value"\=
+constant dword "name" = "value"\=
+constant sdword "name" = "value"\=
+
+byte "name" = "value"\=
+sbyte "name" = "value"\=
+byte volatile "name" = "value"\=
+sbyte volatile "name" = "value"\=
+word "name" = "value"\=
+sword "name" = "value"\=
+dword "name" = "value"\=
+sdword "name" = "value"\=
+-
+if "condition" then\>"body"\<end if\=
+if "condition" then\>"body"\<else\>"body"\<end if\=
+if "condition" then\>"body"\<elif "condition"\>"body"\<else\>"body"\<end if\=
+for "var"="expr1" to "expr2"\>"body"\<next\=
+while "condition"\>"body"\<end while\=
+do\>"body"\<while "condition"\=
+-
+proc "name" ("parameters")\>"body"\<end proc\=
+call "procedure"\=
+gosub "name"\=
+return\=
+goto "label"\=
+"label":???label\=
+-
+ir_USER_begin\>"Body"\<ir_USER_end\=
+ir_portB_begin\>"body"\<ir_portB_end\=
+ir_RX_begin \>"body"\<ir_RX_end\=
+ir_ADC_begin\>"body"\<ir_ADC_end\=
+ir_timer_begin\>"body"\<ir_timer_end\=
+ir_PWM_begin\>"Body"\<ir_PWM_end\=
+|
+usart_config TX, "Nbits", "Baudrate", "interrupt"\=
+TX_load "var/const"\=
+wait_TX\=
+
+usart_config RX, "Nbits", "Baudrate", "interrupt"\=
+ir_RX_begin \>"body"\<ir_RX_end\=
+RX_err_check "var"\=
+RX_store "var"\=
+wait_RX\=
+-
+adc_Config "Chanel","Power","Format","Control","Interrupt"\=
+ir_ADC_begin\>"body"\<ir_ADC_end\=
+adc_ON\=
+adc_OFF\=
+adc_Start\=
+adc_Store "var"\=
+adc_Wait\=
+-
+timer_config "timeour(us)","ïnterrupt"\=
+ir_timer_begin\>"body"\<ir_timer_end\=
+timer_read "var"\=
+timer_start\=
+timer_stop\=
+timer_write "var"\=
+timer_countdown\=
+-
+ir_PWM_begin\>"Body"\<ir_PWM_end\=
+pwm_config "period(us)","duty(%)","Channel(1/2/3)","Interrupt(0/1)"\=
+pwm_duty "dutycycle(%)","Channel(1/2/3)"\=
+pwm_off CCP1\=
+pwm_off CCP2\=
+pwm_off ALL\=
+pwm_period "Period(us)"\=
+|
+SetPort A,"expression"\=
+pinHigh A,"bit"\=
+pinLow  A,"bit"\=
+pinRD   A,"bit","var"\=
+portOut A,"expression"\=
+portRD  A,"var"\=
+-
+SetPort B,"expression"\=
+pinHigh B,"bit"\=
+pinLow  B,"bit"\=
+pinRD   B,"bit","var"\=
+portOut B,"expression"\=
+portRD  B,"var"\=
+interrupt_portB enable\=
+interrupt_portB disable\=
+ir_portB_begin\>"body"\<ir_portB_end\=
+-
+SetPort C,"expression"\=
+pinHigh C,"bit"\=
+pinLow  C,"bit"\=
+pinRD   C,"bit","var"\=
+portOut C,"expression"\=
+portRD  C,"var"\=
+-
+SetPort D,"expression"\=
+pinHigh D,"bit"\=
+pinLow  D,"bit"\=
+pinRD   D,"bit","var"\=
+portOut D,"expression"\=
+portRD  D,"var"\=
+-
+SetPort E,"expression"\=
+pinHigh E,"bit"\=
+pinLow  E,"bit"\=
+pinRD   E,"bit","var"\=
+portOut E,"expression"\=
+portRD  E,"var"\=
+|
+pragma WARN on\=
+pragma WARN off\=
+pragma DATA "low address","high address"\=
+pragma RESTART "location"\=
+pragma INTERRUPT "location"\=
+pragma CODE "size"\=
+pragma PICLOADER "location"\=
+-
+PIC "Type"\=
+FREQ "Frequency(kHz)"\=
+OSCILLATOR "RC/Xtal"\=
+include "filename"\=
+CLEAR\=
+END\=
+sleep\=
+-
+eeprom_Read "address","var"\=
+eeprom_Write "address","var"\=
+eeprom_wait\=
+-
+delay "expr1","expr2"\=
+print "hello"\=
+-
+call myProc1 ("var1","var2")\=
+call myProc2\=
+call myProc3 ("var1")\=
+-

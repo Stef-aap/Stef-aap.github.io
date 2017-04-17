@@ -1,0 +1,52 @@
+[Design LCD Chars]
+left=223
+top=128
+width=696
+height=556
+datafile=D:\data_www\mattijs\lampjes\zeehond.txt
+Spin_rowcount=8
+Spin_colcount=64
+RG_shape=0
+Panel_background=-16777215
+Panel_grid=15780518
+Panel_LED1=65535
+panel_LED2=65280
+panel_LED3=16711680
+cb_led2=0
+cb_LED3=0
+Edit_prefix=  pragma  eedata  X
+Edit_postfix=X
+Edit_separator=, X
+Edit_comment_tag=;X
+spin_bytecount=1
+cb_invert=1
+cb_upside_down=0
+trackbar_dim=240
+TrackBar_timer=5
+
+[LED data]
+X1=23
+X1_0=8
+X1_1=20
+X1_2=18
+X1_3=21
+X1_4=145
+X1_5=145
+X1_6=225
+X1_7=98
+X1_8=100
+X1_9=68
+X1_10=68
+X1_11=68
+X1_12=68
+X1_13=72
+X1_14=72
+X1_15=72
+X1_16=144
+X1_17=160
+X1_18=160
+X1_19=192
+X1_20=192
+X1_21=192
+X1_22=0
+

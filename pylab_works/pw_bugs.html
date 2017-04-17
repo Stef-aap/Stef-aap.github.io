@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Bugs</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>december 2007</span></p>
+<p><span class=rvts1>Bugs / Future Development </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Principle Choices still to make</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>use of super-list / super-array / traits for all IO, with or without intelligent connection validator </li>
+<li>do we need separate fast / real-time signals </li>
+<li>Add other 3D engines Soya3D / PySoy </li>
+<li>absolute / relative (to what) paths </li>
+<li>faster / smarter main loop ? </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Extensions</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>-- Library manager database / updating </li>
+<li>-- Native hardware control </li>
+<li>-- control system analysis </li>
+<li>-- collection implementation </li>
+<li>-- menubar / toolbar as a standard Brick </li>
+<li>-- merging / splitting of Bricks </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>ToDo</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>IconIndex from library to project, will become a mess if libraries changes, because these indices are relative !! </li>
+<li>Fixed sizes of panes in wx.aui, doesn't work, bug / limitation of AUI ? (if so recreate the complete window without AUI) </li>
+<li>Library database / updating / etc. </li>
+<li>Code Editor: RED statusbar if error, Error catching, (print) output catching, extended autocomplete </li>
+<li>MatPlot: measurement in pseudo color, right axis in pseudo color, color/linewidth as inputs add </li>
+<li>Error messages in application mode </li>
+<li>refactoring of scope units </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Serious Bugs</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>when a new library is added in the tree, the ID numbers of all following libraries are incremented, so the icons of library elements in a project might be wrong </li>
+<li>If an connection is removed, the Input should de set to None </li>
+<li>fundamental bug: if inputs to controls like PyPlot arrive along different paths, from a Generator source, the signal pieces are sometimes repeated </li>
+<li>SOLVED ??? After Delete an object, connections are mangled </li>
+<li>bug in MatPlotLib, rc-params, due to new version </li>
+<li>when run in standalone mode, tree selection is lost </li>
+<li>When a new item is added to the project tree, (and on some other occasions), sometimes this error occures</li>
+</ul>
+<p>Traceback (most recent call last):</p>
+<p>&nbsp; File "D:\Data_Python_25\Lib_Extensions\customtreectrl_SM.py", line 5229, in OnMouse</p>
+<p>&nbsp;&nbsp;&nbsp; thisItem, flags = self._anchor.HitTest(pt, self, flags, 0)</p>
+<p>&nbsp; File "D:\Data_Python_25\Lib_Extensions\customtreectrl_SM.py", line 1683, in HitTest</p>
+<p>&nbsp;&nbsp;&nbsp; res, flags = child.HitTest(point, theCtrl, flags, level + 1)</p>
+<p>&nbsp; File "D:\Data_Python_25\Lib_Extensions\customtreectrl_SM.py", line 1683, in HitTest</p>
+<p>&nbsp;&nbsp;&nbsp; res, flags = child.HitTest(point, theCtrl, flags, level + 1)</p>
+<p>&nbsp; File "D:\Data_Python_25\Lib_Extensions\customtreectrl_SM.py", line 1683, in HitTest</p>
+<p>&nbsp;&nbsp;&nbsp; res, flags = child.HitTest(point, theCtrl, flags, level + 1)</p>
+<p>&nbsp; File "D:\Data_Python_25\Lib_Extensions\customtreectrl_SM.py", line 1654, in HitTest</p>
+<p>&nbsp;&nbsp;&nbsp; image_w, image_h = theCtrl._imageListNormal.GetSize(self.GetImage())</p>
+<p>&nbsp; File "P:\Python\lib\site-packages\wx-2.8-msw-unicode\wx\_gdi.py", line 6149, in GetSize</p>
+<p>&nbsp;&nbsp;&nbsp; return _gdi_.ImageList_GetSize(*args, **kwargs)</p>
+<p>wx._core.PyAssertionError: C++ assertion "m_hImageList" failed at ..\..\src\msw\imaglist.cpp(128) in wxImageList::GetSize(): invalid image list</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Small Bugs</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>If in the graphical editor a connection line is not connected the first time, it can't be connected anymore (just delete it and start a new connection line) </li>
+<li>Connections can be made, if not in edit mode </li>
+<li>When a control is deleted from the editor, the screen is not always refreshed, so the control stays visible (and sometimes it isn't even removed from the file </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Solved Bugs</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>plot-signal, output connected, but input not connected ?? </li>
+<li>12 april 2008, SM, Brick: Code Editor,&nbsp; F9 (send changes to output) didn't work anymore </li>
+<li>12 april 2008, SM, Brick: Code Editor,&nbsp; Statusbar started with the wrong text </li>
+<li></li>
+</ul>
+<p><br></p>
+
+</body></html>

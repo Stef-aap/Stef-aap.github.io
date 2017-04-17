@@ -1,0 +1,262 @@
+-- -----------------------------------------------------------------------------
+-- <title I2C hardware control
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2005 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- I2C hardware control (without interrupts)
+--
+-- This library is heavily based on the I2C_GLIB.JAL form Brett Nelson.
+--   Besides some cosmetic changes, the following important changes were made
+--     - Baudrate is extended with 1 MHz
+--     - Baudrate is calculated for any Target_Clock
+--     - repeat of Tx is limited to 250*, so the PIC will never hang
+--     - slew rate control always enabled (SSPSTAT<7>=0)
+--     - I2C_byte_read_next added
+--     - bank switching is reduced or made faster by assembler
+--     - all settings can be done outside the library
+--     - some procedures are changed into functions
+--     - function read_next_address added
+--     - number of addresses within a devices lowered from 3 to 2
+--     - I2C_device and I2C_last_devices explictly initialized different
+--
+--
+-- <non-tag
+-- procedure I2C_byte_write
+-- function  I2C_byte_read
+-- function  I2C_byte_read_next
+--
+-- <Version: 1.0    ,3-9-2005, Stef Mientki
+--   - original release
+-- --------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- <Example JALcc V1.03
+;-- define 2 eeproms 8k*8 on the I2C bus
+;const I2C_bus_levels = false  -- set this false for 5V PIC driving 3V devices
+;<mac> def_I2C_begin
+;--             name    address  #address  speed (kHz)
+;<mac> def_I2C  eeprom1,  $A0,    2,       1000  ;24LC64 8k*8 Fram EEprom
+;<mac> def_I2C  eeprom2,  $A2,    2,       1000  ;24LC64 8k*8 Fram EEprom
+;<mac> def_I2C_end
+;
+;forever loop
+;  data = i2c_byte_read_next(eeprom1)
+;  asynch_send_hw(data)
+;  delay_1ms(10)
+;end loop
+
+-- <code
+
+
+-- --------------------------------------------------------------------
+-- some constants needed for the baudrate generator
+-- --------------------------------------------------------------------
+const _I2C_100kHz = (target_clock / (4 * 100_000)) - 1
+const _I2C_400kHz = (target_clock / (4 * 400_000)) - 1
+const _I2C_1MHz   = (target_clock / (4 * 1000_000)) - 1
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- if the device has changed, change the speed if necessary
+-- --------------------------------------------------------------------
+procedure _I2C_initialize is
+  if I2C_device != _I2C_last_device then
+    if    _I2C_bus_speed == 10 then sspadd = _I2C_1MHz
+    elsif _I2C_bus_speed == 4  then sspadd = _I2C_400kHz
+    else                            sspadd = _I2C_100kHz
+    end if
+    _I2C_last_device = I2C_device
+  end if
+end procedure
+
+
+
+-- -----------------------------------------------------------------------------
+-- Initializes the I2C bus (if necessary) and
+-- Sends Start bit and waits untill finished
+-- -----------------------------------------------------------------------------
+procedure _I2C_start_bit(byte in device) is
+  _pre_init (device)  -- retrieve I2C_device settings
+  _I2C_initialize     -- update _I2C_bus_speed settings
+
+   -- send start bit and wait until start sequence is complete
+  asm  bsf  Status,RP0  ;bank 1
+  _sen = high
+  while _sen == high loop end loop
+  asm  bcf  Status,RP0  ;bank 0
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Sends Restart bit and waits untill finished
+-- -----------------------------------------------------------------------------
+procedure _I2C_restart_bit is
+  asm  bsf  Status,RP0  ;bank 1
+  _rsen = high
+  while _rsen == high loop end loop
+  asm  bcf  Status,RP0  ;bank 0
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Sends Stop bit and waits until finished
+-- -----------------------------------------------------------------------------
+procedure _I2C_stop_bit is
+  asm  bsf  Status,RP0  ;bank 1
+  _pen = high
+  while _pen == high loop end loop
+  asm  bcf  Status,RP0  ;bank 0
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- transmits a byte and waits untill finished
+-- if there is no acknowledge after the transmission.
+-- the byte is resend upto 250 times
+-- This procedure is especially usefull in writing bytes,
+-- because a write takes 5 .. 10 msec (except for Fram: no delay)
+-- At 1 MHz a byte takes about 20 usec, so in that case the maximum
+-- write-delay is 250 * 20 usec = 5 msek
+-- At the lower ferquencies of 100 kHz and 400 kHz, there's always
+-- a minimum write delay of 10 msec.
+-- -----------------------------------------------------------------------------
+procedure _I2C_transmit_byte (byte in data) is
+
+var byte timeout_counter = 250
+var bit ready = false
+var bit OK
+var byte temp
+var bit ackstat at temp : 6
+
+  while ! ready loop
+    -- (re-)start transmission by placing data in sspbuf
+    sspbuf = data
+
+    -- wait untill write is finished:  _R_W =0
+    -- we can also wait for SSPIF, so we don't need bank switching
+    ;    bank_1
+    ;    while _r_w == high loop end loop
+    sspif = false
+    while ! sspif loop end loop
+
+    -- get Acknowledge Status Bit _ACKSTAT
+    -- wich indicates that the slave has responded (or not)
+    asm bsf     STATUS, RP0  ;bank 1
+    asm movfw   _SSPCON2     ; can't use "SSPCON2" because it's a JAL var
+    asm bcf     STATUS, RP0  ;bank 0
+    asm movwf   temp         ;
+
+    -- if I2C device send an Aknowledge, then ready and OK
+    if ackstat == low  then
+      ready = true
+      OK = true
+    else
+      -- as long as no timeout, try again
+      timeout_counter = timeout_counter - 1
+      if timeout_counter > 0 then
+        -- send restart bit
+        _I2C_restart_bit
+      else
+        ready = true
+        OK = false
+      end if
+    end if
+  end loop
+end procedure
+;-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- start receiving of a byte and waits till finished
+-- -----------------------------------------------------------------------------
+procedure _I2C_receive_byte ( byte out data ) is
+  -- start receive cyclus and wait till full byte received
+  asm  bsf  Status,RP0  ;bank 1
+  _rcen = high
+  while _bf == low loop  end loop
+
+  -- send Acknowledge and wait till finishd
+  _acken = high
+  while _acken == high loop end loop
+
+  -- get read data
+  asm  bcf  Status,RP0  ;bank 0
+  data = sspbuf
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- writes 1 byte to the specified device at the specified address
+-- -----------------------------------------------------------------------------
+procedure I2C_byte_write
+  (byte in data, byte in device , byte in addr1 , byte in addr2) is
+
+  _I2C_start_bit(device)
+  _I2C_transmit_byte(_I2C_slave_address)
+  if _I2C_address_bytes > 0 then _I2C_transmit_byte ( addr1 ) end if
+  if _I2C_address_bytes > 1 then _I2C_transmit_byte ( addr2 ) end if
+  _I2C_transmit_byte(data)
+  _I2C_stop_bit
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- reads 1 byte from the specified device at the specified address
+-- -----------------------------------------------------------------------------
+function I2C_byte_read
+  (byte in device , byte in addr1, byte in addr2) return byte is
+var byte data
+  _I2C_start_bit(device)
+  _I2C_transmit_byte(_I2C_slave_address)
+  if _I2C_address_bytes > 0 then _I2C_transmit_byte(addr1) end if
+  if _I2C_address_bytes > 1 then _I2C_transmit_byte(addr2) end if
+  _I2C_restart_bit
+  _I2C_transmit_byte(_I2C_slave_address | 0b0000_0001)
+  _I2C_receive_byte(data)
+  _I2C_stop_bit
+  return data
+end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- reads 1 byte from the I2C device at the current location
+-- most I2C devices will autoincrement there address
+-- -----------------------------------------------------------------------------
+function I2C_byte_read_next (byte in device) return byte is
+var byte data
+  _I2C_start_bit(device)
+  _I2C_transmit_byte(_I2C_slave_address | 0b_0000_0001)
+  _I2C_receive_byte(data)
+  _I2C_stop_bit
+  return data
+end function
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- initialize
+-- -----------------------------------------------------------------------------
+-- I2C requires to set TRIS bits to input
+-- so to be sure ...
+pin_c3_direction = input
+pin_c4_direction = input
+
+
+-- SMP-bit7 = 0, slew rate enabled, better for EMC
+if I2C_bus_levels then
+  sspstat = 0b_0000_0000   ;I2C bus levels, CKE=0
+else
+  sspstat = 0b_0100_0000   ;SMbus levels, CKE=1
+end if
+-- -----------------------------------------------------------------------------
+

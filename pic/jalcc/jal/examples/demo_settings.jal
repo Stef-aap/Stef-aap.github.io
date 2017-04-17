@@ -1,0 +1,15 @@
+;settings for the hardware configuration
+pragma target chip        16f876
+pragma target clock       20_000_000
+pragma target osc         hs
+pragma target watchdog    off
+pragma target powerup     on
+pragma target protection  off
+
+;include all possible libraries
+include jrtl
+include jpic
+include jdelay
+
+;we like the A-port to be digital-IO by default !!
+disable_a_d_functions

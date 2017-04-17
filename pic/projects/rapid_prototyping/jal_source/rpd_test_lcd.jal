@@ -1,0 +1,69 @@
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+-- define a LCD display (2*16) on J1
+;;;;;<;mac> RPD_LCD        LCD = J1, 2, 16
+var volatile bit HD44780_Enable_pin is J1L1
+var volatile bit HD44780_Enable_direction is J1L1_direction
+var volatile bit HD44780_DataCmd_pin is J1R1
+var volatile bit HD44780_DataCmd_direction is J1R1_direction
+var volatile bit HD44780_b4_pin is J1L2
+var volatile bit HD44780_b4_direction is J1L2_direction
+var volatile bit HD44780_b5_pin is J1L3
+var volatile bit HD44780_b5_direction is J1L3_direction
+var volatile bit HD44780_b6_pin is J1R3
+var volatile bit HD44780_b6_direction is J1R3_direction
+var volatile bit HD44780_b7_pin is J1R2
+var volatile bit HD44780_b7_direction is J1R2_direction
+const HD44780_multiplexed_output = false
+const LCD_number_of_display_lines      = 2
+const LCD_number_of_display_characters = 16
+include rpd_hd44780_4_ins
+;;;;;<;/mac>
+
+-- write text to the display and turn cursor off
+;;;;;<;mac> LCD_write_line  1,"Welcome to Rapid"
+     LCD_clear_line (0)
+     LCD_char = "W"
+     LCD_char = "e"
+     LCD_char = "l"
+     LCD_char = "c"
+     LCD_char = "o"
+     LCD_char = "m"
+     LCD_char = "e"
+     LCD_char = " "
+     LCD_char = "t"
+     LCD_char = "o"
+     LCD_char = " "
+     LCD_char = "R"
+     LCD_char = "a"
+     LCD_char = "p"
+     LCD_char = "i"
+     LCD_char = "d"
+;;;;;<;/mac>
+;;;;;<;mac> LCD_write_line  2,"PrototypingBoard"
+     LCD_clear_line (1)
+     LCD_char = "P"
+     LCD_char = "r"
+     LCD_char = "o"
+     LCD_char = "t"
+     LCD_char = "o"
+     LCD_char = "t"
+     LCD_char = "y"
+     LCD_char = "p"
+     LCD_char = "i"
+     LCD_char = "n"
+     LCD_char = "g"
+     LCD_char = "B"
+     LCD_char = "o"
+     LCD_char = "a"
+     LCD_char = "r"
+     LCD_char = "d"
+;;;;;<;/mac>
+LCD_cursor = off
+
+forever loop
+end loop
+

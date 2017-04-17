@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+  <title>JALss-uDev</title>
+</head>
+<body>
+We should get an agreement on the following issues:<br>
+<ol>
+  <li>simulation mechanism</li>
+  <li>io-pin definitions</li>
+  <li>interface with the main program</li>
+  <li>(special tricks)</li>
+  <li>all devices should be (re-)build in such a way, that they can be
+used in both programs<br>
+  </li>
+</ol>
+<br>
+1. Simulation Mechanism<br>
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">uDev<br>
+      <br>
+AFAIK it uses the normal way (see on the right), so nothing should be
+changed.<br>
+      </td>
+      <td style="vertical-align: top; width: 50%;">JALss<br>
+At the moment JALss uses the exe1 (input) and exe2 (output)
+construction. This has grown historical, with the idea that this would
+be the fastest method, because only the relevant nodes would be
+calculated at the lowest possible frequency. I now think this is not a
+really good argument and I'm thinking of going to the "normal" way.<br>
+      <br>
+The "normal" way:<br>
+Each node is calculated by the main program at the highest system
+freqeuncy.<br>
+Each device is called by the main program at it's operating frequency.<br>
+      <br>
+The changes that I've to make:<br>
+- create a class "node"<br>
+- combine exe1+exe2 for each device<br>
+- change exe1 of each device a little<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+2. IO-pin definition<br>
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">uDev<br>
+      <br>
+???<br>
+uses skew ??<br>
+uses finite edges ??<br>
+      </td>
+      <td style="vertical-align: top; width: 50%;">JALss<br>
+At the moment I've a lot of io-pin types<br>
+&nbsp; tio_kind = (<br>
+&nbsp;&nbsp;&nbsp; DigIn,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Digital Input<br>
+&nbsp;&nbsp;&nbsp; DigOut,&nbsp;&nbsp;&nbsp;&nbsp; // Digital Output<br>
+&nbsp;&nbsp;&nbsp; DigIO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //
+Bidirectional Digital IO<br>
+&nbsp;&nbsp;&nbsp; AnalogIn,&nbsp;&nbsp; // Analog Input<br>
+&nbsp;&nbsp;&nbsp; AnalogOut,&nbsp; // Analog Output<br>
+&nbsp;&nbsp;&nbsp; AnalogIO,&nbsp;&nbsp; // Analog, can be Output or
+Input<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+IR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//InfraRed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+IR38,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //38 kHz
+modulated IR<br>
+      <br>
+&nbsp;&nbsp;&nbsp; Ground,&nbsp;&nbsp;&nbsp;&nbsp; //<br>
+&nbsp;&nbsp;&nbsp; Vposdig&nbsp;&nbsp;&nbsp;&nbsp; //<br>
+&nbsp;&nbsp;&nbsp; );<br>
+An analog IO-pin is characterized by a Voltage Source (V0), and
+Impedance (R0) and a Capacitor (C0).<br>
+Because analog node calculations can be done much faster using
+conductance, each analog io-pin must also specify the Conductance (G0).
+(I assume that impedances can be changed dynamically by a device).<br>
+The same reason yields for the digital pins, calculation is much faster
+then analog calculation.<br>
+      <br>
+I don't use the powersupply pins of the devices.<br>
+      <br>
+We should agree about ....<br>
+      <ul>
+        <li>a minimum set of io-pin types</li>
+        <li>the exact definition of each io-pin<br>
+        </li>
+      </ul>
+      <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+3. Interface with main program<br>
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">uDev<br>
+      </td>
+      <td style="vertical-align: top; width: 50%;">JALss<br>
+      <br>
+Most of the devices are momentary build in (easier debugging).<br>
+Some devices are build as DLL (as an example), but there's no real
+difference between a normal and a DLL device.<br>
+There are 2 DLL interfaces:<br>
+      <ol>
+        <li>simple, has only electrical functionality, graphics is
+performed by the main program</li>
+        <li>full, the DLL does also perform all the graphics</li>
+      </ol>
+Full DLL's can use a second communication mechanism, to get attention
+or let the main program perform some action when the DLL-device wants
+to. This communication is done through the windows-messaging system.
+This second mechanism is at the moment only used to make connections,
+so there's no need to use this, if a device is used in uDev.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<ul>
+  <li><br>
+  </li>
+</ul>
+<br>
+4. Special Tricks<br>
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">uDev<br>
+      <br>
+???<br>
+      </td>
+      <td style="vertical-align: top; width: 50%;">JALss<br>
+      <br>
+      <ul>
+        <li>I use a special trick to run SPI in the fastest mode (Q/4),
+while the simulation is done at the same frequency.</li>
+      </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+5. Devices for both programs<br>
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">uDev<br>
+      <br>
+???<br>
+      </td>
+      <td style="vertical-align: top; width: 50%;">JALss<br>
+      <br>
+The simple DLL form (without graphics) should staisfy the needs, as
+soon as the exact DDL interface is definied.<br>
+      <br>
+For the full DLL an extra flag should decide if the grahics is modal or
+even different (uDev) or normal graphics is available as an MDI-form.<br>
+      <br>
+Todo:<br>
+      <ul>
+        <li>Extract all current build-in devices into a DLL-form</li>
+        <li>Build all future devices into a DLL-form<br>
+        </li>
+      </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</body>
+</html>

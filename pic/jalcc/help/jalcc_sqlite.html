@@ -1,0 +1,526 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>SQL DataBase Manager</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="889" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>march 2007</span></p>
+<p><span class=rvts1>SQL DataBase Manager</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This is a simple SQL DataBase manager. At the moment only SQLite is supported, but it is easy to extend this module to all standard SQL databases (MySQL, PostgreSQL, Interbase, Firebird, MS SQL, Sybase, Oracle) in the future. All the settings of this module are stored for each database entry, in a local project file, so you can create multiple views of the same database and each user can create his own views, totally independent of the views stored in the database itself. This database manager is not only good for managing databases, but also very well suited to learn yourself SQL: the SQL code of all actions is displayed in the editor.</p>
+<p>This database manager is written in Delphi-7 and released as open source under BSD license.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Table-View</span></p>
+<p>The most basic look into the database is given by the "table-view". This view can be used to view tables, views, edit the tables and to test SQL-queries. The table-view consists of the following main objects:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>Database treeview</span> (left-top), shows all basic elements of the database. This database treeview has full drag &amp; drop facilities and the indivual fields of tables has a checkbox which determines the visibility in the tables. The shape of these checkboxes also indicates the type of a field. </li>
+<li><span class=rvts10>Table</span> (right-top), view of the data from a table or view. Columns can be dragged, after which also the treeview will be updated. Doubleclicking on a column-header determines the sorting of the data. The actual blobfield column, used to display images has a red border. Known blobfield types are decoded, unknown blobfield types will show the SOI-number. Clicking on cell[0,0] will toggle between view+row-select and edit+cell-select (resulting in direct editing, no F2 needed). </li>
+<li><span class=rvts10>Image</span> (left-bottom), if a new table or view is opened, the first column containing blobfields will be selected to look for images from the selected record. Clicking on this image will show up a large image, as shown below. </li>
+<li><span class=rvts10>SQL-editor</span> (right-bottom), editor with syntax coloring. Normally this editor shows the SQL-statement used to generate the current table. But you can write any SQL statement here and run it, after which the result will be shown in the table. </li>
+</ul>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=596 height=454 alt="" src="jalcc_sqlite_img3.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>The table has all normal windows behaviors (edit, insert, delete, column resize, column move etc).</p>
+<p>Clicking on the small image on the left-bottom, toggles between the screen shown above and the screen shown below. In the screen below, the table is reduced to just 1 line, while all remaining space is used for the image.&nbsp; Navigation through the records of the table or view stays exactly the same as above. This also yields for editing facilities.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=578 height=536 alt="" src="jalcc_sqlite_img5.png"></p>
+<p><br></p>
+<p>The editor at the bottom, is used for several purposes. The editor is used to show the actual SQL code that's used when a table or view is shown, by selecting it in the database tree. On the other hand it can be used to enter any SQL statements you like. As soon as you manual edit the contents of this editor, the run-panel in the status will change it's color to indicate "modify". Either by clicking on the run-panel or by pressing F9, the code in the editor will be executed and the result will be shown in the table-page.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>General Keys</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=136 valign=top style="background-color: #99ccff;">
+<p><span class=rvts10>Key</span></p>
+</td>
+<td width=688 valign=top style="background-color: #99ccff;">
+<p><span class=rvts10>Action</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=136 valign=top style="background-color: #99ccff;">
+<p>F1</p>
+<p>ctrl-F1</p>
+</td>
+<td width=688 valign=top style="background-color: #ffffd4;">
+<p>Help information, can be changed by editing the ini-file</p>
+<p><img width=408 height=52 alt="" src="jalcc_sqlite_img29.png"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=136 valign=top style="background-color: #99ccff;">
+<p>F9</p>
+</td>
+<td width=688 valign=top style="background-color: #ffffd4;">
+<p>In editor,</p>
+<p>- if selection available, executes selection</p>
+<p>- if caret in code, it searches for a code-block, going up and down until empty line or comment line, and execute the code-block</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=136 valign=top style="background-color: #99ccff;"><br>
+</td>
+<td width=688 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Key actions in database-tree</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=106 valign=top style="background-color: #99ccff;"><br>
+</td>
+<td width=71 valign=top style="background-color: #99ccff;">
+<p><span class=rvts10>IconClick</span></p>
+</td>
+<td width=243 valign=top style="background-color: #99ccff;">
+<p><span class=rvts10>Enter</span></p>
+</td>
+<td width=257 valign=top style="background-color: #99ccff;">
+<p><span class=rvts10>Ctrl-Enter</span></p>
+</td>
+<td width=233 valign=top style="background-color: #99ccff;">
+<p><span class=rvts10>Other</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=106 valign=top style="background-color: #99ccff;">
+<p><span class=rvts10>Database File</span></p>
+</td>
+<td width=71 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=243 valign=top style="background-color: #ffffd4;">
+<p>Open Database</p>
+<p><br></p>
+<p>can also be done by</p>
+<p>- select + RM</p>
+</td>
+<td width=257 valign=top style="background-color: #ffffd4;">
+<p>Show Database Structure</p>
+</td>
+<td width=233 valign=top style="background-color: #ffffd4;">
+<p>Alt-Enter will open the database in the SQLite3 console application. (**)</p>
+<p>Ins = (TO_import) personal use</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=106 valign=top style="background-color: #99ccff;">
+<p>&nbsp;&nbsp;&nbsp; Tables</p>
+</td>
+<td width=71 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=243 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=257 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=233 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=106 valign=top style="background-color: #99ccff;">
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class=rvts10>Table-1</span></p>
+</td>
+<td width=71 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=243 valign=top style="background-color: #ffffd4;">
+<p>Show Table Data</p>
+<p>ordered by the tree below</p>
+<p><br></p>
+<p>can also be done by</p>
+<p>- select + RM</p>
+</td>
+<td width=257 valign=top style="background-color: #ffffd4;">
+<p>Show Table Structure</p>
+</td>
+<td width=233 valign=top style="background-color: #ffffd4;">
+<p>Delete Table</p>
+<p>- Del</p>
+<p>- RM-delete</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=106 valign=top style="background-color: #99ccff;">
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class=rvts10>Field-1</span></p>
+</td>
+<td width=71 valign=top style="background-color: #ffffd4;">
+<p>Toggle Visibility Field-1</p>
+</td>
+<td width=243 valign=top style="background-color: #ffffd4;">
+<p>Show Table Data</p>
+<p>ordered by Field-1</p>
+<p><br></p>
+<p>can also be done by</p>
+<p>- double-clicking</p>
+<p>- select + RM</p>
+</td>
+<td width=257 valign=top style="background-color: #ffffd4;">
+<p>Show Table Structure</p>
+</td>
+<td width=233 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=106 valign=top style="background-color: #99ccff;">
+<p>&nbsp;&nbsp;&nbsp; Views</p>
+</td>
+<td width=71 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=243 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=257 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=233 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=106 valign=top style="background-color: #99ccff;">
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class=rvts10>View-1</span></p>
+</td>
+<td width=71 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=243 valign=top style="background-color: #ffffd4;">
+<p>Show View Data</p>
+<p>ordered by the tree below</p>
+<p><br></p>
+<p>can also be done by</p>
+<p>- select + RM</p>
+</td>
+<td width=257 valign=top style="background-color: #ffffd4;">
+<p>show view SQL ?</p>
+</td>
+<td width=233 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=106 valign=top style="background-color: #99ccff;">
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class=rvts10>Field-1</span></p>
+</td>
+<td width=71 valign=top style="background-color: #ffffd4;">
+<p>Toggle Visibility Field-1</p>
+</td>
+<td width=243 valign=top style="background-color: #ffffd4;">
+<p>Show View Data</p>
+<p>ordered by Field-1</p>
+<p><br></p>
+<p>can also be done by</p>
+<p>- double-clicking</p>
+<p>- select + RM</p>
+</td>
+<td width=257 valign=top style="background-color: #ffffd4;">
+<p>show view SQL ?</p>
+</td>
+<td width=233 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=106 valign=top style="background-color: #99ccff;">
+<p>&nbsp;&nbsp;&nbsp; Visual Links</p>
+</td>
+<td width=71 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=243 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=257 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=233 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=106 valign=top style="background-color: #99ccff;">
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class=rvts10>Link-1</span></p>
+</td>
+<td width=71 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=243 valign=top style="background-color: #ffffd4;">
+<p>Show Data, generated by the Visual Design.</p>
+</td>
+<td width=257 valign=top style="background-color: #ffffd4;">
+<p>Show Visual Design</p>
+</td>
+<td width=233 valign=top style="background-color: #ffffd4;">
+<p>Delete Link</p>
+<p>- Del</p>
+<p>- RM-delete</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=106 valign=top style="background-color: #99ccff;"><br>
+</td>
+<td width=71 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=243 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=257 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=233 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>(**) In the inifile of the program, you've to define where the sqlite3.exe program can be found:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=356 height=167 alt="" src="jalcc_sqlite_img26.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Edit Data</span></p>
+<p><br></p>
+<p><span class=rvts2>Images</span></p>
+<p>The following image types are supported: BMP, EMF, GIF (including transparency and animation), ICO, JPG, PNG, WMF.</p>
+<p>If an known image is detected, then in the table cell the file-extension between brackets is given, e.g. a PNG image will be shown in the table as "{png}". Editing an image can be done by selecting the cell in edit mode and then pressing F2, or in none edit mode by double-clicking on the cell. Removing an image can be done by remove the text in the cell. Storing other data in the cell is also possible, as long as the table cell's first character is not a bracket "{".</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #99ccff;">
+<p><span class=rvts10>BlobFields</span></p>
+</td>
+<td width=100 valign=top style="background-color: #99ccff;">
+<p>View</p>
+</td>
+<td width=100 valign=top style="background-color: #99ccff;">
+<p>Edit</p>
+</td>
+<td width=100 valign=top style="background-color: #99ccff;">
+<p>Update</p>
+</td>
+<td width=100 valign=top style="background-color: #99ccff;">
+<p>Delete</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #99ccff;">
+<p>empty</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>+</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>separate</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>-</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #99ccff;">
+<p>known picture format</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>{png}</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>+</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>separate</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>+</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #99ccff;">
+<p>other</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>{blob $xxxx}</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>-</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>-</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>-</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Edit Table Structure</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Database Structure</span></p>
+<p>By pressing Ctrl-Enter on the database node (top-most node), the structure of the database is shown. At this moment the table ordering can not be changed, column drag&amp;drop is allowed.</p>
+<p>The creation string of a table can be viewed more comfortable by selecting the table definition row in the database structure table. When now pressing F2, the table creation string will be shown in the code highlighted editor, as shown in the picture below</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=555 height=448 alt="" src="jalcc_sqlite_img20.png"></p>
+<p><br></p>
+<p>Deleting a table, view, etc. is simply done by pressing del in the database tree (a confirmation will be asked).</p>
+<p><br></p>
+<p>Inserting a new table, view, etc. can be done in the database tree, through the RM-menu.</p>
+<p><br></p>
+<p>For editing the structure of a table, view, etc., press Ctrl-Enter in the database tree, which will show the structure in the stringgrid.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Relations</span></p>
+<p>Because you can freely move around between database-tree, table and code editor, it's interesting to know what the actual relations between these elements are. For that purpose there are 2 link markers, the green rectangles in the figure below, which are visible if there's a direct relation. The <span class=rvts10>upper linkmarker</span>, indicates that there's a direct link between the database-tree and the table. It's color is <span class=rvts10>green</span>, when the table contains data and it's color is <span class=rvts10>red</span>, when the table contains meta-data (e.g. the field definitions of a table, the elements of the database). The <span class=rvts10>vertical code-link</span> at the bottom is shown when the table is generated with the exact code in the editor. It's also possible to use the <span class=rvts10>"EXPLAIN"</span> option to see the virtual machine instructions of a statement (by pressing Ctrl-F9), in that case the vertical code-link will color <span class=rvts10>red</span>.</p>
+<p>If you select to show the upper tree node (i.e. the structure of the database itself), the upper linkmarker will color <span class=rvts10>blue</span>.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=408 height=315 alt="" src="jalcc_sqlite_img16.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Edit Table Structure</span></p>
+<p>After selecting a database table in the database tree, and then pressing Ctrl-Enter, the structure of the database table will be shown in the grid. That this information concerns the structure of the database table and not the data of the database table, is also indicated by the red left linkmarker.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=608 height=190 alt="" src="jalcc_sqlite_img18.png"></p>
+<p><br></p>
+<p>By clicking on the most top-left cell of the grid (or by double-clicking on a normal data cell), the edit mode is entered. In the edit mode you change the structure of the database table and (re-) order the columns (just drag and drop the left fixed cell). The link between the old database table and the new database table, is maintained by the CID-column, so it's not advised to edit the CID-column unless you know what you're doing. For the "NOTNULL" column, yields, if no value is entered or a value of zero is entered, the column may be left NULL. For the "PK"-column (Primary Key),</p>
+<p>yields the same: zero or empty is no Primary Key else this columns is a Primary Key.</p>
+<p>The editor supports Insert, Delete through the normal windows keys, and Append through the RM-menu (you can also just goto the bottom of the grid and press Arrow-Down). If you want add more than one field, the append is more appropriate, because it has automates the addition of new lines when moving the arrow down, or Enter on the last column.</p>
+<p>When leaving the edit mode (again by clicking on the most top-left cell or by double-clicking on any data cell, the user is asked if the changes should be stored. If the user confirms, the changes are executed and the editor will show the main SQL commands.</p>
+<p>So when just reordering some columns, the editor will show:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=432 height=175 alt="" src="jalcc_sqlite_img19.png"></p>
+<p><br></p>
+<p>If the editor is set in "Novice mode", it will give a more extensive explanation of what is done.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=547 height=427 alt="" src="jalcc_sqlite_img17.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Templates</span></p>
+<p>Although finally the templates will probably implemented just like the other templates in JALcc, I found it very convenient to introduce a quick and dirty template facility, which after all doesn't look so bad at all.</p>
+<p>Below the template editor is shown, which is a normal code editor with exactly the same highlighting as the editor on the bottom of the window. The contents of this template editor is automatically saved and restored to and from a file with the name of the program, but with the extension '.tmp'.</p>
+<p>When selecting the templates page (notice that the text on the statusbar has changed), the selected portion of the templates editor is executed, and the program automatically jumps to the table-page where the results will be shown.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=531 height=354 alt="" src="jalcc_sqlite_img23.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><a name="visual_link_design"></a>
+<span class=rvts2>Visual - Link Design</span></p>
+<p>This page let's you create local queries (i.e. stored in the local file) by a graphical design. This part of the program is rather experimental, works for simple joins, but there's no guarantee it'll work for complex joins (at the end of this paragraph, the protocol is explained).</p>
+<p>When pressing New, each tables form the open database will generate a box with a list that contains all the fields from that table. The title of a table window will contain both the name of the table and the automatic generated abbreviation of that table-name. Tables can be moved around by dragging the caption like any normal window. Now you can create relations between fields of the different tables, by selecting an element from a list (=field), drag it into another box (=table), and drop it on one of the fields in that other table. After dropping, default a left join is created. The type of relationship can be changed, by RM-click on a link (in the final code right links will be reversed into left joins). When you click on a field that has one or more relations, all relations to that field will color red and all the fields from other tables that are connected to the selected field will be selected. By pressing EXEC, the SQL code will be generated, and the SQL code will be displayed in the editor and be executed, so you can see the results right away. By checking "Use Table Abbreviations", all table-names will be aliased, so somewhat more compressed code will be generated, this might be especially useful when you want to add and extensive "where" clause.</p>
+<p>"Name" is just the name under which this design will be stored in the database-tree.</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=434 height=567 alt="" src="jalcc_sqlite_img21.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p>When the above design is generated with the abbreviation check-box on, the following SQL code will be generated:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=313 height=220 alt="" src="jalcc_sqlite_img22.png"></p>
+<p><br></p>
+<p>After executing a visual design, the design will automatically be stored in the tree, just like any other table or view. Remember these visual designs are local and are not stored in the database, therefor it resides in the special node "Visual Links". The fields can be manipulated just like other fields, so the can be ordered by dragging them around and their visibility can be toggled by clicking on the icon. The node "Relations" just holds the internal information of the visual design.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=207 height=372 alt="" src="jalcc_sqlite_img25.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><span class=rvts10>Algorithm for SQL generation</span></p>
+<p>The current algorithm is quit simple, I've tried different ones, and even with the fantastic help of the SQLite newsgroup, I wasn't able to create a better one (as I'm writing this, my knowledge of SQL is almost zero).</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>find all connected tables </li>
+<li>find all links between tables </li>
+<li>order the table-boxes, the most left table will get the highest number </li>
+<li>search all top tables, i.e.tables that have no left join to another table </li>
+<li>put all top tables in the "FROM" clause </li>
+<li>walk to the tree of tables and put them in a "JOIN" clause </li>
+<li>check if there are joins between top tables, if found, connect them through the "WHERE" clause </li>
+<li>add the user "WHERE" to the "WHERE" clause </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Table Details</span></p>
+<p>The columns of the table can be resized and ordered in the standard windows way.</p>
+<p>Making columns (=fields) visible or not, is done in the database-tree.</p>
+<p><span class=rvts10>A.</span> Clicking on the <span class=rvts10>top-leftmost cell</span>, toggles between view-mode and edit-mode. Double-clicking on a cell also toggles between edit and view, and is often a more convenient way. In view mode "touching" the table results in a row selection. In edit-mode, "touching" the table results directly in editing.</p>
+<p><span class=rvts10>B. Table ordering</span> shown is Ascending on this column. Ordering can be changed by double-clicking on the column-header or by the right-mouse popup-menu of the column-headers.</p>
+<p><span class=rvts10>C.</span> The <span class=rvts10>actual blobfield</span> that is used to draw the image of the actual record is marked with a red border. In case their are mor blob-fields, you can select another blobfield column through the right-mouse poup menu of the column-headers.</p>
+<p><span class=rvts10>D.</span> The <span class=rvts10>actual record</span> is highlighted by making the characters bold.</p>
+<p><span class=rvts10>E. Known blob-fields</span> are decoded to human readable names, otherwise the SOI code is displayed.</p>
+<p><span class=rvts10>F. Primary Key</span>: the column header is colored lime</p>
+<p><span class=rvts10>G. Not Null</span>: the column header is colored cream</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=325 height=232 alt="" src="jalcc_sqlite_img13.png"></p>
+<p><br></p>
+<p>Moving with the cursor over a column-header, will popup a hint, indicating the field-type.</p>
+<p>Columns can be moved by simply dragging them to a new position.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=239 height=92 alt="" src="jalcc_sqlite_img11.png"></p>
+<p><br></p>
+<p>The column-header of the table has a popup menu to select sorting of the selected column or in case there are more blob-fields, the selection of the actual blob-field used for displaying images. The sort order can also be changed by doubleclicking on a column-header.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=244 height=97 alt="" src="jalcc_sqlite_img10.png"></p>
+<p><br></p>
+<p>RM-plaatje</p>
+<p><span class=rvts10>Append</span> this is often the most convenient way to append new records, because the table will automatically expand (works with ENTER in last column and also arrow-down in last row).</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Printing Tables / Views</span></p>
+<p>Through the RM-menu, there's a simple print function, that can print as many columns as fit on the width of 1 page. The column layout is exactly like shown on the screen. At the top of the print, the SQL statement that generated the table is printed.</p>
+<p><br></p>
+<p><img width=742 height=353 alt="" src="jalcc_sqlite_img27.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>SQL</span></p>
+<p>When using a DROP or DELETE statement, the user is asked for confirmation.</p>
+<p>When closing the program, while data records were changed, the user is asked if a VACUUM should be performed.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Delphi Libraries</span></p>
+<p>This module is developed in Delphi-7. Besides the standard Delphi-components, the following extra libraries are used:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>SynEdit </li>
+<li>PNGimage, Version 1.4361, 8 march 2003, Gustavo Huffenbacher Daud </li>
+<li>Zeos Controls, by Sergey Seroukhov </li>
+<li>GIFimage, Version 2.2,&nbsp; 23-MAY-1999, by Anders Melander </li>
+<li>SQLiteTable3 (modified), by Tim Anderson </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>ToDo</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>fast blob-table-read on SOI </li>
+<li>TGIFimage new version !! </li>
+<li>modify active blob column </li>
+<li>edit image ? like PH </li>
+<li>primairy key aangeven in tree </li>
+<li>keep selection after new sort </li>
+<li>keep selection and visibility of selection, after new sorting </li>
+<li>enable/disable in visual links give "table not found" </li>
+<li>crash with onmousemove tablebox ??? </li>
+<li>autolink fields with the same name in visual design </li>
+<li>SQL not the same for all Databases, so we need different templates !! </li>
+<li>visual design fields uitklikken </li>
+<li></li>
+<li>Edit Table Structure, checkboxes for NULL and PK </li>
+<li>Edit Table Structure, change column name "pk" into "PrimKey" </li>
+<li>save / restore settings </li>
+<li>better Visual design algorithm, auto switch off of double fields, show primary keys in table-windows </li>
+</ul>
+<p><br></p>
+<p><span class=rvts2>NOT todo</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li></li>
+</ul>
+<p><br></p>
+
+</body></html>

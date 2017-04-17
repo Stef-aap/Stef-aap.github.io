@@ -1,0 +1,443 @@
+-- --------------------------------------------------------------------
+-- file      : jpic16.jal
+-- author    : Wouter van Ooijen
+-- date      : 02-APR-2000
+-- purpose   : access to PIC peripherals OF 16-bit core PICs
+-- requires  : -
+--
+-- Copyright (C) 2002 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+--
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+-- 17-juni-2002 first version
+--
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- microchip's declarations
+-- --------------------------------------------------------------------
+
+include P18f458
+
+-- --------------------------------------------------------------------
+-- JAL RunTime Library
+-- --------------------------------------------------------------------
+
+include jrtl16
+
+-- --------------------------------------------------------------------
+-- Jal-style pin direction
+-- --------------------------------------------------------------------
+
+const bit input           = on
+const bit output          = off
+const byte all_input      = 0b_1111_1111
+const byte all_output     = 0b_0000_0000
+
+var byte port_a_direction at trisa
+var byte port_b_direction at trisb
+var byte port_c_direction at trisc
+var byte port_d_direction at trisd
+var byte port_e_direction at trise
+
+var bit pin_a0_direction at trisa : 0
+var bit pin_a1_direction at trisa : 1
+var bit pin_a2_direction at trisa : 2
+var bit pin_a3_direction at trisa : 3
+var bit pin_a4_direction at trisa : 4
+var bit pin_a5_direction at trisa : 5
+
+var bit pin_b0_direction at trisb : 0
+var bit pin_b1_direction at trisb : 1
+var bit pin_b2_direction at trisb : 2
+var bit pin_b3_direction at trisb : 3
+var bit pin_b4_direction at trisb : 4
+var bit pin_b5_direction at trisb : 5
+var bit pin_b6_direction at trisb : 6
+var bit pin_b7_direction at trisb : 7
+
+var bit pin_c0_direction at trisc : 0
+var bit pin_c1_direction at trisc : 1
+var bit pin_c2_direction at trisc : 2
+var bit pin_c3_direction at trisc : 3
+var bit pin_c4_direction at trisc : 4
+var bit pin_c5_direction at trisc : 5
+var bit pin_c6_direction at trisc : 6
+var bit pin_c7_direction at trisc : 7
+
+var bit pin_d0_direction at trisd : 0
+var bit pin_d1_direction at trisd : 1
+var bit pin_d2_direction at trisd : 2
+var bit pin_d3_direction at trisd : 3
+var bit pin_d4_direction at trisd : 4
+var bit pin_d5_direction at trisd : 5
+var bit pin_d6_direction at trisd : 6
+var bit pin_d7_direction at trisd : 7
+
+var bit pin_e0_direction at trisc : 0
+var bit pin_e1_direction at trisc : 1
+var bit pin_e2_direction at trisc : 2
+
+procedure port_a_low_direction'put( byte in d ) is
+   var byte a at trisa = ( trisa & 0xF0 ) | ( d & 0x0F )
+end procedure
+procedure port_a_high_direction'put( byte in d ) is
+   var byte a at trisa = ( trisa & 0x0F ) | ( ( d & 0x0F ) << 4 )
+end procedure
+
+procedure port_b_low_direction'put( byte in d ) is
+   var byte b at trisb = ( trisb & 0xF0 ) | ( d & 0x0F )
+end procedure
+procedure port_b_high_direction'put( byte in d ) is
+   var byte b at trisb  = ( trisb & 0x0F ) | ( ( d & 0x0F ) << 4 )
+end procedure
+
+procedure port_c_low_direction'put( byte in d ) is
+   var byte c at trisc = ( trisc & 0xF0 ) | ( d & 0x0F )
+end procedure
+procedure port_c_high_direction'put( byte in d ) is
+   var byte c at trisc = ( trisc & 0x0F ) | ( ( d & 0x0F ) << 4 )
+end procedure
+
+procedure port_d_low_direction'put( byte in d ) is
+   var byte c at trisd = ( trisd & 0xF0 ) | ( d & 0x0F )
+end procedure
+procedure port_d_high_direction'put( byte in d ) is
+   var byte c at trisd = ( trisd & 0x0F ) | ( ( d & 0x0F ) << 4 )
+end procedure
+
+procedure port_e_low_direction'put( byte in d ) is
+   var byte c at trise = ( trise & 0xF0 ) | ( d & 0x0F )
+end procedure
+
+function port_a_low_direction'get return byte is
+   var byte a at trisa
+   return a & 0x0F
+end function
+function port_a_high_direction'get return byte is
+   var byte a at trisa
+   return a >> 4
+end function
+
+function port_b_low_direction'get return byte is
+   var byte b at trisb
+   return b & 0x0F
+end function
+function port_b_high_direction'get return byte is
+   var byte b at trisb
+   return b >> 4
+end function
+
+function port_c_low_direction'get return byte is
+   var byte b at trisc
+   return b & 0x0F
+end function
+function port_c_high_direction'get return byte is
+   var byte b at trisc
+   return b >> 4
+end function
+
+function port_d_low_direction'get return byte is
+   var byte b at trisd
+   return b & 0x0F
+end function
+function port_d_high_direction'get return byte is
+   var byte b at trisd
+   return b >> 4
+end function
+
+function port_e_low_direction'get return byte is
+   var byte b at trise
+   return b & 0x0F
+end function
+
+
+-- --------------------------------------------------------------------
+-- Jal-style IO port registers and pins
+-- --------------------------------------------------------------------
+
+var volatile byte port_a       at  PORTA
+var volatile byte port_b       at  PORTB
+var volatile byte port_c       at  PORTC
+var volatile byte port_d       at  PORTD
+var volatile byte port_e       at  PORTE
+
+var volatile bit  pin_a0 at port_a : 0
+var volatile bit  pin_a1 at port_a : 1
+var volatile bit  pin_a2 at port_a : 2
+var volatile bit  pin_a3 at port_a : 3
+var volatile bit  pin_a4 at port_a : 4
+var volatile bit  pin_a5 at port_a : 5
+
+var volatile bit  pin_b0 at port_b : 0
+var volatile bit  pin_b1 at port_b : 1
+var volatile bit  pin_b2 at port_b : 2
+var volatile bit  pin_b3 at port_b : 3
+var volatile bit  pin_b4 at port_b : 4
+var volatile bit  pin_b5 at port_b : 5
+var volatile bit  pin_b6 at port_b : 6
+var volatile bit  pin_b7 at port_b : 7
+
+var volatile bit  pin_c0 at port_c : 0
+var volatile bit  pin_c1 at port_c : 1
+var volatile bit  pin_c2 at port_c : 2
+var volatile bit  pin_c3 at port_c : 3
+var volatile bit  pin_c4 at port_c : 4
+var volatile bit  pin_c5 at port_c : 5
+var volatile bit  pin_c6 at port_c : 6
+var volatile bit  pin_c7 at port_c : 7
+
+var volatile bit  pin_d0 at port_d : 0
+var volatile bit  pin_d1 at port_d : 1
+var volatile bit  pin_d2 at port_d : 2
+var volatile bit  pin_d3 at port_d : 3
+var volatile bit  pin_d4 at port_d : 4
+var volatile bit  pin_d5 at port_d : 5
+var volatile bit  pin_d6 at port_d : 6
+var volatile bit  pin_d7 at port_d : 7
+
+var volatile bit  pin_e0 at port_e : 0
+var volatile bit  pin_e1 at port_e : 1
+var volatile bit  pin_e2 at port_e : 2
+
+var byte _port_a_buffer
+var byte _port_b_buffer
+var byte _port_c_buffer
+var byte _port_d_buffer
+var byte _port_e_buffer
+
+procedure _port_a_flush is
+   PORTA = _port_a_buffer
+end procedure
+procedure _port_b_flush is
+   PORTB = _port_b_buffer
+end procedure
+procedure _port_c_flush is
+   PORTC = _port_c_buffer
+end procedure
+procedure _port_d_flush is
+   PORTD = _port_d_buffer
+end procedure
+procedure _port_e_flush is
+   PORTE = _port_e_buffer
+end procedure
+
+procedure port_a'put( byte in x at _port_a_buffer ) is
+   _port_a_flush
+end procedure
+procedure port_b'put( byte in x at _port_b_buffer ) is
+   _port_b_flush
+end procedure
+procedure port_c'put( byte in x at _port_c_buffer ) is
+   _port_c_flush
+end procedure
+procedure port_d'put( byte in x at _port_d_buffer ) is
+   _port_d_flush
+end procedure
+procedure port_e'put( byte in x at _port_e_buffer ) is
+   _port_e_flush
+end procedure
+
+procedure port_a_low'put( byte in x ) is
+   _port_a_buffer = ( _port_a_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_a_flush
+end procedure
+function port_a_low'get return byte is
+   return _port_a_buffer & 0x0F
+end function
+
+procedure port_b_low'put( byte in x ) is
+   _port_b_buffer = ( _port_b_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_b_flush
+end procedure
+function port_b_low'get return byte is
+   return _port_b_buffer & 0x0F
+end function
+
+procedure port_b_high'put( byte in x ) is
+   _port_b_buffer = ( _port_b_buffer & 0x0F ) | ( x << 4 )
+   _port_b_flush
+end procedure
+function port_b_high'get return byte is
+   return _port_b_buffer >> 4
+end function
+
+procedure port_c_low'put( byte in x ) is
+   _port_c_buffer = ( _port_c_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_c_flush
+end procedure
+function port_c_low'get return byte is
+   return _port_c_buffer & 0x0F
+end function
+
+procedure port_c_high'put( byte in x ) is
+   _port_c_buffer = ( _port_c_buffer & 0x0F ) | ( x << 4 )
+   _port_c_flush
+end procedure
+function port_c_high'get return byte is
+   return _port_c_buffer >> 4
+end function
+
+procedure port_d_low'put( byte in x ) is
+   _port_d_buffer = ( _port_d_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_d_flush
+end procedure
+function port_d_low'get return byte is
+   return _port_d_buffer & 0x0F
+end function
+
+procedure port_d_high'put( byte in x ) is
+   _port_d_buffer = ( _port_d_buffer & 0x0F ) | ( x << 4 )
+   _port_d_flush
+end procedure
+function port_d_high'get return byte is
+   return _port_d_buffer >> 4
+end function
+
+procedure port_e_low'put( byte in x ) is
+   _port_e_buffer = ( _port_e_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_e_flush
+end procedure
+function port_e_low'get return byte is
+   return _port_e_buffer & 0x0F
+end function
+
+procedure pin_a0'put( bit in x at _port_a_buffer : 0 ) is
+   _port_a_flush
+end procedure
+procedure pin_a1'put( bit in x at _port_a_buffer : 1 ) is
+   _port_a_flush
+end procedure
+procedure pin_a2'put( bit in x at _port_a_buffer : 2 ) is
+   _port_a_flush
+end procedure
+procedure pin_a3'put( bit in x at _port_a_buffer : 3 ) is
+   _port_a_flush
+end procedure
+procedure pin_a4'put( bit in x at _port_a_buffer : 4 ) is
+   _port_a_flush
+end procedure
+procedure pin_a5'put( bit in x at _port_a_buffer : 5 ) is
+   _port_a_flush
+end procedure
+
+procedure pin_b0'put( bit in x at _port_b_buffer : 0 ) is
+   _port_b_flush
+end procedure
+procedure pin_b1'put( bit in x at _port_b_buffer : 1 ) is
+   _port_b_flush
+end procedure
+procedure pin_b2'put( bit in x at _port_b_buffer : 2 ) is
+   _port_b_flush
+end procedure
+procedure pin_b3'put( bit in x at _port_b_buffer : 3 ) is
+  _port_b_flush
+end procedure
+procedure pin_b4'put( bit in x at _port_b_buffer : 4 ) is
+   _port_b_flush
+end procedure
+procedure pin_b5'put( bit in x at _port_b_buffer : 5 ) is
+   _port_b_flush
+end procedure
+procedure pin_b6'put( bit in x at _port_b_buffer : 6 ) is
+   _port_b_flush
+end procedure
+procedure pin_b7'put( bit in x at _port_b_buffer : 7 ) is
+   _port_b_flush
+end procedure
+
+procedure pin_c0'put( bit in x at _port_c_buffer : 0 ) is
+   _port_c_flush
+end procedure
+procedure pin_c1'put( bit in x at _port_c_buffer : 1 ) is
+   _port_c_flush
+end procedure
+procedure pin_c2'put( bit in x at _port_c_buffer : 2 ) is
+   _port_c_flush
+end procedure
+procedure pin_c3'put( bit in x at _port_c_buffer : 3 ) is
+   _port_c_flush
+end procedure
+procedure pin_c4'put( bit in x at _port_c_buffer : 4 ) is
+   _port_c_flush
+end procedure
+procedure pin_c5'put( bit in x at _port_c_buffer : 5 ) is
+   _port_c_flush
+end procedure
+procedure pin_c6'put( bit in x at _port_c_buffer : 6 ) is
+   _port_c_flush
+end procedure
+procedure pin_c7'put( bit in x at _port_c_buffer : 7 ) is
+   _port_c_flush
+end procedure
+
+procedure pin_d0'put( bit in x at _port_d_buffer : 0 ) is
+   _port_d_flush
+end procedure
+procedure pin_d1'put( bit in x at _port_d_buffer : 1 ) is
+   _port_d_flush
+end procedure
+procedure pin_d2'put( bit in x at _port_d_buffer : 2 ) is
+   _port_d_flush
+end procedure
+procedure pin_d3'put( bit in x at _port_d_buffer : 3 ) is
+   _port_d_flush
+end procedure
+procedure pin_d4'put( bit in x at _port_d_buffer : 4 ) is
+   _port_d_flush
+end procedure
+procedure pin_d5'put( bit in x at _port_d_buffer : 5 ) is
+   _port_d_flush
+end procedure
+procedure pin_d6'put( bit in x at _port_d_buffer : 6 ) is
+   _port_d_flush
+end procedure
+procedure pin_d7'put( bit in x at _port_d_buffer : 7 ) is
+   _port_d_flush
+end procedure
+
+procedure pin_e0'put( bit in x at _port_e_buffer : 0 ) is
+   _port_e_flush
+end procedure
+procedure pin_e1'put( bit in x at _port_e_buffer : 1 ) is
+   _port_e_flush
+end procedure
+procedure pin_e2'put( bit in x at _port_e_buffer : 2 ) is
+   _port_e_flush
+end procedure
+
+
+-- --------------------------------------------------------------------
+-- pic special functions
+-- --------------------------------------------------------------------
+
+procedure sleep is
+   asm sleep
+end procedure
+
+procedure clear_watchdog is
+   asm clrwdt
+end procedure
+
+procedure swap_nibbles( byte in out x ) is
+   asm  swapf x, f
+end procedure
+
+-- disable the A/D to be able to use port a as input
+procedure disable_a_d_functions is
+   pragma error -- not yet implemented
+end procedure

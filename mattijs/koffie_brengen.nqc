@@ -1,0 +1,17 @@
+task main ()
+{
+  start rijden;
+
+}
+
+task rijden ()
+{
+  // rechts
+  OnFwd (OUT_A);
+  OnRev (OUT_C);
+  Wait (100);
+  OnFwd (OUT_C);
+}
+
+
+

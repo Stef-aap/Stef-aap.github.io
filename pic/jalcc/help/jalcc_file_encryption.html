@@ -1,0 +1,66 @@
+<HTML><HEAD><TITLE>File Encryption</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>January 2005</SPAN></P>
+<P><SPAN class=RVTS1>File Encryption</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>After being confronted several times with "auto-removed" passwords from protected M$ files, I decided it's time to get a better protection. As I'm not a crypto-expert, I needed an easy and complete solution. At first sight, password protected files in PKZIP or WINZIP format seems to be an obvious choice. But searching the internet, revealed that this encryption is rather weak (can be cracked within a few hours with 100% certainty). Searching the web, and checking the first 20 hits, the following weak encryption technics were found:</P>
+<P>Instantaneously to crack are: M$-office /&nbsp; PDF.</P>
+<P>Easy to crack are (within a few hours at most): PKZIP / WinZIP / ARJ / RAR upto 2.x / Norton Secret Stuff v 1.0 / Crypt-O-Text v. 1.21-1.24 / WinXFiles (up to v. 3.5) / Icon Lock-It / Encrypt-It for Windows / UnBreakable Encryption (UBE) 98 / File Locker 1.11 / Package for the Web v. 1.x-3.x / MasterKey.</P>
+<P>Another search on the web, revealed the freeware package 7-zip, comparable to PKzip. I couldn't find tools to crack 7-zip (256 AES encryption), and hope to get some answer from an expert on this subject Pavel Semjanov. Unfortunatly he didn't know. But as 7-zip is a relative unknown program, it'll be less attractive to hackers.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>JALcc Encryption</SPAN></P>
+<P>So for JALcc I've choosen to implement only the encryption by 7-zip format. Opening an encrypted file, is done in the same manner as a normal file, but before the file is shown, you've to enter a valid password. An encrypted file closes automatically when</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>focus is set to another MDI-child&nbsp;</LI>
+<LI>when nothing is edited in the file, and a user-definied timeout is elpased&nbsp;</LI>
+</UL>
+<P>JALcc doesn't have a facility to remember passwords.</P>
+<P>&nbsp;&nbsp;</P>
+<P>For the password yields the normal rules:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>the longer, the better, but at least 7 positions&nbsp;</LI>
+<LI>use alfa-digits, numeric digits and special characters&nbsp;</LI>
+<LI>don't use words from a vocabular&nbsp;</LI>
+<LI>if you forget the password it's IMPOSSIBLE to recover the data !!&nbsp;</LI>
+<LI>avoid using the same password more then once (possible weakness of 7-zip ?)&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=110 height=63 src="img1.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>File-naming</P>
+<P>aap_test.txt&nbsp; &lt;--&gt;&nbsp; aap_test_txt.7z</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Encrypting a new file</SPAN></P>
+<P>You can set the encryption or decryption of a file in the document list, through right-mouse button menu / edit parameters / advanced:</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=265 height=254 src="jalcc_file_encryption_img2.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=299 height=268 src="jalcc_file_encryption_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>When changing to encrypted file, you've to enter the same password twice (ofcourse you can use the ENTER-key to jump from the first to the second password). Don't use copy and paste, because when you don't know the password, your data is lost !!</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Changing the password</SPAN></P>
+<P>Changing the password of an encrypted file, should be done, by first setting the file to decrypted and then again to encrypted. The latter action will ask for a new password.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>7-zip options</SPAN></P>
+<P>Is there an Explorer context menu option in this program? (i.e., right click a file, "add to zip file" or similar option)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Yes, but it's not set at install.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To set this up, you must open the 7-Zip file manager, then go to the Tools menu -&gt; Options -&gt; Plugins -&gt; System.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

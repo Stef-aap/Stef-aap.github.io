@@ -1,0 +1,250 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 08/26/06, 14:35
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 05 0D 00 2B 05 <pp> <progname>  00 00 2B 05 29 05
+; program name: FROGGER
+; file is NOT protected
+
+; unkown codes are inserted as "%%HH%%"
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+
+;*******************************************
+;*******************************************
+; C = frog X-position
+; D = direction of bottom car
+; E = direction of upper car
+; F = direction of lower raft
+; G = direction of upper raft
+; I = countdown timer
+; J = X-position of leftside of bottom car
+; K = X-position of leftside of upper car
+; L = position of the lower raft
+; N = Number of lives
+; O = finish flag, 0=Running, 1=Winning, 2=Crash, 3=Blub, 4=TimeOut
+; P = position of the upper raft
+; R = frog Y-position
+; S = Score
+;*******************************************
+
+
+repeat N<0
+  Clrhome
+
+  ; let user select the desired level
+  ; easier level means more lives
+  6->N
+  Menu("  DIFFICULTY   ","VERY EASY",1,"EASY",2,"NORMAL",3,"HARD",4
+  Lbl 1
+    Ans+1 ;N+1->N
+  Lbl 2
+    Ans+1 ;N+1->N
+  Lbl 3
+    Ans+1->N
+  Lbl 4
+
+
+  ; initialize car direction
+  1->D
+  (-)1->E
+  Ans->G
+  ; initialize raft direction
+  1->F
+;  E->G
+
+  ; initialize score
+  0->S
+  ;DelVar S
+
+  ; repeat until all lives are gone
+  Repeat N=0
+    ; initialize frog position
+    7->R
+    8->C
+
+    ; display the water
+    ;writing -1 is much faster than "-"
+    For(P,2,3
+      For(L,1,16
+        Output(P,L,(-)1;"(-)
+      End
+    End
+    ;erase the last 1
+    Output(4,1," ;
+
+
+    ; generate random positions of afloats and cars
+    RandInt(3,14->L
+    RandInt(3,14->P
+    RandInt(4,12->J
+    RandInt(4,12->K
+
+    ; output the number of lives in "N"
+    Output(8,1,"pi=
+    Output(8,3,N
+    Output(8,11,S
+
+    ; initialize count down counter
+    99->I
+
+    ; reset error flag
+    0->O
+
+    ; repeat untill Loose, Win or TimeOut: O!=0
+    repeat O
+      ; display Countdown timer
+      Output(8,7,I
+
+      ; Get user input
+      ; if no key pressed, nothing todo with frog
+      Getkey->M
+      ; process only if N!=0
+;      if M:then
+;        ; remove the frog at position "R,C"
+;        Output(R,C," ;
+;        If M=24:C-(C!=2)->C
+;        If M=26:C+(C!=15)->C
+;        If M=25:R-1->R
+;        If M=34:R+(R!=7)->R
+;        ; draw the frog on it's new position
+;        Output(R,C,"pi
+;      End
+
+      If Ans:Then
+        Output(R,C," ;
+        C+(Ans=26 and C!=15)-(Ans=24 and C!=2->C
+        ; here Ans ruined !!
+        R+(M=34 and R!=7)-(M=25->R
+        Output(R,C,"pi
+      End
+
+      ; if at one of the ends, reverse direction
+      ; by doing this before remove one end of the car
+      ; no special actions for first and last position are necessary
+      If J=13:(-)1->D
+      If J=1:1->D
+      ; remove one pixel at the backside of the car
+      ;If D=1:Output(6,J," ;
+      ;If D=(-)1:Output(6,J+3," ;
+      Output(6,J+3(D<0)," ;
+      J+D->J
+      ; draw car completely
+for(A,0,3
+      Output(6,J+A,0;"OOOO
+end
+      ; draw upper car
+      If K=13:(-)1->E
+      If K=1:1->E
+      ;If E=1:Output(5,K," ;
+      ;If E=(-)1:Output(5,K+3," ;
+      Output(5,K+3(E<0)," ;
+      K+E->K
+      Output(5,K,"wUUw
+
+      ; draw upper water
+      Output(2,P,"(-)
+      if P=2 or P=15:(-)G->G
+      P+G->P
+      if R!=2:Output(2,P," ;
+
+      ; draw lower water
+      Output(3,L,"(-)
+      if L=2 or L=15:(-)F->F
+      L+F->L
+      if R!=3:Output(3,L," ;
+
+      ; widen the capture of the raft
+      ; with one pixel to the left and one pixel to the right
+      If R=3 and (L-1<=C and C<=L+1:L->C
+      If R=2 and (P-1<=C and C<=P+1:P->C
+
+      ; because the X-position can be slightly changed
+      ; we have to redraw the frog
+      ; (it takes to long to wait for a redraw after reading the keys)
+      Output(R,C,"pi
+
+      ; update countdown timer
+      I-1->I
+
+      ; Loosing by a car crash
+      If (R=6 and (J<=C and C<=J+3) or (R=5 and (K<=C and C<=K+3:2->O
+
+      ; Loosing by falling into the water
+      If (R=3 and C!=L) or (R=2 and C!=P:3->O
+
+      ; Loosing by timeout
+      If I=0:4->O
+
+      ; Winning, we reached to upper side of the display
+      if R=1:1->O ;Goto YW
+
+    End
+    ;*******************************************
+
+
+    Clrhome
+
+    if O=1:Then
+      Disp "CONGRATULATIONS!
+      Output(4,1,I
+      Output(4,3,"*50=
+      Output(4,7,50I
+      ; calculate new score
+      S+50I->S
+    End
+;    If O=2:Disp "CRASH!
+;    If O=3:Disp "BLUB...
+;    If O=4:Disp "TIME UP!
+    Disp sub("CRASH! BLUB...Time UP!   ",7O-13,7
+
+    Pause
+    Clrhome
+
+    If O!=1:Then
+      N-1->N
+      If not(N:Then
+        Menu("  TRY AGAIN  ","YES",8,"NO",9
+        Lbl 9
+          (-)1->N
+        Lbl 8
+      End
+    End
+  End
+End
+
+
+; finish the program
+Clrhome
+
+
+
+;This looks nicer
+;*******************************************
+;  if M!=0:then
+;    ; remove the frog at position "R,C"
+;    Output(R,C," "
+;
+;    ; get key and calculate new frog position
+;    If M=24:Then
+;      C-(C!=2)->C
+;    Else
+;      If M=25:Then
+;        R-1->R
+;      Else
+;        If M=26:Then
+;          C+(C!=15)->C
+;        Else
+;          If M=34:Then
+;            R+(R!=7)->R
+;          End
+;        End
+;      End
+;    End
+;
+;    ; if the grog is moved we need to draw it
+;    Output(R,C,"pi"
+;  End
+
+

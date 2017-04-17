@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Signal WorkBench</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="322" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>march 2008</span></p>
+<p><span class=rvts1>Signal WorkBench </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>History</span></p>
+<p>About a year ago (april 2007) I build this functionality in Delpi with embedded MatLab. After discovering SciPy, I replaced the embedded MatLab with embedded Python and used it with even greater pleasure than with the embedded MatLab. I then wrote:</p>
+<p><br></p>
+<p class=rvps4>"Although it was my first intention to create this program completely in Python, I had the feeling that my knowledge of Delphi would result in a much quicker result, especially because of the calculation tree and the signal displays. (Maybe the overwhelming collection of different graphical libraries in Python also forced this choose. At the moment I've the feeling that wxWidgets is the future way to go, but I've no idea yet if and what wrapper to use for wxWidgets.)"</p>
+<p class=rvps4><br></p>
+<p>Half a year ago I needed a GUI for another project, and decided to go for wxPython (Qt seemed better, but has a weird license). Unfortunately I didn't succeeded in getting one of the visual IDE's working, but by now I'm completely used to write GUI in plane ASCII, although I use several homemade convenience libraries. By now the Signal Workbench written as a Control / Brick within the PyLab_Works frame is almost identical to the Delphi version and at some points even better.</p>
+<p class=rvps4><br></p>
+<p class=rvps4><br></p>
+<p><span class=rvts2>ToDo</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>function of the top node </li>
+<li>selection of visible signals through MM/RM on top/bottom labels (leave the bottom / top labels visible) </li>
+<li>time measurement, add history_start*history_compression, use own expansion/compression </li>
+<li>autoscaling of history signal not always to well ?? </li>
+</ul>
+<p class=rvps4><br></p>
+<p class=rvps4><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>The signal workbench is highly sophisticated graphical calculator, specially equipped for off-line analysis of time series and development of algorithm for real-time analysis. </p>
+<p>The main items of the signal workbench are:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>the <span class=rvts9>calculation tree</span>, giving a graphical presentation of the calculation flow </li>
+<li>the <span class=rvts9>code window</span>, where the pre-processed python code can be edited </li>
+<li>the <span class=rvts9>signal displays</span>, to visualize, compare and measure the final and intermediate calculated results </li>
+</ul>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=184 valign=top>
+<p class=rvps2><img width=162 height=77 alt="" src="pw_signal_workbench_img10.png"></p>
+</td>
+<td rowspan=2 width=445 valign=top>
+<p><img width=561 height=422 alt="" src="pw_signal_workbench_img3.png"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=184 valign=top>
+<p><img width=292 height=295 alt="" src="pw_signal_workbench_img2.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Calculation Tree</span></p>
+<p>The global view of a total calculation is represented by a tree, where each node in the tree performs a (small) part of the calculation. The tree is fully synchronized with the editor on it's right side, and leaving a node, automatically saves any changes to the text in the editor of the previous node. You can either run a single node ( by pressing <span class=rvts10>F9</span>), or run the current node with all branches below it (by pressing <span class=rvts10>shift-F9</span>). The nodes in the tree can dragged and dropped, nodes can be copied / deleted including all their children. You can also put a general library (under construction) in a branch that's not executed, so the Signal WorkBench will serve as a nice editor.Don't use the top node at the moment, because I've special intentions with it.</p>
+<p><br></p>
+<p><span class=rvts8><br></span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=615 valign=top>
+<p>Each node has an icon, clicking on the icon, toggles between 2 images, indicating if the output goes to the graphical display or not.</p>
+<p>For the following functions, there's a difference if you click the node text or the node icon:&nbsp; copy / insert / drop. When the action is performed on the icon, the new or moved item will be placed as the last child of that node, while the action on the text of a node, does place it just above the clicked node.</p>
+<p><br></p>
+<p>Editing the name of the node (and thereby the filename where the code is stored) can be done by selecting and clicking again (not double clicking) or by select and space or by the right mouse menu. Leaving the edit, can be done by Enter-key or by selecting another node or something else.</p>
+<p><br></p>
+</td>
+<td width=244 valign=top>
+<p class=rvps3><img width=250 height=209 alt="" src="pw_signal_workbench_img5.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><span class=rvts8><br></span></p>
+<p><br></p>
+<p><br></p>
+<p><a name="code_window"></a>
+<span class=rvts2>Code Editor</span></p>
+<p>Each node in the calculation tree, is connected with a piece of Python code. Let's take a look at a simple example below:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=453 height=288 alt="" src="pw_signal_workbench_img6.png"></p>
+<p><br></p>
+<p>The variable<span class=rvts10> "DISPLAY" in line 40</span>, tells which signals should be ported to the graphical display (in case the tree icon allows it). The following signals can be ported to the graphical display: <span class=rvts10>tupple, list, 1-dim array, 2-dim array or any combination of these types</span>. It isn't even necessary to make all elements equally length, Signal WorkBench will take care of that.</p>
+<p>The variable list <span class=rvts10>"Display_Params" in line 42..44</span> tells the graphical display the parameters of each of the signals. The parameters consists of the name of the variable (where you can specify the units of that signal between square brackets), the value at the lower side of the display and the value at the upper border of the display. This variable doesn't need to be present, and you're also allowed to specify parameters for the first set of parametersor just parts of the parameters, e.g. only the signals names.</p>
+<p>Through<span class=rvts10> F7</span>, you can popup the <span class=rvts10>code snippet manager</span>, which is fully integrated,</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=695 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>Compiler Errors</span></p>
+<p>When a compiler error occurs, the Python error message is captured in the lower interactive editor (see picture below) and the cursor automatically jumps to the line with the error in the upper editor window. Note that the line numbers in the error message doesn't need to be the same as the line-number in the editor, this is because the script is pre-processed and so there are some extra lines added. You can always jump to the error, by clicking on the line in the lower interactive editor with the left mouse button, or by pressing Enter, when cursor is on the line "#&lt;&lt;&nbsp; File "&lt;string&gt;",&nbsp; ..."</p>
+</td>
+<td width=244 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=247 height=261 alt="" src="pw_signal_workbench_img15.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Signal Displays</span></p>
+<p>The signal displays are highly automated, while leaving great flexibility both by programming and user manipulation. Signals can be viewed, zoomed and measured. The ability to make one or more signal displays transparent, gives a unique feature to overlay several signal displays for easy comparison. The signal displays are quit light-weighted, so you can have a lot of them open simultaneous.</p>
+<p>Each signal display consists of 2 graphical windows, the bottom window (also called time-base window), holding the complete time-history of one selected signal, meant for navigating and selecting along the time-dimension. The top window, holding all (or a selected set) signals over a (possibly) limited time segment, is meant for zooming into details and for doing exact measurements.</p>
+<p>The following items are used to control the appearance of the signal display:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>LM, clicking in an image will draw (and drag) a cursor, clicking on a label will show and let you modify the properties </li>
+<li>MM, clicking in an image will draw (and drag) the other cursor. (We can't use the RM, because it;s used of normal popups. </li>
+<li>RM, will popup a menu </li>
+<li>splitter can be moved to set the vertical size of the time-base window </li>
+<li>form drag&amp;drop, form-resize </li>
+<li>(shift) arrow left/right, page up/down for moving the cursors </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>Signal Selecting</span></p>
+<p>through the RM-menu in the upper window you can select which signals are visible or not. Labels are automatically shown, with as much information as possible. Which part of the visible signals along the time-axis will be shown, is determined by the 2 cursors in the time-base window&nbsp; (showing the complete time-axis), which can be placed by LM and removed by MM (or RM-menu).</p>
+<p>Through the RM-menu of the time-base window or by clicking on the signal label in the time-base window, you can select the signal that's used in the time-base window. The color of the signal in the time-base window is the same as the signal color in the main-window. The amplitude scaling of the signal in the time-base window is always automatic.</p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=733 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>Signal Appearance</span></p>
+<p>By clicking on one of the lower or upper signal labels, the border values of the selected signal or all signals can be changed.</p>
+<p><br></p>
+<p><br></p>
+</td>
+<td width=204 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=214 height=194 alt="" src="pw_signal_workbench_img7.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=581 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>Transparency</span></p>
+<p><span class=rvts9><br></span></p>
+<p>Each signal display can be made transparent for easy comparing different algorithms. Transparency can be set through the RM-menu of any of the signal windows. Transparency only works for windows-2000 and up.</p>
+<p><br></p>
+<p><span class=rvts10>The memo</span>, displays a self expandable memo, to make some notes if you want to save the graph window.</p>
+<p><br></p>
+<p><span class=rvts10>Linear expansion</span>, does draw the expanded signal with linear interpolation, otherwise the signal is drawn stepwise (zero-order hold).</p>
+</td>
+<td width=142 valign=top style="background-color: #ffffd4;">
+<p><img width=242 height=214 alt="" src="pw_signal_workbench_img12.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=773 valign=top>
+<p><span class=rvts10>History, RM-menu</span></p>
+<p><br></p>
+<p><span class=rvts10>Remove Cursors</span>, can also be done by clicking on the right of the visible signal.</p>
+<p><span class=rvts10>Dual Cursor</span>, gives two cursors (both through the RM), which select the part of the signal which will be displayed in the normal window (top window).</p>
+<p><span class=rvts10>Single Expand 1</span>, gives just 1 cursor, that displays exactly all the samples of the signal, starting at the cursor position.</p>
+<p><span class=rvts10>Single Expand 2</span>, ditto, but signal is expanded 2 times.</p>
+<p><br></p>
+<p><span class=rvts10>The lower items</span> in the menu are the available signals, of which one can be selected to be shown in the history window.</p>
+</td>
+<td width=164 valign=top>
+<p class=rvps3><img width=177 height=322 alt="" src="pw_signal_workbench_img13.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=542 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>Cursor Measurement</span></p>
+<p><span class=rvts9><br></span></p>
+<p>With the left-MB in the main signal window, you can position 2 cursors in the upper signal window for measurement. Removing of the cursors is done through the middle-MB or the RM-menu. Each cursor has a panel attached, in which the actual real-world values of the visible signals are shown. The vertical position of the panels is determined by the mouse cursor. The left panel will also show the startpoint of the signals, both in samples and in (mili-)seconds. The right panel will also display the distance between the 2 cursors both in samples and in (mili-)seconds. When the signal window has focus, the position of the cursors can be fine-tuned with the left-arrow and right-arrow key for the left cursor and shift-left-arrow and shift-right-arrow key for the right cursor. Larger steps can be made by the page-up and page-don key (+shift for the right cursor)</p>
+</td>
+<td width=397 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=400 height=300 alt="" src="pw_signal_workbench_img14.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts9>Time Selection</span></p>
+<p>The two top-items of the RM-menu are designed to select certain time regions for further calculations. With "Selection Set", a new marker is placed on the time-axis, toggling the selection on or off. In the figure above the dark green lines at the bottom, are the&nbsp; selected regions. Removing a toggle point is also done through the RM-menu.</p>
+<p>If the selection is used in the next calculation is furthermore determined by the calculation function itself.</p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

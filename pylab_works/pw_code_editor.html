@@ -1,0 +1,496 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Code Editor</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="1" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Code Editor </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp; (march 2008)</span></p>
+<p><span class=rvts4><br></span></p>
+<p>developer </p>
+<p><br></p>
+<p>SciTE uses the default key bindings defined in Scintilla, so keyboard commands in SciTE mostly follow common Windows and GTK+ conventions. All move keys (arrows, page up/down, home and end) allows to extend or reduce the stream selection when holding the Shift key, and the rectangular selection when holding the Shift and Alt keys. Some keys may not be available with some national keyboards or because they are taken by the system such as by a window manager on GTK+. The user.shortcuts setting may be used to assign a key to a function. Note that Home key behaviour is changed by the vc.home.key option. Keyboard equivalents of menu commands are listed in the menus. Some less common commands with no menu equivalent are: </p>
+<div><table border=1 style="border-width : 0px" cellpadding=0 cellspacing=-1 style="border-collapse: collapse;">
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Magnify text size.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Keypad+</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Reduce text size.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Keypad-</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Restore text size to normal.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Keypad/</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Cycle through recent files.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Tab</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Indent block.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Tab</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Dedent block.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Shift+Tab</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Delete to start of word.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+BackSpace</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Delete to end of word.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Delete</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Delete to start of line.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Shift+BackSpace</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Delete to end of line.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Shift+Delete</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Go to start of document.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Home</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Extend selection to start of document.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Shift+Home</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Go to start of display line.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Alt+Home</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Extend selection to start of display line.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Alt+Shift+Home</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Go to end of document.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+End</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Extend selection to end of document.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Shift+End</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Go to end of display line.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Alt+End</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Extend selection to end of display line.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Alt+Shift+End</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Expand or contract a fold point.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Keypad*</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Create or delete a bookmark.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+F2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Go to next bookmark.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>F2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Select to next bookmark.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Alt+F2</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Find selection.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+F3</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Find selection backwards.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Shift+F3</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Scroll up.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Up</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Scroll down.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Down</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Line cut.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+L</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Line copy.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Shift+T</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Line delete.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Shift+L</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Line transpose with previous.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+T</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Selection duplicate.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+D</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Find matching preprocessor conditional, skipping nested ones.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+K</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Select to matching preprocessor conditional.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Shift+K</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Find matching preprocessor conditional backwards, skipping nested ones.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+J</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Select to matching preprocessor conditional backwards.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Shift+J</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Previous paragraph. Shift extends selection.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+[</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Next paragraph. Shift extends selection.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+]</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Previous word. Shift extends selection.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Left</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Next word. Shift extends selection.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+Right</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Previous word part. Shift extends selection</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+/</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=484 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Next word part. Shift extends selection.</p>
+</td>
+<td width=140 valign=middle style="border-width : 1px; border-color: #000000; border-style: solid;">
+<p>Ctrl+\</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts2><br></span></p>
+<p><span class=rvts2>Code Editor</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=513 valign=top style="background-color: #ffffe6;">
+<p>Here you can enter code that will be executed, each time this Brick is passed.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>The code editor is based on Scintilla. The editor has code highlight support, autocompletion and many more features.</p>
+<p><br></p>
+<p>Another nice feature of this code editor is the code-snippet manager, of which the visibility is toggled by F7. And of course editing of the code templates is done in a separate but identical code editor.</p>
+</td>
+<td width=326 valign=top style="background-color: #ffffe6;">
+<p class=rvps3><img width=327 height=469 alt="" src="pw_gui_controls_img2.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Code Snippets Manager</span></p>
+<p>A code snippet is a (small) pieces of code that can be inserted at the caret position in the editor. The insertion is done is such a way that the indentation (if the caret is not at position 0) is preserved. Organization of a code snippet is very easy. The code snippets manager is made visible (as a stay on top form) by pressing F7. When you hoover over the name of a code snippet, the name will highlight and a hint appears. Hovering while the template file is open, the position in the template file will follow. Clicking on a name will insert the code snippet.</p>
+<p><br></p>
+<p><span class=rvts10>Hoover</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; highlight + hint + follow code in template window</p>
+<p><span class=rvts10>Left Click</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; insert in parent or copy to clipboard</p>
+<p><span class=rvts10>Middle Click</span>:&nbsp; nothing at the moment</p>
+<p><span class=rvts10>Right Click</span>:&nbsp;&nbsp;&nbsp; open template editor at this location</p>
+<p><br></p>
+<p>Code snippets can be organized in different files, sited in the main program directory, and named "templates_XXXX.py", where XXXX is a short name (otherwise tabs gets too large). The code snippet manager searches for all files of the above mentioned type, will read them and place them in the form. Normally the order of the detected files is random, or at least will depend on the operating system, but you can add a small text file "templates_.txt" in the main directory and list the desired order of the template files. Files that are not in that ordered list, will be placed at the bottom tabs.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=389 valign=top style="background-color: #ffffe6;">
+<p><img width=230 height=350 alt="" src="pw_gui_controls_img3.png"></p>
+</td>
+<td width=216 valign=top style="background-color: #ffffe6;">
+<p class=rvps3><img width=529 height=331 alt="" src="pw_gui_controls_img4.png"></p>
+</td>
+<td width=216 valign=top style="background-color: #ffffe6;">
+<p><img width=112 height=121 alt="" src="pw_gui_controls_img5.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>The code snippet files can be edited, by right-clicking on a name, the correct file will be opened, at the location of the clicked name. An example of a code snippet file is given in the middle picture above. When the code snippet editor is closed, the code snippet manager is reloaded and the changes made will be visible. What's in the code snippet file from the picture above:</p>
+<p><span class=rvts10># icon = </span>, (line 1), a picture that will be displayed on the tab. This picture definition must be on the first line en the picture must be a 16*16 image.</p>
+<p><span class=rvts10>##OnSomeEvent</span>&nbsp; (line 2), the name as it will appear in the snippet window</p>
+<p><span class=rvts10>""" extended explanation """</span>&nbsp; (line 3..5), lots of text that will used as the hint when the mouse hoovers over the table</p>
+<p><span class=rvts10>the rest</span>&nbsp; (line 6 ..14), the code (with a good indentation) that will be inserted</p>
+<p><span class=rvts10>##-</span>&nbsp; (not shown), insert a horizontal line in the table</p>
+<p><span class=rvts10>##|</span>&nbsp; (not shown), start a new column in the table</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Autocompletion</span></p>
+<p>As soon as you type the first character of a new word, the code editor will show you a list of known words (autocompletion-list), with only&nbsp; words that matches the character(s) typed. Continuing to type, will shrink the list dynamically, to only the words that matches all the characters of the word. If a match no longer exists, the autocompletion-list will disappear. Although you can select a word in the list with a mouse click, it's far more convenient to type a few more characters, or select the item with arrow keys. If the desired word is highlighted (and on top) of the autocompletion-list, the easiest way to complete the word is by either typing a space (" ") or a point (".") whichever you need. This will have the effect that the word is completed and the space of point is added. In case of a point, a new autocompletion-list will be opened with suggestions for the word after the point. By pressing the enter key, the word is inserted, and the cursor is placed directly behind the word (no extra insertions). With the Esc-key you can hide the autocompletion-list.</p>
+<p>&nbsp; " "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = insert the selected word and add a space (" ")</p>
+<p>&nbsp; "."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = insert the selected word and add a point (".") and start a new autocompletion-list</p>
+<p>&nbsp; Enter&nbsp; = insert the selected word and put the cursor behind the selected word</p>
+<p>&nbsp; Esc&nbsp;&nbsp;&nbsp; = hide the autocompletion-list</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Special Keys</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;"><br>
+</td>
+<td width=720 valign=top style="background-color: #ffffe6;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p>F1</p>
+</td>
+<td width=720 valign=top style="background-color: #ffffe6;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p>F2</p>
+</td>
+<td width=720 valign=top style="background-color: #ffffe6;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;"><br>
+</td>
+<td width=720 valign=top style="background-color: #ffffe6;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p>F7</p>
+</td>
+<td width=720 valign=top style="background-color: #ffffe6;">
+<p>Show / focus template windows</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p>F9</p>
+</td>
+<td width=720 valign=top style="background-color: #ffffe6;">
+<p>Activate changes / Compile</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;"><br>
+</td>
+<td width=720 valign=top style="background-color: #ffffe6;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p>^B</p>
+<p>^ScrollWheel Down</p>
+</td>
+<td width=720 valign=top style="background-color: #ffffe6;">
+<p>increase font size</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;">
+<p>^N</p>
+<p>^ScrollWheel Up</p>
+</td>
+<td width=720 valign=top style="background-color: #ffffe6;">
+<p>decrease font size</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=119 valign=top style="background-color: #ffffe6;"><br>
+</td>
+<td width=720 valign=top style="background-color: #ffffe6;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+
+</body></html>

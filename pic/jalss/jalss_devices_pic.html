@@ -1,0 +1,374 @@
+<HTML><HEAD><TITLE>PIC devices</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>May 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, PIC devices</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>Available PIC Devices</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>12 bit core</P></TD>
+<TD valign=top>
+<P>14 bit core</P></TD>
+<TD valign=top>
+<P>16 bit core</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>16F627 / 628</P>
+<P>16F873 / 874 / 876 / 877</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><SPAN class=RVTS2>PIC-Device</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>PIC devices are just normal devices with some extra features. Therefore it's also possible to use more than 1 PIC in a simulated circuit. The extra window below, showing code and internal registers, is one of these extra features.</P>
+<P>The clockfrequency can be changed by editing the appropiate edit box, the ENTER key will make the new clockfrequency valid.</P>
+<P>By clicking on the filename, another file can be choosen (for the moment only HEX-files are supported).</P>
+<P>The RST button resets the processor.</P>
+<P>For developping new PIC devices, see ...</P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=131 height=183 src="pic_device.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><SPAN class=RVTS2>Code Window</SPAN><IMG width=14 height=14 src="top_page.gif"></P>
+<P>The code window shows the disassembled hex file.</P>
+<P>If the simulation is stopped, the highlighted line in de code window represents the green timeline in the scope window.</P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=227 height=291 src="pic_code_screen.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><SPAN class=RVTS2>Register Window</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>The regsiter window shows all the registers at the moment the simulation was stopped.</P>
+<P>After selecting a row of registers in the list, the names of the highlighted registers are shown at the top.</P>
+<P>Hereby stands "NA" for not available, their location in the list is empty.</P>
+<P>Registers that are available in more than 1 bank will be displayed in all relevant banks.</P>
+<P>If a line is selected in the general purpose registers, where the registers are available in all banks,&nbsp; "shared" is displayed, as shown on the right.</P>
+<P>If your looking for a special register and the name is known,&nbsp; you can select the register from the dropdown list, after which the correct line in the register list will be highlighted.</P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=227 height=405 src="pic_register_screen2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><SPAN class=RVTS2>EEprom Window</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=229 height=292 src="pic_eeprom_screen.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>Stack Window&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>The stack is straight forward.</P>
+<P>On the right side there's a extra grid, where you can watch a number of registers of special interest during single step. Just fill in the addresses and at each simulation stop, the actual register values will shown.</P>
+<P>In the register watch window of a PIC, now also registers can be selected by SFR-name or by JAL-name. Not only more convenient to select, but also the thing you want for debugging. If a new compilation moves a variable to another place, the watch window still follows the correct variable.</P>
+<P>Using a leading minus sign in front of the register-address, will display the value of that register in binary value.</P>
+<P>Note: if you want to use hexadecimal addresses, put a dollar sign "$" in front of the number (sorry that's the Delphi-way).</P>
+<P>Finally at the bottom, the status register is shown.</P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=231 height=295 src="pic_stack_screen.gif">&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>PIC 14-bit core&nbsp; V...b</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>Function</P></TD>
+<TD width=80 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>Implementation / test</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>USART</P>
+<P>RS232 Send</P></TD>
+<TD width=80 valign=middle>
+<P>16F62x&nbsp; V0.2</P>
+<P>16F87x&nbsp; V0.2</P></TD>
+<TD valign=top>
+<P>Transmitting is implemented</P>
+<P>Not quiet well implemented is resetting of TXEN during transmission, which should stop and reset the transmitter.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>USART</P>
+<P>RS232 Receive</P></TD>
+<TD width=80 valign=middle>
+<P>16F62x&nbsp; V0.3</P>
+<P>16F87x&nbsp; V0.3</P></TD>
+<TD valign=top>
+<P>Fully implemented</P>
+<P>V0.3&nbsp;&nbsp; 1-6-2003</P>
+<P>- Overrun error OERR correctly set</P>
+<P>- double buffering implemented</P>
+<P>- RCIF blocked for writing</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>USART</P>
+<P>Synchr Send</P></TD>
+<TD width=80 valign=middle>
+<P>16F62x&nbsp; V0.2</P>
+<P>16F87x&nbsp; V0.2</P></TD>
+<TD valign=top>
+<P>Transmitting is implemented (at maximum half of maximum speed).</P>
+<P>Only master mode is implemented.</P>
+<P>(Clock puls is always just 1 systemclock high.)</P>
+<P>Not quiet well implemented is resetting of TXEN during transmission, which should stop and reset the transmitter.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>USART</P>
+<P>Synchr Receive</P></TD>
+<TD width=80 valign=middle>
+<P>16F62x&nbsp; V0.2</P>
+<P>16F87x&nbsp; V0.2</P></TD>
+<TD valign=top>
+<P>Fully implemented,</P>
+<P>Only master mode is implemented</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>MSSP</P>
+<P>SPI-master</P></TD>
+<TD valign=middle>
+<P>16F62x&nbsp;&nbsp; NA</P>
+<P>16F77x&nbsp; V0.3</P></TD>
+<TD valign=middle>
+<P>Implemented at speed of&nbsp; Freq/4&nbsp; ,&nbsp; Freq/16&nbsp; ,&nbsp; Freq/64</P>
+<P>Not implemented at speed based on TMR2</P>
+<P>Remember timing is a little bit faked, to realize Freq/4 without degradation of performance (see (<A class=RVTS4 href="jalss_devices_spi_timing.html">SPI-timing</A>).</P>
+<P>All the fancy details, concerning exact positions of edges and levels, are not implemented, just the basic TI/BB SPI-protocol is implemented. But as all SPI-devices will have this same interface this is not really an problem.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>MSSP</P>
+<P>SPI-slave</P></TD>
+<TD valign=middle>
+<P>16F62x&nbsp;&nbsp; NA</P>
+<P>16F77x&nbsp; V0.3</P></TD>
+<TD valign=middle>
+<P>Not implemented</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>MSSP</P>
+<P>I2C-master</P></TD>
+<TD valign=middle>
+<P>16F62x&nbsp;&nbsp; NA</P>
+<P>16F77x&nbsp; V0.3</P></TD>
+<TD valign=middle>
+<P>Not (yet) implemented</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>MSSP</P>
+<P>I2C-slave</P></TD>
+<TD valign=middle>
+<P>16F62x&nbsp;&nbsp; NA</P>
+<P>16F77x&nbsp; V0.3</P></TD>
+<TD valign=middle>
+<P>Not (yet) implemented</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>TMR0</P></TD>
+<TD width=80 valign=middle>
+<P>16F62x&nbsp; V0.2</P>
+<P>16F87x&nbsp; V0.2</P></TD>
+<TD valign=top>
+<P>Fully implemented</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>TMR1</P></TD>
+<TD width=80 valign=middle>
+<P>16F62x&nbsp; V0.2</P>
+<P>16F87x&nbsp; V0.2</P></TD>
+<TD valign=top>
+<P>Fully implemented, except T1SYNC, which has no meaning in this simulator</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>TMR2</P></TD>
+<TD width=80 valign=middle>
+<P>16F62x&nbsp; V0.2</P>
+<P>16F87x&nbsp; V0.2</P></TD>
+<TD valign=top>
+<P>Fully implemented</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>Watchdog</P></TD>
+<TD width=80 valign=middle>
+<P>16F62x&nbsp; V0.2</P>
+<P>16F87x&nbsp; V0.2</P></TD>
+<TD valign=top>
+<P>Implemented at worst case situation (7 msec basic timing)</P>
+<P>On watchdog timeout a normal reset is executed, but it's been visualised by making the load hex file message box RED (blue in normal reset)</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Sleep</P></TD>
+<TD width=80 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>Interrupts</P></TD>
+<TD width=80 valign=middle>
+<P>16F62x&nbsp; V0.2</P>
+<P>16F87x&nbsp; V0.2</P></TD>
+<TD valign=top>
+<P>Fully implemented</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>Vref</P></TD>
+<TD width=80 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>Comparators</P></TD>
+<TD width=80 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>CCP module</P></TD>
+<TD width=80 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Registers</P></TD>
+<TD valign=middle>
+<P>16F62x&nbsp; V0.3</P>
+<P>16F87x&nbsp; V0.3</P></TD>
+<TD valign=middle>
+<P>V0.3&nbsp;&nbsp; 1-6-2003</P>
+<P>- shared registers from $70 .. $7F&nbsp; improved</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Data EEprom</P></TD>
+<TD width=80 valign=middle>
+<P>16F62x&nbsp; V0.3</P>
+<P>16F87x&nbsp; V0.3</P></TD>
+<TD valign=middle>
+<P>Fully implemented, except storage when JALss is finished and restarted.</P>
+<P>Write time is implemented at worst case condition of 8 msec.</P>
+<P>Filled with $FF on startup</P>
+<P>Read tested</P>
+<P>Write tested though polling of WR</P>
+<P>Write through interrupt not tested</P>
+<P>V0.3&nbsp;&nbsp; 25-5-2003</P>
+<P>- reading and writing improved (under some conditions the simulator acting wrong)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Program EEprom</P></TD>
+<TD valign=middle>
+<P>16F87x&nbsp; V0.3</P></TD>
+<TD valign=middle>
+<P>V0.3&nbsp;&nbsp; 25-5-2003</P>
+<P>- reading improved (under some conditions the simulator acting wrong)</P>
+<P>- writing improved (didn't shut down the processor), there's still a problem when interrupts on IO changes occure during a memory write</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Save EEprom</P></TD>
+<TD valign=middle>
+<P>16F62x</P>
+<P>16F87x&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>BrownOut</P></TD>
+<TD width=80 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Not implemented</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Code Protection</P></TD>
+<TD width=80 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>ID locations</P></TD>
+<TD width=80 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>Oscillators</P></TD>
+<TD width=80 valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

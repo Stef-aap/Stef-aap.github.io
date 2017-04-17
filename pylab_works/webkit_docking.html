@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="95" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>QtWebKit docking&nbsp;&nbsp; </span><span class=rvts8>(november 2010)</span></p>
+<p><span class=rvts8>Robbert Mientki</span></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>If you need a webbrowser within wxPython under Windows, at this moment only the IE-ActiveX component is available. If you want to use another web-engine, like webkit or gecko, there's no solution. Steps are made to make WebKit available under wxPython / windows, but there seems still a lot of effort needed. Another attempt would be the <a class=rvts4 href="http://www.kirix.com/labs/wxwebconnect.html">wxWebConnect</a> project from Kirix. which makes the Gecko / XulRunner avaliable under wxWidgets, but afaik there's no one working on the conversion from wxWidgets to wxPython. So here is another wild idea: use QTWebKit and embed the QT application into the wxPython application. On this page we'll describe our efforts to embed QTWebKit, it's not totally completed, but it worls reasonable well.</p>
+<p><br></p>
+<p><span class=rvts2>The wild idea</span></p>
+<p>Create a wxPython application, with a panel on which the WebKit browser should be docked. Instead of docking the WebKit application on the dock-panel, a hole is made in the wxPython application exactly off the size and on the position of that dock-panel. Secondly create a Python QT application that just consists of a windowless WebKit browser. After the QTWebKit has started, move the QT-application into the hole of the wxPython application. Using a hole instead of trying to change the parent of the QTWebKit application has the advantage that this method is platform independent.</p>
+<p><br></p>
+<p><span class=rvts2>Showcase</span></p>
+<p>In the image below,&nbsp; a screen dump of a small wxPython program with embedded QTWebKit is shown. The buttons at the top are not part of the QTWebKit, but are part of the wxPython application, but their events are communicated with the QTWebKit. There's also a <span class=rvts4>movie</span> showing the dynamical bahavior of the total application.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=614 height=406 alt="" src="webkit_docking_img3.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Download <a class=rvts4 href="http://developer.qt.nokia.com/wiki/PySideBinariesWindows">PySide</a>&nbsp; PySide-0.4.2qt47.win32-py2.6.exe </li>
+</ul>
+<p><br></p>
+<p>Instal execnet through easy_install</p>
+<p><img width=668 height=511 alt="" src="webkit_docking_img1.png"></p>
+<p><span class=rvts1><br></span></p>
+<p><span class=rvts2>Https / SSL - support</span></p>
+<p>To support https-sited (SSL support) you need to install one of the SSL-support libraries.</p>
+<p>For windows there are 2 possibilities, OpenSSL and Win32OpenSSL. </p>
+<p>OpenSSL didn't work in our situation.</p>
+<p>So we used Win32OpenSSL-0_9_8o which was the latest production version at that time.</p>
+<p>When trying to install Win32OpenSSL, it checks if you have MS Visual C++ and if not it asks you to install with the exact version !!</p>
+<p>After that https works fluently</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=222 height=73 alt="" hspace=1 vspace=1 src="webkit_docking_img4.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><img width=204 height=36 alt="" src="webkit_docking_img2.png"></p>
+
+</body></html>

@@ -1,0 +1,359 @@
+<HTML><HEAD><TITLE>PicProgrammer Software</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>July 2002</SPAN></P>
+<P><SPAN class=RVTS1>USB Pic-programmer software</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>File</P></TD>
+<TD valign=middle>
+<P>Commands</P></TD>
+<TD valign=middle>
+<P>Tools</P></TD>
+<TD valign=middle>
+<P>Help</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Misc.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P><A class=RVTS4 href="#file%20open">Open</A></P>
+<P><A class=RVTS4 href="#file%20save">Save</A></P>
+<P><A class=RVTS4 href="#exit">Exit</A></P></TD>
+<TD valign=top>
+<P><A class=RVTS4 href="#read%20device">Read Device</A></P>
+<P><A class=RVTS4 href="#read%20device_id">Read ID</A></P>
+<P><A class=RVTS4 href="#command%20write%20device">Verify Device</A></P>
+<P><A class=RVTS4 href="#command%20write%20device">Write Device</A></P>
+<P><A class=RVTS4 href="#command%20erase%20device">Erase Device</A></P>
+<P>&nbsp;<IMG width=114 height=22 src="prog_command_icons.gif"></P>
+<P><A class=RVTS4 href="#run%20command">reset programmer</A></P></TD>
+<TD valign=top>
+<P><A class=RVTS4 href="#tools,%20settings">Settings</A></P>
+<P><A class=RVTS4 href="#pic%20definitions">PIC Definitions</A></P>
+<P>Load Firmware</P>
+<P>Firmware Version</P></TD>
+<TD valign=top>
+<P><A class=RVTS4 href="#help">Help</A></P>
+<P><A class=RVTS4 href="#run%20command">Stop</A></P>
+<P><A class=RVTS4 href="#run%20command">Run</A></P>
+<P><A class=RVTS4 href="#run%20command">Run + RS232</A><A href="#run%20command"><IMG width=65 height=21 src="usb_prog_run.gif"></A></P></TD>
+<TD valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=top>
+<P><A class=RVTS4 href="#program%20start">Program Start</A></P>
+<P><A class=RVTS4 href="#data%20memo%27s">Data Memo's</A></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="operating instructions"></A>
+<SPAN class=RVTS2>Operating Instructions</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The only important thing to remember is that inserting or removing a PIC may only be done when the GREEN led is on (ZIF socket powerless).</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><A name="data memo's"></A>
+<SPAN class=RVTS2>Data Memo's</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>The topline contains the filename or the devicename, depending on where the last data was read from.&nbsp;</P>
+<P>The large memo is the program memory.&nbsp;</P>
+<P>If a complete row is empty ($3FFF) the row is not displayed.&nbsp;</P>
+<P>The line with address $2000 are the ID words and other fuses. These values can be edited.</P>
+<P>The bytes, starting at address $2100 are the EEPROM data bytes. These values can be edited.</P>
+<P>If a complete row is empty ($FF) the row is not displayed.</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=421 height=458 src="usb_prog_display.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="program start"></A>
+<SPAN class=RVTS2>Program start</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>On opening of the program, all settings are read form the inifile ("applicationname.ini") and the last hexfile is automatically loaded.</P>
+<P>The program can be started automatically from another program (i.e. JAL-IDE), in which case parameters can be passed through the command line:</P>
+<P>USB_PICPROG.exe d:\data_test\aap.hex PIC16F84 prog_rs232 - 115200 &lt;handle&gt;</P>
+<P>You can omit any parameter. Omit an intermediat parameter by substituting a mins sign "-".</P>
+<P>The meaning of the commandline parameters is shown below.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Filename of the hexfile (including full path) to be used to program the device.&nbsp;</LI>
+<LI>Devicename (including or excluding the prefix "PIC", so valid are "16F84" , "PIC16F84" ).&nbsp;</LI>
+<LI>Command indicates which action the programmer will perform, see below.&nbsp;</LI>
+<LI>name of the outputfile, can be ignored, only added for backward compatibility&nbsp;</LI>
+<LI>Baudrate used for debugging the programmed PIC&nbsp;</LI>
+<LI>Handle of the instance who started the programmer (must be added automatically by the starting program)&nbsp;</LI>
+</UL>
+<P>Commands implemented at the moment (not case-sensitive):</P>
+<P>program load hexfile + program PIC</P>
+<P>prog_run load hexfile + program PIC + start running PIC</P>
+<P>prog_rs232 load hexfile + program PIC + start running PIC + RS232 debugging</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=336 valign=top>
+<P><SPAN class=RVTS2>Control by Messages</SPAN></P>
+<P>The programmer can also be fully controlled through windows messages. For details about windows messages, see the sources.</P>
+<P>This is fully implemented in JALcc from v0.14.</P>
+<P>On the right the settings of JALcc are shown.</P>
+<P>From within JALcc, you can do everything with just one button (compile and run or F6):</P>
+<P>compile + download + program + run + debug</P>
+<P>When JALcc is closed, the programmer is closed automaticcally.</P></TD>
+<TD width=322 valign=top>
+<P>&nbsp;<IMG width=325 height=294 src="../jalcc/preferences_usb_programmer.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="file open"></A>
+<SPAN class=RVTS2>File Open</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Opens a hex file for reading. After openning the file, all the data is put in the corresponding memo fields.</P>
+<P>The hex file must be a INXH8M file format, see&nbsp;<A class=RVTS4 href="#hex%20file%20format">below for details</A>. The file may contain program data, config data and EEprom data data.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="file save"></A>
+<SPAN class=RVTS2>File Save</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Saves all information (program, config and data) on the screen in a INXH8M file format.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="exit"></A>
+<SPAN class=RVTS2>Exit</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Closes the program, after storing all settings in the inifile.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="read device"></A>
+<SPAN class=RVTS2>Command Read Device</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Reads program, data (eprom) and configuration memory and places the contents in the corresponding memofields.</P>
+<P>If in the program memory a complete row is empty ($3FFF), then this row is not displayed. Also if a complete data memory row is empty ($FF), the line is not shown. Config values are always shown.</P>
+<P>The configuration memory ($2000 .. $2007) is both displayed in the corresponding memo and in the corresponding edit- and check-boxes.</P>
+<P>The device-ID is checked against the selected device, and if a difference is encountered, a message is placed in the history memo.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="read device_id"></A>
+<SPAN class=RVTS2>Command Read Device-ID</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Reads only the Device-ID and puts it (only) in the corresponding edit-box.</P>
+<P>The device-ID is checked against the selected device, and if a difference is encountered, a message is placed in the history memo.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="command write device"></A>
+<SPAN class=RVTS2>Command Write Device</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Writes program, data and configuration memory.</P>
+<P>If no device is specified or if the device-ID differs from the selected device, no writing is performed and an error message is displayed.</P>
+<P>Verifying of the data is always done during programming. Alternatively verify can also be done after the complete program cycle is done. Although I've never seen a retry with this programmer, there's still the possibility to set a number of retries for each word to be programmed. Devices that are hard to program or of which the code protection bits are set, it's better to perform a bulk erase before programming.</P>
+<P>There are 2 programming modi implemented: just write (after detecting memory position was wrong)Â&nbsp; and erase-modify-write. Which mode is choosen depends on if a bulk erase is performed before the programming or not.&nbsp;</P>
+<P>Which of the modes is faster, depends on your application:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>if a new program is loaded, the bulk erase with the write-only mode is fastest (8 msec per word)&nbsp;</LI>
+<LI>if during dubugging only small modifications (at the end of the program) were made, ignoring the bulk-erase and performing a erase-modify-write cylcle (13 msec per word that is changed) is fastest&nbsp;</LI>
+</UL>
+<P>Normally all of the memory will be programmed, but you set a special mode, where programming is finished as soon as more than 20 consecutive empty places in the hex file are encountered.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="command verify device"></A>
+<SPAN class=RVTS2>Command Verify Device</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>If more than 20 errors are encountered, the program is aborted and an error message is displayed.</P>
+<P>The device-ID is checked against the selected device, and if a difference is encountered, a message is placed in the history memo.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="command erase device"></A>
+<SPAN class=RVTS2>Command Erase Device&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Erases all, i.e. program, data and fuses.</P>
+<P>After an erase cycle, there's no automatic verify cycle.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="run command"></A>
+<SPAN class=RVTS2>RUN command&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;<IMG width=65 height=21 src="usb_prog_run.gif"></P>
+<P>stop / run / run+rs232</P>
+<P>Run releaves the MCLR pin of the PIC, so it will start running.</P>
+<P>Run + RS232, is a normal run but transfers the RS232 communication to the programmed PIC, for debugging. The baudrate can be set independantly of the programmers baudrate. An extra window is opened, which acts like a terminal to the programmed PIC, both serial receive and serial transmit can be controled. Of course in this mode there's no control anymore of the programmer.</P>
+<P>But you can regain control, by pressing the Stop button.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=338 valign=top>
+<P><A name="tools, settings"></A>
+<SPAN class=RVTS2>Tools, Settings</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Verifying during and / or after programming can be selected individually. Normally you'll only choose for "during" because this will cost no extra time and above you can have retries. There's no need for verifying afterwards.</P>
+<P>The helppath is the path, where this file is stored (normally the program directory).</P>
+<P>Datapath is the path where your hex files are normally stored. If you read a hex file from a diferent directory, this path will automatically be addapted.</P>
+<P>Clicking on the commport lets you select an RS232 port.</P>
+<P>All settings are stored in the inifile ((applicationname.ini").</P></TD>
+<TD width=324 valign=middle>
+<P>&nbsp;<IMG width=459 height=227 src="usb_prog_settings.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="help"></A>
+<SPAN class=RVTS2>Help</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Shows this help text in your own default browser (if the path of this file is set right).</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=99% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=239 valign=middle>
+<P><A name="pic definitions"></A>
+<SPAN class=RVTS2>PIC definitions</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Tools / PIC Definitions / ...&nbsp;</P>
+<P>ID stands for the device-ID.&nbsp;</P>
+<P>ID-mask are the bits that take active part in the device-ID (the newer types, some bits are used for the revision number)&nbsp;</P>
+<P>ProgSize and DataSize speaks for themself.&nbsp;</P>
+<P>Protocol, some details of the programming algoritm, see for specifications&nbsp;<A class=RVTS4 href="#protocol">below</A>.</P>
+<P>EraseDelaythe maximum value (in msec) of a erase part of a read-modify-write action of a single word.</P>
+<P>ProgDelaythe maximum value (in msec) of a program part of a read-modify-write action of a single word.&nbsp;</P>
+<P>BulkDelaythe maximum value (in msec) of a bulkerase. DataErase is supposed to have the same delay time.</P>
+<P>You can add new devices just by walking with the cursor to the bottom of the table (or by pressing button "Add New").&nbsp;</P>
+<P>Numbers be inserted decimal or hexa-decimal (with a preceeding '$' sign).&nbsp;</P>
+<P>Enter-key can be used to step through the fields of the table.&nbsp;</P></TD>
+<TD width=416 valign=middle>
+<P>&nbsp;<IMG width=479 height=325 src="usb_prog_pic_defs.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="protocol"></A>
+<SPAN class=RVTS2>Protocol</SPAN>&nbsp;<A href="usb_picprogrammer_software.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>1</P></TD>
+<TD valign=middle>
+<P>This is the normal base protocol, for</P>
+<P>16F62x , 16F87x , etc</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>2</P></TD>
+<TD valign=middle>
+<P>This protocol save the oscillator calibration (last byte in progmem) and bandgab bits (msbits of 2007)</P>
+<P>12F629 , 12F675 , etc</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="program history"></A>
+<SPAN class=RVTS2>Program History</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>V 1.6xx</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">if programmer switched to run+rs232, with rs232 through data/clock lines, depending on the PIC to be programmed, the programmer can hang. This is not possible, unless there's a hardware error in the programmer, which I couldn't find yet. For the moment a test in software is removed to prevent the hanging.</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">If programmer not connected, the programmer displays a message</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>V 1.5</P></TD>
+<TD valign=middle>
+<P>!!!! Needs firmware V2 (for full functionality) !!!!</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">cooperation between programmer and JALcc improved</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">debug window, baudrate added + repeat last line added</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">stop/run/debug buttons now correctly show the status</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">when error detected, programming will be really stopped</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">algoritme 2 added, which preserves the last byte in program memory (oscillator calibration and BG-bits, for 12F629/12F675)</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>V 1.4</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">If debug window was set on string input, error, bug fixed</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>V 1.3</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">Non-contiguous blocks weren't programmed, bug fixed</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>V 1.2</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">closing programmer was not correctly detected by JALcc, bug fixed</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">repitive loading from JALcc with hexfiles with different names, didn't work ok, bug fixed</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>V1.1</P>
+<P>22-10-2002</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">when code protection bit was invoked, the chip wasn't programmed, bug fixed</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>V1.0</P>
+<P>24-07-2002</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">First Release</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="downloads"></A>
+<SPAN class=RVTS2>Downloads</SPAN>&nbsp;<A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>V3</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">Delay (100 msec) added after switching on/off power to the PIC to be programmed.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P><A class=RVTS4 href="../download/usb_programmer_jal_v2.zip">Hex-file v2</A></P>
+<P><A class=RVTS4 href="../download/usb_programmer_jal_v2.zip">+</A></P>
+<P><A class=RVTS4 href="../download/usb_programmer_jal_v2.zip">JAL sources v2</A></P></TD>
+<TD valign=top>
+<P>Hex file of the firmware in intel Hex-8 format</P>
+<P>The complete firmware is written in JAL. For more info about JAL, see&nbsp;<A class=RVTS4 href="http://www.voti.nl/jal/">Wouter's page</A></P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P><A class=RVTS4 href="../download/usb_picprog_v1_5.zip">PC-program v1.5</A></P>
+<P><A class=RVTS4 href="../download/usb_picprog_v1_4.zip">PC-program v1.4</A></P>
+<P><A class=RVTS4 href="../download/usb_picprog_v1_3.zip">PC-program v1.3</A></P>
+<P><A class=RVTS4 href="../download/usb_picprog_v1_1.zip">PC-program v1.1</A></P>
+<P><A class=RVTS4 href="../download/usb_picprog_sources_v1.zip">Delphi-sources v1</A></P></TD>
+<TD valign=top>
+<P>Executable PC program to control te programmer.</P>
+<P>All sources are written in Delphi-5.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P><A class=RVTS4 href="http://www.ftdichip.com/">http://www.ftdichip.com/</A></P></TD>
+<TD valign=top>
+<P>Get the latest USBMOD1 driver for your specific operating system.</P>
+<P>For most operating systems you' can download 2 different versions, a PnP and a non-PnP. I've the best experience with the non-PnP drivers (both win98 and winXP).</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P><A class=RVTS4 href="../jalcc/jalcc.html">JALcc home</A></P></TD>
+<TD valign=top>
+<P>If you want the use the programmer with full support in JALcc, download the latest version here. (You need at least version 0.14)</P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

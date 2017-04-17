@@ -1,0 +1,21 @@
+[JAL]
+libpath=D:\PIC-tools\JAL\libs2\
+
+[PICBSC]
+libpath=
+
+[General]
+Panel_treeview=1
+Panel_treeviewwidth=205
+
+[Special Marks]
+formvis=0
+left=453
+top=283
+width=143
+
+[Bookmarks]
+formvis=0
+left=453
+top=283
+

@@ -1,0 +1,204 @@
+<HTML><HEAD><TITLE>Diagram Designer problems</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>may, 2005</SPAN></P>
+<P><SPAN class=RVTS1>Diagram Design notes</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>IN STREAMS</P>
+<P>//SM</P>
+<P>var</P>
+<P>&nbsp; GLOBAL_TEXTPOS_X :integer;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Created new class TStateMachineObject, derived from TShapeObject (is TFlowChartObject better ?),</P>
+<P>stored in new file StateMachineObject.pas (copied from FlowChartObject.pas).</P>
+<P>&nbsp;&nbsp;</P>
+<P>function TStateMachineObject.CreateCopy: TBaseObject;</P>
+<P>(not in CreateByKind, because it's only used for the default templates)</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>added 2 link points&nbsp;</LI>
+<LI>create tstringlists code_output and code_condition&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>function TStateMachineObject.ValidProperties: TObjectProperties;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>added:&nbsp;</LI>
+<LI>&nbsp;opCustomLinks&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>function TStateMachineObject.GetProperty(Index: TObjectProperty): Integer;</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>added:&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;&nbsp; opCustomLinks&nbsp;&nbsp; : Result:=Integer(@Links);</P>
+<P>&nbsp;&nbsp;</P>
+<P>procedure TStateMachineObject.SetProperty(Index: TObjectProperty; Value: Integer);</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>added:&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;&nbsp; opCustomLinks&nbsp;&nbsp; : begin</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I:=High(Links);</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Links:=Copy(PFloatPointArray(Value)^);</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I:=High(Links);</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I:=I;</P>
+<P>//gaat netjes van 4 naar 6 !</P>
+<P>//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for I:=High(Links)+1 to I do NotifyLinkPointDeleted(I);</P>
+<P>&nbsp;&nbsp;</P>
+<P>procedure TStateMachineObject.SaveToStream(Stream: TBaseStream);</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>added:&nbsp;</LI>
+</UL>
+<P>&nbsp; Count:=Length(Links);</P>
+<P>&nbsp; Stream.Write(Count,2);</P>
+<P>&nbsp; Stream.Write(Links[0],Count*SizeOf(TFloatPoint));</P>
+<P>&nbsp;&nbsp;</P>
+<P>procedure TStateMachineObject.LoadFromStream(Stream: TBaseStream; FileVersion: Integer);</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>added:&nbsp;</LI>
+</UL>
+<P>&nbsp; Stream.Read(Count,2);</P>
+<P>&nbsp; SetLength(Links,Count);</P>
+<P>&nbsp; Stream.Read(Links[0],Integer(Count)*SizeOf(TFloatPoint));</P>
+<P><SPAN class=RVTS3>bug in streamutils</SPAN></P>
+<P>&nbsp; procedure LoadStringList(List: TStrings; Stream: TBaseStream);</P>
+<P>replaced by</P>
+<P>&nbsp; procedure LoadStringList(var List: TStrings; Stream: TBaseStream);</P>
+<P>&nbsp;&nbsp;</P>
+<P>Hexdump of just 1 TStateMachine, in the upper-left corner</P>
+<P>ik had hier op zijn minst $81 verwacht, subcode van TStateMachine</P>
+<P>ook 13 ($0D) otStateMachineObject komt niet voor ??&nbsp;</P>
+<P>&nbsp;<IMG width=513 height=87 src="diagram_img9.gif"></P>
+<P><SPAN class=RVTS1>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>NoFloatMapFileSupport, UseStyleForm</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Edit Connections</SPAN></P>
+<P><SPAN class=RVTS3>on edit properties, save OPTIONS in a global property AAP of PropertyEditorForm</SPAN></P>
+<P>class function TPropertyEditorForm.Execute(EditObject: TBaseObject; const Options: TDesignerSetup): Boolean;</P>
+<P>begin</P>
+<P>&nbsp; with Create(nil) do</P>
+<P>&nbsp; try</P>
+<P>aap:=options;</P>
+<P><SPAN class=RVTS3>on pressing EDIT button in PropertyEditor, store OPTIONS in property BEER&nbsp;</SPAN></P>
+<P>procedure TPropertyEditorForm.EditLinksButtonClick(Sender: TObject);</P>
+<P>begin</P>
+<P>&nbsp; with TLinkEditorForm.Create(nil) do</P>
+<P>&nbsp; try</P>
+<P>&nbsp;&nbsp;&nbsp; List:=Copy(Links);</P>
+<P>beer:=aap;</P>
+<P><SPAN class=RVTS3>in LINKEDITOR, an image is placed, with a mousedown event</SPAN></P>
+<P>procedure TLinkEditorForm.Image1MouseDown(Sender: TObject;</P>
+<P>&nbsp; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);</P>
+<P>begin</P>
+<P>&nbsp; memo1.lines.add(inttostr(x)+'//'+inttostr(y));</P>
+<P>&nbsp; x:=round(round(x/(beer.grid.x*0.0015))*(beer.grid.x*0.0015));</P>
+<P>&nbsp; y:=round(round(y/(beer.grid.y*0.0015))*(beer.grid.y*0.0015));</P>
+<P>&nbsp; image1.Canvas.Pixels[x,y]:=clblack;</P>
+<P>&nbsp; SetLength(List,Length(List)+1);</P>
+<P>&nbsp; List[High(List)]:=FloatPoint(X/image1.width,Y/image1.height);</P>
+<P>&nbsp; FormShow(nil);</P>
+<P>end;</P>
+<HR noshade size=1>
+<P>from main:</P>
+<P>procedure TMainForm.PropertiesActionExecute(Sender: TObject);</P>
+<P>var</P>
+<P>&nbsp; Modified : Boolean;</P>
+<P>&nbsp; Node : TTreeNode;</P>
+<P>begin</P>
+<P>&nbsp; if GetActiveLayer.SelectCount&gt;1 then Modified:=TPropertyEditorForm.Execute(GetActiveLayer,Options)</P>
+<P>&nbsp; else if GetActiveLayer.SelectCount=1 then Modified:=TPropertyEditorForm.Execute(ActiveObject,Options)</P>
+<P>&nbsp; else</P>
+<P>&nbsp; begin</P>
+<P>&nbsp;&nbsp;&nbsp; Node:=TreeView.Selected;</P>
+<P>&nbsp;&nbsp;&nbsp; Modified:=TPropertyEditorForm.Execute(TBaseObject(Node.Data),Options);</P>
+<HR noshade size=1>
+<P>in property editor</P>
+<P>class function TPropertyEditorForm.Execute(EditObject: TBaseObject; const Options: TDesignerSetup): Boolean;</P>
+<P>var</P>
+<P>&nbsp; Properties, ModifiedProperties : TObjectProperties;</P>
+<P>&nbsp; PropertyIndex : TObjectProperty;</P>
+<P>&nbsp; I : Integer;</P>
+<P>&nbsp; TempRect, PosRect : TRect;</P>
+<P>&nbsp; S : Single;</P>
+<P>begin</P>
+<P>&nbsp; Properties:=EditObject.ValidProperties;</P>
+<P>&nbsp; with Create(nil) do</P>
+<P>&nbsp; try</P>
+<P>aap:=options;</P>
+<P>&nbsp;&nbsp;&nbsp; if EditObject is TPropertyObject then</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Caption:=Caption+' ('+IntToStr(TPropertyObject(EditObject).List.SelectCount)+' objects)';</P>
+<HR noshade size=1>
+<P>&nbsp;&nbsp;</P>
+<P>procedure TPropertyEditorForm.EditLinksButtonClick(Sender: TObject);</P>
+<P>begin</P>
+<P>&nbsp; with TLinkEditorForm.Create(nil) do</P>
+<P>&nbsp; try</P>
+<P>&nbsp;&nbsp;&nbsp; List:=Copy(Links);</P>
+<P>&nbsp;&nbsp;&nbsp; if ShowModal=mrOk then</P>
+<P>&nbsp;&nbsp;&nbsp; begin</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Links:=Copy(List);</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Include(PropertiesModified,opCustomLinks);</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PanelLinks.Caption:=Format(rsDLinkPointsDefined,[Length(Links)]);</P>
+<P>&nbsp;&nbsp;&nbsp; end;</P>
+<P>&nbsp; finally</P>
+<P>&nbsp;&nbsp;&nbsp; Free;</P>
+<P>&nbsp; end;</P>
+<P>end;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>LinkEditor</SPAN></P>
+<P>options=</P>
+<P>&nbsp; TDesignerSetup = object</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DisplayUnits&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : TDisplayUnits;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Grid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : TPoint;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ShowGrid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Boolean;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ReversePrint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Boolean;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UndoHistory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Integer;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ClipboardMetafileScale : Integer;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DictionaryPath&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : string;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure LoadSettings(Setup: TProgramSetup);</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure SaveSettings(Setup: TProgramSetup);</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS2>Snap to Grid</SPAN></P>
+<P>When inserting a new (basic) object, snap to grid is not correct (picture on the left, topline of the rectangle, but sometimes upto 3 borders are not snapped to the grid).</P>
+<P>When moving each individual border slightly, the borders are snapped to the grid ok (picture on the right)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=188 height=133 src="diagram_img2.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=184 height=130 src="diagram_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS2>TFloatEdit, etc</SPAN></P>
+<P>Problems with loading forms, because of missing components, like TfloatEdit.</P>
+<P>Building a new package with ValueEdits.pas doesn't work, because of errors compiling StyleForm: (*$IMPORTEDDATA ON*)</P>
+<P>Therefore</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>function GetAveCharSize(Canvas: TCanvas): TPoint; copied from styleform to valueedits&nbsp;</LI>
+<LI>in ValueEdits TStyleForm replaced by TForm&nbsp;</LI>
+</UL>
+<P>Now package with ValueEdits compiles and installs correctly</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS2>Loading Delphi</SPAN></P>
+<P>When loading the Delphi project, and everything when selecting the project in the projectgroup,</P>
+<P>I get the following error message,</P>
+<P>after canceling everything goes ok.</P>
+<P>&nbsp;<IMG width=406 height=213 src="diagram_img1.gif"></P>
+<HR noshade size=1>
+<P>&nbsp;</P>
+</BODY></HTML>

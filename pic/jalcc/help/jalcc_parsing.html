@@ -1,0 +1,153 @@
+<HTML><HEAD><TITLE>Stack Parsing</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>March 2005</SPAN></P>
+<P><SPAN class=RVTS1>Stack parsing</SPAN></P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P>This utility analysis the stack usage&nbsp; of a program (at this moment only for JAL), by determining calling dependancies of procedures, functions and global vars. The utility is just a quick and dirty implementation, and is not 100% correct, but at least it can point you in some direction. This utility is not longer available as stand-alone program.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=625 bgcolor=#E6E6E6 valign=top>
+<P><SPAN class=RVTS2>Important Example</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>On the right the dependancy tree of the interrupt service routine (ISR) is shown. This example clearly shows the enormous waste of stack levels.&nbsp;</P>
+<P>The ISR uses 4 levels of the stack. So for the rest of the program, only 4 stack-levels remain !!&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Another important thing you can see here, is that you can check if the interrupt service routine uses interrupt unsafe procedures. In this case the procedures "&lt;&lt;" , "/" and "delay_10us" are not-interrupt-safe.&nbsp;</P>
+<P>Through the Right-Mouse menu / Reverse, you can check if the non-interrupt-safe routines are called in other program parts, to see if these non-interrupt-safe routines will really cause any trouble.</P></TD>
+<TD width=211 bgcolor=#E6E6E6 valign=top>
+<P class=RVPS3>&nbsp;<IMG width=233 height=222 src="jalcc_parsing_img9.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Not solved problems</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>in general this utility reports 1 stacklevel less then the JAL-compiler ??&nbsp;</LI>
+<LI>but in complex programs it will over estimate the necessary stack levels, due to not removing a call as last statement in a procedure.&nbsp;</LI>
+<LI>complex lines may not be evaluated correctly&nbsp;</LI>
+<LI>some procedures (e.g. multiply *, are also used in constant expressions, so they shouldn't be incorporated&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>173 = call</P>
+<P>113 = include</P>
+<P>22 = proc def</P>
+<P>42 = func def</P>
+<P>&nbsp;&nbsp;</P>
+<P>todo:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>showmessage ISR&nbsp;</LI>
+<LI>parsing assembler file&nbsp;</LI>
+<LI>adding global var addreses to treeviews&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Procedure dependency</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=401 bgcolor=#FFFFFF valign=top>
+<P>This view lists all the procedure dependencies.&nbsp;</P>
+<P>With the icons you can get a quick interpretation of the level.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=108 height=61 src="jalcc_parsing_img3.gif">&nbsp;with the level spinbutton you can expand or collapse the nodes to a certain level. This works also in other treeviews.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>By selecting a procedure, RM-menu, you can get a reverse analysis of that procedure.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>todo:&nbsp;</P>
+<P>- better icons (with a small number in it?)&nbsp;</P>
+<P>- doubleclick is open editor at procedure definition or calling place ?</P></TD>
+<TD width=304 bgcolor=#FFFFFF valign=top>
+<P class=RVPS3>&nbsp;<IMG width=332 height=317 src="jalcc_parsing_img2.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Reverse Procedure dependency</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=441 bgcolor=#FFFFFF valign=top>
+<P>This list shows by what routines a selected function is called.&nbsp;</P>
+<P>You can add more than 1 routine to this list.&nbsp;</P>
+<P>Top level routines can be deleted from the list through the RM-menu.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>todo:&nbsp;</P>
+<P>- open routine in editor on doubelclick&nbsp;</P>
+<P>- better icons</P></TD>
+<TD width=264 bgcolor=#FFFFFF valign=top>
+<P class=RVPS3>&nbsp;<IMG width=284 height=400 src="jalcc_parsing_img4.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Stack statistics</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=345 bgcolor=#FFFFFF valign=top>
+<P>This page shows the statistics of all the calls.&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>The top row indicates the available stacklevel, which here is only 7 (instead of 8), because an interrupt service routine is detected.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>The called routines are ordered, in such a way that the deepest and most often called routine is at the top.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>todo:&nbsp;</P>
+<P>- click on line, opens editor at the procedure definition ?&nbsp;</P>
+<P>- graphical representation ?</P></TD>
+<TD width=360 bgcolor=#FFFFFF valign=top>
+<P class=RVPS3>&nbsp;<IMG width=481 height=279 src="jalcc_parsing_img1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>ALL treeview</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=465 bgcolor=#FFFFFF valign=top>
+<P>This gives another treeview of the complete project.&nbsp;</P>
+<P>For each file it lists the following groups:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>- Procedures Public (PP)&nbsp;</P>
+<P>- Procedures Private (PL)&nbsp;</P>
+<P>- Variables Public (V)&nbsp;</P>
+<P>- Constants Public (C)&nbsp;</P>
+<P>- Macro Definitions (MD)&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Each group (of all files) can be expanded or collapsed by the buttons on the top.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>todo:&nbsp;</P>
+<P>- icons&nbsp;</P>
+<P>- doublick --&gt; open editor</P></TD>
+<TD width=240 bgcolor=#FFFFFF valign=top>
+<P class=RVPS3>&nbsp;<IMG width=271 height=341 src="jalcc_parsing_img6.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Global Variables</SPAN></P>
+<P>todo</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Global Constants</SPAN></P>
+<P>todo</P>
+</BODY></HTML>

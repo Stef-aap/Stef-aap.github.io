@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Windows System Settings</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffff;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="2" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>november 2006</span></p>
+<p><span class=rvts1>Data Acquisition</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><img width=483 height=194 alt="" hspace=1 vspace=1 src="jalcc_win_system_img1.png"></p>
+<p><br></p>
+<p><img width=436 height=165 alt="" hspace=1 vspace=1 src="jalcc_win_system_img2.png"></p>
+<p><br></p>
+<p><span class=rvts12>"FILE"="Xteq Systems X-Setup Plugin 5.0"</span></p>
+<p><span class=rvts12>"TYPE"="6"</span></p>
+<p><span class=rvts12>"COUNT"="1"</span></p>
+<p><span class=rvts12>"UIPATH"="Appearance\Files&amp;Folders\"New" Context Menu"</span></p>
+<p><span class=rvts12>"NAME"="Enable "New" Context Menu"</span></p>
+<p><span class=rvts12>"LANGUAGE"="VBScript"</span></p>
+<p><span class=rvts12>"TEXT 1"="Enable "New" Context Menu"</span></p>
+<p><span class=rvts12>"DESCRIPTION 1"="When you right-click an empty space in Windows Explorer or on the Desktop, you'll see a sub-menu called 'New' which lets you create a new document in that folder."</span></p>
+<p><span class=rvts12>"DESCRIPTION 2"="If you wish to disable this menu, you can clear the tick in the box. To re-enable it, add a tick in the box."</span></p>
+<p><span class=rvts12>"DESCRIPTION 3"="NOTE: Disabling the New menu requires Windows 98/2000/Me/XP or Windows 95 with the Windows Desktop Update installed."</span></p>
+<p><span class=rvts12>"COMMENT 1"="Tip found on WinGuides.com Registry Guide."</span></p>
+<p><span class=rvts12>"VERSION"="1.01"</span></p>
+<p><span class=rvts12>"AUTHOR"="Xteq Systems (Neil R. Turner)"</span></p>
+<p><span class=rvts12>"COPYRIGHT"="Copyright © Xteq Systems - All Rights Reserved"</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>'Declaration of some constants</span></p>
+<p><span class=rvts12>sP="HKCR\Directory\Background\shellex\ContextMenuHandlers\New\@"</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>'Called when the Plugin is started</span></p>
+<p><span class=rvts12>SUB Plugin_Initialize</span></p>
+<p><span class=rvts12>s=RegReadValue(sP)</span></p>
+<p><span class=rvts12>if s="{D969A300-E7FF-11d0-A93B-00A0C90F2719}" then</span></p>
+<p><span class=rvts12>&nbsp; Call SetUIElement(1,true)</span></p>
+<p><span class=rvts12>end if</span></p>
+<p><span class=rvts12>END SUB</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>'Called when the Plugin should validate the Data the user has entered</span></p>
+<p><span class=rvts12>SUB Plugin_CheckData(ElementIndex)</span></p>
+<p><span class=rvts12>END SUB</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>'Called when the Plugin should apply the changes</span></p>
+<p><span class=rvts12>SUB Plugin_Apply(ElementIndex,ElementSubIndex)</span></p>
+<p><span class=rvts12>s=GetUIElement(1)</span></p>
+<p><span class=rvts12>if s=true then</span></p>
+<p><span class=rvts12>&nbsp; Call RegWriteValue(sP,"{D969A300-E7FF-11d0-A93B-00A0C90F2719}",1)</span></p>
+<p><span class=rvts12>else</span></p>
+<p><span class=rvts12>&nbsp; Call RegWriteValue(sP,"",1)</span></p>
+<p><span class=rvts12>end if</span></p>
+<p><span class=rvts12>END SUB</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>'Called when the Plugin is about to be removed from memory</span></p>
+<p><span class=rvts12>SUB Plugin_Terminate</span></p>
+<p><span class=rvts12>END SUB</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+
+</body></html>

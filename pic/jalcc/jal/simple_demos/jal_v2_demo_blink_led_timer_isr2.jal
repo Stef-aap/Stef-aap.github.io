@@ -1,0 +1,117 @@
+-- -----------------------------------------------------------------------------
+-- demo JAL v2: Blink a LED by timer0 though interrupts
+-- This demo will blink a LED with a period of 1 second,
+-- i.e. 0.5 seconds on, 0.5 seconds off
+-- -----------------------------------------------------------------------------
+-- Tested
+--    16F877, 20 MHz: ok
+--    12F675, 4 MHz (internal, calibrated): ok
+--    JALss + 16F877: ok
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- include hardware definitions
+-- select the appropriate devive library
+-- -----------------------------------------------------------------------------
+;include jal_v2_demo_16F877 ;external 20 MHz Xtal
+include jal_v2_demo_12F675 ;internal 4 MHz (calibrated)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- variable definition and initialisation
+-- -----------------------------------------------------------------------------
+-- define the io-pin as a logical name
+var volatile bit my_LED1 is pin_A0
+-- and set the io-pin as an output
+pin_A0_direction = output
+
+-- intialize TMR0, including prescaler
+-- XTAL = 20 MHz,  period = 10000 usec
+-- this is about the longest time we can achieve with this timer
+T0CS = false                                 -- set TMR0 to main oscillator
+PSA = false                                  -- enable prescaler for TMR0
+-- read the manual how to set the next values
+-- ( I use a macro that generates the OPTIMAL solution below)
+
+-- here the if-statement only consists of constants
+-- and therefor acts like a compiler directive and thus consumes no code space.
+-- Still yields that everything declared within the bounds of the if-statement,
+-- is not known outside the if-statement.
+-- There's also a ternary operator that will allow such constructs.
+if target_chip == PIC_16F877 then
+  OPTION_REG = ( OPTION_REG & 0xF8 ) | 0x07    -- set prescaler to 7 = 1:256
+else
+  OPTION_REG = ( OPTION_REG & 0xF8 ) | 0x05    -- set prescaler to 5 = 1:64
+end if
+var volatile byte _tmr0_preset = -195
+
+-- we need a global counter for the Interrupt Service Routine
+-- define it here and initialze it right away
+var word ISR_counter = 0
+
+-- we need a global dummy LED-bit,
+-- because this is needed in the ISR
+var bit LED_dummy
+
+-- define the blink period in units of [100 msec]
+const byte half_blink_period = 5 
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Interrupt Service Routine,
+-- toggles the LED every half_blink_period*100 msec 
+-- -----------------------------------------------------------------------------
+procedure ISR is
+-- tell the compiler this is (part of) the interrupt service routine
+pragma interrupt
+
+  -- this part of the interrupt proces will only be handled,
+  -- if there's a timer0 overflow
+  if T0IF then
+    -- first thing to do is always to reload the counter with its preset value
+    -- because at this point we could have missed some counts,
+    -- we do ADDITION instead of simple ASSIGNING,
+    -- which assures that missed counts are also included
+    TMR0 = TMR0 + _tmr0_preset 
+    
+    -- now increment the 100ms counter
+    ISR_counter = ISR_counter + 1
+
+    -- after 10 interrupts,
+    -- we've realized a period of 100 msec
+    -- we also include the user desired half period
+    if ISR_counter>= half_blink_period*10 then
+      -- now toggle the LED (through a dummy bit !!) 
+      LED_dummy = ! LED_dummy
+      my_LED1 = LED_dummy
+      
+      -- reset the interrupt counter
+      ISR_counter = 0
+    end if 
+    
+    -- finally we reset the interrupt flag  
+    T0IF = false
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- enable interrupts
+-- -----------------------------------------------------------------------------
+T0IE = true   -- enable TMR0 interrupt
+GIE  = true   -- enable general interrupts
+T0IF = false  -- clear TMR0 interrupt flag
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Start of the main program
+-- -----------------------------------------------------------------------------
+forever loop
+  -- now we have totally nothing to do here
+end loop
+-- -----------------------------------------------------------------------------

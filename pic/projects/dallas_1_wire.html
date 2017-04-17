@@ -1,0 +1,150 @@
+<HTML><HEAD><TITLE>JAL library for control of Dallas 1-wire bus,</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FF8000;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+</HEAD>
+<BODY>
+
+<P><SPAN class=RVTS1>JAL library for control of Dallas 1-wire bus,</SPAN></P>
+<P><SPAN class=RVTS7>This html document is automatically generated from the JAL-sourcefile by JALcc</SPAN></P>
+<P><SPAN class=RVTS7>dallas_1_wire.jal&nbsp;&nbsp; 11-07-2004</SPAN></P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>License</SPAN></P>
+<P>freeware, under the terms of the GNU GPLCopyright (C) 2004 Stef Mientki</P>
+<P><A class=RVTS4 href="mailto:s.mientki@mailbox.kun.nl">mailto:S.Mientki@mailbox.kun.nl</A></P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS1>Version History</SPAN></P>
+<P><A class=RVTS4 href="../download/dallas_1_wire.jal">download&nbsp; dallas_1_wire.jal</A></P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>Version: 1.0&nbsp;&nbsp;&nbsp; ,10-07-2004, Stef Mientki</SPAN></P>
+<P>- orginal release</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS1>Introduction</SPAN></P>
+<P><SPAN class=RVTS2>Description</SPAN></P>
+<P>JAL library for control of Dallas 1-wire bus and specially the DS18B20.</P>
+<P>This library is based on:&nbsp;</P>
+<P><A class=RVTS4 href="http://pdfserv.maxim-ic.com/en/an/app187.pdf">http://pdfserv.maxim-ic.com/en/an/app187.pdf</A></P>
+<P>previous libs from Philip Pemberton and Vasile Surducan (thanks!)</P>
+<P>&nbsp;</P>
+<P>interface</P>
+<P>function Dallas_1_wire_get_devices_all</P>
+<P>procedure DS18B20_set_resolution_and_alarms</P>
+<P>procedure DS18B20_get_resolution_and_alarms</P>
+<P>procedure DS18B20_load_settings_from_EEprom</P>
+<P>procedure DS18B20_save_settings_to_EEprom</P>
+<P>procedure DS18B20_start_conversion</P>
+<P>procedure DS18B20_get_raw_temperature</P>
+<P>&nbsp;</P>
+<P>globals:</P>
+<P>Dallas_1_wire_device_count</P>
+<P>ROM-codes of the found devices are stored in ARRAY1</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>Example</SPAN></P>
+<P>&nbsp;</P>
+<P>&nbsp;const array_check_indices = false</P>
+<P>&nbsp;</P>
+<P>&nbsp;const array0_start = 0x70&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- no array in bank 0 wanted</P>
+<P>&nbsp;const array0_end&nbsp;&nbsp; = 0x6F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --&nbsp;&nbsp; so make end-index smaller than start_index</P>
+<P>&nbsp;const array1_start = 0xA0</P>
+<P>&nbsp;const array1_end&nbsp;&nbsp; = 0xEF</P>
+<P>&nbsp;const array2_start = 0x120</P>
+<P>&nbsp;const array2_end&nbsp;&nbsp; = 0x14F</P>
+<P>&nbsp;const array3_start = 0x1F1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 16F628 doesn't have free registers in bank 3</P>
+<P>&nbsp;const array3_end&nbsp;&nbsp; = 0x1F0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --&nbsp;&nbsp; so make end-index smaller than start_index</P>
+<P>&nbsp;</P>
+<P>&nbsp;-- include the ARRAY implementation</P>
+<P>&nbsp;include bank_arrays</P>
+<P>&nbsp;</P>
+<P>&nbsp;-- Temperature sensors</P>
+<P>&nbsp;&lt;mac&gt; io_pin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _1_wire = pin_d0</P>
+<P>&nbsp;include DS18B20</P>
+<P>&nbsp;var byte Tmsb, Tlsb</P>
+<P>&nbsp;</P>
+<P>&nbsp;-- Start a search for all 1-wire devices</P>
+<P>&nbsp;Dallas_1_wire_get_devices_all</P>
+<P>&nbsp;-- Display the number of found devices</P>
+<P>&nbsp;asynch_send_hw (Dallas_1_wire_device_count)</P>
+<P>&nbsp;</P>
+<P>&nbsp;-- Display the ROM-code of all devices</P>
+<P>&nbsp;array1_get_index = 0</P>
+<P>&nbsp;for Dallas_1_wire_device_count loop</P>
+<P>&nbsp;&nbsp; for 8 loop</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp; asynch_send_hw (array1)</P>
+<P>&nbsp;&nbsp; end loop</P>
+<P>&nbsp;end loop</P>
+<P>&nbsp;</P>
+<P>&nbsp;forever loop</P>
+<P>&nbsp;&nbsp; -- start temperature measurement for all devices</P>
+<P>&nbsp;&nbsp; DS18B20_start_conversion</P>
+<P>&nbsp;&nbsp; -- get the temperature of the first sensor</P>
+<P>&nbsp;&nbsp; DS18B20_get_raw_temperature (1, Tmsb, Tlsb)</P>
+<P>&nbsp;&nbsp; -- display the temperature detected by the first sensor</P>
+<P>&nbsp;&nbsp; asynch_send_hw(Tmsb)</P>
+<P>&nbsp;&nbsp; asynch_send_hw(Tlsb)</P>
+<P>&nbsp;&nbsp; -- now the same for the second sensor</P>
+<P>&nbsp;&nbsp; DS18B20_get_raw_temperature (2, Tmsb, Tlsb)</P>
+<P>&nbsp;&nbsp; asynch_send_hw(Tmsb)</P>
+<P>&nbsp;&nbsp; asynch_send_hw(Tlsb)</P>
+<P>&nbsp;end loop</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS1>Included Files</SPAN></P>
+<P>29-11-2003&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="../download/jal_libs/bank_arrays.jal">bank_arrays.jal</A>&nbsp;&nbsp;&nbsp; d:\pic-tools\jal\lib\</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS1>Public Procedures</SPAN></P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>function Dallas_1_wire_get_devices_all</SPAN></P>
+<P>-- This procedure searches for all devices on the 1-wire-bus</P>
+<P>-- returns the number of devices</P>
+<P>-- the number of devices is stored in the global Dallas_1_wire_device_count</P>
+<P>-- the RM-code of the devices are stored in the global array ARRAY1</P>
+<P>-- The addressing of the sensors in all other routines is done by an index</P>
+<P>-- to the array ARRAY1 [1.. 8*Dallas_1_wire_device_count].&nbsp;</P>
+<P>-- Each device occupies 8 bytes in the ARRAY1</P>
+<P>-- Index=0 means all devices !!</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>procedure DS18B20_set_resolution_and_alarms</SPAN></P>
+<P>-- Sets resolution and alarms into the selected devices.</P>
+<P>-- NOTE, if internal alarms are not used,</P>
+<P>-- these locations can be used to store (permanently) other information.</P>
+<P>-- Resolution must be specified in "human" indices, i.e. 9,10,11,12</P>
+<P>-- After settings are done, the values can be stored permantly in the eeprom&nbsp;</P>
+<P>-- of the device by the procedure DS18B20_save_settings_to_EEprom.</P>
+<P>-- (device_index=0 means all devices)</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>procedure DS18B20_get_resolution_and_alarms</SPAN></P>
+<P>-- Reads resolution and alarms from the selected devices.</P>
+<P>-- Resolution is translated to "human" indices, i.e. 9,10,11,12</P>
+<P>-- Index=0 means all devices !! (this is not meaningfull !!)</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>procedure DS18B20_load_settings_from_EEprom</SPAN></P>
+<P>-- loads alarm and resolution settings from the EEprom into the device's scratchpad</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>procedure DS18B20_save_settings_to_EEprom</SPAN></P>
+<P>-- saves alarm and resolution settings from the device's scratchpad to the EEprom</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>procedure DS18B20_start_conversion</SPAN></P>
+<P>-- Starts the temperature conversion for the selected device.</P>
+<P>-- (device_index=0 means all devices)</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><SPAN class=RVTS2>procedure DS18B20_get_raw_temperature</SPAN></P>
+<P>-- Reads the temperature from the selected device.</P>
+<P>-- device_index=0 reads all the sensors and stores them in array ...</P>
+<P>--&nbsp;&nbsp; in that case temp_high and temp_low will contain the temparture from the first sensor</P>
+<P>-- IMPORTANT reading of each sensor takes about 4 msec !!</P>
+<P>-- In case a temerature measurement is still in progress, the procedure waits.</P>
+</BODY></HTML>

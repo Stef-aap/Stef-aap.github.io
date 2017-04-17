@@ -1,0 +1,534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>TI-basic code editor</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #feffe6;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="77" />
+<meta name="spellcheck" content="3" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>August 2006</span></p>
+<p><span class=rvts1>TI-basic (84) editor</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>JALcc is an Integrated Development Environment (IDE) for technical projects. One of the dedicated editors within JALcc is the TI-basic editor. Because we expect that some will only use the TI-basic editor from the total JALcc IDE, therefor we tried to make the description below complete enough to work with the TI-basic editor. </p>
+<p>This first version of the TI-basic code-editor is made, without any knowledge or experience with the TI-84 calculator (after a few hours of playing, we disliked the programming in an 8-line screen that much, that we wrote this editor). So suggestions are welcome.</p>
+<p>(for download, see <a class=rvts4 href="jalcc_history_download.html">download page</a>)</p>
+<p>&nbsp; </p>
+<p><span class=rvts2>CodeEditor Overview</span></p>
+<p>The main items of the CodeEditor are (see image below):</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Editor with code-coloring (on the top-right)&nbsp; and code preview </li>
+<li>Organized Tree&nbsp; with all available functions(on the left) </li>
+<li>Help window / personal notes for each item in the tree (at the bottom_right) </li>
+<li>Statusbar (at the bottom) </li>
+</ul>
+<p>&nbsp; </p>
+<p>The CodeEditor has a full code colored highlighter, and besides all the standard features of the general CodeEditor, it has a number of special features adapted to TI-basic.</p>
+<p>The organized tree on the left can be used to insert functions into the editor, and moreover each item in the tree is associated with a (small) textfile, which can be used by the user to store personal notes about certain functions.</p>
+<p>The Statusbar displays the status of the editor, but all the colored panels in the statusbar also act as buttons which performs certain actions.</p>
+<p>All text following a semi-colon is treated as comment. Comment may appear on the same line as normal TI-commands.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=547 height=393 alt="" src="jalcc_ti84_editor_img2.gif">&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Uploading</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=634 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts2><br></span></p>
+<p>By pressing F9 or pressing on the outer-right panel of the statusbar, the program will be translated in TI-codes, Virtual TI form Rusty Wagner will be started, the code will be uploaded and the program runs on VTI.</p>
+<p><br></p>
+<p>By pressing shift-F9, the program is translated and uploaded to a real TI-machine (provided you've installed the driver correctly).</p>
+<p><br></p>
+<p>You can also run a selected region of the editor, in the virtual VTI, by pressing Alt-F9.</p>
+<p><br></p>
+<p>CodeSize is reported in the memo at the bottom.</p>
+</td>
+<td width=125 valign=top style="{background-color: #ffffd4;}">
+<p class=rvps3><img width=129 height=338 alt="" src="jalcc_ti84_editor_img2.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Partial Code Execution</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=335 valign=top style="{background-color: #ffffd4;}">
+<p>By selecting a piece of code, and selecting "Execute Selection" from the right mouse menu, the selected code will be turned into a complete program, which will be uploaded to the virtual VTI.</p>
+<p>If the selection contains any comment line, the comment tag is removed, thereby turning the comment into normal code.</p>
+<p><br></p>
+<p>In the example on the right, we're not sure if the code in line 67 works correctly. By assigning a value to J, in comment line 66, we can simple test our statement</p>
+<p><br></p>
+<p>It would be even more beautiful, if VTI could handle the TI-84 commands, because in that case JALcc could add the timer function, so JALcc could also let the VTI calculate the speed of execution.</p>
+</td>
+<td width=393 valign=top style="{background-color: #ffffd4;}">
+<p class=rvps3><img width=456 height=361 alt="" src="jalcc_ti84_editor_img15.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Code Preview</span></p>
+<p>By pressing on the "No Code" panel in the statusbar, the code will be generated and shown on the right of the program source. The code size is reported in the report memo. If errors occur, due to missing codes, an error list will appear at the bottom. Clicking on a line in this list, will position the cursor at the line that contains the error.</p>
+<p><br></p>
+<p><img width=633 height=530 alt="" src="jalcc_ti84_editor_img3.png"></p>
+<p><br></p>
+<p>The previewed code starts with the address at which the code will be stored.</p>
+<p>Double codes can be easily recognized, by the way they are displayed</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=146 height=62 alt="" src="jalcc_ti84_editor_img5.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>List of Used Vars</span></p>
+<p>When generating code (either by launcj=hing the application or by pressing on the statusbar to view the code), also a list of used variables is produced. In the image below you can see that variables A,B and H are not in use yet. You can also see that you can have beautiful description for each variable, at least if you have defined them so in some comment lines, as shown in picture further way down. At the moment only normal variables are displayed, but if this a valuable add-on, it's simply to extend with string, list and what else we can think of.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=469 height=295 alt="" src="jalcc_ti84_editor_img18.png"></p>
+<p><br></p>
+<p>Here the variables are explained, as you can see above, I forgot to declare the variable "M".</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=572 height=294 alt="" src="jalcc_ti84_editor_img19.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Line Continuation</span></p>
+<p>With the line continuation character "|", you can split a line in the editor to get a better overview.</p>
+<p>Below the lines 103 .. 106 are exported as just 1 line to the calculator.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=361 height=78 alt="" src="jalcc_ti84_editor_img27.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Inline Macro Procedures</span></p>
+<p>Procedures makes a program better controllable and the code of procedures can be reused. In TI-basic it's possible to use procedures stored as external programs in separate files. These procedures makes use of the same global parameters as the main program. Due to these facts, the procedures in TI-basic are almost completely useless.</p>
+<p>Trying to pass parameters through a list, increased the code-size too much and decreased the execution speed also too much. Therefor we build in JALcc a macro substitution for procedures. Although macro substitution doesn't sound too positive, it adds a lot of power to TI-basic and especially in writing well structured programs.</p>
+<p>Procedures can be stored in the main program or in one or more separate library files. Because macro substitution is used, the generated code for the final program will always consist of just 1 file.</p>
+<p>Here an example of a procedure declaration.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=548 height=410 alt="" src="jalcc_ti84_editor_img20.png"></p>
+<p><br></p>
+<p>A procedure is declared as a piece of code between the tags "procedure" and "end_procedure".</p>
+<p>"Procedure" is followed by the name of the procedure, in the example "Draw_Car" and optional by a parameter list.</p>
+<p>The parameter list consists of a number of good readable names, not single letters. This has two advantages, no mixing up with the global TI-variables are possible, and the readability of the code becomes much better. Preferable don't use names equal to one of the TI-commands.</p>
+<p>Now here is how the code is called:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=367 height=58 alt="" src="jalcc_ti84_editor_img21.png"></p>
+<p><br></p>
+<p>The macro substitution simple replaces every string "Pos" (case-insensitive) with the letter "J", meaning the global variable J, and so on.</p>
+<p>So after the code is generated (either by viewing the code or by uploading the code), it looks like this</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=358 height=262 alt="" src="jalcc_ti84_editor_img22.png"></p>
+<p><br></p>
+<p>As mentioned before you can also store your procedures in one or more libraries. These libraries don't use any code-space, until you use a procedure. In the main program you can one of more of these libraries in the following way:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=511 height=56 alt="" src="jalcc_ti84_editor_img23.png"></p>
+<p><br></p>
+<p>If no file-extension is specified, ".8xpR" is presumed. If no absolute filepath is specified, a filepath relative to the main source file is used.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Optimization</span></p>
+<p>Optimization should start with well written code. Therefor in my opinion, GOTO is not allowed. And the few examples I've rewritten without any GOTO, resulted all in a far more better optimization than all the tricks implemented below.</p>
+<p><br></p>
+<p>The following optimizations are implemented</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>remove double quote <span class=rvts2>"</span> before <span class=rvts2>-&gt;</span> or <span class=rvts2>EOL</span></li>
+<li> remove brackets and parentheses <span class=rvts2>])</span> before <span class=rvts2>-&gt;</span> or <span class=rvts2>:</span> or <span class=rvts2>EOL</span>, unless they are part of a string </li>
+<li>remove <span class=rvts2>EOL</span>, when the character before the last character was a <span class=rvts2>DelVar</span></li>
+<li> remove an asterisk <span class=rvts2>*</span>, unless it's part of a string </li>
+</ul>
+<p><br></p>
+<p>In the code view, the codes removed by the optimizer are preceded by a minus sign. A removed EOL is indicated by a double minus sign (normally the EOL character is not shown in the code view.</p>
+<p><br></p>
+<p><img width=785 height=57 alt="" src="jalcc_ti84_editor_img24.png"></p>
+<p><br></p>
+<p>In line 227, you see double minus, indicating that no EOL character will be inserted.</p>
+<p>In line 228, the line is reduced to "AAP])-&gt;A:(2+1-&gt;A, showing when brackets and parentheses are removed and when not (look at the minus sign before the code byte.</p>
+<p>In line 229, the removal of the asterisk is shown.</p>
+<p><br></p>
+<p>The optimizer can be turned off for a specific section of the source code, by the word "NO_OPTIMIZE", and again can be turned on by the word "OPTIMIZE". In the picture below the effect of the optimizer can clearly be seen in the code bytes.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=737 height=76 alt="" src="jalcc_ti84_editor_img25.png"></p>
+<p><br></p>
+<p>The optimizer also gives warnings or suggestions, displayed in bold blue in the code generation report, in the following situations:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>If a GOTO is found, the total number of goto's is mentioned at the end </li>
+<li>'when lowercase characters are found (double bytes) </li>
+<li>when an IF-statements is found, which can possible be written smaller and faster as an arithmetic expression </li>
+</ul>
+<p>By simply clicking on a warning in the code generation report, the editor will jump to the correct location.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=448 height=261 alt="" src="jalcc_ti84_editor_img26.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>html-export</span></p>
+<p>Through the main menu | File | export, you can export to a nice code colored html page.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=560 height=413 alt="" src="jalcc_ti84_editor_img16.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>TI-codes</span></p>
+<p>The TI-codes are stored in a simple text file (ini-file-type), which can be edited by the user. After editing, the code will be available the next time a TI-file is opened.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=126 height=121 alt="" src="jalcc_ti84_editor_img7.png"></p>
+<p><br></p>
+<p>For entering special characters, e.g. a space at the end, you should put the value between double quotes,like</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $22 = "aap&nbsp; "</p>
+<p><br></p>
+<p>in case of doubts, just place the value between double quotes.</p>
+<p>The following code ranges are implemented and recognized by JALcc:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=458 height=211 alt="" src="jalcc_ti84_editor_img8.png"></p>
+<p><br></p>
+<p><span class=rvts2>Unknown Codes</span></p>
+<p>This program might miss a few of TI-basic codes. If a missing code is detected, this is not a real problem, because in that case the hexadecimal code is used, embedded in double "%%" signs. This works in all cases, reading orginal TI_basic code files and also writing human basic files. Of course we would appreciate it, if you tell us when you discover an unknown code. In the next example we've inserted the number "2" as a hexadecimal value "%%32%%".</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=148 height=73 alt="" src="jalcc_ti84_editor_img1.gif"></p>
+<p><br></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Spaces at the end</span></p>
+<p>If you want to preserve spaces at the end of a line, you can terminate them with a semi-colon ";" (the picture below shows the old character we used "|"),</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=206 height=53 alt="" src="jalcc_ti84_editor_img1.png">&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Special Keys</span></p>
+<p>&nbsp;&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F1</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>shows this help page</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F3 </p>
+<p>Shift+F3</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Find Next (from search buffer) </p>
+<p>shift-F3 = Find Previous</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F4 </p>
+<p>Shift+F4</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Find Next from word under cursor </p>
+<p>shift+F4 = Find Previous </p>
+<p>This is very handy, when tracing code in the JAL-assembler listing.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 height=16 valign=top style="{background-color: #ffffff;}">
+<p>F5</p>
+</td>
+<td width=655 height=16 valign=top style="{background-color: #ffffff;}">
+<p>toggles the visibility of the code-tree</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F7</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Toggle Templates visibility</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F8</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Goto next Field</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F9 </p>
+<p>Shift+F9 </p>
+<p>Alt+F9</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Compile and run on virtual machine </p>
+<p>Compile and run on real device</p>
+<p>Compile and run SELECTED on virtual machine</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>Ctrl+Shift+ </p>
+<p>&lt;0..9&gt;</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Set / Clear Bookmark &lt;0..9&gt;</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>Ctrl+ </p>
+<p>&lt;0..9&gt;</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Goto Bookmark &lt;0..9&gt;</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F10</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Toggle between mainmenu and active window (standard M$-windows behavior)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>note 1: The helpfile is assumed to be in the same directory as the first compiler and should have the name "syntax.txt". The item is searched by jumping to the first occurrence of the uppercase version of the word under the cursor, preceded by at least 2 spaces. </p>
+<p><br></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Bookmarks</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=558 valign=top style="{background-color: #ffffff;}">
+<p>Bookmarks are used to jump fast from one position in the code-editor to another position. Bookmarks are stored under water&nbsp; in the project file (*.JPR). </p>
+<p>&nbsp; </p>
+<p>The default keys for Bookmarks are </p>
+<p><span class=rvts3>Ctrl + Shift + &lt;0..9&gt;</span>&nbsp;&nbsp;&nbsp; set/clear Bookmark &lt;0..9&gt; </p>
+<p><span class=rvts3>Ctrl + &lt;0..9&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; jump to Bookmark &lt;0..9&gt; </p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>Note: the editor can contain more then one bookmark on the same line, but only the last one is visible.</p>
+</td>
+<td width=158 valign=top style="{background-color: #ffffff;}">
+<p class=rvps3><img width=173 height=142 alt="" src="jalcc_editor_img2.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>StatusBar</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=631 height=19 alt="" src="jalcc_ti84_editor_img9.png"></p>
+<p><br></p>
+<p>The statusbar gives information mainly about the editor. The colored panels not only give some status information, but also serves as active buttons.</p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=105 height=23 alt="" src="jalcc_codeedit_picbsc_img11.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Pressing this panel, toggles the visibility of the function tree.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=68 height=22 alt="" src="jalcc_codeedit_picbsc_img12.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>position of the caret</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=47 height=19 alt="" src="jalcc_codeedit_picbsc_img18.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Indicates there are changes that are not yet stored on disk. </p>
+<p>Note: in most cases the file will be automatically stored whenever there's a need for.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=59 height=20 alt="" src="jalcc_codeedit_picbsc_img14.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Mode of the editor, can be one of Insert/ Overwrite / ReadOnly</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=50 height=20 alt="" src="jalcc_ti84_editor_img10.png"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Toggles the visibility of the code preview.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2>&nbsp; <img width=60 height=21 alt="" src="jalcc_ti84_editor_img11.png"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Press this panel if you want to edit your personal function notes.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=73 height=16 alt="" src="jalcc_codeedit_picbsc_img16.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Press this button to compiling and uploading to VTI.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts2><br></span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Templates</span></p>
+<p>With the templates you easy can insert the language statements and/or (own) procedure calls into your program. Templates visibility is toggled by F7, field substitution is done by F8. As shown below it's easy to add you own procedures to the templates.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=217 height=214 alt="" src="jalcc_ti84_editor_img12.png"></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>Just after clicking on&nbsp; "if then else", the next 5 lines are inserted into the editor and the first field ("condition") is selected, so by just starting to type, you'll overwrite this first field. Then, with F8, you can jump to the next field "do ......".</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=187 height=87 alt="" src="jalcc_ti84_editor_img13.png"></p>
+<p><span class=rvts8>&nbsp; </span></p>
+<p>Editing of the templates is very easy, Editor Settings | Templates, and you get to see the edit window below. This doesn't need any explanation.</p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=459 height=170 alt="" src="jalcc_ti84_editor_img14.png"></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8>&nbsp; </span></p>
+<p><span class=rvts2>Ctrl+Alt(+Shift)-Macros</span></p>
+<p>The implementation of Ctrl-Alt macros is left to the user, see&nbsp; <a class=rvts4 href="jalcc_editor.html">JALcc, Code-Editor</a>for details.</p>
+<p>Here an example of a macro implementation for Ctrl-Alt-R, which does exactly the same as the template shown above</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=617 height=111 alt="" src="jalcc_codeedit_jal_img12.gif">&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>ShortString Substitutes</span></p>
+<p>The implementation of the shortstring substitutes is left to the user, see&nbsp; <a class=rvts4 href="jalcc_editor.html">JALcc, Code-Editor</a>for details.</p>
+<p>Here an example of the substitution for string "proc"</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=317 height=168 alt="" src="jalcc_codeedit_jal_img14.gif"></p>
+<p>&nbsp; </p>
+<p>After pressing "proc", followed by shift-Enter, the next text will be inserted in the Editor at the place of the caret, and the cursor is positioned in such a&nbsp; way that you directly type the name of the function.</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=338 height=82 alt="" src="jalcc_codeedit_jal_img13.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Autocompletion by Proposal</span></p>
+<p>The implementation of the proposal substitutes is left to the user, see&nbsp; <a class=rvts4 href="jalcc_editor.html">JALcc, Code-Editor</a>for details.</p>
+<p>Here an example, where all RS232 routines are definied.</p>
+<p>Now typing "as.." will show a list of substitutes, select one and press Enter to replace the typed text.</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=293 height=151 alt="" src="jalcc_codeedit_jal_img15.gif"></p>
+<p><span class=rvts8>&nbsp; </span></p>
+<p><span class=rvts8>&nbsp; </span></p>
+<p><span class=rvts2>Procedure and function hints</span></p>
+<p>As soon as a (already) declared procedure or function is used, JALcc can display a hint about the type and meaning of the function parameters.</p>
+<p>Some experiments with this functionality, shows that it behaves annoying and also not correct, because of some bugs (in cthint + ctparams).</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Keywords &amp; Commands</span></p>
+<p>These are 2 sets of words which will be highlighted differently. On default the keywords contains all normal language elements. The commands will hold the preprocessor (meta-commands) and fuses commands. (These tables are case-insensitive)</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=144 height=363 alt="" src="jalcc_codeedit_jal_img16.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=146 height=232 alt="" src="jalcc_codeedit_jal_img17.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Code Highlighter</span></p>
+<p>In the settings you can see the results of changes directly. JALcc uses a file with the name "EDT_SAMP.JAL" in the program directory as a template to show the actual settings. See for more details <a class=rvts4 href="jalcc_editor.html">JALcc, Code-Editor.</a></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=616 height=564 alt="" src="jalcc_codeedit_jal_img18.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Assembler file</span></p>
+<p>Just an example of the assembler output, which can be automatically opened (or reloaded) after a succesfull compile action.</p>
+<p>With F6 in the code editor, you can jump directly to the generated code line(s) in the assembler file (if the file wasn't opened or minimized, it will be loaded and normalized automatically)</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=444 height=494 alt="" src="jalcc_codeedit_jal_img19.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts1>Background Information</span></p>
+<p><br></p>
+<p><span class=rvts2>CodeEditor Specials</span></p>
+<p>- special keys and actions</p>
+<p>- multi-file bookmarks</p>
+<p>- special marks</p>
+<p>- autocompletion (through popup hint)</p>
+<p>- procedure/function hint</p>
+<p>- PIBbsc &lt;--&gt; assembler jumping</p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>File 8xp</span></p>
+<p><span class=rvts12>bytes 1 .. 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **TI83F* </span></p>
+<p><span class=rvts12>bytes 9 .. 11&nbsp;&nbsp;&nbsp;&nbsp; ??&nbsp;&nbsp; $1A&nbsp; $0A&nbsp; $00&nbsp;&nbsp; ??</span></p>
+<p><span class=rvts12>bytes 12 .. 53&nbsp;&nbsp;&nbsp; Program file 11/20/05, 12:05&nbsp; (filled up with $00)</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ProtProgram file 11/20/05, 12:05 (filled up with $00)</span></p>
+<p><span class=rvts12>byte&nbsp; 54&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LSB ProgramSize+19</span></p>
+<p><span class=rvts12>byte&nbsp; 55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSB ProgramSize+19</span></p>
+<p><span class=rvts12>======================= checksum calculation starts here</span></p>
+<p><span class=rvts12>bytes 56 .. 57&nbsp;&nbsp;&nbsp; ??&nbsp;&nbsp; $0D&nbsp; $00</span></p>
+<p><span class=rvts12>byte&nbsp; 58&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LSB ProgramSize+2</span></p>
+<p><span class=rvts12>byte&nbsp; 59&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSB ProgramSize+2</span></p>
+<p><span class=rvts12>byte&nbsp; 60&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; protection&nbsp; $06=on,&nbsp;&nbsp; $05=off</span></p>
+<p><span class=rvts12>bytes 61 .. 68&nbsp;&nbsp;&nbsp; 8 bytes user progname&nbsp; (unused bytes are set to $00)</span></p>
+<p><span class=rvts12>byte&nbsp; 69&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ??&nbsp;&nbsp; $00</span></p>
+<p><span class=rvts12>byte&nbsp; 70&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; archieved&nbsp;&nbsp; $00=off,&nbsp; $80=on</span></p>
+<p><span class=rvts12>byte&nbsp; 71&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LSB ProgramSize+2</span></p>
+<p><span class=rvts12>byte&nbsp; 72&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSB ProgramSize+2</span></p>
+<p><span class=rvts12>byte&nbsp; 73&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LSB ProgramSize</span></p>
+<p><span class=rvts12>byte&nbsp; 74&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSB ProgramSize </span></p>
+<p><span class=rvts12>bytes 75 ..&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the program code</span></p>
+<p><span class=rvts12>byte&nbsp; last-1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LSB checksum&nbsp; (sum over all bytes, starting at 56)</span></p>
+<p><span class=rvts12>byte&nbsp; last&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSB checksum</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><img width=628 height=156 alt="" src="jalcc_ti84_editor_img6.gif"></p>
+<p>&nbsp; <img width=600 height=292 alt="" src="jalcc_ti84_editor_img5.gif"></p>
+<p><img width=589 height=291 alt="" src="jalcc_ti84_editor_img3.gif"></p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=605 height=281 alt="" src="jalcc_ti84_editor_img4.gif"></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts2>Webrings</span></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.unitedti.org/index.php?showforum=4">United-TI - TI-Basic</a>&nbsp; (posted 19 august 2006)</p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://omnimaga.dyndns.org/index.php?s=61459b367c7f42006ef97b52f3e88d5b&showforum=5">Omnimaga The Coders of Tomorrow - Calculator projects and ideas</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.revsoft.org/phpBB2/viewforum.php?f=5&sid=f8caf6405987f17eff250cc37b7991b8">Revolution Software View Forum - Announce Your Projects</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://f.webring.com/hub?ring=ti">WebRing TI hub</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://p.webring.com/hub?ring=tibasic">WebRing TI_basic hub</a></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; <a class=rvts4 href="http://n.webring.com/hub?ring=basicelite">WebRing Basic-Elite hub</a></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; <a class=rvts4 href="http://a.webring.com/hub?ring=tifreakwarestiri">WebRing TI_freakware hub</a></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; <a class=rvts4 href="http://ka.webring.com/navbar?f=l;y=tifreak8x;u=10086945">overview: http://ka.webring.com/navbar?f=l;y=tifreak8x;u=10086945</a></p>
+<p><br></p>
+<p>De moderators van onderstaand forum hebben in hun onmeetlijke wijsheid besloten zowel mijn posting als mijn account te verwijderen van het forum. Ik heb geen flauw idee waarom !</p>
+<p>&nbsp; <a class=rvts4 href="http://www.scholieren.be/forum/viewforum.php?f=40">Scholieren.be Bekijk onderwerp - TI-83 TI-84 Rekenmachine</a>&nbsp;&nbsp;&nbsp;&nbsp; Geplaatst op 19 aug 2006, kicked off 23 august 2006.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+
+</body></html>

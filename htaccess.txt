@@ -1,0 +1,1 @@
+ErrorDocument 404 http://oase.uci.kun.nl/~mientki/error404.html

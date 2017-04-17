@@ -1,0 +1,105 @@
+::"Connect Four
+:Repeat L
+:¦ PlotsOff:FnOff :ClrDraw:AxesOff:ZStandard
+:¦ 0?Xmin
+:¦ 1??X
+:¦ 0?Ymin
+:¦ 1??Y
+:¦ For(L,0,62,8
+:¦ ¦ Line(12,L,92,L
+:¦ End
+:¦ For(L,1,11
+:¦ ¦ Text(0,8L+6,L(L<10
+:¦ ¦ Line(8L+4,0,8L+4,55
+:¦ End
+:¦ DelVar [A]
+:¦ 16,13?dim([A]
+:¦ 1?P
+:¦ Repeat B
+:¦ ¦ 3?X
+:¦ ¦ 4?Y
+:¦ ¦ If P=1:Then
+:¦ ¦ ¦ Line(X8-18,Y8-26,X8-14,Y8-30,1
+:¦ ¦ ¦ Line(X8-18,Y8-30,X8-14,Y8-26,1
+:¦ ¦ ¦ Else
+:¦ ¦ ¦ Line(X8-19,Y8-28,X8-17,Y8-26,1
+:¦ ¦ ¦ Line(X8-19,Y8-29,X8-17,Y8-31,1
+:¦ ¦ ¦ Line(X8-16,Y8-31,X8-14,Y8-29,1
+:¦ ¦ ¦ Line(X8-16,Y8-26,X8-14,Y8-28,1
+:¦ ¦ End
+:¦ ¦ Repeat C
+:¦ ¦ ¦ getKey?C
+:¦ ¦ ¦ (Ans=92)+2(Ans=93)+3(Ans=94)+4(Ans=82)+5(Ans=83)+6(Ans=84)+7(Ans=72)+8(Ans=73)+9(Ans=74)+10(Ans=102?C
+:¦ ¦ ¦ If C:Then
+:¦ ¦ ¦ ¦ C+3?C
+:¦ ¦ ¦ ¦ 3?R
+:¦ ¦ ¦ ¦ Repeat [A](C,R)=0
+:¦ ¦ ¦ ¦ ¦ R+1?R
+:¦ ¦ ¦ ¦ End
+:¦ ¦ ¦ ¦ C(1-(R>10?C
+:¦ ¦ ¦ End
+:¦ ¦ End
+:¦ ¦ If P=1:Then
+:¦ ¦ ¦ Line(X8-18,Y8-26,X8-14,Y8-30,0
+:¦ ¦ ¦ Line(X8-18,Y8-30,X8-14,Y8-26,0
+:¦ ¦ ¦ C?X
+:¦ ¦ ¦ R?Y
+:¦ ¦ ¦ Line(X8-18,Y8-26,X8-14,Y8-30,1
+:¦ ¦ ¦ Line(X8-18,Y8-30,X8-14,Y8-26,1
+:¦ ¦ ¦ Else
+:¦ ¦ ¦ Line(X8-19,Y8-28,X8-17,Y8-26,0
+:¦ ¦ ¦ Line(X8-19,Y8-29,X8-17,Y8-31,0
+:¦ ¦ ¦ Line(X8-16,Y8-31,X8-14,Y8-29,0
+:¦ ¦ ¦ Line(X8-16,Y8-26,X8-14,Y8-28,0
+:¦ ¦ ¦ C?X
+:¦ ¦ ¦ R?Y
+:¦ ¦ ¦ Line(X8-19,Y8-28,X8-17,Y8-26,1
+:¦ ¦ ¦ Line(X8-19,Y8-29,X8-17,Y8-31,1
+:¦ ¦ ¦ Line(X8-16,Y8-31,X8-14,Y8-29,1
+:¦ ¦ ¦ Line(X8-16,Y8-26,X8-14,Y8-28,1
+:¦ ¦ End
+:¦ ¦ P?[A](X,Y
+:¦ ¦ 3P?A
+:¦ ¦ DelVar B
+:¦ ¦ [A](X-3,Y)+[A](X-2,Y)+[A](X-1,Y)=A or [A](X-2,Y)+[A](X-1,Y)+[A](X+1,Y)=A or [A](X-1,Y)+[A](X+1,Y)+[A](X+2,Y)=A or [A](X+1,Y)+[A](X+2,Y)+[A](X+3,Y)=A?N
+:¦ ¦ B+(N=1?B
+:¦ ¦ [A](X,Y-3)+[A](X,Y-2)+[A](X,Y-1)=A or [A](X,Y-2)+[A](X,Y-1)+[A](X,Y+1)=A or [A](X,Y-1)+[A](X,Y+1)+[A](X,Y+2)=A or [A](X,Y+1)+[A](X,Y+2)+[A](X,Y+3)=A?N
+:¦ ¦ B+2(N=1?B
+:¦ ¦ [A](X-3,Y-3)+[A](X-2,Y-2)+[A](X-1,Y-1)=A or [A](X-2,Y-2)+[A](X-1,Y-1)+[A](X+1,Y+1)=A or [A](X-1,Y-1)+[A](X+1,Y+1)+[A](X+2,Y+2)=A or [A](X+1,Y+1)+[A](X+2,Y+2)+[A](X+3,Y+3)=A?N
+:¦ ¦ B+4(N=1?B
+:¦ ¦ [A](X-3,Y+3)+[A](X-2,Y+2)+[A](X-1,Y+1)=A or [A](X-2,Y+2)+[A](X-1,Y+1)+[A](X+1,Y-1)=A or [A](X-1,Y+1)+[A](X+1,Y-1)+[A](X+2,Y-2)=A or [A](X+1,Y-1)+[A](X+2,Y-2)+[A](X+3,Y-3)=A?N
+:¦ ¦ B+8(N=1?B
+:¦ ¦ ?P?P
+:¦ End
+:¦ Vertical 8(X-4)+16
+:¦ Horizontal(8(Y-4)+4
+:¦ Text(0,14,"Press  A  Key  to  Continue
+:¦ Repeat getKey
+:¦ ¦ randInt(4,10?Y
+:¦ ¦ randInt(4,13?X
+:¦ ¦ If P=1:Then
+:¦ ¦ ¦ Line(X8-18,Y8-26,X8-14,Y8-30,0
+:¦ ¦ ¦ Line(X8-18,Y8-30,X8-14,Y8-26,0
+:¦ ¦ ¦ Line(X8-19,Y8-28,X8-17,Y8-26,1
+:¦ ¦ ¦ Line(X8-19,Y8-29,X8-17,Y8-31,1
+:¦ ¦ ¦ Line(X8-16,Y8-31,X8-14,Y8-29,1
+:¦ ¦ ¦ Line(X8-16,Y8-26,X8-14,Y8-28,1
+:¦ ¦ ¦ Else
+:¦ ¦ ¦ Line(X8-19,Y8-28,X8-17,Y8-26,0
+:¦ ¦ ¦ Line(X8-19,Y8-29,X8-17,Y8-31,0
+:¦ ¦ ¦ Line(X8-16,Y8-31,X8-14,Y8-29,0
+:¦ ¦ ¦ Line(X8-16,Y8-26,X8-14,Y8-28,0
+:¦ ¦ ¦ Line(X8-18,Y8-26,X8-14,Y8-30,1
+:¦ ¦ ¦ Line(X8-18,Y8-30,X8-14,Y8-26,1
+:¦ ¦ End
+:¦ End
+:¦ Text(7,14,"1. New Game 
+:¦ Text(15,14,"2. Exit     
+:¦ Repeat Ans
+:¦ ¦ getKey?L
+:¦ End
+:¦ (Ans?92?L
+:End
+:ClrHome
+
+

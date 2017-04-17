@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>SWB, Filter Design</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="162" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>april 2007</span></p>
+<p><span class=rvts1>Signal Workbench, Filter Design</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This page just contains my personal notes on filters, using SciPy (coming from MatLab).</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>FIR filters</span></p>
+<p>+ non recursive FIR filters are inherently stable</p>
+<p>+ roundoff noise can easily made small for non recursive FIR filters</p>
+<p>+ can have perfect linear phase = constant group-delay = no distortion</p>
+<p>- needs long filter lengths</p>
+<p>- if used with an even number of taps, delay is not an integer number of samples and H(Nyquist)=0 !!</p>
+<p><br></p>
+<p><span class=rvts10>Linear phase</span></p>
+<p>FIR filters having linear phase, can be divided into 4 types, depending on odd/even number of taps and symmetrical/anti-symmetrical, as defined by Rabiner and Gold in "Theory and application of digital signal processing". Some types have restrictions at the boundaries at w=0 and w=Nyquist, which can lead to serious problems when used for the wrong goal.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>Type</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>Ntap</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>Symmetry</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>H(0)</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>H(Nyquist)</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts9>Suited for</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>I</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>odd</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>Symmetrical</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>band filters</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>II</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>even</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>Symmetrical</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>H(Nyquist) = 0</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>band filters</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>III</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>odd</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>Anti-Symmetrical</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>H(0) = 0</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>H(Nyquist) = 0</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>diff / Hilbert</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>IV</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>even</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>Anti-Symmetrical</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>H(0) = 0</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>diff / Hilbert</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Note: MatLab help files and the Signal Toolbox manual contains many errors (about this matter)</p>
+<p>Note: MatLab uses the filter-order, which is one less than Ntap</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Effect of EVEN number of taps</span></p>
+<p>For bandpass / bandstop filters problems arise when using an even number of taps, while the desired frequency response at Nyquist is not zero. For the differentiator type filter this exact the opposite, an odd number of taps might give problems.</p>
+<p><br></p>
+<p>The picture below shows the amplitude of the transfer function (in dB) of 4 different filters, all designed with remez, and having the same band and gain factors.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>filter 1 (blue) : LowPass with 30 taps </li>
+<li>filter 2 (red) : LowPass with 31 taps </li>
+<li>filter 3 (green) : HighPass with 30 taps </li>
+<li>filter 4 (brown) : HighPass with 31 taps </li>
+</ul>
+<p>As expected for the LowPass filters 1 and 2 (red and blue), it doesn't matter whether you specify an odd or even number of taps. For the HighPass filter it makes a lot difference, the brown filter with an odd number of taps works as expected, while the green filter, with an even number of taps is very bad.</p>
+<p>Note: the red lowpass filter is the exact mirror of the brown highpass filter.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=524 height=334 alt="" src="jallcc_swb_filters_2_img2.png"></p>
+<p><br></p>
+<p><br></p>
+<p>It will even be come worse if we increase the number of taps to 70/71, as can be seen in the picture below.</p>
+<p>Watch the exorbitant gain of 27 dB at&nbsp; 35 / 512 * fNyquist.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=522 height=391 alt="" src="jallcc_swb_filters_2_img5.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>FIR by Remez exchange algorithm</span></p>
+<p>This algorithm was developed and published by E.Ya.Remez in 1934.</p>
+<p>T.W. Parks and J.H.McClellan wrote and published a Fortran program using the Remez exchange algorithm in 1973. That's why this algorithm is sometimes called the Parks-McClellan algorithm.</p>
+<p>See also: <a class=rvts4 href="http://mathworld.wolfram.com/RemezAlgorithm.html">http://mathworld.wolfram.com/RemezAlgorithm.html</a></p>
+<p><br></p>
+<p><span class=rvts9>remez </span>(Ntap, Bands, Gains, weight=None, Hz=1, type='bandpass', maxiter=25, grid_density=16)</p>
+<p>Calculates the minimax optimal linear phase filter (equiripple) using Remez exchange algorithm.</p>
+<p><span class=rvts12>Ntap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --</span> desired number of taps</p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>always use <span class=rvts9>ODD</span> number of taps for <span class=rvts10>type='bandpass'</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>always use <span class=rvts9>EVEN</span> number of taps for <span class=rvts9>type='differentiator'</span></p>
+<p><span class=rvts12>Bands&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --</span> monotonic increasing vector [0 .. 0.5], containing the band edges.</p>
+<p><span class=rvts12>Gains&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --</span> vector specifying the gain in stop- and pass-bands (thus half as long as Bands)</p>
+<p><span class=rvts12>weight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --</span> optional vector specifying the weight of every gain-element, used in the optimization procedure</p>
+<p><span class=rvts12>type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --</span> '<span class=rvts9>bandpass</span>' : flat response in bands or&nbsp; </p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>'<span class=rvts9>differentiator</span>' : frequency proportional response in bands.</p>
+<p><span class=rvts12>maxiter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --</span> maximum number of iterations in the optimization procedure</p>
+<p><span class=rvts12>grid_density --</span></p>
+<p><span class=rvts12>return&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --</span> vector, specifying the numerator of the filter</p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts10>MatLab: firpm</span> (Ntap-1, Bands, GAIN, weight, type)</p>
+<p>Note: in MatLab the filter-order is specified, which is one less than the number of taps !!</p>
+<p>Note: in MatLab the GAIN is specified at the band-edges, instead of midpoint of the bands</p>
+<p>Note: SciPy doesn't support Hilbert</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Examples</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=571 height=410 alt="" src="jallcc_swb_filters_2_img6.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

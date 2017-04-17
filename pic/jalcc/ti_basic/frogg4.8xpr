@@ -1,0 +1,234 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 08/26/06, 14:35
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 05 0D 00 2B 05 <pp> <progname>  00 00 2B 05 29 05
+; program name: FROGGER
+; file is NOT protected
+
+; unkown codes are inserted as "%%HH%%"
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+
+
+;*******************************************
+;*******************************************
+; C = frog X-position
+; D = direction of bottom car
+; E = direction of upper car
+; F = direction of lower raft
+; G = direction of upper raft
+; I = countdown timer
+; J = X-position of leftside of bottom car
+; K = X-position of leftside of upper car
+; L = position of the lower raft
+; N = Number of lives
+; O = finish flag, 0=Running, 1=Winning, 2=Crash, 3=Blub, 4=TimeOut
+; P = position of the upper raft
+; R = frog Y-position
+; S = Score
+;*******************************************
+
+
+
+
+;************************************************************
+; Draws a moved car with a length of 4
+; POS    = position of the car (will be updated by DIR)
+; DIR    = direction in which the car is moving
+; LINENR = linenumber where the car is drawn
+;************************************************************
+procedure Draw_Car (Pos, Dir, LineNr)
+  ; if the car is at one of the ends, reverse direction
+  ; by doing this before remove the backside of the car
+  ; no special actions for first/last position are necessary
+  Dir(1-2(Pos=13 or Pos=1->Dir
+
+  ; remove one pixel at the backside of the car
+  Output(LineNr,Pos+3(Dir<0)," ;
+  Pos+Dir->Pos
+
+  ; draw the car completely
+  Output(LineNr,Pos,"oMMo
+
+  ; test if there is a car crash
+  ; R,C is the frog position
+  If R=LineNr and Pos<=C and C<=Pos+3:2->O
+end_procedure
+;************************************************************
+
+
+;************************************************************
+;************************************************************
+procedure Draw_Raft (Pos, Dir, LineNr)      ; draw upper water
+  Output(LineNr,Pos,"(-)
+  if Pos=2 or Pos=15:(-)Dir->Dir
+  Pos+Dir->Pos
+  if R!=LineNr:Output(LineNr,Pos," ;
+
+  ; widen the capture of the raft
+  ; with one pixel to the left and one pixel to the right
+  If R=LineNr and Pos-1<=C and C<=Pos+1:Pos->C
+
+  ; Loosing by falling into the water
+  If R=LineNr and C!=Pos:3->O
+end_procedure
+;************************************************************
+
+
+;************************************************************
+;************************************************************
+procedure Process_User_Key
+  ; Get user input
+  ; if no key pressed, nothing todo with frog
+  Getkey->M
+  ; process only if There's really a keypress (speed issue)
+  If Ans:Then
+    ; remove the frog at position "R,C"
+    Output(R,C," ;
+    C+(Ans=26 and C!=15)-(Ans=24 and C!=2->C
+    ; here Ans is ruined !!
+    R+(M=34 and R!=7)-(M=25->R
+    ; draw the frog on it's new position
+;    Output(R,C,"pi
+  End
+end_procedure
+;************************************************************
+
+
+
+Include My_Frogger_Library
+
+Include C:\Temp Directory with spaces\My_other_library.8xpR
+
+
+
+
+repeat N<0
+  Clrhome
+
+  ; let user select the desired level
+  ; easier level means more lives
+  6->N
+  Menu("  DIFFICULTY   ","VERY EASY",1,"EASY",2,"NORMAL",3,"HARD",4
+  Lbl 1
+    Ans+1 ;N+1->N
+  Lbl 2
+    Ans+1 ;N+1->N
+  Lbl 3
+    Ans+1->N
+  Lbl 4
+
+
+  ; initialize car direction
+  1->D
+  (-)1->E
+  Ans->G
+  ; initialize raft direction
+  1->F
+;  E->G
+
+  ; initialize score
+  0->S
+  ;DelVar S
+
+  ; repeat until all lives are gone
+  Repeat N=0
+    ; initialize frog position
+    7->R
+    8->C
+
+    ; display the water
+    For(L,1,16
+      For(P,2,3
+        Output(P,L,"(-)
+      End
+    End
+
+    ; generate random positions of afloats and cars
+    RandInt(3,14->L
+    RandInt(3,14->P
+    RandInt(4,12->J
+    RandInt(4,12->K
+
+    ; output the number of lives in "N"
+    Output(8,1,"pi=
+    Output(8,3,N
+    Output(8,11,S
+
+    ; initialize count down counter
+    99->I
+
+    ; reset error flag
+    0->O
+
+
+
+    ;************************************************************
+    ; Start of main loop, must be as fast as possible
+    ;************************************************************
+    ; repeat untill Loose, Win or TimeOut: O!=0
+    repeat O
+      ; display cars at line 5 and 6, also checks crash
+      call Draw_Car (J, D, 6)
+      call Draw_Car (K, E, 5)
+
+      ; draw rafts at line 2 and 3, also checks drawning
+      call Draw_Raft (L, F, 3)
+      call Draw_Raft (P, G, 2)
+
+      ; because the X-position can be slightly changed by draw_raft
+      ; we process the KEY input here, so we only have to redraw frog once
+      Call Process_User_Key
+      Output(R,C,"pi
+
+      ; update countdown timer, and check timeout
+      Output(8,7,I
+      I-1->I
+      If I=0:4->O
+
+      ; Winning, we reached to upper side of the display
+      if R=1:1->O
+    End
+    ;************************************************************
+    ; End of main loop
+    ;************************************************************
+
+
+    Clrhome
+
+    if O=1:Then
+      Disp "CONGRATULATIONS!
+      Output(4,1,I
+      Output(4,3,"*50=
+      Output(4,7,50I
+      ; calculate new score
+      S+50I->S
+    End
+
+;    Pause sub("CRASH! BLUB...Time UP!   ",7O-13,7
+    Disp sub("CRASH! BLUB...Time UP!   ",7O-13,7
+    Pause
+
+    Clrhome
+
+    If O!=1:Then
+      N-1->N
+      If not(N:Then
+        Menu("  TRY AGAIN  ","YES",8,"NO",9
+        Lbl 9
+          (-)1->N
+        Lbl 8
+      End
+    End
+  End
+End
+
+
+; finish the program
+Clrhome
+
+
+
+

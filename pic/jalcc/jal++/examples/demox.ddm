@@ -1,0 +1,29 @@
+// DELPHI StateMachine Generator, by Diagram Designer
+// Initialisation of StateMachine: DEMOX
+const sm_Demox_init  = 1;
+const sm_Demox_state1 = 2;
+var sm_Demox :integer;
+ sm_Demox := sm_Demox_init;
+
+  // StateMachine: sm_Demox
+  case sm_Demox of
+    sm_Demox_init:
+      begin
+    Led := true;
+    LED2 := true;
+          ;LED3 = on
+        sm_Demox := sm_Demox_state1;
+      end;
+
+    sm_Demox_state1:
+      begin
+    led := false;
+    LED2 := true;
+          ;LED3 = on
+        end;
+//WARNING: dead state
+      end;
+
+    // to be really sure the statemachine is finite
+    else sm_Demox := sm_Demox_init;
+  end;

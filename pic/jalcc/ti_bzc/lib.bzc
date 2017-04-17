@@ -1,0 +1,7 @@
+
+STRING mes = "Hello World !!"
+FUNCTION test ARG 0
+FSTART
+  locate 0 0
+  PRINTF mes
+FEND

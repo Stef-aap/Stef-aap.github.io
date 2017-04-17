@@ -1,0 +1,74 @@
+<HTML><HEAD><TITLE>Batch CodeEditor</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>december 2004</SPAN></P>
+<P><SPAN class=RVTS1>Batch CodeEditor</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>Writing Dos Batch programs is, like any other scripting language, always a terrible trial-and-error proces, simply because there's no syntax checking before executing. The codeeditor gives you at least some syntax checking through it's color-coded-highlighter.</P>
+<P>The Batch CodeEditor gives you a number of tools to make writing and maintaining batch files a litlle easier. After modifying the batchfile, you can save+run+view output with just one click, still staying active in the editor. Results can be cumulated in the view window (and in a file) and printed.</P>
+<P>All general code-editor features, like code completion, macros, bookmarks etc, are functioning.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Example</SPAN></P>
+<P>From the document-list, select the batchfile (or create a new one in the document-list)</P>
+<P>&nbsp;<IMG width=350 height=97 src="jalcc_codeedit_batch_img19.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>After pressing ENTER, the batch file is opened in the code-editor and you'll get this.</P>
+<P>Now make your changes, and ...</P>
+<P>&nbsp;<IMG width=471 height=329 src="jalcc_codeedit_batch_img20.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>After pressing Ctrl+ENTER, you get this</P>
+<P>&nbsp;<IMG width=558 height=456 src="jalcc_codeedit_batch_img2.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>What has Ctrl+ENTER done ?</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Saved the modifications in the batchfile&nbsp;</LI>
+<LI>Executed the batchfile&nbsp;</LI>
+<LI>Redirected the content and output of the batchfile to ....&nbsp;</LI>
+<LI>Waits till the batchjob has finished&nbsp;</LI>
+<LI>Reloaded the NEW output from batchfile in to the viewer at the bottom&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>And now you can directly continue to modify the batchjob further.</P>
+<P>You can also edit and print the (cumulative) batch output.</P>
+<P>&nbsp;&nbsp;</P>
+<P>The RightMouse menu items "Change into Comment" and "Back into Code" can be used to mark a selected block temporary as comment, or revert the result.</P>
+<P>&nbsp;<IMG width=347 height=326 src="jalcc_codeedit_batch_img11.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Another usefull tool from the RM-button is the "Execute Selected". It runs a batchjob, consisting of only the selected lines. This is done through a temporary batchfile in the same directory as the original batchfile.</P>
+<P>&nbsp;<IMG width=289 height=416 src="jalcc_codeedit_batch_img18.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Batch Settings</SPAN></P>
+<P>These settings are used for all batchfiles, launched from the code-editor.</P>
+<P>Launching a batchfile from the document-list, uses the individual settings of the item in the document-list.&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=508 height=315 src="jalcc_codeedit_batch_img17.gif"></P>
+<P>If the default directory is definied, prior to lauching the batch file (from the code-editor) the dos-directory is set to the specified value, otherwise it's not definied.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Default Application Associates</SPAN></P>
+<P>Here a typical setting of the default application associates for batch and batch-like programs is shown. The alternative application "Executable" enables you to specify default directory and parameters in the document-list settings and to launch the batch file from the document-list.</P>
+<P>&nbsp;<IMG width=420 height=125 src="jalcc_codeedit_batch_img22.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Individual Settings</SPAN></P>
+<P>Below is an example of a typical individual setting of a batch-job in the document-list.</P>
+<P>As you can see the execute parameters "&gt;&gt;d:\beer.txt" indicates that the output of the batchfile should be appended to the file beer.txt. The default directory is changed to the specified value, just prior to launching the batchfile.</P>
+<P>&nbsp;<IMG width=311 height=352 src="jalcc_codeedit_batch_img23.gif"></P>
+</BODY></HTML>

@@ -1,0 +1,136 @@
+<HTML><HEAD><TITLE>Demos</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>january 2003</SPAN></P>
+<P><SPAN class=RVTS1>JALss, Simple Simulator, Demos</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=237 valign=middle>
+<P><SPAN class=RVTS2>Demo 1, blinking LED</SPAN></P>
+<P>This is the orginal first example of Wouter. There are made 2 small changes to the program e00001, target is changed to 16F628 and time is set to 10 msec instead of 1 sec.</P>
+<P>After the program is started, you should see an image almost similar to the image on the right.</P>
+<P>The electronic circuit consist of 2 devices, the PIC16F628 and a LED. The image on the screen will not show the electrical connection wires between the devices, these are only drawn in the image on the right for clearity (but there are other ways to see the connections)..&nbsp;</P>
+<P>Now just press the RUN button (green arrow), and see how the LED flashes, the scope signals are moving.</P>
+<P>After running for a while, now press the stop button and look at the scope, try to measure time and look at the other tabs of the PIC.</P></TD>
+<TD width=553 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=563 height=396 src="jalss_example_jal1.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Demo2, nightrider with 2 PICs</SPAN></P>
+<P>We are now going to select another circuit.</P>
+<P>At the left you see a number of tabs, currently the "EXE" tab is shown, displaying the devices in the current circuit.</P>
+<P>Select the projectgroup tab "PJG", it will show a list of currently available circuits.</P>
+<P>Select the project&nbsp;&nbsp; "ExJAL2.jss"&nbsp; &gt; right mouse button&nbsp; &gt;&nbsp; open&nbsp; (or doubleclick)</P>
+<P>Now a new circuit will be opened, containing the same blinking LED and a second PIC connected to an array of LEDs and programmed with Wouter's nightrider example.</P>
+<P>Press the run button (wherever you like) and watch that both the LED array and the blinking LED are walking simultanuously, despite that both Xtal frequencies are different.</P>
+<P>Watch that one of the LEDbar pins is not connected, now connect this, by pressing the dark green triangle, a list of available outputs will be shown, select:&nbsp;&nbsp; all outputs --&gt; PIC16F628(1) --&gt; RB2&nbsp; and press "select" , now also this pin is connected.</P>
+<P>Now press the stop button and on both PICs select the code page.</P>
+<P>Now goto the first PIC (window with the header ...[1]) and press the "checkmark with the 1", meaning to do 1 single step with this device.</P>
+<P>The checkmark button will highlight and now (as long as this PIC window has focus) you can single step the first PIC with the spacebar.</P>
+<P>Watch how both PICs steps, each at his own speed, through the code .....</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Demo 3, LEDbar + RS232</SPAN></P>
+<P>Now select the demo EXJAL3.JSS and start the simulation.</P>
+<P>You'll see a PIC, a LED-bar and a RS232 terminal. In the upper memo of the RS232-terminal type a decimal ("51") or a hexadecimal ("$33") number and press Enter. Now you'll see the LEDbar displaying (in binary) the number you've typed. The PIC will also send a character with a value 1 higher back to the RS232 terminal, which you can see in the lower memo of the RS232-terminal.</P>
+<P>Now we're going to change the Baudrate and will see how JALss interacts with JALcc. Press the button "JAL" (at the top of JALss). This will stop the simulation, start and focus JALcc.</P>
+<P>In JALcc edit the file and change the baudrate to 115_200.</P>
+<P>Then Press F6. This will compile the file, download the program into JALss and give back the focus to JALss.</P>
+<P>&nbsp;&nbsp;&nbsp; Here a windows problem might occure (at least in XP),&nbsp; for which I've not found a workaround yet. Although JALss gets focus, windows caption is highlighted and scope will come to the front, but JALss stays in the back :-(</P>
+<P>If this happens, just click on the scope and you will get back to JALss (with the new file loaded)</P>
+<P>Now goto the settings page of the RS232, enter the new Baudrate "115200" and press Enter to activate the new Baudrate.</P>
+<P>Start the simulation again, and try to send some characters or numbers to the PIC.</P>
+<P>For all who have trouble getting serial software working: the pic program consists of a pure software RS232-routine (connected to the pins RA0 and RA1), now running at 115 kB !!</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Demo4,&nbsp; LCD + RS232</SPAN></P>
+<P>Now select the demo EXJAL4.JSS and start the simulation.</P>
+<P>A small simulation, showing the possibilities of the LCD library. Unfortunatly, the animated characters can not be seen, because they are not (yet) implemented in JALss.</P>
+<P>Wait till the text "type some chars" appears, then you can enter ASCII text through the upper memo of the RS232 terminal.</P>
+<P>In this case the RS232 communication runs in hardware at 115 kB.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Demo5, Keys, Stepper, RS232</SPAN></P>
+<P>This demo shows the stepper motor module, it uses TMR0 and interrupt procedures.</P>
+<P>This example also show how to add a device, connect the device to other components and how to use the device "data2file".</P>
+<P>When the simulation is started, you can control the motor with the switches on the left. Look at the speed or Signals tab of the motor.</P>
+<P>When the bottom switch is down you can control the stepper with the RS232 terminal</P>
+<P>$02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = start</P>
+<P>$04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = stop</P>
+<P>$32 $05&nbsp;&nbsp; = set speed from table, element 5</P>
+<P>$50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = get position</P>
+<P>For an overview of commands, see the&nbsp;<A class=RVTS4 href="../projects/pic_stepper_motors.html">stepper library</A>.</P>
+<P>If you look at the main JAL program, you'll see that the program contain a lot JALcc macros.</P>
+<P>Now we're going to add a device "data2file", which is able to record some signals for viewing with an external program.</P>
+<P>Inserting the data2file device</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>On the left select the tab with available devices "AVAIL",&nbsp; select MISC&nbsp; &gt;&nbsp; Data to File&nbsp; &gt;&nbsp; right mouse button&nbsp; &gt;&nbsp; Insert&nbsp;</LI>
+<LI>Scale and position the newly created device&nbsp;</LI>
+</UL>
+<P>Setting the parameters of the new device</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Click in the device on "new" and select a filepath and type a filename&nbsp;</LI>
+<LI>Check the timecolumn checkbox (this will give a column with the time in seconds in the file)&nbsp;</LI>
+<LI>fill in maxrec 200&nbsp;</LI>
+<LI>select "internal trigger"&nbsp;</LI>
+<LI>set frequency at 100&nbsp;</LI>
+</UL>
+<P>Connecting the device</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>click on the upper triangle, a list will show up with all available output and IO-pins in the circuit&nbsp;</LI>
+<LI>select&nbsp;&nbsp; all outputs &gt; stepper motor &gt; Vservo , and press select button&nbsp;</LI>
+</UL>
+<P>Now start the simulation and control the motor in some way.</P>
+<P>Now you can view the recorded datafile in Excel (or any other modern spreadsheet program, in Excel, just open and press on finish) .</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Demo6</SPAN>:&nbsp;<A class=RVTS4 href="jalss_jal_demo6.html">evalution of multibyte math routine</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Demo7:</SPAN><A class=RVTS4 href="jalss_xcsb_demo1.html">XCSB demo + 7segment + inline breakpoint</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P><SPAN class=RVTS2>Demo 8</SPAN></P>
+<P>Basic87x</P>
+<P>with intelligent</P>
+<P>terminal</P>
+<P>- select BASIC87X.JSS</P>
+<P>- press the run button</P>
+<P>- and watch</P>
+<P>- after the program has finished, try your own basic commands</P>
+<P>The terminal is also available as a standalone terminal for a real BASIC87x-pic.</P>
+<P>More information about the&nbsp;<A class=RVTS4 href="basic_87x__terminal.html">basic87x-terminal</A>.</P></TD>
+<TD width=100 valign=middle>
+<P>&nbsp;<IMG width=684 height=368 src="basic87_demo.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Next Steps</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>try JALss with your own programs (JAL, XCSB or any other program that produces a standard hex-file)&nbsp;</LI>
+<LI>let me know what you find of it, report bugs and wishes&nbsp;</LI>
+<LI>build your own devices, with any language that can produce windows DLLs&nbsp;</LI>
+<LI>make some nice and simple examples (in other languages, like XCSB, uCL, ...)&nbsp;</LI>
+<LI>if you're interested in LEGO-RCX, follow the&nbsp;<A class=RVTS4 href="jalss_rcx_demo.html">RCX-demo</A></LI>
+</UL>
+
+</BODY></HTML>

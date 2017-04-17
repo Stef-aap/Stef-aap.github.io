@@ -1,0 +1,233 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 10/31/05, 14:09
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 44 05 0D 00 33 05 <pp> <progname>  00 00 33 05 31 05
+; program name: FROGGER
+; file is NOT protected
+
+; unkown codes are inserted as " %%HH%% "
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+Clrhome
+99->I
+Goto M
+Lbl 01
+Output(8,1,"pi="
+Output(8,3,_n_
+Output(8,7,I
+Output(8,11,S
+1->D
+(-)1->E
+1->F
+(-)1->G
+2->W
+0->S
+Lbl AA
+7->R
+8->C
+RandInt(3,14->Z
+RandInt(3,14->&
+RandInt(4,12->X
+RandInt(4,12->Y
+X->J
+Y->K
+Z->L
+&->P
+Output(R,C,"pi"
+Output(6,J,"OOOO"
+Output(5,K,"OOOO"
+
+  For(U,2,3,1)
+For(T,1,16,1)
+    Output(U,T,"(-)"
+  End
+End
+
+
+Output(3,L," "
+Output(2,P," "
+
+;Lbl 99
+Repeat O=0
+  Output(8,1,"pi="
+  Output(8,3,_n_
+  Output(8,7,I
+  Output(8,11,S
+  Output(5,1," "
+  Output(6,1," "
+  Output(5,16," "
+  Output(6,16," "
+  Output(R,C,"pi"
+  Getkey->M
+  If M=24:Then
+    Output(R,C," "
+    C-1->C
+    If C=1
+      2->C
+    Output(R,C,"pi"
+  End
+  If M=25:Then
+    Output(R,C," "
+    R-1->R
+    If R=1
+      2->O
+      ;Goto YW
+    Output(R,C,"pi"
+  End
+  If M=26:Then
+    Output(R,C," "
+    C+1->C
+    If C=16
+      15->C
+    Output(R,C,"pi"
+  End
+  If M=34:Then
+    Output(R,C," "
+    R+1->R
+    If R=8
+      7->R
+    Output(R,C,"pi"
+  End
+  If D=1
+    Output(6,J," "
+  If D=(-)1
+    Output(6,J+3," "
+  If J=13
+    (-)1->D
+  If J=1
+    1->D
+  J+D->J
+  Output(6,J,"OOOO"
+  Output(6,16," "
+  If E=1
+    Output(5,K," "
+  If E=(-)1
+    Output(5,K+3," "
+  If K=13
+    (-)1->E
+  If K=1
+    1->E
+  K+E->K
+  Output(5,K,"OOOO"
+  Output(2,P,"(-)"
+  Output(3,L,"(-)"
+  If P=15
+    (-)1->G
+  
+  If P=2
+    1->G
+  
+  P+G->P
+  If L=15
+    (-)1->F
+  If L=2
+    1->F
+  L+F->L
+  Output(2,P," "
+  Output(3,L," "
+  If R=3 and (L-1<=C and C<=L+1)
+    L->C
+  If R=2 and (P-1<=C and C<=P+1)
+    P->C
+  If (R=6 and (J<=C and C<=J+3) or (R=5 and (K<=C and C<=K+3) or (R=3 and C!=L) or (R=2 and C!=P) or I<=0
+  ;  Goto YL
+  1->O
+  If R=2 and (P-1<=C<=P+1)
+    P->C
+  If R=3 and (L-1<=C<=L+1)
+    L->C
+  I-1->I
+;Goto 99
+End
+
+
+;Goto 99
+If O=2:then
+  goto YW
+else
+  goto YL
+end
+
+
+Lbl YL
+If I<=0:Then
+  Clrhome
+  Disp "TIME UP!"
+  Pause
+  99->I
+  _n_-1->_n_
+  If _n_<=0
+    Goto GO
+  Clrhome
+  Goto AA
+End
+If R=6 or R=5:Then
+  Clrhome
+  Disp "CRASH!"
+  Pause
+  Clrhome
+End
+Clrhome
+If R=2 or R=3:Then
+  Disp "BLUB..."
+  Pause
+  Clrhome
+End
+_n_-1->_n_
+99->I
+If _n_>=1
+  Goto AA
+Lbl GO
+Menu("   TRY AGAIN   ","YES",&1,"NO",&
+Lbl &1
+0->S
+99->I
+Goto M
+End
+;End
+;end
+
+
+Lbl YW
+Output(R,C,"8"
+Pause
+Clrhome
+Disp "CONGRATULATIONS!"
+Output(4,1,I
+Output(4,3,"*"
+Output(4,4,"50="
+Output(4,7,(50*I))
+S+(50I)->S
+99->I
+Pause
+Clrhome
+end
+
+
+Goto AA
+End
+Lbl M
+Menu("   DIFFICULTY   ","VERY EASY",D1,"EASY",D2,"NORMAL",D3,"HARD",D4)
+Lbl D1
+9->_n_
+Goto 01
+End
+Lbl D2
+8->_n_
+Goto 01
+End
+Lbl D3
+7->_n_
+Goto 01
+End
+Lbl D4
+6->_n_
+Goto 01
+End
+Lbl &
+Clrhome
+
+
+

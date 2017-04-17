@@ -1,0 +1,696 @@
+-- -----------------------------------------------------------------------------
+-- <title Software RS232 library
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- Library supports software RS232 send and receive procedure on any IO-pin.
+-- Both the inverted and non-inverted routines are available, 
+-- so it should fit any hardware.
+-- Baudrate can be set between 110 and 230_400 (for 20 Mhz Xtal)
+-- for lower Xtal frequencies the maximum baudrate will be equally lower.
+-- Baudrates are optimized, so even the high baudrates shouldn't be a problem
+-- (my standard = 115_200 Baud, which has never given me any problems).
+--  Interrupts should be disabled during transmissions.
+--  Transmission parameters are 8 databits, 2 stopbits, no parity, no handshake.
+--
+-- <non-tag
+-- Send a character
+--   procedure asynch_send_sw (byte in x) is
+--
+-- Receive a character
+--   procedure asynch_receive_sw (byte out x) is
+--
+-- Initialisation (are called automatically)
+--   procedure asynch_sw_init_transmit is
+--   procedure asynch_sw_init_receive is
+--
+-- <Version: 2.0 future wishes
+--   - timeout in receive routine
+--   - receive routine as boolean function, true=new character, false=timeout
+-- <Version: 1.2     ,03-11-2002 ,Stef Mientki
+--   - inverted version of receive and transmit added
+-- <Version: 1.1     ,28-02-2002 ,Stef Mientki
+--   - naming of registers changed to SM-notation
+-- <Version: 1.0     ,03-01-2002 ,Stef Mientki
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- <Example software RS232
+; -- define transmission settings
+; const asynch_baudrate_sw = 115_200
+; const asynch_invert_sw   = true
+;
+; -- define the software transmit/receive pin
+; <mac> io_pin  asynch_sw_out = pin_b7
+; <mac> io_pin  asynch_sw_in  = pin_b6
+; include rs232_sw
+;
+; -- start initializations if functions are used
+; asynch_sw_init_transmit
+; asynch_sw_init_receive
+;
+; var byte xx
+; forever loop
+;   -- wait till character received, echo inverted
+;   asynch_read_sw (xx)
+;   asynch_send_sw ( ! xx)
+;   ... do other things
+; end loop
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+-- -----------------------------------------------------------------------------
+-- number of instructions per bit
+-- -----------------------------------------------------------------------------
+const _Ninstr = target_clock / (4 * asynch_baudrate_sw)
+const _Ninstr2 = 5 + ( _Ninstr / 2)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Transmit parameters
+-- -----------------------------------------------------------------------------
+  const OL_Tx  = ( _Ninstr / ( 3 * 255 )) + 1
+  const _IL_Tx  = ( ( _Ninstr - ( 4 * OL_Tx ) ) - 16 ) / ( 3 * OL_Tx )
+
+  -- because some corrections have to be made, declare InnerLoop counter as var
+  var byte IL_Tx = _IL_Tx
+
+  -- for small values, the value is truncated in stead of rounded, so add 1
+  if _IL_Tx < 10 then
+    IL_Tx = _IL_Tx + 1
+  end if
+-- -----------------------------------------------------------------------------
+-- For Xtal = 20_000_000, the following counter values are calculated (in Hex)
+--  Baud      OLcnt    ILcnt     Ninstr
+--  110       3C       FB
+--  300       16       FA
+--  600       0B       FA
+--  1200      06       E5
+--  2400      03       E4
+--  4800      02       A9
+--  9600      01       A6
+--  14_400    01       6D
+--  19_200    01       50
+--  38_400    01       24
+--  57_600    01       16
+--  115_200   01       08        43
+--  230_400   01       01        22    NOT TESTED
+--
+-- Test sequence used: all possibilities
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- receiving is optimized for 20 Mhz, 320_400 Baud
+--   Number of instructions = (3 * OLval * Ilval) + (4 * OLval) + 15
+-- 320kB  ==>  OLval = ILval = 1
+-- next optimization for 20 Mhz, 115_200 Baud  OLval = 1
+--   OLval = 1   ==>   ILval = 8
+-- all other buadrates downto 1200 shouldnt be a problem now
+-- because of "IF-statement" this constant must be declared as a var
+var byte ILval
+var byte OLval
+var byte ILval0
+
+if asynch_baudrate_sw < 200_000 then
+  const _OLval  = ( _Ninstr / ( 3 * 255 )) + 1
+  const _ILval  = ( ( _Ninstr - ( 4 * _OLval ) ) - 15 ) / ( 3 * _OLval )
+  const _ILval0 = ( ( _Ninstr2 - ( 4 * _OLval ) ) - 5 ) / ( 3 * _OLval )
+
+
+  ILval  = _ILval
+  OLval  = _OLval
+  ;due to rounding the next value can slightly below 1
+  if _ILval0 > 0 then ILval0 = _ILval0 else ILval0 = 1 end if
+  ILval0 = _ILval0
+
+  -- test if baudrate valid for the chosen Xtal frequency
+  if _OLval > 255 then
+    pragma error  -- baudrate too low for this Xtal
+  end if
+  if _OLval == 0 then
+    pragma error  -- baudrate too high for this Xtal
+  end if
+
+else
+  const _ILval = 1
+  const _OLval = ((target_clock / (4 * asynch_baudrate_sw)) - 15 ) / (4 + 3 * _ILval)
+  ILval = _ILval
+  OLval = _OLval
+
+end if
+-- -----------------------------------------------------------------------------
+-- For Xtal = 20_000_000, the following counter values are calculated (in Hex)
+--  Baud      OLcnt    ILcnt     ILcnt0      Ninstr
+--  110       3C       FB        7C
+--  300       16       FA        7C
+--  600       0B       FA        7C
+--  1200      06       E5        72
+--  2400      03       E4        72
+--  4800      02       A9        55
+--  9600      01       A7        55
+--  14_400    01       6D        38
+--  19_200    01       50        2A
+--  38_400    01       25        14
+--  57_600    01       16        0D
+--  115_200   01       08        05          43
+--  230_400   ?        ?         ?           22    NOT TESTED
+--
+-- Test sequence used (Hex)
+--    01  02  04  08  10  20  40  80  00 FF  AA  55
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- Sends (by software) the byte "X" to the RS232 port
+-- Baudrate can be set between 110 and 230_400 for a 20 MHz Xtal
+-- If required baudrate is too low or too high a pragma error is generated.
+-- On entering this routine, the interrupts will be disabled and left disabled.
+--
+-- I couldn't think of an elegant way to realize both inverted and non-inverting,
+-- so I just copied the code inside and used a compiler if-directive
+-- The 2 stopbits can easily adapted by chnaging BITCNT
+-- 230_400 not yet tested, theoretical there's 1 instruction to much,
+-- but I can't figure out how to save 1 (in a simple way).
+-- Output to the port is nicely done through the shadow register.
+--
+-- The first bytes transmitted are rubish, but that can well be caused by the very
+-- simple hardware used.
+-- -----------------------------------------------------------------------------
+procedure asynch_send_sw (byte in x) is
+
+-- local variables
+var byte data      ;holds the actual data to be sent
+var byte bitcnt    ;holds the actual number of bits to be sent
+var byte OLcnt     ;loop counter
+var byte ILcnt     ;inner loop counter
+
+-- define some registers and bits with shorter names
+const pp = asynch_sw_out_nr
+var volatile byte port is asynch_sw_out_port
+var volatile byte pa   is asynch_sw_out_buffer
+
+
+  -- stop interrupts and be sure they are stopped
+  while gie loop
+    gie = false
+  end loop
+
+  data = x
+  bitcnt = 11    ; 11 bits = startbit + 8 databits + 2 stopbits
+
+
+  if asynch_invert_sw then
+    assembler
+    bank 0
+    local _bit_time, _bit_time2, _bit_time3, _send_byte, _next_bit
+    page _next_bit
+
+    goto   _send_byte    ;jump over delay routine, I don't know any other way
+
+    ;-----------------------------------------------------------------------------
+    _bit_time:           ;(2) (length of call instruction)
+      movlw   OL_Tx      ;(1) Accumulator = Outer Loop Counter
+      movwf   OLcnt      ;(1) OUTLOOP = Accumulator
+
+    _bit_time2:          ;=============  start of double loop
+      movfw   IL_Tx      ;(1) Accumulator = Inner Loop Counter
+      movwf   ILcnt      ;(1) INLOOP = Accumulator
+    _bit_time3:          ;
+      decfsz  ILcnt,f    ;(1)
+      goto    _bit_time3 ;(2)
+      decfsz  OLcnt,f    ;(1)
+      goto    _bit_time2 ;(2)
+                         ;============= end of double loop
+                         ; OLval * { ( ILval * 3 ) -1 +5 } -1
+                         ; = 3*OLval*ILval + 4*OLval -1
+                         ; OLval=ILval=1  ==> 6
+    return               ;(2)
+                         ;total instructions (including call)
+                         ;   3*OLval*ILval + 4*OLval +5
+    ;-----------------------------------------------------------------------------
+
+
+    _send_byte:
+       bcf    status,C   ;clear Carry (start bit)
+    _next_bit:
+
+      ;using the shadow register of the port:
+      ;  - assures no other pins of the port are affected
+      ;  - delay is always the same
+      ;----- the length of this block is independant of the bit value
+       btfsc  status,C   ;(1/2) test Carry, skip if clear
+       bsf    pa,pp      ;(1/0) data bit = 1 ==> out = high
+       btfss  status,C   ;(2/1) test Carry, skip if set
+       bcf    pa,pp      ;(0/1) data bit = 0 ==> out = low
+
+       movfw  pa         ;(1) output buffer to accumulator
+       movwf  port       ;(1) send output buffer to port
+      ;------this block is always (6) instructions
+
+       call   _bit_time  ;( 3*OLval*ILval + 4*OLval + 5 )
+       bsf    status,C   ;(1) set Carry (will be shifted in data byte)
+       rrf    data,f     ;(1) shift data byte, so next bit goes to Carry
+       decfsz bitcnt,f   ;(1) decrement bit count, exit routine if zero
+       goto   _next_bit  ;(2) continue routine
+                         ;total
+                         ;   ( 3*OLval*ILval + 4*OLval + 16 )
+    end assembler
+
+  else
+    assembler
+    bank 0
+    local _bit_time, _bit_time2, _bit_time3, _send_byte, _next_bit
+    page _next_bit
+
+    goto   _send_byte    ;jump over delay routine, I don't know any other way
+
+    ;-----------------------------------------------------------------------------
+    _bit_time:           ;(2) (length of call instruction)
+      movlw   OL_Tx      ;(1) Accumulator = Outer Loop Counter
+      movwf   OLcnt      ;(1) OUTLOOP = Accumulator
+
+    _bit_time2:          ;=============  start of double loop
+      movfw   IL_Tx      ;(1) Accumulator = Inner Loop Counter
+      movwf   ILcnt      ;(1) INLOOP = Accumulator
+    _bit_time3:          ;
+      decfsz  ILcnt,f    ;(1)
+      goto    _bit_time3 ;(2)
+      decfsz  OLcnt,f    ;(1)
+      goto    _bit_time2 ;(2)
+                         ;============= end of double loop
+                         ; OLval * { ( ILval * 3 ) -1 +5 } -1
+                         ; = 3*OLval*ILval + 4*OLval -1
+                         ; OLval=ILval=1  ==> 6
+    return               ;(2)
+                         ;total instructions (including call)
+                         ;   3*OLval*ILval + 4*OLval +5
+    ;-----------------------------------------------------------------------------
+
+
+    _send_byte:
+       bcf    status,C   ;clear Carry (start bit)
+    _next_bit:
+
+      ;using the shadow register of the port:
+      ;  - assures no other pins of the port are affected
+      ;  - delay is always the same
+      ;----- the length of this block is independant of the bit value
+       btfsc  status,C   ;(1/2) test Carry, skip if clear
+       bcf    pa,pp      ;(1/0) data bit = 1 ==> out = high
+       btfss  status,C   ;(2/1) test Carry, skip if set
+       bsf    pa,pp      ;(0/1) data bit = 0 ==> out = low
+
+       movfw  pa         ;(1) output buffer to accumulator
+       movwf  port       ;(1) send output buffer to port
+      ;------this block is always (6) instructions
+
+       call   _bit_time  ;( 3*OLval*ILval + 4*OLval + 5 )
+       bsf    status,C   ;(1) set Carry (will be shifted in data byte)
+       rrf    data,f     ;(1) shift data byte, so next bit goes to Carry
+       decfsz bitcnt,f   ;(1) decrement bit count, exit routine if zero
+       goto   _next_bit  ;(2) continue routine
+                         ;total
+                         ;   ( 3*OLval*ILval + 4*OLval + 16 )
+    end assembler
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- waits untill a character is received.
+-- Interrupts should be disabled prior to entering this routine.
+-- Also here the code is doubled (inverting and non-inverting)
+-- and selection is done by a compiler-directive.
+-- -----------------------------------------------------------------------------
+procedure asynch_receive_sw ( byte out x ) is
+
+-- local variables
+var byte bitcnt    ;holds the actual number of bits to be sent
+var byte outloop   ;loop counter
+var byte inloop    ;inner loop counter
+var byte samp      ;sampled bit
+
+var volatile byte pa is asynch_sw_in_port
+const pp = asynch_sw_in_nr
+
+  bitcnt = 8
+
+  if asynch_invert_sw then
+    assembler
+    bank 0
+    local wait_idle
+    local wait_start, wait_start2, wait_start3
+    local next_bit, next_bit2, next_bit3
+    page next_bit
+
+    wait_idle:
+      btfss  pa,pp      ;wait till receiver line is inactive (high)
+      goto   wait_idle  ;
+
+    wait_start:
+      btfsc  pa,pp      ;(2) wait for startbit
+      goto   wait_start ;
+
+      ; especially at higher Baud rates a good start must be made here
+      ; 230 kB, half bittime = 11 instructions (2 already done)
+      ; now 12 instructions,
+      ; if too long, the next instructions can be moved above wait_start
+      movfw   OLval      ;(1) Accumulator = Outer Loop Counter
+      movwf   outloop    ;(1) OUTLOOP = Accumulator
+
+
+    wait_start2:         ;=============  start of double loop
+      movfw   ILval0     ;(1) Accumulator = Inner Loop Counter
+      movwf   inloop     ;(1) INLOOP = Accumulator
+    wait_start3:         ;
+      decfsz  inloop,f   ;(1)
+      goto    wait_start3;(2)
+
+      decfsz  outloop,f  ;(1)
+      goto    wait_start2;(2)
+                         ;============= end of double loop
+                         ; OLval * { ( ILval * 3 ) -1 +5 } -1
+                         ; = 3*OLval*ILval + 4*OLval -1
+                         ; OLval=ILval=1  ==> 6
+
+    ;test if still startbit,
+      btfsc  pa,pp      ;(2)
+      goto   wait_idle  ; if not a start bit anymore, error, seek further
+
+    ;-----------------------------------------------------------------------
+    next_bit:
+      movfw   OLval      ;(1) Accumulator = Outer Loop Counter
+      movwf   outloop    ;(1) OUTLOOP = Accumulator
+
+      ;to optimize for 230 kBaud, we need 22 instructions,
+      ;so we still miss 3 instructions
+      ;now it will be clear: calling a delay routine isn't possible (4 instructions)
+      nop                ;(1)
+      goto    next_bit2  ;(2)
+
+    next_bit2:           ;=============  start of double loop
+      movfw   ILval      ;(1) Accumulator = Inner Loop Counter
+      movwf   inloop     ;(1) INLOOP = Accumulator
+    next_bit3:           ;
+      decfsz  inloop,f   ;(1)
+      goto    next_bit3  ;(2)
+
+      decfsz  outloop,f  ;(1)
+      goto    next_bit2  ;(2)
+                         ;============= end of double loop
+                         ; OLval * { ( ILval * 3 ) -1 +5 } -1
+                         ; = 3*OLval*ILval + 4*OLval -1
+                         ; OLval=ILval=1  ==> 6
+
+
+
+      ;----- the length of this block is independant of the sampled character
+      movfw  pa          ;(1) always sample once and store in buffer SAMP
+      movwf  samp        ;(1)
+      btfsc  samp,pp     ;(1/2) DATA IS INVERTED !!
+      bsf    status,C    ;(1/0) clear Carry (will be shifted in data byte)
+      btfss  samp,pp     ;(2/1)
+      bcf    status,C    ;(0/1) set Carry (will be shifted in data byte)
+      ;------this block is always (6) instructions
+
+      rrf    x,f         ;(1) shift Carry in result byte
+
+
+      decfsz bitcnt,f    ;(1) decrement bit count, exit routine if zero
+      goto   next_bit    ;(2) continue routine
+                         ;(16) without the double loop
+                         ; = 3*OLval*ILval + 4*OLval +15
+                         ; OLval=ILval=1  ==> 22
+    end assembler
+
+  else  ;NOT inverted
+    assembler
+    bank 0
+    local wait_idle
+    local wait_start, wait_start2, wait_start3
+    local next_bit, next_bit2, next_bit3
+    page next_bit
+
+    wait_idle:
+      btfsc  pa,pp      ;wait till receiver line is inactive (low)
+      goto   wait_idle  ;
+
+    wait_start:
+      btfss  pa,pp      ;(2) wait for startbit
+      goto   wait_start ;
+
+      ; especially at higher Baud rates a good start must be made here
+      ; 230 kB, half bittime = 11 instructions (2 already done)
+      ; now 12 instructions,
+      ; if too long, the next instructions can be moved above wait_start
+      movfw   OLval      ;(1) Accumulator = Outer Loop Counter
+      movwf   outloop    ;(1) OUTLOOP = Accumulator
+
+
+    wait_start2:         ;=============  start of double loop
+      movfw   ILval0     ;(1) Accumulator = Inner Loop Counter
+      movwf   inloop     ;(1) INLOOP = Accumulator
+    wait_start3:         ;
+      decfsz  inloop,f   ;(1)
+      goto    wait_start3;(2)
+
+      decfsz  outloop,f  ;(1)
+      goto    wait_start2;(2)
+                         ;============= end of double loop
+                         ; OLval * { ( ILval * 3 ) -1 +5 } -1
+                         ; = 3*OLval*ILval + 4*OLval -1
+                         ; OLval=ILval=1  ==> 6
+
+    ;test if still startbit,
+      btfss  pa,pp      ;(2)
+      goto   wait_idle  ; if not a start bit anymore, error, seek further
+
+    ;-----------------------------------------------------------------------
+    next_bit:
+      movfw   OLval      ;(1) Accumulator = Outer Loop Counter
+      movwf   outloop    ;(1) OUTLOOP = Accumulator
+
+      ;to optimize for 230 kBaud, we need 22 instructions,
+      ;so we still miss 3 instructions
+      ;now it will be clear: calling a delay routine isn't possible (4 instructions)
+      nop                ;(1)
+      goto    next_bit2  ;(2)
+
+    next_bit2:           ;=============  start of double loop
+      movfw   ILval      ;(1) Accumulator = Inner Loop Counter
+      movwf   inloop     ;(1) INLOOP = Accumulator
+    next_bit3:           ;
+      decfsz  inloop,f   ;(1)
+      goto    next_bit3  ;(2)
+
+      decfsz  outloop,f  ;(1)
+      goto    next_bit2  ;(2)
+                         ;============= end of double loop
+                         ; OLval * { ( ILval * 3 ) -1 +5 } -1
+                         ; = 3*OLval*ILval + 4*OLval -1
+                         ; OLval=ILval=1  ==> 6
+
+
+
+      ;----- the length of this block is independant of the sampled character
+      movfw  pa          ;(1) always sample once and store in buffer SAMP
+      movwf  samp        ;(1)
+      btfsc  samp,pp     ;(1/2) DATA IS INVERTED !!
+      bcf    status,C    ;(1/0) clear Carry (will be shifted in data byte)
+      btfss  samp,pp     ;(2/1)
+      bsf    status,C    ;(0/1) set Carry (will be shifted in data byte)
+      ;------this block is always (6) instructions
+
+      rrf    x,f         ;(1) shift Carry in result byte
+
+
+      decfsz bitcnt,f    ;(1) decrement bit count, exit routine if zero
+      goto   next_bit    ;(2) continue routine
+                         ;(16) without the double loop
+                         ; = 3*OLval*ILval + 4*OLval +15
+                         ; OLval=ILval=1  ==> 22
+    end assembler
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- waits untill a character is received.
+-- Interrupts should be disabled prior to entering this routine.
+-- Also here the code is doubled (inverting and non-inverting)
+-- and selection is done by a compiler-directive.
+-- -----------------------------------------------------------------------------
+function asynch_receive_sw_timeout ( byte out x ) return bit is
+
+-- local variables
+var byte bitcnt    ;holds the actual number of bits to be sent
+var byte outloop   ;loop counter
+var byte inloop    ;inner loop counter
+var byte samp      ;sampled bit
+var byte timeout
+var bit rets
+
+var volatile byte pa is asynch_sw_in_port
+const pp = asynch_sw_in_nr
+
+  bitcnt = 8
+  timeout = 0
+
+    assembler
+    bank 0
+    local wait_idle, wait_idle2, wait_start1, errors, ends
+    local wait_start, wait_start2, wait_start3
+    local next_bit, next_bit2, next_bit3
+    page next_bit
+
+    wait_idle:
+		
+		  incfsz timeout,f  ;(1)
+  	  goto	 wait_idle2 ;(2)
+			goto  errors
+		wait_idle2:
+		
+      btfss  pa,pp      ;(1) wait till receiver line is inactive (high)
+      goto   wait_idle  ;(2)
+
+    wait_start:
+		  incfsz timeout,f  ;(1)
+		  goto	 wait_start1;(2)
+			goto errors				 
+		wait_start1:
+      btfsc  pa,pp      ;(1) wait for startbit
+      goto   wait_start ;(2)
+
+
+      ; especially at higher Baud rates a good start must be made here
+      ; 230 kB, half bittime = 11 instructions (2 already done)
+      ; now 12 instructions,
+      ; if too long, the next instructions can be moved above wait_start
+      movfw   OLval      ;(1) Accumulator = Outer Loop Counter
+      movwf   outloop    ;(1) OUTLOOP = Accumulator
+
+
+    wait_start2:         ;=============  start of double loop
+      movfw   ILval0     ;(1) Accumulator = Inner Loop Counter
+      movwf   inloop     ;(1) INLOOP = Accumulator
+    wait_start3:         ;
+      decfsz  inloop,f   ;(1)
+      goto    wait_start3;(2)
+
+      decfsz  outloop,f  ;(1)
+      goto    wait_start2;(2)
+                         ;============= end of double loop
+                         ; OLval * { ( ILval * 3 ) -1 +5 } -1
+                         ; = 3*OLval*ILval + 4*OLval -1
+                         ; OLval=ILval=1  ==> 6
+
+    ;test if still startbit,
+      btfsc  pa,pp      ;(2)
+      goto   wait_idle  ; if not a start bit anymore, error, seek further
+
+    ;-----------------------------------------------------------------------
+    next_bit:
+      movfw   OLval      ;(1) Accumulator = Outer Loop Counter
+      movwf   outloop    ;(1) OUTLOOP = Accumulator
+
+      ;to optimize for 230 kBaud, we need 22 instructions,
+      ;so we still miss 3 instructions
+      ;now it will be clear: calling a delay routine isn't possible (4 instructions)
+      nop                ;(1)
+      goto    next_bit2  ;(2)
+
+    next_bit2:           ;=============  start of double loop
+      movfw   ILval      ;(1) Accumulator = Inner Loop Counter
+      movwf   inloop     ;(1) INLOOP = Accumulator
+    next_bit3:           ;
+      decfsz  inloop,f   ;(1)
+      goto    next_bit3  ;(2)
+
+      decfsz  outloop,f  ;(1)
+      goto    next_bit2  ;(2)
+                         ;============= end of double loop
+                         ; OLval * { ( ILval * 3 ) -1 +5 } -1
+                         ; = 3*OLval*ILval + 4*OLval -1
+                         ; OLval=ILval=1  ==> 6
+
+
+
+      ;----- the length of this block is independant of the sampled character
+      movfw  pa          ;(1) always sample once and store in buffer SAMP
+      movwf  samp        ;(1)
+      btfsc  samp,pp     ;(1/2) DATA IS INVERTED !!
+      bsf    status,C    ;(1/0) clear Carry (will be shifted in data byte)
+      btfss  samp,pp     ;(2/1)
+      bcf    status,C    ;(0/1) set Carry (will be shifted in data byte)
+      ;------this block is always (6) instructions
+
+      rrf    x,f         ;(1) shift Carry in result byte
+
+
+      decfsz bitcnt,f    ;(1) decrement bit count, exit routine if zero
+      goto   next_bit    ;(2) continue routine
+                         ;(16) without the double loop
+                         ; = 3*OLval*ILval + 4*OLval +15
+                         ; OLval=ILval=1  ==> 22
+
+      bsf  rets
+      goto ends
+    errors:
+      bcf rets
+    ends:
+
+    end assembler
+return rets
+;  if rets then return true
+;  else return false
+;  end if
+end function
+-- -----------------------------------------------------------------------------
+
+
+
+
+
+-- -----------------------------------------------------------------------------
+-- intialisation of value and direction of output pin
+-- -----------------------------------------------------------------------------
+procedure asynch_sw_init_transmit is
+  -- set output pin inactive
+  if asynch_invert_sw then
+   asm bsf  asynch_sw_out_buffer,asynch_sw_out_nr
+  else
+   asm bcf  asynch_sw_out_buffer,asynch_sw_out_nr
+  end if
+  assembler
+     movfw  asynch_sw_out_buffer
+     movwf  asynch_sw_out_port
+  end assembler
+  -- set direction of output pin
+  asynch_sw_out_direction = output
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- intialisation of direction of input pin
+-- -----------------------------------------------------------------------------
+procedure asynch_sw_init_receive is
+  -- set direction of input pin
+  asynch_sw_in_direction = input
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+

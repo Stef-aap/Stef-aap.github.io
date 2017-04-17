@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>GUI support</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>GUI support </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts1>&nbsp;&nbsp; </span><span class=rvts8>( December 2010 )</span></p>
+<p><br></p>
+<p>Application Designer / Domain Expert / <span class=rvts10>Control Designer</span> / Core Developer</p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>At this moment (december 2010) a lot of applications are moving from desktop applications to browser applications. Browser applications have a large different implementations / targets: client-side and or server-side, full desk top screen or smartphone. Now each of these implementations needs a different GUI package. Switching between them, requires a fairly amount of work. To give an impression of the tools used by us right now and the problems we encounter:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>for desktop applications we basically use wxPython</li>
+<li>the use of sizers in wxPython is not easy and full of cross-pointers with useless names. Therefor we already used a wrapper for wxPython.</li>
+<li>for components missing in wxPython, we embed PySide-QT and Delphi components in wxPython</li>
+<li>for server-side web applications we use web2py</li>
+<li>for client-side web applications we use PyJamas</li>
+<li>for mobile devices we use PocketPyGUI</li>
+<li>as PySide-QT is making a huge progress at the moment and has improved licenses, (and might be usable for mobile devices) we might want to&nbsp; move gradually from wxPython to PySide-QT</li>
+</ul>
+<p>Wouldn't it be nice, if we could switch the desired target, with just a simple line of code in the main program. GUI-support is an attempt to realize this easy switching between different GUI targets and GUI backends.</p>
+<p><br></p>
+<p>Let's show a simple example first. The next Python code, defines a complete GUI window.</p>
+<p> </p>
+<p><img width=652 height=187 alt="" hspace=1 vspace=1 src="pw_gui_support_img21.png"></p>
+<p><br></p>
+<p>By uncommenting the desired single line in the main program, we can select if this GUI is created by wxPython or by PySide-QT</p>
+<p><br></p>
+<p><img width=293 height=35 alt="" hspace=1 vspace=1 src="pw_gui_support_img22.png"></p>
+<p><br></p>
+<p>Selecting wxPython as the GUI back-end, we get the following result:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=400 height=250 alt="" hspace=1 vspace=1 src="pw_gui_support_img25.png"> </p>
+<p><br></p>
+<p>Selecting PySide-QT as the GUI back-end, we get the following result:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=397 height=241 alt="" hspace=1 vspace=1 src="pw_gui_support_img23.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>ToDo</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>if component placed on a Notebook is not a wx.Window, automatically insert a wx.Panel in between </li>
+<li>PreView-wxGUI in AUI-panes </li>
+</ul>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This library file is integral part of PyLab_Works and was never meant to be released as a separate package. Therefor the file contains a lot of dependencies which can easily be removed and therefor this page is just a quick and dirty compilation of some screen shots. Although these libraries might be very attractive for newbies to getting started, a firm warning should be placed: using these libraries prevents you from learning ( or let you forget ) the basic building of a GUI with wx-Python components and specially the use of sizers. Although the program works very well, it's still work in progress and will undergo more changes in the near future).</p>
+<p><br></p>
+<p>The library is tested under windows-XP,&nbsp; '2.8.7.1 (msw-unicode)'&nbsp; and Ubuntu wx 2.8 uni gtk+, both using Python 2.5</p>
+<p><br></p>
+<p>Creating a GUI in wxPython isn't easy. There are several tools to make this design easier, but I couldn't get one of them working. There is one that works (XRC), but I hate it I find XRC a typical example of "Why should we do it easy, as it can be done complex".</p>
+<p>Therefor I created a simple solution, which is even more powerful than XRC. </p>
+<p>Gui_support is a library, with the following features</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>create a GUI</span> from a string </li>
+<li><span class=rvts10>implicit import</span> of (special) component types </li>
+<li><span class=rvts10>Save and Restore settings</span> of all GUI-components </li>
+<li><span class=rvts10>convenience procedures</span> to save typing </li>
+<li><span class=rvts10>F12 preview</span> of the GUI within the PW-IDE </li>
+</ul>
+<p><br></p>
+<p>The code for the application below (including saving and restoring the settings) is just 38 lines (see picture and the bottom).</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=408 height=353 alt="" src="pw_gui_support_img2.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Principle</span></p>
+<p>The principle is to define the structure in a string, where the indentation defines which component is the container for other components. So each line in the string defines 1 component, and has the following <span class=rvts10>syntax : name, type, arguments</span>. If we simplify the above example to just the textcontrol at the left bottom and the notebook at the right, but keeping the automatically save and restore settings, the code looks like this (on the right the resulting GUI):</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=596 valign=middle style="background-color: #ffffd4;">
+<p><img width=556 height=144 alt="" src="pw_gui_support_img4.png"></p>
+</td>
+<td width=352 valign=middle style="background-color: #ffffd4;">
+<p><img width=269 height=224 alt="" src="pw_gui_support_img5.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>At line 30, we define a SplitterWindow, which is the container for the TextCtrl defined at line 31 and the Notebook defined at line 31.</p>
+<p>The Notebook defined at line 32 is the container for the Panels (notebook-pages)&nbsp; p4 and p5.</p>
+<p>Finally the GUI is generated by line 36.</p>
+<p>Each component definition consists of a name, followed by the type, followed by any keyword-list the component can accept.</p>
+<p>There are created a few new convenience&nbsp; components, like the "SplitterHor" (which produces a Vertically Splitter, weird naming !!) in the above example. But if you don't mind the weird naming and extra typing, you can of course also use the normal wx.SplitterWindow.</p>
+<p>Furthermore, the settings are only restored (and can be saved later) if the component's name starts with "self.".</p>
+<p>Even for very simple designs it works great, because you don't need to bother about sizers:</p>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=543 height=85 alt="" src="pw_gui_support_img17.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Class wxGUI_String</span></p>
+<p>Class wxGUI_String is specially added if GUI-strings are created dynamicaly. The following picture shows the same example as above, but with several different approaches, using the wxGUI_String class:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=563 height=444 alt="" src="pw_gui_support_img20.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Implicit Imports</span></p>
+<p>The library file contains a dictionary, that defines implicit imports. This list can be expanded to your own needs. Whenever a type in the GUI-string is detected, and the type is defined in the dictionary and the import is not yet done, an extra import statement will be added.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=527 height=120 alt="" src="pw_gui_support_img13.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Error reporting</span></p>
+<p>If an error occurs during the creation of the GUI, the error is caught by the GUI-support library. The GUI-library will print the code generated by the GUI library, where each line will be preceded by a line-number and then print the error message itself. Because the error is caught, the program tries to continue its normal flow (during development this is sometimes very handy).</p>
+<p>Below an example of in error in line 9 of the generated code. The error here is caused by a new graphical component "tScintilla_Editor" and we want to place that Editor (direct) on a page of a Notebook. To add a component to a new Notebook page, we need to give it a name and therefor in line 9 the name of the component tScintilla_Editor is asked, but the tScintilla_Editor has no method GetName. </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=587 height=310 alt="" src="pw_gui_support_img14.png"></p>
+<p><br></p>
+<p>To solve the above problem there are many solutions:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>the most easy way is to put a wx.Panel ( which does have a name) on the Notebook page first and then put the tScintilla control in that panel. But the disadvantage is that our GUI-string becomes unnecessary longer. </li>
+<li>a better way is to add the GetName method to our newly derived component </li>
+<li>a third method is to extend the gui-generator with all kinds of try/except statements. But that makes the generated code (which we want to see in case of an error) less readable. </li>
+</ul>
+<p>So here we'll choose for the second solution, but ...</p>
+<p>... this gives an other error. You are only allowed to put wx.Window components on a Notebook page. So for the moment we'll choose the first solution. In a later stage I'll extend the gui-generator so it'll put a panel in between components if necessary.</p>
+<p><br></p>
+<p>Here an output of the improved error message (V1.6), which now specifies the file and line number.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=768 height=427 alt="" src="pw_gui_support_img1.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Class Create_wxGUI</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=317 valign=middle style="background-color: #ffffd4;">
+<p><img width=342 height=108 alt="" src="pw_gui_support_img8.png"></p>
+</td>
+<td width=631 valign=top style="background-color: #ffffd4;">
+<p>GUI = the string containing the GUI definition</p>
+<p>IniName = the string representation of the name of the inifile (if available)</p>
+<p>my_parent = string representation of the parent window. Because in general you'll define the outer window as a separate class, "self" will be ok.</p>
+<p><br></p>
+<p>code = meant to cascade a number of string definitions</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=397 valign=middle style="background-color: #ffffd4;">
+<p><img width=400 height=104 alt="" src="pw_gui_support_img9.png"></p>
+</td>
+<td width=551 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=207 valign=middle style="background-color: #ffffd4;">
+<p><img width=213 height=35 alt="" src="pw_gui_support_img11.png"></p>
+</td>
+<td width=741 valign=top style="background-color: #ffffd4;">
+<p>This is a dummy method to find the end of the code for the F12 preview.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Convenience Components</span></p>
+<p>See for the latest extensions the source code. At the moment of the first release, the following convenience components were available:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>SplitterHor</span>, a wx.SplitterWindow that splits the space in horizontal direction </li>
+<li><span class=rvts10>SplitterVer</span></li>
+<li><span class=rvts10> PanelHor</span>, a wx.Panel that splits the space in the horizontal direction, the second parameter are the weight factors of components on the panel, ie "0011" means give the first two components the minimum size and divide the remaining space between the third and fourth component </li>
+<li><span class=rvts10>PanelVer</span></li>
+<li> PageHor, PageVer, the same as PanelHor, PanelVer, I think these will be removed in the future </li>
+<li><span class=rvts10>GUI_Notebook</span>, a flatnotebook, with the style I always use </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Auto Save / Restore settings</span></p>
+<p>If a component has the prefix "self." and it has the methods GetValue and SetValue, or replacements of GetValue and SetValue are defined in the table _Save_Restore, the settings of that component are automatically restored on creating the GUI. Saving must be done by calling the Save_Settings method on closure of the form or application:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=411 height=109 alt="" src="pw_gui_support_img19.png"></p>
+<p><br></p>
+<p><img width=597 height=101 alt="" src="pw_gui_support_img6.png"></p>
+<p><br></p>
+<p><img width=668 height=306 alt="" src="pw_gui_support_img7.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Other Convenience functions</span></p>
+<p>These classes are not only meant to prevent a lot of typing, but more over to <span class=rvts10>prevent redundancy</span> !!</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>My_Main_Application</span>, a class defining a simple application </li>
+<li><span class=rvts10>My_Frame_Class</span>, a class defining a simple form with some auto save / restore settings </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>F12 - Preview</span></p>
+<p>For the preview the code starting with the GUI-string until the Create_wxGUI ( line 34 ) or to the Ready method (line 38) is executed. This code is packed into a frame and completed with an wx-application. The wrapper is defined in the file '../support/gui_template_dont_touch.py'. This file can be changed if other wrapper code is needed.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=370 height=178 alt="" src="pw_gui_support_img12.png"></p>
+<p><br></p>
+<p>To use the preview just call the function PreView_wxGUI with the whole text of an editor. Here is the call I use in my editor</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=353 height=107 alt="" src="pw_gui_support_img15.png"></p>
+<p><br></p>
+<p><span class=rvts2>Full demo code</span></p>
+<p><img width=762 height=812 alt="" src="pw_gui_support_img3.png"></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+
+</body></html>

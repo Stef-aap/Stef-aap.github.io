@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<messenger>
+	<service name=".NET Messenger Service">
+		<contactlist>
+			<contact>lennox_bj@hotmail.com</contact>
+			<contact>kiki_hoi@hotmail.com</contact>
+			<contact>treinfreak@live.nl</contact>
+			<contact>zoeariens@hotmail.com</contact>
+			<contact>alex_bosveld@hotmail.com</contact>
+			<contact>mattijs_m@hotmail.com</contact>
+			<contact>eliferken@live.nl</contact>
+			<contact>hallohallo_boem@hotmail.com</contact>
+			<contact>thomas_w@hotmail.com</contact>
+			<contact>niekteurlings@hotmail.com</contact>
+			<contact>toinewijnhoven@hotmail.com</contact>
+			<contact>sjoerd_wouters@hotmail.com</contact>
+			<contact>robbert_mientki@hotmail.com</contact>
+			<contact>suzannemuller12@hotmail.com</contact>
+			<contact>marijngek@hotmail.com</contact>
+			<contact>thierry_wessel@hotmail.com</contact>
+			<contact>kiki_024@live.nl</contact>
+			<contact>sabientjuhhh_girl@hotmail.com</contact>
+			<contact>anoukk93@live.nl</contact>
+			<contact>jesse_claassen@hotmail.com</contact>
+		</contactlist>
+	</service>
+</messenger>

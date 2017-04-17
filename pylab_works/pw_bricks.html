@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Bricks Library</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="44" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>PyLab Works </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts1>&nbsp; Bricks Library&nbsp; </span><span class=rvts8>( march 2008 ) </span></p>
+<p>Application Designer / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p><br></p>
+<p>We have chosen for a human indexing, so all indices start at 1 (whereas Python normally starts at 0).</p>
+<p>For the descriptions below, we've used the Rotate Brick from the Image Library.</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=353 height=348 alt="" src="pw_bricks_img13.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Creating New Brick</span></p>
+<p>The easiest way to create a new brick is to start with the template "Brick Template", correct the Inputs, Outputs and Controls. In this template, only the "After_Init" method is used and the "Generate_Output_Signals" is replaced by a dummy, that will print all available variables when the method is called. In this way, you can use the Brick in an application, connect it to other Bricks, see the visual presentation and test the user interface including most events.</p>
+<p>The standard <span class=rvts10>doc-string</span> of Python is not used, instead we use the property <span class=rvts10>Description</span>, that is because doc-string can not be used in the multi-language support.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=562 height=439 alt="" src="pw_bricks_img16.png"></p>
+<p><br></p>
+<p>When the above part works, remove the dummy "Generate_Output_Signals" and replace by a real implementation:</p>
+<p><br></p>
+<p><img width=618 height=86 alt="" src="pw_bricks_img17.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Internationalization &amp; Localization</span></p>
+<p>If we want to make this program available for many different users, localization is an important issue. I looked at IL8N / IL10N, which seems to be the de-facto standard, but found it much too complex, especially very difficult to incorporate the system with an inplace editor. Therefor we use for the time being a much simpler (but less complete) translation model.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Library files</span></p>
+<p>Library files are stored in the subdirectory "bricks\" and each library file should start with "brick_".</p>
+<p>If you start a new library file, be sure to give it the right name with the right upper/lower-case, because it's difficult to change e.g. letter-case afterwards (at least under windows).</p>
+<p>The easiest way to start a new library is to make a copy of an existing library. The library "brick-Image_Processing.py" is a good example, it contains an only-output brick (t_Read), and only-input brick (t-Show) and a brick with both input and output and parameters (controls) interfering with some of the inputs (t_Rotate).</p>
+<p><br></p>
+<p><span class=rvts2>Special tricks</span></p>
+<p>A control can claim a field in the statusbar.</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=421 height=264 alt="" src="pw_bricks_img9.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=125 height=84 alt="" src="pw_bricks_img7.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=152 height=178 alt="" src="pw_bricks_img8.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Brick Definition / Description</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=650 height=174 alt="" src="pw_bricks_img6.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Brick Inputs</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=540 height=235 alt="" src="pw_bricks_img5.png"></p>
+<p><br></p>
+<p><span class=rvts2>Brick Outputs</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=493 height=88 alt="" src="pw_bricks_img4.png"></p>
+<p><br></p>
+<p><span class=rvts2>Brick Edit-Shape</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=387 height=37 alt="" src="pw_bricks_img10.png"></p>
+<p><br></p>
+<p><span class=rvts2>Brick Controls / Parameters</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=444 height=260 alt="" src="pw_bricks_img11.png"></p>
+<p><br></p>
+<p><span class=rvts2>Brick Generate Output Signals</span></p>
+<p>This function calculates the new outputs on the base of changed inputs and / or changed parameters. If the brick doesn't generate output signals, no execute function is required. The ancestor of brick will check if input values and or parameters were changed and will decide if the execute function should be called or not.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=634 height=142 alt="" src="pw_bricks_img12.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Using Bricks from other libraries</span></p>
+<p>Suppose you've an Audio library, that has a brick with a good working wav-file player, and now you want to design a Media-library. In that case you don't want to copy the functionality already available, but just want to add a name to the Media Library. The user will see the wav-player in the media library, even if the Audio Library is not visible to the user. The implementation is simply:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=336 height=53 alt="" src="pw_bricks_img14.png"></p>
+<p><br></p>
+
+</body></html>

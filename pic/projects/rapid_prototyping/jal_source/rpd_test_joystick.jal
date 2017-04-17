@@ -1,0 +1,136 @@
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+-- define a JoyStick on J1
+;;;;;<;mac> RPD_JoyStick    JoyStick = J1
+-- define all IO-pins
+var volatile bit JoyStick_LED1 is J1L2
+var volatile bit JoyStick_LED2 is J1L3
+var volatile bit JoyStick_LED3 is J1R2
+var volatile bit JoyStick_LED4 is J1R3
+var volatile bit JoyStick_SWITCH1 is J1L2
+var volatile bit JoyStick_SWITCH2 is J1L3
+var volatile bit JoyStick_SWITCH3 is J1R2
+var volatile bit JoyStick_SWITCH4 is J1R3
+
+-- define storage for potmeter NULL position
+var volatile byte JoyStick_POTX_NULL
+var volatile byte JoyStick_POTY_NULL
+
+-- Define Debounced Switches
+var byte JoyStick_Switches_Shadow = 0xFF
+var bit JoyStick_S1 at JoyStick_Switches_Shadow : 4
+var bit JoyStick_S2 at JoyStick_Switches_Shadow : 5
+var bit JoyStick_S3 at JoyStick_Switches_Shadow : 6
+var bit JoyStick_S4 at JoyStick_Switches_Shadow : 7
+
+-- Define RAW Switches
+var bit JoyStick_S1_raw at JoyStick_Switches_Shadow : 0
+var bit JoyStick_S2_raw at JoyStick_Switches_Shadow : 1
+var bit JoyStick_S3_raw at JoyStick_Switches_Shadow : 2
+var bit JoyStick_S4_raw at JoyStick_Switches_Shadow : 3
+
+-- all LED/Switch pins are set to outputs
+-- so the LEDs can be controled
+J1L2_direction = output
+J1L3_direction = output
+J1R2_direction = output
+J1R3_direction = output
+-- all LEDs are set off (IO-pin made high
+J1L2 = high
+J1L3 = high
+J1R2 = high
+J1R3 = high
+
+-- Define the ADC-channels for the potmeters
+const bit JoyStick_POTX = 0
+const bit JoyStick_POTY = 1
+
+-- Define functions for raw potmeter values
+function JoyStick_X return byte is
+  return PIC_ADC_low_res(0)
+end function
+function JoyStick_Y return byte is
+  return PIC_ADC_low_res(1)
+end function
+
+-- Measure the NULL position of the potmeters 
+JoyStick_POTX_NULL = JoyStick_X
+JoyStick_POTY_NULL = JoyStick_Y
+
+-- Define functions for 2s-complement potmeter values
+function JoyStick_X_2s return byte is
+  return JoyStick_X - JoyStick_POTX_NULL
+end function
+function JoyStick_Y_2s return byte is
+  return JoyStick_Y - JoyStick_POTY_NULL
+end function
+
+-- function to derive all the debounced and raw switch values
+function JoyStick_Switches'get return byte is
+var bit new_bit
+
+  J1L2_direction = input
+  new_bit = J1L2
+  J1L2_direction = output
+  if new_bit != JoyStick_S1_raw then JoyStick_S1_raw = JoyStick_S1 end if
+  JoyStick_S1 = new_bit
+
+  J1L3_direction = input
+  new_bit = J1L3
+  J1L3_direction = output
+  if new_bit != JoyStick_S2_raw then JoyStick_S2_raw = JoyStick_S2 end if
+  JoyStick_S2 = new_bit
+
+  J1R2_direction = input
+  new_bit = J1R2
+  J1R2_direction = output
+  if new_bit != JoyStick_S3_raw then JoyStick_S3_raw = JoyStick_S3 end if
+  JoyStick_S3 = new_bit
+
+  J1R3_direction = input
+  new_bit = J1R3
+  J1R3_direction = output
+  if new_bit != JoyStick_S4_raw then JoyStick_S4_raw = JoyStick_S4 end if
+  JoyStick_S4 = new_bit
+
+  return JoyStick_Switches_Shadow
+end function
+;;;;;<;/mac>
+
+var byte sec = 0
+var bit sign
+var bit Prev_JoyStick_S1,Prev_JoyStick_S2,Prev_JoyStick_S3,Prev_JoyStick_S4
+
+forever loop
+  delay_1ms(10)
+  sec = sec + 1
+  if sec >= 10 then
+    asynch_send_hw(JoyStick_X)
+    asynch_send_hw(JoyStick_Y)
+
+    asynch_send_hw(JoyStick_Switches)
+
+    if JoyStick_S1 != Prev_JoyStick_S1 then
+      Prev_JoyStick_S1 = JoyStick_S1
+      if JoyStick_S1 then JoyStick_LED1 = ! JoyStick_LED1 end if
+    end if
+    if JoyStick_S2 != Prev_JoyStick_S2 then
+      Prev_JoyStick_S2 = JoyStick_S2
+      if JoyStick_S2 then JoyStick_LED2 = ! JoyStick_LED2 end if
+    end if
+    if JoyStick_S3 != Prev_JoyStick_S3 then
+      Prev_JoyStick_S3 = JoyStick_S3
+      if JoyStick_S3 then JoyStick_LED3 = ! JoyStick_LED3 end if
+    end if
+    if JoyStick_S4 != Prev_JoyStick_S4 then
+      Prev_JoyStick_S4 = JoyStick_S4
+      if JoyStick_S4 then JoyStick_LED4 = ! JoyStick_LED4 end if
+    end if
+
+    sec = 0
+  end if
+end loop
+

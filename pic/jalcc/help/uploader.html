@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JALcc-Bootloader</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #efefef;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="706" />
+<meta name="spellcheck" content="3" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>August 2006</span></p>
+<p><span class=rvts1>Uploader - Programmer - Debugger (UPD)</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>The concept of the UPD is given in the following diagram. The UPD should perform all tasks starting after a valid compilation, up to programming the final PIC.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=499 height=283 alt="" src="uploader_img9.png"></p>
+<p><br></p>
+<p><br></p>
+<p>A bootloader is a very powerful tool to program a user-program into a PIC. If you've used it once, you'll never want to use another programming method. The main advantages of a bootloader are</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>very fast and easy code uploading </li>
+<li>serial debugging for free </li>
+</ul>
+<p>There's just one disadvantage, the PIC should be able to program itself (e.g. 16F87x, 16F8x), (and sometimes code-protection is limited).</p>
+<p><br></p>
+<p>The tool described here, is a windows tools that combines an uploader, a PIC-programmer and several debugging tools. Because it can be started with commandline parameters, it's optimal suited to be started directly from the code-editor or IDE.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>Uploader</span> supports Tiny Bootloader (written by Claudiu Chiculita)&nbsp; and Hi-Tech Bootloader (written by Shane Tolmie). It's prefered to use Tiny Bootloader, because it's available for far more devices than Hi-Tech's. Since version 1.1 a powerfull future is added to fully automatically merge datafiles into the eeprom code. </li>
+<li><span class=rvts10>Programmer</span> for the RPD there's a simple programmer module, which can be controled from the UPD </li>
+<li><span class=rvts10>Debugger</span> consists of several tools: a standard terminal program, a special JAL breakpoint program, a JAL tuning device, and some experimental graph displays. </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Version Information</span></p>
+<p><span class=rvts10>V1.0</span>&nbsp; orginal release</p>
+<p><span class=rvts10>V1.1</span>&nbsp; 10-08-2006, added feature to merge datafiles into program eeprom</p>
+<p><span class=rvts10>V1.2</span>&nbsp; not official released</p>
+<p><span class=rvts10>V1.3</span>&nbsp; 10-02-2007, merging datafile is shown, can be edited, can be prevented from reloading</p>
+<p><span class=rvts10>V1.4</span>&nbsp; 23-12-2007, </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - bug in remember graph settings, </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - table display can be disabled during (fast) graphical views</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - timebase of graphical view can be expanded</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - in debug mode jumps to graphical view instead of table view</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Commandline options</span></p>
+<p>You can start the program with some parameters, but all parameters may be omitted and some parameters can be set default.</p>
+<p>The full commandline looks like this:</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; UPD.exe&nbsp;&nbsp;&nbsp; &lt;hexfile&gt;&nbsp;&nbsp;&nbsp; &lt;action&gt;&nbsp;&nbsp;&nbsp;&nbsp; &lt; Baudrate&gt;&nbsp;&nbsp;&nbsp;&nbsp; &lt;program hexfile&gt;&nbsp;&nbsp;&nbsp;&nbsp; &lt;PIC-type&gt;</p>
+<p><br></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>&lt;hexfile&gt;&nbsp; name+path of hexfile&nbsp; / - / +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the hexfile to be loaded in the bootloader PIC, if a minus sign "-" is used the program will use a default value, depending on the &lt;action&gt;. If &lt;action&gt; = "programmer" then the default programmer software is loaded, otherwise the previous hex file is loaded. In case of &lt;action&gt; = "programmer", no hexfile is loaded if the previous hexfile was already the programmer software. During development of the programmer software you might want to force an upload of the programmer software, which can be done by "+". </li>
+<li>&lt;action&gt;&nbsp;&nbsp;&nbsp; "uploader"&nbsp; /&nbsp; "programmer" if this parameter is omitted the previous hexfile is used </li>
+<li>&lt;Baudrate&gt;&nbsp;&nbsp;&nbsp; this is not the Baudrate for uploading with the bootloader (this Baudrate is fixed) but the Baudrate used for debugging. If the parameter is omitted or "-" a default Baudrate of 115_200 will be used. </li>
+<li>&lt;program hexfile&gt;&nbsp;&nbsp; this parameter is only valid in the programmer mode, and specifies the hexfile to be programmed into the PIC </li>
+<li>&lt;PIC-type&gt;&nbsp; only valid in the programmer mode, and specifies the type of the PIC to be programmed </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Uploader</span></p>
+<p>The uploader is a communication program between PC and the already present bootloader in the PIC, that uploads the user program code into the PIC. This uploader supports at the moment Tiny Bootloader (written by Claudiu Chiculita) and the Hi-Tech bootloader (written by Shane Tolmie). Tiny Bootloader is available for more types of PICs than the Hi-Tech's. Both bootloaders are fully compatible with JAL, but you have to use the compiler switch "-long-start".</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=389 height=460 alt="" src="uploader_img27.png"></p>
+<p><br></p>
+<p>The bootloader is the first program that will be launched, after starting the UPD. Normally upload will start directly to upload the new user program. In case the PIC is used as a programmer, the bootloader will only upload the user program (which in this case is the programmer software), if the last uploaded program on this PC was not the programmer software.</p>
+<p><br></p>
+<p>Since version v1.1 a special feature is added to merge data files (as 2*7 bits) in the top of the program eeprom. Make a file with the same name as the hex-file, but with the extension ".dat" (of course in the same directory as the hex-file), and on each line a text/html file to be merged in the program memory.</p>
+<p>The DAT file may look like this</p>
+<p><br></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; D:\PIC-tools\JAL\Programs\TCP_small_pic_f877\page1.html</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; D:\PIC-tools\JAL\Programs\TCP_small_pic_f877\page2.html</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; D:\PIC-tools\JAL\Programs\TCP_small_pic_f877\page3.html</span></p>
+<p><br></p>
+<p>The program memory is filled, starting at 0x2000 - 0x101, downwards.</p>
+<p>Before each file, the length of each file in number of 2*7bits is stored in the program memory.</p>
+<p><br></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts2>Terminal Debugger</span></p>
+<p>This is a simple terminal program. Transmitted data can either be entered as ASCII or as HEX bytes. The typed characters are sent to PIC, after a CR is entered. Received bytes are simultaneous displayed in ASCII and numerical values (either HEX or Decimal). The sizes of the different panels can be changed with the splitters. The last transmitted line can be repeated every 100 msec, when the key "repeat last line 100 msec" is down. This can be very handy when doing measurements with a scope. The reset button pulses the DTR line low for a short time, so the DTR line can be tied to the hardware reset of the PIC. With the SAVE button you can save the received data (in ASCII and numerical)&nbsp; to a text file. The COPY button copies the received data to the clipboard, so you directly paste it into other documents.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=493 height=300 alt="" src="uploader_img3.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>JAL Breakpoint Debugger</span></p>
+<p>JALcc has a few macros, which makes debugging at the JAL level quit easy. For the future there are plans to make in even more easier, by just clicking on the gutter to insert breakpoints.</p>
+<p>In the example below a region of interest is defined, by the macro break_begin and break_end. JALcc will lookup all variables used in the region of interest and will export all these variables when a breakpoint (e.g. line 134,140) is encountered. More than one region of interest is possible and within each region of interest there may be more than 1 breakpoint. The break_begin has an optional parameter that gives the possibility to block all non-debug information to the chosen output. The break procedure has a numerical parameter, that can be used to identify the debug output. </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=357 height=332 alt="" src="uploader_img18.png"></p>
+<p><br></p>
+<p>The debug output can either be shown in a table and / or in a graph. Several formats are possible, but the key benefit is that a variable is always displayed according to the type definition in JAL.</p>
+<p>If we look at the last line in the picture below, we see that this a debug output from "break(3)", and it's the eight occurrence of this debug statement, and it's displayed in signed hexadecimal. </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=459 height=362 alt="" src="uploader_img13.png"></p>
+<p><br></p>
+<p>Up to 4 variables can be represented in a time graph. Scaling is done automatically, based on the type of the variable, in such a way that the height of the image represents the full range of the variable. There's a cursor, which can be placed on the graphs, so the exact information of all debug parameters can be viewed in detail.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=520 height=341 alt="" src="uploader_img25.png"></p>
+<p><br></p>
+<p>When FREEZE is activated, the graph recording is freezed and a cursor appears in the graph debug window. The cursor can be moved with the mouse (left key) or by the left and right arrow keys. On the right the valuse at the cursor are displayed. Also on the right the type of event and the occurrence of this event is displayed. The time gives the time relative to the last point in the graph.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=525 height=418 alt="" src="uploader_img26.png"></p>
+<p><br></p>
+<p>Below an recording with an old version of the program. The graph presents the steprespons of a PID controler.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=356 height=199 alt="" src="uploader_img15.png"></p>
+<p><br></p>
+<p>The binary signals are each a half square high and the 4 signals are displayed at different heights. Below is a recording of 4 binary signals.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=211 height=240 alt="" src="uploader_img23.png"></p>
+<p><br></p>
+<p>The settings for table can be done through the next page.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=234 height=221 alt="" src="uploader_img24.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Data EEprom Tuning</span></p>
+<p><br></p>
+<p>Often it's desirable to tune a few parameters at the final location where the circuit is placed (e.g. in case of PID controllers). There are several ways to realize this. You could do it with a few buttons, stepping though a menu and increasing or decreasing the values. Or you could do it with a potmeter connected to one of the analog inputs. As my designs always have some kind of serial interface (either RS232 or USB), combined with the fact that I'm often using a bootloader, serial tuning is a far more comfortable way for tuning.</p>
+<p><br></p>
+<p>The method described here, has the following features</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>tuning parameters are stored in data-eeprom </li>
+<li>all standard JAL variable types are supported </li>
+<li>routines are available for easy access of the tuning parameters in the program </li>
+<li>the UPD has special commands to easy read, modify and write the tuning parameters </li>
+</ul>
+<p><br></p>
+<p>So starting with the JAL sourcefile, you've to define which variables should be stored (and tuned) in data EEprom, which is simply accomplished by placing the variable declarations between "tuning_begin" and "tuning_end".</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=254 height=93 alt="" src="uploader_img20.png"></p>
+<p><br></p>
+<p>Tuning_begin has 2 parameters (which may be omitted), the first parameter specifies the large stepsize (small stepsize = 1). The second parameter specifies the base value of the tuning commands (for the moment it's advised to use always 0). If the variables are given a value in the declaration line, these values are also transported to the data EEprom at initialisation.</p>
+<p>Using the tuning environment should be done in the following way:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=366 height=127 alt="" src="uploader_img21.png"></p>
+<p><br></p>
+<p>Place a call to the function Tuning_Command whenever you receive a character from the serial line, and if the function Tuning_Command finds a tuning command, it will act upon that command and return true. So when tuning command returns false, the character is not for tuning but for the user program.</p>
+<p>After launching the UPD, you can start the EEprom tuning window by pressing the according button (available from several tab pages. The EEprom tuning window is created as a stand alone window, so it can easily be combined with one of the debug windows.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=225 height=170 alt="" src="uploader_img22.png"></p>
+<p><br></p>
+<p>All the EEprom values are displayed and you can either step them down or up, in small (1) or large (user defined) steps. The parameter values can be displayed in decimal or hexa-decimal. The 3 command buttons on the top sends a character to the PIC. The values send by these buttons is just above the tuning commands. So if base tuning command is 0, then 0..5 is occupied by the tuning commands and the buttons will send 6,7,8. The messages of these buttons are not catched by the tuning procedure.</p>
+<p><br></p>
+<p><br></p>
+<p>Tuning Commands, from UPD to PIC</p>
+<p>base+0&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; read value from location &lt;index&gt; of tuning-EEprom (0 = all)</p>
+<p>base+0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; read all values from tuning-EEProm, preceded by the number of byte, byte2, byte3</p>
+<p>base+1&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp; &lt;value&gt;&nbsp;&nbsp;&nbsp;&nbsp; write 1 value to tuning-EEprom (BE CAREFUL, sending 3 or more bytes !!!)</p>
+<p>base+2&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; increment with 1, the value at location &lt;index&gt;&nbsp; of tuning EEprom</p>
+<p>base+3&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; decrement with 1, the value at location &lt;index&gt;&nbsp; of tuning EEprom</p>
+<p>base+4&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; increment with large step, the value at location &lt;index&gt;&nbsp; of tuning EEprom</p>
+<p>base+5&nbsp;&nbsp;&nbsp; &lt;index&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; decrement with large step, the value at location &lt;index&gt;&nbsp; of tuning EEprom</p>
+<p>---- the following commands are not tuning commands</p>
+<p>base+6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; produced by button CMD1</p>
+<p>base+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; produced by button CMD2</p>
+<p>base+8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; produced by button CMD3</p>
+<p><br></p>
+<p>&lt;index&gt;&nbsp; starts at 1</p>
+<p>&lt;value&gt; is either a byte, a byte2 or a byte3, in case of muiltiple bytes, the MSB comes first.</p>
+<p>BE CAREFUL when sending more then 2 bytes at once, because only 2 of them might be recognized. So insert pauses !!</p>
+<p><br></p>
+<p><br></p>
+<p><a name="programmer"></a>
+<span class=rvts2>Programmer</span></p>
+<p>The programmer is a simple, but fully complete, high-voltage programmer, controlled from the bootloader PIC. In fact you can use also non-bootloader PICs as the controller of the programmer. The programmer can also be used for In Circuit Programming, through a 5-pin connector. The programmer software is divided in the PC-part and the PIC-part. To make it as flexible as possible for most users, the "intelligence" of the programmer is as much as possible put into the PIC. This makes it possible to add any programming algorithm, just by changing the code in the PIC. The PIC code is fully written in JAL.</p>
+<p><br></p>
+<p><a href="uploader_img10.png"><img width=734 height=264 alt="" src="uploader_img10.png"></a></p>
+<p><br></p>
+<p>The high-voltage is generated with the capacitor/diode generator on the top. It's controlled by the PWM1 output of the controller PIC. The generator is always turned on and if not needed will be "short-circuited" with FET Q1. This way of switching the HV off is chosen, because it's much easier to control a N-channel FET on the low side, than a P-channel FET on the high side. With FET Q2, the 5Volt power supply can be controlled. The first prototype and the Eagle layout for a RPD-module is shown below (all source files will be available for free).</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=105 height=153 alt="" src="uploader_img5.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=421 height=228 alt="" src="uploader_img8.png"></p>
+<p><br></p>
+<p>Just a small part of the "intelligence" of the programmer is put in the PC program. Looking at the settings below, reveals which parameters are set from the PC program. Because these settings can also changed by the user, there should be absolutely no limit in writing any programming algorithm.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=356 height=496 alt="" hspace=1 vspace=1 src="uploader_img28.png"></p>
+<p><br></p>
+<p><span class=rvts10>Hardware Connection</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=23 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Nr</span></p>
+</td>
+<td width=73 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Name</span></p>
+</td>
+<td width=692 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>PIC-types</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=23 valign=top style="background-color: #ffffd4;">
+<p>1</p>
+</td>
+<td width=73 valign=top style="background-color: #ffffd4;">
+<p>12F675</p>
+</td>
+<td width=692 valign=top style="background-color: #ffffd4;">
+<p>12F675, 16F690</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=23 valign=top style="background-color: #ffffd4;">
+<p>2</p>
+</td>
+<td width=73 valign=top style="background-color: #ffffd4;">
+<p>T10</p>
+</td>
+<td width=692 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=23 valign=top style="background-color: #ffffd4;">
+<p>3</p>
+</td>
+<td width=73 valign=top style="background-color: #ffffd4;">
+<p>16F877</p>
+</td>
+<td width=692 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=23 valign=top style="background-color: #ffffd4;">
+<p>4</p>
+</td>
+<td width=73 valign=top style="background-color: #ffffd4;">
+<p>T9</p>
+</td>
+<td width=692 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=23 valign=top style="background-color: #ffffd4;">
+<p>5</p>
+</td>
+<td width=73 valign=top style="background-color: #ffffd4;">
+<p>628/..</p>
+</td>
+<td width=692 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>Currently the JAL program supports the following programming protocols:</p>
+<p><span class=rvts12>-- prot&nbsp;&nbsp; progmode&nbsp;&nbsp;&nbsp;&nbsp; N_mem_Writ&nbsp;&nbsp;&nbsp; Types</span></p>
+<p><span class=rvts12>--&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; +5&nbsp; Vpp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16F62x, 16F87x</span></p>
+<p><span class=rvts12>--&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; Vpp&nbsp; +5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12F629, 12F675</span></p>
+<p><span class=rvts12>--&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; +5&nbsp; Vpp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16F87xA</span></p>
+<p><span class=rvts12>--&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; +5&nbsp; Vpp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16F87, 16F88</span></p>
+<p><span class=rvts12>--&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; Vpp&nbsp; +5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16f690 </span></p>
+<p>Protocol 4 allows for 9 word fuses.</p>
+<p>The erase cycli of all these protocols are different.</p>
+<p>One thing is strange in the above table, the 16F62x should officially be programmed with protocol 2, but works better with protocol 1 ??</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Settings</span></p>
+<p>Normally when the program UPD is started, it scans for all available comm ports and all USB ports where a FTDI chip are mounted. UPD then tries to connect to the device it was last connected to, and if succesfull, jumps right to the next tab, so you normally will never see this tab. In case the connection fails or if you want to switch to another device, you can enter these settings. The settings from this tabpage are not stored in the normal inifile, but in a special file, to prevent it from moving to another computer during synchronize.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=309 height=278 alt="" src="uploader_img2.png"></p>
+<p><br></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Background</span></p>
+<p>Tiny Bootloader from Claudiu Chiculita</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class=rvts4 href="http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm">http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm</a></p>
+<p>Bootloader from Shane Tolmie</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class=rvts4 href="http://www.microchipc.com/">Program Microchip PIC micros with C - sample source code, FAQ and more</a></p>
+<p>Based on downloader from Petr Kolomaznik</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class=rvts4 href="http://www.ehl.cz/pic/pic_e.htm">EHL elektronika - PIC downloader</a></p>
+
+</body></html>

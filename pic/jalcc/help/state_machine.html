@@ -1,0 +1,149 @@
+<HTML><HEAD><TITLE>State Machines</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>may, 2005</SPAN></P>
+<P><SPAN class=RVTS1>StateMachine Design</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>A graphical statemachine design is often far more readible then plain computer language. Moreover a graphical statemachine can be understood&nbsp; by non-technician, while computer language can not (maybe that's the reason why there are so little statemachine programs available&nbsp;<IMG width=16 height=16 src="punthoofd.gif">).</P>
+<P>This program will generate code from a graphical designed statemachine, for JAL, Delphi and PICbsc. At this moment I'm not sure how the real embedding in the JALcc-codeeditor will be done (JALcc macro ?).</P>
+<P>Let's first take a look at a very simple example. This example doesn't show the power of graphical statemachines at all, the real power will be shown, as soon as there are more then say 5 states.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Implementation</SPAN></P>
+<P><SPAN class=RVTS3>JAL</SPAN>: &lt;mac&gt; StateMachine Demo</P>
+<P><SPAN class=RVTS3>PICbsc</SPAN>: ...</P>
+<P><SPAN class=RVTS3>Delphi</SPAN>: copy and paste the code from the code generator</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Example</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=235 height=114 bgcolor=#FFFFE6 valign=top>
+<P class=RVPS2>&nbsp;<IMG width=129 height=73 src="diagram_img20.gif"></P></TD>
+<TD width=371 height=114 bgcolor=#FFFFE6 valign=top>
+<P>The hardware on the left is one of the most simplest situations, that can be represented by a statemachine. Because of it's simplicity, it's a bad example in showing the power of statemachines. As a matter of fact, this hardware can be represented by just 1 line of software code:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;&nbsp; lamp = switch</SPAN></P>
+<P><SPAN class=RVTS3>&nbsp;&nbsp;</SPAN></P></TD>
+</TR>
+<TR valign=top>
+<TD width=235 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=227 height=304 src="diagram_img21.gif"></P></TD>
+<TD width=371 bgcolor=#FFFFE6 valign=top>
+<P><SPAN class=RVTS2>generated JAL code</SPAN></P>
+<P class=RVPS2>&nbsp;<IMG width=355 height=340 src="diagram_img25.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>And here is shown how the same statemachine generates Delphi code. Note that it now uses the more readible (and more efficient) case statement.</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><IMG width=379 height=428 src="diagram_img27.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Statemachine objects</SPAN></P>
+<P>You can use all Diagram Designer objects in a statemachine design, but only the following objects will produce code.</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=232 bgcolor=#FFFFE6 valign=top>
+<P class=RVPS2>&nbsp;<IMG width=230 height=94 src="diagram_img16.gif"></P></TD>
+<TD width=555 bgcolor=#FFFFE6 valign=top>
+<P><SPAN class=RVTS2>State</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>The state object has a lot connection points that can be connected to in- or out-going transitions and it a has an "stay in this state" transition.</P>
+<P>A state has 2 text blocks, the central textbox and the textbox that is fixed at the topright.&nbsp;</P>
+<P>The first line in the central textbox is the name of the state, the other lines of the central textblock is code, that is executed each time the statemachine walks through this state (or stays in this state).&nbsp;</P>
+<P>The textblock on the righttop is only executed each time the statemachine stays in this state (else statement). So this code is not executed, when the statemachine goes directly to another state after entering this state.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=232 bgcolor=#FFFFE6 valign=top>
+<P class=RVPS2>&nbsp;<IMG width=101 height=157 src="diagram_img17.gif"></P></TD>
+<TD width=555 bgcolor=#FFFFE6 valign=top>
+<P><SPAN class=RVTS2>Transition</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>A transition is contains an optional condition (before the double slash) and optional some code. This code is executed once, when the transition takes place.&nbsp;</P>
+<P>You can also use the straight arrow lines, but this is not as convenient, because you cann't bend the arrow and cann't position the text.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=232 bgcolor=#FFFFE6 valign=top>
+<P class=RVPS2>&nbsp;<IMG width=241 height=89 src="diagram_img22.gif"></P></TD>
+<TD width=555 bgcolor=#FFFFE6 valign=top>
+<P><SPAN class=RVTS2>Init-State</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>The init-state is meant to initialize the statemachine. It differs from a normal state, because it doesn't have a condition (else statement) to remain in this state. And it should contain just one (outgoing) connection point. The first line in the central textbox represents the name of the statemachine. This name must be unique in the total program. Both the code in central textbox and the topright textbox are always executes once.
+<BR>Each Statemachine should have one, and only one, InitState. The InitState is also the triggerpoint for the generator.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Syntax</SPAN></P>
+<P>Because the StateMachine codegeneration can generate code for different languages, the StateMachine uses it's own syntax.&nbsp;</P>
+<P>This document uses the following definitions:</P>
+<P><SPAN class=RVTS3>&nbsp; target Language</SPAN>&nbsp;= The language in which the generated code will be written</P>
+<P><SPAN class=RVTS3>&nbsp; StateMachine Language</SPAN>&nbsp;= the language that's used in the graphical design</P>
+<P>The syntax used in the StateMachine Language is based on the common notation used for (hardware) statemachine. A mix of Moore and Mealy definitions is possible.</P>
+<P>&nbsp;&nbsp;</P>
+<P>The StateMachine Language knows 2 different sections, a condition section and a code section. The condition section and the code section are separarated with a doublke forward slash "//". Included target Language can appear in both sections.</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Output Code</SPAN></P>
+<P>StateMachine language Code that sets variables or IO-ports / pins.&nbsp;</P>
+<P>Examples:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LAMP1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; turn lamp1 on</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -LAMP2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; turn lamp2 off</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LAMP1 , -LAMP2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; trun lamp1 on and lamp2 off</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PortB = 12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;not yet possible, but you can use included target language</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Condition Code</SPAN></P>
+<P>Code that will evaluate to a boolean and is used as a condition for transitions.&nbsp;</P>
+<P>Examples:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SWITCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; if switch is on/true</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -SWITCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; if switch is off/false</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; VAR3 &gt;= VAR2 + 22</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Included target Language</SPAN></P>
+<P>This code is literaly copied to the generated code, and thus gives the possibillity to write anything not directly possible with the statemachine language. Included target language is any line that starts with an "&gt;".&nbsp;</P>
+<P>Examples:&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&nbsp;&nbsp; convert_char_2_double ( char_from_RS232 )&nbsp;&nbsp; //comment</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;// just some comment</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Operators</SPAN></P>
+<P>AND , OR, NOT, XOR, EXOR, =, &gt;, &gt;= , &lt;, &lt;=, (, ), +?, -?, /?, *?</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Code generation</SPAN></P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=173 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=183 height=185 src="diagram_img24.gif"></P></TD>
+<TD width=634 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;&nbsp;</P>
+<P>(else) if&nbsp; state = name&nbsp; then&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; execute&nbsp; CODE1&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; if&nbsp; CONDITION&nbsp; then&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; execute&nbsp; OUTPUTCODE&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; //code for other conditions (if available)</P>
+<P>&nbsp;&nbsp;&nbsp; else&nbsp; if&nbsp; CONDITION2&nbsp; then&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ....&nbsp;
+<BR>&nbsp;&nbsp;&nbsp; //code if StateMachine stays in this state</P>
+<P>&nbsp;&nbsp;&nbsp; else&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; execute&nbsp; CODE2&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; endif</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>As can be seen above, for a normal state there is a difference between the code in the central textblock and the code in the textbox on the right. If the statemachine enters this state and due to the necessary conditions it goes immediatly to another state, CODE2 is never executed, while CODE1 is always executed at least 1 time.</P>
+</BODY></HTML>

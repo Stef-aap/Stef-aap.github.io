@@ -1,0 +1,338 @@
+<HTML><HEAD><TITLE>Vector Editor</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS8>may, 2005</SPAN></P>
+<P><SPAN class=RVTS1>Vector Editor</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFE6 valign=top>
+<P><A class=RVTS4 href="#introduction">Introduction</A></P>
+<P><A class=RVTS4 href="#todo">ToDo list</A></P>
+<P><A class=RVTS4 href="#edit_window">Edit Window</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#edit_window">general</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#grid">grid</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#rubberband">rubberband connections</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#rotating">rotating objects</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#text">text editing / formatting</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#math_plots">math plots</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#rm">RM popups</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#page_settings">page / editor settings</A></P></TD>
+<TD width=100 bgcolor=#FFFFE6 valign=top>
+<P><A class=RVTS4 href="#edit_lib">Libraries&nbsp;</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#edit_lib">general</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#favorite_lib">favorite library</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#basic_lib">basic elements library</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#sharing_lib">sharing</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#lib_compatibility">compatibility</A>&nbsp;&nbsp;</P>
+<P><A class=RVTS4 href="#creating_objects">Creating New Objects</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#polygon_example">polygon example</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#connection_points">connection points</A></P></TD>
+<TD width=100 bgcolor=#FFFFE6 valign=top>
+<P><A class=RVTS4 href="#specials">Specials</A></P>
+<P>&nbsp; -&nbsp;<A class=RVTS4 href="#curved_lines">Curved Lines</A></P>
+<P>&nbsp; - StateMachine Code Generator&nbsp;</P>
+<P>&nbsp; - Timing Diagrams&nbsp;</P>
+<P>&nbsp; - VeroBorad Design&nbsp;</P>
+<P>&nbsp; - BreadBoard Design&nbsp;</P>
+<P><A class=RVTS4 href="#project_settings">Project Settings</A></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="introduction"></A>
+<SPAN class=RVTS2>Introduction</SPAN></P>
+<P>This vector editor is suitable for editing all kind of vector graphics, like</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Graphical Statemachine (+ code generation)&nbsp;</LI>
+<LI>Timing diagrams&nbsp;</LI>
+<LI>Veroboard design&nbsp;</LI>
+<LI>Breadboard design&nbsp;</LI>
+<LI>Electronic schematics&nbsp;</LI>
+<LI>Flowchart design&nbsp;</LI>
+<LI>... and much more&nbsp;</LI>
+</UL>
+<P>This vector editor is just a simple implementation of the powerfull freeware program called "Diagram Designer" from Michael Vinther&nbsp; (<A class=RVTS4 href="http://www.meesoft.com/">MeeSoft</A>). The editor is very easy to use and even the creation of new objects and/or new libraries is quite easy. For general Help, you should also check the site of Meesoft&nbsp;&nbsp;<A class=RVTS4 href="http://meesoft.logicnet.dk/DiagramDesigner/help.htm">Diagram Designer</A>&nbsp;(Some parts of this document are copied from the official Diagram Designer help pages)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=551 height=390 src="jalcc_vector_editor_img1.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>On the leftside is a<SPAN class=RVTS3>&nbsp;treeview</SPAN>, showing the hierarchical construction of the project. The treeview can also be used to select an object, layer or page or to edit the properties of the selected item. A project can consist of more pages, where each page can have upto 3 layers. All layers of a page are always shown, but only the active layer can be edited. There's also 1 special layer, called "overlay", which serves as the background layer for all pages. Pages and layers (except the special overlay layer) can be rearranged.</P>
+<P>In the center (top) is the&nbsp;<SPAN class=RVTS3>edit window</SPAN>, where you can edit the active layer. The editor has full drag and drop facilities. Right clicking on an object (or on the object in the treeview) will reveal all actions you may expect from a vector editor.</P>
+<P>On the right there are&nbsp;<SPAN class=RVTS3>2 library windows</SPAN>, from which you can drag objects to insert them into your drawing. The top library window, holds your favorite elements (which you can edit yourself and which can be different for different instances of JALcc) and is retrieved from the library file "JALcc_favorite_diagram.ddt" residing in the directory where also the JALcc inifile is (If the file doesn't exists, it is automatically created). The bottom library window can be loaded from any library file in the library path (this library path is the same for all JALcc instances). You can easily edit these libraries to fit your own needs.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=134 height=26 src="jalcc_vector_editor_img2.gif">&nbsp; zoom out / zoom in / full page / toggle grid / preview</P>
+<P>&nbsp;&nbsp;</P>
+<P>In the center at the bottom, you see an&nbsp;<SPAN class=RVTS3>code window</SPAN>, where the generated code from graphical designed statemachines is dumped. This window is only visible if a target language for the statemachine generator is selected. See for more information about Statemachines ....</P>
+<P>The&nbsp;<SPAN class=RVTS3>statusbar</SPAN>&nbsp;gives some information about the active object and the cursor position. The colored items in the statusbar serves also as buttons. If you're editing a library file, (which is done exactly in the same way as normal drawings) the first panel in the statusbar is RED !!</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="todo"></A>
+<SPAN class=RVTS2>ToDo</SPAN></P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Timing Objects for drawing timing diagrams in an easy way&nbsp;</LI>
+<LI>VeroBoard Objects, currently only some experimental objects are available, which prove the ability to implement a quite good veroboard design&nbsp;</LI>
+<LI>Special Pic Objects: pre-configured pic components, like PIC+Xtal+Caps, MAX232+caps etc&nbsp;</LI>
+<LI>Breadboard design, see Veroboard design&nbsp;</LI>
+<LI>unactive layers gestippeld ??&nbsp;</LI>
+<LI>easier editing of link points to newly created objects&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="edit_window"></A>
+<SPAN class=RVTS2>Edit Window</SPAN></P>
+<P>Editing is simply done by dragging objects from one of the library files to the current drawing layers. You can also select an object by clicking the Left or Middle Mousebutton, then the dragcursor will appear and you can drop the object by clicking with the Left Mouzebutton on the drawing surface. Most objects can be resized, rotated and text can be added to an item. For all basic objects (not metafiles, which are a kind of bitmaps) linestyle and colors can be changed.</P>
+<P>Clicking the MM-button in the drawing window, toggles between edit-mode and scroll-mode (hand cursor).</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="grid"></A>
+<SPAN class=RVTS2>Grid</SPAN></P>
+<P>The drawing surface has a grid, to which objects will snap. The grid is identical in X and Y direction and can be chozen from a predefinend set. Snapping to the grid can be prevented by holding the ALT-key, while dragging. Pay special attention to the grid settings when editing a library.</P>
+<P>Grid settings can be changed either by right clicking on the grid button or through the (none-selected) RM-menu | Page / Editor settings.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="rubberband"></A>
+<SPAN class=RVTS2>Rubberband Connections</SPAN></P>
+<P>To connect objects through rubber bands, you should be aware of the different basic object types:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>objects without connectionpoints (e.g. the vulcano in the example above)&nbsp;</LI>
+<LI>objects with connectionpoints (the small red crosses in the example above)&nbsp;</LI>
+<LI>connector objects, like the arrowline in the example above&nbsp;</LI>
+</UL>
+<P>Making a connection is done in the following way: select a connector object, drag one of the connector ends over a connection point (red cross) of another normal object or another connector object. As soon as the dragged connector end is over a connection point, a small green square is drawn and the connection is established by releasing the mouse button.</P>
+<P>Removing a connection: select the connector-object, drag the endpoint away and release the mousebutton.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="rotating"></A>
+<SPAN class=RVTS2>Rotating objects</SPAN></P>
+<P>Not all object types (e.g. text) can be rotated, but any object can be converted to a metafile object (kind of bitmap presentation, without any vector information) which can then be rotated. Select one or more objects, RM-click | Convert to metafile. Note that when converting to a metafile, the object will be locked so that text, color and other style properties can no longer be edited. To rotate a metafile object, change the Rotation angle in the Properties dialog. The angle is in degrees, counter-clockwise rotation.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="text"></A>
+<SPAN class=RVTS2>Text</SPAN></P>
+<P>Most basic objects have a text property, that can be edited in 2 different ways: through the RM-menu | properties | ... or through the MM-button, which popups an in-place editor. This in-place editor is still far from perfect, but has the advantage that you can see the separate lines and don't need to use the \n formating code.</P>
+<P>Some objects (e.g. StateMachine Objects) have more than 1 text property, only the first text property can be changed through the properties menu, all the other text properties can only be edited through the in-place editor.</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=113 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=96 height=98 src="jalcc_vector_editor_img12.gif"></P></TD>
+<TD width=546 bgcolor=#FFFFE6 valign=top>
+<P>Example of the in place editor , the inplace editor can be closed, either through the escape key or by focusing another item.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>Formatting text labels in Diagram Designer is done via special formatting codes in the text.</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=0 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=111 bgcolor=#FFFFE6 valign=top>
+<P>\Afilename.ddd</P>
+<P>\B ... \b</P>
+<P>\I ... \i</P>
+<P>\H ... \h</P>
+<P>\L ... \l</P>
+<P>\S ... \s</P>
+<P>\"Font"</P>
+<P>\###</P>
+<P>\n</P>
+<P>\p</P>
+<P>\P</P>
+<P>\\</P></TD>
+<TD width=560 bgcolor=#FFFFE6 valign=top>
+<P>link to another diagram (doubleclick the object is jump)</P>
+<P>Bold On / Bold off</P>
+<P>Italic On / Italic Off</P>
+<P>Superscript On / Superscript Off</P>
+<P>Subscript On / Subsript off</P>
+<P>Symbol Font</P>
+<P>Set font by name</P>
+<P>Three-digit font size</P>
+<P>New line</P>
+<P>Page number</P>
+<P>Page title</P>
+<P>single backslash</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=284 height=859 src="diagram symbols.png"></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="math_plots"></A>
+<SPAN class=RVTS2>Math Plots</SPAN></P>
+<P>From the second RM-menu (no object selected) | Insert Math Plot, you can easily create and insert graphs from mathematical functions. You can write e.g. plot(sin(x),x) to plot a function. To include it in the diagram, click Copy, and then click Paste in the diagram window.</P>
+<P>Be aware that all the expressions are case-sensitive (I'll probably change that in the future)</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=437 height=304 src="jalcc_vector_editor_img14.gif"></P>
+<P>&nbsp;<IMG width=684 height=199 src="diagram_plot.png"></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="rm"></A>
+<SPAN class=RVTS2>Right Mouse Popups</SPAN></P>
+<P>There are 2 different popup menus, depending on if an object is selected of not. Both popup menus are used in the edit window and in the treeview window.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=242 height=317 src="jalcc_vector_editor_img16.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=186 height=168 src="jalcc_vector_editor_img17.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Object(s) Selected&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nothing Selected&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>Most of the items in these popups are just the common actions. A few of them might need some clarifaction.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>paste as</SPAN></P>
+<P>Here you can choose how to past from the available clipboard formats.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Save Layer as Library</SPAN></P>
+<P>Any single layer can be saved as a (new) library file. The fileversion will depend upon the objects in the layer.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Properties</SPAN></P>
+<P>The exact format of the properties window will vary depending on the selected object, here a typical example:</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=281 height=358 src="jalcc_vector_editor_img18.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="page_settings"></A>
+<SPAN class=RVTS2>Page / Editor Settings</SPAN></P>
+<P>The page / editor settings are not module dependant but are project dependant. Therefor the settings are not stored in the JALcc inifile but in a file with the same path+name of the diagram file, but with the extension ".JPR".</P>
+<P>Because there are so few settings, the default values (for new projects, which don't have a JPR-file) is fixed at A4, portrait (all pages), 5 mm visible grid, tabcolor = blue;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=219 height=280 src="jalcc_vector_editor_img8.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=125 height=266 src="jalcc_vector_editor_img9.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="edit_lib"></A>
+<SPAN class=RVTS2>Editing / Creating a Library</SPAN></P>
+<P>Editing or creating a library is just as simple as a normal drawing. You can see a library as a simple drawing with just 1 page and just 1 layer. For editing libraries it's often more convenient to open 2 windows, open an empty to make a new object and after you're satisfied copy the object (^C) and paste (^V) it into the library. Another point of interest, you can always save the active layer of a normal drawing as a (new) library.</P>
+<P>When editing a library file, the first panel in the statusbar is colored RED, to warn you to be very carefull.</P>
+<P>There are 2 special libraries, your own "favorite library" and a library with all the basic objects (that's because there are no buttons to create these basic objects). When editing libraries, pay special attention to the grid settings !</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="favorite_lib"></A>
+<SPAN class=RVTS2>Favorite Library</SPAN></P>
+<P>This is the library shown on the right top of the vector editor window. It contains your favorites, and others (or yourself) on the same computer, can have different favorites-library. The favorites-library resides in the directory where the current JALcc inifile is stored and is named "<SPAN class=RVTS3>JALcc_favorite_diagram.ddt</SPAN>". By starting JALcc with another inifile in a different directory, you will have a different favorite library file. If the favorite library file doesn't exists, it's created.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="basic_lib"></A>
+<SPAN class=RVTS2>Basic Elements Library</SPAN></P>
+<P>This library contains all the basic elements and resides in the mainpath of JALcc. This file can not be edited.&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="sharing_lib"></A>
+<SPAN class=RVTS2>Sharing Libraries</SPAN></P>
+<P>If you've made a new object library palette for diagrams or flowcharts which you find could be usefull to others, then please send them to&nbsp;<A class=RVTS4 href="http://www.meesoft.com/">MeeSoft</A>&nbsp;(Send only files with fileversion 11). It could be symbols for e.g. electronic diagrams or software design flowcharts.</P>
+<P>On the MeeSoft website you can find the currently available libraries:&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="http://meesoft.logicnet.dk/DiagramDesigner/Templates/">Diagram Designer template palettes</A></P>
+<P>Some objects (StateMachine objects, BreadBoard objects, VeroBoard objects and Timing Diagram Objects) are not supported by the official version of Diagram Designer, so don't send libraries derived from these objects to MeeSoft. Libraries with one or more of these special components will have version number N*100+11, where N is the special JALcc version number, starting at N=0.</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="lib_compatibility"></A>
+<SPAN class=RVTS2>Compatibility</SPAN></P>
+<P>If edited libraries are saved the are saved in version 11, if it doesn't contain any special JALcc objects, like StateMachine Objects. Otherwise it's saved as version N*100+11. Uploading of libraries to the MeeSoft website with version number higher than 11 is not meaningfull.</P>
+<P>Downloading of libraries from the MeeSoft site goes well for libraries upto version 10, and sometimes goes well for libraries of version 11. I don't have the correct information about the differences between version 10 and 11, so I cann't fix this problem.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="creating_objects"></A>
+<SPAN class=RVTS2>Creating Objects</SPAN></P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;&nbsp;</SPAN></P>
+<P><A name="polygon_example"></A>
+<SPAN class=RVTS2>Polygon Example</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=104 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=561 bgcolor=#FFFFE6 valign=top>
+<P>Before making an object you best decide first if this object is just used once in this drawing or that it will be part of a library.&nbsp;</P>
+<P>If it will be part of a library, first edit the object in a new diagram (or new layer), and when you're satisfied, open the library for editing and copy and paste the newly created object in the library.&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=105 bgcolor=#FFFFE6 valign=top>
+<P class=RVPS2>GRID</P></TD>
+<TD width=561 bgcolor=#FFFFE6 valign=top>
+<P>Pay special attention to the grid settings, when creating objects for libraries. If you are using the library later on in a drawing with a different grid setting, the objects may not be alligned properly.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=104 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=102 height=94 src="createpoly0.png"></P></TD>
+<TD width=555 bgcolor=#FFFFE6 valign=top>
+<P>The first you have to do when creating a polygon object is to draw the outline using simple lines. In this example we will make a simple filled triangle.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=102 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=102 height=94 src="createpoly1.png"></P></TD>
+<TD width=557 bgcolor=#FFFFE6 valign=top>
+<P>The lines must be connected with no holes in the shape</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=102 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=102 height=94 src="createpoly2.png"></P></TD>
+<TD width=557 bgcolor=#FFFFE6 valign=top>
+<P>Then the lines should be combined to a group: Select the lines and click Object | Group.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=102 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=102 height=94 src="createpoly3.png"></P></TD>
+<TD width=557 bgcolor=#FFFFE6 valign=top>
+<P>Now the group can be converted to a polygon using Object | Convert to polygon. Polygons can be filled and text can be written in the center.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=103 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=556 bgcolor=#FFFFE6 valign=top>
+<P>Now you can add connection points&nbsp;</P>
+<P>and store the new object in a library file</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="connection_points"></A>
+<SPAN class=RVTS2>Adding Connection Points</SPAN></P>
+<P>Adding Connection Points to an object is done through the window shown below. At the moment it's a bit clumsy, but I intend to improve that soon. Connection Points are always definied in a relative way, that's X-range and Y-range are from 0..1. You either add new points by clicking in the image with the grid or press Add, after which you much type the coordinates.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=396 height=252 src="jalcc_vector_editor_img19.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="specials"></A>
+<SPAN class=RVTS2>Specials</SPAN></P>
+<P>Some objects may need some clarification:</P>
+<P><A name="curved_lines"></A>
+<SPAN class=RVTS3>Curved Lines</SPAN>, when a curved line is drawn for the first time, the show up like a straight line with just 2 points. After selecting the curved line, all avaliable points will become visible. By clicking Left and Right mousebutton simultanuous on one of the points, a point is inserted near the clicked point. By dragging the points, smooth curves will appear.</P>
+<P>&nbsp;&nbsp;</P>
+<P>For JALcc a number of special components are created:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>StateMachine Code Generator&nbsp;</LI>
+<LI>Timing Diagram drawing&nbsp;</LI>
+<LI>VeroBoard Design&nbsp;</LI>
+<LI>BreadBoard Design&nbsp;</LI>
+<LI>PIC schematics&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="project_settings"></A>
+<SPAN class=RVTS2>Project Settings</SPAN></P>
+<P>All settings (like splitter positions, target language, tree expansion, etc) are stored in a project file, with the same filename and directory as the project (*.ddd) but with the extension JPR).</P>
+</BODY></HTML>

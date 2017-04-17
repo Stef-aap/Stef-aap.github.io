@@ -1,0 +1,68 @@
+-- -----------------------------------------------------------------------------
+-- demo JAL v2: software RS232
+-- This demo waits for a character on the RS232 receiver-pin
+-- and then echoes the inversed byte through the RS232 transmitter-pin
+-- this program shows 2 ways of communication:
+--     wait till character, then proceed
+--     if character then do something special, but always proceed
+-- You can toggle between the 2 modes, by sending a 0xAA   
+-- -----------------------------------------------------------------------------
+-- Tested
+--    16F877, 20 MHz: ok
+--    12F675, 4 MHz (internal, calibrated): ok 
+--    JALss + 16F877: ok
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- include hardware definitions
+-- select the appropriate devive library
+-- -----------------------------------------------------------------------------
+include jal_v2_demo_16F877 ;external 20 MHz Xtal
+;include jal_v2_demo_12F675 ;internal 4 MHz (calibrated)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- start of the main program
+-- this program shows 2 ways of communication:
+--     wait till character, then proceed
+--     if character then do something special, but always proceed
+-- You can toggle between the 2 modes, by sending a 0xAA   
+-- -----------------------------------------------------------------------------
+var byte Data
+var bit RS232_wait = true
+forever loop
+  -- in case of wait untill character is received
+  if RS232_wait then
+    -- wait till character received   
+    Data = Serial_SW_data
+    -- echo inverted
+    Serial_SW_Data = ! Data
+    
+    -- test if special character for mode switching
+    if DATA == 0xAA then
+      -- if mode switching, do so 
+      RS232_wait = ! RS232_wait
+      -- and send an extra 0xAA
+      Serial_SW_Data = 0xAA 
+    end if
+  -- in case of no wait if no character
+  else
+    -- if character received
+    if Serial_SW_read ( Data ) then
+      -- echo the inverted character
+      Serial_SW_write ( ! Data )
+
+      -- test if special character for mode switching
+      if DATA == 0xAA then 
+        -- if mode switching, do so 
+        RS232_wait = ! RS232_wait 
+        -- and send an extra 0x55
+        Serial_SW_Data = 0x55 
+      end if
+    end if
+  end if
+  
+end loop
+-- -----------------------------------------------------------------------------

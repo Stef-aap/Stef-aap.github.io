@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JALsPy Animations</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="7" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>august 2007</span></p>
+<p><span class=rvts1>JALsPy&nbsp;&nbsp; Animated Demos</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <a href="punthoofd.gif"><img width=16 height=17 alt="" src="punthoofd.gif"></a>&nbsp; <a class=rvts4 href="../jalcc/jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>The animations below are in reversed order, i.e. the newest animation is on top.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Analog Simulation</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Oscilloscope</span></p>
+<p><a class=rvts4 href="http://stef.mientki.googlepages.com/jalspy_scope.html">Movie 2:10 , 2.0 MB&nbsp; november 2007</a></p>
+<p>This demo shows the usage and control of the oscilloscope.</p>
+<p><br></p>
+<p><span class=rvts10>RS232, compile and upload</span></p>
+<p><a class=rvts4 href="http://stef.mientki.googlepages.com/rs232_upload.html">Movie 1:00 , 0.7 MB&nbsp; october 2007</a></p>
+<p>This demo shows the following topics: RS232 output, accurate delay timing, upload/compile and run in real hardware.</p>
+<p><br></p>
+<p><span class=rvts10>Reading TI59 ROM-code</span></p>
+<p><a class=rvts4 href="http://stef.mientki.googlepages.com/jalspy_demo_file.html">Movie 2:40 , 1.5 MB&nbsp; september 2007</a></p>
+<p>This demo shows the following topics: inline assembler, breakpoint, PIC-device, Signal-File device.</p>
+<p><br></p>
+<p><span class=rvts10>Bresenham / McILROY&nbsp;&nbsp; Lines / Circles / Arcs</span></p>
+<p><a class=rvts4 href="http://stef.mientki.googlepages.com/bresenham.html">Movie 1:35 , 2 MB&nbsp; september 2007</a></p>
+<p>This demo shows T6963c library in action in JALsPy, drawing / erasing lines, circles and arcs.</p>
+<p><br></p>
+<p><span class=rvts10>HD44780 LCD controller</span></p>
+<p><a class=rvts4 href="http://stef.mientki.googlepages.com/jalspy_demo_lcd.html">Movie 1:05 , 400 kB&nbsp; september 2007</a></p>
+<p>This demo shows the control of 2*16 LCD character display. This virtual device supports all functions of the standard HD44780 library and the HD44780 animation library. The demos shows 1-line scrolling, cursor / blink modes, user characters and animated characters.</p>
+<p><br></p>
+<p><span class=rvts10>Robot 1</span></p>
+<p><a class=rvts4 href="http://stef.mientki.googlepages.com/jalspy_demo_robot1a.html">Movie 3:50 , 1.8 MB&nbsp; september 2007</a></p>
+<p>This demo shows a robot, with a left and right motor and a left and right whisker. The environment of the robot can easily be adapted. This may sound weird, because we have only one JAL-program for one PIC, but as the robot is a virtual device the simulation can contain an unlimited amount of robots, all controlled from the one JAL program.</p>
+<p><br></p>
+<p><span class=rvts10>Alarm Clock</span></p>
+<p><a class=rvts4 href="http://stef.mientki.googlepages.com/jalspy_demo_alarm_clock.html">Movie 1:10 , 2.5 MB&nbsp; august 2007</a></p>
+<p>This demo show an alarm clock (a real application), with all kinds of extra features, like a different alarm time each day, programmable from a RS232 line etc. The JAL code automatically creates the 7-Segment display and 2 virtual buttons and no further schematics is needed. The program uses all kinds of libraries e.g., strings / format / data-eeprom / serial RS232 / delays</p>
+<p>This demo revealed the following problems with the translation in JALsPy:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>boolean operators are handled as bitwise operators, resulting in wrong code </li>
+<li>put procedures are not handled correctly </li>
+<li>volatile not handled </li>
+<li>if statement complete on 1 line </li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>7-Segment Display</span></p>
+<p><a class=rvts4 href="http://stef.mientki.googlepages.com/jalspy_demo_7_segment.html">Movie: 2:10, 1 MB, august 2007</a></p>
+<p>This demo shows a simple JAL program running in JALsPy and controlling a 7-Segment Display. As the 7-Segment display is created as a super virtual component, the demo shows how the necessary hardware is automatically created by just running the JAL-simulation. This is the first demo that fully runs in the simulator without any tricks.</p>
+<p><br></p>
+<p><span class=rvts10>Graphical LCD Display</span></p>
+<p><a class=rvts4 href="http://stef.mientki.googlepages.com/jal_simulator2.html">Movie: 2:20, 1.8 MB, june 2007</a></p>
+<p>This demo shows a JAL program that controls a graphical LCD. The JAL code is translated by JALsPy, the hardware connections are still done by manual coding.</p>
+<p><br></p>
+<p><span class=rvts10>The first ideas</span></p>
+<p><a class=rvts4 href="http://stef.mientki.googlepages.com/jal_simulator1.html">Movie: 1:50, 600 kB, june 2007</a></p>
+<p>This demo shows the first ideas of what the JALsPy simulator should be capable of. Although what you see is a real running Python program, but most of the things were hard coded, the JAL-file was manually translated into Python code.</p>
+<p><br></p>
+
+</body></html>

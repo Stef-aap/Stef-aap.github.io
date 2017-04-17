@@ -1,0 +1,40 @@
+<HTML><HEAD><TITLE>Building Devices</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>September 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, Building Devices</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;</SPAN></P>
+<P>The simulation is done with a 2-phase system clock, which frequency is derived from the device with the highest frequency.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>In the first phase all the devices read their input signals.&nbsp;</LI>
+<LI>In the second phase all the devices generate their output signals&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>Calculation of the output signals can be done either in the first or the second phase. Depending on where the calculation is done, either the input signals or the output signals should be stored temporary.</P>
+<P>Devices can be implemented in following ways:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>integrated in JALss, can only be done by the writer / owner of this program&nbsp;</LI>
+<LI>as a simple DLL, making use of a standard available graphical form&nbsp;</LI>
+<LI>as a full DLL, with a completly self designed graphical form&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>An DLL-device is a little slower than an integrated-device (about 10%) and (at the moment) lacks the special features of looking into the device.</P>
+<P>When you build a device for the first time, it's advisable to&nbsp;<A class=RVTS4 href="jalss_building_a_simple-dll-device.html">build a simple-DLL-device</A>&nbsp;first. When this simple-DLL-device works it's easy to translate it to a&nbsp;<A class=RVTS4 href="jalss_building_a_full-dll-device.html">full-DLL-device</A>.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="register_the_device"></A>
+<SPAN class=RVTS2>Register the device</SPAN></P>
+<P>&nbsp;After building a DLL-device, it must be "registrated", which is simply done by adding a few text lines to the ini-file.</P>
+<P>Because every device has it's own unique ID-number, it's advisible to register the ID-number on this site, which garantees that future versions will not interfere with your own devices. And of course it would be wonderfull if you would make your devices available for other users.</P>
+</BODY></HTML>

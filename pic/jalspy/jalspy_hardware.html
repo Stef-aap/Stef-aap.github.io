@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="133" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>july 2007</span></p>
+<p><span class=rvts1>JALsPy&nbsp; Hardware</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <a href="punthoofd.gif"><img width=16 height=17 alt="" src="punthoofd.gif"></a>&nbsp; <a class=rvts4 href="../jalcc/jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>You can either create the hardware description directly into JALsPy, but it's far more convenient to import the hardware description from a real schematic design package like Eagle (free for small projects and relatively easy to learn).</p>
+<p>The basics of the hardware description consists of:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>partlist </li>
+<li>netlist </li>
+<li>properties of each individual part </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Eagle Schematic</span></p>
+<p>Let's start by creating a simple schematic in Eagle.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=530 height=575 alt="" src="jalspy_hardware_img1.png"></p>
+<p><br></p>
+<p>After creating the schematic in Eagle, 2 files should be exported from Eagle</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>PartList (File | Export | PartList), use the same filename as the main-JAL-file but use as extension '.pal' </li>
+<li>PinList (File | Export | PinList), use the same filename as the main-JAL-file but use as extension '.pil' </li>
+</ul>
+<p>We don't need the netlist, because PartList and PinList together give more and better information.</p>
+<p>(Note: it would be very handy if someone could make an ULP, the export can be done with just 1 command, guaranteeing the right filenames)</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Eagle Import</span></p>
+<p>Now if we start the program for the first time, it will try to import a schematic from the part and pinlist (if available), and in our graphical view of the hardware we might see the following:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=416 height=303 alt="" hspace=1 vspace=1 src="jalspy_hardware_img6.png"></p>
+<p><br></p>
+<p>On the left we see the "known" devices, i.e. the devices that are recognized by JALsPy. We can distinguish both the LEDs, "LED1" and "ALARM", we see the switch "U$1". On the right the "unknown" devices are shown,&nbsp; the PIC "IC2" and the resistors "R1" and "W2". </p>
+<p>Although the unknown devices don't have any functionality yet, their information is completely imported. Let's ask the properties of IC2 (the PIC), we see that RA0 is connected to netlist "N$4", which is exactly like in Eagle.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=400 height=400 alt="" hspace=1 vspace=1 src="jalspy_hardware_img7.png"></p>
+<p><br></p>
+<p>and because we've all the pin definitions now, this is a good start to create the device. </p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

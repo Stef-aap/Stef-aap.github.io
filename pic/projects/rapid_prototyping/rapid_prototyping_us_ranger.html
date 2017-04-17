@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>RPD UltraSonic Range Detector</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #efefef;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="489" /></head>
+<body>
+
+<p class=rvps3><span class=rvts7> august 2005</span></p>
+<p><span class=rvts1>RPD&nbsp; UltraSonic Range Detector</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; <img width=32 height=32 alt="" src="rbd.png">&nbsp; <a class=rvts4 href="rapid_prototyping_devices.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p>This module detects objects with the help of ultrasound. Although the hardware circuit is much simpeler (just one IC)&nbsp; then the well known SFR04, it has at least equal performance. This is because there are also some tricks in the software.</p>
+<p>&nbsp;&nbsp; </p>
+<p><img width=707 height=477 alt="" src="rapid_prototyping_us_ranger_img3.gif"></p>
+<p>&nbsp;&nbsp; </p>
+<p>The main parts of the transmitter consists of L1 and US1. The US-transducer (while not yet at it's resonance frequency) behaves like a pure capacitor, the combination of L1 and US1 forms an resonance LC-circuit, in which energy can be stored and where this energy will be converted to US sine wave of about 40 kHz. Due to the weird impedance behaviour of US1, it's not necessary to exactly tune the LC-circuit. Because a lot of energy can be stored in L1, we can control the transmitter with just 1 pin. (Using 2 opposite connected IO-pins to drive the transmit circuit doesn't add any extra energy. With this circuit ranges of 3 .. 4 metre are no problem, so there's no need to use higher voltages than the PIC's 5 Volt. Besides, in most cases we're more interested in short ranges, say below 20 cm, and therefore extra effort should be invested to lower the output of the transmitter, to reduce cross-talk. The latter is implemented as one of the software tricks.</p>
+<p>&nbsp; </p>
+<p>The receiver circuit starts of course at US2. Resistor R1 damps the oscillation circuit&nbsp; (for low frequencies) of US2, which is important if you want to measure short ranges (the signal loss due to absorbtion of energy in R1 is small, C2+R2 ~1500 Ohm @ 40kHz).The first amplifier U1C amplifies the signal (@ 40 kHz) by about a factor 100k/1k5=65. This slightly too high for the LM324 (GBW=1.2MHz). The great benefit of this is that high frequencies are filtered in this way by the quality of the opamp, so we don't need extra components. Of course the amplifiers are coupled with a small capacitor (1nF = 500 Ohm @ 40 kHz) to filter out the high frequencies.</p>
+<p>The second stage (around U1D), also amplifies the signal by 65, but this stage also rectifies the signal. The rectified signal is integrated by R6 and C4. The integrated (low frequency signal) is now amplified by a factor 5 (U1A). The stage U1A has another important function, namely to supply a low impedance source for the smitt-trigger.</p>
+<p>Finally U1B is setup as a smitt-trigger, to detect US-levels that are large enough.</p>
+<p>Resistor R13 is simply an extra safety against wrong programming of the PIC.</p>
+<p>&nbsp; </p>
+<p>Some important notes, about this circuit, that might easy be overlooked:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>L1 and C1 should be connected close together (large oscillating currents) </li>
+<li>US2 and R1 should be connected between the inputs of opamp U1C (and not individually to 2V5) </li>
+<li>C4 and C5 should be tied to 2V5 and not to ground </li>
+<li>mounting of the transducers is important </li>
+</ul>
+<p>&nbsp; </p>
+<p><span class=rvts7>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=121 height=84 alt="" src="rapid_prototyping_us_ranger_img2.gif"><span class=rvts7>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=261 height=210 alt="" src="rapid_prototyping_us_ranger_img4.gif"><span class=rvts7>&nbsp; </span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=271 height=134 alt="" src="rapid_prototyping_us_ranger_img5.gif"><span class=rvts7>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=131 height=166 alt="" src="rapid_prototyping_us_ranger_img23.gif"></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Some experiments</span></p>
+<p>Top channel is the transmit puls, measured on the transducer.</p>
+<p>Bottom channel is the amplified and rectified received signal, measured at connection of D2/R6.</p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #000000;}">
+<tr valign=top>
+<td width=169 height=143 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p><img width=171 height=136 alt="" src="rapid_prototyping_us_ranger_img8.gif"></p>
+</td>
+<td width=513 height=143 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p>Transducer space = 3 mm </p>
+<p>Transmit puls =&nbsp; float - low - high - 1us - float </p>
+<p>In this case the transmitted energy is so low that, although visible, the crosstalk echo will not be detected.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #000000;}">
+<tr valign=top>
+<td width=159 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p><img width=158 height=125 alt="" src="rapid_prototyping_us_ranger_img9.gif"></p>
+</td>
+<td width=523 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p>Transducer space = 3 mm </p>
+<p>Transmit puls = float - low - high - 6us - float </p>
+<p>We increased the transmit energy, to extend the measurement range and to detect smaller objects. From the tracing on the left, the problem is clear, the crosstalk is detected and we cann't detect very well in the first 5 cm. </p>
+<p>&nbsp;&nbsp; </p>
+<p>Performance: none (unless multiple detections are allowed)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #000000;}">
+<tr valign=top>
+<td width=180 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p><img width=186 height=139 alt="" src="rapid_prototyping_us_ranger_img11.gif"></p>
+</td>
+<td width=502 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p>And here a magic trick: parameters equal to the previous recording, but just a small piece of material put assymetrical between the transducers. </p>
+<p>&nbsp; </p>
+<p>The crosstalk is totally invisible!! </p>
+<p>&nbsp;&nbsp; </p>
+<p>Performance: </p>
+<p>Large Object Measurement Range = 2 .. 30 cm </p>
+<p>Pencil Measurement Range = 2 .. 6 cm </p>
+<p>Closest Detection = 5 mm</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #000000;}">
+<tr valign=top>
+<td width=222 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p>&nbsp;&nbsp; </p>
+<p><img width=100 height=117 alt="" src="rapid_prototyping_us_ranger_img13.gif">&nbsp;&nbsp; <img width=109 height=125 alt="" src="rapid_prototyping_us_ranger_img14.gif"></p>
+</td>
+<td width=460 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p>The piece of foam is about 15*10 mm and 3mm thick. A small piece of aluminium also works.The piece of foam extends about 5 mm in front of the transducers. All these measures are not very sensitive, the real important thing is that the piece of material is exactly placed at the half of the transducers. </p>
+<p>&nbsp; </p>
+<p>The explanation (I'm good in fairy tails ;-), half of the sound travels the normal way through the air from transmitter to receiver, the other half of the sound energy goes around the piece of material. These 2 waves meet at the receiver sensor, but because they are 180 degrees out of phase, they cancel each other.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #000000;}">
+<tr valign=top>
+<td width=193 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p><img width=188 height=149 alt="" src="rapid_prototyping_us_ranger_img15.gif"></p>
+</td>
+<td width=489 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p>Increasing the energy to the maximum (for this kind of puls) </p>
+<p>Transducer space = 3 mm </p>
+<p>Transmit puls = float - low - high - 14us - float </p>
+<p>Object: large at 30 cm </p>
+<p>&nbsp;&nbsp; </p>
+<p>Performance: none </p>
+</td>
+</tr>
+<tr valign=top>
+<td width=193 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p><img width=198 height=149 alt="" src="rapid_prototyping_us_ranger_img16.gif"></p>
+</td>
+<td width=489 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p>And now with the magic piece of foam, beautiful !! </p>
+<p>&nbsp;&nbsp; </p>
+<p>Performance: </p>
+<p>Large Object Measurement Range = 2 .. 50 cm </p>
+<p>Pencil Measurement Range = 2 .. 10 cm </p>
+<p>Closest Detection = 5 mm (due to the foam)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Now can we reach the same results without the magic piece of foam ?</p>
+<p>Yes, another way to achieve this is to move the transducers further away from each other.</p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #000000;}">
+<tr valign=top>
+<td width=203 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p>&nbsp;&nbsp; </p>
+<p>sorry, lost the picture</p>
+</td>
+<td width=479 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffe6;}">
+<p>Increasing the energy to the maximum (for this kind of puls) </p>
+<p>Transducer space = 30 mm </p>
+<p>Transmit puls = float - low - high - 14us - float </p>
+<p>Object: large at 30 cm </p>
+<p>&nbsp;&nbsp; </p>
+<p>Performance: </p>
+<p>Large Object Measurement Range = 2 .. 50 cm </p>
+<p>Pencil Measurement Range = 2 .. 10 cm </p>
+<p>Closest Detection = 2 mm</p>
+</td>
+</tr>
+</table>
+</div>
+<p>There's just one little disadvantage (besides the module becomes larger),&nbsp; at lower ranges the measurements aren't very linear, simply because of trigonometrics.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Conclusion</span></p>
+<p>From the measurements above (and some other measurements not documented here), we can draw the following conclusions:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>to detect both objects at short ranges and objects at large ranges, it's necessary to manipulate either the transmitted energy or to control the detection level. Controling the transmitting energy is better if real measurement at short distances is desired. </li>
+<li>the power of the transmitted ultrasonic puls can be controlled quiet good, by pulswidth at low energies and by the number of transmittes full waves at medium and high energy. </li>
+<li>to reduce crosstalk (which interferes with objects at short distances) we either need to place the transducers far from each other (3 cm) or need to place the magic piece of foam (or any other solid material) in between the close-together transducers. </li>
+<li>Placing the transducers close together minimizes the trigoniometric errors at short ranges. </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Software</span></p>
+<p>The Software starts with a very low energy transmit puls. After a short deadspace (&lt;2mm), it tries to detect echoes within a relative short measurement range. If an echo is found, the detection is ready. If no echo was found, it tries again with an medium energy transmit puls, a longer deadspace and a longer measurement. If still no echo is found, the procedure is repeated with more energy and longer times/distances.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=635 height=210 alt="" src="rapid_prototyping_us_ranger_img21.gif"></p>
+<p>&nbsp; </p>
+<p>Normally the transmit pin is left floating, so the resonance circuit can transform electrical energy into ultrasound. The transmit puls for the low energy level is shown below. The exitating puls is just a half (or less) positive puls. By varying the time the pin is not floating (here 14 usec = halfwave, maximum for this kind of puls), we can control how much energy is stored in L1 and therefor how much ultrasound energy is produced. For the medium and high energy pulses, we generate a number of full wave exitations. The number of full waves determine the ultrasound energy that will be produced. More then 20 full waves, doesn't add much energy to the puls, but just make the sound last longer.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=333 height=250 alt="" src="rapid_prototyping_us_ranger_img22.gif"></p>
+<p>&nbsp; </p>
+<p>For each of the ranges (low,medium, high), all the parameters, like transmit energy, deadspace and measurement range, can be easily adapted in the software.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Transducer Placement</span></p>
+<p>If the minimal desired distance is 5 cm or larger, it doesn't matter how the transducers are placed.</p>
+<p>If short ranges, downto 2 mm are desired, we've 2 choices, either place the transducers far from each other (&gt;3 cm) or place the magic piece of foam.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=271 height=134 alt="" src="rapid_prototyping_us_ranger_img5.gif"></p>
+<p>transducers 3 cm from each other</p>
+<p>&nbsp; </p>
+<p><span class=rvts7>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=131 height=166 alt="" src="rapid_prototyping_us_ranger_img23.gif">&nbsp;&nbsp;&nbsp; <img width=139 height=129 alt="" src="rapid_prototyping_us_ranger_img24.gif">&nbsp;&nbsp;&nbsp;&nbsp; <img width=255 height=299 alt="" src="rapid_prototyping_us_ranger_img20.gif"></p>
+<p>transducer, place against each other, with the magic piece of foam in between.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>JALcc macro call </span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=287 height=34 alt="" src="rapid_prototyping_us_ranger_img17.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>JALcc use</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=526 height=119 alt="" src="rapid_prototyping_us_ranger_img18.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>JALcc macro expansion</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=487 height=83 alt="" src="rapid_prototyping_us_ranger_img19.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>BackGround Information</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <a class=rvts4 href="http://www.robot-electronics.co.uk/shop/Ultrasonic_Rangers1999.htm">Shop with a whole range of US range finders Devantech Ltd.</a></p>
+<p>&nbsp; </p>
+<p>&nbsp; <a class=rvts4 href="http://www.robot-electronics.co.uk/htm/srf04tech.htm">History of the SFR04</a></p>
+<p>&nbsp; </p>
+<p>&nbsp; <a class=rvts4 href="http://www.rdrop.com/~cary/html/ultrasonic.html">ultrasonics</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.ee.latrobe.edu.au/~djc/UltraSonics/Ultrasonics.htm">Ultrasonic Tranducers &amp; Ultrasonic signals</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.interq.or.jp/japan/se-inoue/e_pic6_6.htm">Ultrasonic Range Meter</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.ele.uva.es/~jesus/sonar/sonar.html">Homebrew Utrasonic Imager</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.hexamite.com/he240tr.htm">Ultrasonic Doppler Transceiver Transducers Sensors Air 40Khz</a></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.restena.lu/convict/Jeunes/beacon/Sender.htm">IR-ultrasonic sender</a></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp; <a class=rvts4 href="http://www.robot-electronics.co.uk/htm/srf1.shtml">Ultra-Sonic Ranging Design</a></p>
+<p><br></p>
+
+</body></html>

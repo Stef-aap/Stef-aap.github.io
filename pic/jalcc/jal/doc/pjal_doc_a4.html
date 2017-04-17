@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>JAL 2.0 manual</TITLE>
+<META name="description" CONTENT="JAL 2.0 manual">
+<META name="keywords" CONTENT="pjal_doc_a4">
+<META name="resource-type" CONTENT="document">
+<META name="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META name="generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" href="pjal_doc_a4.css">
+
+<LINK REL="next" href="pjal_doc_a4_node1.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A name="tex2html63"
+  href="pjal_doc_a4_node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" src="next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" src="up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" src="prev_g.png"> 
+<A name="tex2html61"
+  href="pjal_doc_a4_node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" src="contents.png"></A>  
+<BR>
+<B> Next:</B> <A name="tex2html64"
+  href="pjal_doc_a4_node1.html">JAL 2.0 manual</A>
+ &nbsp; <B>  <A name="tex2html62"
+  href="pjal_doc_a4_node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+
+<P>
+<I>JAL 2.0</I> <FONT COLOR="#000000">Manual</FONT>
+<BR>
+<BR><FONT COLOR="#000000">Copyright &#169;2006</FONT> <FONT COLOR="#000000">J<SMALL>AVIER
+</SMALL>M<SMALL>ART&#205;NEZ</SMALL></FONT><FONT COLOR="#000000">,</FONT> <FONT COLOR="#000000">D<SMALL>AVE </SMALL>L<SMALL>AGZDIN</SMALL></FONT><FONT COLOR="#000000">&nbsp;and</FONT><FONT COLOR="#000000">&nbsp;V<SMALL>ASILE </SMALL>S<SMALL>URDUCAN</SMALL></FONT><FONT COLOR="#000000">.
+</FONT>
+<BR>
+<BR><FONT COLOR="#000000">Permission is granted to copy, distribute and/or
+modify this document under the terms of the GNU Free Documentation
+License, Version 1.2 or any later version published by the Free Software
+Foundation; with no Invariant Sections,</FONT> with this Front-Cover <FONT COLOR="#000000">Texts,
+and no Back-Cover Texts. A copy of the license is included in the
+section entitled ''GNU Free Documentation License''.</FONT>
+
+<P>
+<H1 ALIGN="CENTER"><I>JAL 2.0</I> manual</H1>
+<DIV>
+
+<P ALIGN="CENTER"><STRONG>J<SMALL>AVIER </SMALL>M<SMALL>ART&#205;NEZ</SMALL></STRONG></P>
+
+
+<P ALIGN="CENTER"><STRONG>D<SMALL>AVE </SMALL>L<SMALL>AGZDIN</SMALL></STRONG></P>
+
+
+<P ALIGN="CENTER"><STRONG>V<SMALL>ASILE </SMALL>S<SMALL>URDUCAN</SMALL></STRONG></P>
+</DIV>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A name="child_links"></A>
+
+<UL>
+<LI><A name="tex2html65"
+  href="pjal_doc_a4_node1.html"><I>JAL 2.0</I> manual</A>
+<LI><A name="tex2html66"
+  href="pjal_doc_a4_node2.html">Contents</A>
+<LI><A name="tex2html67"
+  href="pjal_doc_a4_node3.html">Revision history</A>
+<LI><A name="tex2html68"
+  href="pjal_doc_a4_node4.html">1 Language definition</A>
+<UL>
+<LI><A name="tex2html69"
+  href="pjal_doc_a4_node5.html">1 basics</A>
+<UL>
+<LI><A name="tex2html70"
+  href="pjal_doc_a4_node5.html#section00411000000000000000">1 Format</A>
+<LI><A name="tex2html71"
+  href="pjal_doc_a4_node5.html#section00412000000000000000">2 Comments</A>
+<LI><A name="tex2html72"
+  href="pjal_doc_a4_node5.html#section00413000000000000000">3 Includes </A>
+<LI><A name="tex2html73"
+  href="pjal_doc_a4_node5.html#section00414000000000000000">4 Program</A>
+<LI><A name="tex2html74"
+  href="pjal_doc_a4_node5.html#section00415000000000000000">5 Scope</A>
+<LI><A name="tex2html75"
+  href="pjal_doc_a4_node5.html#section00416000000000000000">6 Block</A>
+</UL>
+<LI><A name="tex2html76"
+  href="pjal_doc_a4_node6.html">2 basic types</A>
+<UL>
+<LI><A name="tex2html77"
+  href="pjal_doc_a4_node6.html#section00421000000000000000">1 Built-in types</A>
+<LI><A name="tex2html78"
+  href="pjal_doc_a4_node6.html#section00422000000000000000">2 Extending types</A>
+</UL>
+<LI><A name="tex2html79"
+  href="pjal_doc_a4_node7.html">3 Literals</A>
+<LI><A name="tex2html80"
+  href="pjal_doc_a4_node8.html">4 Constants</A>
+<LI><A name="tex2html81"
+  href="pjal_doc_a4_node9.html">5 Variables</A>
+<UL>
+<LI><A name="tex2html82"
+  href="pjal_doc_a4_node9.html#section00451000000000000000">1 Declaration</A>
+<LI><A name="tex2html83"
+  href="pjal_doc_a4_node9.html#section00452000000000000000">2 Location</A>
+<LI><A name="tex2html84"
+  href="pjal_doc_a4_node9.html#section00453000000000000000">3 Volatile</A>
+<LI><A name="tex2html85"
+  href="pjal_doc_a4_node9.html#section00454000000000000000">4 Alias</A>
+</UL>
+<LI><A name="tex2html86"
+  href="pjal_doc_a4_node10.html">6 Tables</A>
+<UL>
+<LI><A name="tex2html87"
+  href="pjal_doc_a4_node10.html#section00461000000000000000">1 Constant tables</A>
+<LI><A name="tex2html88"
+  href="pjal_doc_a4_node10.html#section00462000000000000000">2 Variable tables</A>
+</UL>
+<LI><A name="tex2html89"
+  href="pjal_doc_a4_node11.html">7 Expressions</A>
+<UL>
+<LI><A name="tex2html90"
+  href="pjal_doc_a4_node11.html#section00471000000000000000">1 Operators</A>
+<LI><A name="tex2html91"
+  href="pjal_doc_a4_node11.html#section00472000000000000000">2 Priority</A>
+</UL>
+<LI><A name="tex2html92"
+  href="pjal_doc_a4_node12.html">8 Statements</A>
+<UL>
+<LI><A name="tex2html93"
+  href="pjal_doc_a4_node12.html#section00481000000000000000">1 Declaration</A>
+<LI><A name="tex2html94"
+  href="pjal_doc_a4_node12.html#section00482000000000000000">2 Assignment</A>
+<LI><A name="tex2html95"
+  href="pjal_doc_a4_node12.html#section00483000000000000000">3 IF</A>
+<LI><A name="tex2html96"
+  href="pjal_doc_a4_node12.html#section00484000000000000000">4 WHILE</A>
+<LI><A name="tex2html97"
+  href="pjal_doc_a4_node12.html#section00485000000000000000">5 FOR</A>
+<LI><A name="tex2html98"
+  href="pjal_doc_a4_node12.html#section00486000000000000000">6 FOREVER</A>
+<LI><A name="tex2html99"
+  href="pjal_doc_a4_node12.html#section00487000000000000000">7 COUNT</A>
+<LI><A name="tex2html100"
+  href="pjal_doc_a4_node12.html#section00488000000000000000">8 _usec_delay</A>
+</UL>
+<LI><A name="tex2html101"
+  href="pjal_doc_a4_node13.html">9 Procedures and functions</A>
+<UL>
+<LI><A name="tex2html102"
+  href="pjal_doc_a4_node13.html#section00491000000000000000">1 Pseudo variables</A>
+</UL>
+<LI><A name="tex2html103"
+  href="pjal_doc_a4_node14.html">10 Tasks</A>
+<LI><A name="tex2html104"
+  href="pjal_doc_a4_node15.html">11 Inline assembler</A>
+<UL>
+<LI><A name="tex2html105"
+  href="pjal_doc_a4_node15.html#section004111000000000000000">1 Single assembler statement </A>
+<LI><A name="tex2html106"
+  href="pjal_doc_a4_node15.html#section004112000000000000000">2 Assembler block</A>
+<LI><A name="tex2html107"
+  href="pjal_doc_a4_node15.html#section004113000000000000000">3 Scope </A>
+</UL>
+<LI><A name="tex2html108"
+  href="pjal_doc_a4_node16.html">12 Pragmas</A>
+<UL>
+<LI><A name="tex2html109"
+  href="pjal_doc_a4_node16.html#section004121000000000000000">1 Chip Definition Pragmas</A>
+</UL>
+</UL>
+<BR>
+<LI><A name="tex2html110"
+  href="pjal_doc_a4_node17.html">2 Compiler</A>
+<UL>
+<LI><A name="tex2html111"
+  href="pjal_doc_a4_node18.html">1 Basic</A>
+<LI><A name="tex2html112"
+  href="pjal_doc_a4_node19.html">2 Command line compiler options</A>
+<LI><A name="tex2html113"
+  href="pjal_doc_a4_node20.html">3 Behaviour</A>
+<UL>
+<LI><A name="tex2html114"
+  href="pjal_doc_a4_node20.html#section00531000000000000000">1 End of program.</A>
+<LI><A name="tex2html115"
+  href="pjal_doc_a4_node20.html#section00532000000000000000">2 FOR without USING</A>
+<LI><A name="tex2html116"
+  href="pjal_doc_a4_node20.html#section00533000000000000000">3 Optimization</A>
+<LI><A name="tex2html117"
+  href="pjal_doc_a4_node20.html#section00534000000000000000">4 Debug output</A>
+</UL>
+</UL>
+<BR>
+<LI><A name="tex2html118"
+  href="pjal_doc_a4_node21.html">3 Libraries</A>
+<UL>
+<LI><A name="tex2html119"
+  href="pjal_doc_a4_node22.html">1 PIC definition library structure</A>
+<UL>
+<LI><A name="tex2html120"
+  href="pjal_doc_a4_node22.html#section00611000000000000000">1 Chip definition file</A>
+<LI><A name="tex2html121"
+  href="pjal_doc_a4_node22.html#section00612000000000000000">2 Core definition file</A>
+<LI><A name="tex2html122"
+  href="pjal_doc_a4_node22.html#section00613000000000000000">3 PIC chip definition file</A>
+<LI><A name="tex2html123"
+  href="pjal_doc_a4_node22.html#section00614000000000000000">4 Example of usage</A>
+</UL>
+<LI><A name="tex2html124"
+  href="pjal_doc_a4_node23.html">2 Other libraries</A>
+<UL>
+<LI><A name="tex2html125"
+  href="pjal_doc_a4_node23.html#section00621000000000000000">1 Operating with digital I/O ports</A>
+<LI><A name="tex2html126"
+  href="pjal_doc_a4_node23.html#section00622000000000000000">2 Shadowing digital I/O ports</A>
+<LI><A name="tex2html127"
+  href="pjal_doc_a4_node23.html#section00623000000000000000">3 Disabling analog functions</A>
+<LI><A name="tex2html128"
+  href="pjal_doc_a4_node23.html#section00624000000000000000">4 Configuring the Oscillator</A>
+<LI><A name="tex2html129"
+  href="pjal_doc_a4_node23.html#section00625000000000000000">5 Making <I>JAL 2.0</I> to recognize your own PIC device</A>
+</UL>
+</UL>
+<BR>
+<LI><A name="tex2html130"
+  href="pjal_doc_a4_node24.html">4 Examples</A>
+<UL>
+<LI><A name="tex2html131"
+  href="pjal_doc_a4_node25.html">1 Example 0: Blink a led.</A>
+<LI><A name="tex2html132"
+  href="pjal_doc_a4_node26.html">2 Example 1: Scan a button.</A>
+<LI><A name="tex2html133"
+  href="pjal_doc_a4_node27.html">3 Example 2: Control the blink of a led.</A>
+<LI><A name="tex2html134"
+  href="pjal_doc_a4_node28.html">4 Example 3: Adding a hardware timer.</A>
+<LI><A name="tex2html135"
+  href="pjal_doc_a4_node29.html">5 Example 4: Using hardware interrupts.</A>
+</UL>
+<BR>
+<LI><A name="tex2html136"
+  href="pjal_doc_a4_node30.html">5 Glossary</A>
+<LI><A name="tex2html137"
+  href="pjal_doc_a4_node31.html">6 GNU Free Documentation License</A>
+<LI><A name="tex2html138"
+  href="pjal_doc_a4_node32.html">References</A>
+<LI><A name="tex2html139"
+  href="pjal_doc_a4_node33.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A name="tex2html63"
+  href="pjal_doc_a4_node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" src="next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" src="up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" src="prev_g.png"> 
+<A name="tex2html61"
+  href="pjal_doc_a4_node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" src="contents.png"></A>  
+<BR>
+<B> Next:</B> <A name="tex2html64"
+  href="pjal_doc_a4_node1.html">JAL 2.0 manual</A>
+ &nbsp; <B>  <A name="tex2html62"
+  href="pjal_doc_a4_node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+<HR>pJAL Manual.<BR>(c) 2006 Javier Martinez, Vasile Surducan and Dave Lagzdin.
+</ADDRESS>
+</BODY>
+</HTML>

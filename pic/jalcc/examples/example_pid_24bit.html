@@ -1,0 +1,277 @@
+<HTML><HEAD><TITLE>PID controler, fast 24 bit math</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>april 2005</SPAN></P>
+<P><SPAN class=RVTS1>PID controller, fast 24 bit math</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>By coincidence I needed to control several postion motor systems (ranging from 0.2 W to 2.5 kW, with position and/or tacho feedback) with PIC/JAL. So the logical choice was to design a general PID controler library. Building and testing this library costed me much more trouble then I estimated. There's a lot information on the web about PID controllers, and you can find some information about PID controllers with micro-controllers. Most of the information is pure theoretical, and if you find 10 documents, you'll end up with 10 different PID algoritms. The more practical articles often stops at PI or PD and/or are so dedicated to the actual system under control that they don't appeal to your situation. Tuning of a PID algoritm seems to be a profession on it's own.</P>
+<P>&nbsp;&nbsp;</P>
+<P>This page describes some of the experiences with a PIC/JAL controlled PID-controler. It's mainly intended as an extension of my own memory, but maybe some other people may benefit from it. The approach will be a very practical one, and I hope to realize the following goals (it may seems strange to write in this order, but I don't like to write anything down when it's ready and functioning)</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>a JAL library for a general purpose PID controler&nbsp;</LI>
+<LI>describe a practical tuning procedure for 1 or 2 practical situations&nbsp;</LI>
+<LI>some simulations, which may result in a simple program&nbsp;</LI>
+<LI>show a few typical examples in practice&nbsp;</LI>
+<LI>a JAL library with a JBL method for realizing a PID-like controler (maybe even with autotuning), which results in a much simpeler/smaller/faster program&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>When I read a dozen of those articles, I thought I refreshed my control knowledge enough to implement the PID controler in practice. And indeed I succeeded in controling one of the systems, very good and stiff. But forgetting to write down the settings, the next day I couldn't reproduce the result anymore. So the following question arrised:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>is the correct PID algoritm chozen&nbsp;</LI>
+<LI>is the algoritm correctly implemented&nbsp;</LI>
+<LI>is the accuracy of the algoritm good enough&nbsp;</LI>
+<LI>is the PID-tuning done too critical&nbsp;</LI>
+<LI>what is the influence of (small) system imperfections (static versus dynamic friction, hysteresis due to gearboxes, noise etc)&nbsp;</LI>
+</UL>
+<P>And of course "where should I start" to solve all these questions ?</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Thé PID algoritm</SPAN></P>
+<P>There's no such thing as "the PID algoritm". There are a whole bunch of networks / formulas possible to realize a PID algoritm. Each network can be described in a number of different ways, nice for education but too difficult for me. So I'll try to describe the PID algoritme in a common sense way.</P>
+<P>I've chozen a formula, that on one hand explains as clearly as possible how the controler will behave and on the other hand will be easy to realize in a PIC.</P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS2>&nbsp;<IMG width=396 height=135 src="example_pid_24bit_img44.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS2>PID-control-signal&nbsp; =&nbsp; Kp * Error&nbsp; - Kd * (dError/dt) + Ki * integral(Error)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Proportional-action Kp</SPAN></P>
+<P>The proportional term Kp is just the open loop gain of the PID controller. Kp amplifies the error signal, which is the difference between the definied SetPoint and the realized position / or speed. By increasing the open loop gain Kp, the performance of the system with feedback will be improved and all system paramters, like speed of moving to the SetPoint, overshoot and final Error will improve.</P>
+<P>For some systems it will be good enough to only use a proportional term: if you can increase the gainfactor Kp enough to satisfy your demands on the system performances, stop here and don't add any I or D actions !!</P>
+<P>If you've to increase the proportional gain too much, the system will become unstable. This is caused by phase shift at some higher frequencies. Most physical systems will have a decreasing gain and an increasing phase shift for higher frequencies. So there will be higher frequencies with a phase shift of 180 degrees, which get's a gain of 1, if the proportional term is increased enough. Here the differential term Kd comes to help.</P>
+<P>Let's take a look at a practical example, the figures below are taken from the same system (A). The system consists of a heavy loaded motor (large inertia) and a feedback loop on the base of a position potmeter. Attentional readers may notice that the rising and falling edge is different, which is caused by gravity (lifting arm).&nbsp;</P>
+<P>We find the stepresponse in the left picture much too slow, so we want to increase the proportional gain Kp. Doubling the proportional gain, leads to the picture on the right. Indeed the rise- and fall-time are improved, but the system has become totally unstable. So either we can except the rise- and fall-times of the left settings or we've to add differential action into the controller. Another option would be to use a motor with a higher torque.</P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS2>&nbsp;&nbsp;<IMG width=338 height=213 src="example_pid_24bit_img35.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=337 height=214 src="example_pid_24bit_img36.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Differential-action Kd</SPAN></P>
+<P>The differential term has a negative sign. Looking at the rising edge of the stepresponse, the proportional term Kp is moving the output up, while the differential term is moving the output down. So the resulting driving force is something like Kp - Kd. On approaching the Setpoint, the force induced by Kp tends to zero, and thus only Kd will remain, which is negative or in other words active breaking. This will damp the overshoot or oscillation.</P>
+<P>In the figure below on the left, Kp=4 (same as the picture above on the right), but due to a Kd=4 the oscillation is damped. Increasing Kd further upto 8, as is shown in the picture on the right, removes the overshoot almost completly. So here you can see how the rise time is increased, while the system remains stable. It's not only the risetime that's improved, but overall performance is increased, for example the stiffness of the system is much better.</P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS2>&nbsp;<IMG width=334 height=203 src="example_pid_24bit_img37.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=335 height=205 src="example_pid_24bit_img38.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>So now you can increase Kp and Kd (simultanously) until the system gets unstable again. For this system Kp=5, Kd=12 seems to be the limit. Increasing one of the 2 parameters further will make the system unstable.</P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS2>&nbsp;<IMG width=339 height=200 src="example_pid_24bit_img39.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>There's one other problem to be aware of when using a differential term. Differentating is very sensitive to noise, so some filtering or other noise reduction is necessary.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Integral-action Ki</SPAN></P>
+<P>The main task of the integral term Ki is to eleminate the final error. If a small error exists, the PD controler may generate too little driving force, to move the system to the desired setpoint. With a small steady state error, the integral term will gradually increase the driving power, until the system moves exactly to the desired setpoint.</P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS2>&nbsp;<IMG width=337 height=202 src="example_pid_24bit_img46.gif"></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;<IMG width=343 height=202 src="example_pid_24bit_img48.gif"><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN><IMG width=339 height=199 src="example_pid_24bit_img49.gif"></P>
+<P>Noise Reduction for the differential term makes a slow movement less smooth (picture on the right)</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>&nbsp;randje van oscilleren</P>
+<P>&nbsp;&nbsp;</P>
+<P>nu met ruisonderdrukking in Kd</P>
+<P>&nbsp;<IMG width=333 height=196 src="example_pid_24bit_img40.gif"><IMG width=342 height=199 src="example_pid_24bit_img42.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=334 height=199 src="example_pid_24bit_img43.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>&nbsp;<IMG width=407 height=214 src="example_pid_24bit_img26.gif"><IMG width=403 height=210 src="example_pid_24bit_img31.gif"></P>
+<P>Gaat op zich met voldoende snelheid naar eindpositie,</P>
+<P>maar voelt zeer slap aan en produceert geluid in de eindstand</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=401 height=203 src="example_pid_24bit_img27.gif"><IMG width=404 height=206 src="example_pid_24bit_img32.gif"></P>
+<P>Voelt iets sterker aan</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=400 height=210 src="example_pid_24bit_img28.gif"><IMG width=402 height=203 src="example_pid_24bit_img33.gif"></P>
+<P>Oscilleert</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=404 height=316 src="example_pid_24bit_img29.gif"><IMG width=402 height=216 src="example_pid_24bit_img34.gif"></P>
+<P>oscilleert</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>Building a fast PID controller in software, with an overall accuracy of about 12 bits (dictated by the available hardware), I needed fast 24 bit math.</P>
+<P>The general formula for a PID controller</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PID&nbsp; =&nbsp; Kp * Error&nbsp; +&nbsp; Kd * (Error - PreviousError)&nbsp; +&nbsp; Ki * IntegralError</P>
+<P>&nbsp;&nbsp;</P>
+<P>In this formula error terms are in the range [-12bits ... +12bits] = 13 bits and Kp, Kd, Ki are in the range of [-1 ... +1].</P>
+<P>Integer math has the advantage of being faster then floating point math, and it's more easier to control the accuracy there where you need it. Now for integer math, it's more convenient to rewrite the general PID formula like this:</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PID&nbsp; =&nbsp; ( 1 / Ko ) * ( Kp * Error&nbsp; +&nbsp; Kd * (Error - PreviousError)&nbsp; +&nbsp; Ki * IntegralError )</P>
+<P>&nbsp;&nbsp;</P>
+<P>Where Ko is some nice factor (power of 2, so dividing becomes just shifting) large enough to deal with the maximum ratios of Kp, Kd, Ki. A first shot would be to make Ko 2^5 or 2^6, so the maximum ratio between K-factors can be as large as 32 or 64. For this moment we take Ko = 2^5.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Because all K-factors are in the range of [-1 ... +1], we need 5 bits plus a sign bit = 6 bits for the K-factors.</P>
+<P>&nbsp;&nbsp;</P>
+<P>For PID * Ko, we have 3 terms (is 2 bits), each consisting of a multiplication of an errorterm of 13 bits and a K-factor of 6 bits, so in totally we need 21 bits (consisting of 20 bits magnitude and a sign bit).</P>
+<P>Thus calculating in 24 bits is perfect suited for this problem.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Now we have to choose what number representation(s) we are going to use, and here are some possibilities:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>two's complement&nbsp;</LI>
+<LI>signed integer&nbsp;</LI>
+<LI>unsigned integer with a separate sign bit&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>An interesting feature to notice is, because we're not using all the 24 available bits, we can recognize each number representation by the most left 2 bits.</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>0... This is a positive number in any of the 3 mentioned notations&nbsp;</LI>
+<LI>10... This is a negative number in signed integer notation&nbsp;</LI>
+<LI>11... This is a negative number in two's complement notation&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Notation &lt;--&gt; Operation</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>For&nbsp;<SPAN class=RVTS3>addition</SPAN>&nbsp;the most convenient representation is 2-complement. Just do the addition and the result is always ok, with a minimum number of instructions.</P>
+<P>&nbsp;&nbsp;</P>
+<P>For&nbsp;<SPAN class=RVTS3>subtraction</SPAN>, basicaly yields the same as for addition. But as subtraction is somewhat more time consuming then addition it might worth to replace a subtraction by a combination of inverting the second operand and then performing an addition ??</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Multiplication</SPAN>&nbsp;is done most effectively on positive numbers only. Knowing that one of the operands is at largest 6 bits, a multiplication on positive numbers only, would mean a maximum of 6 addtions. If the second operand would be a 2-complement negative number, you could end up with a maximum of 24 additions.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Rounding</SPAN></P>
+<P>The last operation to perform is a whole division (or shift right) operation. Positive numbers can be rounded very easy because after shifting you just have to look to the state of the carry, and if it's 1, increment the result by 1.</P>
+<P>Another way of doing its (yielding about equal time undependant of the rounding) is to add 0.5, prior to performing the whole division.</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Negation</SPAN></P>
+<P>...</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS3>Representation Conversion</SPAN></P>
+<P>....</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>theory</SPAN></P>
+<P>There are several methods for tuning a PID loop. The choice of method will depend largely on whether or not the loop can be taken "offline" for tuning, and the response speed of the system. If the system can be taken offline, the best tuning method often involves subjecting the system to a step change in input, measuring the output as a function of time, and using this response to determine the control parameters.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>If the system must remain online, one tuning method is to first set the I and D values to zero. Increase the P until the output of the loop oscillates. Then increase I until oscillation stops. Finally, increase D until the loop is acceptably quick to reach its setpoint. The best PID loop tuning usually overshoots slightly to reach the set-point more quickly, however some systems cannot accept overshoot.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Increase Kp until oscillates (60% of stroing oscillations)</P>
+<P>Increase Kd until nice step</P>
+<P>Ki = 1 /Kd&nbsp;&nbsp;</P>
+<P>Effects of changes in parameters</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Parameter</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Rise Time</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Overshoot</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Settling Time</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Final Error</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>P</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Decrease</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Increase</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>-</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Decrease</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>I</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Decrease</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Increase</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Increase</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Eliminate</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>D</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>-</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Decrease</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>Decrease</P></TD>
+<TD width=100 bgcolor=#EBEBEB valign=top>
+<P>-</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>Another tuning method is formally known as the "Ziegler-Nichols method". It starts in the same way as the method described before: first set the I and D gains to zero and then increase the P gain until the output of the loop starts to oscillate. Write down the critical gain (Kc) and the oscillation period of the output (Pc). Then adjust the P, I and D controls as the table shows:</P>
+<P>Ziegler-Nichols method</P>
+<P>Control&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Td</P>
+<P>P&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0,5·Kc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -</P>
+<P>PI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0,45·Kc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pc/1,2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -</P>
+<P>PID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0,6·Kc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pc/2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pc/8</P>
+<P>[edit]</P>
+<P>P</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=402 height=314 src="example_pid_24bit_img10.gif"></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><IMG width=402 height=314 src="example_pid_24bit_img25.gif"></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><IMG width=400 height=316 src="example_pid_24bit_img24.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=405 height=312 src="example_pid_24bit_img11.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=404 height=317 src="example_pid_24bit_img13.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=402 height=316 src="example_pid_24bit_img14.gif">&nbsp;&nbsp;<IMG width=403 height=314 src="example_pid_24bit_img22.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=404 height=317 src="example_pid_24bit_img16.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=401 height=312 src="example_pid_24bit_img17.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=404 height=315 src="example_pid_24bit_img18.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=401 height=313 src="example_pid_24bit_img19.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=403 height=314 src="example_pid_24bit_img22.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=404 height=313 src="example_pid_24bit_img23.gif"></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><IMG width=400 height=316 src="example_pid_24bit_img24.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=452 height=343 src="example_pid_24bit_img4.gif"></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;<IMG width=448 height=344 src="example_pid_24bit_img6.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=450 height=344 src="example_pid_24bit_img5.gif"></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;<IMG width=448 height=341 src="example_pid_24bit_img3.gif"></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;<IMG width=447 height=342 src="example_pid_24bit_img7.gif"></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;<IMG width=448 height=340 src="example_pid_24bit_img8.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=451 height=343 src="example_pid_24bit_img9.gif"></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=452 height=346 src="example_pid_24bit_img2.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=452 height=346 src="example_pid_24bit_img1.gif"></P>
+<P>&nbsp;</P>
+</BODY></HTML>

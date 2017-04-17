@@ -1,0 +1,62 @@
+<HTML><HEAD><TITLE>File Data</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>May 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, File Data</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=495 valign=middle>
+<P><SPAN class=RVTS2>DATA2FILE</SPAN></P>
+<P>This device, records up to 8 analog or digital signals into a file.</P>
+<P>The column headers are derived from the signal names. For convenience you can override these names by your own names, by editing the fields behind the connection points. The form can be scaled to see the full signal names.</P>
+<P>Only signals that are connected are recorded, so the number of columns will vary.</P>
+<P>The filename can be editied or selected though the "New" button.</P>
+<P>With the buttons Record / Stop, the recording can be started or stopped temporary.</P>
+<P>With the value of Maxrec the maximum number of records (lines) that will be transported to disk can be set. If the maximum is reached, the recording is stopped, but the file is not closed. This gives the oppertunity to increase Maxrec to do another piece of recording. Reccount gives the actual recorded records.</P></TD>
+<TD width=234 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=230 height=151 src="device_data2file_a.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=348 valign=middle>
+<P>When Time Column is checked, the first column in the export file will contain the time in seconds.</P>
+<P>Pressing of New / Close / Stop / Record is quiet user friendly, the program will take all necessary actions if not the right order is used.</P>
+<P>Once recording within a file is started, some of the parameters (signal-connections, signal-names, time-column) can not be changed anymore. Maxrec and clock-parameters can be changed during a recording.</P>
+<P>Sampling can be done by an internal clock, of which the frequency can be set, or by an external clock, in which case the active edge can be selected.</P>
+<P>The clock output is only there, when internal clock is selected and recording is active. In this way synchronisation of i.e. different files (both input and output) can be done.</P>
+<P>The format of the file is a tab-delimited file, so it can be read automatically by all modern windows programs.</P>
+<P>On the right, the result of a recording is shown in M$-Excel.</P>
+<P>If you look at the graph carefully, you can see that the sample freqeuncy has changed during the recording.</P></TD>
+<TD width=381 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=386 height=347 src="device_data2file_b.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=509 valign=middle>
+<P>Data output can be timelocked or synchronized with an internal or external clock. Timelock can only be selected if the datafile contains a time-column (in seconds) in its first column.</P></TD>
+<TD width=225 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=240 height=160 src="device_file2data_a.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

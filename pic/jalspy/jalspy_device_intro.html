@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="13" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>september 2007</span></p>
+<p><span class=rvts1>JALsPy&nbsp;&nbsp;&nbsp; Devices Introduction</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <a href="punthoofd.gif"><img width=16 height=17 alt="" src="punthoofd.gif"></a>&nbsp; <a class=rvts4 href="../jalcc/jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>A device is an object that can interact with the virtual environment of JALsPy. This interaction might be pure virtual, might of electrical nature, or any kind you can imagine. In the robot demo for example we use shapes that can interact in a mechanical nature with the robot.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Minimal requirements</span></p>
+<p>When a new device at least obeys these minimal requirements, JALsPy will find the device and will use the device. The minimal requirements are:</p>
+<p><br></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>ancestor:</span> the ancestor of a device must be "tDevice", s it will inherit the most common methods and properties.</li>
+<li><span class=rvts10>name: </span>the name of the device must be unique and start with lowercase "t", because that's the mechanism JALsPy uses to search for devices</li>
+<li><span class=rvts10>filename:</span> the filename must start with lowercase "device_", again so JALsPy can recognize it as devices (more than one device may be contained in one file)</li>
+</ul>
+<p><br></p>
+<p>So the simplest device might look like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=214 height=52 alt="" hspace=1 vspace=1 src="jalspy_device_intro_img2.png"></p>
+<p><br></p>
+<p>and without doing anything else, the user can now create one or more instances of this device to be included in his project. The user can also edit the properties of this device. In a robot project this device might even serve as an obstacle.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>implementation:</span> the implementation should at least contain the method "init", which must create an ogl-shape. No error is generated when this method is omitted, but a device without this method and it's generated shape is unreachable by the user.</li>
+</ul>
+
+</body></html>

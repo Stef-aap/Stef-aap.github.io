@@ -1,0 +1,150 @@
+a {
+			text-decoration:	none;
+			color:				#0000FF;
+}
+a:visted {	text-decoration:	none;
+			color:				#0000FF; }
+a:hover {
+	color:				#FF0000;
+	background-color: #0066CC;
+}
+a:active {	color:				#FF00FF; }
+
+.bzc	{		font-weight:	900; }
+.nav-f {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+	font-style: normal;
+	font-weight: bold;
+	color: #00CC99;
+	background-color: #000066;
+}
+.nav-ft {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+	font-style: normal;
+	font-weight: 900;
+	color: #00CC99;
+	background-color: #000066;
+	clip: rect(auto,auto,auto,auto);
+	border: thick outset #000099;
+}
+.footer-f {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	font-style: italic;
+	font-weight: normal;
+	color: #999999;
+	text-align: center;
+}
+.text-f {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+	font-style: normal;
+	font-weight: normal;
+	text-align: justify;
+}
+.text-ft {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: xx-large;
+	font-style: normal;
+	font-weight: bold;
+	border: thick outset #CC0000;
+	text-align: center;
+	color: #00CC99;
+	background-color: #000066;
+}
+.text-fsubt {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+	font-style: normal;
+	font-weight: normal;
+	text-align: center;
+	color: #0099CC;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+.credits-fn {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+	font-style: normal;
+	font-weight: bolder;
+	text-align: center;
+	color: #006633;
+}
+.kw {
+	font-weight: bold;
+}
+.ec {
+	font-weight: normal;
+	background-color: #99CCFF;
+	font-family: Courier, monospace;
+}
+.func {
+	font-weight: normal;
+	color: #FF0000;
+	font-family: Courier, monospace;
+}
+.var {
+	font-weight: normal;
+	color: #009900;
+	font-family: Courier, monospace;
+}
+.str {
+	font-weight: normal;
+	color: #FF6600;
+	font-family: Courier, monospace;
+}
+.sys {
+	font-weight: normal;
+	color: #3366FF;
+	font-family: Courier, monospace;
+}
+.rom {
+	font-weight: normal;
+	color: #FF33FF;
+	font-family: Courier, monospace;
+}
+.arg {
+	font-weight: normal;
+	color: #3300FF;
+	font-family: Courier, monospace;
+}
+.ect {
+	font-weight: bold;
+	background-color: #0099FF;
+	font-size: large;
+}
+.com {
+
+	font-weight: normal;
+	color: #999999;
+	font-family: Courier, monospace;
+}
+.asm {
+
+	font-weight: normal;
+	color: #333333;
+	font-family: Courier, monospace;
+}
+.cc {
+
+	font-weight: normal;
+	color: #990000;
+	font-family: Courier, monospace;
+}
+.text-fsect {
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: bold;
+	text-align: justify;
+	color: #008800;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}

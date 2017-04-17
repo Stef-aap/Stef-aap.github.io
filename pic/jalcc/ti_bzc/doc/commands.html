@@ -1,0 +1,742 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--
+	***************************************************************************
+ 	*   Copyright (C) 2005-2006 by Erik van 't Wout, Eugene Evans             *
+ 	*   bugs@hofhom.nl                                                        *
+ 	*                                                                         *
+ 	*   This program is free software; you can redistribute it and/or modify  *
+ 	*   it under the terms of the GNU General Public License as published by  *
+	*   the Free Software Foundation; either version 2 of the License, or     *
+	*   (at your option) any later version.                                   *
+	*                                                                         *
+	*   This program is distributed in the hope that it will be useful,       *
+	*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ 	*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ 	*   GNU General Public License for more details.                          *
+ 	*                                                                         *
+ 	*   You should have received a copy of the GNU General Public License     *
+ 	*   along with this program; if not, write to the                         *
+	*   Free Software Foundation, Inc.,                                       *
+ 	*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+	***************************************************************************
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="format.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="text-f">
+<div align="center" class="text-ft">BASIC ASM Commands</div>
+<hr />
+<div class="justify">
+These are the buildin BASIC ASM commands, are the only case-sensitive commands in BASIC ASM and should <b>always</b> be written in uppercase. Beside these compiler-buildin commands, you have the <a href="headers.html">ASMLIB functions</a>. These are default written in lowercase, but you may write them anyway you like. They are there for some basic functionality. You find a list of these functions under <a href="headers.html">Header File Contents</a>.
+</div>
+<hr /><div align="center">
+  <table border="0" cellpadding="2" class="text-fsubt">
+    <tr>
+      <td><div align="center"><a href="#a">A</a></div></td>
+      <td><div align="center"><a href="#b">B</a></div></td>
+      <td><div align="center"><a href="#c">C</a></div></td>
+      <td><div align="center"><a href="#d">D</a></div></td>
+      <td><div align="center"><a href="#e">E</a></div></td>
+      <td><div align="center"><a href="#f">F</a></div></td>
+      <td><div align="center"><a href="#g">G</a></div></td>
+      <td><div align="center"><a href="#h">H</a></div></td>
+      <td><div align="center"><a href="#i">I</a></div></td>
+      <td><div align="center"><a href="#j">J</a></div></td>
+      <td><div align="center"><a href="#k">K</a></div></td>
+      <td><div align="center"><a href="#l">L</a></div></td>
+      <td><div align="center"><a href="#m">M</a></div></td>
+      <td><div align="center"><a href="#n">N</a></div></td>
+      <td><div align="center"><a href="#o">O</a></div></td>
+      <td><div align="center"><a href="#p">P</a></div></td>
+      <td><div align="center"><a href="#q">Q</a></div></td>
+      <td><div align="center"><a href="#r">R</a></div></td>
+      <td><div align="center"><a href="#s">S</a></div></td>
+      <td><div align="center"><a href="#t">T</a></div></td>
+      <td><div align="center"><a href="#u">U</a></div></td>
+      <td><div align="center"><a href="#v">V</a></div></td>
+      <td><div align="center"><a href="#w">W</a></div></td>
+      <td><div align="center"><a href="#x">X</a></div></td>
+      <td><div align="center"><a href="#y">Y</a></div></td>
+      <td><div align="center"><a href="#z">Z</a></div></td>
+    </tr>
+  </table>
+</div>
+<hr />
+<div align="justify">
+<span class="text-fsect">A note on syntax conventions used in this reference page</span>
+<table border="0">
+  <tr>
+    <th width="150">[ &lt;stuff&gt; ]</th>
+    <td width="1000">indicates that the enclosed arguments are optional</td>
+  </tr>
+  <tr>
+    <th>{ &lt;stuff&gt; }</th>
+    <td>indicates that the enclosed arguments are required</td>
+  </tr>
+  <tr>
+    <th>&lt;stuff1&gt; | &lt;stuff2&gt;</th>
+    <td>indicates that one or the other of the arguments must be selected</td>
+  </tr>
+  <tr>
+    <th>...</th>
+    <td>means more of the same kind of argument, or indicates code between the beginning and end of code block statements</td>
+  </tr>
+  <tr>
+    <th>&lt;expression&gt;</th>
+    <td>means ANY expression or complex calculation can be used in that location</td>
+  </tr>
+  <tr>
+    <th>&lt;variable&gt;</th>
+    <td>cannot be initialized to negative numbers</td>
+  </tr>
+</table>
+</div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="a" id="a"></a>A</span></p>
+</div>
+<div align="justify">
+  <table width="*" border="0" cellspacing="0">
+    
+   <tr>
+      <td colspan="2" class="text-fsect"><a name="function_asm" id="function_asm"></a>ASM ... ENDASM</td>
+    </tr>
+    <tr>
+      <td colspan="2">Indicates the beginning and end of an assembly language function.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td class="ec">&nbsp;</td>
+      <td class="ec"><p><span class="kw">ASM</span></p>
+          <p>[ native assembly code ]</p>
+      <p><span class="kw">ENDASM</span></p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2"><span class="bzc">BZC</span> simply inserts the assembly code into the source file; it does <strong>not</strong> check the syntax of the assembly code. Also, arguments may passed to the function via PUSHes to the stack, and can be accessed, in reverse order, by repeated POPs. Additionally, the B_CALL() macro may NOT be used inside this function; use instead <span class="asm">RST $28 &#060;new line&#062; .DW &#060;romcall name&#062;</span>.</td>
+  </tr>
+  </table>
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="b" id="b"></a>B</span></p>
+</div>
+<div align="justify">
+  <table border="0" cellspacing="0">
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="declaration_byte" id="declaration_byte"></a>BYTE</td>
+    </tr>
+    <tr>
+      <td colspan="2">Declares a 1-byte variable.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td width="80" class="ec">&nbsp;</td>
+      <td width="1000" class="ec"><p><span class="kw">BYTE</span> &lt;variable_name&gt; [ = &lt;value&gt; ]</p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">No prefix means a decimal value; a % preceeds binary values, $ preceeds hexadecimal values.</td>
+    </tr>
+  </table>
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="c" id="c"></a>C</span></p>
+</div>
+<div align="justify">
+  <table width="*" cellspacing="0">
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="declaration_const" id="declaration_const"></a>CONST</td>
+    </tr>
+    <tr>
+      <td colspan="2">Declares a constant 2-byte variable (integer).</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td width="80" class="ec">&nbsp;</td>
+      <td width="1000" class="ec"><p><span class="kw">CONST</span> &lt;variable_name&gt; = &lt;value&gt;</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">This value cannot be modified by the program at run time. No prefix means a decimal value; a % preceeds binary values, $ preceeds hexadecimal values.</td>
+    </tr>
+  </table>
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="d" id="d"></a>D</span></p>
+</div>
+<div align="justify">
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="e" id="e"></a>E</span></p>
+</div>
+<div align="justify">
+  <table width="*" cellspacing="0">
+    <tr>
+      <td colspan="2"> <div class="text-fsect"><a name="function_exit" id="function_exit"></a>EXIT</div></td>
+    </tr>
+    <tr>
+      <td colspan="2">Instantly terminates a program and returns to the OS or calling program</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td width="80" class="ec">&nbsp;</td>
+      <td width="1000" class="ec"><p><span class="kw">EXIT</span></p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+  </table>
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center">
+<p><span class="text-fsubt"><a name="f" id="f"></a>F</span></p>
+<div align="justify">
+  <table width="*" cellspacing="0">
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="function_for" id="function_for"></a>FOR...NEXT</td>
+    </tr>
+    <tr>
+      <td colspan="2">Allows the construction of a FOR...NEXT loop.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td width="80" class="ec">&nbsp;</td>
+      <td width="1000" class="ec"><p><span class="kw">FOR</span> &lt;variable_name&gt; = &lt;expression&gt; <span class="kw">TO</span> &lt;expression&gt; [ <span class="kw">BACK</span> ]</p>
+        <p class="kw">...</p>
+        <p class="kw">NEXT</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr><td colspan="2">
+                                BACK means counting backwards. At the begin, the variable is set to the first expression. Everytime the routine has been executed, there will be 1 added to (or subtracted from) the variable. The routine will be executed until the variable is equel to the second expression.
+                            </td></tr>
+   <tr>
+      <td colspan="2"></td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-fsect">FORCE</td>
+    </tr>
+    <tr>
+      <td colspan="2">Causes <span class="bzc">BZC</span> to compile a variable or function, regardless of whether or not it is used in a program.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td class="ec">&nbsp;</td>
+      <td class="ec"><p><span class="kw">FORCE</span> &lt;function_name&gt;</p>
+        <p><span class="kw">FORCE</span> &lt;variable_name&gt;</p>        </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">Since <span class="bzc">BZC</span> uses a compile-as-needed strategy, this function is useful when using variables between <span class="bzc">ASM ... ENDASM</span> (<span class="bzc">BZC</span> wouldn't normally recognize that the variable or function was being used in that case).</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="function_fstart" id="function_fstart"></a>FSTART ... FEND</td>
+    </tr>
+    <tr>
+	    <td colspan="2">Defines the code that comprises a function</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td class="ec">&nbsp;</td>
+      <td class="ec"><p><span class="kw">FSTART</span> &lt;function_name&gt; [ arg1 [ arg2 ... ] ]</p>
+	      <p>[ function code ]</p>
+	      <p>[ <span class="kw">RETURN</span> &lt;variable_name&gt; ]</p>
+        <p><span class="kw">FEND</span></p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">The same number of arguments must be passed to the function as was defined in the function prototype.</td>
+      </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="declaration_function" id="declaration_function"></a>FUNCTION</td>
+    </tr>
+    <tr>
+      <td colspan="2">Declares a function.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td class="ec">&nbsp;</td>
+      <td class="ec"><p><span class="kw">FUNCTION </span>&lt;function_name&gt; [ <span class="kw">ARG</span> &lt;number_of_arguments&gt; ]</p>
+        <p><span class="kw">FUNCTION </span>&lt;function_name&gt; <span class="kw">ROMCALL</span> [ &lt;romcall_name&gt; <span class="kw">ARG</span> &lt;arg1&gt; &lt;arg2&gt; ... ]</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">For non-ROM call functions, the arguments that the function takes are defined in each function's <span class="kw">FSTART ... FEND</span> section. Also, ROM calls must declared beforehand, either in the header file or in the declarations section of the program code.</td>
+    </tr>
+  </table>
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="g" id="g"></a>G</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="h" id="h"></a>H</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="i" id="i"></a>I</span></p>
+</div>
+<div align="justify">
+  <table width="*" cellspacing="0">
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="function_if" id="function_if"></a>IF ... THEN ... ELSE ... ENDIF</td>
+    </tr>
+    <tr>
+      <td colspan="2">Allows for  conditional execution in a program </td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td width="80" class="ec">&nbsp;</td>
+      <td width="1000" class="ec"><p><span class="kw">IF</span> &#060;expression&#062; [ { == | &#062;= | &#060;= | &#062; | &#060; } &#060;expression&#062; ] [ { AND | OR } &#060;expression&#062; [ { == | &#062;= | &#060;= | &#062; | &#060; } &#060;expression&#062; ] ] [ ... ] <span class="kw">THEN</span></p>
+        <p>...</p>
+        <p>[ <span class="kw">ELSE</span></p>
+        <p>... ]</p>
+        <p class="kw">ENDIF</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">
+                                When no operator (e.g. nothing like ==) is used, the condition will be true if the expression is anything other than 0 (zero).
+                            </td>
+   </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-fsect">INCLUDE</td>
+    </tr>
+    <tr>
+      <td colspan="2">Inserts the contents of the specified file into the current file at compile time. </td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td class="ec">&nbsp;</td>
+      <td class="ec"><p><span class="kw">INCLUDE</span> &lt;filename&gt;</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">Under normal circumstances, this command should not be used. This command has nothing to do with #include!</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="declaration_int" id="declaration_int"></a>INT</td>
+    </tr>
+    <tr>
+      <td colspan="2">Declares a 2-byte variable (integer). </td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td class="ec">&nbsp;</td>
+      <td class="ec"><p><span class="kw">INT</span> &lt;variable_name&gt; [ = &lt;value&gt; ]</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">No prefix means a decimal value; a % preceeds binary values, $ preceeds hexadecimal values. </td>
+    </tr>
+  </table>
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="j" id="j"></a>J</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="k" id="k"></a>K</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="l" id="l"></a>L</span></p>
+</div>
+<div align="justify">
+  <table width="*" cellspacing="0">
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="function_loop" id="function_loop"></a>LOOP ... ENDLOOP</td>
+    </tr>
+    <tr>
+      <td colspan="2">Constructs some kind of a DO-LOOP or while() statement</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td class="ec">&nbsp;</td>
+      <td class="ec"><p><span class="kw">LOOP</span> [ { <span class="kw">WHILE</span> | <span class="kw">UNTIL</span> } &#060;expression&#062; [ { == | &#062;= | &#060;= | &#062; | &#060; } &#060;expression&#062; ] [ { AND | OR } &#060;expression&#062; [ { == | &#062;= | &#060;= | &#062; | &#060; } &#060;expression&#062; ] ] [ ... ] ]</p>
+        <p>...</p>
+        <p class="kw">ENDLOOP</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">If you use <span class="asm">LOOP</span> without <span class="asm">WHILE</span> or <span class="asm">UNTIL</span>, the only way to quit from this loop is to use the <span class="kw">EXIT</span> function. </td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+  </table>
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="m" id="m"></a>M</span></p>
+</div>
+<div align="justify">
+  <table width="*" cellspacing="0">
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="declaration_mem" id="declaration_mem"></a>MEM</td>
+    </tr>
+    <tr>
+      <td colspan="2">Reserves a block of memory space for data at the end of the program. </td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td width="80" class="ec">&nbsp;</td>
+      <td width="1000" class="ec"><p><span class="kw">MEM</span> &lt;mem_block_name&gt; &lt;length in bytes&gt;</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2"><p>&lt;mem_block_name&gt; actually points to the first byte of the memory block.</p></td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    
+  </table>
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="n" id="n"></a>N</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="o" id="o"></a>O</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="p" id="p"></a>P</span></p>
+</div>
+<div align="justify">
+  <table width="*" cellspacing="0">
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="function_printf" id="function_printf"></a>PRINTF</td>
+    </tr>
+    <tr>
+      <td colspan="2">Prints a number or a string at the current cursor location, or a deined location.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td width="80" class="ec">&nbsp;</td>
+      <td width="1000" class="ec"><p><span class="kw">PRINTF</span> [ &lt;row&gt; &lt;column&gt; ] { &lt;variable_name&gt; | &lt;string_name&gt; }</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">PRINTF automatically detects whether the argument is a number or a string and adjusts accordingly. The row and column values are optional passed, may not be calculations (they must be vars or constants) and must obey the following constraints: row=[0-7], column=[0-15]. Internally PRINTF calls the <a href="headers.html">ASMLIB functions</a> locate and printf.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+  </table>
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="q" id="q"></a>Q</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="r" id="r"></a>R</span></p>
+</div>
+<div align="justify">
+<table width="*" cellspacing="0">
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="declaration_romcall" id="declaration_romcall"></a>ROMCALL</td>
+    </tr>
+    <tr>
+      <td colspan="2">Declares a ROM call.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2"></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td width="80" class="ec"></td>
+      <td width="1000" class="ec"><p><span class="kw">ROMCALL </span>&lt;romcall_name&gt; =  &lt;romcall_address&gt; </p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">Under normal circumstances, you should not have to use this command. <span class="kw">ROMCALL</span> cannot be used to declare a ROM call with arguments; use <span class="kw">FUNCTION</span> instead.</td>
+    </tr>
+  </table>
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="s" id="s"></a>S</span></p>
+</div>
+<div align="justify">
+  <table width="*" cellspacing="0">
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="declaration_sprite" id="declaration_sprite"></a>SPRITE</td>
+    </tr>
+    <tr>
+      <td colspan="2">Declares a sprite.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td width="80" class="ec">&nbsp;</td>
+      <td width="1000" class="ec"><p><span class="kw">SPRITE</span> &lt;sprite_name&gt; <span class="kw">FROM</span> &lt;file_name&gt;</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">You can use this command already, but there are not yet any sprite routines available for this command, in other words: this command is not yet supported.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="function_start" id="function_start"></a>START ... END</td>
+    </tr>
+    <tr>
+      <td colspan="2">Indicates the beginning and end of the main program. </td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td class="ec">&nbsp;</td>
+      <td class="ec"><p><span class="kw">START</span></p>
+        <p>[ program code ] </p>
+        <p><span class="kw">END</span></p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">There should be only one <span class="kw">START ... END</span> block in the source file.</td>
+      </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="declaration_string" id="declaration_string"></a>STRING</td>
+    </tr>
+    <tr>
+      <td colspan="2">Declares a constant string.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td class="ec">&nbsp;</td>
+      <td class="ec"><p><span class="kw">STRING</span> &lt;string_name&gt; = &lt;string_constant&gt;</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">A constant string must be specified.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-fsect"><a name="declaration_sysvar" id="declaration_sysvar"></a>SYSVAR</td>
+    </tr>
+    <tr>
+      <td colspan="2">Declares a system variable.</td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td class="ec">&nbsp;</td>
+      <td class="ec"><p><span class="kw">SYSVAR</span> &lt;variable_name&gt; = &lt;memory address&gt;</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw">Notes:</td>
+    </tr>
+    <tr>
+      <td colspan="2">Under normal circumstances you don't have to use this command. variables declared with SYSVAR are acting as variables from the BYTE type.</td>
+      </tr>
+  </table>
+</div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="t" id="t"></a>T</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="u" id="u"></a>U</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="v" id="v"></a>V</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="w" id="w"></a>W</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="x" id="x"></a>X</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="y" id="y"></a>Y</span></p>
+</div>
+<div align="justify"></div>
+<div align="right"><a href="commands.html">back to top</a></div>
+<hr />
+<div align="center"><p><span class="text-fsubt"><a name="z" id="z"></a>Z</span></p>
+</div>
+<div align="justify"></div><div align="right"><a href="commands.html">back to top</a></div>
+</div>
+</hr>
+</body>
+</html>

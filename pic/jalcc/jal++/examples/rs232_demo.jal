@@ -1,0 +1,24 @@
+; define the hardware settings and
+; include all standard libraries
+; also includes the hardware RS232 libs at 115 kBaud
+include demo_settings
+
+-- Here we're going to use the RS232 hardware library
+-- Looking into the documentation or to the top of the code file,
+-- we see we've to declare 2 constants,
+--    one telling we want the usart as RS232 port
+--    and the other defining the baudrate
+-- Because the hardware USART is used no pin declarations are needed
+const usart_asynch = true      ;true = RS232, false = SPI
+const baudrate     = 115_200   ;Baudrate
+include rs232_hw
+
+-- main program
+var byte character
+forever loop
+  -- if character received, echo character+1
+  if asynch_read_hw (character) then
+    asynch_send_hw (character + 1)
+  end if
+end loop
+

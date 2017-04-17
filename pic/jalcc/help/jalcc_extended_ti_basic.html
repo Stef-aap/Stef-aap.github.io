@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Enhanced TI-Basic</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="3" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>September 2006</span></p>
+<p><span class=rvts1>"Enhanced"-TI-Basic</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Enhanced-TI-Basic, are some simple extensions, which makes it much easier to create well structured programs. The source code is stored in a normal ASCII file (without the annoying colon at the begin of each line), and the possibility of using indentation and adding comment. This makes it possible to edit the source code in any code or text editor. Besides these cosmetic changes a very powerful macro expansion is implemented, which gives you the possibilities of using "virtual procedures". Virtual because in the code is just inserted in-line, so there's no code re-use, but there's re-use of your own intelligence. Using procedures, makes larger programs far more readable. It's even possible to store these procedure definitions in library files, so they can be used in other applications.</p>
+<p>To use an enhanced-TI-Basic source file, it must be compiled to a TI-hex file, which is automatically done by JALcc, when the file is uploaded to virtual or real TI-calculator, but it can also be compiled by SourceCoder, gaining possible benefit of its enhanced optimizations ??</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>General</span></p>
+<p><br></p>
+<p><span class=rvts10>Source File</span>, a normal ASCII file containing the Enhanced-TI-Basic source code, including user comment and compiler directives. In JALcc the filename has a fixed extension of ".8xpR". </p>
+<p><br></p>
+<p><span class=rvts10>Whitespace</span> (spaces, tabs) at the beginning and the end of a line is ignored in the code generation, but is preserved in the source file.</p>
+<p><br></p>
+<p><span class=rvts10>Comment</span> is everything starting from a semi-colon until the end of a line.</p>
+<p><br></p>
+<p><span class=rvts10>Concatenation</span> when a "|" is placed at the end of a line, the next line will be included in the code generation, so no end of line is generated in the code.</p>
+<p><br></p>
+<p><span class=rvts10>Temporary Comment</span>, everything including and following a combination of semi-colon and colon ";:" </p>
+<p>Temporary comment is used in JALcc, to show the generated code and the realized optimizations. Never use this in your code, because JALcc will erase it. Temporary comment is not stored in the source file, but it can be send to a printer.</p>
+<p><br></p>
+<p><span class=rvts10>Standard TI-codes</span></p>
+<p>In JALcc the user is completely free to define his own words for each command, except for the "Pause " command (because it can be used with and without a parameter). For exchanging source files including comment this a very bad thing.&nbsp; ????</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Reserved Words</span></p>
+<p><br></p>
+<p><span class=rvts10>Procedure&nbsp; &lt;procedure_name&gt; [parameter1 [,parameter2]]</span></p>
+<p>Defines the start of a macro procedure definition. The number of parameters can vary.</p>
+<p><br></p>
+<p><span class=rvts10>End_Procedure</span></p>
+<p>Ends a macro procedure definition.</p>
+<p><br></p>
+<p><span class=rvts10>Call&nbsp; &lt;procedure_name&gt;&nbsp; [parameter1 [,parameter2]]</span></p>
+<p>Expands the procedure definition with the actual parameters. The number of parameters should match the number of parameters in the procedure definition.</p>
+<p><br></p>
+<p><span class=rvts10>No_Optimization</span></p>
+<p>Stops the optimization, starting from the next line.</p>
+<p><br></p>
+<p><span class=rvts10>Optimization</span></p>
+<p>Starts the optimization again, starting from the next line.</p>
+<p><br></p>
+<p><span class=rvts10>Include&nbsp; &lt;filename&gt;</span></p>
+<p>Includes a file with one or more macro procedure definitions.</p>
+<p>The filename may have a a full/relative path, may have an extension.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Implementation macro expansion</span></p>
+<p><br></p>
+<p>I scan the source file twice, in the first pass I read all the procedure definitions</p>
+<p><br></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; if pos('procedure ',lowercase(line))=1 then</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sub_line:=trimleft(copy(line,10,length(line)-9));</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //get the procedure name</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //change open brackets into spaces, makes it easier to parse </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sub_line:=stringreplace(sub_line,'(',' ',[])+' ';</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if get_next_word(sub_line,name) then</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure_busy:=true;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //add the contents to a stringlist</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure_contents.Add(full_line);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; end</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; if procedure_busy then</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //add to procedure definition list, if not comment line</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if not(is_comment(full_line)) then procedure_contents.Add(full_line);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //test for end of procedure</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; posi:=pos('end_procedure',lowercase(line));</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if posi=1 then</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure_busy:=false;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // end detected, store procedure name and pointer to next procedure</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procedure_list.addobject(name,tobject(procedure_contents.count));</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; end</span></p>
+<p><span class=rvts12><br></span></p>
+<p>in the second pass, I ignore all definitions, and if a "call" is detected, get a copy of the definition, and replace each parameter.</p>
+<p><br></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if pos('call ',lowercase(line))=1 then</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; line:=trim(copy(line,6,length(line)-5));</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // change all delimiters into a space </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; line:=stringreplace(line,'(',' ',[rfreplaceall]);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; line:=stringreplace(line,')',' ',[rfreplaceall]);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; line:=stringreplace(line,',',' ',[rfreplaceall]);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //now we have a space delimited line, &lt;name&gt;&nbsp; &lt;par1&gt;&nbsp; &lt;par2&gt; ...</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //get &lt;name&gt;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if get_next_word(line,subline) then</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //search the name in the pointer list</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; indx:=procedure_list.indexof(subline);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if indx&gt;=0 then</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //create a temporary stringlist </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if temp=nil then temp:=tstringlist.create</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else temp.Clear;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //search the definition code</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if indx&gt;0 then start:=integer(procedure_list.Objects[indx-1])</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else start:=0;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; next_start:=integer(procedure_list.Objects[indx]);</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //copy the function to temp</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //without the first and last line</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for ii:=start+1 to next_start-2 do</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp.Add(procedure_contents[ii]);</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //now substitute the parameters</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; header:=procedure_contents[start];</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //so here replace all delimiters with a space</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; header:=stringreplace(header,'(',' ',[rfreplaceall]);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; header:=stringreplace(header,')',' ',[rfreplaceall]);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; header:=stringreplace(header,',',' ',[rfreplaceall]);</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //skip procedure and name, already checked</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get_next_word(header,par_def);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get_next_word(header,par_def);</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //for all parameters, simply replace</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while get_next_word(header,par_def) do</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if get_next_word(line,subline) then</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp.text:=stringreplace(</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp.text,par_def,subline,[rfreplaceall,rfignorecase])</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //error too little parameters</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if get_next_word(line,subline) then ;//error too many pars</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //insert the macro substitution of the function call</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for ii:=0 to temp.count-1 do</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; source_code.Insert(i+ii+1,code_comment+' '+temp[ii]);</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</span></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

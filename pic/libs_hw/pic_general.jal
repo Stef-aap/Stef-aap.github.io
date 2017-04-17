@@ -1,0 +1,39 @@
+-- -----------------------------------------------------------------------------
+-- <title general routines, valid for all PICs
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- can insert breakpoints for use with JALss
+--
+-- <Version: 1.0    ,17-03-2002, Stef Mientki
+--   - original release
+-- --------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- <Example breakpoint
+;   breakpoint = 5
+;   ... do other things
+;   breakpoint = 6
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+
+
+var volatile byte breakpoint_ = 0
+-- ----------------------------------------------------------------------------
+-- breakpoint routine for the JALss simulator
+-- in your program, just set the variable BREAKPOINT to a non-zero value
+-- and the simulator will stop just after that line
+-- ----------------------------------------------------------------------------
+procedure breakpoint'put(byte in x) is
+  breakpoint_ = x
+	breakpoint_ = 0
+end procedure 
+-- ----------------------------------------------------------------------------
+
+

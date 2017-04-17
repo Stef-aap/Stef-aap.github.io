@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Imports</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Imports </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp; (november 2008)</span></p>
+<p><br></p>
+<p>Application Designer / Domain Expert / Control Designer / <span class=rvts10>Core Developer</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Redundancy is one of the worst items in software. You have to maintain and extend code at more than one place, and if you don't realize that some code is redundant, debugging is a hell of a job, certainly in a dynamic language as Python is. Therefor we give higher priority to redundancy removal than to hierarchical structure. As a consequence, this means that every file of the project should be reachable from any other file. So it's essential to have a good PYTHONPATH and a good import strategy. A second demand is that every module should be able to act as a main file by runing it's main section.</p>
+<p><br></p>
+<p><span class=rvts2>Solution</span></p>
+<p>The solution_old worked perfect until I wanted to build a windows binary distro.</p>
+<p>The root of all programs, contains a template __init__.py.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=351 height=227 alt="" src="pw_importing_img5.png"></p>
+<p><br></p>
+<p>By the program Deploy.py (which also performs other tasks), this __init__.py is copied to all necessary locations.</p>
+<p>The __init__.py module will search for the module __init__root.py, starting at it's own directory and then walking the tree up. Then it will add the path where __init__root was found to the PythonPath and imports __init__root.</p>
+<p><br></p>
+<p>__init__root.py will add all the subdirectories, starting at it's own location walking down, to the PythonPath.</p>
+<p><br></p>
+<p>The above procedure works both in the working directory, and also in the windows binary distro.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Solution_old</span></p>
+<p>As every directory must have an __init__ module, we can use the __init__ module to ensure all the paths are reachable. So every module must import __init__ as the first module.&nbsp; As every file knows at what level of the root it's positioned, the __init__ module can easily import a module at the root level. Every __init__ module in every subpath is exactly like this :</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=351 height=225 alt="" src="pw_importing_img4.png"></p>
+<p><br></p>
+<p>Line 7, points to the root directory, so this might be different depending on the level of the current directory.</p>
+<p>At line 9,10 the root is added to the PythonPath ( if it's not already there).</p>
+<p>Then at line 13 the module __init__root, located in the root is imported, which will make a complete PythonPath.</p>
+<p><br></p>
+<p>The __init__root module, recursive searches for all subdirectories and adds them to the Python Path ( if they are not yet there).</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=469 height=462 alt="" src="pw_importing_img2.png"></p>
+
+</body></html>

@@ -1,0 +1,39 @@
+--
+-- file      : i2cp.jal
+-- author    : Wouter van Ooijen
+-- date      : 23-APR-1999
+-- purpose   : i2c IO pin assignment
+-- requires  : -
+-- used by   : i2c
+-- pins      : a3, a4
+--
+-- Copyright (C) 1998, 1999 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+-- PIC         i2c
+-- ----------------------
+--  2 A3       SCL (clock)
+--  3 A4       SDA (data)
+--
+-- both lines need a pull-up
+--
+
+var volatile bit i2c_clock_in   is pin_a3
+var volatile bit i2c_clock_out  is pin_a3_direction
+var volatile bit i2c_data_in    is pin_a4
+var volatile bit i2c_data_out   is pin_a4_direction
+

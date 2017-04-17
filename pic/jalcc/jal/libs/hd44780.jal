@@ -1,0 +1,69 @@
+--
+-- file      : hd44780.jal
+-- author    : Wouter van Ooijen
+-- date      : 17-NOV-1998
+-- purpose   : hd44780 interface common part
+-- used by   : hd447804, hd447808
+--
+-- Copyright (C) 1998 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+
+procedure HD44780_clear is
+   HD44780_instruction( 0b_0000_1000 ) -- display off
+   HD44780_instruction( 0b_0000_0001 ) -- clear display
+   delay_10uS( 200 )
+   HD44780_instruction( 0b_0000_0010 ) -- cursor home
+   delay_10uS( 200 )
+   HD44780_instruction( 0b_0000_0110 ) -- entry, autoincrement, no shift
+   HD44780_instruction( 0b_0000_1100 ) -- display on, cursor off, blink off
+   delay_10uS( 200 )
+end procedure
+
+procedure HD44780_position( byte in x ) is
+   HD44780_instruction( 0b_1000_0000 + x )
+end procedure
+
+procedure HD44780_line1 is
+   HD44780_instruction( 0b_1000_0000 )
+end procedure
+
+procedure HD44780_line2 is
+   HD44780_instruction( 0b_1010_1000 )
+end procedure
+
+procedure HD44780_define( 
+   byte in x,
+   byte in b0, 
+   byte in b1, 
+   byte in b2, 
+   byte in b3, 
+   byte in b4, 
+   byte in b5, 
+   byte in b6,
+   byte in b7
+) is 
+   HD44780_instruction( 0x40 | ( x << 3 ) )
+   HD44780_write( b0 )
+   HD44780_write( b1 )
+   HD44780_write( b2 )
+   HD44780_write( b3 )
+   HD44780_write( b4 )
+   HD44780_write( b5 )
+   HD44780_write( b6 )
+   HD44780_write( b7 )
+end procedure

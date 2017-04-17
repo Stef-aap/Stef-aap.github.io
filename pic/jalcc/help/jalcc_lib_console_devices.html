@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>january 2006</span></p>
+<p><span class=rvts1>JAL Console Library</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>The <span class=rvts4>console</span>&nbsp; library is intended to give a read / write interface, for a byte value, for all kind of devices, all with a equal user interface. Whether you've a RS232 port, an I2C memory or an Ultrasonic Ranger, for each device you can use the same procedure to read or write the data. This makes is very easy to exchange devices, without modifying the code.</p>
+<p>This library is more meant as an example, which you should addept to your set of devices.</p>
+<p><br></p>
+<p><span class=rvts2>Procedures</span></p>
+<p>There are 2 sets of read / write procedures, the long ones, in which you specify the selected device in each call</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=285 height=177 alt="" src="jalcc_lib_console_devices_img6.png"></p>
+<p><br></p>
+<p>and the short set, in which you set the device, prior to using (another) device.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=298 height=191 alt="" src="jalcc_lib_console_devices_img7.png"></p>
+<p><br></p>
+<p>The long calls, have more overhead but result in shorter and more readible code. The short calls, results in less code space, especially when you repeatedly using the same device.</p>
+<p><br></p>
+<p>The variable "device" can be a pseudo variable, so it's possible to put also some initialisation code "behind" this variable.</p>
+<p>The provided example library <span class=rvts4>console</span>, contains 2 devices, a serial hardware port and a serial software port, both on the same IO-pins. In this case, setting a value to device also initializes the correct settings for hardware or software uart. The library was tested and worked well, with&nbsp; software and hardware communication in all kinds of constructions at 115_200 Baud.</p>
+<p><br></p>
+<p>Here an example of a total main program, which reads data form the hardware uart and sends the inverted data through a software uart on the same pins as the hardware uart.</p>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=519 height=491 alt="" src="jalcc_lib_console_devices_img15.png"></p>
+<p>here the procedure dependancy is shown.</p>
+<p><span class=rvts10>Console_defs</span>(containing the user definitions) is placed higher the real console library <span class=rvts10>console</span>, because some people prefer to put all their settings in a separate file or even in the main program.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=226 height=131 alt="" src="jalcc_lib_console_devices_img8.png"></p>
+<p><span class=rvts8>&nbsp; </span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts2>Real Fun</span></p>
+<p>And here the real fun starts, adding your own library for some sequential byte oriented device to the console library. To realize that you've to do the following steps</p>
+<p><br></p>
+<ol style="text-indent: 0px; margin-left: 20px; list-style-position: outside;">
+<li value=1>load the latest <span class=rvts10>console.jal&nbsp; </span>and <span class=rvts10>console_defs.jal&nbsp; </span>from .... </li>
+<li value=2>add a new constant with an <span class=rvts10>unique number</span>to indentify your library. </li>
+<li value=3><span class=rvts10>include&nbsp; </span>the library </li>
+<li value=4>add the (conditional) <span class=rvts10>initialisation&nbsp; </span>part of your device </li>
+<li value=5>add the (conditional) <span class=rvts10>read procedure&nbsp; </span>of your device (if any) </li>
+<li value=6>add the (conditional) <span class=rvts10>write procedure&nbsp; </span>of your device (if any) </li>
+<li value=7>add the (conditional) call to initialization of your device </li>
+<li value=8>upload the modified <span class=rvts10>console.jal&nbsp; </span>and <span class=rvts10>console_defs.jal&nbsp; </span>your library to .... </li>
+</ol>
+<p><br></p>
+<p><span class=rvts2>2. Add unique number for your library</span></p>
+<p>Here you see that the SPI_hw library is added with the unique number 3. The library can be "disabled" by changing this constant temporary into zero. This garantees that the library will not eat any code or time. </p>
+<p>Because enabling / disabling is project dependant, I've put these unique numbers in CONSOLE_DEFS.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=512 height=205 alt="" src="jalcc_lib_console_devices_img9.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>3. Include the library</span></p>
+<p>There's no way to include the library conditional. But as the compiler is very fast and the code constructs doesn't consume any code if the above constant is set to zero, this seems an acceptable way.</p>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=224 height=122 alt="" src="jalcc_lib_console_devices_img14.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>4. Add the initialisation part</span></p>
+<p>Line [121]&nbsp; because the condition is fully based on constants, this works like a compiler directive. Therefor the procedure "init_device" will only step through the "enabled" devices. If this device is enabled, line [124] will ensure that the if-statement of line [122] will work like a case-statement, so the procedure will be exit as soon as a valid device is recognized.</p>
+<p><br></p>
+<p><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=581 height=190 alt="" src="jalcc_lib_console_devices_img11.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>5. Add the read procedure</span></p>
+<p>Again, line [172] works like a compiler directive. If you've a read procedure that returns a boolean value, which indicates if the read was succesfull, you should return this boolean. Also line [175] ensures the if-statement of line [173] works as a case-statement.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=458 height=238 alt="" src="jalcc_lib_console_devices_img12.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>6. Add the write procedure</span></p>
+<p>Again, line [214] works like a compiler directive, line [217] ensures case-statement.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=350 height=190 alt="" src="jalcc_lib_console_devices_img13.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>7. Add a call to the&nbsp; initialization part</span></p>
+<p>This call is placed in CONSOLE_DEFS, because it's a project choice whether you want input, output or both.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=312 height=103 alt="" src="jalcc_lib_console_devices_img16.png"></p>
+<p><br></p>
+
+</body></html>

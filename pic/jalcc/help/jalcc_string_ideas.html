@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="55" />
+<meta name="spellcheck" content="3" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>April 2006</span></p>
+<p><span class=rvts1>Strings in JAL</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex </a></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>String elements</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>constant string </li>
+<li>constant string table </li>
+<li>variable string </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Use of strings</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>writing pre-defined texts to some output device (RS232, LCD, ...) </li>
+<li>looking up a received string </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Constant Strings</span></p>
+<p>The constant string definition can be handy if some string is just used once in the program. If a string is needed more than once, a string table is far more efficient. The use of the constant string is quit limited at the moment. The string is defined by</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=522 height=22 alt="" src="jalcc_string_ideas_img7.png"></p>
+<p><br></p>
+<p>Now as it's not possible to use the string as a parameter in a procedure call, every time the string is needed the full code must be written in-line, so for writing the constant string to the serial port the following code could used.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=364 height=70 alt="" src="jalcc_string_ideas_img8.png"></p>
+<p><br></p>
+<p>A problem may arise, because it might be unknown here if the loop variable "i" here already exists or not.</p>
+<p>In JALcc there's a macro to write the definition and use of a constant string just in 1 line</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=550 height=21 alt="" src="jalcc_string_ideas_img9.png"></p>
+<p><br></p>
+<p>which will expand into normal JAL like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=481 height=87 alt="" src="jalcc_string_ideas_img10.png"></p>
+<p><br></p>
+<p>As for the moment I doubt if this best expansion, I've implemented 2 methodes, the loop method above and the inline method. So there are 3 different macro calls:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=602 height=52 alt="" src="jalcc_string_ideas_img12.png"></p>
+<p><br></p>
+<p>At this moment the "Write_String" macro is attached to the Asloop macro shown above. The Inline macro will expand into normal JAL like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=250 height=429 alt="" src="jalcc_string_ideas_img13.png"></p>
+<p><br></p>
+<p>Both methods supports the special characters, defined in JAL and shown in the table below, except the hexadecimal value.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=336 height=255 alt="" src="jalcc_string_ideas_img1.bmp"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Constant String Table</span></p>
+<p>In JAL you can define constant stringtables, with a maximum length of 255. Unfortunatly creating a stringtable is a very hard job, because you have to define the stringtable as an array of characters.</p>
+<p>In JALcc there are macros to generate stringtables in an easy way:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=500 height=140 alt="" src="jalcc_string_ideas_img6.png"></p>
+<p><br></p>
+<p>which expands in JAL to (and now you understand why it's a hard job)</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=453 height=119 alt="" hspace=1 vspace=1 src="jalcc_string_ideas_img16.png"></p>
+<p><br></p>
+<p>The macro generation in JALcc does a view more nice things:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>it fills in the total length of the stringtable (not needed for the compiler) but very handy to see how much space is left for more strings </li>
+<li>it generates a null character after each string and a double null character to identify the end of table </li>
+<li>it generates an index array, so strings can be accessed very quickly. This index also contains the start of the last null character, indicating the end of the table, so for each string individual string in the table it's easy to calculate the length of that string. </li>
+</ul>
+<p><br></p>
+<p>These strings can be accessed by some procedures in the library Strings (ID=24), like this</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=423 height=41 alt="" src="jalcc_string_ideas_img14.png"></p>
+<p><br></p>
+<p>As the above example uses the fast lookup, which needs absolute indices of each string (automatically created by the JALcc macro), there is also a slow routine which doesn't need these indices:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=467 height=55 alt="" src="jalcc_string_ideas_img15.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Variable Strings</span></p>
+<p>...</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Find String in a Table</span></p>
+<p>... sorted on length ... or ... sorted on alfabet ??/</p>
+<p><br></p>
+
+</body></html>

@@ -1,0 +1,851 @@
+-- -----------------------------------------------------------------------------
+-- <title LCD control (HD44780)
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki  
+-- mailto:S.Mientki@mailbox.kun.nl
+-- -----------------------------------------------------------------------------
+-- <Description
+-- Library for the control of an LCD module, controlled by HD44780 or equivalent.
+-- The routines are basically designed for a 2 line display,
+-- but with some slight modifications also usable for 1 and 4 line displays
+--
+-- Hardware settings can be done through a local copy of HD44780_4_INS
+--
+-- Because in general IO-lines are scarce,
+-- only 4 bit control of the LCD is implemented
+-- Cursor is always incremented (decrementing has no usefull meaning in western language)
+--
+-- <non-tag
+-- procedures
+--    todo ....
+--
+
+-- <Version: 1.2    ,01-09-2004, Stef Mientki
+--    - Extra delay in Init procedure, after 4-bits setting, 
+--      needed for VARITRONIX MDLS-16268-series
+--        Problem was a uncomplete reset, after which the total behaviour was instable
+--    - procedure LCD_init made explicitly available
+--		- added: procedure value_to_LCD_10X_3pos 
+--		- added: procedure value_to_LCD_10X_4pos 
+--
+-- <Version: 1.1    ,07-07-2004, Stef Mientki
+--    - Naming of io-pins changed, according JALcc macro definitions
+--		- auto-initialisation now includes display clear and display of version
+--
+-- <Version: 1.0    ,29-03-2002, Stef Mientki
+--    - orginal release
+--
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+
+
+-- -----------------------------------------------------------------------------
+-- <Example 
+; not available
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+include delay_20mc
+
+
+-- -----------------------------------------------------------------------------
+-- these delays are necessary in between certain commands,
+-- I guess they should work in all cases
+const _HD44780_short_delay     = 5   -- fast command delay in 10 usec units
+                                     -- should be 4=40usec for 250kHz cycle frequency
+const _HD44780_long_delay      = 180 -- fast command delay in 10 usec units
+                                     -- should be 165 = 1.65 msec for 250kHz cycle frequency
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- some constants to control the LCD
+-- -----------------------------------------------------------------------------
+const _HD44780_clear_display       = 0b_0000_0001
+const _HD44780_return_home         = 0b_0000_0010    -- LONG DELAY !!
+
+const _HD44780_display_onoff       = 0b_0000_1000
+                               
+const _HD44780_cursor_shift_right  = 0b_0001_0100
+const _HD44780_cursor_shift_left   = 0b_0001_0000
+const _HD44780_display_shift_right = 0b_0001_1100
+const _HD44780_display_shift_left  = 0b_0001_1000
+
+const _HD44780_set_CGRAM_address   = 0b_0100_0000  -- + 6 bits address
+const _HD44780_set_DDRAM_address   = 0b_1000_0000  -- + 7bits address
+-- -----------------------------------------------------------------------------
+
+
+
+-- global on/off shadow bits
+var volatile bit _HD44780_display = true
+var volatile bit _HD44780_cursor  = false
+var volatile bit _HD44780_blink   = false
+
+
+-- other global vraibles
+var volatile byte LCD_pos = 0
+
+
+-- global variables for animations
+var   byte LCD_animate1_state; = 0
+var   byte LCD_animate2_state; = 0
+var   bit  LCD_animate3_state
+var   byte LCD_animate4_state; = 0
+
+
+-- some constants to save code memory
+const byte _LCD_animate1_pos  = LCD_animate1_pos << 3
+const byte _LCD_animate2_pos  = LCD_animate2_pos << 3
+const byte _LCD_animate3_pos  = LCD_animate3_pos << 3
+
+
+-- ----------------------------------------------------------------------------
+-- sends low nibble from value to the LCD
+-- can be used for both commands and data
+-- (requires no wait cycli inbetween upper and lower nibble)
+-- (this routine is only used inside this file)
+-- ----------------------------------------------------------------------------
+procedure _HD44780_write_low_nibble ( byte in value ) is
+var bit bit0 at value : 0
+var bit bit1 at value : 1
+var bit bit2 at value : 2
+var bit bit3 at value : 3
+
+  -- if multiplexed IO-pins, be sure all pins are set to output
+  if HD44780_multiplexed_output then
+    HD44780_b4_direction = output
+    HD44780_b5_direction = output
+    HD44780_b6_direction = output
+    HD44780_b7_direction = output
+    HD44780_DataCmd_direction = output
+  end if
+
+  -- setup databits
+  HD44780_b4_pin = bit0
+  HD44780_b5_pin = bit1
+  HD44780_b6_pin = bit2
+  HD44780_b7_pin = bit3
+  
+  
+  -- generate clockpuls
+  HD44780_Enable_pin  = high   -- enable high
+  HD44780_Enable_pin  = low    -- enable  high --> low = clock data
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- sends command byte in value to LCD
+-- for slow commands an extra delay should be added
+-- (this routine is only used inside this file)
+-- ----------------------------------------------------------------------------
+procedure _HD44780_Command( byte in value ) is
+   hd44780_DataCmd_pin = low                   -- select instruction
+   _HD44780_write_low_nibble( value >> 4 ) -- output high nibble
+   _HD44780_write_low_nibble( value )      -- output low nibble
+   delay_10uS( _HD44780_short_delay )      -- required delay
+end procedure
+-- ----------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------
+-- transports the global settings (display, cursor, blink) to the LCD
+-- ----------------------------------------------------------------------------
+procedure _HD44780_Do_Settings is
+var byte cmd
+  cmd = _HD44780_display_onoff
+  if _HD44780_display then cmd = cmd + 4 end if
+  if _HD44780_cursor  then cmd = cmd + 2 end if
+  if _HD44780_blink   then cmd = cmd + 1 end if
+  _HD44780_Command ( cmd )
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- Turn Cursor on / off
+-- ----------------------------------------------------------------------------
+procedure LCD_cursor'put 
+  ( bit in on_off ) is
+  _HD44780_cursor = on_off
+  _HD44780_Do_Settings
+end procedure
+-- ----------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------
+-- Turn Blink on / off
+-- ----------------------------------------------------------------------------
+procedure LCD_blink'put 
+  ( bit in on_off ) is
+  _HD44780_blink = on_off
+  _HD44780_Do_Settings
+end procedure
+-- ----------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------
+-- Turn Display on / off
+-- ----------------------------------------------------------------------------
+procedure LCD_display'put 
+  ( bit in on_off ) is
+  _HD44780_display = on_off
+  _HD44780_Do_Settings
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- sends data byte in value to LCD,
+-- use this routine to send data to the character rom
+-- (requires no extra wait cycli afterwards)
+-- (this routine is only used inside this file)
+-- ----------------------------------------------------------------------------
+procedure _LCD'put ( byte in ascii ) is
+   HD44780_DataCmd_pin = high   -- select data
+   _HD44780_write_low_nibble( ascii >> 4 ) -- output high nibble
+   _HD44780_write_low_nibble( ascii )      -- output low nibble
+   delay_10uS( _HD44780_short_delay )      -- required delay
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- sets the cursor of the LCD to the position in the shadow register
+-- ----------------------------------------------------------------------------
+procedure _LCD_restore_cursor is
+  -- set LCD back to normal operation
+  _HD44780_Command ( _HD44780_set_DDRAM_address | LCD_pos )
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- sets the cursor of the LCD to position POS
+-- ----------------------------------------------------------------------------
+procedure LCD_cursor_pos'put 
+  ( byte in pos ) is
+  LCD_pos = pos
+  _LCD_restore_cursor
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- shifts display (that is all lines) one position to the left
+-- ----------------------------------------------------------------------------
+procedure LCD_shift_left is
+  -- set LCD back to normal operation
+  _HD44780_Command ( _HD44780_display_shift_left )
+end procedure
+-- ----------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------
+-- shifts display (that is all lines) one position to the right
+-- ----------------------------------------------------------------------------
+procedure LCD_shift_right is
+  -- set LCD back to normal operation
+  _HD44780_Command ( _HD44780_display_shift_right )
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- Send character ASCII to LCD,
+-- cursor position is held in a shadow register,
+-- (necessary if animations are running
+-- or useful if the display must be full rotating)
+-- ----------------------------------------------------------------------------
+procedure LCD_char'put 
+  ( byte in ascii ) is
+  -- send ASCII character to current position of display
+  _LCD = ascii
+  
+  -- now increment shadow counter,
+  -- incrementing is done in such a way that the whole display area is used
+  LCD_POS = LCD_POS + 1
+  if LCD_number_of_display_lines == 1 then
+    if LCD_POS == LCD_number_of_display_characters then LCD_POS = 0
+    end if
+
+  elsif LCD_number_of_display_lines == 2 then
+    if    LCD_POS ==        LCD_number_of_display_characters then LCD_POS = 0x40
+    elsif LCD_POS == 0x40 + LCD_number_of_display_characters then LCD_POS = 0
+    end if
+
+  else -- 4 lines
+    if    LCD_POS ==        LCD_number_of_display_characters then LCD_POS = 0x40
+    elsif LCD_POS == 0x40 + LCD_number_of_display_characters then LCD_POS = 0x10
+    elsif LCD_POS == 0x10 + LCD_number_of_display_characters then LCD_POS = 0x50
+    elsif LCD_POS == 0x50 + LCD_number_of_display_characters then LCD_POS = 0
+    end if
+
+  end if
+
+  -- set LCD back to normal operation
+  _LCD_restore_cursor
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- writes charactes ASCII to the LCD at postion POS
+-- positions refers to the oficial LCD position [ 0 .. 79 ],
+--   so writing to 0x42 in a 2*16 display, will write at the third position
+--   of the second line
+-- therefore it's also possible to write outside the physical display
+-- ----------------------------------------------------------------------------
+procedure LCD_char_pos 
+  ( byte in ASCII , byte in pos ) is
+  LCD_cursor_pos = pos
+  LCD_char = ASCII
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- writes charactes ASCII to the LCD at postion POS on line LINE [0..1]
+-- see also remarks for routine LCD_CHAR_POS
+-- ----------------------------------------------------------------------------
+procedure LCD_char_line_pos 
+  ( byte in ASCII , byte in line, byte in pos ) is
+  if LCD_number_of_display_lines == 1 then
+    LCD_pos = pos
+
+  elsif LCD_number_of_display_lines == 2 then
+    if line == 0 then LCD_pos = pos
+    else              LCD_pos = pos + 0x40
+    end if
+
+  else -- 4 lines
+    if    line == 0 then LCD_pos = pos
+    elsif line == 1 then LCD_pos = pos + 0x40
+    elsif line == 2 then LCD_pos = pos + 0x10
+    else                 LCD_pos = pos + 0x50
+    end if
+
+  end if
+
+  _LCD_restore_cursor
+  LCD_char = ASCII
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- clears the selected line [0..1] and
+-- sets the cursor at the start of that line
+-- ----------------------------------------------------------------------------
+procedure LCD_clear_line 
+  ( byte in line = 0 ) is
+  -- set LCD-cursor at start of line
+  if line == 0 then LCD_pos = 0 else LCD_pos = 0x40 end if
+  _LCD_restore_cursor
+
+  -- now fill line with spaces
+  for LCD_number_of_display_characters loop
+    _LCD = " "
+  end loop
+
+  -- set LCD back to normal operation
+  _LCD_restore_cursor
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- Gets the next character from a string in one of the tables
+-- The index is auto incremented, so it's easy to do consecutive calls
+-- (this routine is only used inside this file)
+-- Ofcourse it's easy to extend this routine to more than 2 tables.
+-- after the example E0005.JAL from Wouter van Ooijen
+-- ----------------------------------------------------------------------------
+function _get_string_element ( byte in table,      -- tablenumber [ 0 .. 1 ]
+                               byte in  out indx,  -- index in table [ 0 ..   ]
+                               byte out x          -- character from table
+                             ) return bit is       -- true if character <> 0
+  if table == 0 then
+   assembler
+      bank  movfw  indx
+      page  call   _string_table_1
+      bank  movwf  x
+   end assembler
+  else
+   assembler
+      bank  movfw  indx
+      page  call   _string_table_2
+      bank  movwf  x
+   end assembler
+  end if
+  indx = indx + 1
+  return ! ( x == 0 )
+end function
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- routine to get next element from table for character generation
+-- auto increment of index
+-- (this routine is only used inside this file)
+-- ----------------------------------------------------------------------------
+procedure _get_string_element_chargen( byte in  out indx, byte out x ) is
+   assembler
+      bank  movfw  indx
+      page  call   _string_table_character_generator
+      bank  movwf  x
+   end assembler
+   indx = indx + 1
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- Displays a complete string from a table on the LCD
+-- writing to the LCD is started at the current cursor location
+-- ----------------------------------------------------------------------------
+procedure LCD_display_string 
+  ( byte in table,          -- table [ 0 .. 1 ]
+    byte in stringnr ) is   -- string in table [ 0 .. ]
+var byte x
+var byte i = 0  -- start at the first location of the table
+
+  -- first locate the correct string (countdown pos)
+  while stringnr > 0 loop
+    -- find the start of the next string
+    -- (every string in the table has a trailing NULL)
+    while _get_string_element( table, i , x ) loop
+    end loop
+    -- now update string counter
+    stringnr = stringnr - 1
+  end loop
+
+  -- display the string
+  while _get_string_element ( table, i , x ) loop
+    LCD_char = x
+  end loop
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- definies a user character,
+-- by copying the pixel definitions from a table to the character rom
+-- table is definied in HD44780_INS.JAL
+-- ----------------------------------------------------------------------------
+procedure LCD_define_character
+            ( byte in LCD_char_pos,       -- ASCII location [ 0..7]
+              byte in char_generator ) is -- stringnumber in table [0..]
+var byte x
+  -- command write to character rom at location LCD_char_pos
+  _HD44780_Command ( _HD44780_set_CGRAM_address + ( LCD_char_pos << 3 ))
+
+  -- locate the position of the pixels in the table
+  -- (all character definitions must have 8 words)
+  char_generator = char_generator << 3
+
+  -- now copy 8 pixel lines from table to character rom
+  for 8 loop
+    _get_string_element_chargen ( char_generator , x )
+    _LCD = x
+  end loop
+
+  -- set LCD back to normal operation
+  _LCD_restore_cursor
+end procedure
+-- ---------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+var volatile byte _LCD_scroll_table
+var volatile byte _LCD_scroll_counter
+var volatile byte _LCD_scroll_counter_init
+var volatile byte _LCD_scroll_leading_spaces
+var volatile byte _LCD_scroll_trailing_spaces
+-- ----------------------------------------------------------------------------
+-- Displays a scrolling string at the top line
+-- the string is a normal string from one of the standard string tables
+-- after calling init, LCD_SCROLL_STRING should be called on a regular base
+-- ----------------------------------------------------------------------------
+procedure LCD_scroll_string_init 
+  ( byte in table,          -- table [ 0 .. 1 ]
+    byte in stringnr ) is   -- string in table [ 0 .. ]
+
+var byte kar
+
+  -- first locate the correct string (countdown pos)
+  _LCD_scroll_counter_init = 0
+  while stringnr > 0 loop
+    -- find the start of the next string
+    -- (every string in the table has a trailing NULL)
+    while _get_string_element( table, _LCD_scroll_counter_init , kar) loop
+    end loop
+    -- now update string counter
+    stringnr = stringnr - 1
+  end loop
+
+  LCD_clear_line ( 0 )
+  _LCD_scroll_table = table
+  _LCD_scroll_trailing_spaces = LCD_number_of_display_characters
+end procedure
+-- ----------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
+procedure LCD_scroll_string is
+var byte _kar
+var byte _to_prevent_NULL_pointer_error
+var byte _string_pointer
+
+  -- initialisation if line is totally passed
+  if _LCD_scroll_trailing_spaces == LCD_number_of_display_characters then
+    _LCD_scroll_leading_spaces = LCD_number_of_display_characters
+    _LCD_scroll_trailing_spaces = 0
+    _LCD_scroll_counter = _LCD_scroll_counter_init
+  end if
+
+  -- set the cursor at the start position
+  -- and if necessary decrement leading spaces
+  if _LCD_scroll_leading_spaces > 0 then
+    _LCD_scroll_leading_spaces = _LCD_scroll_leading_spaces - 1
+  end if
+  LCD_pos = _LCD_scroll_leading_spaces
+  _LCD_restore_cursor
+
+  -- write the actual characters
+  _string_pointer = _LCD_scroll_counter
+  _kar = 0
+  _to_prevent_NULL_pointer_error =
+     ( LCD_number_of_display_characters - _LCD_scroll_leading_spaces )
+       - _LCD_scroll_trailing_spaces
+  for _to_prevent_NULL_pointer_error loop
+    _get_string_element( _LCD_scroll_table, _LCD_scroll_counter , _kar )
+    if _kar != 0 then
+      LCD_char = _kar
+    else
+      LCD_char = " "
+    end if
+  end loop
+  
+  -- now keep the updated string pointer
+  -- and increment trailing spaces if necessary
+  if _kar == 0 then
+    _LCD_scroll_trailing_spaces = _LCD_scroll_trailing_spaces + 1
+    _string_pointer = _string_pointer + 1
+  elsif _LCD_scroll_leading_spaces == 0 then
+    _string_pointer = _string_pointer + 1
+  end if
+  _LCD_scroll_counter = _string_pointer
+  
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- table for animation of rotating line
+-- (this routine is only used inside this file)
+-- ----------------------------------------------------------------------------
+procedure _string_clock_animation is
+   pragma jump_table
+   assembler
+      addwf PCL, f
+        retlw   0b_00100  -- vertical
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+        retlw   0b_00100
+
+        retlw   0b_00001  -- upper right corner
+        retlw   0b_00010
+        retlw   0b_00100
+        retlw   0b_01000
+        retlw   0b_10000
+
+        retlw   0b_00000  -- horzontal
+        retlw   0b_00000
+        retlw   0b_11111
+        retlw   0b_00000
+        retlw   0b_00000
+        
+        retlw   0b_10000  -- upper left corner
+        retlw   0b_01000
+        retlw   0b_00100
+        retlw   0b_00010
+        retlw   0b_00001
+        
+   end assembler
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- routine to get next element from table for animation of rotating line
+-- auto increment of index
+-- (this routine is only used inside this file)
+-- ----------------------------------------------------------------------------
+procedure _get_string_clock_animation( byte in  out indx, byte out x ) is
+   assembler
+      bank  movfw  indx
+      page  call   _string_clock_animation
+      bank  movwf  x
+   end assembler
+   indx = indx + 1
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- Animates a growing / decreasing stack (like a progress gauge)
+-- should be called at regular intervals
+-- Every time this routine is called, just one line is written to the character rom
+-- ----------------------------------------------------------------------------
+procedure LCD_animate1 is
+  -- building up stack image
+  if LCD_animate1_state <= 7 then
+    _HD44780_Command ( _HD44780_set_CGRAM_address + _LCD_animate1_pos +
+                      ( 7 - LCD_animate1_state ))
+    _LCD = 0b_11111
+  else  -- decreasing the stack image
+    _HD44780_Command ( _HD44780_set_CGRAM_address + _LCD_animate1_pos +
+                      ( LCD_animate1_state - 8 ))
+    _LCD = 0b_00000
+  end if
+
+  -- update state counter
+  LCD_animate1_state = ( LCD_animate1_state + 1 ) & 0x0F
+
+  -- set LCD back to normal operation
+  _LCD_restore_cursor
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- Animates a rotating line.
+-- should be called at regular intervals
+-- Every time this routine is called, all the character lines are written,
+-- to save as much codespace as possible.
+-- This animation uses a (partial) code table.
+-- ----------------------------------------------------------------------------
+procedure LCD_animate2 is
+var byte x
+  _HD44780_Command ( _HD44780_set_CGRAM_address + _LCD_animate2_pos )
+  _LCD = 0
+  _LCD = 0
+  for 5 loop
+    _get_string_clock_animation ( LCD_animate2_state , x )
+    _LCD = x
+  end loop
+  _LCD = 0
+
+  -- update state counter
+  if LCD_animate2_state >= 20 then LCD_animate2_state = 0 end if
+
+  -- set LCD back to normal operation
+  _LCD_restore_cursor
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- Animates a smiley with a winking eye,
+-- should be called at regular intervals (500 msec is a good interval)
+-- Every time this routine is called, all the character lines are written,
+-- to save as much codespace as possible.
+-- ----------------------------------------------------------------------------
+procedure LCD_animate3 is
+  _HD44780_Command ( _HD44780_set_CGRAM_address + _LCD_animate3_pos)
+  if LCD_animate3_state then
+    _LCD = 0b_11011
+  else
+    _LCD = 0b_00011
+  end if
+
+  -- although it's not necessary to define these lines every time,
+  -- this is the way to use the least code space
+  _LCD = 0b_11011
+  _LCD = 0b_00000
+  _LCD = 0b_00100
+  _LCD = 0b_00000
+  _LCD = 0b_10001
+  _LCD = 0b_01110
+  _LCD = 0b_00000
+
+  -- update state
+  LCD_animate3_state = ! LCD_animate3_state
+
+  -- set LCD back to normal operation
+  _LCD_restore_cursor
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Displays a value of 10X on 3 positions
+-- 10X = 13   will be displayed as "1.3"
+-- 10X = 113  will be displayed as " 11"
+-- rounding is correctly handled
+-- 10X = 115  will be displayed as " 12"
+-- -----------------------------------------------------------------------------
+procedure value_to_LCD_10X_3pos 
+  (byte in BH, byte in BL, byte in poskar) is
+var byte D100, D10
+  Y2 = BH
+  Y1 = BL
+;;;;;  <;mac> byte2_assign  X = 100
+    X1 = 0x64
+    X2 = 0x00
+;;;;;<;/mac>
+  D100 = 0
+  while (Y2 > 0) | (Y1 >= 100) loop
+    byte2_SUB
+    D100 = D100 + 1
+  end loop
+  
+  D10 = 0
+  while Y1 >= 10 loop
+    Y1 = Y1 - 10
+    D10 = D10 + 1
+  end loop
+  
+  -- rounding 10.6 ==> 11
+  if D100 > 0 then
+    if Y1 >= 5 then
+      D10 = D10 + 1
+      if D10 == 10 then
+        D100 = D100 + 1
+        D10 = 0
+      end if
+    end if
+  	LCD_char_pos (" ", poskar)
+  	poskar = poskar + 1
+  	LCD_char_pos (0x30 + D100, poskar)
+  	poskar = poskar + 1
+  	LCD_char_pos (0x30 + D10, poskar)
+  else
+  	LCD_char_pos (0x30 + D10, poskar)
+  	poskar = poskar + 1
+  	LCD_char_pos (".", poskar)
+  	poskar = poskar + 1
+  	LCD_char_pos (0x30 + Y1, poskar)
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Displays a value of 10X on 4 positions
+-- 10X = 13   will be displayed as " 1.3"
+-- 10X = 113  will be displayed as "11.3"
+-- -----------------------------------------------------------------------------
+procedure value_to_LCD_10X_4pos 
+  (byte in BH, byte in BL, byte in poskar) is
+var byte D100, D10
+  Y2 = BH
+  Y1 = BL
+;;;;;  <;mac> byte2_assign  X = 100
+    X1 = 0x64
+    X2 = 0x00
+;;;;;<;/mac>
+  D100 = 0
+  while (Y2 > 0) | (Y1 >= 100) loop
+    byte2_SUB
+    D100 = D100 + 1
+  end loop
+  
+  D10 = 0
+  while Y1 >= 10 loop
+    Y1 = Y1 - 10
+    D10 = D10 + 1
+  end loop
+  
+  if D100 > 0 then
+  	LCD_char_pos (0x30 + D100, poskar)
+  else
+  	LCD_char_pos (" ", poskar)
+  end if
+	poskar = poskar + 1
+
+  -- always dsiplay 0 before decimal sign
+	LCD_char_pos (0x30 + D10, poskar)
+ 	poskar = poskar + 1
+ 	LCD_char_pos (".", poskar)
+ 	poskar = poskar + 1
+ 	LCD_char_pos (0x30 + Y1, poskar)
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+
+-- ----------------------------------------------------------------------------
+-- Software reset / initialisation
+-- ----------------------------------------------------------------------------
+procedure LCD_init is
+  -- if multiplexed IO-pins, these values will be set just before sending
+  if ! HD44780_multiplexed_output then
+    HD44780_b4_pin        = low
+    HD44780_b5_pin        = low
+    HD44780_b6_pin        = low
+    HD44780_b7_pin        = low
+    HD44780_DataCmd_pin   = low
+
+    HD44780_b4_direction  = output
+    HD44780_b5_direction  = output
+    HD44780_b6_direction  = output
+    HD44780_b7_direction  = output
+    HD44780_DataCmd_direction = output
+  end if
+
+  HD44780_Enable_pin       = low
+  HD44780_Enable_direction = output
+
+  delay_1mS ( 40 )                      -- even long enough for Vcc as low as 2.7V
+  HD44780_DataCmd_pin = low                 -- select command
+  _HD44780_write_low_nibble ( 0b_0011 ) -- first init
+  delay_1mS ( 5 )                       -- extra delay
+  _HD44780_write_low_nibble ( 0b_0011 ) -- second init
+  delay_10uS( 10 )                      -- extra delay
+  _HD44780_write_low_nibble ( 0b_0011 ) -- third init
+
+  _HD44780_write_low_nibble ( 0b_0010 ) -- set 4-bit interface
+	delay_10uS( _HD44780_short_delay )    -- FOR SOME DISPLAYS (VARITRONIX) required delay
+  _HD44780_Command( 0b_0010_1000 )      -- two lines, 5x7 (high nibble)
+  _HD44780_Command( 0b_0000_1111 )      -- display on, cursor on, blink on
+  _HD44780_Command( 0b_0000_0001 )      -- clear display
+  _HD44780_Command( 0b_0000_0110 )      -- increment and no shift
+
+
+  -- now display version of this lib
+	delay_1ms(100)
+  LCD_char_pos ( "V", 1)
+  LCD_char_pos ( " ", 2)
+  LCD_char_pos ( "1", 3)
+  LCD_char_pos ( ".", 4)
+  LCD_char_pos ( "2", 5)
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------------
+-- Initialisation
+-- ----------------------------------------------------------------------------
+LCD_init
+

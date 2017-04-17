@@ -1,0 +1,76 @@
+--
+-- file      : hd44780.jal
+-- author    : Wouter van Ooijen
+-- date      : 17-NOV-1998
+-- purpose   : hd44780 8-bits interface
+-- includes  : jpic, jdelay
+-- pins      : see hd44780p
+--
+-- Copyright (C) 1998 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+
+-- required libraries
+if target_cpu != pic_16 then
+   include jpic
+else
+   include jpic16
+end if
+
+   include jdelay
+
+-- the IO pin assignment
+include hd44780p
+
+-- output byte value to the DH44780
+procedure HD44780_IO( byte in value ) is
+   hd44780_8_D = value   -- put value on the data lines
+   hd44780_8_E = high    -- enable
+   delay_100uS( 10 )     -- enough for the simple operations
+   hd44780_8_E = low     -- disable
+end procedure
+
+-- output the instruction byte in value to the HD44780
+procedure HD44780_instruction( byte in value ) is
+   hd44780_8_DI = low    -- select instruction
+   HD44780_IO( value )   -- issue instruction value
+   delay_100uS( 30 )     -- required delay
+end procedure
+
+-- output the data byte in value to the HD44780
+procedure HD44780_write( byte in value ) is
+   hd44780_8_DI = high   -- select data
+   HD44780_IO( value )   -- isue data value
+end procedure
+
+-- idem, pseudo-variable
+procedure HD44780'put( byte in value ) is
+   hd44780_8_DI = high   -- select data
+   HD44780_IO( value )   -- isue data value 
+end procedure
+
+-- initialization
+_hd44780_8_init                      -- IO pin initialisation
+delay_10mS( 10 )                     -- gives the HD44780 time to wake up
+HD44780_instruction( 0b_0011_1000 )  -- one
+delay_100uS( 30 )                    -- extra delay for first cmd
+HD44780_instruction( 0b_0011_1000 )  -- two
+HD44780_instruction( 0b_0011_1000 )  -- three
+HD44780_instruction( 0b_0011_1000 )  -- two lines, 5x7
+
+-- include the other procedures
+include hd44780

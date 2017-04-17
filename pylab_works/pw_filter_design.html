@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Filter Design (SWB example)</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>march 2008</span></p>
+<p><span class=rvts1>Filter Design </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This demo shows how you can easily compare a number of different filter designs with Signal WorkBench.</p>
+<p>This document also shows, how terrible beautiful, but clumsy, we did filter design in the past with MatLab.</p>
+<p>The good thing about MatLab is, they have a very extensive and reasonable (yes it contains a lot of errors) good <a class=rvts4 href="http://www.mathworks.com/access/helpdesk/help/pdf_doc/signal/signal_tb.pdf">online book (free),</a> covering the Signal Analysis package, which looks reasonable identical to the possibilities of SciPy. </p>
+<p>In fact generating this document was the first real-life test of Signal WorkBench, so some of the examples and pictures shown on this page, might be premature or contain small in-perfections.</p>
+<p><br></p>
+<p><span class=rvts2>Goal</span></p>
+<p>Suppose we want to design a filter and compare several filter-designs with each other. We not only want to compare the results like frequency response and impulse response but also we want to see and compare the effect of the different filters on the real signal. Let's say we want to compare a maximum of 4 filters at a time, and we want to compare frequency response (separated in amplitude and phase, and both in overall view and passband details), impulse response (overall and detail) and of course the real signal response (and maybe we also want step response). Now there are several ways to accomplish this test setup with Signal WorkBench, but the most obvious solution is to create one graphical window for each parameter (where total overview and detailed view will be placed in separate windows). So this will lead us to a calculation tree, which might look something like this:</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=640 valign=top style="background-color: #ffffd4;">
+<p>The <span class=rvts9>top node</span> contains a reference to the <span class=rvts9>real signals</span>, in this case the signals are read from a file.</p>
+<p>The <span class=rvts9>second node</span> is the <span class=rvts9>start of the filter calculations</span>, and will generate the overall view of the amplitude-frequency response.</p>
+<p>All other graphical views are created as a child of the filter start-node. The reason for this is simple, we now can save the filter start-node as a <span class=rvts9>template</span> and reuse the complete start-node (with all its children), whenever we need it.</p>
+<p><br></p>
+<p>The nodes with the blue icons will show their output signals, the nodes with the yellow icons, will not popup a graphical window. Toggling graphical view on/off can simply be done by clicking on the icon.</p>
+</td>
+<td width=188 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=213 height=188 alt="" src="pw_filter_design_img23.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Filter parameters</span></p>
+<p>We'll use Scipy.Signal naming as much as possible, but here and there we'll try to be a little more consistent.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts9>wp</span> = passband frequency, expressed as a fraction of the Nyquist-frequency ( = half the sample frequency) </li>
+<li><span class=rvts9>ws</span> = stopband frequency [fraction of Nyquist-frequency] </li>
+<li><span class=rvts9>gp</span> = maximum passband deviation [dB] </li>
+<li><span class=rvts9>gs</span> = minimum stopband attenuation [dB] </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=607 height=419 alt="" src="pw_filter_design_img20.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Filter Start-node</span></p>
+<p>As we should have only 1 node, where all essential code should be located (for easy manipulation), this will become the filter start-node. All child nodes just serves as a place holders for the graphical views (but can contain also non-essential code). Below the code for the filter start-node is given, for simplicity only one of the four filters is defined here.</p>
+<p>So the code below will calculate 4 filters, calculate the amplitude and phase of the transfer function and print out an overview of the filter paramaters:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=612 height=341 alt="" src="pw_filter_design_img21.png"></p>
+<p><br></p>
+<p>Now we can use this node also to display the amplitude of the transfer function, like this:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=441 height=102 alt="" src="pw_filter_design_img22.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Other filter nodes</span></p>
+<p>Most of the other nodes don't contain any code, just the definition of the signals to be displayed.</p>
+<p>So for the "H(w) phase" node we have:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=472 height=173 alt="" src="pw_filter_design_img17.png"></p>
+<p><br></p>
+<p>For the impulse response node, we can do some parameterless calculations (so the filter start-node will have as least code as possible). Of course we have to define the output signals, to be shown in the graphical view. (Note, we didn't use the function signal.impuls here, because the version of signal we used, during writing this page, crashed. Probably this is solved in the newer version.)</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=469 height=305 alt="" src="pw_filter_design_img16.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Action</span></p>
+<p>After defining all the display nodes (and save the start-node as a template for future use), select the filter start-node in the calculation tree, press Shift-F9, and watch ...</p>
+<p>... we get a nice overview of the design parameters of the different filters, </p>
+<p>... and all graphical views we've defined will popup with their specific signals</p>
+<p>all with just 1 click !!</p>
+<p>After you've initialized all your graphical windows, just edit 1 or more parameters in the filter start-node, press Shift-F9 and you'll see the effect of your parameter change in all graphical windows.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=387 height=380 alt="" src="pw_filter_design_img15.png"></p>
+<p><br></p>
+<p>The picture below shows the <span class=rvts9>amplitude response</span> (total overview on the left, passband detail on the right) of the 4 filters. The nicest response is from the first (red) filter, but judged from the amplitude response only, they are all not bad.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=270 height=300 alt="" src="pw_filter_design_img10.png">&nbsp; <img width=274 height=300 alt="" src="pw_filter_design_img11.png"></p>
+<p><br></p>
+<p>The picture below shows the <span class=rvts9>phase response</span> on the left (notice the linear phase characteristic of FIR filters 3 and 4.</p>
+<p>The black phase curve, shows an artifact at the start, probably due to bad "unwrappping" of the phase angle.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=525 height=300 alt="" src="pw_filter_design_img12.png"></p>
+<p><br></p>
+<p>The picture below shows the<span class=rvts9> pulse response</span>, again overall view on the left (time is expanded) and ), and the <span class=rvts9>step response</span> on the right (time expanded). They all look good, if we discard the extra time-delay of the FIR filters 3 (black) and 4 (green).</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=269 height=300 alt="" src="pw_filter_design_img13.png">&nbsp; <img width=270 height=300 alt="" src="pw_filter_design_img14.png"></p>
+<p><br></p>
+<p>And finally the most important view: the <span class=rvts9>signal response</span> (time expanded). The black signal at the bottom shows the original input signal. The start of the original signal clearly contains a low frequency component, which we want to get rid off. The filtered signals are time-expanded, so we can take a good look at the first part of the signal.</p>
+<p>(this picture is taken from the Delphi version of Signal WorkBench)</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=506 height=399 alt="" src="pw_filter_design_img7.png"></p>
+<p><br></p>
+<p>The signal is a recording of a human ECG (Electrical signal recorded from the hart), and in this case we're interested in determining the exact locations in time of Q,R,S,T peaks as shown in the brown signal. Because this is a non-stationary signal, both the FIR filters (brown and green) perform much better in preserving the shape of the signal.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>FIR, Remez exchange</span></p>
+<p>Filterlength must be odd to get a gain of 0dB at the Nyquist frequency !!</p>
+<p>&nbsp;&nbsp;&nbsp; remez(numtaps, bands, desired, weight=None, Hz=1, type='bandpass', maxiter=25, grid_density=16)</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Scipy.Signal</span></p>
+<p>The SciPy Signal library contains the following filter design algorithms</p>
+<p><span class=rvts9><br></span></p>
+<p><span class=rvts9>Filter design:</span></p>
+<p><span class=rvts12>&nbsp;&nbsp; remez&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --&nbsp; Optimal FIR filter design.</span></p>
+<p><span class=rvts12>&nbsp;&nbsp; firwin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --- Windowed FIR filter design.</span></p>
+<p><span class=rvts12>&nbsp;&nbsp; iirdesign&nbsp;&nbsp;&nbsp;&nbsp; --- IIR filter design given bands and gains</span></p>
+<p><span class=rvts12>&nbsp;&nbsp; iirfilter&nbsp;&nbsp;&nbsp;&nbsp; --- IIR filter design given order and critical frequencies</span></p>
+<p><span class=rvts12>&nbsp;&nbsp; freqs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --- Analog filter frequency response</span></p>
+<p><span class=rvts12>&nbsp;&nbsp; freqz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --- Digital filter frequency response</span></p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts9>Matlab-style IIR filter design</span>:</p>
+<p><span class=rvts12>&nbsp;&nbsp; butter (buttord)&nbsp; -- Butterworth</span></p>
+<p><span class=rvts12>&nbsp;&nbsp; cheby1 (cheb1ord) -- Chebyshev Type I</span></p>
+<p><span class=rvts12>&nbsp;&nbsp; cheby2 (cheb2ord) -- Chebyshev Type II</span></p>
+<p><span class=rvts12>&nbsp;&nbsp; ellip (ellipord)&nbsp; -- Elliptic (Cauer)</span></p>
+<p><span class=rvts12>&nbsp;&nbsp; bessel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- Bessel (no order selection available -- try butterod)</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>How we did it with MatLab</span></p>
+<p>For years we've used MatLab (Signal Toolbox) to design filters, see in the picture below how terrible nice it looks. But although the generated filter coefficients are correct, it's a nightmare to optimize and compare filters with this MatLab tool.</p>
+<p>Every time you change the filter type, sample frequency is lost, other edit boxes appear, run button is often dimmed, and for each filter MatLab chooses the scaling of the figure (compare the 2 figures). Storing a set of coefficients in your own directory, is a crime, MatLab always starts at it's own directory.</p>
+<p>Knowing we couldn't change this behavior, we accepted this tool for years.</p>
+<p>Now knowing Python, we can influence the behavior and we're very happy in using this new tool..</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=741 height=560 alt="" src="pw_filter_design_img8.png"></p>
+<p><span class=rvts8><br></span></p>
+<p>Comparing it with another filter design, argh MatLab itself chooses it's scale !!</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=670 height=263 alt="" src="pw_filter_design_img9.png"></p>
+<p><span class=rvts8><br></span></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

@@ -1,0 +1,359 @@
+-- -----------------------------------------------------------------------------
+-- Library for generating sounds, using TMR0
+--
+-- Use of this library
+--   make a local copy of this file in the program directory
+-- Then change the following, according to your needs
+--   define the IO pin
+--   define the frequency of each note in table1
+--   define the duration of each note in table2
+--   from the main program, include this file and call PLAY_SONG
+--
+-- Author : Stef Mientki
+-- Version: 1.0  07-04-2002  orginal release
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- the value of 128 is somewhat historical,
+-- at first I used the Timer0 prescaler which can only be set at powers of 2
+-- -----------------------------------------------------------------------------
+const _tmr0_preset       = 128        ; 128*02 uSec = 25.6 usec
+                                      ; it's more efficient to use this method than
+                                      ; the prescaler and secondly
+                                      ; you can achieve a more accurate timing
+const _trm0_count_preset = 5000 / 28  ; counts ISR upto 5 msec
+                                      ; = 5000 us / <length ISR>
+                                      ; ISR is a few seconds longer than calculated
+                                      ; by _TMR0_PRESET
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- variables to communicate with the ISR
+-- MAIN can manipulate TONE_ON to enable/disable sound generation
+-- MAIN can manipulate TONE_PRESET to set the frequency
+-- MAIN can use TMR0_5MSEC to time events
+-- -----------------------------------------------------------------------------
+var bit  _tone_on             ;tone or long pauze active
+var byte _tone_preset
+var byte _tmr0_5msec
+var bit  song_playing = false ;indicates if a song is currently playing
+var bit  play_constant_tone   ;song or constant tone playing
+var bit _sound_pausing        ;short pause inbetween tones is active
+var byte _duration            ;duration of the current tone
+var byte _period              ;perios (frequency) of the current tone
+var byte _sound_index1        ;current index within a table
+var byte _sound_index2        ;current tablenumber
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- variables which are owned and may only be used by the ISR
+-- -----------------------------------------------------------------------------
+var bit  _sound_pin_shadow    ;copy of the current level of the sound-pin
+var byte _tmr0_count = 0      ;counts ISR's and when 0, increments _tmr0_5msec
+                              ;will be reloaded with _tmr0_5msec
+var byte _tone                ;counst ISR's and when 0, toggles soundpin
+                              ;will be reloaded with _tone_preset
+-- -----------------------------------------------------------------------------
+
+
+
+
+
+-- ----------------------------------------------------------------------------
+-- For every table a procedure _get_next_table_X must be made
+-- At the moment there are 5 tables declared by default,
+-- given a total capacity of 5*254/2 = 635 notes.
+-- If these tables are not used, they will not consume any memory space,
+-- because they will be wiped out by the compiler
+-- ----------------------------------------------------------------------------
+procedure _get_next_from_table_1 (  byte in  out indx, byte out x ) is
+  assembler
+    bank  movfw  indx
+    page  call   _table_tone_duration_1  ;fill in the correct table
+    bank  movwf  x
+  end assembler
+  indx = indx + 1
+end procedure
+-- ----------------------------------------------------------------------------
+procedure _get_next_from_table_2 (  byte in  out indx, byte out x ) is
+  assembler
+    bank  movfw  indx
+    page  call   _table_tone_duration_2  ;fill in the correct table
+    bank  movwf  x
+  end assembler
+  indx = indx + 1
+end procedure
+-- ----------------------------------------------------------------------------
+procedure _get_next_from_table_3 (  byte in  out indx, byte out x ) is
+  assembler
+    bank  movfw  indx
+    page  call   _table_tone_duration_3  ;fill in the correct table
+    bank  movwf  x
+  end assembler
+  indx = indx + 1
+end procedure
+-- ----------------------------------------------------------------------------
+procedure _get_next_from_table_4 (  byte in  out indx, byte out x ) is
+  assembler
+    bank  movfw  indx
+    page  call   _table_tone_duration_4  ;fill in the correct table
+    bank  movwf  x
+  end assembler
+  indx = indx + 1
+end procedure
+-- ----------------------------------------------------------------------------
+procedure _get_next_from_table_5 (  byte in  out indx, byte out x ) is
+  assembler
+    bank  movfw  indx
+    page  call   _table_tone_duration_5  ;fill in the correct table
+    bank  movwf  x
+  end assembler
+  indx = indx + 1
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- Get the next tone and duration from a combined frequency / duration table,
+-- and prepeare the global variables to start a new tone.
+-- The table may consist of a number of tables of each 254 bytes (except the last)
+-- This includes the multi-table from Brick's Music Studio by Guido Truffelli.
+-- ----------------------------------------------------------------------------
+procedure _get_next_tone_and_duration is
+  -- check for end of a subtable,
+  -- if so, goto the start of the next subtable
+  if _sound_index1 == 254 then
+    _sound_index2 = _sound_index2 + 1
+    _sound_index1 = 0
+  end if
+  
+  -- select the correct table and get the next tone/duration from it
+  if _sound_index2 == 0 then
+    _get_next_from_table_1 ( _sound_index1, _period )
+    _get_next_from_table_1 ( _sound_index1, _duration)
+
+  elsif _sound_index2 == 1 then
+    -- here an "compiler" if-statement will wipe out the code if it's not necessary
+    if _BMS_table > 1 then
+      _get_next_from_table_2 ( _sound_index1, _period )
+      _get_next_from_table_2 ( _sound_index1, _duration)
+    end if
+
+  elsif _sound_index2 == 2 then
+    if _BMS_table > 2 then
+      _get_next_from_table_3 ( _sound_index1, _period )
+      _get_next_from_table_3 ( _sound_index1, _duration)
+    end if
+
+  elsif _sound_index2 == 3 then
+    if _BMS_table > 3 then
+      _get_next_from_table_4 ( _sound_index1, _period )
+      _get_next_from_table_4 ( _sound_index1, _duration)
+    end if
+
+  elsif _sound_index2 == 4 then
+    if _BMS_table > 4 then
+      _get_next_from_table_5 ( _sound_index1, _period )
+      _get_next_from_table_5 ( _sound_index1, _duration)
+    end if
+
+  end if
+  
+  -- transport some variables to some other globals
+  -- assuming a new note must be started
+  _tone_on = _period != 0
+  _tone_preset = _period
+  _tmr0_5msec = 0
+  
+  -- check if it's the end of the song
+  if _duration == 0 then
+    song_playing = false
+    T0IE = false
+  end if
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- entered every 25,6 usec + 12..15 instructions = 28 usec
+-- this routine will also run if no tones are produced,
+-- you can either disable it
+-- -----------------------------------------------------------------------------
+procedure _TMR0_interrupt is
+;;;;;<;mac> interrupt_sub _TMR0_interrupt T0IF 5
+;;;;;<;/mac>
+;pragma interrupt
+
+  -- must be (one of) the first statement for accurate timing
+  TMR0 = _tmr0_preset  -- preset counter again
+
+  if song_playing then
+    -- generate tone
+    if _tone_on then
+      _tone = _tone - 1
+      if _tone == 0 then
+        sound_pin = _sound_pin_shadow
+        _sound_pin_shadow = ! _sound_pin_shadow
+        _tone = _tone_preset
+      end if
+    end if
+
+    -- generate 5 msec signal
+    _tmr0_count = _tmr0_count + 1
+    if _tmr0_count >= _trm0_count_preset then   -- count units of 5 msec
+      _tmr0_5msec = _tmr0_5msec + 1
+      _tmr0_count = 0
+    end if
+
+    -- generation of a constant tone
+    -- it's essential that this case is handled before
+    --   play_music_mode_interrupt !!!
+    if play_constant_tone then
+      if _tmr0_5msec >= _duration then
+        song_playing = false
+        T0IE = false
+      end if
+      
+    -- generation of a song, completly in interrupt mode
+    elsif play_music_mode_interrupt then
+      if _tmr0_5msec >= _duration then
+
+        -- if it was pausing, now play note again
+        if _sound_pausing then
+          _get_next_tone_and_duration
+          _sound_pausing = false
+          
+        -- pause between notes if necessary
+        else
+          if sound_pause > 0 then
+            _tone_on = false
+            _duration = sound_pause
+            _tmr0_5msec = 0
+            _sound_pausing = true
+          end if
+        end if
+        
+      end if
+    end if
+  end if
+  
+  -- must be the last statement, to prevent reentrance
+  T0IF = false        -- clear TMR0 interrupt flag
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- Plays the song indicated by TUNE [0..]
+-- ----------------------------------------------------------------------------
+procedure play_tune ( byte in tune ) is -- tune in table [ 0 .. ]
+  play_constant_tone = false
+  _sound_index1 = 0
+  _sound_index2 = 0
+
+  -- first locate the correct tune (countdown pos)
+  while tune > 0 loop
+    -- find the start of the next tune
+    -- (every tune in the table has a duration of NULL)
+    _duration = 1              -- to start while loop
+    while _duration != 0 loop
+      _get_next_tone_and_duration
+    end loop
+    -- now update tune counter
+    tune = tune - 1
+  end loop
+
+  song_playing = true
+  T0IE = true
+  T0IF = false
+
+  -- non interrupt driven playing of a song is handled here
+  if ! play_music_mode_interrupt then
+    _duration = 1  -- to get while loop started
+    while _duration > 0 loop
+      if _tmr0_5msec >= _duration then
+        -- insert a pause if necessary
+        if sound_pause > 0 then
+          _tone_on = false
+          _duration = sound_pause
+          _tmr0_5msec = 0
+          while _tmr0_5msec < _duration loop end loop
+        end if
+        -- get on with the next note
+        _get_next_tone_and_duration
+      end if
+    end loop
+  end if
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- plays the first tune in the table
+-- ----------------------------------------------------------------------------
+procedure play_song is
+  play_tune ( 0 )
+end procedure
+-- ----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- Plays the first song in the table
+-- -----------------------------------------------------------------------------
+procedure stop_song is
+  song_playing = false
+  T0IE = false
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- Play constant tone
+-- playing a constant tone is always done in interrupt mode
+-- ----------------------------------------------------------------------------
+procedure play_tone ( byte in period, byte in duration ) is
+  play_constant_tone = true
+  song_playing = true
+  T0IE = true
+  T0IF = false
+  _duration = duration
+  _tone_on = true
+  _tmr0_5msec = 0
+  _tone_preset = period
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- ----------------------------------------------------------------------------
+-- play constant tone and wait till ready
+-- ----------------------------------------------------------------------------
+procedure play_tone_and_wait ( byte in period, byte in duration ) is
+  play_tone ( period, duration )
+    -- wait till tone completly done
+  while song_playing loop end loop
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- initialisation of the timer and interrupts
+-- -----------------------------------------------------------------------------
+OPTION_REG = ( OPTION_REG & ! ( _b_T0CS ))   -- set TMR0 to main oscillator
+OPTION_REG = ( OPTION_REG | _b_PSA )         -- disable prescaler for TMR0
+;T0IE = true   -- enable TMR0 interrupt
+GIE  = true   -- enable general interrupts
+;T0IF = false  -- clear TMR0 interrupt flag
+-- -----------------------------------------------------------------------------

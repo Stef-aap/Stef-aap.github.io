@@ -1,0 +1,1303 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>VPython Collection</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="RQRQRQ.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>VPython Collection </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; ( january 2009 )</span></p>
+<p><span class=rvts10>Application Designer</span> / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=711 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts2>Introduction</span></p>
+<p>This is a PyLab_Works example application, that manages a large set of VPython scripts. All python scripts in a fixed directory are assumed to be VPython scripts. A selected Vpython script can be run and edited. The whole "code" to build this application with PyLab_Works is shown on the right, and the resulting program can be seen below this table.</p>
+<p>Some explanation:</p>
+<p>The <span class=rvts10>VPython window</span> is the dock window where the scene of Vpython will be projected. The <span class=rvts10>Code Editor</span> will contain the selected VPython script, and is build around a full blown Scintilla editor. The <span class=rvts10>CMD Shell Doc</span> is a multi tab control, that contains </p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>a command shell, that works in the namespace of the VPython Script. </li>
+<li>a simple web-browser, with powerful shortcuts,&nbsp; that display all kind of files (pdf, ...) </li>
+<li>a sorted file-list that lists all available VPython scripts </li>
+</ul>
+<p>The <span class=rvts10>VP Controls</span>, is a dynamically generated set of controls, that is created by and can interact with the VPython script.</p>
+</td>
+<td width=148 valign=top style="background-color: #ffffd4;">
+<p><img width=255 height=219 alt="" src="pw_application_vpython3_img94.png"></p>
+<p>Normally the program will run VPython-5, but you can force VPython-3 with the commandline switch -VP3</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=704 height=629 alt="" src="pw_application_vpython3_img85.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=702 height=209 alt="" src="pw_application_vpython3_img86.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=699 height=211 alt="" src="pw_application_vpython3_img87.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Code Snippets</span></p>
+<p>The Code Editor is equiped with a easy to use and easy to modify code snippet manager which can be invoked by F7. Of course the code snippet manager uses the same Scintilla editor.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=316 valign=top style="background-color: #ffffd4;">
+<p><img width=299 height=372 alt="" src="pw_application_vpython3_img26.png"></p>
+</td>
+<td width=555 valign=middle style="background-color: #ffffd4;">
+<p><img width=370 height=329 alt="" src="pw_application_vpython3_img96.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Dynamic Controls</span></p>
+<p>In the code you can define what controls you need. At this moment only Button,Text and Slider are available, and Text is not fulley working as planned.</p>
+<p>All calls should be made to a virtual instance "VPC", as shown above in the code snippets. "Completion" is the method that should be called by the control after it's value has changed.</p>
+<p><br></p>
+<p><img width=543 height=25 alt="" src="pw_application_vpython3_img105.png"></p>
+<p><br></p>
+<p><img width=451 height=21 alt="" src="pw_application_vpython3_img106.png"></p>
+<p><br></p>
+<p><br></p>
+<p><img width=483 height=19 alt="" src="pw_application_vpython3_img107.png"></p>
+<p><br></p>
+<p>For a logarithmic slider you should set LinLog = 'Log' </p>
+<p><img width=429 height=50 alt="" src="pw_application_vpython3_img108.png"></p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts2>Examples</span></p>
+<p>This program contains a dynamically controlled set of VPython-3 examples. You can add more files to the collection, just be copying them to the appropriate VPython3 directory. If you want to occur the file in a specific group, add a prefix to the filename, indicating the group. e.g. to add a VPython3 program named "moonlanding.py" to a group "Astro", just rename the file to "Astro_moonlanding.py", because the first part of the filename before the first underscore is used to identify the group.</p>
+<p>Almost all VPython demos included here are found on the web. Where possible I've noted the author, the creation date and the website where I found it. If anyone discovers creations of her&nbsp; his own, let me know, and I'll add your name.</p>
+<p>Most of the scripts were modified, either to fulfill the PyLab_works conditions or to show the effect of the dynamical PyLab_Works controls.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Changes General</span></p>
+<p>In this paragraph, the changes made to each program are described. If you want to make the changes in such a way that outside PyLab_Wors the program runs unmodified, you can use the constant PW_Embed, which is available when running the module inside PyLab_Works:</p>
+<p><br></p>
+<p><br></p>
+<p>In general the following rules yields for VPython files to behave well in PyLab Works:</p>
+<p><span class=rvts10>Not allowed</span> (means forbidden)</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Name the main display other than the default "scene", otherwise it can't be captured </li>
+<li>Setting the height / width / x / y of the scene (not allowed after creating the scene and embedding it) </li>
+<li>Setting the title of </li>
+<li>Setting scene.visible = False ( because then the VPython window get's undocked ) </li>
+<li>scene.mouse.getclick(), because this blocks the GUI thread. Use ... instead : </li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=349 height=54 alt="" src="pw_application_vpython3_img2.png"></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Tripple quoted strings in the main body </li>
+<li>from __future__ import division (doesn't seem to work, only if it's the first import of PyLab_Works ) </li>
+<li>object derived classes gives sometimes? problems: class carrow(): #object): </li>
+<li>changing fov, mangles the rescaling of all other projects ( userzoom can not be determined ) </li>
+</ul>
+<p><span class=rvts1><br></span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Preferred</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>don't use rate, because the update speed is fixed by PyLab_Works ( for the moment at 50 fps). Setting a slower rate, might degrade the GUI performance. Setting a higher rate doesn't has any effect. </li>
+<li>Setting camera direction ( forward ) and scaling ( range ) </li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=301 height=71 alt="" src="pw_application_vpython3_img1.png"></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Not necessary</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>"from visual import *", because it's done automatically, but it doesn't harm </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Astro group</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=628 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Binary_Stars</span>&nbsp; ( by E. Velasco. November 2004 )</p>
+<p>This program visualizes the orbits of two stars (Binary stars). We use scaled variables. If alpha = G*m1*m2, a = major semiaxis of the ellipse of m2 around m1, and e = excentricity of that ellipse, we rescale the distance r between the stars and the time by: r-&gt;r/a, t-&gt;t*sqrt(alpha/mu*a^3), where mu is the reduced mass. The equations of motion for the relative position of m2 with respect to m1 are, in the rescaled variables are: </p>
+<p>&nbsp;&nbsp;&nbsp; r_dot_dot = -1/r^2+(1-e^2)/r^3&nbsp; and phi_dot = sqrt(1-e^2)/r^2</p>
+<p>with initial conditions: r = 1-e, r_dot = 0, phi = 0. With the rescaled variables the period of the orbit is 2*pi. The program uses a very rudimentary midpoint solver for the</p>
+<p># equations of motion, but good enough for this demo. It only computes one cycle and then repeats it, to avoid drift. Change the value of e and the masses to get different orbits, with e = 0 to get the circle.</p>
+</td>
+<td width=181 valign=middle style="background-color: #ffffd4;">
+<p><img width=302 height=137 alt="" src="pw_application_vpython3_img8.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=594 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Inv_Force</span>&nbsp; ( by E. Velasco, October 2004 )</p>
+<p>This program visualizes the orbit of a particle of mass m in an atractive central force field = -alpha/r. The initial conditions are given by r=r0, r_dot=0 (i.e r0 is a turning point in r) and phi=0 phi_dot=k/r0*sqrt(alpha/m). The dimensionless parameter k adjusts the value of the angular momentum (k=1 corresponds to a circular orbit). We now rescale variables to a new r =r/r0 (so the starting point is now r=1) and rescale the time to a new time t=t*r0*sqrt(m/alpha), so phi_dot = k. The equations of motion in these new variables are:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; r_dot_dot = -1/r+k^2/r^3&nbsp; and phi_dot = k/r^2</p>
+<p>with initial conditions: r=1, r_dot=0, phi_dot=0.&nbsp; </p>
+<p>The program uses a very rudimentary midpoint solver for the equations of motion, but good enough for this demo. Change the value of k to get different orbits (k=1-&gt; circle).</p>
+<p>** To clear the orbit left-click the mouse **</p>
+</td>
+<td width=215 valign=middle style="background-color: #ffffd4;">
+<p><img width=304 height=148 alt="" src="pw_application_vpython3_img9.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=601 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Keppler</span>&nbsp; ( by Peter Borcherds, University of Birmingham, England )</p>
+<p><br></p>
+<p>( Kepler's Laws.py )</p>
+<p><br></p>
+<p>Plots the orbit of a planet in an eccentric orbit to illustrate the sweeping out of equal areas in equal times, with sun at focus. The eccentricity of the orbit is random and determined by the initial velocity program uses normalised units (G =1)</p>
+<p><br></p>
+<p>This demo also shows how you can very easy and effectively use wxPython controls.</p>
+<p><br></p>
+<p><img width=314 height=81 alt="" src="pw_application_vpython3_img38.png"></p>
+</td>
+<td width=208 valign=middle style="background-color: #ffffd4;">
+<p><img width=305 height=288 alt="" src="pw_application_vpython3_img7.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=720 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Mercury_Orbit</span>&nbsp; ( by Andrew Williams, 2002, website ) </p>
+<p><br></p>
+<p>Demonstration of tidal locking in Mercury's orbit. There are three complete rotations of the planet for every two orbits of the sun. Hopelessly out of proper scale, of course, it's meant to illustrate the motion</p>
+<p><br></p>
+</td>
+<td width=89 valign=middle style="background-color: #ffffd4;">
+<p><a href="pw_application_vpython3_img6.png"><img width=151 height=214 alt="" src="pw_application_vpython3_img6.png"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=676 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Nebula</span>&nbsp; </p>
+<p>( originally by Chabay and Sherwood, adapted by Lensyl Urbano January 2006, <a class=rvts4 href="http://lurbano-5.memphis.edu/GeoMod/index.php/Nebula_Model_Instructions">website</a> )</p>
+<p><br></p>
+<p>from the above website: </p>
+<p>"This is a model of the gravitational collapse of a number of particles in space. Particles start with semi-randomly assigned initial positions and masses and their motion is governed by their initial velocity and Newtonian attraction. When particles collide they coalesce and eventually, a central star forms while a few planets remain in orbit. Because the final orbits do not lie on a single plane this model can be used to explain both the advantages and limitations of numerical modeling."</p>
+</td>
+<td width=133 valign=middle style="background-color: #ffffd4;">
+<p><a href="pw_application_vpython3_img4.png"><img width=277 height=262 alt="" src="pw_application_vpython3_img4.png"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=646 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Orbit</span> ( by ?? )</p>
+<p><br></p>
+<p>Nice to add a vector with the magnitude of the speed / force.</p>
+</td>
+<td width=163 valign=top style="background-color: #ffffd4;">
+<p><img width=191 height=86 alt="" src="pw_application_vpython3_img13.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=656 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Orbit2</span>&nbsp; ( by ?? )</p>
+<p><br></p>
+<p>Nice to add a vector with the magnitude of the speed / force.</p>
+</td>
+<td width=153 valign=top style="background-color: #ffffd4;">
+<p><img width=251 height=128 alt="" src="pw_application_vpython3_img10.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=620 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Satellite</span>&nbsp; ( by ?? )</p>
+<p><br></p>
+<p>This satellite crashes after a while on the earth. It would be nice to draw the trail. In VPython-5 the earth crash, also causes a VPython-5 crash.</p>
+</td>
+<td width=189 valign=top style="background-color: #ffffd4;">
+<p><img width=302 height=174 alt="" src="pw_application_vpython3_img15.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=635 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Solar_System </span>(&nbsp; by Lensyl Urbano, Jan. 2006, <a class=rvts4 href="http://lurbano-5.memphis.edu/GeoMod/index.php/Solar_System_Model_Instructions">website</a> )</p>
+<p><br></p>
+<p>Simple solar system model showing the orbits of the planets. In this version the orbits are not tilted so the longitude of the ascending node is not correct.</p>
+<p><br></p>
+<p>It would be nice to give the planets more "natural" colors.</p>
+<p>Also buttons, to switch between an overview of inner and outer planets would be nice.</p>
+<p>At this moment the orbits are not drawn, because it takes to much time, must be improved.</p>
+</td>
+<td width=174 valign=top style="background-color: #ffffd4;">
+<p><img width=303 height=287 alt="" src="pw_application_vpython3_img14.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=673 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>VSpace</span> ( by Ron Adam, March 2005, <a class=rvts4 href="http://www.vpython.org/contributed/vspace.py">website</a> )</p>
+<p><br></p>
+<p>A space voyaging demo.</p>
+<p>By moving the mouse you can determine the direction in which you'll travel.</p>
+<p>Runs very slow in VPython-5</p>
+</td>
+<td width=136 valign=top style="background-color: #ffffd4;">
+<p><img width=232 height=209 alt="" src="pw_application_vpython3_img58.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>EM group</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=744 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>EM Wave</span>&nbsp; ( by Rob Salgado, march 2004, <a class=rvts4 href="http://www.vpython.org/contributed/EMWave.py">website</a> )</p>
+<p><br></p>
+<p>( EMWave.py ) illustrates the relationships among electric and magnetic fields in electromagnetic radiation (plane wave).</p>
+<p><br></p>
+<p><br></p>
+</td>
+<td width=65 valign=top style="background-color: #ffffd4;">
+<p><img width=228 height=180 alt="" src="pw_application_vpython3_img59.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=656 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>FranckHertz</span>&nbsp; ( by Aaron J. Miller )</p>
+<p>One of the first experiments, that indicated that the exited states of atoms are quantized. </p>
+<p>From <a class=rvts4 href="http://hyperphysics.phy-astr.gsu.edu/hbase/FrHz.html">Hyperphysics</a>:</p>
+<p><img width=453 height=165 alt="" src="pw_application_vpython3_img89.png"></p>
+<p><img width=360 height=69 alt="" src="pw_application_vpython3_img88.png"></p>
+<p>It would be nice to extend the example with a current meter, which also makes a plot of the current versus the exitation voltage.</p>
+</td>
+<td width=153 valign=middle style="background-color: #ffffd4;">
+<p><img width=213 height=130 alt="" src="pw_application_vpython3_img61.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=650 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Moving Magnet</span>&nbsp; ( by Ruth Chabay, 2007-08-07, Revised Bruce Sherwood 2007-11-10 )</p>
+<p><br></p>
+<p>Faraday's Law: bar magnet moves at constant velocity, then briefly comes to rest and reverses</p>
+<p><br></p>
+<p># Choose whether to show a ring or a disk through which passes magnetic flux</p>
+<p># Choose whether to show B at many places, not just in flux region</p>
+<p># Magenta arrow represents the vector dB_vec/dt</p>
+<p><br></p>
+</td>
+<td width=64 valign=top style="background-color: #ffffd4;">
+<p><img width=75 height=101 alt="" src="pw_application_vpython3_img90.png"></p>
+</td>
+<td width=108 valign=top style="background-color: #ffffd4;">
+<p><img width=162 height=171 alt="" src="pw_application_vpython3_img62.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=714 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Potential Grid</span>&nbsp;&nbsp; ( probably by Bruce Sherwood )</p>
+<p><br></p>
+<p>Shows the electrical field of dipole.</p>
+</td>
+<td width=95 valign=top style="background-color: #ffffd4;">
+<p><img width=215 height=205 alt="" src="pw_application_vpython3_img63.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=686 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Toroid Drag</span>&nbsp; ( probably by Bruce Sherwood )</p>
+<p><br></p>
+<p>Click to show the magnetic field interactively, by holding the left-mousekey down, you can drag the start location. After you release the mouse the arrow is fixed.</p>
+<p><br></p>
+<p><img width=76 height=26 alt="" src="pw_application_vpython3_img91.png"></p>
+</td>
+<td width=123 valign=top style="background-color: #ffffd4;">
+<p><img width=176 height=173 alt="" src="pw_application_vpython3_img64.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Game group</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=554 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Hanoi</span>&nbsp; ( by Ruth Chabay, carnegie mellon university, 2000-06 )</p>
+<p><br></p>
+<p>Towers of Hanoi: rings may be dragged through stuff - a little surreal</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+</td>
+<td width=255 valign=top style="background-color: #ffffd4;">
+<p><img width=287 height=129 alt="" src="pw_application_vpython3_img19.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=567 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Pool1</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p><br></p>
+<p><img width=360 height=119 alt="" src="pw_application_vpython3_img92.png"></p>
+</td>
+<td width=242 valign=top style="background-color: #ffffd4;">
+<p><img width=300 height=204 alt="" src="pw_application_vpython3_img20.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=664 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Rubik1</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>Still don't understand when a click really results in a move.</p>
+</td>
+<td width=145 valign=top style="background-color: #ffffd4;">
+<p><img width=148 height=154 alt="" src="pw_application_vpython3_img21.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=656 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Rubik_555</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>Still don't understand when a click really results in a move.</p>
+</td>
+<td width=153 valign=top style="background-color: #ffffd4;">
+<p><img width=164 height=166 alt="" src="pw_application_vpython3_img22.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=439 valign=top style="background-color: #ffffd4;">
+<p>Rubik_Small, Rubik2,3,4 are not implemented, although the controls works well, they are not closed when the script closes. Either the controls must be taken over or the controls windows must be made invisible on closure.</p>
+</td>
+<td width=370 valign=top style="background-color: #ffffd4;">
+<p class=rvps4><img width=171 height=151 alt="" src="pw_application_vpython3_img23.png"><img width=159 height=151 alt="" src="pw_application_vpython3_img24.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Mechanics group</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=713 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>AA_Bounce</span></p>
+<p><br></p>
+<p>Thé bouncing ball demo.</p>
+</td>
+<td width=96 valign=top style="background-color: #ffffd4;">
+<p><img width=114 height=110 alt="" src="pw_application_vpython3_img17.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=700 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Bounce2</span></p>
+<p><br></p>
+<p>Bouncing ball in a box.</p>
+<p><br></p>
+<p>In VPython-5 it would be nice to make the walls opaque, so you can rotate the cube.</p>
+</td>
+<td width=109 valign=top style="background-color: #ffffd4;">
+<p><img width=215 height=208 alt="" src="pw_application_vpython3_img18.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=717 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Crystal</span>&nbsp; ( ?? )</p>
+</td>
+<td width=92 valign=top style="background-color: #ffffd4;">
+<p><img width=157 height=161 alt="" src="pw_application_vpython3_img65.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=689 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Crystal2</span>&nbsp; (by&nbsp; Bruce Sherwood; revised by Jonathan Brandmeyer )</p>
+<p><br></p>
+</td>
+<td width=120 valign=top style="background-color: #ffffd4;">
+<p><img width=185 height=198 alt="" src="pw_application_vpython3_img66.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=717 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Gyro1</span>&nbsp; ( by E. Velasco. December 2004 )</p>
+<p><br></p>
+<p>Demo of a symmetric (I1=I2) gyroscope. It uses numerical integration with a primitive mid point solver of Euler's equations using the Euler angles [phi,theta,psi] as variables.</p>
+<p><br></p>
+<p>Left mouse toggles the display of the trail of the orbit of the tip of the gyroscope.</p>
+<p>Right mouse toggles the display of the vectors L and omega (angular momentum and velocity).</p>
+</td>
+<td width=92 valign=top style="background-color: #ffffd4;">
+<p><img width=137 height=138 alt="" src="pw_application_vpython3_img67.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=765 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Gyro2</span>&nbsp; (&nbsp; by E. Velasco, December 2004 )</p>
+<p><br></p>
+<p>Demo of the free motion of a symmetric top in the reference frame of the center of mass (fixed at the origin).</p>
+<p><br></p>
+<p>Left-click the mouse to toggle the curve of the tip of the x1 moving axis.</p>
+<p>Right-click to toggle display of the angular momentum and angular velocity.</p>
+</td>
+<td width=44 valign=top style="background-color: #ffffd4;">
+<p><img width=169 height=130 alt="" src="pw_application_vpython3_img69.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=773 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Molecule</span>&nbsp; ( ?? )</p>
+</td>
+<td width=36 valign=top style="background-color: #ffffd4;">
+<p><img width=149 height=54 alt="" src="pw_application_vpython3_img70.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=524 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Monkey</span>&nbsp; ( John W. Keck, February 2003 )</p>
+<p><br></p>
+<p>The classic Shoot-the-Monkey Demo.</p>
+<p><br></p>
+</td>
+<td width=151 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=164 height=151 alt="" src="pw_application_vpython3_img98.png"></p>
+</td>
+<td width=150 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=182 height=153 alt="" src="pw_application_vpython3_img99.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Pendulum group</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=615 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Double</span>&nbsp; (by Eduardo Sánchez Velasco. September 2005, <a class=rvts4 href="http://www2.truman.edu/~velasco/phys386.html">website</a> )</p>
+<p><br></p>
+<p>Shows a double pendulum, in which the tracing of the end joint can be toggled.</p>
+</td>
+<td width=194 valign=top style="background-color: #ffffd4;">
+<p><img width=236 height=107 alt="" src="pw_application_vpython3_img72.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=714 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Double2</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>The analysis is in terms of Lagrangian mechanics. The Lagrangian variables are angle of upper bar, angle of lower bar,</p>
+<p>measured from the vertical.</p>
+<p><br></p>
+</td>
+<td width=95 valign=top style="background-color: #ffffd4;">
+<p><img width=164 height=182 alt="" src="pw_application_vpython3_img73.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=688 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Lorenz</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>Lorenz differential equation</p>
+</td>
+<td width=121 valign=top style="background-color: #ffffd4;">
+<p><img width=212 height=146 alt="" src="pw_application_vpython3_img74.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=766 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Multi_Pendulum</span>&nbsp; ( ?? )</p>
+</td>
+<td width=43 valign=top style="background-color: #ffffd4;">
+<p><img width=125 height=125 alt="" src="pw_application_vpython3_img75.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=757 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>ODE</span> (&nbsp; by Miles Jacobs, , <a class=rvts4 href="http://www.vpython.org/contributed/visualjoints.py">website</a> ) </p>
+<p><br></p>
+<p>( visualjoints.py ) uses pyODE (http://pyode.sourceforge.net), an open-source physics engine</p>
+<p><br></p>
+</td>
+<td width=52 valign=top style="background-color: #ffffd4;">
+<p><img width=102 height=76 alt="" src="pw_application_vpython3_img77.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=747 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Spherical</span>&nbsp; (by Eduardo Sánchez Velasco. September 2004, <a class=rvts4 href="http://www2.truman.edu/~velasco/phys386.html">website</a> )</p>
+<p><br></p>
+<p>Shows a spherical pendulum, a trace is following the end-joint, which can be cleared by clicking on the VPython window.</p>
+<p><br></p>
+</td>
+<td width=62 valign=top style="background-color: #ffffd4;">
+<p><img width=315 height=208 alt="" src="pw_application_vpython3_img93.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><span class=rvts2><br></span></p>
+<p><span class=rvts2>Physics group</span></p>
+<p><span class=rvts10>Free_Path</span>&nbsp; (14_spark_mean_free_path.py,&nbsp; Bruce Sherwood Fall 2000, <a class=rvts4 href="http://www4.ncsu.edu/~rwchabay/mi/Public_Programs_VII.htm">website</a>)</p>
+<p>watch one atom move through a gas</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=742 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Birds</span> ( by Eric Nilsen, September 2003, <a class=rvts4 href="http://www.vpython.org/contributed/boids.py">website</a> )</p>
+<p><br></p>
+<p>boids.py generates bird flocking behavior</p>
+<p><br></p>
+<p>Ideas for version 2.0:</p>
+<p>&nbsp;&nbsp;&nbsp; predators</p>
+<p>&nbsp;&nbsp;&nbsp; obstructions</p>
+<p>&nbsp;&nbsp;&nbsp; perching on the ground for a bit</p>
+<p>&nbsp;&nbsp;&nbsp; prevailing wind</p>
+<p>&nbsp;&nbsp;&nbsp; random flock scattering</p>
+<p>&nbsp;&nbsp;&nbsp; cone boid shape --&gt; change boid axis to indicate direction</p>
+<p><br></p>
+</td>
+<td width=146 valign=top style="background-color: #ffffd4;">
+<p><img width=222 height=204 alt="" src="pw_application_vpython3_img78.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=664 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Brownian 2D</span>&nbsp; ( by E. Velasco. July 2006 version )</p>
+<p><br></p>
+<p>Simple demo to illustrate the motion of a Big brownian particle in a swarm of small particles in 2D motion. The spheres collide elastically with themselves and with the walls of the box. The masses of the spheres are proportional to their radius**3 (as in 3D).</p>
+<p><br></p>
+<p>Clicking the left mouse button toggles the display of the orbit of the Big brownian sphere. </p>
+<p><br></p>
+</td>
+<td width=145 valign=top style="background-color: #ffffd4;">
+<p><img width=199 height=162 alt="" src="pw_application_vpython3_img79.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=730 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Brownian 3D</span>&nbsp; ( by Bruce Sherwood Fall 2000 )</p>
+<p><br></p>
+<p>A model of an ideal gas with hard-sphere collisions. One atom is tracked; its mean-free path is determined more by</p>
+<p>the size of the container than by the gas density.</p>
+<p><br></p>
+<p>Ideas:</p>
+<p>- change number of atoms</p>
+<p>- change temperature</p>
+<p>- clear trail</p>
+</td>
+<td width=79 valign=top style="background-color: #ffffd4;">
+<p><img width=216 height=200 alt="" src="pw_application_vpython3_img80.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=474 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Drape</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>Very Nice !!</p>
+</td>
+<td width=147 valign=top style="background-color: #ffffd4;">
+<p><img width=236 height=143 alt="" src="pw_application_vpython3_img81.png"></p>
+</td>
+<td width=138 valign=top style="background-color: #ffffd4;">
+<p><img width=236 height=149 alt="" src="pw_application_vpython3_img82.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=640 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>StripChart</span>&nbsp; (&nbsp; by Flavio Codeco Coelho, License: GPL )</p>
+<p><br></p>
+<p>I think there are are much better widgets for stripchart recording, but to complete the overview of the possibilities of VPython, it's here.</p>
+<p><br></p>
+<p><br></p>
+</td>
+<td width=169 valign=top style="background-color: #ffffd4;">
+<p><img width=370 height=340 alt="" src="pw_application_vpython3_img84.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Scene group</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=554 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Alfabet</span>&nbsp; ( by&nbsp; Bruce Sherwood, December 2007, <a class=rvts4 href="http://www.vpython.org/contributed/look_around.py">website</a> )</p>
+<p>( look_around.py ) shows how to rotate a camera at the origin and look around at a surrounding scene.</p>
+<p>This demo show how you can rotate the ring with characters, by left moues position. At the center, no movement, the further you move the mouse to the right the faster the ring will rotate.</p>
+<p>Changed: allow user.spin</p>
+</td>
+<td width=255 valign=top style="background-color: #ffffd4;">
+<p><img width=340 height=107 alt="" src="pw_application_vpython3_img28.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=591 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Cherry_Tree</span>&nbsp; ( by Viktor Ferenczi, januari 2003, <a class=rvts4 href="http://www.vpython.org/contributed/cherry_tree.py">website</a> )</p>
+<p>Very Beautiful !</p>
+<p>It would be interesting to change the program in such a way, that after a while the cherries would really drop on the ground.</p>
+</td>
+<td width=218 valign=top style="background-color: #ffffd4;">
+<p><img width=303 height=233 alt="" src="pw_application_vpython3_img31.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=570 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Chess </span>(by Shaun Press, <a class=rvts4 href="http://www.vpython.org/contributed/chessboard.py">website</a> )</p>
+<p><br></p>
+<p>Chess board -- doesn't actually play but will execute moves:&nbsp;&nbsp; </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp; move ( 'd2d4' )</p>
+</td>
+<td width=239 valign=top style="background-color: #ffffd4;">
+<p><img width=313 height=271 alt="" src="pw_application_vpython3_img32.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=538 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Clock</span>&nbsp; ( by Viktor Ferenczi, januari 2003, <a class=rvts4 href="http://www.vpython.org/contributed/cxvp_clock.py">website</a> )</p>
+<p><br></p>
+<p>problems when coming from another "clk" not known ??</p>
+<p><br></p>
+</td>
+<td width=271 valign=top style="background-color: #ffffd4;">
+<p><img width=341 height=263 alt="" src="pw_application_vpython3_img33.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=630 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Face</span>&nbsp; ( by Joel Kahn, 2004, <a class=rvts4 href="http://www.vpython.org/contributed/face.py">website</a> )</p>
+<p><br></p>
+<p>Makes an amusing moving face.</p>
+<p><br></p>
+</td>
+<td width=179 valign=top style="background-color: #ffffd4;">
+<p><img width=236 height=232 alt="" src="pw_application_vpython3_img34.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=615 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Fountain</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>Very fast for so many balls !</p>
+</td>
+<td width=194 valign=top style="background-color: #ffffd4;">
+<p><img width=230 height=104 alt="" src="pw_application_vpython3_img35.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=611 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Intensive Care </span>( by Stef Mientki, november 2008 )</p>
+<p><br></p>
+<p>This demo was used to evaluate the positioning and dimensions of lifting arm systems for medical equipment in an Intensive Care unit.</p>
+</td>
+<td width=198 valign=top style="background-color: #ffffd4;">
+<p><img width=242 height=206 alt="" src="pw_application_vpython3_img40.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=659 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Material 5</span> ( by ?? )&nbsp; <span class=rvts10>VP-5</span></p>
+<p><br></p>
+<p><br></p>
+<p>Click to center one of the balls, and move your mouse around, because attached to your mouse there's a little light.</p>
+</td>
+<td width=212 valign=top style="background-color: #ffffd4;">
+<p><img width=218 height=158 alt="" src="pw_application_vpython3_img103.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=612 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Mandelbrot1</span>&nbsp; ( by Bruce Sherwood, jan 2008, <a class=rvts4 href="http://www.vpython.org/contributed/pixelplot.py">website</a> )</p>
+<p><br></p>
+<p>(pixelplot.py) shows a way to do pixel-oriented plotting in VPython </p>
+<p><br></p>
+</td>
+<td width=197 valign=top style="background-color: #ffffd4;">
+<p><img width=233 height=193 alt="" src="pw_application_vpython3_img37.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=584 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Pipes</span>&nbsp; ( by William Wright, ?, <a class=rvts4 href="http://www.vpython.org/contributed/pipes.py">website</a> )</p>
+<p><br></p>
+<p>A screen-saver-like animation of connecting pipes</p>
+<p><br></p>
+</td>
+<td width=225 valign=top style="background-color: #ffffd4;">
+<p><img width=197 height=179 alt="" src="pw_application_vpython3_img41.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=588 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Planar</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>Move the cylinders around.</p>
+</td>
+<td width=221 valign=top style="background-color: #ffffd4;">
+<p><img width=238 height=170 alt="" src="pw_application_vpython3_img42.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=588 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Saraiva</span> ( by Eduardo Saraiva, ?, <a class=rvts4 href="http://www.vpython.org/contributed/SaraivaDemo.py">website</a> )</p>
+<p><br></p>
+<p>is a fun and attractive demonstration of various VPython capabilities.</p>
+</td>
+<td width=221 valign=top style="background-color: #ffffd4;">
+<p><img width=209 height=162 alt="" src="pw_application_vpython3_img44.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=463 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Stonehenge</span>&nbsp; ( by Bruce Sherwood )</p>
+<p>On the left the new VPython-5 version.</p>
+<p>Press to enter roaming mode, release to exit roaming mode. In roaming mode, with the mouse button down, move the mouse above or below the guide crosshairs to move forward or backward; right or left rotates your direction.</p>
+<p><br></p>
+<p>I don't understand how to toggle roaming mode and what it does exactly..</p>
+</td>
+<td width=156 valign=top style="background-color: #ffffd4;">
+<p><img width=211 height=146 alt="" src="pw_application_vpython3_img101.png"></p>
+</td>
+<td width=176 valign=top style="background-color: #ffffd4;">
+<p><img width=238 height=156 alt="" src="pw_application_vpython3_img45.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=674 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>The VPython-5</span> demo ( by Bruce Sherwood, August 2006 )</p>
+<p><br></p>
+<p>Beautiful light \ shade \ transparency</p>
+</td>
+<td width=197 valign=top style="background-color: #ffffd4;">
+<p><img width=203 height=182 alt="" src="pw_application_vpython3_img102.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Shape group</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=513 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Capitals</span>&nbsp; ( by&nbsp; Joel Kahn, 2004,&nbsp; <a class=rvts4 href="http://www.vpython.org/contributed/capital_letters.py">website</a> )</p>
+<p><br></p>
+<p>( capital_letters.py ) displays capital letters using curves</p>
+</td>
+<td width=296 valign=top style="background-color: #ffffd4;">
+<p><img width=346 height=173 alt="" src="pw_application_vpython3_img30.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=642 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Cone </span>( by David Scherer July 2001 )</p>
+<p><br></p>
+<p>Example of use of faces object for building arbitrary shapes (here, a cone)</p>
+<p><br></p>
+</td>
+<td width=167 valign=top style="background-color: #ffffd4;">
+<p><img width=180 height=112 alt="" src="pw_application_vpython3_img46.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=713 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Cone_Arrow</span>&nbsp; ( by&nbsp; Aaron Miller, v0.1: 18Jul2008 )</p>
+<p><br></p>
+<p>VPython carrow, Make a cylindrical-bodied arrow with a cone point of identical dimensions as the standard built-in square arrow.</p>
+<p><br></p>
+</td>
+<td width=96 valign=top style="background-color: #ffffd4;">
+<p><img width=219 height=84 alt="" src="pw_application_vpython3_img47.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=669 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Cones</span>&nbsp; ( by Thom Ives, July 2002 )</p>
+<p><br></p>
+<p>modified by Bruce Sherwood and David Sherer</p>
+<p><br></p>
+</td>
+<td width=140 valign=top style="background-color: #ffffd4;">
+<p><img width=196 height=105 alt="" src="pw_application_vpython3_img48.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=694 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Convex</span>&nbsp; ( by David Sherer )</p>
+<p><br></p>
+<p>The red Cone follows the mouse position.</p>
+</td>
+<td width=115 valign=top style="background-color: #ffffd4;">
+<p><img width=239 height=207 alt="" src="pw_application_vpython3_img49.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=608 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>CrossProduct</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>Vector cross product: </p>
+<p>&nbsp;&nbsp; Red x Green = Yellow</p>
+<p>Drag to change green vector</p>
+<p>Click to toggle fixed angle or fixed length</p>
+<p><br></p>
+</td>
+<td width=201 valign=top style="background-color: #ffffd4;">
+<p><img width=237 height=209 alt="" src="pw_application_vpython3_img50.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=596 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Frame_Test</span>&nbsp; (by Stef Mientki, november 2008 )</p>
+<p><br></p>
+<p>Just a testscript, to see how translations and rotations of frames are performed.</p>
+</td>
+<td width=213 valign=top style="background-color: #ffffd4;">
+<p><img width=233 height=208 alt="" src="pw_application_vpython3_img51.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=652 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Labels</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>You should see a single arrow with three labels attached to it. Each label is translucent. The one at the tip should be centered at the tip. The head and tail labels have a single line of text. The midpoint label has two.</p>
+<p><br></p>
+</td>
+<td width=157 valign=top style="background-color: #ffffd4;">
+<p><img width=153 height=133 alt="" src="pw_application_vpython3_img52.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=617 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Lathe</span> (&nbsp; by David Scherer )</p>
+<p><br></p>
+<p>Create a surface of revolution out of slices that are convex objects</p>
+<p><br></p>
+<p><br></p>
+</td>
+<td width=192 valign=top style="background-color: #ffffd4;">
+<p><img width=237 height=220 alt="" src="pw_application_vpython3_img36.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=627 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Random</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>looks like space garbage to me.</p>
+</td>
+<td width=182 valign=top style="background-color: #ffffd4;">
+<p><img width=236 height=208 alt="" src="pw_application_vpython3_img54.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=583 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>RandomBox</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>this is mostly for experimenting with zooming and rotating</p>
+<p><br></p>
+<p><br></p>
+</td>
+<td width=226 valign=top style="background-color: #ffffd4;">
+<p><img width=228 height=205 alt="" src="pw_application_vpython3_img55.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=682 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Shape-V5</span> ( by David Scherer, July 2001 )&nbsp; <span class=rvts10>VP-5?</span></p>
+<p><br></p>
+<p>Demonstrates some techniques for working with "faces", and shows how to build a height field (a common feature request) with it.</p>
+<p><br></p>
+</td>
+<td width=189 valign=top style="background-color: #ffffd4;">
+<p><img width=192 height=101 alt="" src="pw_application_vpython3_img104.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=623 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Spider</span>&nbsp; ( ?? )</p>
+<p><br></p>
+<p>readdata.py </p>
+<p>This program is meant to be a simple example of how to read data from a file. It reads a plain ASCII text file containing three columns of numbers separated by spaces and treats the numbers in each line as a three dimensional (x,y,z) coordinate for a point on a weird knotlike 3D figure.</p>
+<p><br></p>
+</td>
+<td width=186 valign=top style="background-color: #ffffd4;">
+<p><img width=230 height=208 alt="" src="pw_application_vpython3_img56.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=653 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Text</span>&nbsp; ( by&nbsp; Bruce Sherwood, Carnegie Mellon University, begun March 2000 )</p>
+<p><br></p>
+<p>Display extruded text (uppercase only at present). By default, display text along x axis, with letters pointing up parallel to y axis.</p>
+<p><br></p>
+</td>
+<td width=156 valign=top style="background-color: #ffffd4;">
+<p><img width=197 height=209 alt="" src="pw_application_vpython3_img57.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Unused Demos</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><span class=rvts10>PyGeo</span>, ( by Arthur Siegel, who unfortunately died in 2007; write to Joel Kahn &lt;jj2kk4@yahoo.com&gt;,&nbsp; <a class=rvts4 href="http://pygeo.sourceforge.net/index.html">website</a> ) needs to change pickloop in vpyframe.py </li>
+<li><span class=rvts10>Computation</span> using VPython of planetary ring formation (Michael Cobb). See FAQ for details on how the VPython displays were captured and then made into a video. No code available. </li>
+<li><span class=rvts10>VPNBody</span> multibody solar system dynamics (Rodney Dunning), complete package must be unpacked </li>
+<li><span class=rvts10>Physics projects</span> and links (Rob Salgado) </li>
+<li><span class=rvts10>KineticsKit</span> a module for quickly building ball-and-spring models (Markus Gritsch) </li>
+<li><span class=rvts10>Earth Science</span> a collection of Earth Science programs (Lensyl Urbano) </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Changes individual programs</span></p>
+<p><br></p>
+<p><span class=rvts2>Pendulum group</span></p>
+<p><span class=rvts10>Double</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>lowered rate from 1000 to 50 </li>
+<li>increased dt from 0.002 to 0.02 </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>Chess&nbsp; </span>( Author: Shaun Press )</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Setting forward, range </li>
+<li>Added convenience procedure "move" </li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>Keppler&nbsp; </span>( Peter Borcherds, University of Birmingham, England )</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Scene group</span></p>
+<p><span class=rvts10>Clock</span>&nbsp; ( Viktor Ferenczi, januari 2003, <a class=rvts4 href="http://www.vpython.org/contributed/cxvp_clock.py">website</a> )</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>conflicts with spaces and tabs, converted all to spaces </li>
+<li>tripple quoted string at the start </li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>Mandelbrot1</span>&nbsp; ( by Bruce Sherwood, jan 2008, <a class=rvts4 href="http://www.vpython.org/contributed/pixelplot.py">website</a> )</p>
+<p>(pixelplot.py) shows a way to do pixel-oriented plotting in VPython </p>
+<p>problems with from __future__ import division</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>VP5 - VP3</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Although most of the scripts seem to run faster, Fountain runs a slower after a while VP3=12fps / VP5=8fps. Also Rubik_555 runs slower in VP5 </li>
+<li>hide()&nbsp; must be replaced by visible = False, and show() by visible = True </li>
+<li></li>
+<li></li>
+</ul>
+<p><br></p>
+
+</body></html>

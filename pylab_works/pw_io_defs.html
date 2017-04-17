@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>IO Definitions</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="7" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>IO Definitions </span><img width=32 height=32 alt="" src="vippi_bricks_323.png">&nbsp;&nbsp; <span class=rvts8>(November 2008)</span></p>
+<p>Application Designer / Domain Expert / Control Designer / <span class=rvts10>Core Developer</span></p>
+<p><br></p>
+<p><br></p>
+<p>For the moment these are declared in PyLab_Works_Globals, don't know if this is the best place ??</p>
+<p><br></p>
+<p>IO-Pins are alwasy derived from tIO_Pin or one of its children.</p>
+<p>Connections can be made if the pins are derived from each other (regardless the order).</p>
+<p>So the tIO_Pin is a both a general acceptor and a general donor.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=562 height=189 alt="" src="pw_io_defs_img15.png"></p>
+<p><br></p>
+<p>Colors are defined in OGL_Like</p>
+<p>&nbsp;&nbsp;&nbsp; global TIO_Brush</p>
+<p>&nbsp;&nbsp;&nbsp; TIO_Brush = [</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wx.Brush ( ( 255, 0,&nbsp;&nbsp; 0&nbsp;&nbsp; ) ),</p>
+<p><br></p>
+<p><span class=rvts2>TIO_ARRAY</span></p>
+<p>This variable type is suited to pass both array data and meta data, in a very free and flexible form.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=97 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Calibrate</span></p>
+</td>
+<td width=807 valign=top style="background-color: #ffffd4;">
+<p>Either a 2 points calibration ( x1, y1, x2, y2 ) or</p>
+<p>a gain / offset tuple ( gain, offset )</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Channel</span></p>
+</td>
+<td width=807 valign=top style="background-color: #ffffd4;">
+<p>Zero based channel number</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>DisplayRange</span></p>
+</td>
+<td width=807 valign=top style="background-color: #ffffd4;">
+<p>( Bottom,Top ) value of the display (in world units). Might also have the value "True" for autoscaling.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Frequency</span></p>
+</td>
+<td width=807 valign=top style="background-color: #ffffd4;">
+<p>Sample frequency of the signals [Hz]</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>LineColor</span></p>
+</td>
+<td width=807 valign=top style="background-color: #ffffd4;">
+<p>Color of the line used to draw the signal</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>LineWidth</span></p>
+</td>
+<td width=807 valign=top style="background-color: #ffffd4;">
+<p>Line width used to draw the signal [pixels]</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>SignalName</span></p>
+</td>
+<td width=807 valign=top style="background-color: #ffffd4;">
+<p>Name of the signal, possible followed with world units in square brackets, e.g.&nbsp;&nbsp; "BloodPressure&nbsp; [mmHg]"</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Units</span></p>
+</td>
+<td width=807 valign=top style="background-color: #ffffd4;">
+<p>World Units, without square brackets ( this will overrule the units specified in the SignalName)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=97 valign=top style="background-color: #ffffd4;"><br>
+</td>
+<td width=807 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>TIO_INTERACTION</span></p>
+<p>The type of this IO is a dictionary, so it can contain any information and it works bi-directional.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=133 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+<td width=606 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=133 valign=middle style="background-color: #ffffd4;">
+<p><span class=rvts10>AutoCompletion_List</span></p>
+</td>
+<td width=606 valign=middle style="background-color: #ffffd4;">
+<p>Extra autocompletion elements</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=133 valign=middle style="background-color: #ffffd4;">
+<p><span class=rvts10>FileName</span></p>
+</td>
+<td width=606 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=133 valign=middle style="background-color: #ffffd4;">
+<p><span class=rvts10>CodeFile_To_Open</span></p>
+</td>
+<td width=606 valign=middle style="background-color: #ffffd4;">
+<p>Request from a secondary control, e.g. Cmd_Shell_Doc, to open this code file.</p>
+<p>Cmd_Shell_Doc contains a gridpage with files (ordered into groups) in the projects file directory. Clicking on a cell in this grid, will send a request to open this code file. The project VP2 has an example of this use.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=133 valign=middle style="background-color: #ffffd4;">
+<p><span class=rvts10>CodeText</span></p>
+</td>
+<td width=606 valign=middle style="background-color: #ffffd4;">
+<p>The complete text from a code editor</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=133 valign=middle style="background-color: #ffffd4;">
+<p><span class=rvts10>Dont_Execute</span></p>
+</td>
+<td width=606 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=133 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+<td width=606 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=133 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+<td width=606 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=133 height=14 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+<td width=606 height=14 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=133 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+<td width=606 valign=middle style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>CodeFile_To_Open</span></p>
+<p><br></p>
+<p>In control_output_viewer.py&nbsp; the class Cmd_Shel_Doc we detect a cell click, which in fact is a file selection, and there we change the params of the parent Brick:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=613 height=276 alt="" src="pw_io_defs_img2.png"></p>
+<p><br></p>
+<p>In the Brick t_Code_Editor the change of params is detected and the signal is passed to the TIO_INTERACTION signal</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=414 height=281 alt="" src="pw_io_defs_img3.png"></p>
+<p><br></p>
+<p>Now if we've a code editor attached to it</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><img width=127 height=195 alt="" src="pw_io_defs_img4.png">&nbsp; <img width=192 height=229 alt="" src="pw_io_defs_img5.png">&nbsp; <img width=181 height=78 alt="" src="pw_io_defs_img11.png"></p>
+<p><img width=204 height=326 alt="" src="pw_io_defs_img6.png">&nbsp; <img width=131 height=201 alt="" src="pw_io_defs_img10.png">&nbsp; <img width=108 height=182 alt="" src="pw_io_defs_img12.png"></p>
+<p><br></p>
+<p><img width=271 height=236 alt="" src="pw_io_defs_img7.png"></p>
+<p><img width=316 height=352 alt="" src="pw_io_defs_img8.png">&nbsp; <img width=285 height=316 alt="" src="pw_io_defs_img13.png"></p>
+<p><br></p>
+<p><img width=343 height=325 alt="" src="pw_io_defs_img9.png">&nbsp; <img width=118 height=249 alt="" src="pw_io_defs_img14.png"></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

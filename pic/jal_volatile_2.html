@@ -1,0 +1,337 @@
+<HTML><HEAD><TITLE>volatile in JAL</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FEFFE6;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P>I always think of the definition from ISO/IEC 9899:1999 (the latest C</P>
+<P>standard), section 6.7.3 paragraph 6: ``An object that has volatile-qualified</P>
+<P>type may be modified in ways unknown to the implementation or have other</P>
+<P>unknown side effects.''</P>
+<P>In pjal, the means the following:</P>
+<P>&nbsp; 1. optimization is turned off for this variable</P>
+<P>&nbsp; 2. it will only be modified *once* in any expression</P>
+<P>technically, there should also be a 3: ``it will only be read *once* in any</P>
+<P>expression'' but I've not implement that bit since on the PIC reading doesn't</P>
+<P>modify the value (i think).</P>
+<P>For case 1: If a variable is assigned but never used it will be removed. If it</P>
+<P>used but never assigned it will also be removed and the value of 0 will be</P>
+<P>used in its place. A volatile variable will never be removed unless it is</P>
+<P>neither assigned nor used.</P>
+<P>For case 2: take the simple expression: x = x &lt;&lt; 2 given a byte variable x.&nbsp;</P>
+<P>The non-volatile case becomes:</P>
+<P>&nbsp; bcf _status, _c</P>
+<P>&nbsp; rlf x,f</P>
+<P>&nbsp; bcf _status, _c</P>
+<P>&nbsp; rlf x,f</P>
+<P>The volatile case becomes:</P>
+<P>&nbsp; bcf&nbsp;&nbsp; _status, _c</P>
+<P>&nbsp; rlf&nbsp;&nbsp; x,w</P>
+<P>&nbsp; movwv tmp</P>
+<P>&nbsp; bcf&nbsp;&nbsp; _status, _c</P>
+<P>&nbsp; rlf&nbsp;&nbsp; tmp,w</P>
+<P>&nbsp; movwf x</P>
+<P>so x is only modified *once*</P>
+<HR noshade size=1>
+<P>From Wikipedia, the free encyclopedia.</P>
+<P>Volatile is a word meaning, roughly, "temporary" or "fickle". It has specific meanings in several fields:</P>
+<HR noshade size=1>
+<P>From Wikipedia, the free encyclopedia.</P>
+<P>Volatile storage is a category of computer storage. Unlike non-volatile storage, it requires power to retain data.</P>
+<P>Storage technologies in this category include delay line memory and most forms of RAM, including DRAM and SRAM. CAM and dual-ported RAM are usually implemented using volatile storage.</P>
+<HR noshade size=1>
+<P>From Wikipedia, the free encyclopedia.</P>
+<P>In computer programming, a variable or object declared with the volatile keyword may be modified externally from the declaring object. For example, a variable that might be concurrently modified by multiple threads (without locks or a similar form of mutual exclusion) should be declared volatile. Variables declared to be volatile will not be optimized by the compiler because their value can change at any time.</P>
+<P>What can happen if volatile is not used? The following piece of C source code demonstrates the use of the volatile keyword.</P>
+<P>void foo(void)</P>
+<P>{</P>
+<P>&nbsp;&nbsp;&nbsp; int *addr;</P>
+<P>&nbsp;&nbsp;&nbsp; addr = 100;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; *addr = 0;</P>
+<P>&nbsp;&nbsp;&nbsp; while (*addr != 255)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;</P>
+<P>}</P>
+<P>In this example, the code sets the value stored at location 100 in the computer system to 0. It then starts to poll the address until it changes to 255.</P>
+<P>An optimizing compiler will assume that no other code will change the value stored in location 100 and so it will remain equal to 0. The compiler will then replace the while loop with something similar to this: -</P>
+<P>void foo(void)</P>
+<P>{</P>
+<P>&nbsp;&nbsp;&nbsp; int *addr;</P>
+<P>&nbsp;&nbsp;&nbsp; addr = 100;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; *addr = 0;</P>
+<P>&nbsp;&nbsp;&nbsp; while (1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* 1 here means TRUE */</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;</P>
+<P>}</P>
+<P>and the program will loop forever.</P>
+<P>However, the address might represent a location that can be changed by other elements of the computer system. For example, it could be a hardware register of a device connected to the CPU. The value stored there could change at any time. The above code would never detect the change.</P>
+<P>To prevent the compiler from modifying code in this way, the volatile keyword is used in the following manner: -</P>
+<P>void foo(void)</P>
+<P>{</P>
+<P>&nbsp;&nbsp;&nbsp; volatile int *addr;</P>
+<P>&nbsp;&nbsp;&nbsp; addr = 100;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp; *addr = 0;</P>
+<P>&nbsp;&nbsp;&nbsp; while (*addr != 255)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;</P>
+<P>}</P>
+<P>With this modification the code will remain as it is and the CPU will detect the change when it occurs.</P>
+<HR noshade size=1>
+<P>What is volatile</P>
+<P>The compiler is free to optimize every JAL statement, except reads and writes of volatile variables. Hence every variable which has an effect (when read or written) which is observable outside the program should be declared volatile. Obvious examples are the special function registers. To show the extreme case: a program which does not access any volatile variables might as well be empty, because it has no observable effects. The current JAL compiler is actually not that aggressive, but it would be a pity when a future JAL compiler with better optimization would reduce the code size of your application to zero.</P>
+<P>When a non-volatile variable is passed as actual argument and the called procedure writes to its formal argument it actually writes to a local copy which is only written back to the actual argument after the procedure finishes. This is not exactly what is expected when the actual argument is for instance an asynchronous serial output pin. In such a case the formal parameter should be declared volatile, and what is passed is actually the address of the 'put code for that variable.</P>
+<HR noshade size=1>
+<P>Volatile</P>
+<P>By Nigel Jones</P>
+<P>Embedded Systems Programming</P>
+<P>(07/02/01, 12:20:57 PM EDT)</P>
+<P>The use of volatile is poorly understood by many programmers. This is not surprising, as most C texts dismiss it in a sentence or two.</P>
+<P>Have you experienced any of the following in your C/C++ embedded code?</P>
+<P>&nbsp;&nbsp;&nbsp; * Code that works fine-until you turn optimization on</P>
+<P>&nbsp;&nbsp;&nbsp; * Code that works fine-as long as interrupts are disabled</P>
+<P>&nbsp;&nbsp;&nbsp; * Flaky hardware drivers</P>
+<P>&nbsp;&nbsp;&nbsp; * Tasks that work fine in isolation-yet crash when another task is enabled</P>
+<P>If you answered yes to any of the above, it's likely that you didn't use the C keyword volatile. You aren't alone. The use of volatile is poorly understood by many programmers. This is not surprising, as most C texts dismiss it in a sentence or two. volatile is a qualifier that is applied to a variable when it is declared. It tells the compiler that the value of the variable may change at any time-without any action being taken by the code the compiler finds nearby. The implications of this are quite serious. However, before we examine them, let's take a look at the syntax.</P>
+<P>Syntax</P>
+<P>To declare a variable volatile, include the keyword volatile before or after the data type in the variable definition. For instance both of these declarations will declare foo to be a volatile integer:</P>
+<P>volatile int foo;</P>
+<P>int volatile foo;</P>
+<P>Now, it turns out that pointers to volatile variables are very common. Both of these declarations declare foo to be a pointer to a volatile integer:</P>
+<P>volatile int * foo;</P>
+<P>int volatile * foo;</P>
+<P>Volatile pointers to non-volatile variables are very rare (I think I've used them once), but I'd better go ahead and give you the syntax:</P>
+<P>int * volatile foo;</P>
+<P>And just for completeness, if you really must have a volatile pointer to a volatile variable, then:</P>
+<P>int volatile * volatile foo;</P>
+<P>Incidentally, for a great explanation of why you have a choice of where to place volatile and why you should place it after the data type (for example, int volatile * foo), consult Dan Sak's column, “Top-Level cv-Qualifiers in Function Parameters” (February 2000, p. 63).</P>
+<P>Finally, if you apply volatile to a struct or union, the entire contents of the struct/union are volatile. If you don't want this behavior, you can apply the volatile qualifier to the individual members of the struct/union.</P>
+<P>Use</P>
+<P>A variable should be declared volatile whenever its value could change unexpectedly. In practice, only three types of variables could change:</P>
+<P>&nbsp;&nbsp;&nbsp; * Memory-mapped peripheral registers</P>
+<P>&nbsp;&nbsp;&nbsp; * Global variables modified by an interrupt service routine</P>
+<P>&nbsp;&nbsp;&nbsp; * Global variables within a multi-threaded application</P>
+<P>Peripheral registers</P>
+<P>Embedded systems contain real hardware, usually with sophisticated peripherals. These peripherals contain registers whose values may change asynchronously to the program flow. As a very simple example, consider an 8-bit status register at address 0x1234. It is required that you poll the status register until it becomes non-zero. The naïve and incorrect implementation is as follows:</P>
+<P>UINT1 * ptr = (UINT1 *) 0x1234;</P>
+<P>// Wait for register to become non-zero.</P>
+<P>while (*ptr == 0);</P>
+<P>// Do something else.</P>
+<P>This will almost certainly fail as soon as you turn the optimizer on, since the compiler will generate assembly language that looks something like this:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mov&nbsp;&nbsp;&nbsp;&nbsp; ptr, #0x1234</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mov&nbsp;&nbsp;&nbsp;&nbsp; a, @ptr</P>
+<P>loop&nbsp;&nbsp;&nbsp; bz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loop</P>
+<P>The rationale of the optimizer is quite simple: having already read the variable's value into the accumulator (on the second line), there is no need to reread it, since the value will always be the same. Thus, in the third line, we end up with an infinite loop. To force the compiler to do what we want, we modify the declaration to:</P>
+<P>UINT1 volatile * ptr =&nbsp;</P>
+<P>(UINT1 volatile *) 0x1234;</P>
+<P>The assembly language now looks like this:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mov&nbsp;&nbsp;&nbsp;&nbsp; ptr, #0x1234</P>
+<P>loop&nbsp;&nbsp;&nbsp; mov&nbsp;&nbsp;&nbsp;&nbsp; a, @ptr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loop</P>
+<P>The desired behavior is achieved.</P>
+<P>Subtler problems tend to arise with registers that have special properties. For instance, a lot of peripherals contain registers that are cleared simply by reading them. Extra (or fewer) reads than you are intending can cause quite unexpected results in these cases.</P>
+<P>Interrupt service routines</P>
+<P>Interrupt service routines often set variables that are tested in main line code. For example, a serial port interrupt may test each received character to see if it is an ETX character (presumably signifying the end of a message). If the character is an ETX, the ISR might set a global flag. An incorrect implementation of this might be:</P>
+<P>int etx_rcvd = FALSE;</P>
+<P>void main() { ... while (!ext_rcvd) { // Wait } ... }</P>
+<P>interrupt void rx_isr(void) { ... if (ETX == rx_char) { etx_rcvd = TRUE; } ... }</P>
+<P>With optimization turned off, this code might work. However, any half decent optimizer will “break” the code. The problem is that the compiler has no idea that etx_rcvd can be changed within an ISR. As far as the compiler is concerned, the expression !ext_rcvd is always true, and, therefore, you can never exit the while loop. Consequently, all the code after the while loop may simply be removed by the optimizer. If you are lucky, your compiler will warn you about this. If you are unlucky (or you haven't yet learned to take compiler warnings seriously), your code will fail miserably. Naturally, the blame will be placed on a “lousy optimizer.”</P>
+<P>The solution is to declare the variable etx_rcvd to be volatile. Then all of your problems (well, some of them anyway) will disappear.</P>
+<P>Multi-threaded applications</P>
+<P>Despite the presence of queues, pipes, and other scheduler-aware communications mechanisms in real-time operating systems, it is still fairly common for two tasks to exchange information via a shared memory location (that is, a global). When you add a pre-emptive scheduler to your code, your compiler still has no idea what a context switch is or when one might occur. Thus, another task modifying a shared global is conceptually identical to the problem of interrupt service routines discussed previously. So all shared global variables should be declared volatile. For example:</P>
+<P>int cntr;</P>
+<P>void task1(void) { cntr = 0; while (cntr == 0) { sleep(1); } ... }</P>
+<P>void task2(void) { ... cntr++; sleep(10); ... }</P>
+<P>This code will likely fail once the compiler's optimizer is enabled. Declaring cntr to be volatile is the proper way to solve the problem.</P>
+<P>Final thoughts</P>
+<P>Some compilers allow you to implicitly declare all variables as volatile. Resist this temptation, since it is essentially a substitute for thought. It also leads to potentially less efficient code.</P>
+<P>Also, resist the temptation to blame the optimizer or turn it off. Modern optimizers are so good that I cannot remember the last time I came across an optimization bug. In contrast, I come across failures to use volatile with depressing frequency. If you are given a piece of flaky code to “fix,” perform a grep for volatile. If grep comes up empty, the examples given here are probably good places to start looking for problems.</P>
+<P>Nigel Jones is a consultant living in Maryland. When not underwater, he can be found slaving away on a diverse range of embedded projects. He can be reached at NAJones@compuserve.com.</P>
+<P>Return to July 2001 Table of Contents&nbsp;</P>
+<HR noshade size=1>
+<P>The PIC is a micro-controler with integrated program memory, volatile and non-volatile RAM, IO ports, timers and much more.&nbsp;</P>
+<HR noshade size=1>
+<P>Volatile</P>
+<P>The volatile type qualifier can be used to declare objects that may be modified in ways unknown to the compiler or have other unknown side effects (e.g. modification via a signal interrupt, hardware register, or memory mapped I/O). Subject to the implementation-defined abstract machine, volatile objects inhibit some optimizations such as keeping the objects in registers and some types of code motion.</P>
+<P>These NULLSTONE tests isolate defects in the optimizer associated with incorrect optimization of volatile objects.</P>
+<P>Example:</P>
+<P>In the function below, the expression (x + y) appears to be loop invariant. However, x and y are declared with type qualifier volatile, and their values may change during the execution of the loop.</P>
+<P>volatile int x, y;</P>
+<P>int a[SIZE];</P>
+<P>void f (void)</P>
+<P>{</P>
+<P>&nbsp; int i;</P>
+<P>&nbsp; for (i = 0; i &lt; SIZE; i++)</P>
+<P>&nbsp;&nbsp;&nbsp; a[i] = x + y;</P>
+<P>}</P>
+<P>Some compilers will hoist the expression (x + y) out of the loop as shown below, which is an incorrect optimization.</P>
+<P>volatile int x, y;</P>
+<P>int a[SIZE];</P>
+<P>void f (void)</P>
+<P>{</P>
+<P>&nbsp; int i;</P>
+<P>&nbsp; int temp;</P>
+<P>&nbsp; temp = x + y;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* incorrect code motion */</P>
+<P>&nbsp; for (i = 0; i &lt; SIZE; i++)</P>
+<P>&nbsp;&nbsp;&nbsp; a[i] = temp;</P>
+<P>}</P>
+<P>Notes:</P>
+<P>Empirical data suggests that incorrect optimization of volatile objects is one of the most common defects in C optimizers. In particular, eleven out of twelve commercially-available C compilers failed one or more NULLSTONE volatile conformance tests in a study performed in the spring of 1995. Hoisting volatile objects out of loops was the most common defect observed.</P>
+<P>Const volatile objects are particularly problematic for many compilers, which often treat const volatile objects like const objects.</P>
+<P>© 1990-2000 Nullstone Corporation. All Rights Reserved.</P>
+<HR noshade size=1>
+<P>hi All,</P>
+<P>I'm just writing the documenation of my first project and tried to</P>
+<P>describe what a PIC was.</P>
+<P>Something like mircrocontroler + .. + volatile RAM (the real RAM) +</P>
+<P>non-volatile RAM (the data EEPROM).</P>
+<P>Oeps I thought I understood volatile.</P>
+<P>A few days ago (maybe weeks) we had a discussion, where Wouter said</P>
+<P>"The assignments to volatile variables are what you realy want to</P>
+<P>happen, the interaction with the 'outside world': pic pins or other pic</P>
+<P>peripherals. etc..."</P>
+<P>So simply translated:</P>
+<P>&nbsp; volatile = real</P>
+<P>&nbsp; non-volatile = imaginary (and be whiped out by the compiler)</P>
+<P>But that's just the opposite !?</P>
+<P>my english dictionary says:</P>
+<P>&nbsp; "volatile liquid: a liquid that easily changes into gas or vapour"</P>
+<P>(in Dutch volatile means "vluchtig")</P>
+<P>So I stick to my simple translation</P>
+<P>&nbsp; volatile = real</P>
+<P>&nbsp; non-volatile = imaginary (and be whiped out by the compiler)</P>
+<P>Anyone (maybe someone whoes native language is English) can give the</P>
+<P>right use of volatile ?</P>
+<P>Stef.</P>
+<HR noshade size=1>
+<P>My god! I undestand now!</P>
+<P>Thanks for your explanation,</P>
+<P>Javi</P>
+<HR noshade size=1>
+<P>hi Wouter,</P>
+<P>&gt; &gt; So I stick to my simple translation</P>
+<P>&gt; &gt;&nbsp;&nbsp; volatile = real</P>
+<P>&gt; &gt;&nbsp;&nbsp; non-volatile = imaginary (and be whiped out by the compiler)</P>
+<P>Oeps, that was written the wrong way around.</P>
+<P>&gt; Volatile means something like 'changes easily, changes quickly, does not</P>
+<P>&gt; hold its value/state for long'. In dutch for instance: veranderlijk,</P>
+<P>&gt; vluchtig.</P>
+<P>&gt;</P>
+<P>&gt; So when seeing the PIC from the outside the FLASH and EEPROM are very</P>
+<P>&gt; non-volatile (unless you forget to tie the LVP pin down), and the RAM is</P>
+<P>&gt; very volatile (although people have reported that - especially when you</P>
+<P>&gt; don't want this to happen - RAM cells can keep their state for long time,</P>
+<P>&gt; even without power!).</P>
+<P>&gt;</P>
+<P>&gt; When seeing the PIC registers from the perspective of the program running in</P>
+<P>&gt; the PIC most file registers are very non-volatile: when the program writes</P>
+<P>&gt; something there it will stay untill the program changes it. But some file</P>
+<P>&gt; registers are special: PORTA for instance can not be trusted to keep the</P>
+<P>&gt; value that was written to it! So those registers are called volatile. This</P>
+<P>&gt; happens to be the same registers that connect the program to the outside</P>
+<P>&gt; world, so that is why I say that the program must behave as it is written in</P>
+<P>&gt; Jal, but only for assignments to (and consequently reading from) voltile</P>
+<P>&gt; registers. Everything else can be implemented as written, optimized away, or</P>
+<P>&gt; implemented by magic, you as user should not care, as long as the external</P>
+<P>&gt; effect is the same.</P>
+<P>&gt;</P>
+<P>&gt; Wouter</P>
+<P>I like to simplify everything, so if I understand you right, I would translate</P>
+<P>the above text as:</P>
+<P>&nbsp;&nbsp;&nbsp; "A volatile declaration of a bit/byte, makes the bit/byte LESS volatile</P>
+<P>within the JAL compiler"</P>
+<P>or is that too simple ?</P>
+<P>But even more intriguing is the following:</P>
+<P>Looking at JPIC.JAL, I assume that the following 2 statements do not behave</P>
+<P>equal (at least not always):</P>
+<P>&nbsp;&nbsp;&nbsp; x = port_a &amp; 0x0F&nbsp;&nbsp;&nbsp; -- reads the lsb of physical port A</P>
+<P>&nbsp;&nbsp;&nbsp; x = port_a_low&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- reads the lsb of _port_a_buffer</P>
+<P>Here are the code snippets from JPIC, the question arises, shouldn't the pseudo</P>
+<P>var "port_a_low" not be removed ?</P>
+<P>var volatile byte port_a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at&nbsp; 5</P>
+<P>var byte _port_a_buffer</P>
+<P>procedure _port_a_flush is</P>
+<P>&nbsp;&nbsp; var volatile byte port_a at 5 = _port_a_buffer</P>
+<P>end procedure</P>
+<P>procedure port_a'put( byte in x at _port_a_buffer ) is</P>
+<P>&nbsp;&nbsp; _port_a_flush</P>
+<P>end procedure</P>
+<P>function port_a_low'get return byte is</P>
+<P>&nbsp;&nbsp; return _port_a_buffer &amp; 0x0F</P>
+<P>end function</P>
+<P>Stef</P>
+<HR noshade size=1>
+<P>&gt;&nbsp;&nbsp;&nbsp;&nbsp; "A volatile declaration of a bit/byte, makes the bit/byte LESS</P>
+<P>volatile</P>
+<P>&gt; within the JAL compiler"</P>
+<P>I would say that it is an indication to the compiler, that from his</P>
+<P>vieuwpoint (or from the vieuwpoint of the executing program) the variable is</P>
+<P>volatile, that is, can change value at random moments.</P>
+<P>&gt; function port_a_low'get return byte is</P>
+<P>&gt;&nbsp;&nbsp;&nbsp; return _port_a_buffer &amp; 0x0F</P>
+<P>&gt; end function</P>
+<P>Whoops, that looks like a bug in the library. Instead of reading the port it</P>
+<P>reads the write buffer (and then takes the lower nibble).</P>
+<P>Wouter</P>
+<HR noshade size=1>
+<HR noshade size=1>
+<HR noshade size=1>
+<P>hi All,</P>
+<P>Is there any reason why a bit declaration should be volatile ?</P>
+<P>Isn't it always so that a bit is "hard" linked to a byte ?</P>
+<P>So in the next example line (3) is just as good as line (2) ??</P>
+<P>(1)&nbsp;&nbsp;&nbsp; var byte key_port_read</P>
+<P>(2)&nbsp;&nbsp;&nbsp; var volatile bit key_scanline_1 at key_port_read : key_scanpin_1</P>
+<P>(3)&nbsp;&nbsp;&nbsp; var&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bit key_scanline_2 at key_port_read :</P>
+<P>key_scanpin_2</P>
+<P>thanks,</P>
+<P>Stef</P>
+<HR noshade size=1>
+<P>Volatile (when used with a variable) means that the compiler must treat the</P>
+<P>variable as something that has semantics (effect) beyond its knowledge. The</P>
+<P>effect of a Jal program is the assignments to volatile variables, nothing</P>
+<P>more (well, also the execution of explicit assembler statements). The</P>
+<P>compiler is free to choose any way to achieve that effect, including</P>
+<P>eliminating all variables and assignments to non-volatile variables.</P>
+<P>Volatile does not 'inherit over' via 'at' (it does inherit via 'is'), so the</P>
+<P>bits must be declared volatile themselves.</P>
+<P>Wouter</P>
+<HR noshade size=1>
+<P>Wouter dear,&nbsp;</P>
+<P>I've scramble my mind to understood your explanation without success !</P>
+<P>My simple ideea about volatile was untill today, that compiler choose to</P>
+<P>keep the declared value for a byte and choose to loose ( only when</P>
+<P>compiler and Wouter knows ) the value for a volatile byte.</P>
+<P>So a volatile bit or byte will have a different value than first asigned</P>
+<P>one in different phases of compiling.</P>
+<P>Isn't this true ?&nbsp;</P>
+<P>About how is the best from 2 and 3, I have no ideea ( after this mail )</P>
+<P>but I can tell you there is no difference in code lenght between this one:</P>
+<P>var bit key_one</P>
+<P>var bit key_one at key_port_read: key_scan_1&nbsp;</P>
+<P>except that you'll sure know where to found key_one quickly in assembler</P>
+<P>generated file. Tested with 04.22, 04.24</P>
+<P>Vasile</P>
+<HR noshade size=1>
+<P>&gt;keep the declared value for a byte and choose to loose ( only when</P>
+<P>&gt;&gt; compiler and Wouter knows ) the value for a volatile byte.</P>
+<P>Rather the opposite. Look at a Jal program as a specification for what you</P>
+<P>want to happen. The assignments to volatile variables are what you realy</P>
+<P>want to happen, the interaction with the 'outside world': pic pins or other</P>
+<P>pic peripherals. Those assignments must happen, with the values you specify,</P>
+<P>and in the order (and timing) you specify. The rest of your program is just</P>
+<P>a way to express what you want to happen with the volatile variables. If the</P>
+<P>compiler can find a better way (less code) than doing literally what you</P>
+<P>wrote, without changing the assignments to volatile variables, it is free to</P>
+<P>do so.</P>
+<P>Wouter</P>
+<HR noshade size=1>
+</BODY></HTML>

@@ -1,0 +1,116 @@
+<HTML><HEAD><TITLE>Bug Reports </TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>March 2005</SPAN></P>
+<P><SPAN class=RVTS1>Bug Reports</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>This page documents the bug reports I received, and the fixes I made.</P>
+<P>The page is mainly meant as a technical history for myself, but it may be usefull, to see if bugs that hinders you, are already solved.</P>
+<P>Most of the open bugs, are not understood by me, nor the can reproduced by me. So if anyone can reproduce them, please inform me.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=top>
+<P class=RVPS2><SPAN class=RVTS2>V 1.01&nbsp;&nbsp; released&nbsp; ...</SPAN></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>Solved problems</SPAN>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=top>
+<P class=RVPS2><SPAN class=RVTS2>V 1.0.3&nbsp;&nbsp; released&nbsp; ...</SPAN></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>Solved problems</SPAN></P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"><SPAN class=RVTS3>bug:</SPAN>&nbsp;(introduced in 1.0.1 or 1.0.2), templates windows didn't work</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"><SPAN class=RVTS3>bug:</SPAN>&nbsp;strange caret movement/placing, when JALcc lost focus and got focus back</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"><SPAN class=RVTS3>bug:</SPAN>&nbsp;hidden "memo1" popped up sometimes</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=top>
+<P class=RVPS2><SPAN class=RVTS2>V 1.0.2&nbsp;&nbsp; released&nbsp; ...</SPAN></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>Solved problems</SPAN></P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=top>
+<P class=RVPS2><SPAN class=RVTS2>V 1.0.1&nbsp;&nbsp; released&nbsp; 01-04-2005</SPAN></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>Solved problems</SPAN></P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"><SPAN class=RVTS3>&nbsp;Message: List index out of bounds (3).</SPAN></P>
+<P>Test_browser.exe&nbsp; |&nbsp; JAL_stack_parsing.pas&nbsp; |&nbsp; TForm_stack_parsing&nbsp; |&nbsp; evaluate_procedure_calls&nbsp;&nbsp;&nbsp; | 889 |</P>
+<P>JAL, Analyse Stack hanged (sometimes)</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"></P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=top>
+<P class=RVPS2><SPAN class=RVTS2>V 1.0&nbsp;&nbsp; released&nbsp; 28-03-2005</SPAN></P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>Solved problems</SPAN></P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"><SPAN class=RVTS3>&nbsp;Message: Access violation at address 007709A7 in module 'JALcc.exe'. Read of address 00000320.</SPAN></P>
+<P>Testframe_browser.pas&nbsp; |&nbsp; TForm8&nbsp; |&nbsp; Timer_close_unused_encryptedTimer&nbsp; |&nbsp; 1985</P>
+<P>Firing of encryption timer, caused AV, when no active MDIchild available</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"><SPAN class=RVTS3>&nbsp;Message: Access violation at address 0076F239 in module 'JALcc.exe'. Read of address 0000031C.</SPAN></P>
+<P>Testframe_browser.pas&nbsp; |&nbsp; TForm8&nbsp; |&nbsp; Open1Click&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 1305</P>
+<P>Opening a file when no MDIchild available</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"><SPAN class=RVTS3>&nbsp;Message: Range check error.</SPAN></P>
+<P>AFQuickMail.pas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; TAFQuickMail&nbsp; |&nbsp; SendMail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 270</P>
+<P>Sending more then 1 attachments caused problems</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">&nbsp;&nbsp;<SPAN class=RVTS3>Message: Cannot open file "C:\JALcc\batb.ico". Impossibile trovare il file specificato.</SPAN></P>
+<P>parsing_batch.pas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; Batch_OpenFile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 55</P>
+<P>File missing in distibution "BATB.ICO"</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Open bugs</SPAN></P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"><SPAN class=RVTS3>&nbsp;Message: Operazione annullata dall'utente.</SPAN></P>
+<P>Webbrowser_MainForm.pas |&nbsp; Tform_webbrowser_main|edit_addressKeyDown&nbsp;&nbsp;&nbsp; |&nbsp; 1021</P>
+<P>???&nbsp;&nbsp; "wb_ar[i].webbrowser.Navigate(filnam, temp, temp, temp, temp);"</P>
+<P>??? what actions caused this problem, if anyone can reproduce it, please tell me !!</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif">&nbsp;&nbsp;<SPAN class=RVTS3>Message: Access violation at address 004C284B in module 'JALcc.exe'. Read of address 00000000</SPAN>.</P>
+<P>DataModule_PuntHoofd.pas&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; is_URL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 767</P>
+<P>???&nbsp;&nbsp; "then result:=true;"</P>
+<P>??? what actions caused this problem, if anyone can reproduce it, please tell me !!</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"></P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"></P>
+<P>&nbsp;<IMG width=13 height=13 src="redarrow.gif"></P>
+<P>&nbsp;</P>
+</BODY></HTML>

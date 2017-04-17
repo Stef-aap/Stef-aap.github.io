@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JALfs Unsolved Problems</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>may 2007</span></p>
+<p><span class=rvts1>JALsPy&nbsp;&nbsp; Unsolved Problems</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <a href="punthoofd.gif"><img width=16 height=17 alt="" src="punthoofd.gif"></a>&nbsp; <a class=rvts4 href="../jalcc/jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p>This page describes the known unsolved problems, in the auto translation from JAL to Python.</p>
+<p><br></p>
+<p><span class=rvts10>deeper includes</span></p>
+<p><br></p>
+<p><span class=rvts10>add_JAL_globals</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>calculations on characters</span></p>
+<p><br></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; text = "Some Text"</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; for k in xrange ( len ( text ) ):</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Write_LCD_2Bytes ( Write_Buffer&nbsp; ,&nbsp; text[k]&nbsp; - 0x20 )</span></p>
+<p><br></p>
+<p>we have to use character to integer translation</p>
+<p><br></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp; Write_LCD_2Bytes ( Write_Buffer&nbsp; , ord ( text[k] ) -0x20 )</span></p>
+<p><br></p>
+<p><span class=rvts10>search order</span></p>
+<p>als omgekeerd, werkt het niet meer !!</p>
+<p>&nbsp;&nbsp;&nbsp; self.proc.append ( "LCD_Write_Char_Pos" )</p>
+<p>&nbsp;&nbsp;&nbsp; self.proc.append ( "LCD_Write_Char" )</p>
+<p><br></p>
+<p><span class=rvts10>parameter scheiding</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp; LCD_Write_Char_Pos(1,5+select*2,"&gt;")</p>
+<p><br></p>
+<p><span class=rvts10>empty statements in if / else / etc</span></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

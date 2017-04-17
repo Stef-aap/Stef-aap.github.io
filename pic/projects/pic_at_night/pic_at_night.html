@@ -1,0 +1,135 @@
+<HTML><HEAD><TITLE>JAL At Night</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FEFFE6;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS7>october 2005</SPAN></P>
+<P><SPAN class=RVTS1>JAL @ night, a desktop planetarium</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>This project is an attempt to create a desktop planetarium, based on Bob Blick's propellor clock. It should be able to project stars and planets and to show the movement of the sky during a certain period.</P>
+<P>&nbsp;&nbsp;</P>
+<P>Now Sega has released the homestar planetarium, and because the large number of problems still to be solved,</P>
+<P>it's the right time to stop this project. We are still thinking of another planetarium project, based on projection through an LCD. And of course we're looking for a nice project with lot of LEDs ;-)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=694 height=346 src="pic_at_night_img16.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://www.segatoys.co.jp/homestar/index.html">HOMESTAR at Sega</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>The problems still to be solved</SPAN></P>
+<P>The largest problem is to get an acceptable refresh rate, larger than 30 Hz. At the moment we get vibrations above 600 rpm (10Hz refresh rate). Although this is just a raw prototype and the the definite design should be better, we doubt that we can achieve an increase of speed with a factor of 3 (forces will then increase by a factor of 9). Increasing the refresh rate by using multiple interlaced arcs, but this requires a very accurate positioning.</P>
+<P>With a 20 MHz PIC and images stored in the program memory, the smallest puls is about 25 usec (reading 3 words from program memory) which is about a factor 2 too slow. So this problem could be solved by a 40 MHz pic, which even might have more efficient methods to read the program memory.</P>
+<P>The second problem is that the size of narrow beamed 3 mm LEDs is too large, to mimick a star.</P>
+<P>Another problem is that even in this design we've interlaced picture, and the time correction being position dependant, can only be changed in discrete steps.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>The last pictures</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FEFFE6 border=0 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=256 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=263 height=190 src="pic_at_night_img18.gif"></P></TD>
+<TD width=418 bgcolor=#FFFFE6 valign=top>
+<P>One set (16F877 with 28 LEDs) mounted on the half circle. In the middle the main PIC (16F876) is mounted which generates the clock, so all PICs will be fully synchronized.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Rx lines of all PICs are connected together.&nbsp;</P>
+<P>Tx lines of all PICs are wired-ored.&nbsp;</P>
+<P>Each PIC has an address, so the data in each PIC can be programmed through the same serial connector.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=0 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=291 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=292 height=216 src="pic_at_night_img19.gif"></P></TD>
+<TD width=383 bgcolor=#FFFFE6 valign=top>
+<P>The swifel for transporting energy to the moving part.&nbsp;</P>
+<P>The swifel for the communication is not yet mounted here.&nbsp;</P>
+<P>The swifel is made from "verenstaal en het ringetje is een standaard messing ring it een 15 mm knelkopeling voor de waterleiding"</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#FEFFE6 border=0 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=242 bgcolor=#FFFFE6 valign=top>
+<P>&nbsp;<IMG width=247 height=210 src="pic_at_night_img21.gif"></P></TD>
+<TD width=432 bgcolor=#FFFFE6 valign=top>
+<P>We have made a small Delphi program to load any picture into the PICs, here the result of the picture below (real size) is shown.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=52 height=33 src="pic_at_night_img22.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>As you can see in the "2" (lower left corner), I think there are still a few lines interchanged.&nbsp;</P>
+<P>This image is mode near the centre of rotation, where of course the largest distorsion takes place :-(</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS7>&nbsp;&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Design</SPAN></P>
+<P>Communicating at 1.25 Mbaud with 7 PICs in parallel, over some long wires, with just resistor pull-up (and maybe through a swiffel) is not reliable. Therefor the baudrate was decreased downto 19.2 kBaud. The transmitter outputs of the PICs are wired-ored with a pullup of 10 kOhm.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=294 height=177 src="pic_at_night_img13.gif">&nbsp;&nbsp;<IMG width=297 height=198 src="pic_at_night_img14.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=248 height=147 src="pic_at_night_img20.gif">&nbsp;bootloader dongle must have a Xtal</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Drilling the holes</SPAN>&nbsp;&nbsp;</P>
+<P>Drilling holes in a stripe of aluminium (1*15) is done with the add of Schroff cabinet strip. The Schroff strip has nice 2.7 mm holes, spaced at 5 mm. The first drilling is done with a 2.5 mm drill. Later on it can then easily be drilled to 3 mm, even without a drill-standard. The 2 rows of holes are shifted 2.5 mm, so we get an interlaced spacing of the LEDs of 2.5 mm.</P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS2>&nbsp;<IMG width=502 height=146 src="pic_at_night_img6.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS2>&nbsp;<IMG width=509 height=190 src="pic_at_night_img7.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Bending the strip</SPAN></P>
+<P>After all the holes are drilled (at 2.5 mm) the strip is bend to a circle. We just made an simple construction, consisting of 2 wheels (sidewheels of a childrens bike), mounted on a plate of metal. The third wheel is mounted on a separate plate and fixed with some "lijmtangen" to the other plate. So we can slide the third wheel up, to make a smaller circle. The third wheel must be moved up in small steps to get a nice result. In this case we used 5 steps, to get the final result. It's important to notice that the ends of the strip are not perfectly a circle, so you've to make the strip about&nbsp; 5 cm longer on both sides.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=329 height=350 src="pic_at_night_img8.gif">&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=324 height=313 src="pic_at_night_img11.gif">&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=314 height=313 src="pic_at_night_img12.gif">&nbsp;&nbsp;&nbsp;<IMG width=426 height=347 src="pic_at_night_img10.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="http://home.tiscali.be/henkenkatrien/propellerclock/">Propeller Clock on a Mirror</A></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://www.ispf.de/modules.php?name=News&file=article&sid=2&mode=&order=0&thold=0">ISPF - Propeller Clock</A></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://www.ispf.de/modules.php?name=News&file=article&sid=2&mode=&order=0&thold=0">ISPF - Propeller Clock</A></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://www.epemag.wimborne.co.uk/projects2004.html">Projects 2004</A></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://www.ledcontrol.narod.ru/eng/index.htm">E</A></P>
+<P><SPAN class=RVTS4>&nbsp;&nbsp;<A class=RVTS4 href="http://pierre.lando.free.fr/tentative/page1.html">Tutoriel pour un afficheur à persistance rétinienne !</A></P>
+<P>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS4>&nbsp;&nbsp;</SPAN><IMG width=621 height=307 src="pic_at_night_img1.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="http://www.thesourcecc.com/estore/Product.aspx?language=en-CA&catalog=Online&category=Caller+Id+Modules&product=4313350">www.TheSourceCC.com</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=620 height=302 src="pic_at_night_img2.gif"></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://www.radioshack.com/product.asp?catalog%5Fname=CTLG&product%5Fid=43-3913">Olympia InfoGlobe Digital Caller ID</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=517 height=343 src="pic_at_night_img3.gif"></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://www.perfektinterieurs.nl/2004-pss-shopsupplies/verkoopstandaards-2004/">verkoopstandaards, halve bol display, rieten puntmanden,www.perfektinterieurs.nl</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=678 height=375 src="pic_at_night_img4.gif"></P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://www.anthonybv.nl/halvebollenenschalen2.htm">A N T H O N Y - K u n s t s t o f - Halve bollen en schalen</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;<IMG width=539 height=225 src="pic_at_night_img5.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://www.sterrenkunde.nl/stuv/links.html">Sterrenkundige links</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://home-3.worldonline.nl/~ppsmeets/Waarnemen%20index.html">Paul's Astropage - Waarnemen</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<A class=RVTS4 href="http://home.planet.nl/~romme102/">Stars 1.3</A></P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

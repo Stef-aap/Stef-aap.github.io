@@ -1,0 +1,878 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="author" content="Stef Mientki">
+  <title>JAL_libraries</title>
+  <link rel="STYLESHEET" type="text/css" href="picoverview.css"
+ title="none">
+</head>
+<body link="#0000ee" vlink="#551a8b" alink="#ff0000">
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top" width="100"> <a href="../pic_overview.html"
+ target="_top">PIC overview</a></td>
+      <td align="center" valign="top">
+      <h2>JAL Libraries</h2>
+      </td>
+      <td align="right" valign="top" width="100">
+      <h3><a name="stef_mientki"></a>Stef Mientki</h3>
+      <h3>26-04-2002</h3>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table border="1" cols="5" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td>
+      <h4><b><font face="Arial,Helvetica"><font color="#3333ff">PIC
+specific <a href="#top"><img src="top_page.gif" height="14" width="14"
+ alt=""> </a></font></font></b><a href="#top"> </a></h4>
+      </td>
+      <td><b><font face="Arial,Helvetica"><font color="#3333ff">General
+Purpose</font></font></b></td>
+      <td><b><font face="Arial,Helvetica"><font color="#3333ff">RCX</font></font></b></td>
+      <td>
+      <h4> Math</h4>
+      </td>
+      <td><b><font face="Arial,Helvetica"><font color="#3333ff">System</font></font></b></td>
+    </tr>
+    <tr>
+      <td valign="top"><font face="Arial,Helvetica"><a
+ href="#16f628_inc">16F628_inc</a></font><br>
+      <font face="Arial,Helvetica"><a href="#16f628_ins">16F628_ins</a></font>
+      <br>
+      <font face="Arial,Helvetica"><a href="#16f628_spec">16F628_spec</a></font>
+      <p><font face="Arial,Helvetica"><a href="#16f84_inc">16F84_inc</a></font>
+      <br>
+      <font face="Arial,Helvetica"><a href="#16f877_inc">16F877_inc</a></font></p>
+      </td>
+      <td><a href="#stepper">stepper</a><br>
+      <a href="#pwm">pwm</a><br>
+      <a href="#rs232_hw">rs232_hw</a><br>
+      <a href="#rs232_sw">rs232_sw</a> <br>
+      <a href="#scan_matrix">scan_matrix</a> <br>
+      <a href="#scan_pots">scan_pots</a> <br>
+      <a href="#delay_20mc">Delays-20Mc</a><br>
+      <a href="#jdelay_gordon">JDelay by Gordon Williams</a><br>
+      <a href="#hd44780_4">LCD control</a><br>
+      <a href="#hd44780_4_gw">LCD control improved</a><br>
+      <a href="#play_music">sound &amp; music</a><br>
+      <a href="#ads1211_libs">ADS1211</a> <br>
+      <a href="#dac1220_libs">DAC1220</a><br>
+      <a href="#dac_tlv5638">DAC_TLV5638</a><br>
+      </td>
+      <td valign="top"><font face="Arial,Helvetica"><a href="#rcx">RCX</a></font></td>
+      <td valign="top"><a href="#byte3_math">24bit (+ - log shl xchg)</a>
+      <p><a href="#bank_arrays">Indexed Array</a><br>
+      <br>
+      </p>
+      </td>
+      <td valign="top"><font face="Arial,Helvetica"><a href="#indf">indf</a></font></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+General remarks about my libraries<br>
+<ol>
+  <li>I never use the orginal JAL libraries (like JPIC), instead I
+always
+use the orginal microchip INC-files. These files can be automaticcaly
+created
+by JALcc. So if you want to use the orginal JAL libraries it might be
+necessary
+to change the names of registers and bit-locations.</li>
+  <li>Libraries that uses interrupts, can have JALcc macro statements.
+These
+macro statements disables "pragma interrupt" so if you don't use JALcc
+V0.8
+or up, you have to put in the "pragma interrupt" manually.</li>
+</ol>
+<a href="jal_libraries.html#top">
+</a><a
+ href="jal_libraries.html#stef_mientki"><img
+ src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt=""></a>
+<table border="1" cellspacing="2" cellpadding="2" style="width: 100%;">
+  <tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top"><a name="hd44780_4"></a><a
+ href="../download/jal_libs/hd44780_4.jal">HD44780_4</a><a
+ href="jal_libraries.html#stef_mientki">
+      </a>
+      <p><a href="../download/jal_libs/hd44780_4_ins.jal">HD44780_4_ins</a>
+      </p>
+      <p><a href="../download/jal_libs/display_example.zip">Example</a></p>
+      </td>
+      <td valign="top">Library for the control of an alfa-numeric LCD
+(2
+lines), controlled by the HD44780 or equivalent,<br>
+see for more information <a href="pic_lcd_control.html">here</a>
+      <p>HD44780_4_INS, contains the definitions of the IO-pins
+(totally
+random), the definition of the strings tables (2 tables implemented)
+and
+the character-definition table. The file also includes automatically
+HD44780_4. </p>
+      <p>The example contains a complete package of files to test the
+routines
+on a 16F628.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<a href="jal_libraries.html#top">
+</a><br>
+<a
+ href="jal_libraries.html#stef_mientki"><img
+ src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt=""></a><br>
+<table border="1" cellspacing="2" cellpadding="2" style="width: 100%;">
+  <tbody>
+  </tbody><tbody>
+    <tr>
+      <td style="vertical-align: top; width: 100px;"><a
+ name="hd44780_4_gw"></a><a
+ href="../download/jal_libs/hd44780_4_gw.zip">HD44780_4.zip</a></td>
+      <td valign="top">Improved version by Gordon Williams,<br>
+description, see above<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<br>
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 110px;"><a
+ name="dac_tlv5638"></a><a href="../download/dac_tlv5638.zip">DAC_TLV5638</a>&nbsp;</td>
+      <td style="vertical-align: top;">Library to control the TLV5638,
+a 2 channel, 12-bit, 1usec, SPI controled DAC.<br>
+Both USART and MSSP control are supported.<br>
+      <br>
+      <small>ZIP file contians all underlying libraries.</small><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top"><a name="stepper"></a><a
+ href="../download/jal_libs/stepper.jal">stepper</a> <a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" alt="" title=""></a><br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <a href="../download/jal_libs/stepper_rs232.jal">stepper_rs232</a><br>
+      <br>
+      <br>
+      <a href="../download/jal_libs/stepper_test.zip">stepper_test.zip</a><br>
+      </td>
+      <td valign="top">Library to control 1 or 2 stepper motors,
+includes<br>
+      <ul>
+        <li>fullstep / halfstep</li>
+        <li>force 1 winding / 2 windings</li>
+        <li>acceleration</li>
+        <li>absolute position control in 4 bytes</li>
+      </ul>
+For full control of these libraries JALcc version 0.15 and higher
+contains some powerfull macros.<br>
+      <br>
+      <br>
+A wrapper around "stepper" to fully control stepper motors by serial
+port.<br>
+      <br>
+      <br>
+Complete package of a demo program for 16F628 (no other libraries
+needed)<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><a name="pwm"></a><a
+ href="../download/jal_libs/pwm.jal">pwm</a> <a href="#stef_mientki"><img
+ src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" alt="" title=""></a></td>
+      <td style="vertical-align: top;">Library to easy control the
+special io-pin for PWM.<br>
+Timer settings are calculated and checked in JAL.<br>
+      <br>
+      <small>--
+--------------------------------------------------------------------<br>
+-- Example, 38 kHz IR modulation<br>
+-- --------------------------------------------------------------------<br>
+;&nbsp;&nbsp; -- define all the parameters and include the library<br>
+;&nbsp;&nbsp; const pwm_osc_frequency = 38_000&nbsp;&nbsp; -- pwm
+frequency in Hz<br>
+;&nbsp;&nbsp; const pwm_osc_dutycycle =
+50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; -- dutycycle in percent<br>
+;&nbsp;&nbsp; &lt;macmac&gt; io_pin&nbsp;&nbsp; pwm_pin = pin_b3<br>
+;&nbsp;&nbsp; include pwm<br>
+;<br>
+;&nbsp;&nbsp; -- init and start the PWM<br>
+;&nbsp;&nbsp; pwm_osc_init<br>
+;<br>
+;&nbsp;&nbsp; -- stop the PWM<br>
+;&nbsp;&nbsp; pwm_osc_stop<br>
+-- --------------------------------------------------------------------</small><br>
+      <br>
+      <small><small>-- version 1.2 03-11-2002,<br>
+--&nbsp;&nbsp;&nbsp; - due to limitations of JAL, calculation of duty
+cycle was wrong<br>
+--&nbsp;&nbsp;&nbsp; - some optimization, less memory, les register use<br>
+--&nbsp;&nbsp;&nbsp; - procedure PWM_START_OSC added<br>
+--&nbsp;&nbsp;&nbsp; - name of pin_direction changed (to be compatible
+with macro definitions)<br>
+-- version 1.1 16-03-2002,<br>
+--&nbsp;&nbsp;&nbsp; procedure pwm_osc_stop added<br>
+-- version 1.0 21-01-2002, first release</small></small><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<br>
+<br>
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top"><a name="play_music"
+ href="../download/jal_libs/play_music.jal"></a><a
+ href="../download/jal_libs/play_music.jal">play_music </a><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a><br>
+      <br>
+      <a href="../download/jal_libs/play_music1_ins.jal">play_music1_ins</a><br>
+      <br>
+      <a href="../download/jal_libs/music_example1.zip">example1</a><br>
+      <br>
+      <a href="../download/jal_libs/music_example2.zip">example2</a><br>
+      </td>
+      <td valign="top">Library to play sounds and tunes, both interrupt
+driven
+and under program control.<br>
+See <a href="pic_music.html">here</a> for more information about this
+library<a href="pic_music.html"><br>
+      </a><br>
+Use a local copy of PLAY_MUSIC1_INS, to define the hardware pins and
+song
+definitions.<br>
+      <br>
+The examples are complete packages to demonstrate the different
+procedures.<br>
+Both examples contains the same file, except example2 can only be used
+by
+JALcc V0.8 and higher, because it uses JALcc interrupt macro's.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top"><a name="ads1211_libs"
+ href="../download/jal_libs/ads1211_libs.jal"></a><a
+ href="../download/jal_libs/ads1211_libs.jal">ADS1211_libs </a><a
+ href="jal_libraries.html#top"></a><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt=""></a>
+      <br>
+      <br>
+      <a href="../download/jal_libs/ads1211_libs_ins.jal">ADS1211_libs_ins</a><br>
+      </td>
+      <td valign="top">Library for the control of the ADS1211 (4
+channel
+24 bit ADC 4..20kHz)<br>
+with slight modifications also usable for the ADS1210, ADS1212, ADS1213<br>
+(see source for more info)<br>
+      <br>
+Hardware settings should be done through a local copy of
+ADS1211_LIBS_INS<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table cellpadding="2" cellspacing="2" border="1" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top"><a name="dac1220_libs"
+ href="../download/jal_libs/dac1220_libs.jal"></a><a
+ href="../download/jal_libs/dac1220_libs.jal">DAC1220_libs </a><a
+ href="jal_libraries.html#top"></a><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt=""></a>
+      <br>
+      <br>
+      <a href="../download/jal_libs/dac1220_libs_ins.jal">DAC1220_libs_ins</a><br>
+      </td>
+      <td valign="top">Library for the control of the DAC1220 (20 bit
+DAC),<br>
+with slight modifications also usable for the DAC1221 (16 bit DAC, 3V
+!!)<br>
+(see source for more info)<br>
+      <br>
+Hardware settings should be done through a local copy of
+DAC1220_LIBS_INS<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<a href="jal_libraries.html#top"><img
+ src="top_page.gif" height="14"
+ width="14">
+</a><br>
+<table border="1" cellspacing="2" cellpadding="2" style="width: 100%;">
+  <tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top"><a name="hd44780_4"></a><a
+ href="../download/jal_libs/hd44780_4.jal">HD44780_4</a><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a>
+      <p><a href="../download/jal_libs/hd44780_4_ins.jal">HD44780_4_ins</a>
+      </p>
+      <p><a href="../download/jal_libs/display_example.zip">Example</a></p>
+      </td>
+      <td valign="top">Library for the control of an alfa-numeric LCD
+(2
+lines), controlled by the HD44780 or equivalent,<br>
+see for more information <a href="pic_lcd_control.html">here</a>
+      <p>HD44780_4_INS, contains the definitions of the IO-pins
+(totally
+random), the definition of the strings tables (2 tables implemented)
+and
+the character-definition table. The file also includes automatically
+HD44780_4. </p>
+      <p>The example contains a complete package of files to test the
+routines
+on a 16F628.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table border="1" cellspacing="2" cellpadding="2" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top">
+      <h4><a name="bank_arrays"
+ href="../download/jal_libs/bank_arrays.jal"></a><a
+ href="../download/jal_libs/bank_arrays.jal">Bank_arrays</a> <a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a><a href="#top"> </a></h4>
+      <h4><a href="../download/jal_libs/bank_arrays_ins.jal">Bank_arrays_ins</a></h4>
+      </td>
+      <td valign="top">Library for the control of indexed addressable
+arrays
+in all banks.<br>
+      <font face="Arial,Helvetica">Initialisation is done by
+Bank_arrays_ins,
+where the user can define the space occupied by the array in each bank.</font>
+      <br>
+Array declarations<br>
+array0 , array1 , array2 , array3<br>
+Array pointers<br>
+array0_index , array1_index , array2_index , array3_index
+      <p>USE<br>
+      <b>&nbsp; &nbsp;array1_index = 0</b><br>
+      <b>&nbsp; &nbsp;array1 = 23</b> &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; ; array1 [ 0 ] = 23, (and array1_index = 1)<br>
+      <b>&nbsp; &nbsp;array1 = 56 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp;</b> ; array1 [ 1 ] = 56, (and array1_index = 2)</p>
+      <p> <b>&nbsp; &nbsp;array1_index = 5</b><br>
+      <b>&nbsp; &nbsp;x = array1</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; ; x = array1 [ 5 ], and array1_index = 6</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table border="1" cellspacing="2" cellpadding="2" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top" width="130">
+      <h4><a name="byte3_math"></a><a
+ href="../download/jal_libs/byte3_math.jal">Byte3_Math</a> <a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a><a href="#top"> </a></h4>
+      </td>
+      <td valign="top"><b>byte3_XCHG</b> Y = X , X = Y<br>
+      <b>byte3_SHL ( N )</b> Y = Y shl N<br>
+      <b>byte3_ADD</b> Y = Y + X , X unchanged<br>
+      <b>byte3_SUB</b> Y = Y - X , X unchanged<br>
+      <b>byte3_LOG</b> Y = log ( X ) , X CHANGED !!<br>
+Accuracy of
+the LOG function can be set by the constant LUT_Nbits<br>
+      <small><small>-- Version: 1.3 15-08-2002<br>
+-- - INC 2,3,4,N bytes added<br>
+-- - DEC added ??<br>
+-- - CMP 2,3,4,N bytes compare<br>
+-- - ADD 2,3,4,N bytes compare<br>
+-- - SUB 2,3,4,N bytes compare</small></small><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table border="1" cellspacing="2" cellpadding="2" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top">
+      <h4><a name="delay_20mc"></a><a
+ href="../download/jal_libs/delay_20mc.jal">Delay_20Mc </a><a
+ href="jal_libraries.html#stef_mientki"><img
+ src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a><a
+ href="jal_libraries.html#top"> </a></h4>
+      <h4><a href="../download/jal_libs/delay_1us_20mc.jal">Delay_1uS_20Mc</a></h4>
+      </td>
+      <td valign="top">Set of delay routines for PICs, running at 20 MHz<br>
+      <b>Delay_1uS</b><br>
+      <b>Delay_2uS .... Delay_9uS</b><br>
+      <b>Delay_10uS ( N )</b><br>
+      <b>Delay_1mS ( N )</b><br>
+      <b>Delay_100mS ( N )</b></td>
+    </tr>
+  </tbody>
+</table>
+<table border="1" cellspacing="2" cellpadding="2" style="width: 100%;">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td style="vertical-align: top;">
+      <h4><a name="jdelay_gordon"></a>JDelay replacement <br>
+      </h4>
+By Gordon Williams<span style="font-weight: bold;"><br>
+      <br>
+      <a href="../download/jal_libs/vardelay.jal">VarDelay.jal</a><br>
+      <a href="../download/jal_libs/fixdelay_def.jal">FixDelay.jal</a><br>
+      <a href="../download/jal_libs/basedelay.jal">BaseDelay.jal</a><br>
+      </span><span style="text-decoration: underline;"><span
+ style="font-weight: bold;"></span></span> </td>
+      <td valign="top"><span style="font-weight: bold;">VarDelay</span>
+is both smaller in compiled size (program and data) by 1/3 to 1/2<br>
+than the equivalent in jDelay. It is also <b class="moz-txt-star"><span
+ class="moz-txt-tag">*</span>much<span class="moz-txt-tag">*</span></b>
+more accurate. Times are<br>
+independent of clock speed or processor. It is a universal time delay.<br>
+      <span style="font-weight: bold;">FixDelay</span> provides an
+exact number of instruction cycles of delay.<br>
+      <span style="font-weight: bold;">BaseDelay</span> provides
+supports the other two.<br>
+Usage, etc are well documented in the headers.<br>
+      <br>
+      <small><small>-- Version: 1.1&nbsp; 05-04-2004<br>
+-- bug when used above 2k memory fixed</small></small><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table border="1" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top" width="10"><a name="rs232_hw"
+ href="../download/jal_libs/rs232_hw.jal"></a><font color="#000000"><a
+ href="../download/jal_libs/rs232_hw.jal"><font
+ face="Arial,Helvetica">rs232_hw </font></a></font><a href="#top"></a><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt=""></a>
+      <br>
+      <br>
+      <a href="../download/jal_libs/rs232_hw_ins.jal">RS232_hw_ins</a><br>
+      </td>
+      <td>Just by defining the following 2 constants,<br>
+-- const usart_asynch = true ;true = RS232,
+false = SPI<br>
+-- const baudrate = 115_200 ;Baudrate<br>
+You get full control of either RS232 communication or SPI communication
+(initialization
+and calculation of all preset values is done automatically)<br>
+      <br>
+      <font color="#000000"><b><font face="Arial,Helvetica">procedure
+asynch_send_hw(
+byte in x ) is</font></b></font>
+      <blockquote><font face="Arial,Helvetica">Asynchronuous RS232 send
+routine,
+using the TX pin</font><br>
+        <font face="Arial,Helvetica">Sends byte X (8 bit with no
+parity)
+to the serial port</font><br>
+        <font face="Arial,Helvetica">First checks (and waits if
+necessary)
+if transmit buffer is empty</font><br>
+        <font face="Arial,Helvetica">remark: PIR1-register (containing
+_TXIF-flag)
+must be in bank0 !! (could be improved)<br>
+        </font></blockquote>
+-- <b>function asynch_read_hw( byte out x ) return bit is</b><br>
+-- <b>procedure SPI_send_hw( byte in x ) is</b><br>
+-- <b>procedure SPI_read_hw( byte out x ) is</b><br>
+      <br>
+      <small>-- Version: 3.0 21-08-2002<br>
+-- - INTCON clearing removed, blocked all interrupts,<br>
+-- instead PIE bits cleared to prevent USART interrupts<br>
+-- Version: 2.0 21-06-2002<br>
+-- - added Procedure ASYNCH_DISABLE_HW<br>
+-- Version: 1.0 17-03-2002 orginal release</small></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table border="1" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top"><a name="rs232_sw"></a><font
+ face="Arial,Helvetica"><font color="#3333ff"><a
+ href="../download/jal_libs/rs232_sw.jal">rs232_sw </a></font></font><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a>
+      <p><font face="Arial,Helvetica"><font color="#3333ff"><a
+ href="../download/jal_libs/rs232_sw_ins.jal">rs232_sw_ins</a></font></font></p>
+      </td>
+      <td><font face="Arial,Helvetica">Contains routines for
+transmitting
+and receiving through RS232 protocol by software.</font><br>
+      <font face="Arial,Helvetica">Baudrates from 110 Baud ... 230_400
+Baud
+are supported. None standard baudrates are also allowed.<br>
+Both non-inverted and inverted signals can be set.</font><br>
+      <font face="Arial,Helvetica">At this moment only 2 stop bits and
+no parity are supported.</font><br>
+      <font face="Arial,Helvetica">I<span style="color: rgb(0, 0, 0);">nitialisation
+is done by rs232_sw_ins,
+where also the Baudrate is set.</span></font>
+      <p style="color: rgb(0, 0, 0);"><font face="Arial,Helvetica"><span
+ style="font-weight: bold;">-- procedure
+asynch_send_sw (byte in x) is</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">-- procedure
+asynch_receive_sw (byte out x) is</span><br>
+      </font></p>
+      <p><br style="color: rgb(0, 0, 0);">
+      <small><small><span style="color: rgb(0, 0, 0);">-- Version
+1.2&nbsp; 03-1</span>1-2002<br>
+--&nbsp;&nbsp; - inverted version of receive and transmit added<br>
+-- Version 1.1&nbsp; 28-02-2002 naming of registers changed to
+SM-notation<br>
+-- Version 1.0&nbsp; 03-01-2002</small></small><br>
+      <br>
+      </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table border="1" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top" width="120"><a name="scan_matrix"></a><b><font
+ face="Arial,Helvetica"><font color="#3333ff"><a
+ href="../download/jal_libs/scan_matrix.jal">Scan_matrix </a></font></font></b><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a>
+      <p><b><font face="Arial,Helvetica"><font color="#3333ff"><a
+ href="../download/jal_libs/scan_matrix_ins.jal">scan_matrix_ins</a></font></font></b></p>
+      </td>
+      <td valign="top"><font face="Arial,Helvetica">Contains routines
+to
+decode<a href="pic_switch.html">extended key-matrices</a> .</font><br>
+      <font face="Arial,Helvetica">Initialization is done by inserting
+SCAN_MATRIX_INS
+into the main program, and defining the number of scan linesand the
+used IO_port
+and IO-pins.</font>
+      <p><b><font face="Arial,Helvetica"><font color="#3333ff">procedure
+scan_keymatrix_ext ( byte out key ) is</font></font></b></p>
+      <blockquote><font face="Arial,Helvetica">scans and decodes the
+key-matrix,
+so call this routine on a regular base</font></blockquote>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table border="1" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td><a name="scan_pots"></a><b><font face="Arial,Helvetica"><font
+ color="#3333ff"><a href="../download/jal_libs/scan_pots.jal">Scan_pots</a></font></font></b><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a></td>
+      <td><font face="Arial,Helvetica">Contains routines to scan
+potmeters
+on the comparator inputs.</font><br>
+      <font face="Arial,Helvetica">This library can easily be expanded
+to
+read 1..4 potmeters.</font>
+      <p><b><font face="Arial,Helvetica"><font color="#3333ff">procedure
+scan_2_pots ( byte out potmeter_value ) is</font></font></b></p>
+      <blockquote><font face="Arial,Helvetica"><font color="#000000">Routine
+that scans 2 potmeters at RA0 and RA1 with a fair amount of hysteresis.
+Everytime
+this routine is called, one of the potmeters is read (they are
+automatically
+toggled). The values for potmeter1 are $80 ... $87 and for potmeter2
+$90
+... $97. This routine needs no initialization.</font></font></blockquote>
+      <b><font face="Arial,Helvetica"><font color="#3333ff">potmeter1</font></font></b>
+      <blockquote><font face="Arial,Helvetica"><font color="#000000">last
+sampled value of potmeter 1</font></font></blockquote>
+      <b><font face="Arial,Helvetica"><font color="#3333ff">potmeter2</font></font></b>
+      <blockquote><font face="Arial,Helvetica">last sampled value of
+potmeter
+2</font></blockquote>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table border="1" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top"><font color="#000000"><a name="rcx"></a></font><font
+ face="Arial,Helvetica"><font color="#3333ff"><font color="#000000">RCX</font></font></font><b><font
+ face="Arial,Helvetica"><font color="#3333ff"> </font></font></b><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a>
+      <blockquote> </blockquote>
+      <a href="../download/jal_libs/rcx_ins.jal"><font
+ color="#000000"><font face="Arial,Helvetica">RCX_INS</font></font></a></td>
+      <td valign="top"><font face="Arial,Helvetica">Library containing
+routines
+to communicate with the RCX through IR. (this library uses the
+interrupt routine).</font> <br>
+      <font face="Arial,Helvetica">The user must insert RCX_INS into
+the main
+program, to indentify where the IR diode is connected.</font>
+      <p><b><font face="Arial,Helvetica"><font color="#3333ff">procedure
+RCX_send_command_and_wait ( byte in cmd) is</font></font></b></p>
+      <blockquote><font face="Arial,Helvetica">Sends a remote or
+immediate
+command through IR to the RCX. Commands are predefined as in</font></blockquote>
+      <b><font face="Arial,Helvetica"><font color="#3333ff">RCX_remcmd_Prog1
+= 1</font></font></b>
+      <blockquote><font face="Arial,Helvetica">for a full list of the
+implemented
+commands, see the program listing</font></blockquote>
+      <b><font face="Arial,Helvetica"><font color="#3333ff">RCX_motor_C_on
+= RCX_motor_on</font></font></b><br>
+      <b><font face="Arial,Helvetica"><font color="#3333ff">RCX_motor_C_direction
+= RCX_motor_backward</font></font></b><br>
+      <b><font face="Arial,Helvetica"><font color="#3333ff">RCX_motor_power
+= RCX_motor_power_C</font></font></b><br>
+      <b><font face="Arial,Helvetica"><font color="#3333ff">procedure
+RCX_update_motor
+( byte in motor ) is</font></font></b><br>
+      <blockquote><font face="Arial,Helvetica">Sends an immediate motor
+command
+to the RCX. Motor commands are always send completely, that is
+on/off/float,
+direction and power, all together. So these globals must be set before
+calling
+this routine.</font></blockquote>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table border="1" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top"><a name="16f628_inc"></a><b><font
+ face="Arial,Helvetica"><font color="#3333ff"><a
+ href="../download/jal_libs/16f628_inc.jal">16F628_INC</a></font></font></b><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a>
+      <p><a name="16f628_ins"></a><b><font face="Arial,Helvetica"><font
+ color="#3333ff"><a href="../download/jal_libs/16f628_defs.jal">16F628_DEFS</a></font></font></b>
+      </p>
+      <p><a name="16f84_inc"
+ href="../download/jal_libs/16f84_inc.jal"></a><b><a
+ href="../download/jal_libs/16f84_inc.jal">16F84_inc</a></b></p>
+      <p><a name="16f877_inc"
+ href="../download/jal_libs/16f877_inc.jal"></a><b><a
+ href="../download/jal_libs/16f877_inc.jal">16F877_inc</a></b></p>
+      </td>
+      <td valign="top"><font face="Arial,Helvetica">The file can be
+automatically
+generated by JALcc from the corresponding microchip's INC file.</font><br>
+      <font face="Arial,Helvetica">See for further details </font><a
+ href="jal_var_declaration.html">JAL var declaration</a></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table border="1" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td><a name="16f628_spec"
+ href="../download/jal_libs/16f628_spec.jal"></a><b><font
+ face="Arial,Helvetica"><font color="#3333ff"><a
+ href="../download/jal_libs/16f628_spec.jal">16F628_SPEC</a></font></font></b><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a></td>
+      <td><font face="Arial,Helvetica">This library contains routines
+to
+use the special hardware in your application in a easy way.</font>
+      <p><b><font face="Arial,Helvetica"><font color="#3333ff">procedure
+Vref_init (</font></font></b><br>
+      <b><font face="Arial,Helvetica"><font color="#3333ff"> bit
+in high_low_range = true ,</font></font></b><br>
+      <b><font face="Arial,Helvetica"><font color="#3333ff"> bit
+in output_enabled = false ) is</font></font></b></p>
+      <blockquote><font face="Arial,Helvetica">Initializes the Voltage
+Reference.
+Vref is set to 0 Volt.</font><br>
+        <font face="Arial,Helvetica">high range: Vout = Vdd * Vref
+/ 24</font><br>
+        <font face="Arial,Helvetica">low range : Vout = ( Vdd * Vref
+/ 32 ) + ( Vdd / 4 )</font><br>
+        <font face="Arial,Helvetica">If output enabled, Vref will be
+available
+on RA2 (in that case the IO-direction or RA2 is set correct, otherwise
+it's
+left unchanged).</font><br>
+        <font face="Arial,Helvetica">For using the Vref in combination
+with
+the comparators, the user must set CMCON.</font></blockquote>
+      <b><font face="Arial,Helvetica"><font color="#3333ff">procedure
+Vref_set
+( byte in Vref ) is</font></font></b>
+      <blockquote><font face="Arial,Helvetica">Set the Voltage
+Reference
+at the desired value (0..15). Before using this routine, Vref_init must
+be
+called.</font></blockquote>
+      <b><font face="Arial,Helvetica"><font color="#3333ff">procedure
+Vref_off
+is</font></font></b>
+      <blockquote><font face="Arial,Helvetica">Turns the Voltage
+Reference
+generator off (Vref_set(0), sets the Vref at 0 Volt, but doesn't turn
+it
+off)</font></blockquote>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table border="1" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody><tbody>
+    <tr>
+      <td valign="top" width="100"><a name="indf"></a><b><font
+ face="Arial,Helvetica"><font color="#3333ff">indf </font></font></b><a
+ href="#stef_mientki"><img src="top_page.gif"
+ style="border: 0px solid ; height: 14px; width: 14px;" title="" alt="">
+      </a></td>
+      <td><font face="Arial,Helvetica">Contains byte and bit
+manipulation
+in all the banks.</font><br>
+      <font face="Arial,Helvetica">You'll hardly need this library
+explicitly,
+because in the automatically translated INC file (16F628_inc), all the
+registers
+are made available "as nomal variables" and with the official Microchip
+names,
+example for the register VRCON.</font>
+      <blockquote><b><font face="Arial,Helvetica"><font color="#3333ff">procedure
+VRCON'put( byte in x ) is</font></font></b><br>
+        <b><font face="Arial,Helvetica"><font color="#3333ff">function
+VRCON'get
+return byte is</font></font></b></blockquote>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</body>
+</html>

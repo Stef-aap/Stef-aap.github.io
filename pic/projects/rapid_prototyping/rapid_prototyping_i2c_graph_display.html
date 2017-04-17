@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>RPD Optical Mouse Sensor</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="32" />
+<meta name="spellcheck" content="3" /></head>
+<body>
+
+<p class=rvps3><span class=rvts7>january 2006</span></p>
+<p><span class=rvts1>RPD&nbsp; I2C Graphical Display</span></p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; <img width=32 height=32 alt="" src="rbd.png">&nbsp; <a class=rvts4 href="rapid_prototyping_devices.html">MainIndex</a></p>
+<p>&nbsp;&nbsp; </p>
+<p>Module that connects a small surplus graphical LCD display (97*35 pixels), from Wouter's shop <a class=rvts4 href="http://www.voti.nl/winkel/catalog.html?LCD-09">Voti graphical LCD-09</a>&nbsp; to the RPD. Apparently this module contains the I2C graphical controler PCF8558&nbsp; <a class=rvts4 href="http://www.semiconductors.philips.com/acrobat_download/datasheets/PCF8558_2.pdf">PCF8558_2.pdf</a>&nbsp; Another application with this module can be found here <a class=rvts4 href="http://www.xs4all.nl/~lous/i2c_lcd/lph_i2c.htm">I2C LCD</a> .</p>
+<p><br></p>
+<p><img width=453 height=312 alt="" src="rapid_prototyping_i2c_mem_img17.gif"><span class=rvts7>&nbsp;&nbsp;&nbsp;&nbsp; </span><img width=119 height=85 alt="" src="rapid_prototyping_devices_img49.gif"></p>
+<p><br></p>
+<p>Finding the correct hardware circuit was done by trial and error, because the specs of the device as a hole, doesn't seem to be same as the specs from the controler. The device should be powered by 3 Volt. The low level output of the controler is specified at a maximum of 0.4 Volt. In that case you can pull up te I2C lines to +3V, connect the PIC pins directly to the controler (PIC runs at 5 Volt), if you set the I2C settings to "SMbus" (Vlow requied = 0.6 Volt). This didn't run very reliable,the PIC could hardly get in contact with the controler. After looking with a scope, the acknowledge pulse from controler was slightly above 0.6 Volt, so the PIC running in SMbus mode will never see it. So I decided to go back to normal I2C-level-mode, and now there was a communication between PIC and controler, although the number of missers was still in order of 0.5%, way too much. Of course this is to be expected, as the I2C-level-mode expects 3.5V to be high. Therefor the dataline is pulled up to +5 Volt, and now it's working perfect (even at 1 MHz, while it's specified maximum at 400 kHz)</p>
+<p>k</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><span class=rvts7>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p><span class=rvts2>JALcc macro call </span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=606 height=154 alt="" src="rapid_prototyping_i2c_mem_img15.gif"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>JALcc use</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=313 height=104 alt="" src="rapid_prototyping_i2c_mem_img14.gif"></p>
+<p>&nbsp; </p>
+<p>For the moment, the next routines are implemented:</p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=568 height=88 alt="" src="rapid_prototyping_i2c_mem_img18.gif">&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>JALcc macro expansion</span></p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><br></p>
+
+</body></html>

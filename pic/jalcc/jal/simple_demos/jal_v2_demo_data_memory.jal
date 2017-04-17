@@ -1,0 +1,115 @@
+-- -----------------------------------------------------------------------------
+-- demo JAL v2: data eeprom + software RS232
+-- This demo waits for a character on the RS232 receiver-pin
+-- and then echoes the inversed byte through the RS232 transmitter-pin
+-- The received character is also stored in data-eeprom.
+-- Whenever a special character (0xAA) is received or the system is reset,
+-- the complete string is send to the RS232 port.
+-- -----------------------------------------------------------------------------
+-- Tested
+--    16F877, 20 MHz: ok
+--    12F675, 4 MHz (internal, calibrated): ok
+--    JALss + 16F877: reset of the PIC doesn't work correctly
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- include hardware definitions
+-- select the appropriate devive library
+-- -----------------------------------------------------------------------------
+include jal_v2_demo_16F877 ;external 20 MHz Xtal
+;include jal_v2_demo_12F675 ;internal 4 MHz (calibrated)
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- serial definition and initialisation
+-- -----------------------------------------------------------------------------
+-- define the eeprom storage paramaters
+-- the length of the received string
+const byte pointer_to_string_array = 3
+-- the start of the string storage
+const byte start_of_string_array   = 11
+-- the maximum length of the stored string
+const byte length_of_string_array  = 20
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- procedure that dumps the the complete received string on the RS232
+-- -----------------------------------------------------------------------------
+procedure dump_data_eeprom is
+var byte read_pointer
+var byte string_length
+  -- get the length of the string
+  string_length = data_eeprom (pointer_to_string_array)
+
+  -- initialize the read-pointer
+  read_pointer = start_of_string_array
+  
+  -- send the length of the string
+  Serial_SW_Data = string_length
+  
+  -- send the string itself
+  for string_length loop
+    -- send an element of the string
+    Serial_SW_Data = data_eeprom(read_pointer)
+
+    -- increment the read pointer
+    -- (limitation is not strictly necessary here)
+    read_pointer = read_pointer + 1   
+  end loop
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- on reset, we dump the already received characters
+dump_data_eeprom
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- start of the main program
+-- this program shows 2 ways of communication:
+--     wait till character, then proceed
+--     if character then do something special, but always proceed
+-- You can toggle between the 2 modes, by sending a 0xAA   
+-- -----------------------------------------------------------------------------
+var byte Data
+var byte write_pointer
+forever loop
+  -- wait till character received   
+  Data = Serial_SW_data
+  -- echo inverted
+  Serial_SW_Data = ! Data
+
+  -- if not the special character
+  if DATA != 0xAA then
+    -- store the data in data-eeprom
+    -- get the old write pointer
+    -- (stored at eeprom_data[pointer_to_string_array])
+    write_pointer = data_eeprom (pointer_to_string_array)
+
+    -- now store the data in data-eeprom,
+    -- here the following locations are reserved
+    --   start_of_string_array .. start_of_string_array+length_of_string_array-1
+    data_eeprom_write ( start_of_string_array + write_pointer, Data)
+
+    -- increment the write pointer
+    -- and limits it's value to maximum of length_of_string_array places
+    write_pointer = (write_pointer + 1) % length_of_string_array
+
+    -- save the new write pointer in data-eeprom
+    data_eeprom_write ( pointer_to_string_array, write_pointer)
+  else
+    -- in case of the special character,
+    -- dump all the received characters
+    dump_data_eeprom
+    
+    -- and reset the write-pointer  
+    data_eeprom_write ( pointer_to_string_array, 0)
+  end if
+  
+end loop
+-- -----------------------------------------------------------------------------

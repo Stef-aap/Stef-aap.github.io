@@ -1,0 +1,140 @@
+<HTML><HEAD><TITLE>AD/DA converters</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>November 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, AD-DA converters</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><A name="ads1211"></A>
+<SPAN class=RVTS2>ADS1211</SPAN>&nbsp;<IMG width=14 height=14 src="top_page.gif"></P>
+<P>This device is a limited implementation of the ADS1211, 4 channel 24 bit AD-converter.</P>
+<P>Limitations:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Vref is fixed at 2.5V.&nbsp;</LI>
+<LI>Turbo mode is not supported, which means that the fitering is not correct&nbsp;</LI>
+<LI>The standard sinc-filtering is implemented with a weighting of 1-2-1 (I don't know if this correct). But it ensures that incorrect channel changes can be simulated.&nbsp;</LI>
+<LI>Calibration registers are not implemented&nbsp;</LI>
+<LI>Xout, Xin, Sync are not implemented&nbsp;</LI>
+</UL>
+<P>But for debugging some extra features are added:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>for low frequency applications, the sample frequency can be increased by a factor 10 or 100. This can speed up a simulation.&nbsp;</LI>
+<LI>measuring of the positive puls widths of the software reset protocol&nbsp;</LI>
+<LI>listing of a series of data transfers&nbsp;</LI>
+<LI>viewing of all the settings done&nbsp;&nbsp;&nbsp;</LI>
+</UL>
+</TD>
+<TD valign=middle>
+<P class=RVPS2>&nbsp;<IMG width=201 height=227 src="device_ads1211a.gif">&nbsp;&nbsp;</P>
+<P class=RVPS2>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=194 valign=middle>
+<P>&nbsp;<IMG width=201 height=226 src="device_ads1211c.gif">&nbsp;&nbsp;</P></TD>
+<TD width=319 valign=top>
+<P>On the left a list of the received commands is shown. Also changes of the CS line are shown in the list. Normally the list is limited to a maximum of 200 lines. Each time the "+200" button is clickek, the list is extended with the next 200 commands. The clear button clears the list and gathers a new set of 200 lines.</P>
+<P>This example starts with chip select, followed by 3 lines "CH= ", which indicates very long positive clock pulses, in this case the 3 lines together form a valid reset for the ADC.</P>
+<P>Then the command registers are initialised, resulting in the settings on the right.</P>
+<P>After that a reading of channel 0 is performed, resulting in 000000.</P>
+<P>The last command sets the channel multiplexer to channel 1.</P>
+<P>On the right the settings of the ADC, made by valid software commands is shown.&nbsp;</P>
+<P>The frequency is given for 1/2/3/4 channels, where multi-channel calculation is done for the most optimum setting (i.e. 3 conversion cycli).</P></TD>
+<TD width=201 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=200 height=227 src="device_ads1211b.gif">&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>V 0.2</P></TD>
+<TD valign=middle>
+<P>15-03-2003</P>
+<P>- clock wasn't always read right</P>
+<P>- long clock high pulses (reset) are displayed in clockcycli (Xtal fixed at 10 MHz)</P>
+<P>- Xtal frequency can be set</P>
+<P>- sample frequency given for 1/2/3/4 channels</P>
+<P>- Xtal, simulation speed were not dynamical adapted, bug fixed</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>V 0.1</P></TD>
+<TD valign=middle>
+<P>Original release</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=541 valign=top>
+<P><A name="dac1220_"></A>
+<SPAN class=RVTS2>DAC1220&nbsp;</SPAN><IMG width=14 height=14 src="top_page.gif"></P>
+<P>This device is a limited implementation of the DAC1220, 20 bit DA-converter.</P>
+<P>Limitations:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Vref is fixed at 2.5V.&nbsp;</LI>
+<LI>Timing is not taking into account (except measuring of the software reset cycle) and therefore frequency can not be set (yet)&nbsp;</LI>
+<LI>Calibration registers are not implemented&nbsp;</LI>
+<LI>Reading of the registers is not implemented&nbsp;</LI>
+</UL>
+<P>But for debugging some extra features are added:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>measuring of the positive puls widths of the software reset protocol&nbsp;</LI>
+<LI>listing of a series of data transfers&nbsp;</LI>
+<LI>viewing of all the settings done&nbsp;</LI>
+</UL>
+<P>The DAC has 3 outputs:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Vout (full) an integer consisting of all the bits of the DAC (depending on the setting 16 or 20)&nbsp;</LI>
+<LI>Vout (high) the 10 upper most bits of the DAC&nbsp;</LI>
+<LI>Vout (low) the 10 lower most bits of the DAC&nbsp;</LI>
+</UL>
+<P>The 10 bits outputs are special implemented for the scope view, which is optimized for analog signals of 10 bits.</P>
+<P>Note that in the case of 16-bit conversion there's a overlap between Vout (low) and Vout (high).</P></TD>
+<TD width=188 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=203 height=229 src="device_dac1220c.gif"></P>
+<P class=RVPS3>&nbsp;<IMG width=147 height=197 src="device_dac1220d.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=188 valign=middle>
+<P>&nbsp;<IMG width=200 height=229 src="device_dac1220a.gif">&nbsp;&nbsp;</P></TD>
+<TD width=324 valign=top>
+<P>On the left a list of the received commands is shown. Also changes of the CS line are shown in the list. Normally the list is limited to a maximum of 200 lines. Each time the "+200" button is clickek, the list is extended with the next 200 commands. The clear button clears the list and gathers a new set of 200 lines.</P>
+<P>This example starts with chip select, followed by 3 lines "CH= ", which indicates very long positive clock pulses, in this case the 3 lines together form a valid reset for the DAC.</P>
+<P>After the reset puls 2 commands can be recognized "24 ... " and "05.."</P>
+<P>Then a real datapoint is received "40 ...."</P>
+<P>The most efficient way to realize the PIC-code, is to reverse the bitorder within a databyte (Bit order=LSbit, see on the right). In the figure on the left, the databits are reversed back, so they can be read more easily, this only yields for databits !!!)</P>
+<P>On the right the settings of the DAC, made by valid software commands is shown.&nbsp;</P></TD>
+<TD width=197 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=211 height=232 src="device_dac1220b.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="keywords" content="Lego; Mindstorms; PIC; JAL; JALcc; Robotics">
+  <meta name="author" content="Stef Mientki">
+  <title>Pic_header</title>
+  <link rel="STYLESHEET" type="text/css" href="template_list_styles.txt" title="none">
+
+<style>
+a {font-family:verdana;font-size:12px}
+.topic {font-size:12px;color:#005500;margin-bottom:2px;cursor:pointer}
+.level {margin-left:10px}
+div {margin-bottom:4px}
+img {margin-right:2px}
+</style>
+
+<style>
+form {font-family:verdana;font-size:12px}
+.topic {font-size:12px;color:#005500;margin-bottom:2px;cursor:pointer}
+.level {margin-left:10px}
+div {margin-bottom:4px}
+img {margin-right:2px}
+</style>
+
+<script language="JavaScript">
+  function Toggle(node) {
+	// Unfold the branch if it isn't visible
+	  if (node.nextSibling.style.display == 'none')	{
+ 		// Change the image (if there is an image)
+		  if (node.childNodes.length > 0) {
+			  if (node.childNodes.item(0).tagName == "IMG") {
+				  node.childNodes.item(0).src = "minus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = '';
+	  }
+	  // Collapse the branch if it IS visible
+	  else {
+		// Change the image (if there is an image)
+      if (node.childNodes.length > 0)	{
+        if (node.childNodes.item(0).tagName == "IMG") {
+   				node.childNodes.item(0).src = "plus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = 'none';
+	  }
+  }
+
+  function collapse(pId) {
+  var node
+    node=document.getElementById(pId);
+    node.childNodes.item(0).src = "plus.gif"
+    node.nextSibling.style.display = 'none'
+  }
+
+  function main() {
+collapse("ID1")
+collapse("ID2")
+collapse("ID3")
+collapse("ID4")
+collapse("ID5")
+collapse("ID6")
+collapse("ID7")
+collapse("ID8")
+collapse("ID9")
+collapse("ID10")
+collapse("ID11")
+
+  }
+</script>
+
+
+</head>
+<body>
+
+<body text="#000000" vlink="#5584aa" link="#006699" bgcolor="white" onload="main()">
+
+<form name=search method="post" target="a" action=search.php>
+  <input name=query length=40
+  <?if (isset($query))
+  echo("value=\"".htmlspecialchars($query)."\"");?>
+  <input type=submit value='search'><br>
+  <input type=radio checked=true name=m value=and>All words<br>
+  <input type=radio name=m value=or>At least one word
+  </input>
+</form>
+
+<div><img src="dot.gif"><a href="pylab_works_titelpagina.html" target="a">PyLab Works</a></div>
+<div><img src="dot.gif"><a href="pw_manual.pdf" target="a">manual PDF</a></div>
+<div><img src="dot.gif"><a href="random_gui.html" target="a">random_gui</a></div>
+<div><img src="dot.gif"><a href="geo_experiments.html" target="a">geo_experiments</a></div>
+<div><img src="dot.gif"><a href="pw_todo.html" target="a">ToDo</a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID0"><img src="minus.gif">Introduction</a><div class="level">
+<div><img src="dot.gif"><a href="pw_intro.html" target="a">Introduction</a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID1"><img src="minus.gif">Similar Packages</a><div class="level">
+<div><img src="dot.gif"><a href="similar_packages.html" target="a">Similar Packages</a></div>
+<div><img src="dot.gif"><a href="similar_packages_devide.html" target="a">DeVIDE</a></div>
+<div><img src="dot.gif"><a href="similar_packages_mathguide.html" target="a">MathGUIde</a></div>
+<div><img src="dot.gif"><a href="similar_packages_elefant.html" target="a">Elefant</a></div>
+<div><img src="dot.gif"><a href="similar_packages_pyphant.html" target="a">Pyphant</a></div>
+<div><img src="dot.gif"><a href="similar_packages_scilab_scicos.html" target="a">Scilab-Scicos</a></div>
+<div><img src="dot.gif"><a href="similar_packages_orange.html" target="a">Orange</a></div>
+<div><img src="dot.gif"><a href="similar_packages_vision.html" target="a">Vision</a></div>
+<div><img src="dot.gif"><a href="similar_packages_sage.html" target="a">Sage</a></div>
+<div><img src="dot.gif"><a href="similar_packages_octave.html" target="a">Octave</a></div>
+<div><img src="dot.gif"><a href="similar_packages_pythonxy.html" target="a">Python-xy</a></div>
+<div><img src="dot.gif"><a href="similar_packages_openalea.html" target="a">OpenAlea</a></div>
+<div><img src="dot.gif"><a href="similar_packages_veusz.html" target="a">Veusz</a></div>
+<div><img src="dot.gif"><a href="similar_packages_mathematica.html" target="a">Mathematica</a></div>
+<div><img src="dot.gif"><a href="similar_packages_maple.html" target="a">Maple</a></div>
+<div><img src="dot.gif"><a href="similar_packages_openmodelica.html" target="a">OpenModelica</a></div>
+<div><img src="dot.gif"><a href="similar_packages_matlab.html" target="a">Matlab</a></div>
+<div><img src="dot.gif"><a href="similar_packages_labview.html" target="a">Labview</a></div>
+</div>
+<div><img src="dot.gif"><a href="pw_launch_center.html" target="a">Launch Center</a></div>
+<div><img src="dot.gif"><a href="c:/documents and settings/administrator/local settings/temp/ranier_handleiding_nimodule/ranier_handleiding_nimodule/installatie_ni_usbmodule_6009.html" target="a">Installatie_NI_USBmodule_6009</a></div>
+<div><img src="dot.gif"><a href="pw_animations_screenshots.html" target="a">Show Case</a></div>
+<div><img src="dot.gif"><a href="pw_application_ideas.html" target="a">Application Ideas</a></div>
+<div><img src="dot.gif"><a href="pw_application_vpython3.html" target="a">VPython Collection</a></div>
+<div><img src="dot.gif"><a href="pw_signal_workbench.html" target="a">Signal WorkBench</a></div>
+<div><img src="dot.gif"><a href="pw_filter_design.html" target="a">Filter Design (SWB example)</a></div>
+<div><img src="dot.gif"><a href="pw_fir_filters.html" target="a">FIR filters</a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID2"><img src="minus.gif">Auto Lib Overview</a><div class="level">
+<div><img src="dot.gif"><a href="pw_auto_lib_overview.html" target="a">Auto Lib Overview</a></div>
+<div><img src="dot.gif"><a href="pw_lib_overview_nl.html" target="a">Test Lib Doc Generation</a></div>
+<div><img src="dot.gif"><a href="pw_lib_overview_us_tech.html" target="a">Library US tech</a></div>
+<div><img src="dot.gif"><a href="pw_lib_overview_us.html" target="a">Library US</a></div>
+<div><img src="dot.gif"><a href="pw_lib_overview_nl_tech.html" target="a">Library NL tech</a></div>
+</div>
+<div><img src="dot.gif"><a href="python _docs.html" target="a">Python Docs</a></div>
+<div><img src="dot.gif"><a href="pw_from_matlab.html" target="a">From MatLab</a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID3"><img src="minus.gif">Installation</a><div class="level">
+<div><img src="dot.gif"><a href="pw_installation.html" target="a">Installation</a></div>
+<div><img src="dot.gif"><a href="pw_ubuntu.html" target="a">Ubuntu</a></div>
+<div><img src="dot.gif"><a href="pw_download_history.html" target="a">Download / History</a></div>
+<div><img src="dot.gif"><a href="pw_deployment.html" target="a">Deployment</a></div>
+<div><img src="dot.gif"><a href="problems_may_2009.html" target="a">problems_may_2009</a></div>
+<div><img src="dot.gif"><a href="pw_library_manager.html" target="a">Library Manager</a></div>
+</div>
+<div><img src="dot.gif"><a href="pw_menu_help.html" target="a">Help Menu</a></div>
+<div><img src="dot.gif"><a href="pw_future_python_versions.html" target="a">Future Python</a></div>
+</div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID4"><img src="minus.gif">Bricks</a><div class="level">
+<div><img src="dot.gif"><a href="pw_bricks_paragraph.html" target="a">Bricks</a></div>
+<div><img src="dot.gif"><a href="pw_bricks_2d_scene.html" target="a">Brick 2D-scene</a></div>
+<div><img src="dot.gif"><a href="pw_bricks_signal_processing.html" target="a">Bricks Signal Processing</a></div>
+<div><img src="dot.gif"><a href="pw_sqllite.html" target="a">Bricks DataBase</a></div>
+<div><img src="dot.gif"><a href="pw_bricks_doc_viewer.html" target="a">Brick Doc Viewer</a></div>
+<div><img src="dot.gif"><a href="pw_brick_cmd_shell.html" target="a">Brick CMD-Shell</a></div>
+<div><img src="dot.gif"><a href="pw_brick_adc.html" target="a">Brick ADC</a></div>
+<div><img src="dot.gif"><a href="pw_scope_plot.html" target="a">Scope Plot</a></div>
+<div><img src="dot.gif"><a href="pw_auto_brick_generation.html" target="a">Auto Brick Generation</a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID5"><img src="minus.gif">Code Editor</a><div class="level">
+<div><img src="dot.gif"><a href="pw_code_editor.html" target="a">Code Editor</a></div>
+<div><img src="dot.gif"><a href="pw_debug.html" target="a">Debugger</a></div>
+<div><img src="dot.gif"><a href="other_ide.html" target="a">Other IDE</a></div>
+</div>
+<div><img src="dot.gif"><a href="pw_lib_python.html" target="a">Lib_Python</a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID6"><img src="minus.gif">Bricks Library</a><div class="level">
+<div><img src="dot.gif"><a href="pw_bricks.html" target="a">Bricks Library</a></div>
+<div><img src="dot.gif"><a href="pw_bricks_controls.html" target="a">Controls (inside)</a></div>
+<div><img src="dot.gif"><a href="pw_io_defs.html" target="a">IO definitions</a></div>
+<div><img src="dot.gif"><a href="pw_bricks_num_display.html" target="a">Bricks Numeric Display</a></div>
+<div><img src="dot.gif"><a href="pw_scope_internals.html" target="a">Scope_Internals</a></div>
+</div>
+<div><img src="dot.gif"><a href="pw_circuit_editor.html" target="a">pw_circuit_editor</a></div>
+<div><img src="dot.gif"><a href="pw_bricks_example_dbase.html" target="a">pw_bricks_example_dbase</a></div>
+<div><img src="dot.gif"><a href="pw_bricks_example_remez.html" target="a">pw_bricks_example_remez</a></div>
+<div><img src="dot.gif"><a href="pw_brick_pyjamas.html" target="a">Brick PyJamas</a></div>
+</div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID7"><img src="minus.gif">GUI Controls Overview</a><div class="level">
+<div><img src="dot.gif"><a href="pw_gui_controls.html" target="a">GUI Controls Overview</a></div>
+<div><img src="dot.gif"><a href="pw_gui_controls_intro.html" target="a">GUI Controls Intro</a></div>
+<div><img src="dot.gif"><a href="pw_gui_controls_build.html" target="a">GUI Controls Building</a></div>
+<div><img src="dot.gif"><a href="pw_controls_manager.html" target="a">GUI Controls IDE</a></div>
+</div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID8"><img src="minus.gif">Debugging</a><div class="level">
+<div><img src="dot.gif"><a href="pw_debugging.html" target="a">Debugging</a></div>
+<div><img src="dot.gif"><a href="pw_bug_reporter.html" target="a">Bug_Reporter</a></div>
+<div><img src="dot.gif"><a href="pw_bugs.html" target="a">Bugs</a></div>
+<div><img src="dot.gif"><a href="pw_debug_vm.html" target="a">Debug VM</a></div>
+<div><img src="dot.gif"><a href="pw_bricks_diagnostics.html" target="a">Bricks Diagnostics</a></div>
+<div><img src="dot.gif"><a href="pw_test_suite.html" target="a">Test Suite</a></div>
+<div><img src="dot.gif"><a href="py_analyze.html" target="a">Analyze Python</a></div>
+</div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID9"><img src="minus.gif">Core Developer</a><div class="level">
+<div><img src="dot.gif"><a href="pw_core_developer.html" target="a">Core Developer</a></div>
+<div><img src="dot.gif"><a href="pw_io_defs.html" target="a">pw_io_defs</a></div>
+<div><img src="dot.gif"><a href="pw_internationalization.html" target="a">Internationalization</a></div>
+<div><img src="dot.gif"><a href="pw_html_viewer.html" target="a">Html Viewer</a></div>
+<div><img src="dot.gif"><a href="pw_core_menu_support.html" target="a">Menu Support</a></div>
+<div><img src="dot.gif"><a href="pw_std_redirection.html" target="a">STD Redirection</a></div>
+<div><img src="dot.gif"><a href="pw_vpython_docking.html" target="a">VPython Docking</a></div>
+<div><img src="dot.gif"><a href="pw_design_editor.html" target="a">Grouping Bricks</a></div>
+<div><img src="dot.gif"><a href="pw_importing.html" target="a">Imports</a></div>
+<div><img src="dot.gif"><a href="pyjamas_gui_support.html" target="a">pyjamas_gui_support</a></div>
+<div><img src="dot.gif"><a href="pw_gui_support.html" target="a">GUI_support</a></div>
+<div><img src="dot.gif"><a href="program_updater.html" target="a">program_updater</a></div>
+<div><img src="dot.gif"><a href="pw_bind_skip.html" target="a">Binding Events</a></div>
+</div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID10"><img src="minus.gif">pw_launch_main</a><div class="level">
+<div><img src="dot.gif"><a href="../../data_python_25/pylab_works/html/pw_launch_main.html" target="a">pw_launch_main</a></div>
+<div><img src="dot.gif"><a href="../../data_python_25/pylab_works/html/pw_demos.html" target="a">pw_demos</a></div>
+<div><img src="dot.gif"><a href="../../data_python_25/pylab_works/html/pw_demos_tree_index.html" target="a">pw_demos_tree_index</a></div>
+<div><img src="dot.gif"><a href="../../data_python_25/pylab_works/html/pw_launch_pw.html" target="a">pw_launch_pw</a></div>
+<div><img src="dot.gif"><a href="../../data_python_25/pylab_works/html/pw_launch_ide.html" target="a">pw_launch_ide</a></div>
+<div><img src="dot.gif"><a href="../../data_python_25/pylab_works/html/pw_launch_lib.html" target="a">pw_launch_lib</a></div>
+<div><img src="dot.gif"><a href="../../data_python_25/pylab_works/html/pw_launch_trans.html" target="a">pw_launch_trans</a></div>
+</div>
+<div><img src="dot.gif"><a href="../../data_to_test/aap_widget.html" target="a">aap_widget</a></div>
+<div><img src="dot.gif"><a href="../python/pylab_works_temp.html" target="a">pylab_works_temp</a></div>
+<div><img src="dot.gif"><a href="../python/pylab_works_tree.html" target="a">pylab_works_tree</a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID11"><img src="minus.gif">PocketPyGUI</a><div class="level">
+<div><img src="dot.gif"><a href="pp_intro.html" target="a">PocketPyGUI</a></div>
+<div><img src="dot.gif"><a href="ultimo_demo.html" target="a">ultimo_demo</a></div>
+<div><img src="dot.gif"><a href="ce_installation.html" target="a">CE installation</a></div>
+</div>
+<div></div>
+
+</td></tr><tr></tr>
+</tbody></table>
+</body></html>

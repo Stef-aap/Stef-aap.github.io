@@ -1,0 +1,682 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JAL CodeEditor</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #feffe6;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="135" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>december 2004</span></p>
+<p><span class=rvts1>JAL CodeEditor</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>JAL is a free Pascal-like compiler for PICs, written by Wouter van Ooijen.</p>
+<p>More information can be found on his website: <a class=rvts4 href="http://www.voti.nl/jal/">Jal</a></p>
+<p>&nbsp; </p>
+<p>JAL is fully embedded in JALcc. Besides the standard CodeEditor features, a number of special features are implemented, so JALcc forms a complete IDE around&nbsp; JAL.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>ToDo</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>special markers </li>
+<li>parsing of multi vars/consts on one line </li>
+<li>1-document help file for context-sensitive help </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>CodeEditor Overview</span></p>
+<p>The main items of the CodeEditor are (see image below):</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Editor with code-coloring (on the top-right) </li>
+<li>Object Explorer Tree (on the left) </li>
+<li>Statusbar (at the bottom) </li>
+<li>Compiler Results (at the bottom_right) </li>
+</ul>
+<p>The CodeEditor has a full code colored highlighter, and besides all the standard features of the general CodeEditor, it has a number of special features adapted to JAL.The Object Tree, shows a hierachical list of objects in the project (or in the file in case of a library file). The Compiler Results, shows an active logfile of the compiler results. Clicking on an error or warning will jump into the correct editor at the correct place. The Statusbar displays the status of the editor, but all the colored panels in the statusbar also act as buttons which performs certain actions.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=629 height=448 alt="" src="jalcc_codeedit_jal_img2.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>CodeEditor Specials</span></p>
+<p>- special keys and actions</p>
+<p>- multi-file bookmarks</p>
+<p>- special marks</p>
+<p>- autocompletion (through popup hint)</p>
+<p>- procedure/function hint</p>
+<p>- PIBbsc &lt;--&gt; assembler jumping</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Special Keys</span></p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>Ctrl+Enter</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>jump to declaration of the item under the cursor </p>
+<p>(if on included file, open and focus the included file)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F1</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>show help info about the item under the cursor </p>
+<p>- for variables / constants it shows the definition line </p>
+<p>- for procedures, it shows the description (see Object Explorer Tree below) </p>
+<p>- for reserved words, it jumps into the help document (see note 1)</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F3 </p>
+<p>Shift+F3</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Find Next (from search buffer) </p>
+<p>shift-F3 = Find Previous</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F4 </p>
+<p>Shift+F4</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Find Next from word under cursor </p>
+<p>shift+F4 = Find Previous </p>
+<p>This is very handy, when tracing code in the JAL-assembler listing.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F5</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>show code-tree if code-tree wasn't visible, otherwise refresh code-tree</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F6</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Find Line under cursor in Assembler file</p>
+<p>This is very handy, when tracing code in the assembler listing.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F7</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Toggle Templates visibility</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F8</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Goto next Field</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F9 </p>
+<p>Shift+F9</p>
+<p>Alt+F9</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Compile / Upload / Run 1</p>
+<p>Compile / Upload / Run 2</p>
+<p>Compile Selected / Upload / Run 1</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>Ctrl+Shift+ </p>
+<p>&lt;0..9&gt;</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Set / Clear Bookmark &lt;0..9&gt;</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>Ctrl+ </p>
+<p>&lt;0..9&gt;</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Goto Bookmark &lt;0..9&gt;</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=70 valign=top style="{background-color: #ffffff;}">
+<p>F10</p>
+</td>
+<td width=655 valign=top style="{background-color: #ffffff;}">
+<p>Toggle between mainmenu and active window (standard M$-windows behaviour)</p>
+</td>
+</tr>
+</table>
+</div>
+<p>note 1: The helpfile is assumed to be in the same directory as the first compiler and should have the name "syntax.txt". The item is searched by jumping to the first occurence of the uppercase version of the word under the cursor, preceded by at least 2 spaces. </p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Right Mouse menu</span>&nbsp; </p>
+<p><span class=rvts10>Pack all source files in ZIP file</span></p>
+<p><br></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Bookmarks</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=558 valign=top style="{background-color: #ffffff;}">
+<p>Bookmarks are used to jump fast from one position in the code-editor to another position. </p>
+<p>For JAL-files, this position may even be in another JAL-file. So there's not a set bookmarks for each file, but just one set for all the JAL-files. This may sound as a disadvantage, but in fact it's a great advantage ! </p>
+<p>Therefore the bookmarks are owned by the main-codefile, and are stored under water&nbsp; in the project file (*.JPR). </p>
+<p>&nbsp; </p>
+<p>The default keys for Bookmarks are </p>
+<p><span class=rvts3>Ctrl + Shift + &lt;0..9&gt;</span>&nbsp;&nbsp;&nbsp; set/clear Bookmark &lt;0..9&gt; </p>
+<p><span class=rvts3>Ctrl + &lt;0..9&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; jump to Bookmark &lt;0..9&gt;</p>
+</td>
+<td width=158 valign=top style="{background-color: #ffffff;}">
+<p class=rvps3><img width=173 height=142 alt="" src="jalcc_editor_img2.gif"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=558 valign=top style="{background-color: #ffffff;}">
+<p>You can popup a list of the bookmarks of a project through the right-mouse menu. </p>
+<p>&nbsp; </p>
+<p>The list shows all the active bookmarks for JAL files. Each item in the list shows the filename and the X,Y-coordinates of the bookmark. The X-position is not always shown correctly and will give then the wrong value X=1, though clicking on the item will still go to the correct X-position. </p>
+<p>&nbsp; </p>
+<p>Clicking on an item in this list will focus the selected file and jump to the selected bookmark. </p>
+<p>&nbsp; </p>
+<p>Note: the editor can contain more then one bookmark on the same line, but only the last one is visible. In the Bookmark list all bookamarks are visible.</p>
+</td>
+<td width=158 valign=top style="{background-color: #ffffff;}">
+<p class=rvps3><img width=136 height=238 alt="" src="jalcc_codeedit_jal_img1.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Special Marks</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=526 valign=top style="{background-color: #ffffff;}">
+<p>The special marks serves different tasks, like just a bookmarks for the user and breakpoints. </p>
+<p>The special marks are owned by the file where they reside, and are stored in that file as a special comment line (not visible in the editor). </p>
+<p>The user can popup a list of all special marks in the project or all special marks in the open files. </p>
+<p>Special marks can be set/cleared by clicking in the gutter. By each click it will step to the next special mark, after all 5 are stepped through it's deleted. </p>
+<p>The meaning of these special marks</p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=20 valign=top style="{background-color: #ffffff;}">
+<p><img width=18 height=78 alt="" src="jalcc_editor_img4.gif"></p>
+</td>
+<td width=478 valign=top style="{background-color: #ffffff;}">
+<p>... </p>
+<p>....</p>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td width=161 valign=top style="{background-color: #ffffff;}">
+<p><img width=163 height=108 alt="" src="jalcc_editor_img3.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>StatusBar</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=598 height=24 alt="" src="jalcc_codeedit_picbsc_img10.gif"></p>
+<p>The statusbar gives information mainly about the editor. The colored panels not only give some status information, but also serves as active buttons.</p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=105 height=23 alt="" src="jalcc_codeedit_picbsc_img11.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Pressing this pannel, toggles the visibility of the Object Explorer Tree. </p>
+<p>F5 makes the Object Tree visible and refreshes the Object Tree</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=68 height=22 alt="" src="jalcc_codeedit_picbsc_img12.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>position of the caret</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=47 height=19 alt="" src="jalcc_codeedit_picbsc_img18.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Indicates there are changes that are not yet stored on disk. </p>
+<p>Note: in most cases the file will be automatically stored whenever there's a need for.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=59 height=20 alt="" src="jalcc_codeedit_picbsc_img14.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Mode of the editor, can be one of Insert/ Overwrite / ReadOnly</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=51 height=20 alt="" src="jalcc_codeedit_picbsc_img19.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Selected PIC-type, this is needed for most programmers / uploaders</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=60 height=22 alt="" src="jalcc_codeedit_picbsc_img17.gif"></p>
+<p class=rvps2>&nbsp; <img width=60 height=20 alt="" src="jalcc_codeedit_picbsc_img15.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Normal JALcc macros will be shown compressed (because that's where they were intended for). </p>
+<p>With this panel you can toggle between the JALcc macros compressed or expanded. </p>
+<p>In case the compiler finds an error in this file, the macro is automatically expanded, because the compiler can only deal with the expanded data.</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=117 valign=top style="{background-color: #ffffec;}">
+<p class=rvps2><img width=73 height=16 alt="" src="jalcc_codeedit_picbsc_img16.gif"></p>
+</td>
+<td width=599 valign=top style="{background-color: #ffffec;}">
+<p>Press this button to start the compile action specified by the user. </p>
+<p>Note: there are 2 different compile actions (F9, Shift-F9), which can each consist of the following actions: compile, upload, run PC-program. Each of the 2 compile actions can be fully controlled by the user.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Object Explorer Tree</span></p>
+<p>The code explorer displays an hierachical list of the most important elements of a source file or, if the source file is the main-language-file, an hierachical list of all the elements in the total project is displayed.</p>
+<p>The treeview gives not only a nice hierarchical view, but it's also an easy way to view the help information about an item, to jump to the declaration of the item (not yet: or to insert the item into the current editor).</p>
+<p>&nbsp; </p>
+<p>On the left the code tree of the main-language file,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; on the right the code-tree of a library file.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=204 height=381 alt="" src="jalcc_codeedit_jal_img3.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=272 height=383 alt="" src="jalcc_codeedit_jal_img4.gif"></p>
+<p>&nbsp; </p>
+<p>The code explorer can be switched on / off by the colored button in the statusbar. If the code explorer is disabled, it can also be enabled by the F5-key. When the code explorer is enabled, F5 refreshes the code explorer tree.</p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffff;}">
+<p><span class=rvts2>Code Tree</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}">
+<p><span class=rvts2>Editor</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}">
+<p><span class=rvts2>Action</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffff;}">
+<p>(Ctrl+) Enter </p>
+<p>DoubleClick on an item without children</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}">
+<p>Ctrl+Enter</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}">
+<p>Jump to declaration of item</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffff;}">
+<p>F1 / Right Mouse Button</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}">
+<p>F1</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffff;}">
+<p>Display Help info about item</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>The help information is shown in a stay-on-top form, so it will be always visible. For procedures, functions and user-macros the text above the procedure, function or user-macro is shown. To accomplish this, this text must be the standard comment style of the selected language, as the example below shows.The help text must be between lines, just above the procedure definition, where each of these special lines must start with: a single quote and 2 consecutive equal signs, "'==". For all other items the help text just consist of the complete line of the declaration of the item.</p>
+<p>If the stay-on-top help-form has focus, it can be closed by the normal close button, but also with F1. So pressing F1 once shows the help info, pressing F1 again removes the help info.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <img width=527 height=425 alt="" src="jalcc_codeedit_jal_img5.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Meaning of the different icons in the code-tree&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width=400 border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffff;}">
+<p><span class=rvts2>Type</span></p>
+</td>
+<td width=103 valign=top style="{background-color: #ffffff;}">
+<p><span class=rvts2>SubType</span>&nbsp; </p>
+</td>
+<td colspan=2 valign=top style="{background-color: #ffffff;}">
+<p><span class=rvts2>Icons</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffff;}">
+<p>Map</p>
+</td>
+<td width=103 valign=top style="{background-color: #ffffff;}">
+<p>with content</p>
+</td>
+<td colspan=2 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="map4.bmp"></p>
+</td>
+</tr>
+<tr valign=top>
+<td rowspan=3 width=100 valign=top style="{background-color: #ffffff;}">
+<p>&nbsp; </p>
+<p>File</p>
+</td>
+<td width=103 valign=top style="{background-color: #ffffff;}">
+<p>In Main Path</p>
+</td>
+<td colspan=2 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="file_main.bmp"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=103 valign=top style="{background-color: #ffffff;}">
+<p>In Library Path</p>
+</td>
+<td colspan=2 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="file_library.bmp"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=103 valign=top style="{background-color: #ffffff;}">
+<p>not found</p>
+</td>
+<td colspan=2 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="file_nonexisting.bmp"></p>
+</td>
+</tr>
+<tr valign=top>
+<td colspan=2 height=18 valign=top style="{background-color: #ffffff;}">
+<p>Procedures &amp; Functions</p>
+</td>
+<td colspan=2 height=18 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="procedure.bmp"></p>
+</td>
+</tr>
+<tr valign=top>
+<td colspan=2 valign=top style="{background-color: #ffffff;}">
+<p>Macros</p>
+</td>
+<td colspan=2 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="macro.bmp"></p>
+</td>
+</tr>
+<tr valign=top>
+<td rowspan=4 width=100 valign=top style="{background-color: #ffffff;}">
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Constants</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+</td>
+<td width=103 valign=top style="{background-color: #ffffff;}">
+<p>Bit</p>
+</td>
+<td colspan=2 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="constant_bit.bmp"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=103 height=16 valign=top style="{background-color: #ffffff;}">
+<p>Byte</p>
+</td>
+<td colspan=2 height=16 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="constant_byte.bmp"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=103 valign=top style="{background-color: #ffffff;}">
+<p>String</p>
+</td>
+<td colspan=2 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="constant_string.bmp"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=103 valign=top style="{background-color: #ffffff;}">
+<p>Universal</p>
+</td>
+<td colspan=2 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="constant_universal.bmp"></p>
+</td>
+</tr>
+<tr valign=top>
+<td rowspan=4 width=100 valign=top style="{background-color: #ffffff;}">
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>Variables</p>
+</td>
+<td width=103 height=16 valign=top style="{background-color: #ffffff;}">
+<p>Normal</p>
+</td>
+<td width=62 height=16 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2>bit&nbsp; <img width=16 height=16 alt="" src="v_bit.bmp"></p>
+</td>
+<td width=77 height=16 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="v_byte.bmp">&nbsp;&nbsp; byte</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=103 valign=top style="{background-color: #ffffff;}">
+<p>Volatile</p>
+</td>
+<td width=62 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2>bit&nbsp; <img width=16 height=16 alt="" src="vv_bit.bmp"></p>
+</td>
+<td width=77 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="vv_byte.bmp">&nbsp;&nbsp; byte</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=103 valign=top style="{background-color: #ffffff;}">
+<p>Pseudo Read "get"</p>
+</td>
+<td width=62 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2>bit&nbsp; <img width=16 height=16 alt="" src="v_bit_read.bmp"></p>
+</td>
+<td width=77 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="v_byte_read.bmp">&nbsp;&nbsp; byte</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=103 valign=top style="{background-color: #ffffff;}">
+<p>Pseudo Write "put"</p>
+</td>
+<td width=62 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2>bit&nbsp; <img width=16 height=16 alt="" src="v_bit_write.bmp"></p>
+</td>
+<td width=77 valign=top style="{background-color: #ffffff;}">
+<p class=rvps2><img width=16 height=16 alt="" src="v_byte_write.bmp">&nbsp;&nbsp; byte</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Compiling</span></p>
+<p>Depending on the phase of development, you may have different demands on what "compiling" should do.</p>
+<p>For instance, in the beginning of a project, you just want to edit and check the syntactical correctness of the code. When you're further on in the project, you might want to edit and directly test the results of your code in real life.</p>
+<p>Therefor JALcc supports direct access to 2 different set of actions, through the keys F9 (or statusbar) and shift-F9. The actions connected to these keys can be fully user-configurable. Easy switching of action sets is accomplished by storing upto 4 sets of compile actions in each projectfile.</p>
+<p>Basically the following actions are of interest</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>compile the code (include limit is solved by JALcc thorugh "files=99") </li>
+<li>upload the code to a programmer / bootloader / simulator / ... and start the PIC. This action is only executed if compilation was succesfull. Before launching the application, an already running instance of that application is terminated. </li>
+<li>execute an additional PC-program for debugging or functional testing </li>
+</ul>
+<p>For some devices even a tighter integration is implemented. For instance you don't want to start a simulator everytime, but instead after the simulator is once opened, it communicates with JALcc though windows messages.</p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Compiler Results</span></p>
+<p>After compilation, the log file is automatically loaded into the main window below the codeeditor.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Errors are displayed in bold-red.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Warnings are displayed in bold-blue.</p>
+<p>In case of an error, the file with the first error will get focus and the cursor will be placed on the line with the first error.</p>
+<p>Clicking on a error or warning will open (or focus if already opened) the file with the selected error and move the caret to the line with the error.</p>
+<p>Just correct the error and press F9 to run the compiler again.</p>
+<p>The output format of the log file can be controlled through the settings (show debug, show only errors and warnings).</p>
+<p>The compiler log file can also be automatically (re-)loaded in a separate codeeditor window (see settings).</p>
+<p>Also the assembler file can be automatically (re-)loaded in a separate window. It's easy to jump from PICbsc code into the generated assembler code (see codeeditor).</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=495 height=286 alt="" src="jalcc_codeedit_jal_img6.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Compiler Settings</span></p>
+<p>At the left you see the 2 sets, which are assigned to the 2 compile buttons, in this case F9=set1 and shift-F9=set2.</p>
+<p>At the right you see the sets, each build out of 3 parts, the middle part colored creamy.</p>
+<p>The top part are the real compiler settings, only yielding for this language.</p>
+<p>The middel part are the uploader settings, which are shared among all other languages.</p>
+<p>The bottom part is the PC-program that should run after uploading. This settings is also shared between all languages.</p>
+<p>Fully at the bottom there's a memo, which is automatic loaded and stored, where you can keep your personal notes about the compiler settings.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=531 height=614 alt="" src="jalcc_codeedit_jal_img3.png"></p>
+<p>&nbsp; </p>
+<p><span class=rvts3>compiler settings</span></p>
+<p>It may look strange that you can specify a compiler in each set, but one use of it is ti compare 2 different version of a compiler. In set=1 you can choose compiler version-A and in set 2 you can choose compiler version-B. Now by choosing F9 or shift-F9 to compile you get the 2 (possible) different results.</p>
+<p>The rest of the settings speaks for themself.</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>uploader</span></p>
+<p>The uploader will only be invoked, if the compiler generates no errors.</p>
+<p>First you can choose the uploader. The general uploader, just launches a windows program of your choice with the appropriate parameters and waits till uploader has finished (if you've set the checkbox). In specifying the parameters you can make use of 2 substitutes, device and hex-filename. In this case only the hex-filename is used.</p>
+<p>Bootloader, JALss, Programmer, still to be done. = ...</p>
+<p>In the document&nbsp; <a class=rvts4 href="jalcc_uploader_settings.html">Uploader/Programmer Examples</a> are examples of the settings for often used uploaders.</p>
+<p>&nbsp; </p>
+<p><span class=rvts3>Run program after uploading</span></p>
+<p>These parameters can only be specified, if&nbsp; "wait till uploader finished" is set.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Templates</span></p>
+<p>With the templates you easy can insert the language statements and/or (own) procedure calls into your program. Templates visibility is toggled by F7, field substitution is done by F8. As shown below it's easy to add you own procedures to the templates (see for editing the templates&nbsp; <a class=rvts4 href="jalcc_editor.html">JALcc, Code-Editor</a> ).</p>
+<p>Here an example of the templates for JAL. Besides all the JAL language elements, in the lower-left corner all functions of the RS232 library are added. Above these RS232 procedures, there are even 2 shortcuts that implements a number of lines for either RS232 communication or SPI communication.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=276 height=547 alt="" src="jalcc_codeedit_jal_img11.gif"></p>
+<p>&nbsp; </p>
+<p>Just after clicking on&nbsp; "audrate = .. asynch_se" (yes this layout has to be improved), the next 4 lines are inserted into the editor and the first field ("baudrate") is selected, so by just starting to type, you'll overwrite this first field. Then, with F8, you can jump to the next field "Byte to send".</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=267 height=68 alt="" src="jalcc_codeedit_jal_img8.gif"></p>
+<p><span class=rvts8>&nbsp; </span></p>
+<p><span class=rvts8>&nbsp; </span></p>
+<p><span class=rvts2>Ctrl+Alt(+Shift)-Macros</span></p>
+<p>The implementation of Ctrl-Alt macros is left to the user, see&nbsp; <a class=rvts4 href="jalcc_editor.html">JALcc, Code-Editor</a> for details.</p>
+<p>Here an example of a macro implementation for Ctrl-Alt-R, which does exactly the same as the template shown above</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=617 height=111 alt="" src="jalcc_codeedit_jal_img12.gif">&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>ShortString Substitutes</span></p>
+<p>The implementation of the shortstring substitutes is left to the user, see&nbsp; <a class=rvts4 href="jalcc_editor.html">JALcc, Code-Editor</a> for details.</p>
+<p>Here an example of the substitution for string "proc"</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=317 height=168 alt="" src="jalcc_codeedit_jal_img14.gif"></p>
+<p>&nbsp; </p>
+<p>After pressing "proc", followed by shift-Enter, the next text will be inserted in the Editor at the place of the caret, and the cursor is positioned in such a&nbsp; way that you directly type the name of the function.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=338 height=82 alt="" src="jalcc_codeedit_jal_img13.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Autocompletion by Proposal</span></p>
+<p>The implementation of the proposal substitutes is left to the user, see&nbsp; <a class=rvts4 href="jalcc_editor.html">JALcc, Code-Editor</a> for details.</p>
+<p>Here an example, where all RS232 routines are definied.</p>
+<p>Now typing "as.." will show a list of substitutes, select one and press Enter to replace the typed text.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=293 height=151 alt="" src="jalcc_codeedit_jal_img15.gif"></p>
+<p><span class=rvts8>&nbsp; </span></p>
+<p><span class=rvts8>&nbsp; </span></p>
+<p><span class=rvts2>Procedure and function hints</span></p>
+<p>As soon as a (already) declared procedure or function is used, JALcc can display a hint about the type and meaning of the function parameters.</p>
+<p>Some experiments with this functionality, shows that it behaves annoying and also not correct, because of some bugs (in cthint + ctparams).</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Keywords &amp; Commands</span></p>
+<p>These are 2 sets of words which will be highlighted differently. On default the keywords contains all normal language elements. The commands will hold the preprocessor (meta-commands) and fuses commands. (These tables are case-insensitive)</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=144 height=363 alt="" src="jalcc_codeedit_jal_img16.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=146 height=232 alt="" src="jalcc_codeedit_jal_img17.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Code Highlighter</span></p>
+<p>In the settings you can see the results of changes directly. JALcc uses a file with the name "EDT_SAMP.JAL" in the program directory as a template to show the actual settings. See for more details <a class=rvts4 href="jalcc_editor.html">JALcc, Code-Editor.</a></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=616 height=564 alt="" src="jalcc_codeedit_jal_img18.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Assembler file</span></p>
+<p>Just an example of the assembler output, which can be automatically opened (or reloaded) after a succesfull compile action.</p>
+<p>With F6 in the code editor, you can jump directly to the generated code line(s) in the assembler file (if the file wasn't opened or minimized, it will be loaded and normalized automatically)</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=444 height=494 alt="" src="jalcc_codeedit_jal_img19.gif"></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>The logfile</span></p>
+<p>Just an example of the logfile of the compiler, which can be automatically opened (or reloaded) after a successfull compile action.</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=500 height=356 alt="" src="jalcc_codeedit_jal_img20.gif"></p>
+<p>(not very interesting, except for the last 4 lines, which are already shown in the code-editor window)</p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Export</span></p>
+<p>When selecting MainMenu | File | Export, two files are generated, a html-documentation file, extracted from the source code and the source code exported in color-highlighted html. Both files also contain links to each other and to the plain source file.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=474 height=557 alt="" src="jalcc_codeedit_jal_img1.png"></p>
+<p><br></p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=319 valign=middle>
+<p><a name="compiling the first time"></a>
+<span class=rvts2>Compiling the first time</span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+<p>It'll seem that the programs hangs, but looking at the taskbar you'll see an DOS program "Finished...". By clicking on this item in the taskbar, the dosbox will popup.</p>
+<p>By clicking on the BOLD A in the header of the dosbox, the properties of the generated shortcut will popup (as shown below).</p>
+</td>
+<td width=451 valign=middle>
+<p class=rvps3><img width=488 height=282 alt="" src="dosbox.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=1 cellspacing=2 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=289 valign=top>
+<p>Now check the "close on exit" box in the program tab, close the properties box and close the normal dosbox, and you will never see either of them again.</p>
+</td>
+<td width=353 valign=middle>
+<p class=rvps3><img width=366 height=420 alt="" src="shortcut.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+
+</body></html>

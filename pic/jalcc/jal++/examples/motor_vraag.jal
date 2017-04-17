@@ -1,0 +1,160 @@
+; define the hardware settings and
+; include all libraries
+include demo_settings
+
+
+const usart_asynch = true      ;true = RS232, false = SPI
+const baudrate     = 115_200   ;Baudrate
+include rs232_hw
+
+include byte3_math
+
+-- PIC AD-converters
+const PIC_ADC_Nchan            = 1        ;number of selected channels
+const PIC_ADC_NVref            = 0        ;number of external references
+const PIC_ADC_Rsource          = 1_000    ;maximum source resistance (max recommended = 10 kOhm)
+const PIC_ADC_high_resolution = false     ;true = high resolution = 10 bits
+include pic_adc
+PIC_ADC_init
+ADCON1 = 7    -- set portA to normal digital IO
+
+
+; define the relevant IO-pins
+;;;;;<;mac> IO_pin motor = pin_A0
+var volatile bit  motor_pin       is pin_A0
+var volatile byte motor_port      is portA
+const             motor_nr        =  0
+var volatile byte motor_buffer    is _port_A_buffer
+var volatile bit  motor_direction is pin_A0_direction
+;;;;;<;/mac>
+motor_pin = high
+
+
+
+; the main program
+var byte x
+var byte N
+var byte P = 0
+var byte nultime = 0
+
+;forever loop
+;  -- active motor period
+;  motor_pin = high
+;  motor_direction = output
+;  delay_10us (P)
+;
+;  -- now first deactivate motor,
+;  -- and discharge transistor base capacitance
+;  motor_pin = low
+;
+;  -- measure Vmotor - Vemk
+;  motor_direction = input
+;  ADCON1 = 0b_0000_1110
+;  PIC_ADC_read_low_res(0,x)
+;
+;  -- inactive motor period
+;  ADCON1 = 7    -- set portA to normal digital IO
+;  motor_direction = output
+;
+;  x2 = 0
+;  x1 = x
+;  byte2_add     -- Y = Y + X
+;  N = N + 1
+;  if N > 64 then
+;    byte2_shr (2)
+;    asynch_send_hw (y2)
+;    asynch_send_hw (y1)
+;
+;    byte2_shr (3)
+;    if Y1 > 0x78 then P = P + 4
+;    elsif Y1 < 0x74 then P = P - 4
+;    end if
+;    <mac> byte2_assign  Y = 0
+;    N = 0
+;
+;;    if nultime < 20 then
+;;      nultime = nultime + 1
+;;    else
+;;      if P < 230 then
+;;        P = P + 4
+;;      end if
+;;    end if
+;  end if
+;
+;  delay_10us (255 - P)
+;end loop               ; loop for inifinity
+
+
+
+forever loop
+  -- active motor period
+  motor_pin = high
+  motor_direction = output
+  delay_10us (P)
+
+  -- now first deactivate motor,
+  -- and discharge transistor base capacitance
+  motor_pin = low
+
+  -- measure Vmotor - Vemk
+  motor_direction = input
+  ADCON1 = 0b_0000_1110
+  PIC_ADC_read_low_res(0,x)
+;delay_10us(30)
+;motor_pin = low
+
+  -- inactive motor period
+  ADCON1 = 7    -- set portA to normal digital IO
+  motor_direction = output
+
+  x2 = 0
+  x1 = x
+  byte2_add     -- Y = Y + X
+  N = N + 1
+  if N > 64 then
+    byte2_shr (3)
+    asynch_send_hw (y2)
+    asynch_send_hw (y1)
+
+;;;;;    <;mac> byte2_assign  Y = 0
+    Y1 = 0x00
+    Y2 = 0x00
+;;;;;<;/mac>
+    N = 0
+
+    if nultime < 20 then
+      nultime = nultime + 1
+    else
+      if P < 230 then
+        P = P + 4
+      end if
+    end if
+  end if
+
+  delay_10us (255 - P)
+end loop               ; loop for inifinity
+
+
+
+; the main program
+forever loop
+  motor_pin = high
+  motor_direction = output
+  delay_1ms (5)
+
+
+  motor_pin = low
+;  motor_direction = output
+;  delay_10us
+  motor_direction = input
+delay_10us (5)
+  if motor_pin then
+    asynch_send_hw (0xAA)
+  end if
+
+  motor_pin = low
+  motor_direction = output
+  delay_1ms (5)
+  motor_direction = input
+end loop               ; loop for inifinity
+

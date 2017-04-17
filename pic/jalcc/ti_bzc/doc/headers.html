@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<p xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--
+	***************************************************************************
+ 	*   Copyright (C) 2005-2006 by Erik van 't Wout, Eugene Evans             *
+ 	*   bugs@hofhom.nl                                                        *
+ 	*                                                                         *
+ 	*   This program is free software; you can redistribute it and/or modify  *
+ 	*   it under the terms of the GNU General Public License as published by  *
+	*   the Free Software Foundation; either version 2 of the License, or     *
+	*   (at your option) any later version.                                   *
+	*                                                                         *
+	*   This program is distributed in the hope that it will be useful,       *
+	*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ 	*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ 	*   GNU General Public License for more details.                          *
+ 	*                                                                         *
+ 	*   You should have received a copy of the GNU General Public License     *
+ 	*   along with this program; if not, write to the                         *
+	*   Free Software Foundation, Inc.,                                       *
+ 	*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+	***************************************************************************
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="format.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div align="center" class="text-ft">Header File Contents</div>
+<hr />
+<p><div class="justify">
+These are the pre-written ASMLIB functions. They are written for some basic functionality in BASIC ASM, they also here to make it easier to comunicate with the TI-OS. At this time there are only a few functions available. However, you have three options which will help you program really powerfull in BASIC ASM.
+</div></p>
+<p><div align="justify">
+<ul>
+<li>Use the <a href="commands.html#function_asm">ASM...ENDASM</a> directive and use native Assembly to power up your program. (only for experts)</li>
+<li>Use the TI-OS <a href="#romc">ROM calls</a>.</li>
+<li>Create <a href="#create">your own functions</a>.</li>
+</ul>
+</p>
+<hr />
+<p>The ASMLIB functions are sorted by their include file. If you put<BR />
+<div class="asm">#include &lt;asmlib.h&gt;</div><BR />
+on top of your source file, there will be a lot of files included from that file.<BR />
+(You can see this if you run <span class="bzc">BZC</span> with the <span class="asm">-v</span> option.)</p><p>Each file declares a lot of functions which, all together, represent the <b>ASMLIB Library</b>. All those functions are listed here.</p>
+<p>There is sometimes trouble about what to write in uppercase, and what in lowercase. All the <a href="commands.html">build-in commands</a> must be written in UPPERCASE. All the functions on this page (and everything else in BASIC ASM) can be written how you like it the most (case unsensitive). These function are written in lowercase by default, but if you choose to write it in an other way, it is also possible.</p>
+<p>Now, let's start!.</p>
+<hr />
+</div>
+<div class="text-fsubt"><center>tios.h</center></div>
+<p><span class="bzc">tios.h</span> internally calls <span class="asm">romcalls.h</span> and <span class="asm">sysvars.h</span>, which declare all the <a href="#romc">TI-OS romcalls</a>, and (almost) all TI-OS sysvars and consts. Besides this, tios.h has no real function.</p>
+<hr />
+
+<div class="text-fsubt"><center>math.h</center></div>
+<p><span class="bzc">math.h</span> has a few mathematical functions, which allow <i>the compiler</i> to multiply, divide and find the remainder while dividing. When you use the *, / or % operators while programming, the compiler calls those functions internally.</p><hr />
+
+<div class="text-fsubt"><center>time.h</center></div>
+<p><span class="bzc">time.h</span> has only one function, the functions sleep.</p>
+<p>
+<div class="text-fsect">sleep</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">sleep &lt;number&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">sleep</span>
+<span class="justify">
+is a so called "slowdown-routine". It's only purpose is slowing down the executions of your program at one point. It accepts a number which indicates how long the pause must be.<br /> If you use <span class="asm">1</span>, you almost can't see any result, if you use <span class="asm">4</span>, you see a little pause and if you use <span class="asm">255</span> (or <span class="asm">$ff</span>), which is the maximum, you think your calculator has stopt working.
+</span></p>
+</td></tr></table></div>
+</p><hr />
+
+<div class="text-fsubt"><center>io.h</center></div>
+<p><span class="bzc">io.h</span> has a collection of functions which are for text input and output.</p>
+<p>
+<div class="text-fsect">cls</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">cls</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">cls</span>
+<span class="justify">
+is one of the easiest functions available. It clears the screen, clears the text-buffer and locate the cursor at the upperleft of the screen.
+</span></p>
+</td></tr></table></div>
+</p>
+
+<p>
+<div class="text-fsect">locate</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">locate &lt;row&gt; &lt;column&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">locate</span>
+<span class="justify">
+sets the cursor position to a specified location. Since your calculator has a text screen of 8x16, you may only use <span class="asm">0</span> to <span class="asm">7</span> as <span class="asm">&lt;row&gt;</span> and <span class="asm">0</span> to <span class="asm">15</span> as <span class="asm">&lt;column&gt;</span>.</span><p>You can use the special value <span class="asm">NumRight</span> as <span class="asm">&lt;column&gt;</span>. This has the result that, if you display a numerical value, this is right-aligned in your screen.</span></p>
+</td></tr></table></div>
+</p>
+
+<p>
+<div class="text-fsect">locnum</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">locnum</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">locnum</span>
+<span class="justify">
+sets the column of the cursor postition to the special value <span class="asm">NumRight</span>, without changing the current row.</p>
+</td></tr></table></div>
+</p>
+
+<p>
+<div class="text-fsect">putc</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">putc &lt;character&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">putc</span>
+<span class="justify">
+displays a single character on the current cursor position and advances this position. <span class="asm">&lt;character&gt;</span> is the numerical value of a character, which can be stored in a variable of the BYTE type. You can also use the function <span class="asm">get</span>, which is discussed later.</p>
+</td></tr></table></div>
+</p>
+
+<p>
+<div class="text-fsect">puts</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">puts &lt;string&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">puts</span>
+<span class="justify">
+displays a character string on the current cursor position and advances this position. <span class="asm">&lt;string&gt;</span> is an string constant, or a pointer (stored in a variable of the type INT) to a zero-terminated character string.</p>
+</td></tr></table></div>
+</p>
+
+<p>
+<div class="text-fsect">dispnum</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">dispnum &lt;number&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">dispnum</span>
+<span class="justify">
+displays a number in a field of 5 character on the cursor position, and advances this position. <span class="asm">&lt;number&gt;</span> may be a BYTE, an INT a calculation or a pointer-address (which is internally also handled as an INT).</p>
+</td></tr></table></div>
+</p>
+
+<p>
+<div class="text-fsect">printnum</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">printnum &lt;number&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">printnum</span>
+<span class="justify">
+displays a number (again in a field of 5 character) right-aligned on the current row, and scrolls to the next line. <span class="asm">&lt;number&gt;</span> may be a BYTE, an INT a calculation or a pointer-address (which is internally also handled as an INT).</p>
+</td></tr></table></div>
+</p>
+
+<p>
+<div class="text-fsect">printf</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">printf &lt;format_id&gt; &lt;data&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">printf</span>
+<span class="justify">
+is probably the most complicated function of this file. It displays a number, character or character-string (given by <span class="asm">&lt;data&gt;</span>) and scrolls to the next line. Information about what to display is given by the <span class="asm">&lt;format_id&gt;</span>, which can be one of the folowing special values: <span class="asm">num</span>, <span class="asm">str</span> or <span class="asm">char</span>.</p>
+<p>This function is called by the buildin command <span class="asm">PRINTF</span>. If you want to display a single variable, you better use this function, which auto-detects, what to display. However, if you want to display the result of a calculation or a function-returned value, <b>you only can</b> use this native function <span class="asm">printf</span>. When you want to display a single character, you also need to use <span class="asm">printf char ...</span>, because <span class="asm">PRINTF</span> would detect is as a number (since it has been declared as BYTE).</p><hr />
+</td></tr></table></div>
+</p>
+
+
+<div class="text-fsubt"><center>string.h</center></div>
+<p><span class="bzc">string.h</span> has a collection of functions for character string manipulation. You can compare it with the string.h header file for C.</p>
+<p>
+<div class="text-fsect">strlen</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p>&lt;variable&gt; = <span class="kw">strlen &lt;string&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">strlen</span>
+<span class="justify">
+returns the length of a character string, including the terminating zero.
+</span></p>
+</td></tr></table></div>
+</p>
+
+<p>
+<div class="text-fsect">strcpy</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">strcpy &lt;target&gt; &lt;source&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">strcpy</span>
+<span class="justify">
+copies an entire string (including the terminating zero) from &lt;source&gt; to the memory location &lt;target&gt;. You must only think about one thing: You have to declare enough memory space with the <span class="asm">MEM</span> command, or there is a big chance your calculator will sooner or later crash.
+</span></p>
+</td></tr></table></div>
+</p>
+
+<p>
+<div class="text-fsect">strncpy</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">strncpy &lt;target&gt; &lt;source&gt; &lt;max_chars&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">strncpy</span>
+<span class="justify">
+is very similar to <span class="asm">strcpy</span>, with the only difference that is copies maximal <span class="asm">&lt;max_chars&gt;</span> of characters and puts a terminating zero after it. If the number of characters in your source string is lower or equel to <span class="asm">&lt;max_chars&gt;</span>, this function is similar to <span class="asm">strcpy</span>.
+</span></p>
+</td></tr></table></div>
+</p>
+
+<p>
+<span class="text-fsect">strcat</span> and <span class="text-fsect">strncat</span>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">strcat &lt;target&gt; &lt;source&gt;</span><br /><span class="kw">strncat &lt;target&gt; &lt;source&gt; &lt;max_chars&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">strcat</span>
+and <span class="kw">strncat</span><span class="justify">
+copy the source string <span class="asm">&lt;source&gt;</span> <b>after</b> the target string <span class="asm">&lt;target&gt;</span>. Again, <span class="asm">strncat</span> will maximal copy <span class="asm">&lt;max_chars&gt;</span> characters.</span></p>
+</td></tr></table></div>
+</p>
+
+<div class="text-fsubt"><center>pointer.h</center></div>
+<p><span class="bzc">pointer.h</span> has a collection of functions basic pointer management. It makes it possible to work with pointers, altough it doesn't work very optimal.</p>
+<p>
+<div class="text-fsect">get</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p>&lt;variable&gt; = <span class="kw">get &lt;mem_loc&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">get</span>
+<span class="justify">
+returnes a <span class="asm">BYTE</span> value which is currently stored at the memory location <span class="asm">&lt;mem_loc&gt;</span>. <span class="asm">&lt;mem_loc&gt;</span> should be a variable of the <span class="asm">INT</span>-type, or a <span class="asm">STRING</span>. You can assign the location of a <span class="asm">STRING</span> or <span class="asm">MEM</span>-pointer to a variable using to normal <span class="asm">=</span> command:</span></p>
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<div class="kw">
+MEM 3 memptr<br />
+STRING str1 = &#034;Hello&#034;<br />
+INT pointer<br />
+<br />
+pointer = memptr<br />
+pointer = str1
+</div>
+</td></tr></table><p><span class="justify">
+or assign the address of an <span class="asm">BYTE</span> or <span class="asm">INT</span> using the special operator <span class="asm">&#038;</span>:</span></p>
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<div class="kw">
+BYTE bt<br />
+INT number<br />
+INT pointer<br />
+<br />
+pointer = &#038;number<br />
+pointer = &#038;bt
+</div>
+</td></tr></table><p><span class="justify">
+<b>Note:</b> when you use the special operator <span class="asm">&#038;</span>, you should <b>NOT</b> put any space or tab between the operator and the variable.
+</span></p>
+</td></tr></table></div>
+</p>
+
+<p>
+<div class="text-fsect">getint</div>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p>&lt;variable&gt; = <span class="kw">getint &lt;mem_loc&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">getint</span>
+<span class="justify">
+is the older brother of <span class="asm">get</span>, with the only difference <span class="asm">getint</span> reads and returns a two-byte-length <span class="asm">INT</span> value instead of a one-byte-length <span class="asm">BYTE</span> value.
+</span></p>
+</td></tr></table></div>
+</p>
+
+<p>
+<span class="text-fsect">put</span> and <span class="text-fsect">putint</span>
+</p>
+<p>
+<div align="justify">
+<table width="*" border="0" cellspacing="0"><tr><td colspan="2" class="ec">
+<p><span class="kw">Syntax:</span></p></td><td class="ec" colspan="2" ></td></tr>
+<tr><td colspan="2" class="ec">&nbsp;</td><td class="ec" colspan="2"><p><span class="kw">put &lt;location&gt; &lt;byte&gt;</span><br /><span class="kw">putint &lt;location&gt; &lt;int&gt;</span></p>
+</td></tr><tr><td></td><td colspan="2"><p><span class="kw">put</span>
+and <span class="kw">putint</span><span class="justify">
+write a value to a memory location <span class="asm">&lt;location&gt;</span>. Again: <span class="asm">put</span> writes a <span class="asm">BYTE</span>-value and <span class="asm">putint</span> an <span class="asm">INT</span>-value. This also means that is you use <span class="asm">putint</span>, you write to two bytes in the memory, you should remeber this and declare enough bytes when you use this function.
+</p>
+</td></tr></table></div>
+</p>
+<p>
+<div class="text-fsubt"><center>menu.h</center></div>
+<p><span class="bzc">menu.h</span> is a special programmers toy, it has a prewritten menu routine, which let you easily create and use a menu (up to 255 menu options!) in your programs. In the next releases we expect to have more of these header files, which also should have functions for dialogs and other GUI elements.</p>
+<p>
+<table width="*" border="0" cellspacing="0">
+
+<tr>
+      <td colspan="2"><span  class="text-fsect">menuoption</span> and <span  class="text-fsect">menu</span></td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="ec"><span class="kw">Syntax:</span></td>
+    </tr>
+    <tr>
+      <td class="ec">&nbsp;</td>
+      <td class="ec"><p class="com">// Declarations</p>
+        <p><span class="kw">MEM</span> &lt;menu_name&gt; &lt;length: (1 + # of menu options) * 2&gt;</p>
+        <p><span class="kw">menuoption</span> &lt;menu_name&gt;  0 &lt;string_menutitle&gt;</p>
+        <p><span class="kw">menuoption</span> &lt;menu_name&gt;  &lt;option_number&gt; &lt;string_name&gt;</p>
+	<p><span class="kw">menuoption</span> &lt;menu_name&gt;  &lt;option_number&gt; &lt;string_name&gt;</p>
+        <p>...</p>
+        <p class="com">// Call the menu</p>
+        <p>&lt;variable&gt; = <span class="kw">menu</span> &lt;menu_name&gt; &lt;# of menu options&gt;</p></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="kw"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><p>A menu first must have space allocated to it to store the locations of the various strings it uses. Those strings must be declared prior to their use in declaring menu options. A title is specified with &lt;option_number&gt; =  0; the first menu option is &lt;option_number&gt; = 1, and so forth.</P>
+      <p>The routine returns the chosen option number, or (if <span class="kw">CLEAR</span> was pressed, <span class="asm">$ffff</span> or, in decimal: <span class="asm">65535</span>).</p>
+      <p>See the example file <span class="asm">menu.bzc</span> for an exapmle of using menus.</p></td>
+    </tr>
+</table></div>
+</p>
+<p><div class="text-fsubt">
+Alternatives for the ASMLIB functions.</div></p>
+<p><a name="romc"></a><div class="text-fsect">
+Using the TI-OS Romcalls</div></P>
+<div class="justify"><p>
+The people who wrote the TI-OS created a lot of so called Romcalls. All of these romcalls can be used by programmers. Most of them require so called registers as argument. An example of this is the romcall <span class="asm">_DispHL</span>, which displays the register HL on the screen. The ASMLIB function <span class="asm">dispnum</span> (and also several others, even a part of <span class="asm">printf</span>) is based on this romcall. You can call it in the following way:</p>
+<p><div class="asm">
+HL = &lt;variable&gt;<BR />
+_DispHL
+</div>
+</p><p>
+There are a lot of these romcalls and they are all declared for you to use in the ASMLIB headers. However, because there are soo many of them, and it has not much to do with this compiler, I am not going to give you a list in this manual. But there are many people who have done this, google and a little time should help wonderfull.
+</p></div>
+<p><a name="create"></a><div class="text-fsect">
+Write your own functions
+</div></p>
+<div class="justify"><p>
+After a while you find out that there are some things you do many times. In that case it is a great help to put a set of instructions in a special routine, in other words: write your own functions. For information about writing your own functions, please look at the small <a href="tutorial.html">tutorial</a> which comes with this manual. You can also choose the put romcalls in your function. Here you see the official ASMLIB <span class="asm">dispnum</span> function as example:</p>
+<p>
+<div class="asm">
+FUNCTION dispnum ARG 1<BR />
+<BR />
+FSTART dispnum HL<BR />
+_DispHL<BR />
+FEND
+</div>
+</p><p>
+Because we directly put the given argument in <span class="asm">HL</span> we safe a lot of CPU cycles, and program space. There are only a few conditions you mus keep in mind:</p>
+<p>
+<ul><li>
+You can only use <span class="asm">HL</span> as <b>first</b> &#034;argument catcher&#034;.
+</li><li>
+You can <b>NEVER</b> use the folowing registers: <span class="asm">B</span>, <span class="asm">C</span> or <span class="asm">BC</span>.
+</li></ul>
+</p><p>
+Ofcourse you can also use the <span class="asm">ASM</span>...<span class="asm">ENDASM</span> command in functions.
+</p>
+<p>
+if you have many functions of your own, you can also put them in an include file of yourself. The only thing to do is create a file with the extension <span class="asm">.h</span>, and put all your functions in it. After you did this, you can use it by putting it in your source directory (folder), or you can put it in the special BZC Include File Folder, which can be at two places:</p>
+<p><ul><li>
+On Windows systems it's location is: <span class="asm">C:\WINDOWS\INCLUDE\BZC</span>
+</li><li>
+On Linux/Unix systems it's location is: <span class="asm">/usr/share/bzc/include</span>
+</li></ul>
+</p><p>
+If you think you made something which can also be helpfull for other programmers, please send it to: <a href="mailto:ideas@hofhom.nl?subject=bzc">ideas&#064;hofhom.nl</a> If we also think it is helpfull, we include it in the ASMLIB Library, and... your name shall be put on the credits list ofcourse.
+</p></div>
+</body>
+</html>

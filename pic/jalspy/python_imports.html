@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Python Imports</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="81" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>june 2007</span></p>
+<p><span class=rvts1>Python Imports</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <a href="punthoofd.gif"><img width=16 height=17 alt="" src="punthoofd.gif"></a>&nbsp; <a class=rvts4 href="../jalcc/jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>One of the most difficult subjects in Python is Imports. After working for a few months with Python, I still have the feeling I don't understand it fully. Imports determine for an important part the scope of variables, and as the scope of variables in JAL and Python is completely different, this can make it quit difficult.</p>
+<p><br></p>
+<p>For JALfs there is defined a global module (= file), called "JALfs_global.py". In this file globals are defined, which can be used to exchange information between other modules. These modules can communicate with each other, without knowing each others existence, as long as each them include the global module.</p>
+<p>A global in the global module is always defined as follows:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=202 height=43 alt="" hspace=1 vspace=1 src="python_imports_img1.png"></p>
+<p><br></p>
+<p>The global variable, in order to be fully global and simply to reach, must be defined as a mutually object. Because we always have simple variables, this leads automatically to the list-type. An important fact to notice is that, each time this module is imported, the global variable will be cleared (but maybe that might even depend on the way we perform import). In JALfs we advice an import method, which ensures the execution in the global module is only done once, this method is not an elegant Python way, and is strongly discouraged in Python.</p>
+<p><br></p>
+<p>Let's look at a simple module, that wants to add something to a JALfs global variable:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=254 height=92 alt="" hspace=1 vspace=1 src="python_imports_img3.png"></p>
+<p><br></p>
+<p>The statement at line 2 is where Python users begin to horror. With this statement it's possible to override almost everything inside Python, but as long as you keep the names of everything defined in JALfs_globals nor Python core names, there's no trouble at all. A more Pythonic way of importing is shown in the picture below, but for our purpose this is almost impossible, because we've to list all our "globals". So it's important to keep the global module as small as possible.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=348 height=97 alt="" hspace=1 vspace=1 src="python_imports_img4.png"></p>
+<p><br></p>
+<p>If we import the globals in one of the above ways, we also get these global variables in higher modules. So if we make a module M4, which imports M2, we don't need to explicitly load JALfs_globals in M4:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=264 height=89 alt="" hspace=1 vspace=1 src="python_imports_img6.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Don't understand</span></p>
+<p><br></p>
+<p>Sometimes it seems necessary to import the globel again in a class,</p>
+<p>but the case below works ok,</p>
+<p>so I don't understand this ????</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=363 height=192 alt="" hspace=1 vspace=1 src="python_imports_img7.png"></p>
+<p><br></p>
+
+</body></html>

@@ -1,0 +1,66 @@
+<HTML><HEAD><TITLE>Report Generation</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FEFFE6;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>september, 2005</SPAN></P>
+<P><SPAN class=RVTS1>Report Generation</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN>&nbsp;&nbsp;</P>
+<P>JALcc can generate a report, including cover and contents-list, from a number of single documents. The key-item of a report is a directory, with a number of known documents. Normally all subdocuments will be assumed in 1 directory and all the known documents in that directory together will form the report. Known documents are RVF,RTF,HTML,TXT. It's also possible to include dynamically generated documents by other programs (see dynamic pages).</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Start Report Generator</SPAN></P>
+<P>It's important to realize that the report is generated on the current active printer. You can set the active printer through file --&gt; printer setup, where also the papersize can be chozen. After the report is generated, the selected printer and papersize is displayed in the statusbar.</P>
+<P>After the cover page is selected (viewed), the report generator can be started, by ...</P>
+<P>JALcc will first scan the directory (where the cover page is located), to look for missing links. Missing links will be added at the bottom of the cover page, after a break (for html-files the title is inserted as the text of the link). If missing links were found, JALcc stops, and displays a message so you can rearrange the added links.</P>
+<P>After (re-)starting the report generator, and no missing links are found, the generation of the report will start and will continue until the break. So all the links after the break are ignored. The result will be shown in the viewer/editor, after which you print the result (storing is not meaningfull, because pagebreaks are lost in html files). It's possible to add manually links to pages from other directories into the cover page.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Cover Page</SPAN></P>
+<P>The cover page is all the contents of the active page, until the first link. A pagebreak will be inserted automatically and links will be removed in the final report. The cover page may contain links to all files, but doesn't need to have these links. JALcc can generate all the links for you. The cover page can have also links to pages in other directories. The cover page is printed without header and footer. Below is an example of a cover page. The first non-empty line in the cover page is used as a pageheader.</P>
+<P>&nbsp;&nbsp;</P>
+<P class=RVPS2>&nbsp;<IMG width=340 height=383 src="punthoofd_index_img1.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Dynamic Pages</SPAN></P>
+<P>By inserting a link to an executable program, it's possible to dynamically generate parts of the report by other programs. When the report generator detects a link to an executable, it pauses and starts the executable program, waits till the executable has finished his task and then continues. The report generator tries to read the file created by the executable and will incorporate the contents in the report.</P>
+<P>The link should look like</P>
+<P>&nbsp;&nbsp;&nbsp; program.exe&nbsp; &lt;par1&gt;&nbsp; &lt;par2&gt;&nbsp; &lt;par3&gt;&nbsp; ...</P>
+<P>par1 = the file where the executable program should dump the contents</P>
+<P>par2, etc&nbsp; are extra parameters to tell the executable what and how to do his task (of course these parameters are specific to the executable.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Saving the Report</SPAN></P>
+<P>RTF = 5 MB</P>
+<P>PDF = 140 kB</P>
+<P>HTML = no page breaks</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS1>Scripting</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Report Scripting</SPAN></P>
+<P>TextStyle=11 (formerly unicode) is reserved for my personal scripting. It has no sense for others, and is therefor also described in Dutch !! Besides in this version scripting is disabled.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>%-Variabelen</SPAN></P>
+<P>Een aantal parameters worden normaliter gezet door TO. Om deze ook in PH te kunnen definieren, is de %-variabele toegevoegd. De %-variabele wordt in de TO genegeerd (of preciezer, PH_script bevat de boolean "punthoofd_substitutes", die true gezet moet worden om de regels met %-variabelen te interpreteren.</P>
+<P>Momenteel zijn de volgende %-variabelen geïmplementeerd:</P>
+<P>%Patient</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Systeem Variabelen</SPAN></P>
+<P>Deze variabelen kunnen in het rapport van een waarde worden voorzien.</P>
+<P>Momenteel zijn de volgende systeem-variabelen geïmplementeerd:</P>
+<P>Discipline</P>
+<P>Vraagstelling</P>
+</BODY></HTML>

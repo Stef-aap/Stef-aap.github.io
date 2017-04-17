@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JALsPy source files</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="21" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>june 2007</span></p>
+<p><span class=rvts1>JALsPy&nbsp;&nbsp;&nbsp; Source Files</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <a href="punthoofd.gif"><img width=16 height=17 alt="" src="punthoofd.gif"></a>&nbsp; <a class=rvts4 href="../jalcc/jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Below are a number of intermediate tests.</p>
+<p>If you run the tests, please specify the following information (if available)</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>operating system </li>
+<li>python version </li>
+<li>wxPython version </li>
+<li>any extra files that needed to be installed </li>
+</ul>
+<p><br></p>
+<p><span class=rvts2>Requirements</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>OS: Windows / Linux / .... </li>
+<li>Python version &gt; 2.4 </li>
+<li>wxPython, version &gt; 2.8.1.1&nbsp;&nbsp;&nbsp; (2.8.4.0) </li>
+</ul>
+<p><br></p>
+<p><span class=rvts2>Test 3</span></p>
+<p>This test concerns the hardware, which is fairly complete now.</p>
+<p><br></p>
+<p><span class=rvts2>Test 2</span></p>
+<p>This is a test of the properties editor. From some discussions in the wxPython newsgroup, it seems there might be a&nbsp; problem with user interaction of the properties table on some OS.</p>
+<p><br></p>
+<p>RUN device_LED.py, right click on a LED, to edit it's properties</p>
+<p><br></p>
+<p>The following things should be tested explictly: </p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>in color dialog, if custom colors are shared over the devices: add a custom color in one LED, check if this custom color is also visible in the other LED </li>
+<li>checkbox in properties form: does it react on the first click, does the LED change it's color </li>
+<li>inifile storage: after changing some of the properties of the LEDs, close the program and restart it again: are the new settings activated ? </li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>Tested on:</span></p>
+<p>(SM) WinXP-Pro-SP2, Python 2.4 (Enthought edition), wxPython 2.8.4.0</p>
+<p>(DD) WinXP-Pro-SP1, Python 2.4.2, wxPython 2.8.4.0.</p>
+<p>(SL) Ubuntu Feisty, Python 2.5.1, wxPython 2.8.1.1 </p>
+<p><br></p>
+<p>One of the problems seen under winXP is the modality of the forms. In order to use application wide the same colors, there should be only one color dialog instance and thus this color dialog must have the mainform as his parent. The wxPython guru Robin Dunn, is right now looking at this problem. But if we compare the color dialogs of Windows and Unbuntu, it might be better if we forget about the application wide custom colors, because Ubuntu doesn't have them. </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=453 height=324 alt="" src="jalspy_files_img7.png">Windows XP</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=555 height=336 alt="" src="jalspy_files_img9.png">Ubuntu Feisty</p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts8><br></span></p>
+<p><span class=rvts2>Test 1</span></p>
+<p>There are 2 files to run, in the following order</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>JALsPy_translate , this program reads the source file JAL\jal_try_1.jal and generates the python file JAL_simulation_file.py </li>
+<li>JALsPy , this is the real simulator and should act as in the movie </li>
+</ul>
+<p><br></p>
+<p><span class=rvts10>Tested on:</span></p>
+<p>WinXP-SP2, Python 2.4 (Enthought edition), wxPython 2.8.4.0</p>
+<p>NOT OK:&nbsp; ??, wxPython V.2.6.3.0.</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=258 height=408 alt="" src="jalspy_files_img5.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=227 height=158 alt="" src="jalspy_files_img4.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts12>JALsPy</span></p>
+<p><span class=rvts12>&nbsp; |-- JALsPy_main.Create_MainApplication</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- JAL_simulation_file</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- ????</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- devices_LED</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- device</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- rapid_prototyping_board_16F877</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- (JALsPy_main.Container) </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- T6963c</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- device</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- device_BUTTONS</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- device</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- JALsPy_globals</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- serial_hardware </span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- JALsPy_globals</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- (JALsPy_main.Main_Form)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;=== ???</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- serial_hardware_fifo</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- serial_hardware</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- device</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- rapid_prototyping_board_16F877</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- JALsPy_globals</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- pic_general</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- delay_any_mc</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- (JALsPy_main.Python_Delay_ms)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;=== ???</span></p>
+<p><span class=rvts12>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span></p>
+<p><span class=rvts12><br></span></p>
+<p><span class=rvts12><br></span></p>
+
+</body></html>

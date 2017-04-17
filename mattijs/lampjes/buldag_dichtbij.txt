@@ -1,0 +1,46 @@
+[Design LCD Chars]
+left=79
+top=16
+width=826
+height=577
+datafile=D:\data_www\mattijs\lampjes\buldag_dichtbij.txt
+Spin_rowcount=8
+Spin_colcount=66
+RG_shape=0
+Panel_background=0
+Panel_grid=15780518
+Panel_LED1=65535
+panel_LED2=65280
+panel_LED3=16711680
+cb_led2=0
+cb_LED3=0
+Edit_prefix=  pragma  eedata  X
+Edit_postfix=X
+Edit_separator=, X
+Edit_comment_tag=;X
+spin_bytecount=8
+cb_invert=1
+cb_upside_down=0
+trackbar_dim=97
+TrackBar_timer=20
+
+[LED data]
+X1=17
+X1_0=1
+X1_1=61
+X1_2=227
+X1_3=106
+X1_4=98
+X1_5=98
+X1_6=106
+X1_7=227
+X1_8=61
+X1_9=125
+X1_10=188
+X1_11=60
+X1_12=188
+X1_13=120
+X1_14=16
+X1_15=16
+X1_16=0
+

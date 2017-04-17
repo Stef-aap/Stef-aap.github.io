@@ -1,0 +1,189 @@
+--
+-- file      : jseven.jal
+-- author    : Wouter van Ooijen
+-- date      : 17-DEC-1998
+-- purpose   : seven segment constants and conversions
+-- requires  : -
+--
+-- Copyright (C) 1998 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+
+-- include the required libraries
+include jsevenp
+
+
+-- names for the various patterns
+const byte seven_value_space  
+   = 0
+const byte seven_value_0
+   = seven_segment_a   
+   + seven_segment_b  
+   + seven_segment_c  
+   + seven_segment_d
+   + seven_segment_e
+   + seven_segment_f
+const byte seven_value_1
+   = seven_segment_b  
+   + seven_segment_c  
+const byte seven_value_2
+   = seven_segment_a   
+   + seven_segment_b  
+   + seven_segment_d
+   + seven_segment_e
+   + seven_segment_g
+const byte seven_value_3
+   = seven_segment_a   
+   + seven_segment_b  
+   + seven_segment_c  
+   + seven_segment_d
+   + seven_segment_g
+const byte seven_value_4
+   = seven_segment_b  
+   + seven_segment_c  
+   + seven_segment_f
+   + seven_segment_g
+const byte seven_value_5
+   = seven_segment_a   
+   + seven_segment_c  
+   + seven_segment_d
+   + seven_segment_f
+   + seven_segment_g
+const byte seven_value_6
+   = seven_segment_a   
+   + seven_segment_c  
+   + seven_segment_d
+   + seven_segment_e
+   + seven_segment_f
+   + seven_segment_g
+const byte seven_value_7
+   = seven_segment_a   
+   + seven_segment_b  
+   + seven_segment_c  
+const byte seven_value_8
+   = seven_segment_a   
+   + seven_segment_b  
+   + seven_segment_c  
+   + seven_segment_d
+   + seven_segment_e
+   + seven_segment_f
+   + seven_segment_g
+const byte seven_value_9
+   = seven_segment_a   
+   + seven_segment_b  
+   + seven_segment_c  
+   + seven_segment_d
+   + seven_segment_f
+   + seven_segment_g
+const byte seven_value_a
+   = seven_segment_a   
+   + seven_segment_b  
+   + seven_segment_c  
+   + seven_segment_e
+   + seven_segment_f
+   + seven_segment_g
+const byte seven_value_b
+   = seven_segment_c  
+   + seven_segment_d
+   + seven_segment_e
+   + seven_segment_f
+   + seven_segment_g
+const byte seven_value_c
+   = seven_segment_a   
+   + seven_segment_d
+   + seven_segment_e
+   + seven_segment_f
+const byte seven_value_d
+   = seven_segment_b  
+   + seven_segment_c  
+   + seven_segment_d
+   + seven_segment_e
+   + seven_segment_g
+const byte seven_value_e
+   = seven_segment_a   
+   + seven_segment_d
+   + seven_segment_e
+   + seven_segment_f
+   + seven_segment_g
+const byte seven_value_f
+   = seven_segment_a   
+   + seven_segment_e
+   + seven_segment_f  
+   + seven_segment_g
+   
+const byte seven_letter_c
+   = seven_segment_a   
+   + seven_segment_f
+   + seven_segment_e  
+   + seven_segment_d
+const byte seven_letter_s
+   = seven_segment_a   
+   + seven_segment_f
+   + seven_segment_g  
+   + seven_segment_c
+   + seven_segment_d
+
+-- internal routine, returns code corresponding to value in w (0..15)
+procedure _seven_value_table is
+   pragma jump_table
+   if target_cpu == pic_16 then
+      var volatile byte _WREG at 0xFE8
+      var volatile byte _PC at 0xFF9    
+      var volatile byte _PCLATH at 0xFFA
+      assembler                
+         clrf _PCLATH
+         rlf _WREG, f
+         addlw 2
+         addwf _PC, w
+         movwf _PC
+      end assembler
+   else
+      assembler
+         addwf 2, f
+      end assembler
+   end if   
+   assembler
+      retlw seven_value_0
+      retlw seven_value_1
+      retlw seven_value_2
+      retlw seven_value_3
+      retlw seven_value_4
+      retlw seven_value_5
+      retlw seven_value_6
+      retlw seven_value_7
+      retlw seven_value_8
+      retlw seven_value_9
+      retlw seven_value_a
+      retlw seven_value_b
+      retlw seven_value_c
+      retlw seven_value_d
+      retlw seven_value_e
+      retlw seven_value_f
+   end assembler
+end procedure
+
+-- return seven segment value corresponding to lower nibble of x
+function seven_from_digit( byte in x ) return byte is
+   var byte s
+   assembler
+      bank  movfw x
+            andlw 0x0F
+      page  call _seven_value_table
+      bank  movwf s
+   end assembler
+   return s
+end function

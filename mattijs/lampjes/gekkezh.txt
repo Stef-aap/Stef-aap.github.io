@@ -1,0 +1,43 @@
+[Design LCD Chars]
+left=223
+top=128
+width=696
+height=556
+datafile=D:\data_www\mattijs\lampjes\gekkeZH.txt
+Spin_rowcount=8
+Spin_colcount=66
+RG_shape=0
+Panel_background=0
+Panel_grid=15780518
+Panel_LED1=65535
+panel_LED2=65280
+panel_LED3=16711680
+cb_led2=0
+cb_LED3=0
+Edit_prefix=retlw  X
+Edit_postfix=X
+Edit_separator=, X
+Edit_comment_tag=;X
+spin_bytecount=1
+cb_invert=1
+cb_upside_down=0
+trackbar_dim=97
+TrackBar_timer=20
+
+[LED data]
+X1=14
+X1_0=120
+X1_1=140
+X1_2=171
+X1_3=171
+X1_4=138
+X1_5=115
+X1_6=179
+X1_7=252
+X1_8=120
+X1_9=56
+X1_10=48
+X1_11=96
+X1_12=96
+X1_13=0
+

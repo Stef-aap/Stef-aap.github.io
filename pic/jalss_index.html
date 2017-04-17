@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="keywords" content="Lego; Mindstorms; PIC; JAL; JALcc; Robotics">
+  <meta name="author" content="Stef Mientki">
+  <title>Pic_header</title>
+  <link rel="STYLESHEET" type="text/css" href="styles.txt" title="none">
+
+<style>
+a {font-family:verdana;font-size:12px}
+.topic {font-size:12px;color:#005500;margin-bottom:2px;cursor:pointer}
+.level {margin-left:10px}
+div {margin-bottom:4px}
+img {margin-right:2px}
+</style>
+
+<script language="JavaScript">
+  function Toggle(node) {
+	// Unfold the branch if it isn't visible
+	  if (node.nextSibling.style.display == 'none')	{
+ 		// Change the image (if there is an image)
+		  if (node.childNodes.length > 0) {
+			  if (node.childNodes.item(0).tagname == "IMG") {
+				  node.childNodes.item(0).src = "minus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = '';
+	  }
+	  // Collapse the branch if it IS visible
+	  else {
+		// Change the image (if there is an image)
+		  if (node.childNodes.length > 0)	{
+        if (node.childNodes.item(0).tagname == "IMG") {
+   				node.childNodes.item(0).src = "plus.gif";
+			  }
+		  }
+    	node.nextSibling.style.display = 'none';
+	  }
+  }
+
+  function collapse(pId) {
+  var node
+    node=document.getElementById(pId)
+    node.childNodes.item(0).src = "plus.gif"
+    node.nextSibling.style.display = 'none'
+
+  }
+
+  function main() {
+    collapse("ID1") 
+    collapse("ID2")
+    collapse("ID3")
+    collapse("ID4")
+    collapse("ID5")
+    collapse("ID6")
+    collapse("ID7")
+    collapse("ID8")
+    collapse("ID9")
+    collapse("ID10")
+    collapse("ID11")
+    collapse("ID12")
+    collapse("ID13")
+    collapse("ID14")
+    collapse("ID15")
+    collapse("ID16")
+    collapse("ID17")
+    collapse("ID18")
+    collapse("ID19")
+    collapse("ID20")
+    collapse("ID21")
+    collapse("ID22")
+    collapse("ID23")
+    collapse("ID24")
+    collapse("ID25")
+    collapse("ID26")
+    collapse("ID27")
+    collapse("ID28")
+    collapse("ID29")
+    collapse("ID30")
+    collapse("ID31")
+    collapse("ID32")
+    collapse("ID33")
+    collapse("ID34")
+    collapse("ID35")
+    collapse("ID36")
+    collapse("ID37")
+    collapse("ID38")
+    collapse("ID39")
+    collapse("ID40")
+  }
+</script>
+
+
+</head>
+<body>
+
+<body text="#000000" vlink="#5584aa" link="#006699" bgcolor="white" onload="main()">
+
+<table cellspacing="0" cellpadding="15" width="100%" height="88%">
+<tbody><tr><td class="bodyline" bgcolor="#ffffff" valign="top">
+
+<div><img src="dot.gif"><a href="jalss/jalss.html" target="a">JALss overview</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_history.html" target="a">History & Downloads</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_scope.html" target="a">Scope</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_connections.html" target="a">Connections</a></div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID0"><img src="minus.gif">JALss Devices</a><div class="level">
+<div><img src="dot.gif"><a href="jalss/jalss_devices_pic.html" target="a">PIC devices</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_keys.html" target="a">Keyboard & Switches</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_communication.html" target="a">Communication</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_displays.html" target="a">Displays</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_i2c_memory.html" target="a">I2C memory</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_motors.html" target="a">Stepper Motors</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_ad_da.html" target="a">AD/DA converters</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_analog.html" target="a">Analog Devices</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_counters.html" target="a">Counters / Dividers</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_file.html" target="a">File Data</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_generators.html" target="a">Generators</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_rcx_devices.html" target="a">RCX device</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_rcx_car_lr1.html" target="a">RCX car with left-right motor</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_rcx_amp1.html" target="a">RCX amplifier</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_conversion.html" target="a">Type Conversion</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_photospectrometry.html" target="a">PhotoSpectroMetry</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_spi_timing.html" target="a">SPI timing</a></div>
+</div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID1"><img src="minus.gif">Design Devices</a><div class="level">
+<div><img src="dot.gif"><a href="jalss/jalss_design.html" target="a">Design Devices</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices__overview.html" target="a">Device Registration</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_building_devices.html" target="a">Building Devices</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_building_a_simple-dll-device.html" target="a">Building simple DLL device</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_building_a_full-dll-device.html" target="a">Building full DLL device</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_exmples.html" target="a">DLL examples</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_devices_dll_example.html" target="a">Example Full DLL</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_types_and_classes.html" target="a">JALss, types and classes</a></div>
+</div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID2"><img src="minus.gif">Demos</a><div class="level">
+<div><img src="dot.gif"><a href="jalss/jalss_jal_demo.html" target="a">Demos</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_rcx_demo.html" target="a">RCX demo</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_xcsb_demo1.html" target="a">JALss and XCSB</a></div>
+<div><img src="dot.gif"><a href="jalss/jalss_jal_demo6.html" target="a">Example 24 bit math</a></div>
+</div>
+<div></div>
+
+<!---- New Tree --------->
+<a onclick="Toggle(this)" class="topic" id="ID3"><img src="minus.gif">Other Simulators</a><div class="level">
+<div><img src="dot.gif"><a href="http://perso.wanadoo.fr/udev/" target="a">uDev</a></div>
+<div><img src="dot.gif"><a href="http://www.dattalo.com/gnupic/gpsim.html" target="a">GPSIM</a></div>
+<div><img src="dot.gif"><a href="http://www.abo.fi/%7eadoktar/picdev/web.php?page=main" target="a">PIC Dev Studio</a></div>
+<div><img src="dot.gif"><a href="http://www.softronix.com/" target="a">MMLogic</a></div>
+<div><img src="dot.gif"><a href="http://www.feertech.com/" target="a">miSim</a></div>
+<div><img src="dot.gif"><a href="http://www.oopic.com/" target="a">Oopic</a></div>
+<div><img src="dot.gif"><a href="http://www.virtualbreadboard.com/" target="a">VirtualBreadboard</a></div>
+<div><img src="dot.gif"><a href="http://www.beigebag.com/" target="a">BeigeBack</a></div>
+<div><img src="dot.gif"><a href="http://www.xcprod.com/" target="a">XCprod</a></div>
+<div><img src="dot.gif"><a href="http://www.labcenter.co.uk/" target="a">Proteus</a></div>
+<div><img src="dot.gif"><a href="http://www.picemulator.com/" target="a">PicEMU</a></div>
+<div><img src="dot.gif"><a href="http://ems-java.sourceforge.net./" target="a">SourceForge</a></div>
+<div><img src="dot.gif"><a href="http://www.htsoft.com/products/hitide/" target="a">Hi-Tide</a></div>
+<div><img src="dot.gif"><a href="http://www.beotel.yu/%7eoshon/index.html" target="a">PIC simulator (Soso)</a></div>
+<div><img src="dot.gif"><a href="http://www.microchip.com/1010/pline/tools/picmicro/devenv/mplabi/index.htm" target="a">MPlab</a></div>
+<div><img src="dot.gif"><a href="http://www.stateworks.org/" target="a">SWedit</a></div>
+<div><img src="dot.gif"><a href="http://www.vmdesign.com/" target="a">UMPS</a></div>
+</div>
+<div></div>
+
+</td></tr><tr></tr>
+</tbody></table>
+<form name=search method="post" target="a" action=search.php>
+  <input name=query length=40
+    <?if (isset($query))
+     echo("value=\"".htmlspecialchars($query)."\"");?>
+  <input type=submit value='search'><br>
+  <input type=radio checked=true name=m value=and>All words<br>
+  <input type=radio name=m value=or>At least one word
+ </input>
+</form>
+</body></html>

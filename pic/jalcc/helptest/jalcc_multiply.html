@@ -1,0 +1,130 @@
+<HTML><HEAD><TITLE>Multiply by fractional constant</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>JALcc, Multiply by a Real Constant</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>Example: scale an input value (fast) by multiplying it with some constant factor, e.g.&nbsp;<SPAN class=RVTS3>factor=3.6.</SPAN></P>
+<P>Now for the optimal calculation (in the sense of speed) we need to know</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>The largest input value, or the maximum number of bits of the input value, e.g.&nbsp;<SPAN class=RVTS3>Nbits_input = 10</SPAN></LI>
+<LI>The maximum available bits for calculations, e.g.&nbsp;<SPAN class=RVTS3>Nbits_available = 16</SPAN></LI>
+<LI>If both add and subtract routines are available&nbsp;</LI>
+<LI>The accuracy needed/wished&nbsp;</LI>
+</UL>
+<P>This program generates a number of optimal polynoms, and calculates the total costs of each polynom implementation.</P>
+<P>Optimalization is done by adding zeroes, replacing more than 2 consecutive ones (Golovchenko) and by final rounding. Optimalization is not done on the factor but on the results, e.g. with brute-force all possible input values are checked and from there the maximum error is calculated.</P>
+<P>The program is available as standalone program and is incorporated in JALcc. In JALcc the functionality is available both as macro and as a wizard. (The standalone version can be downloaded as a&nbsp;<A class=RVTS4 href="../download/const_multiply.zip">zip file</A>)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Macro MUL_CONST</SPAN></P>
+<P>todo...</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Wizard</SPAN></P>
+<P>(The stand alone program is equal to the JALcc wizard)&nbsp;&nbsp;</P>
+<P>The factor can be applied either as a conversion from input to output, or by the factor itself.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=168 height=76 src="jalcc_multiply_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Next thing todo is to define the maximum input value. This is not specified in bits, because you'll often not using the whole range. Because the optimal polynome is calculated on the result (and not on the polynom), a better optimum may be found with lower maximum input value.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=161 height=33 src="jalcc_multiply_img6.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The availbale bits determine (together with the maximum input value) determines the maximum polynom length and the maximum number of zeroes to be added.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=80 height=91 src="jalcc_multiply_img7.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The costs are definied relative to a shift operation. The cost-factors will depend on the routines used for adding/subtracting and shifting. For the library byte3_math the following costs are estimated:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=83 height=88 src="jalcc_multiply_img8.gif"></P>
+<P>The costs for an increment operation (used in rounding) are assumed to be equal to a shift operation.</P>
+<P>The desired maximum error should be always greater than 0.5 or if the factor is greater then 1 it should be at least 0.5*factor. These figures are based on using the complete input range (see error discussion below).</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=160 height=32 src="jalcc_multiply_img9.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Normally the program searches for increasing accuracy and decreasing costs, starting at a low value for the polynom length and no extra zeroes. By checking the checkbox below it's possible show all the possible polynoms with their maximum error and cost factor.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=153 height=25 src="jalcc_multiply_img10.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>Starting the search for the optimal polynom can be done by pressing</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=155 height=27 src="jalcc_multiply_img11.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>And will result in the following output</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=585 height=206 src="jalcc_multiply_img12.gif"></P>
+<P>ID-Nr = is meant to select for which polynoms the code should be generated</P>
+<P>MaxErr = the absolute maximum error that occured over the whole specified input range</P>
+<P>Costs = the relative total costs of all operation</P>
+<P>Nadd = number of add / subtract (negative) operations</P>
+<P>Nshift = the total number of shifts to be performed</P>
+<P>Polynom_positive = the polynom of add-operations</P>
+<P>Polynom_negative = the polynom of subtract-operations</P>
+<P>&nbsp;&nbsp;</P>
+<P>With these figures, I should either choose for</P>
+<P>&nbsp; - ID-Nr = 2, very low cost (5) , but large error (1.48)</P>
+<P>or go for the most accurate</P>
+<P>&nbsp; - ID-Nr = 6, moderate costs (16.5), but the smallest error (-0.6)</P>
+<P>&nbsp;&nbsp;</P>
+<P>Let's say we choose ID-Nr = 6</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=162 height=46 src="jalcc_multiply_img13.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>By pressing the button "Generate Code", we get the following JAL code:</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=438 height=290 src="jalcc_multiply_img14.gif"></P>
+<P>If you're not using the lib Byte3_Math, you easily derive your own calls from the comment lines.</P>
+<P>(The memo is fully editable)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>The other buttons</SPAN></P>
+<P>PRINT = print the memo</P>
+<P>CLEAR = clear the memo</P>
+<P>CLIPBOARD = copy the memo to the clipboard (with ctrl-C you can also copy selected parts)</P>
+<P>OK+INSERT = JALcc macro substitution</P>
+<P>CLOSE = close the program (last settings will be remembered)</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<HR noshade size=1>
+<P><SPAN class=RVTS2>Information below is only for background information&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Minimal error</SPAN></P>
+<P>The minimal theoretical output-error that can be achieved (with a unfinite polynom length) is 0.5.</P>
+<P>After all, considering all possible input values, there will be always results like</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 23.5000000001....</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 23.4999999999....</P>
+<P>For a factor larger than 1, another way of looking at the maximum permissable error should be used: Using a factor of 3.6 will generates output 0,4,7,11,... So it doesn't make sense to hunt for an maximum error smaller than 1.5. Or in general speaking, if factor &gt;1 then an it makes sense to achieve a maximum error smaller than 0.5*factor.&nbsp;</P>
+<P>Depending on the factor, these would be reasonable maximum errors</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; factor = 3.2&nbsp;&nbsp;&nbsp;&nbsp; --&gt; maximum error to achieve = 1.6</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; factor = 0.3&nbsp;&nbsp;&nbsp;&nbsp; --&gt; maximum error to achieve = 0.6</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; factor = 0.03&nbsp;&nbsp; --&gt; maximum error to achieve = 0.52</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Polynom</SPAN></P>
+<P>The maximum length of the polynom is equal to the maximum number of input-bits, i.e. Nbits_input. Higher order terms will always result in a zero addition or subtraction.</P>
+<P>We can calculate one extra polynom term, to round the factor in a correct way. So if this extra term is "1" we add +1 to our polynom otherwise we do nothing. (Comparable with rounding 0.5 and higher in decimal arithmic.) Using the formula given below, rounding is done automatic.</P>
+<P>We can get a higher accuracy, if we use a higher order polynom and shift the input value to the left, so the polynom and the maximum input value both occupies the same number of bits.</P>
+<P>&nbsp;&nbsp;</P>
+<P>First the maximum polynom length should be determined. In general the length of the polynom doesn't need to be larger than the number of bits of the maximum input value.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>Nbits_polynom = Nbits_Input</SPAN></P>
+<P>But for using terms of the polynom, we need to be able to shift the input to the left by the length of the polynom. In general this is a limiting factor, and therefor we split the available space equally between polynom (may have 1 more) and shift operation.</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>if Nbits_polynom &gt; (Nbits_available - Nbits_input)</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>then Nbits_polynom = (Nbits_available + 1) div 2</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>Calculating the polynom on a normal computer is very simple (even the rounding is correct !!)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>polynom_raw:=round((1 shl (Nbits_input-Nshl))*factor);</SPAN></P>
+<P>In this formula Nshl = the number of bits before the decimal</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class=RVTS3>Nshl:=round(log2(trunc(factor)));</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>Now it's time to parse the string and apply a modified&nbsp;<A class=RVTS4 href="http://www.piclist.com/techref/method/math/divconst.htm">Golovchenko</A>'s method: look for 2 or more consecutive "1". (2 or less "1" will not reduce the number of additions/subtractions and will only replace addition by subtraction, which is often more complicated.)&nbsp;</P>
+<P>Although there's one exception: "...011" can be optimized by "...100", that's because the resulting subtraction falls outside the range and so it doesn't require any calculation. To keep the algoritme simple, we temporary shift the polynom_raw to the left by 1 place and add 1. After replacing all "111" we shift everything back 1 place.</P>
+<P>Now we have all the polynoms correct</P>
+<P><SPAN class=RVTS3>&nbsp; -- Polynom length = 8</SPAN></P>
+<P><SPAN class=RVTS3>&nbsp; -- OnlyAdd&nbsp; polynom = 0000_0000_1110_0110</SPAN></P>
+<P><SPAN class=RVTS3>&nbsp; -- Positive polynom = 0000_0001_0000_0110</SPAN></P>
+<P><SPAN class=RVTS3>&nbsp; -- Negative polynom = 0000_0000_0010_0000</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>Now we can shorten the polynom if they end on zeroes. This can save a few shift operations. Like in the above example, it will save 1 shift at the start of the calculation and 1 shift at the end.</P>
+<P><SPAN class=RVTS3>&nbsp; -- Optimized Polynom length = 7</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

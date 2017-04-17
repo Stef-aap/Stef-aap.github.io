@@ -1,0 +1,1105 @@
+-- --------------------------------------------------------------------
+-- file      : jpicm.jal
+-- author    : Wouter van Ooijen
+-- date      : 02-APR-2000
+-- purpose   : access to PIC peripherals
+-- requires  : -
+--
+-- Copyright (C) 1998, 2000, 2002 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+--
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--             
+-- 07-may-2002 added some declarations from serial 
+-- 23-oct-2000 adapted by V.Surducan for tmr1 and uart
+-- 10-jun-2000 adapted by V.Surducan for ad-f877 and ccp1
+-- 02-APR-2000 adapted for 12c509a and 16F877
+-- 17-DEC-1998 ???
+-- --------------------------------------------------------------------
+
+
+-- --------------------------------------------------------------------
+-- some special function registers and bits within these registers
+-- --------------------------------------------------------------------
+
+var volatile byte indf         at  0
+var volatile byte tmr0         at  1
+var volatile byte pcl          at  2
+var volatile byte status       at  3
+var volatile byte fsr          at  4
+var volatile byte port_a       at  5
+var volatile byte port_b       at  6
+var volatile byte port_c       at  7
+var volatile byte port_d       at  8
+var volatile byte port_e       at  9
+var volatile byte x84_eedata   at  8
+var volatile byte x84_eeadr    at  9
+var volatile byte pclath       at 10
+var volatile byte intcon       at 11
+
+var volatile byte f877_tmr1l   at 0x0E
+var volatile byte f877_tmr1h   at 0x0F
+var volatile byte f877_t1con   at 0x10
+var volatile byte f877_t2con   at 0x12
+var volatile byte f877_ccpr1l  at 0x15
+var volatile byte f877_ccpr1h  at 0x16
+var volatile byte f877_ccp1con at 0x17
+
+var volatile byte f877_pir1    at 0x0C
+var volatile byte f877_pir2    at 0x0D
+var volatile byte f877_pie1    at 0x8C
+var volatile byte f877_adcon1  at 0x9F
+var volatile byte f877_adcon0  at 0x1F
+var volatile byte f877_pr2     at 0x92
+var volatile byte f877_adresl  at 0x9E
+var volatile byte f877_adresh  at 0x1E
+
+var volatile byte f877_eeadr   at 0x10D
+var volatile byte f877_eedath  at 0x10E
+var volatile byte f877_eeadrh  at 0x10F
+var volatile byte f877_eedata  at 0x10C
+
+var volatile byte f877_eecon1  at 0x18C
+var volatile byte f877_eecon2  at 0x18D
+
+var volatile byte f877_rcsta   at 0x18
+var volatile byte f877_txsta   at 0x98
+var volatile byte f877_spbrg   at 0x99
+var volatile byte f877_txreg   at 0x19
+var volatile byte f877_rcreg   at 0x1A
+
+var volatile byte f628_EEDATA  at 0x9A
+var volatile byte f628_EEADR 	 at 0x9B
+var volatile byte f628_EECON1  at 0x9C
+var volatile byte f628_EECON2  at 0x9D
+
+-- pseudo-variable in bank 1
+var volatile byte option
+
+var volatile bit  pin_a0 at port_a : 0
+var volatile bit  pin_a1 at port_a : 1
+var volatile bit  pin_a2 at port_a : 2
+var volatile bit  pin_a3 at port_a : 3
+var volatile bit  pin_a4 at port_a : 4
+var volatile bit  pin_a5 at port_a : 5
+var volatile bit  pin_a6 at port_a : 6
+var volatile bit  pin_a7 at port_a : 7
+
+var volatile bit  pin_b0 at port_b : 0
+var volatile bit  pin_b1 at port_b : 1
+var volatile bit  pin_b2 at port_b : 2
+var volatile bit  pin_b3 at port_b : 3
+var volatile bit  pin_b4 at port_b : 4
+var volatile bit  pin_b5 at port_b : 5
+var volatile bit  pin_b6 at port_b : 6
+var volatile bit  pin_b7 at port_b : 7
+
+var volatile bit  pin_c0 at port_c : 0
+var volatile bit  pin_c1 at port_c : 1
+var volatile bit  pin_c2 at port_c : 2
+var volatile bit  pin_c3 at port_c : 3
+var volatile bit  pin_c4 at port_c : 4
+var volatile bit  pin_c5 at port_c : 5
+var volatile bit  pin_c6 at port_c : 6
+var volatile bit  pin_c7 at port_c : 7
+
+var volatile bit  pin_d0 at port_d : 0
+var volatile bit  pin_d1 at port_d : 1
+var volatile bit  pin_d2 at port_d : 2
+var volatile bit  pin_d3 at port_d : 3
+var volatile bit  pin_d4 at port_d : 4
+var volatile bit  pin_d5 at port_d : 5
+var volatile bit  pin_d6 at port_d : 6
+var volatile bit  pin_d7 at port_d : 7
+
+var volatile bit  pin_e0 at port_e : 0
+var volatile bit  pin_e1 at port_e : 1
+var volatile bit  pin_e2 at port_e : 2
+
+-- status associated bits
+var volatile bit  status_c    at status : 0
+var volatile bit  status_dc   at status : 1
+var volatile bit  status_z    at status : 2
+var volatile bit  status_pd   at status : 3
+var volatile bit  status_to   at status : 4
+var volatile bit  status_rp0  at status : 5
+var volatile bit  status_rp1  at status : 6
+var volatile bit  status_irp  at status : 7
+
+-- intcon associated bits
+var volatile bit  intcon_gie  at intcon : 7
+var volatile bit  intcon_eeie at intcon : 6
+var volatile bit  intcon_peie at intcon : 6
+var volatile bit  intcon_t0ie at intcon : 5
+var volatile bit  intcon_inte at intcon : 4
+var volatile bit  intcon_rbie at intcon : 3
+var volatile bit  intcon_t0if at intcon : 2
+var volatile bit  intcon_intf at intcon : 1
+var volatile bit  intcon_rbif at intcon : 0
+
+-- tmr1 associated bits at t1con
+var volatile bit  t1ckps1 at f877_t1con : 5
+var volatile bit  t1ckps0 at f877_t1con : 4
+var volatile bit  t1oscen at f877_t1con : 3
+var volatile bit  t1sync at f877_t1con  : 2
+var volatile bit  tmr1cs at f877_t1con  : 1
+var volatile bit  tmr1on at f877_t1con  : 0
+
+-- ccp associated bits 
+var volatile bit  ccp1x at f877_ccp1con : 5
+var volatile bit  ccp1y at f877_ccp1con : 4
+
+-- tmr1 associated bits at pie,pir
+var volatile bit  tmr1ie at f877_pie1   : 0
+var volatile bit  tmr1if at f877_pir1   : 0
+
+-- adcon associated bits
+var volatile bit  adcon0_go     at f877_adcon0 : 2
+var volatile bit  adcon0_ch0    at f877_adcon0 : 3
+var volatile bit  adcon0_ch1    at f877_adcon0 : 4
+var volatile bit  adcon0_ch2    at f877_adcon0 : 5
+
+-- eecon associated bits
+var volatile bit  eecon1_rd     at f877_eecon1 : 0
+var volatile bit  eecon1_wr     at f877_eecon1 : 1
+var volatile bit  eecon1_wren   at f877_eecon1 : 2
+var volatile bit  eecon1_wrerr  at f877_eecon1 : 3
+var volatile bit  eecon1_eepgd  at f877_eecon1 : 7
+
+-- eecon associated bits
+var volatile bit  f628_eecon1_rd     at f628_eecon1 : 0
+var volatile bit  f628_eecon1_wr     at f628_eecon1 : 1
+var volatile bit  f628_eecon1_wren   at f628_eecon1 : 2
+var volatile bit  f628_eecon1_wrerr  at f628_eecon1 : 3
+
+-- usart txsta associated bits
+var volatile bit  tx9           at f877_txsta : 6
+var volatile bit  txen          at f877_txsta : 5
+var volatile bit  sync          at f877_txsta : 4
+var volatile bit  brgh          at f877_txsta : 2
+var volatile bit  tx9d          at f877_txsta : 0
+
+-- usart rcsta associated bits
+var volatile bit  spen          at f877_RCSTA : 7
+var volatile bit  rx9           at f877_rcsta : 6
+var volatile bit  cren          at f877_rcsta : 4
+var volatile bit  ferr          at f877_rcsta : 2
+var volatile bit  oerr          at f877_rcsta : 1
+var volatile bit  rx9d          at f877_rcsta : 0
+
+-- usart associated bits at pir1
+var volatile bit  TXIF          at f877_PIR1  : 4
+var volatile bit  RCIF          at f877_PIR1  : 5
+
+-- --------------------------------------------------------------------
+-- JAL RunTime Library
+-- --------------------------------------------------------------------
+
+include jrtl
+
+-- --------------------------------------------------------------------
+-- register bank selection
+-- --------------------------------------------------------------------
+
+procedure bank_0 is
+   if ( target_chip == pic_16f877 ) | ( target_chip == pic_16f628 ) then
+      asm bcf status, 5
+      asm bcf status, 6
+   end if
+   asm bank 0
+end procedure
+
+procedure bank_1 is
+   if ( target_chip == pic_16f877 ) | ( target_chip == pic_16f628 ) then
+      asm bsf status, 5
+      asm bcf status, 6
+   end if
+   asm bank 1
+end procedure
+
+procedure bank_2 is
+   if ( target_chip == pic_16f877 ) | ( target_chip == pic_16f628 ) then
+      asm bcf status, 5
+      asm bsf status, 6
+   end if
+   asm bank 2
+end procedure
+
+procedure bank_3 is
+   if ( target_chip == pic_16f877 ) | ( target_chip == pic_16f628 ) then
+      asm bsf status, 5
+      asm bsf status, 6
+   end if
+   asm bank 3
+end procedure
+
+procedure bank_4 is
+   asm bank 4
+end procedure
+
+procedure bank_5 is
+   asm bank 5
+end procedure
+
+procedure bank_6 is
+   asm bank 6
+end procedure
+
+procedure bank_7 is
+   asm bank 7
+end procedure
+
+-- --------------------------------------------------------------------
+-- option put and get
+-- --------------------------------------------------------------------
+
+procedure option'put( byte in x ) is
+   assembler
+      bank  movfw x
+            option
+   end assembler
+end procedure
+
+function option'get return byte is
+   var byte x
+   asm bank movfw 0x81
+   if( target_chip == pic_16f877 ) then bank_1 end if
+   asm bank  movwf x
+   if( target_chip == pic_16f877 ) then bank_0 end if
+   return x
+end function
+
+-- --------------------------------------------------------------------
+-- port and pin direction
+-- --------------------------------------------------------------------
+
+const bit input           = on
+const bit output          = off
+const byte all_input      = 0b_1111_1111
+const byte all_output     = 0b_0000_0000
+
+-- shadows of the actual tris values
+var byte trisa
+var byte trisb
+var byte trisc
+var byte trisd
+var byte trise
+
+-- Bring the applicable trisX values in accordance
+-- with the power-on hardware defaults.
+trisa = all_input
+if target_cpu != pic_12 then
+   trisb = all_input
+end if
+if target_chip == pic_16f877 | target_cpu == sx_12 then
+   trisc = all_input
+end if
+if target_chip == pic_16f877 then
+   trisd = all_input
+   trise = 0x0F -- high nibble has other functions!
+end if
+
+procedure _trisa_flush is
+   assembler
+      bank movfw trisa
+           tris  5
+   end assembler
+end procedure
+
+procedure _trisb_flush is
+   assembler
+      bank movfw trisb
+           tris  6
+   end assembler
+end procedure
+
+procedure _trisc_flush is
+   assembler
+      bank movfw trisc
+           tris  7
+   end assembler
+end procedure
+
+procedure _trisd_flush is
+   asm movfw trisd
+   bank_1
+   asm movwf 0x8
+   bank_0
+end procedure
+
+procedure _trise_flush is
+   asm movfw trise
+   bank_1
+   asm movwf 0x9
+   bank_0
+end procedure
+
+var byte port_a_direction at trisa
+procedure port_a_direction'put( byte in x at trisa ) is
+   _trisa_flush
+end procedure
+
+var byte port_b_direction at trisb
+procedure port_b_direction'put( byte in x at trisb ) is
+   _trisb_flush
+end procedure
+
+var byte port_c_direction at trisc
+procedure port_c_direction'put( byte in x at trisc ) is
+   _trisc_flush
+end procedure
+
+var byte port_d_direction at trisd
+procedure port_d_direction'put( byte in x at trisd ) is
+   _trisd_flush
+end procedure
+
+var byte port_e_direction at trise
+procedure port_e_direction'put( byte in x ) is
+   var byte c at trise = ( trise & 0xF0 ) | ( x & 0x0F )
+   _trise_flush
+end procedure
+
+var bit pin_a0_direction at trisa : 0
+var bit pin_a1_direction at trisa : 1
+var bit pin_a2_direction at trisa : 2
+var bit pin_a3_direction at trisa : 3
+var bit pin_a4_direction at trisa : 4
+var bit pin_a5_direction at trisa : 5
+var bit pin_a6_direction at trisa : 6
+var bit pin_a7_direction at trisa : 7
+
+
+procedure pin_a0_direction'put( bit in d at trisa : 0 ) is
+   _trisa_flush
+end procedure
+procedure pin_a1_direction'put( bit in d at trisa : 1 ) is
+   _trisa_flush
+end procedure
+procedure pin_a2_direction'put( bit in d at trisa : 2 ) is
+   _trisa_flush
+end procedure
+procedure pin_a3_direction'put( bit in d at trisa : 3 ) is
+   _trisa_flush
+end procedure
+procedure pin_a4_direction'put( bit in d at trisa : 4 ) is
+   _trisa_flush
+end procedure
+procedure pin_a5_direction'put( bit in d at trisa : 5 ) is
+   _trisa_flush
+end procedure
+procedure pin_a6_direction'put( bit in d at trisa : 6 ) is
+   _trisa_flush
+end procedure
+procedure pin_a7_direction'put( bit in d at trisa : 7 ) is
+   _trisa_flush
+end procedure
+
+var bit pin_b0_direction at trisb : 0
+var bit pin_b1_direction at trisb : 1
+var bit pin_b2_direction at trisb : 2
+var bit pin_b3_direction at trisb : 3
+var bit pin_b4_direction at trisb : 4
+var bit pin_b5_direction at trisb : 5
+var bit pin_b6_direction at trisb : 6
+var bit pin_b7_direction at trisb : 7
+
+procedure pin_b0_direction'put( bit in d at trisb : 0 ) is
+   _trisb_flush
+end procedure
+procedure pin_b1_direction'put( bit in d at trisb : 1 ) is
+   _trisb_flush
+end procedure
+procedure pin_b2_direction'put( bit in d at trisb : 2 ) is
+   _trisb_flush
+end procedure
+procedure pin_b3_direction'put( bit in d at trisb : 3 ) is
+   _trisb_flush
+end procedure
+procedure pin_b4_direction'put( bit in d at trisb : 4 ) is
+   _trisb_flush
+end procedure
+procedure pin_b5_direction'put( bit in d at trisb : 5 ) is
+   _trisb_flush
+end procedure
+procedure pin_b6_direction'put( bit in d at trisb : 6 ) is
+   _trisb_flush
+end procedure
+procedure pin_b7_direction'put( bit in d at trisb : 7 ) is
+   _trisb_flush
+end procedure
+
+var bit pin_c0_direction at trisc : 0
+var bit pin_c1_direction at trisc : 1
+var bit pin_c2_direction at trisc : 2
+var bit pin_c3_direction at trisc : 3
+var bit pin_c4_direction at trisc : 4
+var bit pin_c5_direction at trisc : 5
+var bit pin_c6_direction at trisc : 6
+var bit pin_c7_direction at trisc : 7
+
+procedure pin_c0_direction'put( bit in d at trisc : 0 ) is
+   _trisc_flush
+end procedure
+procedure pin_c1_direction'put( bit in d at trisc : 1 ) is
+   _trisc_flush
+end procedure
+procedure pin_c2_direction'put( bit in d at trisc : 2 ) is
+   _trisc_flush
+end procedure
+procedure pin_c3_direction'put( bit in d at trisc : 3 ) is
+   _trisc_flush
+end procedure
+procedure pin_c4_direction'put( bit in d at trisc : 4 ) is
+   _trisc_flush
+end procedure
+procedure pin_c5_direction'put( bit in d at trisc : 5 ) is
+   _trisc_flush
+end procedure
+procedure pin_c6_direction'put( bit in d at trisc : 6 ) is
+   _trisc_flush
+end procedure
+procedure pin_c7_direction'put( bit in d at trisc : 7 ) is
+   _trisc_flush
+end procedure
+
+var bit pin_d0_direction at trisd : 0
+var bit pin_d1_direction at trisd : 1
+var bit pin_d2_direction at trisd : 2
+var bit pin_d3_direction at trisd : 3
+var bit pin_d4_direction at trisd : 4
+var bit pin_d5_direction at trisd : 5
+var bit pin_d6_direction at trisd : 6
+var bit pin_d7_direction at trisd : 7
+
+procedure pin_d0_direction'put( bit in d at trisd : 0 ) is
+   _trisd_flush
+end procedure
+procedure pin_d1_direction'put( bit in d at trisd : 1 ) is
+   _trisd_flush
+end procedure
+procedure pin_d2_direction'put( bit in d at trisd : 2 ) is
+   _trisd_flush
+end procedure
+procedure pin_d3_direction'put( bit in d at trisd : 3 ) is
+   _trisd_flush
+end procedure
+procedure pin_d4_direction'put( bit in d at trisd : 4 ) is
+   _trisd_flush
+end procedure
+procedure pin_d5_direction'put( bit in d at trisd : 5 ) is
+   _trisd_flush
+end procedure
+procedure pin_d6_direction'put( bit in d at trisd : 6 ) is
+   _trisd_flush
+end procedure
+procedure pin_d7_direction'put( bit in d at trisd : 7 ) is
+   _trisd_flush
+end procedure
+
+var bit pin_e0_direction at trisc : 0
+var bit pin_e1_direction at trisc : 1
+var bit pin_e2_direction at trisc : 2
+
+procedure pin_e0_direction'put( bit in d at trise : 0 ) is
+   _trise_flush
+end procedure
+procedure pin_e1_direction'put( bit in d at trise : 1 ) is
+   _trise_flush
+end procedure
+procedure pin_e2_direction'put( bit in d at trise : 2 ) is
+   _trise_flush
+end procedure
+
+procedure port_a_low_direction'put( byte in d ) is
+   var volatile byte a at trisa = ( trisa & 0xF0 ) | ( d & 0x0F )
+   _trisa_flush
+end procedure
+procedure port_a_high_direction'put( byte in d ) is
+   var volatile byte a at trisa = ( trisa & 0x0F ) | ( ( d & 0x0F ) << 4 )
+   _trisa_flush
+end procedure
+
+procedure port_b_low_direction'put( byte in d ) is
+   var volatile byte b at trisb = ( trisb & 0xF0 ) | ( d & 0x0F )
+   _trisb_flush
+end procedure
+procedure port_b_high_direction'put( byte in d ) is
+   var volatile byte b at trisb  = ( trisb & 0x0F ) | ( ( d & 0x0F ) << 4 )
+   _trisb_flush
+end procedure
+
+procedure port_c_low_direction'put( byte in d ) is
+   var volatile byte c at trisc = ( trisc & 0xF0 ) | ( d & 0x0F )
+   _trisc_flush
+end procedure
+procedure port_c_high_direction'put( byte in d ) is
+   var volatile byte c at trisc = ( trisc & 0x0F ) | ( ( d & 0x0F ) << 4 )
+   _trisc_flush
+end procedure
+
+procedure port_d_low_direction'put( byte in d ) is
+   var volatile byte c at trisd = ( trisd & 0xF0 ) | ( d & 0x0F )
+   _trisd_flush
+end procedure
+procedure port_d_high_direction'put( byte in d ) is
+   var volatile byte c at trisd = ( trisd & 0x0F ) | ( ( d & 0x0F ) << 4 )
+   _trisd_flush
+end procedure
+
+procedure port_e_low_direction'put( byte in d ) is
+   var volatile byte c at trise = ( trise & 0xF0 ) | ( d & 0x0F )
+   _trise_flush
+end procedure
+
+function port_a_low_direction'get return byte is
+   var volatile byte a at trisa
+   return a & 0x0F
+end function
+function port_a_high_direction'get return byte is
+   var volatile byte a at trisa
+   return a >> 4
+end function
+
+function port_b_low_direction'get return byte is
+   var volatile byte b at trisb
+   return b & 0x0F
+end function
+function port_b_high_direction'get return byte is
+   var volatile byte b at trisb
+   return b >> 4
+end function
+
+function port_c_low_direction'get return byte is
+   var volatile byte b at trisc
+   return b & 0x0F
+end function
+function port_c_high_direction'get return byte is
+   var volatile byte b at trisc
+   return b >> 4
+end function
+
+function port_d_low_direction'get return byte is
+   var volatile byte b at trisd
+   return b & 0x0F
+end function
+function port_d_high_direction'get return byte is
+   var volatile byte b at trisd
+   return b >> 4
+end function
+
+function port_e_low_direction'get return byte is
+   var volatile byte b at trise
+   return b & 0x0F
+end function
+
+-- port and pin value
+
+var byte _port_a_buffer
+var byte _port_b_buffer
+var byte _port_c_buffer
+var byte _port_d_buffer
+var byte _port_e_buffer
+
+procedure _port_a_flush is
+   var volatile byte port_a_ at 5 = _port_a_buffer
+end procedure
+procedure _port_b_flush is
+   var volatile byte port_b_ at 6 = _port_b_buffer
+end procedure
+procedure _port_c_flush is
+   var volatile byte port_c_ at 7 = _port_c_buffer
+end procedure
+procedure _port_d_flush is
+   var volatile byte port_d_ at 8 = _port_d_buffer
+end procedure
+procedure _port_e_flush is
+   var volatile byte port_e_ at 9 = _port_e_buffer
+end procedure
+
+procedure port_a'put( byte in x at _port_a_buffer ) is
+   _port_a_flush
+end procedure
+procedure port_b'put( byte in x at _port_b_buffer ) is
+   _port_b_flush
+end procedure
+procedure port_c'put( byte in x at _port_c_buffer ) is
+   _port_c_flush
+end procedure
+procedure port_d'put( byte in x at _port_d_buffer ) is
+   _port_d_flush
+end procedure
+procedure port_e'put( byte in x at _port_e_buffer ) is
+   _port_e_flush
+end procedure
+
+procedure port_a_low'put( byte in x ) is
+   _port_a_buffer = ( _port_a_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_a_flush
+end procedure
+function port_a_low'get return byte is
+   return _port_a_buffer & 0x0F
+end function
+
+procedure port_a_high'put( byte in x ) is
+   _port_a_buffer = ( _port_a_buffer & 0x0F ) | ( x << 4 )
+   _port_a_flush
+end procedure
+function port_a_high'get return byte is
+   return _port_a_buffer >> 4
+end function
+
+procedure port_b_low'put( byte in x ) is
+   _port_b_buffer = ( _port_b_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_b_flush
+end procedure
+function port_b_low'get return byte is
+   return _port_b_buffer & 0x0F
+end function
+
+procedure port_b_high'put( byte in x ) is
+   _port_b_buffer = ( _port_b_buffer & 0x0F ) | ( x << 4 )
+   _port_b_flush
+end procedure
+function port_b_high'get return byte is
+   return _port_b_buffer >> 4
+end function
+
+procedure port_c_low'put( byte in x ) is
+   _port_c_buffer = ( _port_c_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_c_flush
+end procedure
+function port_c_low'get return byte is
+   return _port_c_buffer & 0x0F
+end function
+
+procedure port_c_high'put( byte in x ) is
+   _port_c_buffer = ( _port_c_buffer & 0x0F ) | ( x << 4 )
+   _port_c_flush
+end procedure
+function port_c_high'get return byte is
+   return _port_c_buffer >> 4
+end function
+
+procedure port_d_low'put( byte in x ) is
+   _port_d_buffer = ( _port_d_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_d_flush
+end procedure
+function port_d_low'get return byte is
+   return _port_d_buffer & 0x0F
+end function
+
+procedure port_d_high'put( byte in x ) is
+   _port_d_buffer = ( _port_d_buffer & 0x0F ) | ( x << 4 )
+   _port_d_flush
+end procedure
+function port_d_high'get return byte is
+   return _port_d_buffer >> 4
+end function
+
+procedure port_e_low'put( byte in x ) is
+   _port_e_buffer = ( _port_e_buffer  & 0xF0 ) | ( x & 0x0F )
+   _port_e_flush
+end procedure
+function port_e_low'get return byte is
+   return _port_e_buffer & 0x0F
+end function
+
+procedure pin_a0'put( bit in x at _port_a_buffer : 0 ) is
+   _port_a_flush
+end procedure
+procedure pin_a1'put( bit in x at _port_a_buffer : 1 ) is
+   _port_a_flush
+end procedure
+procedure pin_a2'put( bit in x at _port_a_buffer : 2 ) is
+   _port_a_flush
+end procedure
+procedure pin_a3'put( bit in x at _port_a_buffer : 3 ) is
+   _port_a_flush
+end procedure
+procedure pin_a4'put( bit in x at _port_a_buffer : 4 ) is
+   _port_a_flush
+end procedure
+procedure pin_a5'put( bit in x at _port_a_buffer : 5 ) is
+   _port_a_flush
+end procedure
+procedure pin_a6'put( bit in x at _port_a_buffer : 6 ) is
+   _port_a_flush
+end procedure
+procedure pin_a7'put( bit in x at _port_a_buffer : 7 ) is
+   _port_a_flush
+end procedure
+
+procedure pin_b0'put( bit in x at _port_b_buffer : 0 ) is
+   _port_b_flush
+end procedure
+procedure pin_b1'put( bit in x at _port_b_buffer : 1 ) is
+   _port_b_flush
+end procedure
+procedure pin_b2'put( bit in x at _port_b_buffer : 2 ) is
+   _port_b_flush
+end procedure
+procedure pin_b3'put( bit in x at _port_b_buffer : 3 ) is
+  _port_b_flush
+end procedure
+procedure pin_b4'put( bit in x at _port_b_buffer : 4 ) is
+   _port_b_flush
+end procedure
+procedure pin_b5'put( bit in x at _port_b_buffer : 5 ) is
+   _port_b_flush
+end procedure
+procedure pin_b6'put( bit in x at _port_b_buffer : 6 ) is
+   _port_b_flush
+end procedure
+procedure pin_b7'put( bit in x at _port_b_buffer : 7 ) is
+   _port_b_flush
+end procedure
+
+procedure pin_c0'put( bit in x at _port_c_buffer : 0 ) is
+   _port_c_flush
+end procedure
+procedure pin_c1'put( bit in x at _port_c_buffer : 1 ) is
+   _port_c_flush
+end procedure
+procedure pin_c2'put( bit in x at _port_c_buffer : 2 ) is
+   _port_c_flush
+end procedure
+procedure pin_c3'put( bit in x at _port_c_buffer : 3 ) is
+   _port_c_flush
+end procedure
+procedure pin_c4'put( bit in x at _port_c_buffer : 4 ) is
+   _port_c_flush
+end procedure
+procedure pin_c5'put( bit in x at _port_c_buffer : 5 ) is
+   _port_c_flush
+end procedure
+procedure pin_c6'put( bit in x at _port_c_buffer : 6 ) is
+   _port_c_flush
+end procedure
+procedure pin_c7'put( bit in x at _port_c_buffer : 7 ) is
+   _port_c_flush
+end procedure
+
+procedure pin_d0'put( bit in x at _port_d_buffer : 0 ) is
+   _port_d_flush
+end procedure
+procedure pin_d1'put( bit in x at _port_d_buffer : 1 ) is
+   _port_d_flush
+end procedure
+procedure pin_d2'put( bit in x at _port_d_buffer : 2 ) is
+   _port_d_flush
+end procedure
+procedure pin_d3'put( bit in x at _port_d_buffer : 3 ) is
+   _port_d_flush
+end procedure
+procedure pin_d4'put( bit in x at _port_d_buffer : 4 ) is
+   _port_d_flush
+end procedure
+procedure pin_d5'put( bit in x at _port_d_buffer : 5 ) is
+   _port_d_flush
+end procedure
+procedure pin_d6'put( bit in x at _port_d_buffer : 6 ) is
+   _port_d_flush
+end procedure
+procedure pin_d7'put( bit in x at _port_d_buffer : 7 ) is
+   _port_d_flush
+end procedure
+
+procedure pin_e0'put( bit in x at _port_e_buffer : 0 ) is
+   _port_e_flush
+end procedure
+procedure pin_e1'put( bit in x at _port_e_buffer : 1 ) is
+   _port_e_flush
+end procedure
+procedure pin_e2'put( bit in x at _port_e_buffer : 2 ) is
+   _port_e_flush
+end procedure
+
+
+-- --------------------------------------------------------------------
+-- indirect access to the file registers
+-- --------------------------------------------------------------------
+
+procedure file_get( byte in a, byte out d ) is begin
+   if target_cpu != pic_14 then
+      pragma error -- not implemented yet
+   end if
+   fsr = a
+   d   = indf
+end procedure
+
+procedure file_put( byte in a, byte in d ) is begin
+   if target_cpu != pic_14 then
+      pragma error -- not implemented yet
+   end if
+   fsr  = a
+   indf = d
+end procedure
+
+
+-- --------------------------------------------------------------------
+-- (indirect) access to the eeprom
+-- original versions corrected by AxelK
+-- --------------------------------------------------------------------
+
+procedure eeprom_get( byte in a, byte out d ) is
+
+   if ( target_chip == pic_16c84 ) | ( target_chip == pic_16f84 ) then
+
+      var volatile bit ee_read at 8 : 0
+
+      x84_eeadr        = a
+      status_rp0       = on          -- select page 1
+      ee_read          = on          -- set read bit in EECON1
+      status_rp0       = off         -- back to page 0
+      d                = x84_eedata  -- the actual data from eeprom
+
+   elsif ( target_chip == pic_16f877 ) then
+
+   assembler
+     bcf status,5
+     bcf status,6 -- bank_0
+        movf a,w
+     bsf status,6 -- bank_2
+        movwf f877_eeadr
+     bsf status,5 -- bank_3
+     bcf eecon1_eepgd
+     bsf eecon1_rd 
+     bcf status,5 -- bank_2
+        movf f877_eedata,w
+     bcf status,6 -- bank_0
+        movwf d
+   end assembler
+
+   elsif  ( target_chip == pic_16f628 ) then
+    
+   assembler
+     bcf 	status_RP0 	
+     bcf 	status_RP1	; bank_0
+     MOVF	a,w
+     BSF	STATUS_RP0 	; Bank 1
+     MOVWF	f628_EEADR 		; Address to read
+     BSF	f628_EECON1_RD 	; EE Read
+     MOVF	f628_EEDATA,W    ; W = EEDATA
+     BCF	STATUS_RP0 	; Bank 0
+     MOVWF	d
+   end assembler
+
+   else
+      pragma error -- eeprom not available
+   end if
+end procedure
+
+procedure eeprom_put( byte in a, byte in d ) is
+
+   if ( target_chip == pic_16c84 ) | ( target_chip == pic_16f84 ) then
+
+      var volatile bit ee_write        at 8 : 1
+      var volatile bit ee_write_enable at 8 : 2
+
+      -- preparation
+      x84_eeadr        = a
+      x84_eedata       = d
+
+      status_rp0       = on      -- select page 1
+      ee_write_enable  = on
+      x84_eeadr        = 0x55    -- to EECON2
+      x84_eeadr        = 0xAA    -- to EECON2
+      ee_write         = on
+
+      -- wait for completion
+      while ee_write loop end loop
+
+      ee_write_enable = off      -- disable writing to prevent accidental writes
+      status_rp0      = off      -- back to page 0
+
+   elsif ( target_chip == pic_16f877 ) then
+
+--      f877_eeadr   = a
+--      f877_eedata  = d
+
+      -- 16F877 datasheet p45
+   assembler
+    local loop
+    bcf status,5
+    bcf status,6     -- bank_0
+      movf d,w
+    bcf status,5
+    bsf status,6     -- bank_2
+      movwf f877_eedata
+    bcf status,6     -- bank_0
+      movf a,w
+    bcf status,5
+    bsf status,6     -- bank_2
+      movwf f877_eeadr
+    bsf status,5     -- bank_3
+      bcf eecon1_eepgd 
+      bsf eecon1_wren  
+      bcf intcon_gie
+      bcf intcon_gie    -- twice if Josef want...
+      movlw 0x_55
+      movwf f877_eecon2
+      movlw 0x_aa
+      movwf f877_eecon2
+      bsf eecon1_wr   
+loop:
+      btfsc eecon1_wr  -- wait for finishing write
+      goto loop   
+      bcf eecon1_wren
+      bsf intcon_gie  
+      bcf status,5
+      bcf status,6     -- bank_0
+  end assembler
+  
+   elsif ( target_chip == pic_16f628 ) then
+   
+   assembler
+    local loop
+
+     bcf status,5
+     bcf status,6     -- bank_0
+     movf d,w
+     bsf status,5     -- bank_1
+     movwf f628_EEDATA 		
+     bcf status,5     -- bank_0
+     movf a,w
+     bsf status,5     -- bank_1
+     movwf f628_EEADR 		
+     BSF 	f628_EECON1_WREN 	; Enable write
+     BCF 	INTCON_GIE 	; Disable INTs.
+     BCF 	INTCON_GIE 	; Disable INTs.
+     MOVLW 	0x55		;
+     MOVWF 	f628_EECON2 		; Write 55h
+     MOVLW 	0xAA 		;
+     MOVWF 	f628_EECON2 		; Write AAh
+     BSF 	f628_EECON1_WR 	; Set WR bit, begin write
+loop:
+     btfsc  f628_EECON1_WR  	; wait for finishing write
+     goto loop   
+     BCF 	f628_EECON1_WREN 	; disable write
+
+     BSF 	INTCON_GIE 	; Enable INTs.
+     bcf status,5     -- bank_0
+
+   end assembler
+ 
+   else
+      pragma error -- eeprom not available
+   end if
+end procedure
+-- --------------------------------------------------------------------
+-- (indirect) access to the code flash
+-- --------------------------------------------------------------------
+
+procedure flash_get(
+   byte in  al,
+   byte in  ah,
+   byte out dl,
+   byte out dh
+) is
+   if ( target_chip != pic_16f877 ) then
+      pragma error -- flash read/write not available
+   end if
+
+   f877_eeadrh = ah
+   f877_eeadr  = al
+
+   -- 16F877 datasheet p44
+   assembler
+      bank bsf status_rp0
+      bank bsf status_rp1
+      bank bsf eecon1_eepgd
+      bank bsf eecon1_rd
+           nop
+           nop
+   end assembler
+
+   dl = f877_eedata
+   dh = f877_eedath
+
+end procedure
+
+procedure flash_put(
+   byte in al,
+   byte in ah,
+   byte in dl,
+   byte in dh
+) is
+   if ( target_chip != pic_16f877 ) then
+      pragma error -- flash read/write not available
+   end if
+
+   f877_eeadrh = ah
+   f877_eeadr  = al
+   dl = f877_eedata
+   dh = f877_eedath
+
+   -- 16F877 datasheet p45
+   assembler
+      bank bsf status_rp0
+      bank bsf status_rp1
+      bank bsf eecon1_eepgd
+      bank bsf eecon1_wren
+      bank bcf intcon_gie
+           movlw 0x55
+      bank movwf f877_eecon2
+           movlw 0xAA
+      bank movwf f877_eecon2
+      bank bsf eecon1_wr
+           nop
+           nop
+      bank bsf intcon_gie
+      bank bcf eecon1_wren
+   end assembler
+
+end procedure
+
+-- --------------------------------------------------------------------
+-- pic special functions
+-- --------------------------------------------------------------------
+
+procedure sleep is
+   asm sleep
+end procedure
+
+procedure clear_watchdog is
+   asm clrwdt
+end procedure
+
+procedure swap_nibbles( byte in out x ) is
+   asm bank swapf x, f
+end procedure
+
+-- disable the f877 A/D to be able to use port a as input
+procedure disable_a_d_functions is
+ if ! ( target_chip == pic_16f628 ) then 
+   bank_1
+   asm movlw 7
+   asm movwf 0x1F
+   bank_0
+ else
+   bank_0
+   asm movlw 7
+   asm movwf 0x1F
+ end if 
+end procedure
+
+
+-- constants used in serialp.jal
+const bit  active_high  = true
+const bit  active_low   = false
+const byte parity_even  = 0 
+const byte parity_odd   = 1
+const byte parity_none  = 2

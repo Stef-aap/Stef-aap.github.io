@@ -1,0 +1,7 @@
+A OUT_A
+B OUT_B
+C OUT_C
+I_ int "name";\=
+S_ sub "name"()\={\>"statements"\<}\=\=
+T_ task "name"()\={\>"statements"\<}\=\=
+V_ void "name"("arguments")\={\>"statements"\<}\=\=

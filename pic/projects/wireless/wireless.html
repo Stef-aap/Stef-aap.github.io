@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>PIC - Wireless&nbsp; </span><span class=rvts8>(april 2009)</span></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Goal is to read a number of sensors with a PIC and transmit the measured data through a wireless channel to a standard PC.</p>
+<p>The required specifications are :</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>transmission speed minimal 2 kBaud,&nbsp; (preferable &gt; 20 kBaud) </li>
+<li>transmission distance indoors / outdoors &gt; 30 / 100 meters (preferable 100 / 300 meters) </li>
+<li>easy to install </li>
+<li>small losses of data are allowed, but time-stamping must be absolute fail safe </li>
+<li>preferable use of one of the standard devices available in a laptop ( or standard USB peripheral ) </li>
+<li>power consumption less than 1A from 3V3 source (preferable less than 250 mA)</li>
+</ul>
+<p><br></p>
+<p>On modern laptops there are 2 standard wireless peripherals available: WiFi and bluetooth. Because Bluetooth has a simpler protocol stack, and is more inteded for peer-peer communication, Bluetooth is the first choice. The second choice is WiFi, and if that doesn't fulfill our requirements, ZigBee might be an alternative.</p>
+<p><br></p>
+<p><span class=rvts2>Conclusion</span></p>
+<p>Bluetooth (with the standard builtin device) doesn't fulfill the range requirement.</p>
+<p>Wifi, is terrible complex to set up, and gave a lot of BSOD's.</p>
+<p>Zigbee is quit easy to install, has a good range, and runs on a simple virtual comm port.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Bluetooth</span></p>
+<p>Everyone who used (simple) mobile phones ( and really checked the transfer speed as a function of distance ) knows that you have to put the mobile phone very close (with a meter) of the PC-Bluetooth antenna. That doesn't give much hope. So we tried to connect a high quality laptop with embedded Bluetooth with a desktop PC provided with Bluetooth USB stick (Sweex, not the best brand). We could achieve a distance of indoors / outdoors of&nbsp; 7 / 20 meter before we totally lost contact.</p>
+<p>To increase the distance range, we probably need to use better USB-devices on both sides, that means we can't use the builtin device of the laptop.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Wifi</span></p>
+<p><br></p>
+<p>The IP address of devices that should communicate with each other should have the same base address, i.e. all bits that are set in the subnetmask must be equal. Normally all the bits in the first 3 numbers of the subnetmask are set (i.e the subnetmask = 255.255.255.0), in which case the following devices can communicate</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 192.168.2.7</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 192.168.2.3</p>
+<p>but the following devices can NOT communicate with each other</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 192.168.1.7</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 192.168.2.3</p>
+<p><br></p>
+<p><img width=404 height=448 alt="" src="wireless_img22.png">&nbsp; <img width=404 height=448 alt="" src="wireless_img20.png"></p>
+<p><br></p>
+<p>To transport data, the simplest standard protocol seems to be Telnet.</p>
+<p><br></p>
+<p><img width=661 height=622 alt="" src="wireless_img6.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10><br></span></p>
+<p><span class=rvts10>Serial Port Wizard</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=558 height=427 alt="" src="wireless_img7.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=558 height=427 alt="" src="wireless_img8.png"></p>
+<p>Don't use port number 23 (TelNet) but you another innocent port number like 25 !!!!!</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=558 height=427 alt="" src="wireless_img9.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=558 height=427 alt="" src="wireless_img10.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=558 height=427 alt="" src="wireless_img11.png"></p>
+<p><span class=rvts1><br></span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=558 height=427 alt="" src="wireless_img12.png"></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=558 height=427 alt="" src="wireless_img13.png"></p>
+<p>Enter SerialNET Mode doesn't work in this screen !!! </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=206 height=100 alt="" src="wireless_img14.png"></p>
+<p><br></p>
+<p><br></p>
+<p>You can start the SerialNET mode through the mainmenu:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=503 height=126 alt="" src="wireless_img15.png"></p>
+<p><span class=rvts1><br></span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=203 height=100 alt="" src="wireless_img16.png"></p>
+<p><br></p>
+<p>Here sometimes popups another window, on which you must click ok.</p>
+<p><br></p>
+<p>After closing this window, it takes 10 to 20 seconds before a connection is possible.</p>
+<p><br></p>
+<p>Exiting the SerialNET can only be done after the serial comm ports are disconnected, and then follows the next windows</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=362 height=399 alt="" src="wireless_img19.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=137 height=100 alt="" src="wireless_img17.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Virtual Comm ports</span></p>
+<p>You can find a lot of vritual comm ports on the internet, but most of them looks so terribly difficult that they can be ignored. Three of them seemed to be manageable, so we decided to test these three. During test, it's important to realize that the data is sometimes buffered (in quit large buffers, before it's transmitted). In our case specially the wifi-router had some unpredictable buffering.</p>
+<p><br></p>
+<p><span class=rvts10>Com2tcp + Com0Com</span></p>
+<p>After a lot of trials we couldn't get this working.</p>
+<p><br></p>
+<p><span class=rvts10>Lantronix CPR</span></p>
+<p>After a lot of trials we couldn't get this working.</p>
+<p><br></p>
+<p><span class=rvts10>HW VSP3</span></p>
+<p>During installation you have to choose between standalone or client-server, we've chozen client-server (don't know why, but sounds the most logical and it appears to work finally). After installing and starting the program, only change the IP address to the IP address of the WIFI-device (and leave the Port number at 23 = TelNet).</p>
+<p><br></p>
+<p><img width=361 height=477 alt="" src="wireless_img2.png">&nbsp;&nbsp; <img width=361 height=477 alt="" src="wireless_img3.png"></p>
+<p><br></p>
+<p><img width=361 height=477 alt="" src="wireless_img4.png">&nbsp;&nbsp; <img width=361 height=477 alt="" src="wireless_img5.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Ad hoc connections</span></p>
+<p>This should be the preferred way to setup a peer-to-peer connection. You need to set the following parameters and a lot more we can't remember, we couldn't reproduce it the second time, much too difficult !!</p>
+<p><br></p>
+<p><img width=1050 height=1025 alt="" src="wireless_img18.png"></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

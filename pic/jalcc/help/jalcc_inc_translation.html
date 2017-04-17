@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Auto INC 2 JAL translation</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #efefef;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts7>august, 2006</span></p>
+<p><span class=rvts1>INC 2 JAL</span></p>
+<p><br></p>
+<p><img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Download</span></p>
+<p>INC2JAL and some examples can be found <a class=rvts4 href="http://oase.uci.kun.nl/~mientki/pic-tools/jal/libs2/">here</a>.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Generating 16F917 (October 2007)</span></p>
+<p><span class=rvts7><br></span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=373 valign=top style="background-color: #ffffe6;">
+<p>Running Inc2JAL, v10 : will give a lot of errors, indicating wrong registers.</p>
+<p>In INC2JAL, v11, each register error is only reported once, reducing the number of error messages.</p>
+</td>
+<td width=382 valign=top style="background-color: #ffffe6;">
+<p><img width=196 height=113 alt="" src="jalcc_inc_translation_img1.jpg"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=373 valign=top style="background-color: #ffffe6;">
+<p>If we look in the INC file, we see that the register definition "LCDDATA0" differs from the bits definition "LCDDAT0".</p>
+<p>For JAL it's absolutely necessary to know in which bit a byte resides !!</p>
+</td>
+<td width=382 valign=top style="background-color: #ffffe6;">
+<p><img width=309 height=63 alt="" src="jalcc_inc_translation_img2.jpg"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=373 valign=top style="background-color: #ffffe6;">
+<p>So changing:&nbsp; </p>
+<p><br></p>
+<p>into:</p>
+<p><br></p>
+<p>solves the problem</p>
+</td>
+<td width=382 valign=top style="background-color: #ffffe6;">
+<p><img width=166 height=27 alt="" src="jalcc_inc_translation_img3.jpg"></p>
+<p><br></p>
+<p><img width=159 height=27 alt="" src="jalcc_inc_translation_img4.jpg"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=373 valign=top style="background-color: #ffffe6;">
+<p>Then there's register LCDSE3 mentioned which doesn't exist at all.</p>
+<p>So change it into:</p>
+<p>will solve the problem</p>
+</td>
+<td width=382 valign=top style="background-color: #ffffe6;">
+<p><img width=154 height=17 alt="" src="jalcc_inc_translation_img5.jpg"></p>
+<p><br></p>
+<p><img width=154 height=18 alt="" src="jalcc_inc_translation_img6.jpg"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=410 valign=top style="background-color: #ffffe6;">
+<p>Then there's another problem, INC2JAL need fuse-identifiers to consists of 2 parts separated by an underscore, so the fuse-IDs on the right will cause a crash.</p>
+<p>INC2JAL v11, has a better error message for this problem and doesn't crash anymore.</p>
+</td>
+<td width=347 valign=top style="background-color: #ffffe6;">
+<p><img width=368 height=29 alt="" src="jalcc_inc_translation_img7.jpg"></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=410 valign=top style="background-color: #ffffe6;">
+<p>So we should replace the above in the INC-file with something like the part on the right.</p>
+</td>
+<td width=347 valign=top style="background-color: #ffffe6;">
+<p><img width=405 height=60 alt="" src="jalcc_inc_translation_img8.jpg"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><span class=rvts7><br></span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>This module translates the microchip inc-files to JAL-files.</p>
+<p>Although this program is an integral part of JALcc, it's also released as a stand-alone program.</p>
+<p><br></p>
+<p>The inc-files defines all specific settings of a specific type of PIC.</p>
+<p>In most cases you look up once how to include the correct files, and as long as you stay with this PIC-type, there is no problem. If you want to use another PIC, your search for useless information starts all over again. Not to think of people like myself, who switch from 1 PIC to another on the flight.</p>
+<p><br></p>
+<p>Therefor INC2JAL is now extended to also read the uChip LKR-file, which results in just 1 file that contains all PIC specific information. Below are the differences shown.</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>Old situation</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p>New Situation</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=198 height=95 alt="" src="jalcc_inc_translation_img1.png"></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffd4;">
+<p><img width=240 height=67 alt="" src="jalcc_inc_translation_img2.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>As you can see, in the new situation there's only 1 device dependent library, and that's exactly the file generated by INC2JAL, so it's very easy to switch between different PICs.&nbsp;&nbsp; </p>
+<p><br></p>
+<p>So here is how a typical main program will look:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=456 height=225 alt="" src="jalcc_inc_translation_img3.png"></p>
+<p>&nbsp; </p>
+<p>There is one problem I haven't solved: the compiler needs a default value for the fuses:</p>
+<p>&nbsp;&nbsp; const word _fuses&nbsp; ....</p>
+<p>but unfortunately I don't know an automatic way to generate this constant.</p>
+<p><br></p>
+<p>Another point of attention are the fuses, although the INC-file, completely resolves the different bits in the fuses, it's not easy to create device independent code, to set these bits. This is caused by uChip which uses all kind of different names for the same bits !!</p>
+<p><br></p>
+<p>Below you see the main window of INC2JAL after opening an uChip INC-file.</p>
+<p>All windows can be edited and chages are stored automatically.</p>
+<p>Don't trust on the uChip files, they are sometimes a real mess !!</p>
+<p><br></p>
+<p><img width=781 height=589 alt="" src="jalcc_inc_translation_img4.png"></p>
+<p><br></p>
+<p>I've collected a number of translated inc-files in a browsable directory:</p>
+<p>(Here you can also find the stand alone version of INC2JAL)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <a class=rvts4 href="http://oase.uci.ru.nl/~mientki/data_www/pic/download/jal_libs/">http://oase.uci.ru.nl/~mientki/data_www/pic/download/jal_libs/</a></p>
+
+</body></html>

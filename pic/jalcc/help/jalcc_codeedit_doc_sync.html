@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="148" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p><span class=rvts1>Codeedit, doc synchro</span></p>
+<p><br></p>
+<p><br></p>
+<p>BookMark_NR = [ Spec_begin .. Spec_End ]</p>
+<p>except for file and vector editor, where</p>
+<p>BookMark_NR = [ 1&nbsp; .. ]</p>
+<p><br></p>
+<p><span class=rvts2>Create New Marker</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Editor</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Main</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Special MarkForm</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Diagram</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Insert Special Marker</span>:</p>
+<p>Gutter-click </p>
+<p>if (x&lt;35),</p>
+<p>&nbsp; post(main,</p>
+<p>&nbsp;&nbsp;&nbsp; request_special_mark,</p>
+<p>&nbsp;&nbsp;&nbsp; gutter_linenr)</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>WNDPROC</span>:</p>
+<p>if main-editor and special_markform:</p>
+<p>&nbsp; set_new_special_mark(</p>
+<p>&nbsp;&nbsp;&nbsp; gutter_linenr,</p>
+<p>&nbsp;&nbsp;&nbsp; editor_form</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>set_new_special_mark</span></p>
+<p>if place:</p>
+<p>&nbsp; store marker,</p>
+<p>&nbsp; post(editor,</p>
+<p>&nbsp;&nbsp;&nbsp; request_special_mark,</p>
+<p>&nbsp;&nbsp;&nbsp; bookmark_nr)</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>WNDPROC</span>:</p>
+<p>Create the marker at gutter_linenr</p>
+<p>with bookmark_nr</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Link the marker to a diagram</span></p>
+<p>For the moment this done manual through the properties of each object.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>UNLink the marker to a diagram</span></p>
+<p>For the moment this done manual through the properties of each object.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Caret moves in editor</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Editor</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Main</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Special MarkForm</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Diagram</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>set_active_editor_status</span>:</p>
+<p>if special marker on this line,</p>
+<p>&nbsp; post(main,</p>
+<p>&nbsp;&nbsp;&nbsp; find_special_mark,</p>
+<p>&nbsp;&nbsp;&nbsp; bookmark_nr)</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>WNDPROC, find_special_mark</span>:</p>
+<p>if main-editor and special_markform:</p>
+<p>&nbsp; find_special_mark(bookmark_nr</p>
+<p>&nbsp; if diagram available:</p>
+<p>&nbsp;&nbsp;&nbsp; diagram.perform(</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; find_special_mark,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bookmark_nr</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>find_special_mark</span></p>
+<p>if place:</p>
+<p>&nbsp; store marker,</p>
+<p>&nbsp; post(editor,</p>
+<p>&nbsp;&nbsp;&nbsp; request_special_mark,</p>
+<p>&nbsp;&nbsp;&nbsp; gutter_linenr)</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>WNDPROC, find_special_mark:</span></p>
+<p>&nbsp; search all objects for bookmark_nr</p>
+<p>&nbsp; if found: </p>
+<p>&nbsp;&nbsp;&nbsp; select object</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Select Object in Diagram</span></p>
+<p><span class=rvts2>(Select item in marker-tree = start in step3)</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Editor</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Main</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Special MarkForm</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Diagram</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>SetActiveObject</span></p>
+<p>if not(selected_from_outside) and</p>
+<p>&nbsp;&nbsp; (ActiveObject.MarkLink&gt;0):</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; post(mainform</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto_special_mark_from_doc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bookmark_nr)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; selected_from_outside:=false;</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>WNDPROC, goto_special_mark_from_doc:</span></p>
+<p>if main-editor and special_markform:</p>
+<p>&nbsp; goto_special_mark(bookmark_nr</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>goto_special_mark</span></p>
+<p>&nbsp; select in tree and click</p>
+<p>&nbsp; Main.Perform(</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto_special_mark,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bookmark_nr</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>WNDPROC, goto_special_mark:</span></p>
+<p>&nbsp; open_focus_child_editor</p>
+<p>&nbsp; child.goto_bookmark</p>
+<p>&nbsp; child.setfocus</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Focus &amp; Goto_BookMark</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Delete Marker</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Editor</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Main</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Special MarkForm</span></p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Diagram</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Delete Special Marker</span>:</p>
+<p>Gutter-click </p>
+<p>if (x&lt;35),</p>
+<p>&nbsp; delete marker,</p>
+<p>&nbsp; post(main,</p>
+<p>&nbsp;&nbsp;&nbsp; delete_special_mark,</p>
+<p>&nbsp;&nbsp;&nbsp; bookmark_nr)</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>WNDPROC</span>:</p>
+<p>if main-editor and special_markform:</p>
+<p>&nbsp; delete from tree</p>
+<p>&nbsp; delete_special_mark(</p>
+<p>&nbsp;&nbsp;&nbsp; gutter_linenr,</p>
+<p>&nbsp;&nbsp;&nbsp; editor_form</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>delete_special_mark</span></p>
+<p>&nbsp; delete marker,</p>
+<p>&nbsp; delete from inifile !!</p>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}">
+<p><span class=rvts10>Delete_Object_Link</span></p>
+<p>&nbsp; remove red point</p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+<td width=100 valign=top style="{background-color: #ffffd4;}"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2><br></span></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

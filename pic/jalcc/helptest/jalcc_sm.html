@@ -1,0 +1,79 @@
+<HTML><HEAD><TITLE>JALcc, Introduction</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<HR noshade size=1>
+<P>FOCUS:</P>
+<P>- application.mainform.setfocus + editor.setfocus !!</P>
+<P>&nbsp; //these 2 statements seems to assure the cursor will be visible !!</P>
+<P>&nbsp; application.processmessages;</P>
+<P>&nbsp; application.mainform.SetFocus;</P>
+<P>Deep problems,&nbsp;</P>
+<P>- very seldom font release (not reproducable, only in IDE ?)</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>Todo</P>
+<P>- RVE</P>
+<P>- Video</P>
+<P>- Graphics</P>
+<P>- Presentation Mode</P>
+<P>- webgeneration</P>
+<P>- OLE (word/excel)</P>
+<P>- flowchart</P>
+<P>- dxf/dwg</P>
+<P>- Xbasic87</P>
+<P>- PS</P>
+<P>&nbsp;&nbsp;</P>
+<P>Edit menu:</P>
+<P>WebBrowser: FIND nog te implementeren (geeft error)</P>
+<P>ABOUT_BOX: check new version</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#C0C0C0 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P><SPAN class=RVTS2>Parent</SPAN></P></TD>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P><SPAN class=RVTS2>Child</SPAN></P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P>OpenFile&nbsp;</P>
+<P>Editor Settings Changed&nbsp;</P>
+<P>set_This_is_language_mainfile&nbsp;</P>
+<P><SPAN class=RVTS3>--&gt; WMM_MDI_Settings_Changed</SPAN>&nbsp;(1 child)</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P>WndProc&nbsp;</P>
+<P><SPAN class=RVTS3>--&gt; WMM_MDI_reload_settings</SPAN>&nbsp;(all relevant childs)</P></TD>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P>Copy_settings_from_preferences&nbsp;</P>
+<P><SPAN class=RVTS3>--&gt; WMM_MDI_Settings_reloaded</SPAN></P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P>tabcontrol_files.Invalidate;&nbsp; //update color, ...</P></TD>
+<TD width=100 bgcolor=#FFFFFF valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

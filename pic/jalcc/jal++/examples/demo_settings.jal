@@ -1,0 +1,21 @@
+;settings for the hardware configuration
+include jrtl
+pragma target chip        16F876
+pragma target clock       20_000_000
+pragma target osc         hs
+pragma target watchdog    off
+pragma target powerup     on
+pragma target protection  off
+
+-- HS, -BOD, ,-LVP, -WDT, -CP  = 0x3F22
+pragma target fuses       0x3F32
+
+; include the PIC-inc file
+include 16F877_inc
+
+;be sure A-port is normal digital IO
+ADCON1 = 7    -- set portA to normal digital IO
+
+; include all possible libraries
+include delay_20mc
+

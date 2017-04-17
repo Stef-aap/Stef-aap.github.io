@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="58" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Auto Generating Bricks Library&nbsp; </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; ( august 2009 )</span></p>
+<p>Application Designer / <span class=rvts10>Domain Expert</span> / Control Designer / Core Developer</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Creating a bricks library from a arbitrary Python library can be done automatically, with just a few lines of code:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=513 height=144 alt="" src="pw_auto_brick_generation_img1.png"></p>
+<p><br></p>
+<p>The great trick is in the filename, the file should in the directory "PyLab_Works\bricks" and the filename should be "create_brick_xxx.py", where xxx is the name of the python library to be translated. In the next example, the generation of bricks from the numpy-library is shown.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=489 height=223 alt="" src="pw_auto_brick_generation_img2.png"></p>
+<p><br></p>
+<p>As the Brick design is quit straight forward and creates simple user interfaces, it might be worth to modify some or all of the generated bricks. It's also possible to exclude a number of functions, because they are not wanted.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Options</span></p>
+<p>You can <span class=rvts10>create extra bricks</span>, by creating them in the normal way in the file "create_brick_xxx.py". These bricks will be placed at the top of the generated Bricks Library. The automatic generated bricks will be placed in alphabetical order.</p>
+<p>You can <span class=rvts10>override automatic generated bricks</span>, by creating a brick in "create_brick_xxx.py", by placing a brick with the same name in the creation file.</p>
+<p>You can <span class=rvts10>exclude automatic generated bricks</span>, by putting there name in the Excluded list.</p>
+<p>You can order and arrange the Bricks within one library in <span class=rvts10>Groups</span>.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Grouping</span></p>
+<p>Functions within one Brick library can be arranged in groups. A group will be represented in the library tree as a subnode of the library file. For each group you must specify the name. You can also specify a different tree-icon and/or a different color. If you use Icon / color, set the value to None and the library defaults will be used. The groups are inserted in the tree, in the order they are created. All functions that not fall within one of given groups, will be put in the group "Unknown", which will be placed at the bottom of the tree. </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=255 height=207 alt="" hspace=1 vspace=1 src="pw_auto_brick_generation_img5.png">&nbsp;&nbsp;&nbsp;&nbsp; <img width=187 height=238 alt="" hspace=1 vspace=1 src="pw_auto_brick_generation_img6.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Numpy</span></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=291 height=33 alt="" src="pw_auto_brick_generation_img3.png"></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

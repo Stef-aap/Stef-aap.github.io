@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>PyLab Works, Introduction</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="540" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Introduction </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp; (February 2008)</span></p>
+<p><span class=rvts10>Application Designer</span> / Domain Expert / Control Designer / Core Developer</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>What is PyLab_Works</span></p>
+<p>What is PyLab_Works, we can give a few short answers from some different perspectives:</p>
+<p>Technical speaking: </p>
+<p class=rvps4>PyLab_Works is a highly modular Visual Development Environment, based on data-flow programming technics. </p>
+<p>Or in more human language:</p>
+<p class=rvps4>PyLab_Works is an easy development environment, based on the domain knowledge of experts. So the user doesn't need any programming knowledge nor does the user need to be an expert on that particular domain.</p>
+<p>And we can give many more long answers, but it might be better to start with a simple example. The figure below shows a simple functional block diagram of PyLab_Works, showing that PyLab_Works is in fact nothing more than a user-friendly wrapper for well-established libraries, like NumPy and MatPlotLib. The Graphical Controls and Displays are an integral part of PyLab_Works, while the domain expert should only create new Bricks, which are just simple connectors between the Graphical Controls and the domain functionality already available in the libraries.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=435 height=411 alt="" src="pw_intro_img1.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Documentation</span></p>
+<p>The documentation is written during code writing, and therefor might not always be completely correct, or sometimes there are features in the documentation that are intended to implement but are not yet implemented. The code is quit hierarchical, as shown in the schematic below. At the top of each document, there's an indication for which group of users this document is written.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=399 height=244 alt="" src="pw_controls_manager_img4.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Simple Example</span></p>
+<p>So suppose I want to make a program that can rotate an image, not very meaningful, because there are a lot of programs that can rotate an image, but I've chosen this example because it doesn't expect any specific domain knowledge. This is not a full explanation of PyLab_Works, but here I just want to show what steps are to be performed to make a real working application. So let's start PyLab_Works, and search for the image library in the tree. Open the node of the image library and look for something like "rotate". When we move the mouse cursor over the "rotate", we get an experts explanation of what this function will do for us. And indeed it does exactly what we need.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=621 height=506 alt="" src="pw_intro_img3.png"></p>
+<p><br></p>
+<p>Now simply drag the rotate-node to the design area on the right and drop it there, and the first brick will appear. I can investigate the brick, by placing the mouse cursor on the brick, and again the domain expert will tell me (in my own language) what the brick will do. I can move my mouse cursor on the inputs and outputs (the tiny squares and circles) and again the domain expert will tell me what this input/output is supposed to do and in case of an input if it's required or not (which is also indicated by a small extra line at the required node).</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=621 height=506 alt="" src="pw_intro_img4.png"></p>
+<p><br></p>
+<p>You can see that you need to connect some kind of "signal" to the top-left input, and the signal is of the type image, which seems quit reasonable for a function that rotates an image. The input on the top-right is not required, so I can leave that input open. And as the brick image-rotate only rotates an image, it might very convenient to connect some other brick to the output, something like a store-to-file or a display image. Let's look at the image library again, and we see an load-image-from-file and a display-image brick in the library. So drag these two to the design area.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=621 height=506 alt="" src="pw_intro_img5.png"></p>
+<p><br></p>
+<p>And after you connect the devices (drag from one IO-port to another, only IO-ports that can accept the type of signal will highlight and are able to bind to the dragged wire), the <span class=rvts10>functional design</span> of the program is ready. Yes there might be some details to fill in, and yes we do need to design the desired graphical user interface. This functional design is a very important intermediate step, because it shows exactly what we mean at this abstraction level. Try to tell someone what the above application will do and compare that sentence with the diagram above. You might be missing the word "Image" in each of the above bricks, but that is implicitly indicated by the green color (which can be altered by the user of the library).</p>
+<p>So up to the next step, press on the "Run-F9" button and the base of the general application is generated, watch ...</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=619 height=504 alt="" src="pw_intro_img6.png"></p>
+<p><br></p>
+<p>... and now you should have the real program, because changing the slider will change the image rotation directly. So in in fact <span class=rvts10>our Application</span> is ready, we just have to fine-tune some details.</p>
+<p>As you might notice, each brick is translated in a separate panel with a number of controls. The panels are separated by dragable splitters. These controls allows the final user of our application to change every parameters of that brick. The panels can be dragged and dropped to the desired position and size. Placing a panel outside the main window, will remove the controls (not the brick, and not the functionality) from the final application, so only preventing the end-user to change the according parameters. </p>
+<p>In the picture above you can see an another important feature of easy programming, in rotating an image new pixels will be generated, for which the color must be determined by some kind of calculation. The domain expert therefore has added a control "interpolation" that will let us choose from different possibilities (in better rotation algorithms there will even be more chooses). We even don't have to understand all this talking about interpolation, but as fully non-domain-expert we can simply try and see what it does, see the figure below.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=619 height=504 alt="" src="pw_intro_img7.png"></p>
+<p><br></p>
+<p>Above is our final application, we've shuffled the panels to a bit more logical position and fixed the application (removed the drag possibility of the panels and splitters).</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Basic Ideas</span></p>
+<p>The basic idea of this program was born when I had to study the possibilities of using LabView as the new standard tool (instead of MatLab) for medical research on our university. After seeing some life demos, I became very enthusiast, which vanished completely when I started implementing some real stuff. Visual programming, like in LabView did have something very interesting, but I had the feeling that the implementation was somewhere completely wrong. It took several months, before I saw the light. After I knew what was important, I read a lot of articles about visual programming, but couldn't confirm all of my own ideas. There has been a lot of study on the use and benefit of visual programming environments, both by researchers with a background in psychology and researchers with a background in information theory. Many of them compared the speed of development in normal program languages and in visual program languages, and found an increased productivity (at least in the beginning), but I never saw a good comparison, i.e. a double blind setup and/or the right audience for the right tool. The explanations why visual design is better, varies a lot and is often in expressed in terms, not understandable by normal human beings. So after seeing the light, I just started developing PyLab_Works based on some common sense starting-points. The most important issues in my opinion are:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Offering the necessary <span class=rvts10>user domain knowledge</span>, i.e. you don't need to be an expert (some basic knowledge&nbsp; should be enough) to perform actions in a certain domain. In my opinion this is really thé key item, and even far more important than the visual development environment. In the above example you don't need to know if its'"Rotate", "rotation", ..., you don't need to know that you might need an interpolation algorithm etc. </li>
+<li><span class=rvts10>Flatness of information</span>, all information that belonging together should be exposed to the user at once. A wizard is, in general, an example of non-flatness of information. Many programs don't follow this essential rule, in fact this is one of my major objections against LabView. </li>
+<li><span class=rvts10>Visual design</span>, </li>
+<li><span class=rvts10>Simplicity / uniformity</span>, </li>
+<li><span class=rvts10>User-flow-programming</span>, this looks much like data-flow-programming, but sometimes user-flow and data-flow will conflict with each other, in that case user-flow should always win. </li>
+<li><span class=rvts10>Modularity</span>, </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Key-Features</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Advantages of PyLab_Works</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>every detail is designed from the user's point of view (and not from the programmers point of view) and therefor very simple for non-programmers </li>
+<li>it's free and open source, so you can check or modify any underlying algorithm </li>
+<li>PyLab_Works doesn't reinvent the wheel, it's just a wrapper around already existing and well established libraries </li>
+<li></li>
+</ul>
+<p><br></p>
+<p><span class=rvts2>Disadvantages of PyLab_Works</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>there is no large installed base </li>
+<li>not all parts are completely finished </li>
+<li>a number of editors only accepts articles based on MatLab or LabView (completely sic in the world of research where every detail should be checkable / traceable ) </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>MainMenu</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=144 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>File</span></p>
+</td>
+<td width=74 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>Demos</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>Edit</span></p>
+</td>
+<td width=71 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>Settings</span></p>
+</td>
+<td width=99 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>Windows</span></p>
+</td>
+<td width=236 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>Help</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=144 valign=top style="background-color: #ffffe6;">
+<p>+ New / Open&nbsp;&nbsp;&nbsp; ^O</p>
+<p>- Save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^S</p>
+<p>- Save As ...</p>
+<p>-------------</p>
+<p>- Print&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^P</p>
+<p>- Print Preview</p>
+<p>- Page Setup</p>
+<p>-----------------</p>
+<p>- Export</p>
+<p>----------------</p>
+<p>+ Close</p>
+</td>
+<td width=74 valign=top style="background-color: #ffffe6;">
+<p>-dynamic list of all demo programs</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p>-ToDo</p>
+</td>
+<td width=71 valign=top style="background-color: #ffffe6;">
+<p>-ToDo</p>
+</td>
+<td width=99 valign=top style="background-color: #ffffe6;">
+<p>-ToDo</p>
+</td>
+<td width=236 valign=top style="background-color: #ffffe6;">
+<p>- PyLab Works</p>
+<p>- Python</p>
+<p>-------------------</p>
+<p>- Check New Version</p>
+<p>+ Send BugReport</p>
+<p>- Ask OnLine Assistance</p>
+<p>+ About</p>
+<p><br></p>
+</td>
+</tr>
+</table>
+</div>
+<p><span class=rvts2><br></span></p>
+<p><span class=rvts10>New / Open</span></p>
+<p>Closes the existing file and opens a new or existing file. If another project is opened, the current project will be saved automatically.</p>
+<p><br></p>
+<p><span class=rvts10>Close</span></p>
+<p>Closes the application, all changes are saved automatically.</p>
+<p><br></p>
+<p><span class=rvts10>Send BugReport</span></p>
+<p>Starts the default email client, with the recipient directed to "Punthoofd", the bug directory of PyLab_Works.</p>
+<p><br></p>
+<p><span class=rvts10>About (text aanpassen !!)</span></p>
+<p>Shows the about box, containing a short description, version number and credits.</p>
+<p><br></p>
+
+</body></html>

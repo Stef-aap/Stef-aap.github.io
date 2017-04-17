@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--
+	***************************************************************************
+ 	*   Copyright (C) 2005-2006 by Erik van 't Wout, Eugene Evans             *
+ 	*   bugs@hofhom.nl                                                        *
+ 	*                                                                         *
+ 	*   This program is free software; you can redistribute it and/or modify  *
+ 	*   it under the terms of the GNU General Public License as published by  *
+	*   the Free Software Foundation; either version 2 of the License, or     *
+	*   (at your option) any later version.                                   *
+	*                                                                         *
+	*   This program is distributed in the hope that it will be useful,       *
+	*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ 	*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ 	*   GNU General Public License for more details.                          *
+ 	*                                                                         *
+ 	*   You should have received a copy of the GNU General Public License     *
+ 	*   along with this program; if not, write to the                         *
+	*   Free Software Foundation, Inc.,                                       *
+ 	*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+	***************************************************************************
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="format.css" rel="stylesheet" type="text/css" /><script type="text/JavaScript">
+<!--
+function MM_popupMsg(msg) { //v1.0
+  alert(msg);
+}
+//-->
+</script>
+</head>
+<body>
+<div class="text-f">
+<div align="center" class="text-ft">Program Layout</div>
+<hr />
+<div align="justify">
+<p>A BASIC ASM program consists of 3 main parts: declaration statements, main code, and function code. This organization structure is rather similar to that found in C, and provides a measure of order not in pure BASIC or ASM code. To illustrate each of these sections, I will proceed to dissect the program you just compiled line by line.</p>
+<p>Once again, to refresh your memory... </p>
+<table border="0" cellspacing="0" class="ec">
+  <tr>
+    <td width="1100" class="ect">Sample Program:</td>
+  </tr>
+  <tr>
+    <td class="ec"><span class="cc">#include</span> &lt;asmlib.h&gt;
+        <p><span class="str">STRING</span> mes = &quot;Hello World !!&quot;</p>
+        <p><span class="cc">START</span><br />
+        <span class="func">cls</span><br />
+       <span class="func">PRINTF</span> 0 0 mes<br />
+        <span class="cc">END</span></p></td>
+  </tr>
+</table>
+<p><span class="text-fsect">Declarations</span><br />
+Since BASIC ASM is a function-based language, it is considered a high-level language, or at least <a style="cursor: pointer" onclick="alert('C is technically a midlevel language even though it contains functions and other features of higher-level languages because of its close connection to ASM.  BASIC ASM is kind of like that as well.')">midlevel</a>, which necessitates the declaration of functions and variables so that the compiler (and eventually the CPU) can understand what these functions and variables mean. A function may be a ROM call, a built-in BASIC ASM function, or a user-defined function.  See <a href="commands.html">BASIC ASM Commands</a> for the built-in BASIC ASM functions and their syntax.  Variables may be strings or numbers. Additionally, other files containing code or definitions can be included in the source file.<br /></p>
+<p>So, back to our program. Let's take this one step at a time, beginning with the <span class="cc">#include</span> command.</p>
+<p><span class="cc">#include</span> tells <span class="bzc">BZC</span> to use &lt;file_name&gt; as a header (include) file in this program. The <span class="asm">asmlib.h</span> file is essentially a master header file, consisting of <span class="asm">tios.h</span>, which contains the standard definitions for ROM calls and system variables, and other ASM routines. Note that it is different from the <span class="asm">ti83plus.inc</span> and the two files CANNOT be used interchangably; <span class="bzc">BZC</span> uses <span class="header">asmlib.h</span> (or, simply <span class="asm">tios.h</span>) and NOT <span class="asm">ti83plus.inc</span>.</p>
+<p><span class="str">STRING</span> defines a constant string; it <a style="cursor: pointer" onclick="alert('OK, technically you CAN modify these strings at runtime, but you have to use native ASM to do it. The general theory is that you iterate through the string, replacing each element of the string (remember strings are arrays of characters?) that you want.')">cannot</a> be changed during program execution (this is not <i>entirely</i> true). As you can see, our string is later passed as a function to <span class="asm">PRINTF</span>.</p>
+<p>Of course, there are a number of other declaration statements that we haven't covered yet, including function declarations. But that will wait for the next lesson, which is <em>all</em> about declarations...</p>
+<p><span class="text-fsect">Main Code</span><br />
+This section is where the actual execution of the program begins. Denoted by <span class="cc">START</span>, the main code section continues until the keyword <span class="cc">END</span> is reached, signifying the end of the program. When the calculator comes to this point, the program terminates, returning to the OS or the calling program.  In our program, the functions to clear the screen, and print our message at specific coordinates are called from this block of code.<br /></p>
+<p>Since I promised I'd dissect this program, I will go ahead and do that next. <span class="func">cls</span> is an extremely simple function that calls the TI-OS ROM call <span class="asm">_ClrLCDFull</span>, to clear the screen. <span class="func">PRINTF</span> is quite a bit more complicated, but soooo useful! Its first two arguments are the <a style="cursor: pointer" onclick="alert('It would be a good idea right now for you to get used to the coordinate system of the home screen as it is defined in ASM.  The first row and column are both 0 and the last row and column are, respectively, 7 and 15.  This is in contrast to the coordinate system in TI-BASIC, wherein the first row and column are 1.  Do get used to it, though, or your code could end up producing some rather interesting results... :-)')">coordinates</a> on the home screen where you want to begin displaying something, and the third argument is, of course, what you want to display. <span class="asm">PRINTF</span> automatically detects the type of variable you pass to it (string or number) and adjusts accordingly.</p>
+<p>One final note: you may have noticed that I've typed both the functions we just discussed in uppercase. Generally, in BASIC ASM, built-in functions are <a style="cursor: pointer" onclick="alert('For some functions, like CLS, you can get away with typing them in lower case.  But, it's probably not a good idea to do that, since you might forget and type a function that must be in uppercase (like PRINTF) in lowercase, causing compilation problems and prompting you to begin tearing out your hair.  In other words, ALWAYS type built-in functions in uppercase!')">almost</a> always REQUIRED to be in uppercase. On to the function code section!</p>
+<p><span class="text-fsect">Function Code</span><br />
+The third and final main section of the program is the function code. Here, code is assigned to the functions declared above in the declarations section. In our program, this section is not needed because we are using built-in BASIC ASM functions. In general, function code is assigned to a function prototype by the use of <span class="cc">FSTART</span> and <span class="cc">FEND</span> (with code between the two keywords); more information on this in the Functions lesson.<br /></p>
+<p>Now that you know the general layout of a BASIC ASM program, let's go to <a href="lesson4.html" target="tutorialframe">Declarations</a> to learn more about declarations!</p>
+</div>
+</div>
+</body>
+</html>

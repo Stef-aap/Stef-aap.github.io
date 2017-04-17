@@ -1,0 +1,561 @@
+-- -----------------------------------------------------------------------------
+-- <title Integer LOG Math (3 byte)
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+--
+-- The math routines acts on fixed variables X and Y, definied in Byte3_math.jal
+-- The use of JALcc macros makes the use of this library very simple
+--
+-- overview of the available routines
+--  byte3_LOG              Y = log ( X )  , X CHANGED !!
+--  Accuracy of the LOG function must be set by the user, through the constant
+--    const LOG_ACCURACY = 3
+--
+-- <Version: 1.0  12-09-2004,  Stef Mientki
+--   - LOG routines moved from Byte3_log.jal to here
+--   - initial release
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- <Example RS232
+; -- define settings
+-- -----------------------------------------------------------------------------
+
+
+include byte3_math
+
+-- <code
+
+
+-- -----------------------------------------------------------------------------
+-- this contents determines the length of the lookuptable for log calculation
+-- and thereby the accuracy, length = 2 ^ ( LUT_Nbits - 1 )
+-- LUT_Nbits       error           argument which gives the largest error
+--    3            0.3 %           0x09
+--    4            0.06 %          0x11
+--    5            0.013 %         0x21
+--    6            0.003 %         0x41
+const LUT_Nbits = LOG_ACCURACY
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure _table_log_msb (byte in indx, byte out x) is
+  pragma jump_table
+  if LUT_Nbits <= 2 then
+  elsif LUT_Nbits == 3 then
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+          ; PIC 24 bits log tables
+          ; for 3 bits lookup
+          ; gainfactor = $080000
+          ; largest value = $00BFFFF9
+          ;  MSB table (3bit)
+          retlw   0x10
+          retlw   0x12
+          retlw   0x14
+          retlw   0x16
+          retlw   0x18
+      exit:                       ;
+    end assembler
+  elsif LUT_Nbits == 4 then
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+        ; PIC 24 bits log tables
+        ; for 4 bits lookup
+        ; gainfactor = $080000
+        ; largest value = $00BFFFF7
+        ;  MSB table (4bit)
+           retlw   0x18
+           retlw   0x19
+           retlw   0x1A
+           retlw   0x1B
+           retlw   0x1C
+           retlw   0x1D
+           retlw   0x1E
+           retlw   0x1F
+           retlw   0x20
+    exit:                       ;
+    end assembler
+  elsif LUT_Nbits == 5 then
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+        ; PIC 24 bits log tables
+        ; for 5 bits lookup
+        ; gainfactor = $080000
+        ; largest value = $00BFFFF6
+        ;  MSB table (5bit)
+           retlw   0x20
+           retlw   0x20
+           retlw   0x21
+           retlw   0x21
+           retlw   0x22
+           retlw   0x23
+           retlw   0x23
+           retlw   0x24
+           retlw   0x24
+           retlw   0x25
+           retlw   0x25
+           retlw   0x26
+           retlw   0x26
+           retlw   0x26
+           retlw   0x27
+           retlw   0x27
+           retlw   0x28
+      exit:                       ;
+    end assembler
+  else
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+      ; PIC 24 bits log tables
+      ; for 6 bits lookup
+      ; gainfactor = $080000
+      ; largest value = $00BFFFFA
+      ;  MSB table (6bit)
+         retlw   0x28
+         retlw   0x28
+         retlw   0x28
+         retlw   0x29
+         retlw   0x29
+         retlw   0x29
+         retlw   0x29
+         retlw   0x2A
+         retlw   0x2A
+         retlw   0x2A
+         retlw   0x2B
+         retlw   0x2B
+         retlw   0x2B
+         retlw   0x2B
+         retlw   0x2C
+         retlw   0x2C
+         retlw   0x2C
+         retlw   0x2C
+         retlw   0x2D
+         retlw   0x2D
+         retlw   0x2D
+         retlw   0x2D
+         retlw   0x2E
+         retlw   0x2E
+         retlw   0x2E
+         retlw   0x2E
+         retlw   0x2E
+         retlw   0x2F
+         retlw   0x2F
+         retlw   0x2F
+         retlw   0x2F
+         retlw   0x2F
+         retlw   0x30
+      exit:                       ;
+    end assembler
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure _table_log_middle (byte in indx, byte out x) is
+  pragma jump_table
+  if LUT_Nbits <= 2 then
+  elsif LUT_Nbits == 3 then
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+         ;  middle table (3bit)
+         retlw   0x00
+         retlw   0x93
+         retlw   0xAE
+         retlw   0x75
+         retlw   0x00
+      exit:                       ;
+    end assembler
+  elsif LUT_Nbits == 4 then
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+         ;  middle table (4bit)
+           retlw   0x00
+           retlw   0x5C
+           retlw   0x93
+           retlw   0xAC
+           retlw   0xAE
+           retlw   0x9A
+           retlw   0x75
+           retlw   0x41
+           retlw   0x00
+      exit:                       ;
+    end assembler
+  elsif LUT_Nbits == 5 then
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+         ;  middle table (5bit)
+           retlw   0x00
+           retlw   0xB3
+           retlw   0x5C
+           retlw   0xFB
+           retlw   0x93
+           retlw   0x23
+           retlw   0xAC
+           retlw   0x30
+           retlw   0xAE
+           retlw   0x26
+           retlw   0x9A
+           retlw   0x0A
+           retlw   0x75
+           retlw   0xDD
+           retlw   0x41
+           retlw   0xA2
+           retlw   0x00
+      exit:                       ;
+    end assembler
+  else
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+        ;  middle table (6bit)
+           retlw   0x00
+           retlw   0x5A
+           retlw   0xB3
+           retlw   0x08
+           retlw   0x5C
+           retlw   0xAC
+           retlw   0xFB
+           retlw   0x48
+           retlw   0x93
+           retlw   0xDC
+           retlw   0x23
+           retlw   0x68
+           retlw   0xAC
+           retlw   0xEF
+           retlw   0x30
+           retlw   0x6F
+           retlw   0xAE
+           retlw   0xEA
+           retlw   0x26
+           retlw   0x61
+           retlw   0x9A
+           retlw   0xD2
+           retlw   0x0A
+           retlw   0x40
+           retlw   0x75
+           retlw   0xA9
+           retlw   0xDD
+           retlw   0x0F
+           retlw   0x41
+           retlw   0x72
+           retlw   0xA2
+           retlw   0xD1
+           retlw   0x00
+      exit:                       ;
+    end assembler
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure _table_log_lsb (byte in indx, byte out x) is
+  pragma jump_table
+  if LUT_Nbits <= 2 then
+  elsif LUT_Nbits == 3 then
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+          ;  LSB table (3bit)
+          retlw   0x00
+          retlw   0x4F
+          retlw   0x01
+          retlw   0x76
+          retlw   0x00
+      exit:                       ;
+    end assembler
+  elsif LUT_Nbits == 4 then
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+         ;  LSB table (4bit)
+           retlw   0x00
+           retlw   0x02
+           retlw   0x4F
+           retlw   0xEA
+           retlw   0x01
+           retlw   0x80
+           retlw   0x76
+           retlw   0x50
+           retlw   0x00
+      exit:                       ;
+    end assembler
+  elsif LUT_Nbits == 5 then
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+         ;  LSB table (5bit)
+           retlw   0x00
+           retlw   0x20
+           retlw   0x02
+           retlw   0xC1
+           retlw   0x4F
+           retlw   0x77
+           retlw   0xEA
+           retlw   0x41
+           retlw   0x01
+           retlw   0x9E
+           retlw   0x80
+           retlw   0x02
+           retlw   0x76
+           retlw   0x25
+           retlw   0x50
+           retlw   0x32
+           retlw   0x00
+
+      exit:                       ;
+    end assembler
+  else -- LUT_Nbits == 6
+    assembler
+      local table,exit
+      page exit
+          movfw       indx        ;
+          call        table       ;
+          movwf       x           ;
+          goto        exit        ;
+      table:                      ;
+          addwf       PCL,F       ;
+        ;  LSB table (6bit)
+           retlw   0x00
+           retlw   0xEB
+           retlw   0x20
+           retlw   0xC6
+           retlw   0x02
+           retlw   0xF6
+           retlw   0xC1
+           retlw   0x81
+           retlw   0x4F
+           retlw   0x44
+           retlw   0x77
+           retlw   0xFD
+           retlw   0xEA
+           retlw   0x51
+           retlw   0x41
+           retlw   0xCC
+           retlw   0x01
+           retlw   0xED
+           retlw   0x9E
+           retlw   0x21
+           retlw   0x80
+           retlw   0xC8
+           retlw   0x02
+           retlw   0x3A
+           retlw   0x76
+           retlw   0xC2
+           retlw   0x25
+           retlw   0xA7
+           retlw   0x50
+           retlw   0x26
+           retlw   0x32
+           retlw   0x78
+           retlw   0x00
+      exit:                       ;
+    end assembler
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- 24 bit LOG routine
+-- Y = log ( X )
+-- X is CHANGED !!
+-- -----------------------------------------------------------------------------
+procedure byte3_LOG is
+
+const TOT_Nbits = 24
+const frac_bit  = 7 - LUT_Nbits   -- 4
+
+var byte lut_index
+var byte lut_mask
+var byte nshift
+var byte x
+var byte x_shl
+var byte z3,z2,z1
+
+
+      -- limit lower argument value at 1
+      if (x3 == 0) & (x2 == 0) & (x1 == 0) then x1 = 1 end if
+
+      -- determine X_SHL
+      x_shl = 0
+      assembler
+      local next_rot, test_msb, finish
+      page finish
+        bcf     status,C   ;clear Carry
+        goto    test_msb   ;
+      next_rot:            ;shift X until msb is "1"
+        rlf     x1,f       ;
+        rlf     x2,f       ;
+        rlf     x3,f       ;
+      test_msb:            ;
+        btfsc   x3,7       ;test msb
+        goto    finish     ;
+        incf    x_shl,f    ;remember number of shifts
+        goto    next_rot   ;
+      finish:              ;
+      end assembler
+
+      -- determine lookupindex
+      LUT_mask = 0xFF >> LUT_Nbits
+      x = ( x3 & ! LUT_mask ) >> ( 8 - LUT_Nbits )
+
+      -- determine fraction
+      z1 = x1
+      z2 = x2
+      z3 = x3 & LUT_mask
+
+
+      -- calculate the difference between the 2 consecutive table values
+      x = x - (1 << (LUT_Nbits - 1))
+      _table_log_msb    ( x, X3 )
+      _table_log_middle ( x, X2 )
+      _table_log_lsb    ( x, X1 )
+      x = x + 1
+      _table_log_msb    ( x, Y3 )
+      _table_log_middle ( x, Y2 )
+      _table_log_lsb    ( x, Y1 )
+
+      byte3_sub  -- y = LUT[i+1] - LUT[i]
+                 -- x = LUT[i]
+
+
+
+      byte3_xchg  -- exchange x an y
+      -- so now y = LUT[i] and here the result of the fraction will be added
+      -- x = delta-LUT = LUT[i+1] - LUT[i]
+
+
+      nshift = TOT_Nbits - LUT_Nbits
+      assembler
+      local next_frac, no_add
+      page no_add
+
+      ;shift delta_LUT one bit to the right
+      next_frac:           ;
+        bcf     status,C   ;divide delta-LUT by 2
+        rrf     X3,f       ;
+        rrf     X2,f       ;
+        rrf     X1,f       ;
+
+      ;test the relevant bit of the fraction
+        btfss   Z3,frac_bit;
+        goto    no_add     ;
+
+      ;add another part of the fraction
+        call    byte3_add  ; Y = Y + X = sum + delta-LUT
+
+      ;shift fraction one bit to the left (Carry doesn't mind)
+      no_add:              ;
+        rlf     Z1,f       ;
+        rlf     Z2,f       ;
+        rlf     Z3,f       ;
+
+      ;test if ready
+        decfsz  nshift,f   ;
+        goto    next_frac  ;
+      end assembler
+      -- now Y is the result, except for the X_SHL correction
+
+      -- exchange X and Y, so X = result
+      byte3_xchg
+
+      -- fill Y
+      Y1 = ( TOT_Nbits - LUT_Nbits )  - x_shl
+      Y2 = 0
+      Y3 = 0
+      byte3_shl ( TOT_Nbits - 5 )
+
+      -- now get the final result
+      byte3_add
+
+end procedure
+-- -----------------------------------------------------------------------------
+

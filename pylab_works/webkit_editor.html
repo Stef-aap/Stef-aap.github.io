@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="31" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>wxKit&nbsp;&nbsp; </span><span class=rvts8>(December 2010)</span></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>wxKit is a wysiwyg html editor with a number of special features. Because at this time wx.WebKit is not yet available, we switched to QTWebKit, embedded in wxPython with the help of PySide and execnet. More details are at the end of this page.The most important features of the editor are :</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Parts of the text can be indicated as being Python code. The <span class=rvts10>code can be executed in Python</span> and the results (or errors) are automatically fetched within the html document (similar to Sage). Results can be print-output or graphical output products.</li>
+<li>If code parts can not be evaluated in Python, and if MatLab is installed, that <span class=rvts10>code is executed in MatLab</span>. This gives an unique opportunity to compare Python and MatLab and even gradually move from MatLab to Python (or the other way around ;-) .Also the complete MatLab output (text and graphics) can be caught by the html document. Therefor you can use the MatLab graphics, which are still a bit more flexible and easier to handle than MatPlotLib.</li>
+<li>With the <span class=rvts10>image editor</span>, you can add rectangles / arrows and texts to images. As all the individual elements are saved in the html page (invisible), you can easily change modified pictures later on.</li>
+<li><span class=rvts10>Screen Capture</span> gives you the opportunity to catch any rectangle portion as an embedded picture.</li>
+<li>With <span class=rvts10>Formula editor</span> you can add Latex formulas as images. The formula is also stored (invisible) in the html document, so it can easily be modified at a later time.</li>
+<li>You can use either <span class=rvts10>classical styling</span> (use bold / font etc just when you like it), or you can use of three (self definable) <span class=rvts10>style sets</span>. In the latter case it's easy to change the style of all the documents at once.</li>
+<li></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Execution of Python and / or MatLab code</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Image Editor</span></p>
+<p><br></p>
+<div><table width="100%" border=1 style="border-width : 0px" cellpadding=5 cellspacing=0 style="background-color: #d4d0c8;">
+<tr valign=top>
+<td width=487 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; background-color: #ffffd4;">
+<p>The <span class=rvts10>button at the upper right</span>, indicates the current color and line width for new elements (not necessarily the properties of the selected elements). The font size is derived from the line width. Clicking on this button, will change the properties of all the selected objects according to this settings.</p>
+<p><br></p>
+<p><span class=rvts10>More than 1 element can be selected</span>, by clicking on objects, while holding the shift key.</p>
+<p><br></p>
+<p><span class=rvts10>Text can be modified</span> by selecting one and only one text object, the current text will appear in the edit box. After modifying the text in the edit box, press Enter and the text of the object will be modified accordingly.</p>
+<p><br></p>
+<p><br></p>
+</td>
+<td width=239 valign=top style="border-width : 1px; border-color: #808080; border-style: solid; border-left: none; background-color: #ffffd4;">
+<p><img width=338 height=502 alt="" hspace=1 vspace=1 src="webkit_editor_img1.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Formula Editor</span></p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

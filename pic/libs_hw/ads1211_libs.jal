@@ -1,0 +1,641 @@
+-- -----------------------------------------------------------------------------
+-- <title ADS1211
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- Library for the control of the ADS1211 
+--     (4 channel, 24 bit ADC, 1 channel=16kHz, 4 channel=1kHz)
+-- with slight modifications also usable for the ADS1210, ADS1212, ADS1213
+--
+-- Hardware settings should be done through a local copy of ADS1211_LIBS_INS
+--
+--
+-- <non-tag
+-- procedures
+--   ADS1211_reset      hardware reset, calibrate, set normal mode
+--   ADS1211_calibrate  calibrate, set normal mode
+--   ADS1211_sleep      put ADC in sleep
+--   ADS1211_wakeup     wakeup ADC
+--   ADS1211_read_cmd   read both command registers (debugging)
+--   ADS1211_read_ADC_24  read 24 bits ADC value
+--
+-- Data is transported through the variable
+--   ADS1211_dor = ADS1211_dor3 . ADS1211_dor2 . ADS1211_dor1
+--
+-- <Version: 3.1    ,04-06-2004, Stef Mientki
+--    - small improvements to the reset procedure
+--		- 100 msec delay in reset replaced by wait for ready
+-- 
+-- <Version: 3.0    ,07-03-2003, Stef Mientki
+--    - Control through MSSP (besides USART) added
+--		- pin names changed, so macro pin definitions can be used
+--
+-- <Version: 2.0    ,25-02-2003, Stef Mientki
+--    - Maximum SPI clockrate increased from Fin/5 to Fin/4
+--
+-- <Version: 1.0    ,29-02-2002, Stef Mientki
+--    - orginal release
+--
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+-- ------(comment is preceeded by '--', program code preceeded by ';'
+-- -----------------------------------------------------------------------------
+
+-- -----------------------------------------------------------------------------
+-- <Example 
+-- ;make local copy of ADS1211_LIBS_INS, edit paramaters, include in main program
+;    include ADS1211_libs_ins
+;
+-- ;reset ADC (multiple SPI devices assumed, so CS must be controled)
+;    CS_ADC0 = low
+;    ADS1211_reset
+;    CS_ADC0 = high
+;
+; -- read a 24 bit ADC value into ADS1211_dor2 . ADS1211_dor1 . ADS1211_dor0
+;    CS_DAC0 = low
+;    ADS1211_read_ADC_24
+;    CS_DAC0 = high
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+-- -----------------------------------------------------------------------------
+-- first test ADC clockfrequency
+-- -----------------------------------------------------------------------------
+if ADS1211_Fin < 1_200_000 then
+  pragma error   -- clock frequency of ADC possible too low for this routines
+                 -- especially t9 .. t11 and t15 should be checked
+end if
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- test if SPI baudrate not too high
+-- -----------------------------------------------------------------------------
+if baudrate > ADS1211_Fin / 4 then
+  pragma error   -- Baudrate too high for the ADC clock frequency
+end if
+-- -----------------------------------------------------------------------------
+
+
+
+-- general delay routines
+include delay_20Mc
+
+-- all SPI routines
+include rs232_hw
+include master_sync_ser_port
+
+-- for reversing bits
+include bit_calcs
+
+
+-- definitions of the DATA registers, to be filled by the user
+var volatile byte ADS1211_dor3  -- MSB
+var volatile byte ADS1211_dor2
+var volatile byte ADS1211_dor1  -- LSB
+var volatile byte ADS1211_chan = 0
+
+-- 100 * Txin in [ usec], for calculating reset pulses
+const _ADS1211_Txin_100 = ( 100 * 1_000_000 ) / ADS1211_Fin
+if _ADS1211_Txin_100 != 10 then
+  pragma error
+end if
+
+
+-- codes are NOT reversed
+const _ADS1211_mode_normal         = 0b_0000_0000
+const _ADS1211_mode_self_cal       = 0b_0010_0000
+const _ADS1211_mode_offset_cal     = 0b_0100_0000
+const _ADS1211_mode_gain_cal       = 0b_0110_0000
+const _ADS1211_mode_pseudo_cal     = 0b_1000_0000
+const _ADS1211_mode_background_cal = 0b_1010_0000
+const _ADS1211_mode_sleep          = 0b_1100_0000
+
+
+-- GAIN * TURBO <= 16
+-- Sample frequency, which determines the digital filter characteristic is geiven by
+--   Fsamp = ( Fin * Turbo * Gain ) / 512
+-- Data output rate is determined by
+--   Fdata = ( Fin * Turbo ) / ( 512 * ( decimation + 1)
+
+-- Because the full input amplitude range is needed, gain can't be used,
+-- instead Turbo is used to increase bit accuracy for the high sample rates required
+
+-- test of gain and turbo settings
+if ( ADS1211_gain * ADS1211_turbo ) > 16 then
+  pragma error  -- Gain * Turbo too high
+end if
+
+
+if !( ( ADS1211_turbo == 1 ) | ( ADS1211_turbo == 2 ) | ( ADS1211_turbo == 4 ) |
+      ( ADS1211_turbo == 8 ) | ( ADS1211_turbo == 16 ) ) then
+  pragma error  -- Turbo ratio must be an element of 1, 2, 4, 8, 16
+end if
+
+
+if !( ( ADS1211_gain == 1 ) | ( ADS1211_gain == 2 ) | ( ADS1211_gain == 4 ) |
+      ( ADS1211_gain == 8 ) | ( ADS1211_gain == 16 ) ) then
+  pragma error  -- Gain must be an element of 1, 2, 4, 8, 16
+end if
+
+
+
+-- now define the gain, translated and shifted but NOT reversed
+var byte _ADS1211_gain
+if    ADS1211_gain == 1 then _ADS1211_gain = 0b_000_000_00
+elsif ADS1211_gain == 2 then _ADS1211_gain = 0b_000_001_00
+elsif ADS1211_gain == 4 then _ADS1211_gain = 0b_000_010_00
+elsif ADS1211_gain == 8 then _ADS1211_gain = 0b_000_011_00
+else                         _ADS1211_gain = 0b_000_100_00
+end if
+
+-- calculation of the decimation ratio
+const _ADS1211_decimation = ( ( ADS1211_Fin * ADS1211_turbo ) /
+                              ( 512 * ADS1211_Fdata * ADS1211_Nchan * ADS1211_NchanX )
+                            ) - 1
+
+const _ADS1211_decimation_1000 = ( ( ADS1211_Fin * ADS1211_turbo ) /
+                                   ( 512 * 975 * ADS1211_Nchan * ADS1211_NchanX )
+                                 ) - 1
+const _ADS1211_decimation_500  = ( ( ADS1211_Fin * ADS1211_turbo ) /
+                                   ( 512 * 500 * ADS1211_Nchan * ADS1211_NchanX )
+                                 ) - 1
+const _ADS1211_decimation_200  = ( ( ADS1211_Fin * ADS1211_turbo ) /
+                                   ( 512 * 200 * ADS1211_Nchan * ADS1211_NchanX )
+                                 ) - 1
+const _ADS1211_decimation_100  = ( ( ADS1211_Fin * ADS1211_turbo ) /
+                                   ( 512 * 100 * ADS1211_Nchan * ADS1211_NchanX )
+                                 ) - 1
+const _ADS1211_decimation_50   = ( ( ADS1211_Fin * ADS1211_turbo ) /
+                                   ( 512 * 50 * ADS1211_Nchan * ADS1211_NchanX )
+                                 ) - 1
+const _ADS1211_decimation_20   = ( ( ADS1211_Fin * ADS1211_turbo ) /
+                                   ( 512 * 20 * ADS1211_Nchan * ADS1211_NchanX )
+                                 ) - 1
+const _ADS1211_decimation_10   = ( ( ADS1211_Fin * ADS1211_turbo ) /
+                                   ( 512 * 10 * ADS1211_Nchan * ADS1211_NchanX )
+                                 ) - 1
+const _ADS1211_decimation_5    = ( ( ADS1211_Fin * ADS1211_turbo ) /
+                                   ( 512 * 5 * ADS1211_Nchan * ADS1211_NchanX )
+                                 ) - 1
+
+
+var byte _ADS1211_dcr0
+var byte _ADS1211_dcr1
+var byte _ADS1211_cmd2       -- CMD2 = Mode + Gain + channel
+
+
+if _ADS1211_decimation > 8000 then
+  pragma error  -- decimation ratio is too high
+elsif _ADS1211_decimation < 19 then
+  pragma error  -- decimation ratio is too low
+else
+  _ADS1211_dcr1 = _ADS1211_decimation / 256
+  _ADS1211_dcr0 = _ADS1211_decimation - 256 * ( _ADS1211_decimation / 256 )
+end if
+
+
+;-- Turbo mode must be added to dcr1 to form CMR1
+;if ADS1211_turbo == 1 then
+;elsif ADS1211_turbo == 2 then
+;  _ADS1211_dcr1 = _ADS1211_dcr1 | 0b_001_00000
+;elsif ADS1211_turbo == 4 then
+;  _ADS1211_dcr1 = _ADS1211_dcr1 | 0b_010_00000
+;elsif ADS1211_turbo == 8 then
+;  _ADS1211_dcr1 = _ADS1211_dcr1 | 0b_011_00000
+;else
+;  _ADS1211_dcr1 = _ADS1211_dcr1 | 0b_100_00000
+;end if
+;
+;-- bits must be reversed if USART is used
+;if ADS1211_spi_usart then
+;  reverse_bits (_ADS1211_dcr1)
+;  reverse_bits (_ADS1211_dcr0)
+;end if
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure _ADS1211_set_frequency 
+  (byte in freq) is
+	if ADS1211_turbo == 1 then
+	elsif ADS1211_turbo == 2 then
+	  _ADS1211_dcr1 = 0b_001_00000
+	elsif ADS1211_turbo == 4 then
+	  _ADS1211_dcr1 = 0b_010_00000
+	elsif ADS1211_turbo == 8 then
+	  _ADS1211_dcr1 = 0b_011_00000
+	else
+	  _ADS1211_dcr1 = 0b_100_00000
+	end if
+
+  if    freq == 0 then  -- default
+    _ADS1211_dcr1 = _ADS1211_dcr1 | (_ADS1211_decimation / 256)
+    _ADS1211_dcr0 = _ADS1211_decimation
+	elsif freq == 1 then  -- 5 Hz
+    _ADS1211_dcr1 = _ADS1211_dcr1 | (_ADS1211_decimation_5 / 256)
+    _ADS1211_dcr0 = _ADS1211_decimation_5
+	elsif freq == 2 then  -- 10 Hz
+    _ADS1211_dcr1 = _ADS1211_dcr1 | (_ADS1211_decimation_10 / 256)
+    _ADS1211_dcr0 = _ADS1211_decimation_10
+	elsif freq == 3 then  -- 20 Hz
+    _ADS1211_dcr1 = _ADS1211_dcr1 | (_ADS1211_decimation_20 / 256)
+    _ADS1211_dcr0 = _ADS1211_decimation_20
+	elsif freq == 4 then  -- 50 Hz
+    _ADS1211_dcr1 = _ADS1211_dcr1 | (_ADS1211_decimation_50 / 256)
+    _ADS1211_dcr0 = _ADS1211_decimation_50
+	elsif freq == 5 then  -- 100 Hz
+    _ADS1211_dcr1 = _ADS1211_dcr1 | (_ADS1211_decimation_100 / 256)
+    _ADS1211_dcr0 = _ADS1211_decimation_100
+	elsif freq == 6 then  -- 200 Hz
+    _ADS1211_dcr1 = _ADS1211_dcr1 | (_ADS1211_decimation_200 / 256)
+    _ADS1211_dcr0 = _ADS1211_decimation_200
+	elsif freq == 7 then  -- 500 Hz
+    _ADS1211_dcr1 = _ADS1211_dcr1 | (_ADS1211_decimation_500 / 256)
+    _ADS1211_dcr0 = _ADS1211_decimation_500
+	else -- freq == 8     -- 1000 Hz
+    _ADS1211_dcr1 = _ADS1211_dcr1 | (_ADS1211_decimation_1000 / 256)
+    _ADS1211_dcr0 = _ADS1211_decimation_1000
+  end if
+
+	-- bits must be reversed if USART is used
+	if ADS1211_spi_usart then
+	  reverse_bits (_ADS1211_dcr1)
+	  reverse_bits (_ADS1211_dcr0)
+	end if
+
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- ADS1211, first MSB downto LSB
+-- that's opposite to Tx of 16F628
+-- so for all commands all bits must be swapped
+
+-- INSTRUCTION REGISTER non reversed                          (nr of bytes)
+const byte _ADS1211_ins_read_data_24        = 0b_1100_0000  -- (3) 
+const byte _ADS1211_ins_read_cmd            = 0b_1110_0100  -- (4) 
+const byte _ADS1211_ins_read_cmr1           = 0b_1000_0100  -- (1) 
+const byte _ADS1211_ins_read_offset_cal     = 0b_1100_1000  -- (3) 
+const byte _ADS1211_ins_read_fullscale_cal  = 0b_1100_1100  -- (3) 
+
+const byte _ADS1211_ins_write_data          = 0b_0100_0000  -- (3) 
+const byte _ADS1211_ins_write_cmd           = 0b_0110_0100  -- (4) 
+const byte _ADS1211_ins_write_cmd2          = 0b_0000_0101  -- (1) 
+const byte _ADS1211_ins_write_offset_cal    = 0b_0100_1000  -- (3) 
+const byte _ADS1211_ins_write_fullscale_cal = 0b_0100_1100  -- (3) 
+
+-- INSTRUCTION REGISTER reversed                              (nr of bytes)
+const byte __ADS1211_ins_read_data_24        = 0b_0000_0011  -- (3) 0b_1100_0000
+const byte __ADS1211_ins_read_offset_cal     = 0b_0001_0011  -- (3) 0b_1100_1000
+const byte __ADS1211_ins_read_fullscale_cal  = 0b_0011_0011  -- (3) 0b_1100_1100
+
+const byte __ADS1211_ins_write_cmd           = 0b_0010_0110  -- (4) 0b_0110_0100
+const byte __ADS1211_ins_write_cmd2          = 0b_1010_0000  -- (1) 0b_0000_0101
+
+-- Command Register 1 (NOT reversed)
+-- the defaults are described
+const byte _ADS1211_cmr1_bias = 0b_1000_0000  -- Bias, false = off
+const byte _ADS1211_cmr1_REF0 = 0b_0100_0000  -- REF0, true = on
+const byte _ADS1211_cmr1_DF2s = 0b_0010_0000  -- Data Format, false = 2's complement
+const byte _ADS1211_cmr1_unip = 0b_0001_0000  -- Input Range, false = bipolar
+const byte _ADS1211_cmr1_BD   = 0b_0000_1000  -- Byte Order, false = MSB first
+const byte _ADS1211_cmr1_msb  = 0b_0000_0100  -- Bit Order, false = msb first
+const byte _ADS1211_cmr1_SDl  = 0b_0000_0010  -- Data Output, false = SDIO
+
+-- Here command register 1 is constructed from the user settings
+var volatile byte _ADS1211_cmr1 = 0
+if ADS1211_bias     then _ADS1211_cmr1 = _ADS1211_cmr1 | _ADS1211_cmr1_bias end if
+if ADS1211_REF0     then _ADS1211_cmr1 = _ADS1211_cmr1 | _ADS1211_cmr1_REF0 end if
+if ADS1211_offset_binary
+                    then _ADS1211_cmr1 = _ADS1211_cmr1 | _ADS1211_cmr1_DF2s end if
+if ADS1211_unipolar then _ADS1211_cmr1 = _ADS1211_cmr1 | _ADS1211_cmr1_unip end if
+if ADS1211_LSByte   then _ADS1211_cmr1 = _ADS1211_cmr1 | _ADS1211_cmr1_BD   end if
+if ADS1211_lsbit    then _ADS1211_cmr1 = _ADS1211_cmr1 | _ADS1211_cmr1_msb  end if
+if ADS1211_SDOUT    then _ADS1211_cmr1 = _ADS1211_cmr1 | _ADS1211_cmr1_SDl  end if
+
+if ADS1211_spi_usart then
+  reverse_bits (_ADS1211_cmr1)
+end if
+
+
+-- -----------------------------------------------------------------------------
+-- wait till rdy signal goes from high to low
+-- so read and other commands can be synchronized
+-- -----------------------------------------------------------------------------
+procedure ADS1211_wait_for_ready is
+  while ! ADS1211_RDY_pin loop end loop
+  while ADS1211_RDY_pin loop end loop
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- Read 24 bits DAC value into ADS1211_dor
+-- and setups next channel
+-- -----------------------------------------------------------------------------
+procedure ADS1211_set_chan 
+ ( byte in chan ) is
+  _ADS1211_cmd2 = _ADS1211_mode_normal | _ADS1211_gain | chan
+  if ADS1211_spi_usart then
+    reverse_bits (_ADS1211_cmd2)
+    spi_send_hw ( __ADS1211_ins_write_cmd2 )
+    spi_send_hw ( _ADS1211_cmd2 )
+  else
+    spi_send_mssp ( _ADS1211_ins_write_cmd2 )
+    spi_send_mssp ( _ADS1211_cmd2 )
+    spi_mssp_wait_until_ready
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- Read 24 bits DAC value into ADS1211_dor
+-- and setups next channel
+-- all done in reversed order without waiting,
+-- so this will only yield valid results
+-- if SPI communication is faster than RDY pulse
+-- -----------------------------------------------------------------------------
+procedure ADS1211_read_ADC_24_and_nextchan_fast 
+ ( byte in chan ) is
+  if ADS1211_CS_used then
+    pragma error   -- if CS used, multiple commands aren't allowed
+  end if
+  
+  -- first setup the next channel
+  _ADS1211_cmd2 = _ADS1211_mode_normal | _ADS1211_gain | chan
+  if ADS1211_spi_usart then
+    reverse_bits (_ADS1211_cmd2)
+	  spi_send_hw ( __ADS1211_ins_write_cmd2 )
+	  spi_send_hw ( _ADS1211_cmd2 )
+	
+	  -- then read sampled data
+	  spi_send_hw ( __ADS1211_ins_read_data_24 )
+	  spi_read_hw ( ADS1211_dor3 )
+	  spi_read_hw ( ADS1211_dor2 )
+	  spi_read_hw ( ADS1211_dor1 )
+  else
+	  spi_send_mssp ( _ADS1211_ins_write_cmd2 )
+	  spi_send_mssp ( _ADS1211_cmd2 )
+	
+	  -- then read sampled data
+	  spi_send_mssp ( _ADS1211_ins_read_data_24 )
+	  spi_read_mssp ( ADS1211_dor3 )
+	  spi_read_mssp ( ADS1211_dor2 )
+	  spi_read_mssp ( ADS1211_dor1 )
+    spi_mssp_wait_until_ready
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+
+-- -----------------------------------------------------------------------------
+-- Read 24 bits DAC value into ADS1211_dor
+-- -----------------------------------------------------------------------------
+procedure ADS1211_read_ADC_24 is
+  if ADS1211_spi_usart then
+	  spi_send_hw ( __ADS1211_ins_read_data_24 )
+	  spi_read_hw ( ADS1211_dor3 )
+	  spi_read_hw ( ADS1211_dor2 )
+	  spi_read_hw ( ADS1211_dor1 )
+	else
+	  spi_send_mssp ( _ADS1211_ins_read_data_24 )
+	  spi_read_mssp ( ADS1211_dor3 )
+	  spi_read_mssp ( ADS1211_dor2 )
+	  spi_read_mssp ( ADS1211_dor1 )
+    spi_mssp_wait_until_ready
+	end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- Read Offset Calibration Registers
+-- -----------------------------------------------------------------------------
+procedure ADS1211_read_OCR is
+  if ADS1211_spi_usart then
+	  spi_send_hw ( __ADS1211_ins_read_offset_cal )
+	  spi_read_hw ( ADS1211_dor3 )
+	  spi_read_hw ( ADS1211_dor2 )
+	  spi_read_hw ( ADS1211_dor1 )
+	else
+	  spi_send_mssp ( _ADS1211_ins_read_offset_cal )
+	  spi_read_mssp ( ADS1211_dor3 )
+	  spi_read_mssp ( ADS1211_dor2 )
+	  spi_read_mssp ( ADS1211_dor1 )
+    spi_mssp_wait_until_ready
+	end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- Read FullScale Calibration Registers
+-- -----------------------------------------------------------------------------
+procedure ADS1211_read_FCR is
+  if ADS1211_spi_usart then
+	  spi_send_hw ( __ADS1211_ins_read_fullscale_cal )
+	  spi_read_hw ( ADS1211_dor3 )
+	  spi_read_hw ( ADS1211_dor2 )
+	  spi_read_hw ( ADS1211_dor1 )
+	else
+	  spi_send_mssp ( _ADS1211_ins_read_fullscale_cal )
+	  spi_read_mssp ( ADS1211_dor3 )
+	  spi_read_mssp ( ADS1211_dor2 )
+	  spi_read_mssp ( ADS1211_dor1 )
+    spi_mssp_wait_until_ready
+	end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- wake up ADC en set into normal mode
+-- -----------------------------------------------------------------------------
+procedure ADS1211_wakeup is
+  _ADS1211_cmd2 = _ADS1211_mode_normal | _ADS1211_gain
+  if ADS1211_spi_usart then
+    reverse_bits (_ADS1211_cmd2)
+    spi_send_hw ( __ADS1211_ins_write_cmd2 )
+    spi_send_hw ( _ADS1211_cmd2 )
+  else
+    spi_send_mssp ( _ADS1211_ins_write_cmd2 )
+    spi_send_mssp ( _ADS1211_cmd2 )
+    spi_mssp_wait_until_ready
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- put ADC into sleep mode
+-- -----------------------------------------------------------------------------
+procedure ADS1211_sleep is
+  _ADS1211_cmd2 = _ADS1211_mode_normal | _ADS1211_gain
+  if ADS1211_spi_usart then
+    reverse_bits (_ADS1211_cmd2)
+	  spi_send_hw ( __ADS1211_ins_write_cmd2 )
+	  spi_send_hw ( _ADS1211_cmd2 )
+	else
+	  spi_send_mssp ( _ADS1211_ins_write_cmd2 )
+	  spi_send_mssp ( _ADS1211_cmd2 )
+    spi_mssp_wait_until_ready
+	end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- Starts the calibration cycle (and transports complete command register)
+-- wait until ready,
+-- then normal mode is automatically set, starting at channel ADS1211_chan
+-- -----------------------------------------------------------------------------
+procedure ADS1211_settings is
+  -- and define the normal mode
+  _ADS1211_cmd2 = _ADS1211_mode_normal | _ADS1211_gain | ADS1211_chan
+  if ADS1211_spi_usart then
+    reverse_bits (_ADS1211_cmd2)
+	  spi_send_hw ( __ADS1211_ins_write_cmd )
+	  spi_send_hw ( _ADS1211_cmr1 )
+	  spi_send_hw ( _ADS1211_cmd2 )
+	  spi_send_hw ( _ADS1211_dcr1 )    -- contains Turbo and MSB of decimation
+	  spi_send_hw ( _ADS1211_dcr0 )    -- contains           LSB of decimation
+  else
+	  spi_send_mssp ( _ADS1211_ins_write_cmd )
+	  spi_send_mssp ( _ADS1211_cmr1 )
+	  spi_send_mssp ( _ADS1211_cmd2 )
+	  spi_send_mssp ( _ADS1211_dcr1 )    -- contains Turbo and MSB of decimation
+	  spi_send_mssp ( _ADS1211_dcr0 )    -- contains           LSB of decimation
+    SPI_mssp_wait_until_ready
+  end if
+  
+  ADS1211_wait_for_ready
+
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------
+-- Starts the calibration cycle (and transports complete command register)
+-- wait until ready,
+-- then normal mode is automatically set, starting at channel 0
+-- -----------------------------------------------------------------------------
+procedure ADS1211_calibrate is
+  _ADS1211_cmd2 = _ADS1211_mode_self_cal | _ADS1211_gain | ADS1211_chan
+  if ADS1211_spi_usart then
+    reverse_bits (_ADS1211_cmd2)
+	  spi_send_hw ( __ADS1211_ins_write_cmd )
+	
+	  spi_send_hw ( _ADS1211_cmr1 )
+	  spi_send_hw ( _ADS1211_cmd2 )
+	  spi_send_hw ( _ADS1211_dcr1 )    -- contains Turbo and MSB of decimation
+	  spi_send_hw ( _ADS1211_dcr0 )    -- contains           LSB of decimation
+  else
+	  spi_send_mssp ( _ADS1211_ins_write_cmd )
+	  spi_send_mssp ( _ADS1211_cmr1 )
+	  spi_send_mssp ( _ADS1211_cmd2 )
+	  spi_send_mssp ( _ADS1211_dcr1 )    -- contains Turbo and MSB of decimation
+	  spi_send_mssp ( _ADS1211_dcr0 )    -- contains           LSB of decimation
+    spi_mssp_wait_until_ready
+  end if
+  
+  -- wait till calibration ready
+  ADS1211_wait_for_ready
+  
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+procedure ADS1211_set_frequency 
+ (byte in freq) is
+  _ADS1211_set_frequency(freq)
+  ADS1211_calibrate
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- This procedure is able to reset the ADC in case the power-ON reset fails
+--    see page 30 of documentation
+-- After reset, the calibration cycle is started
+-- and then the normal mode will be entered
+-- -----------------------------------------------------------------------------
+procedure ADS1211_reset is
+  -- must generate special sequence on the SPI clock line
+  const _ADS1211_RST1 = (  320 * _ADS1211_Txin_100 ) / 1000
+  const _ADS1211_RST2 = ((   50 * _ADS1211_Txin_100 ) / 1000) + 1
+  const _ADS1211_RST3 = (  700 * _ADS1211_Txin_100 ) / 1000
+  const _ADS1211_RST4 = ( 1100 * _ADS1211_Txin_100 ) / 1000
+
+  if ( _ADS1211_RST1 > 255 ) | ( _ADS1211_RST2 > 255 ) |
+     ( _ADS1211_RST3 > 255 ) | ( _ADS1211_RST4 > 255 ) then
+    pragma error -- ADC Clockfrequency is too low for this routine
+  elsif ( _ADS1211_RST1 == 0 ) | ( _ADS1211_RST2 == 0 ) |
+        ( _ADS1211_RST3 == 0 ) | ( _ADS1211_RST4 == 0 ) then
+    pragma error -- ADC Clockfrequency is too high for this routine
+  else
+    if ADS1211_spi_usart then
+      SPEN = low                     -- disable SPI mode
+    else
+		  SPI_mssp_wait_until_ready
+			delay_10us
+      SSPEN = low
+    end if
+    
+    ADS1211_clock_direction = output     -- be sure to set output mode
+
+    ADS1211_clock_pin = high
+    delay_10uS ( _ADS1211_RST1 )
+    ADS1211_clock_pin = low
+    delay_10uS ( _ADS1211_RST2 )
+    ADS1211_clock_pin = high
+    delay_10uS ( _ADS1211_RST3 )
+    ADS1211_clock_pin = low
+    delay_10uS ( _ADS1211_RST2 )
+    ADS1211_clock_pin = high
+    delay_10uS ( _ADS1211_RST4 )
+    ADS1211_clock_pin = low
+    delay_10uS ( 10)             -- to be sure
+    if ADS1211_spi_usart then
+      SPEN = high                    -- enable SPI mode again
+    else
+      SSPEN = high
+    end if
+
+    -- now calibrate (including settings) and goto into normal mode
+		ADS1211_wait_for_ready 
+    ADS1211_calibrate
+  end if
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- initialization
+-- -----------------------------------------------------------------------------
+-- calibrate can't be done here, because there could be more than 1 SPI
+-- device to calibrate, in which case CS must be controled
+
+-- set frequency, only calculates some vars
+_ADS1211_set_frequency ( 0 )
+-- -----------------------------------------------------------------------------
+
+

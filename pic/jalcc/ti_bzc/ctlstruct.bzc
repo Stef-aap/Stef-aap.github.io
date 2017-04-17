@@ -1,0 +1,25 @@
+#include <asmlib.h>
+
+START
+  INT i = 1
+  
+  cls
+  
+  IF i > 0 && i < 2 && i == 1 THEN	// You may both use && and ||
+    PRINTF "Ok!"
+  ENDIF
+  IF i != 1 OR i >= 1 AND i THEN	// as AND and OR
+    PRINTF "Ok, 2!"
+  ENDIF
+  IF i != 1 THEN
+  ELSE
+    PRINTF "Ok, 3!"
+  ENDIF
+  i = 2
+  LOOP WHILE i + 1
+    IF i < 10 THEN
+      i -= 1
+    ENDIF
+    PRINTF i
+  ENDLOOP
+END

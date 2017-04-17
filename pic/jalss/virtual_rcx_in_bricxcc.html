@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>Virtual RCX in Bricxcc</title><meta name="author" content="Stef Mientki"></head><body><span style="font-weight: bold;">Test integration Virtual RCX in Bricxcc</span>.<br>
+<br>
+<br>
+In files <span style="font-weight: bold;">RCX_link</span> and <span style="font-weight: bold;">RCX_term</span>, USBtower replaced by VirtualRCX, with an extra parameter !<br>
+(this is ofcourse not the right way to do it, but it was the fastest way to test)<br>
+<div style="margin-left: 40px;">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fSerial := TNQCUsbTower.Create<br>
+fserial:=TNQCvirtualRCX.Create(mainform.handle)<br>
+</div>
+<br>
+<br>
+In files <span style="font-weight: bold;">RCX_link</span> and <span style="font-weight: bold;">RCX_term</span>,&nbsp;VRCXserial added to uses clause<br>
+<div style="margin-left: 40px;">uses<br>
+</div>
+<div style="margin-left: 40px;">//&nbsp; Classes, ExtCtrls, SysUtils, NQCSerial, Windows;<br>
+&nbsp; Classes, ExtCtrls, SysUtils, NQCSerial, VRCXserial, Windows;<br>
+</div>
+<br>
+<br>
+
+In files <span style="font-weight: bold;">RCX_link</span> and <span style="font-weight: bold;">RCX_term</span>, Mainunit added to implementation uses clause<br>
+
+<div style="margin-left: 40px;">implementation<br>
+uses mainunit;<br>
+</div>
+<br>
+<br>
+in <span style="font-weight: bold;">MainUnit</span>, messagehandler added<br>
+<div style="margin-left: 40px;">public<br>
+&nbsp;&nbsp;&nbsp; { Public declarations }<br>
+&nbsp;&nbsp;&nbsp; procedure WndProc(var TheMsg: TMessage); override;<br>
+</div>
+<br>
+In <span style="font-weight: bold;">MainUnit</span>, &nbsp;msg_glob and VRCXserial added to uses clause<br>
+<div style="margin-left: 40px;">&nbsp; ,msg_glob<br>
+</div>
+<div style="margin-left: 40px;">&nbsp; ,VRCXserial<br>
+</div>
+<br>
+<br>
+In <span style="font-weight: bold;">RCX_link</span>, &nbsp;TRCXlink<br>
+&nbsp; public<br>
+//moved from protected to public<br>
+&nbsp;&nbsp;&nbsp; property&nbsp; NQCSerial : TNQCSerial read GetNQCSerial;<br>
+<br>
+<br>
+<hr style="width: 100%; height: 2px;">changes to "download" a freshly compiled file<br>
+In <span style="font-weight: bold;">Editor</span>, <span style="font-weight: bold;">uses clause</span> in implementation<br>
+//added<br>
+uses<br>
+&nbsp; ....<br>
+&nbsp; VRCXserial;<br>
+<br>
+<br>
+In <span style="font-weight: bold;">Editor</span>, GetCompilerCommandLine<br>
+//replaced: &nbsp; &nbsp;&nbsp; if bDownload then&nbsp; commandstr := commandstr + ' -d ' + GetPortParam;<br>
+//by<br>
+&nbsp; if bDownload and (pos('usb',lowercase(GetPortParam))=0) then<br>
+&nbsp;&nbsp;&nbsp; commandstr := commandstr + ' -d ' + GetPortParam;<br>
+<br>
+In <span style="font-weight: bold;">Editor</span>, CompileIt<br>
+//added<br>
+&nbsp; &nbsp; &nbsp;var dl_file :textfile;<br>
+//in the finally statement after the compilation<br>
+&nbsp;&nbsp;&nbsp; finally<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FakeRCX.Open;<br>
+//added<br>
+if not(execerror) and (pos('usb',lowercase(GetPortParam))&gt;0) then<br>
+begin<br>
+&nbsp; assignfile(dl_file,extractfilepath(application.exename)+'download.txt');<br>
+&nbsp; rewrite(dl_file);<br>
+&nbsp; writeln(dl_file,changefileext(EdFrm.Filename,'.rcx'));<br>
+&nbsp; closefile(dl_file);<br>
+&nbsp; TNQCVirtualRCX(fakeRCX.Link.NQCSerial).Tell_Master_new_compiled_file_available;<br>
+end;<br>
+<hr style="width: 100%; height: 2px;"><br>
+<br>
+<span style="font-weight: bold;"></span><span style="font-weight: bold;">Joystick problems</span> (not solved)<br>
+The yoystick right mouse clicks, seems to work ok.<br>
+The left mouseclicks sometimes work, sometimes not. The cause of
+&nbsp;this problem seems to be the (sometimes) slow reaction of the
+VRCX, in which case Bricxcc seems to think that there's no connection
+to the VRCX.<br>
+<br>
+<br><span style="font-weight: bold;">
+Bug repor<span style="font-weight: bold;">t</span></span><span style="font-weight: bold;"> 1</span>: when no tower connected, the mainform will fill the whole screen<br>
+- the program is set to find the brick at startup<br>
+- there's no tower connected<br>
+- so on "where is the brick" you select a port and click CANCEL<br>
+- there were no files open<br>
+- now from the file menu open a file<br>
+- the mainform will fill the whole screen now<br>
+<br>
+<span style="font-weight: bold;">Bug report 2:</span><br>
+<img src="bricxcc1.gif" title="" alt="" style="width: 538px; height: 374px;"><br>
+<br>
+<br>
+<span style="font-weight: bold;">BUG report 3</span><br>
+Diagnostic window, set display to a var doesn't work,<br>
+probably after the set display command &nbsp;($33) a &nbsp;ViewSourceValue ($E5) should be sent ??<br>
+<br>
+<span style="font-weight: bold;">BUG report 4</span><br>
+When compiling a program, when no tower is connected, and there is a
+syntax error, Bricxcc starts with the error message that there's no
+tower connected and then jumps to the error, quiet annoying.<br>
+<br>
+<span style="font-weight: bold;">Suggestion 1</span><br>
+In the diagnostic window display the rom/ram version number in normal notation<br>
+I did this in the following way, but maybe it can be done more in the core of the program<br>
+<br>
+procedure TDiagForm.RefreshBtnClick(Sender: TObject);<br>
+//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Version.Caption := Format('%8.8x/%8.8x', [rom, ram]);<br>
+Version.caption:= inttostr((rom and $0F000000) shr 24)+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+inttostr((rom and $000F0000) shr 16)+'.'+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+inttostr((rom and $00000F00) shr 8)+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+inttostr((rom and $0000000F))+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' / '+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+inttostr((ram and $0F000000) shr 24)+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+inttostr((ram and $000F0000) shr 16)+'.'+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+inttostr((ram and $00000F00) shr 8)+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+inttostr((ram and $0000000F));<br>
+<br>
+<span style="font-weight: bold;">Suggestion 2</span><br>
+In the diagnostic window, display the time with all the 4 numbers, i.e. "00:03", in stead of "0:3"<br>
+<br>
+<br>
+</body></html>

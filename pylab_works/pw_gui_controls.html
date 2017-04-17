@@ -1,0 +1,554 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>GUI Controls</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="425" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>GUI Controls Overview </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"><span class=rvts8>&nbsp;&nbsp;&nbsp;&nbsp; ( march 2009 )</span></p>
+<p>Application Designer / Domain Expert / <span class=rvts10>Control Designer / Core Developer</span></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>Dialogs</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>Selection / Value</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>Interactive</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>Display</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>Graphics</span></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><span class=rvts10>Misc</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><a class=rvts4 href="#fileopen">File Open</a></p>
+<p><a class=rvts4 href="#colorpicker">Color Picker</a></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><a class=rvts4 href="#radiobutton">Radio Button</a></p>
+<p><a class=rvts4 href="#spinbutton">Spin Button</a></p>
+<p><a class=rvts4 href="#slider">Slider</a></p>
+<p><a class=rvts4 href="#button">Button</a></p>
+<p><a class=rvts4 href="#dbase_tree">dBase Tree</a></p>
+<p><br></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><a class=rvts4 href="#editbox">Edit Box</a></p>
+<p><a class=rvts4 href="#codeeditor">Code Editor</a></p>
+<p><a class=rvts4 href="#html">HTML</a></p>
+<p><a class=rvts4 href="#cmd_shell_doc">CMD_Shell_Doc</a></p>
+<p>CMD_Shel (obs?)</p>
+<p>Doc Viewer (obs?)</p>
+<p>Signal WorkBench</p>
+<p><a class=rvts4 href="#visual_sql">Visual_SQL</a></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><a class=rvts4 href="#statictext">Static Text</a></p>
+<p><a class=rvts4 href="#grid">Grid</a></p>
+<p><a class=rvts4 href="#std-viewer">STD-Viewer (obs?)</a></p>
+<p><a class=rvts4 href="#led">LED</a></p>
+<p>Num Display</p>
+<p><a class=rvts4 href="#input_viewer">Input Viewer</a></p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><a class=rvts4 href="#image">Image</a></p>
+<p><a class=rvts4 href="#pyplot">PyPlot</a></p>
+<p><a class=rvts4 href="#scopeplot">ScopePlot</a></p>
+<p><a class=rvts4 href="scope_hist_display">Scope Hist Plot</a></p>
+<p><a class=rvts4 href="#matplot">MatPlot</a></p>
+<p>2D Scene</p>
+<p><a class=rvts4 href="#vpython">VPython</a></p>
+<p><a class=rvts4 href="#vpython_control">VPython_Controls</a></p>
+<p>Float Canvas</p>
+</td>
+<td width=100 valign=top style="background-color: #ffffe6;">
+<p><a class=rvts4 href="#adc">ADC</a></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p>The code for using a control in a Brick can of course be fetched from the template manager,</p>
+<p><img width=641 height=371 alt="" src="pw_gui_controls_img46.png"></p>
+<p><br></p>
+<p><br></p>
+<p><a name="cmd_shell_doc"></a>
+<span class=rvts2>CMD_Shell_Doc</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=94 valign=top style="background-color: #ffffd4;">
+<p><img width=376 height=272 alt="" src="pw_gui_controls_img45.png"></p>
+</td>
+<td width=792 valign=top style="background-color: #ffffd4;">
+<p>Combines command window, standard / error output, notepad and document viewer (including webbrowsing).</p>
+<p><br></p>
+<p><img width=378 height=36 alt="" src="pw_gui_controls_img82.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="fileopen"></a>
+<span class=rvts2>Select File for Open</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=190 valign=top style="background-color: #ffffd4;">
+<p><img width=194 height=42 alt="" src="pw_gui_controls_img25.png"></p>
+<p><br></p>
+<p>When a new file is selected, either through the browse button or by an Enter key in the edit box, the filename is returned in Par[1].</p>
+<p>Both absolute and relative filenames are accepted.</p>
+</td>
+<td width=696 valign=top style="background-color: #ffffd4;">
+<p><img width=597 height=161 alt="" src="pw_gui_controls_img75.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="colorpicker"></a>
+<span class=rvts2>Color Picker</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=94 valign=top style="background-color: #ffffd4;">
+<p><img width=65 height=49 alt="" src="pw_gui_controls_img65.png"></p>
+</td>
+<td width=792 valign=top style="background-color: #ffffd4;">
+<p><img width=449 height=56 alt="" src="pw_gui_controls_img64.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><a name="radiobutton"></a>
+<span class=rvts2>Radio Button</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=377 valign=top style="background-color: #ffffd4;">
+<p><img width=129 height=86 alt="" src="pw_gui_controls_img20.png"></p>
+<p>RadioBox occupies full width.</p>
+</td>
+<td width=435 valign=top style="background-color: #ffffd4;">
+<p><img width=532 height=53 alt="" src="pw_gui_controls_img74.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><a name="spinbutton"></a>
+<span class=rvts2>Spin Button</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=181 valign=top style="background-color: #ffffd4;">
+<p><img width=142 height=77 alt="" src="pw_gui_controls_img72.png"></p>
+<p>Default range is [-10 .. 10]</p>
+</td>
+<td width=705 valign=top style="background-color: #ffffd4;">
+<p><img width=471 height=74 alt="" src="pw_gui_controls_img73.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="slider"></a>
+<span class=rvts2>Slider</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=409 valign=top style="background-color: #ffffd4;">
+<p><img width=183 height=62 alt="" src="pw_gui_controls_img18.png"></p>
+<p>The Slider occupies full width.</p>
+<p>The Slider has extra settings:</p>
+<p>- Log, set to True for logarithmic</p>
+<p>- Format, specify a format string</p>
+</td>
+<td width=403 valign=top style="background-color: #ffffd4;">
+<p><img width=524 height=54 alt="" src="pw_gui_controls_img70.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="button"></a>
+<span class=rvts2>Button</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=318 valign=top style="background-color: #ffffd4;">
+<p class=rvps2><img width=117 height=37 alt="" src="pw_gui_controls_img50.png"></p>
+<p>When a Button is pressed, the ordinal value [ 0 .. ] of the button is returned in the base Par.</p>
+</td>
+<td width=494 valign=top style="background-color: #ffffd4;">
+<p><img width=392 height=45 alt="" src="pw_gui_controls_img63.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="editbox"></a>
+<span class=rvts2>Edit Box</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=362 valign=top style="background-color: #ffffd4;">
+<p class=rvps2><img width=142 height=110 alt="" src="pw_gui_controls_img62.png"></p>
+<p>The edit boxes are aligned with PG.My_Control_dX2, if the caption texts is smaller than PG.My_Control_dX2.</p>
+<p>A new value is activated, when the focus is lost or when an Enter key is pressed.</p>
+</td>
+<td width=565 valign=top style="background-color: #ffffd4;">
+<p><img width=478 height=72 alt="" src="pw_gui_controls_img61.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="grid"></a>
+<span class=rvts2>Grid</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=303 valign=top style="background-color: #ffffd4;">
+<p><img width=314 height=116 alt="" src="pw_gui_controls_img87.png"></p>
+</td>
+<td width=500 valign=top style="background-color: #ffffd4;">
+<p>Input is of type GridData, which is a list of rows, where each row contains the column elements for 1 row and where the first row contains the captions of the columns. This grid can also be used to display data or metadata of a database.</p>
+<p><img width=302 height=36 alt="" src="pw_gui_controls_img88.png">&nbsp; <img width=96 height=68 alt="" src="pw_gui_controls_img89.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p><br></p>
+<p><a name="codeeditor"></a>
+<span class=rvts2>Code_Editor</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=441 valign=top style="background-color: #ffffe6;">
+<p>The code editor is based on Scintilla. The editor has code highlight support, autocompletion and many more features. Another nice feature of this code editor is the code-snippet manager, of which the visibility is toggled by F7. And of course editing of the code templates is done in a separate but identical code editor.</p>
+<p><br></p>
+<p>For more information see <a class=rvts4 href="pw_code_editor.html">here</a>.</p>
+<p><br></p>
+<p><img width=429 height=173 alt="" src="pw_gui_controls_img81.png"></p>
+<p><span class=rvts10><br></span></p>
+<p>Because the Editor has no inputs, and we need 2 communication parameters (of which 1 is even an IO_Interaction), we need to declare "Extra_Pars".</p>
+<p><br></p>
+<p>The Editor will hook itself to the main-menu of the form.</p>
+</td>
+<td width=309 valign=top style="background-color: #ffffe6;">
+<p><img width=327 height=469 alt="" src="pw_gui_controls_img2.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="html"></a>
+<span class=rvts2>HTML*</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=426 valign=top style="background-color: #ffffd4;">
+<p><img width=431 height=326 alt="" src="pw_gui_controls_img29.png"></p>
+</td>
+<td width=460 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="statictext"></a>
+<span class=rvts2>Static Text</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=91 valign=top style="background-color: #ffffd4;">
+<p><img width=92 height=32 alt="" src="pw_gui_controls_img68.png"></p>
+</td>
+<td width=795 valign=top style="background-color: #ffffd4;">
+<p><img width=448 height=71 alt="" src="pw_gui_controls_img69.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><a name="input_viewer"></a>
+<span class=rvts2>Input Viewer</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=447 valign=top>
+<p>Print the values of the inputs. With the input selector, you can select which signals will be shown. Every time an input changes, the selected input values are appended to the Text Control.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=93 height=67 alt="" src="pw_gui_controls_img97.png"></p>
+</td>
+<td width=376 valign=top>
+<p class=rvps3><img width=381 height=150 alt="" src="pw_gui_controls_img98.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><a name="std-viewer"></a>
+<span class=rvts2>STD-Viewer (obsolete ?)*</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=574 valign=top>
+<p>STD-Viewer can be used to catch the <span class=rvts10>stdout</span> and/or the <span class=rvts10>stderr</span> messages. Toggling the viewers redirections can be done dynamically. Select, Select All, Copy are both available through the RM-menu and through the acceleration keys.</p>
+<p>The associated brick has no inputs or outputs.</p>
+<p>There's only one such brick allowed.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=84 height=54 alt="" src="pw_gui_controls_img12.png"></p>
+<p>Inside:</p>
+<p>The control has a special trick, that will redirect the outputs back to the original ports, as soon as the application window is closed.</p>
+</td>
+<td width=311 valign=top>
+<p class=rvps3><img width=333 height=176 alt="" src="pw_gui_controls_img11.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="dbase_tree"></a>
+<span class=rvts2>dBase Tree</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=159 valign=top style="background-color: #ffffd4;">
+<p><img width=152 height=223 alt="" src="pw_gui_controls_img47.png"></p>
+<p><img width=105 height=78 alt="" src="pw_gui_controls_img48.png"></p>
+</td>
+<td width=644 valign=top style="background-color: #ffffd4;">
+<p>Shows the meta-data from a database as a Tree. Fields in a table / view / etc. can be selected / de-selected or selected for ordering. Every time a change is made, a new SQL statement is generated, which can be sent to the database.</p>
+<p><br></p>
+<p>Normally this control will be the only control in the Brick, and the Input of the Brick will be coupled to the control, so Input changes will be redirected to the control. The Brick has to watch for changes of the second and / or third parameter and if found can send the parameter values directly to the outputs.</p>
+<p><br></p>
+<p>self.P[0] = Input Connection, dBase meta-data</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Output, SQL statement (generated from selection)</p>
+<p>self.P[2] = table info ( generated from selection )</p>
+<p><br></p>
+<p><img width=334 height=57 alt="" src="pw_gui_controls_img86.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><a name="image"></a>
+<span class=rvts2>Image_Show</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=220 valign=top style="background-color: #ffffd4;">
+<p><img width=224 height=211 alt="" src="pw_gui_controls_img24.png"></p>
+</td>
+<td width=666 valign=top style="background-color: #ffffd4;">
+<p><img width=356 height=32 alt="" src="pw_gui_controls_img76.png"></p>
+<p><br></p>
+<p>Shows an image of any format,</p>
+<p>even a filename of a picture is accepted.</p>
+<p>If an image format is not supported,</p>
+<p>you only have to extend the procedure picture_support.To_Bitmap."""</p>
+<p><br></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="vpython"></a>
+<span class=rvts2>VPython</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=396 valign=top style="background-color: #ffffd4;">
+<p>This control is a complete embedding of VPython. Together with VPython_Controls and a editor-control, you get a powerful IDE for developing VPython 3D animations.</p>
+</td>
+<td width=75 valign=top style="background-color: #ffffd4;">
+<p><img width=95 height=171 alt="" src="pw_gui_controls_img80.png"></p>
+</td>
+<td width=241 valign=top style="background-color: #ffffd4;">
+<p><img width=329 height=59 alt="" src="pw_gui_controls_img78.png"></p>
+<p><img width=293 height=194 alt="" src="pw_gui_controls_img42.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="vpython_control"></a>
+<span class=rvts2>VPython_Control</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=220 valign=top style="background-color: #ffffd4;">
+<p><img width=284 height=119 alt="" src="pw_gui_controls_img41.png"></p>
+<p><br></p>
+</td>
+<td width=666 valign=top style="background-color: #ffffd4;">
+<p><img width=398 height=42 alt="" src="pw_gui_controls_img77.png"></p>
+<p><br></p>
+<p>This a dynamic control, directly generated by the code from the VPython control.</p>
+<p>See VPython control.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="scope_hist_display"></a>
+<span class=rvts2>Scope_Plot</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=682 valign=top style="background-color: #ffffd4;">
+<p>Very power full display for graphs.&nbsp; It can handle multiple signals, which might be one of the iterable types, like, list, tuple, array, s_list, ....The signals may differ in length. The lower part of the display shows the total length of 1 signal in a auto scaling min-max mode (strip chart recorder) and this part is used to make a selection in time of all the signals. The upper graph shows the selected part of all signals, with easy to set scales (or auto scales), has 2 measurement cursors and free positioning memo field. </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=160 height=62 alt="" src="pw_gui_controls_img60.png">&nbsp; </p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=353 height=21 alt="" src="pw_gui_controls_img91.png"></p>
+</td>
+<td width=247 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=264 height=228 alt="" src="pw_gui_controls_img58.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><a name="scopeplot"></a>
+<span class=rvts2>Scope_Display</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=504 valign=top style="background-color: #ffffd4;">
+<p>This is an <span class=rvts10>interactive</span> display, special designed for <span class=rvts10>realtime</span> display and control. Some or all of the recorded signals can be shown in the main signal window. Settings of the signals can be done through the labels on top and bottom, with the <span class=rvts10>speed-buttons</span> on the left and through an extensive grid on the second page. On the bottom you see an <span class=rvts10>history window</span> where one of the signals can be displayed in min/max mode for the <span class=rvts10>total recording</span> (auto compression). This window can also be used to <span class=rvts10>look back in time</span>, while recording continuous. Although not strictly necessary, this control will often be the only control in a brick.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=160 height=90 alt="" src="pw_gui_controls_img15.png"></p>
+<p><br></p>
+<p><img width=378 height=23 alt="" src="pw_gui_controls_img92.png"></p>
+<p>The picture shows a realtime ECG and bloodpressure signal with <span class=rvts10>online analysis</span> of the bloodpressure (yellow line is the calculated Systolic Pressure). Each signal can be <span class=rvts10>delayed to compensate</span> for realtime filter delays. During freeze, 2 measurement cursors are available.</p>
+<p><br></p>
+<p>Accepts the following <span class=rvts10>MetaData</span>: Signalname, Units, Calibrate (only the gain/offset tuple for this moment), DisplayRange.</p>
+</td>
+<td width=381 valign=top style="background-color: #ffffd4;">
+<p class=rvps3><img width=444 height=261 alt="" src="pw_gui_controls_img13.png"></p>
+<p><br></p>
+<p><img width=445 height=212 alt="" src="pw_gui_controls_img93.png"></p>
+<p><br></p>
+<p>for <span class=rvts10>more information</span> see <a class=rvts4 href="pw_scope_plot.html">here</a></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="matplot"></a>
+<span class=rvts2>MatPlot*</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=444 valign=top style="background-color: #ffffd4;">
+<p><img width=456 height=288 alt="" src="pw_gui_controls_img28.png"></p>
+</td>
+<td width=442 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="pyplot"></a>
+<span class=rvts2>PyPlot</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=348 valign=top style="background-color: #ffffd4;">
+<p><img width=351 height=270 alt="" src="pw_gui_controls_img23.png"></p>
+</td>
+<td width=538 valign=top style="background-color: #ffffd4;">
+<p>This is a graphical window for displaying (real-time) X-t signals, it should be faster than MatPlotLib, but slower and less flexible that ScopePlot.</p>
+<p><br></p>
+<p><img width=326 height=53 alt="" src="pw_gui_controls_img90.png"></p>
+<p><br></p>
+<p>Background color doesn't work.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="led"></a>
+<span class=rvts2>LED</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=418 valign=top style="background-color: #ffffd4;">
+<p><img width=89 height=36 alt="" src="pw_gui_controls_img66.png"></p>
+<p>Experimental Control, it should be possible to turn the LED on / off and give it different colors.</p>
+</td>
+<td width=394 valign=top style="background-color: #ffffd4;">
+<p><img width=372 height=73 alt="" src="pw_gui_controls_img67.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="adc"></a>
+<span class=rvts2>ADC</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=530 valign=top style="background-color: #ffffd4;">
+<p>Supports USB-6008, USB-6009, SoundCard, FysioFlex, Midac_Files. see for more information: <a class=rvts4 href="pw_brick_adc.html">pw_brick_adc.html</a></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=229 height=67 alt="" src="pw_gui_controls_img96.png"></p>
+</td>
+<td width=370 valign=top style="background-color: #ffffd4;">
+<p><img width=405 height=56 alt="" src="pw_gui_controls_img16.png"></p>
+<p><br></p>
+<p><img width=425 height=84 alt="" src="pw_gui_controls_img95.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><a name="visual_sql"></a>
+<span class=rvts2>Visual SQL</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=202 valign=top style="background-color: #ffffd4;">
+<p><img width=185 height=101 alt="" src="pw_gui_controls_img85.png"></p>
+</td>
+<td width=601 valign=top style="background-color: #ffffd4;">
+<p>This is a beginning of a Visual SQL builder, based on the same canvas as PyLab_Works itself. No real functionality yet.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+
+</body></html>

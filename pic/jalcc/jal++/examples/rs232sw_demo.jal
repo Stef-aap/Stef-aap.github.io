@@ -1,0 +1,46 @@
+; define the hardware settings and
+; include all standard libraries
+include demo_settings
+
+-- Here we're going to use the RS232 software library
+-- define the software transmit/receive pin
+-- define baudrate and
+-- tell the software whether you use an inverter or not
+--   (most official interfaces like max233 or USBmod1 will invert)
+;;;;;<;mac> io_pin  asynch_sw_out = pin_c6
+var volatile bit  asynch_sw_out_pin       is pin_c6
+var volatile byte asynch_sw_out_port      is portc
+const             asynch_sw_out_nr        =  6
+var volatile byte asynch_sw_out_buffer    is _port_c_buffer
+var volatile bit  asynch_sw_out_direction is pin_c6_direction
+;;;;;<;/mac>
+;;;;;<;mac> io_pin  asynch_sw_in  = pin_c7
+var volatile bit  asynch_sw_in_pin       is pin_c7
+var volatile byte asynch_sw_in_port      is portc
+const             asynch_sw_in_nr        =  7
+var volatile byte asynch_sw_in_buffer    is _port_c_buffer
+var volatile bit  asynch_sw_in_direction is pin_c7_direction
+;;;;;<;/mac>
+const asynch_baudrate_sw = 115_200 ;Baudrate
+const asynch_invert_sw   = true
+include rs232_sw
+
+-- initialize the software routines (setting IO-pins correctly)
+asynch_sw_init_receive
+asynch_sw_init_transmit
+
+-- because software RS232 is quiet difficult,
+-- we here send a few characters to check the tranmit side
+asynch_send_sw (0xAA)
+asynch_send_sw (0x55)
+asynch_send_sw (0xAA)
+
+-- main program
+var byte character
+forever loop
+  -- now we wait for a character to be received,
+  asynch_receive_sw (character)
+  -- then echo character+1
+  asynch_send_sw (character + 1)
+end loop
+

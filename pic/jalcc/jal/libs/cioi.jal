@@ -1,0 +1,236 @@
+--
+-- file      : cioi.jal
+-- author    : Wouter van Ooijen
+-- date      : 23-APR-1999
+-- purpose   : Chained IO routines
+-- includes  : -
+-- pins      : see ciop
+--
+-- Copyright (C) 1998 Wouter van Ooijen
+--
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Library General Public
+-- License as published by the Free Software Foundation; either
+-- version 2 of the License, or (at your option) any later version.
+--
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Library General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Library General Public
+-- License along with this library; if not, write to the
+-- Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+-- Boston, MA  02111-1307, USA.
+--
+
+
+-- initialise IO pin directions etc.
+_cio_init
+
+-- pulse output clock
+procedure _cio_out_pulse_clock is 
+   _cio_delay
+   _cio_out_clock = on -- _cio_out_clock_active
+   _cio_delay
+   _cio_out_clock = off -- ! _cio_out_clock_active
+   _cio_delay
+end procedure
+
+-- pulse input clock
+procedure _cio_in_pulse_clock is 
+   if _cio_shared_clocks then
+      _cio_out_pulse_clock
+   else
+      _cio_delay
+      _cio_in_clock = on -- _cio_in_clock_active
+      _cio_delay
+      _cio_in_clock = off -- ! _cio_in_clock_active
+      _cio_delay
+   end if
+end procedure
+
+-- output parallel load
+procedure cio_out_load is
+   if _cio_out_use_load then
+      _cio_delay
+      _cio_out_load  = on -- _cio_out_load_active
+      if _cio_out_clocked_load then
+         _cio_out_pulse_clock
+      else
+         _cio_delay
+      end if
+      _cio_out_load  = off -- ! _cio_out_load_active
+      _cio_delay
+   end if
+end procedure
+
+-- input parallel load
+procedure cio_in_load is
+   _cio_delay
+   _cio_in_load = on -- _cio_in_load_active
+      if _cio_in_clocked_load then
+         _cio_in_pulse_clock
+      else
+         _cio_delay
+      end if
+   _cio_in_load = off -- ! _cio_in_load_active
+   _cio_delay
+end procedure
+
+-- output one byte
+procedure cio_out_byte( byte in data ) is
+   var bit data_bit at data : 0
+   for 8 loop
+      _cio_out_data = data_bit -- ^ ! _cio_out_data_active
+      data = data >> 1
+      _cio_out_pulse_clock
+   end loop
+end procedure
+
+-- input one byte
+procedure cio_in_byte( byte out data ) is
+   var bit data_bit at data : 0
+   for 8 loop
+      data_bit = _cio_in_data -- ^ ! _cio_out_data_active
+      data = data << 1
+      _cio_in_pulse_clock
+   end loop
+end procedure
+
+-- output transaction routines
+
+procedure cio_out_1_load( 
+   byte in d1
+) is
+   cio_out_byte( d1 )
+   cio_out_load
+end procedure
+
+procedure cio_out_2_load( 
+   byte in d1, 
+   byte in d2
+) is
+   cio_out_byte( d2 )
+   cio_out_byte( d1 )
+   cio_out_load
+end procedure
+
+procedure cio_out_3_load( 
+   byte in d1, 
+   byte in d2, 
+   byte in d3
+) is
+   cio_out_byte( d3 )
+   cio_out_byte( d2 )
+   cio_out_byte( d1 )
+   cio_out_load
+end procedure
+
+procedure cio_out_4_load( 
+   byte in d1, 
+   byte in d2, 
+   byte in d3, 
+   byte in d4
+) is
+   cio_out_byte( d4 )
+   cio_out_byte( d3 )
+   cio_out_byte( d2 )
+   cio_out_byte( d1 )
+   cio_out_load
+end procedure
+
+procedure cio_out_5_load( 
+   byte in d1, 
+   byte in d2, 
+   byte in d3, 
+   byte in d4,
+   byte in d5
+) is
+   cio_out_byte( d5 )
+   cio_out_byte( d4 )
+   cio_out_byte( d3 )
+   cio_out_byte( d2 )
+   cio_out_byte( d1 )
+   cio_out_load
+end procedure
+
+procedure cio_out_6_load( 
+   byte in d1, 
+   byte in d2, 
+   byte in d3, 
+   byte in d4,
+   byte in d5,
+   byte in d6
+) is
+   cio_out_byte( d6 )
+   cio_out_byte( d5 )
+   cio_out_byte( d4 )
+   cio_out_byte( d3 )
+   cio_out_byte( d2 )
+   cio_out_byte( d1 )
+   cio_out_load
+end procedure
+
+procedure cio_out_7_load( 
+   byte in d1, 
+   byte in d2, 
+   byte in d3, 
+   byte in d4,
+   byte in d5,
+   byte in d6,
+   byte in d7
+) is
+   cio_out_byte( d7 )
+   cio_out_byte( d6 )
+   cio_out_byte( d5 )
+   cio_out_byte( d4 )
+   cio_out_byte( d3 )
+   cio_out_byte( d2 )
+   cio_out_byte( d1 )
+   cio_out_load
+end procedure
+
+procedure cio_out_8_load( 
+   byte in d1, 
+   byte in d2, 
+   byte in d3, 
+   byte in d4,
+   byte in d5,
+   byte in d6,
+   byte in d7,
+   byte in d8 
+) is
+   cio_out_byte( d8 )
+   cio_out_byte( d7 )
+   cio_out_byte( d6 )
+   cio_out_byte( d5 )
+   cio_out_byte( d4 )
+   cio_out_byte( d3 )
+   cio_out_byte( d2 )
+   cio_out_byte( d1 )
+   cio_out_load
+end procedure
+
+-- input transaction routines
+
+procedure cio_load_8_in( 
+   byte out d1, 
+   byte out d2, 
+   byte out d3, 
+   byte out d4,
+   byte out d5,
+   byte out d6,
+   byte out d7,
+   byte out d8 
+) is
+   cio_in_load
+   cio_in_byte( d1 )
+   cio_in_byte( d2 )
+   cio_in_byte( d3 )
+   cio_in_byte( d4 )
+   cio_in_byte( d5 )
+   cio_in_byte( d6 )
+   cio_in_byte( d7 )
+   cio_in_byte( d8 )
+end procedure

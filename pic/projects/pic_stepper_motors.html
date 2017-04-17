@@ -1,0 +1,377 @@
+<HTML><HEAD><TITLE>Stepper Motor</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #FEFFE6;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>August&nbsp; 2002</SPAN></P>
+<P><SPAN class=RVTS1>Stepper Motor</SPAN></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="goal"></A>
+<SPAN class=RVTS2>Goal</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>These PIC-JAL routines were written (largely in JAL) to control 2 stepper motors.</P>
+<P>Special features are:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>absolute position (in half-steps) is controled by a 4 byte integer&nbsp;</LI>
+<LI>both half-stepping and full-stepping are implemented&nbsp;</LI>
+<LI>on full-stepping, activating of 1 or 2 windings can be forced&nbsp;</LI>
+<LI>acceleration can easily be set through a table&nbsp;</LI>
+<LI>the second part of the library makes the motor fully controlable through RS232&nbsp;</LI>
+</UL>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>For download, see&nbsp;<A class=RVTS4 href="jal_libraries.html#byte3_math">JAL routines</A></P>
+<P>A&nbsp;<A class=RVTS4 href="http://www.cs.uiowa.edu/%7ejones/step/index.html">good tutorial</A>&nbsp;about stepper motors on line is written by&nbsp;<A class=RVTS4 href="http://www.cs.uiowa.edu/%7ejones/">Douglas W. Jones</A>.</P>
+<P>The core library "stepper.jal" contains all the basic procedures and variables to control the motor.</P>
+<P>The library "stepper_rs232.jal" is a wrapper around the core library which gives a high level user interface through the RS232 port.</P>
+<P>The rs232 library also gives most common examples of how to use the basic routines. There's also an example "stepper_test.jal" which shows both the normal use and the rs232 use of these libraries. In this document a&nbsp;<A class=RVTS4 href="#example_program">simplified version of the testprogram</A>&nbsp;is listed.</P>
+<P>For an optimal use of this libraries it's adviced to use JALcc 0.15 or higher, because it contains a number of highly dedicated&nbsp;<A class=RVTS4 href="#stepper_macros">macro's</A>.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Half-steps / Full-steps / force windings</SPAN></P>
+<P>In the most simple situation stepper motors are used in full-step mode (that's the stepsize specified in the datasheet of the stepper motor), activating just 1 winding at a time. In this mode all steps have equal torque: the torque specified in the datasheet.</P>
+<P>By doing half steps, torque will be about 40% higher for the intermediat half-steps (power comsumption will double for these intermediat half-steps).</P>
+<P>In full step mode it's also possible to increase the torque by about 40% by always activating 2 windings at the same time.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><SPAN class=RVTS2>basic procedures</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P></TD>
+<TD valign=top>
+<P>global variables (shown only for motor=1)</P>
+<P>Motor 2 has the same variables kind of variables, but beginning with "stepper2_..."</P>
+<P>Almost all variables are Read / Write (R/W) , except for the position bytes, which may only be read.</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P><A class=RVTS4 href="#stepper_init">stepper_init is</A></P>
+<P><A class=RVTS4 href="#stepper_set_null">stepper_set_null</A></P>
+<P><A class=RVTS4 href="#stepper_run_continuous">stepper_run_continuous</A></P>
+<P><A class=RVTS4 href="#stepper_stop">stepper_stop</A></P>
+<P><A class=RVTS4 href="#stepper_run_continuous_smooth">stepper_run_continuous_smooth</A></P>
+<P><A class=RVTS4 href="#stepper_stop_smooth">stepper_stop_smooth</A></P>
+<P>The following routines can also be called through a macro !</P>
+<P><A class=RVTS4 href="#stepper_run_into">stepper_run_into</A></P>
+<P><A class=RVTS4 href="#stepper_do_steps">stepper_do_steps</A></P>
+<P><A class=RVTS4 href="#rs232_commands">RS232 commands</A></P>
+<P><A class=RVTS4 href="#stepper_rs232">stepper_rs232</A></P></TD>
+<TD valign=top>
+<P>var volatile byte stepper1_status -- (R/W)</P>
+<P>var volatile bit stepper1_full_steps -- (R/W)</P>
+<P>var volatile bit stepper1_full_force_1_winding -- (R/W)</P>
+<P>var volatile bit stepper1_full_force_2_winding -- (R/W)</P>
+<P>var volatile bit stepper1_forward -- (R/W)</P>
+<P>var volatile byte stepper1_pos1 -- (R)</P>
+<P>var volatile byte stepper1_pos2 -- (R)</P>
+<P>var volatile byte stepper1_pos3 -- (R)</P>
+<P>var volatile byte stepper1_pos4 -- (R)</P>
+<P>var volatile bit stepper1_accelerate_on -- (R/W)</P>
+<P>-- motor status constants</P>
+<P>const byte _stepper_status_stopped = 0</P>
+<P>const byte _stepper_status_running = 1</P>
+<P>const byte _stepper_status_continuous = 2</P>
+<P>var volatile bit stepper_button_control -- (R/W)</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>&nbsp;</SPAN></P>
+<P><TABLE width=100% bgcolor=#FEFFE6 border=0 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#FFFFE6>
+<P><A name="rs232_commands"></A>
+<SPAN class=RVTS2>RS232 commands</SPAN></P></TD>
+<TD width=100 bgcolor=#FFFFE6>
+<P><SPAN class=RVTS3>Quick Start</SPAN>:
+<BR>11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; disable button control
+<BR>30 F0&nbsp;&nbsp;&nbsp; set slow speed
+<BR>20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set power on
+<BR>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; run
+<BR>4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stop</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- code $00 .. $7F controls motor1</P>
+<P>-- code $80 .. $FF controls motor2</P>
+<P>--</P>
+<P>-- every command byte (not the data bytes) is echoed inverted</P>
+<P>-- multi-byte data is received and transmitted LS-byte first</P>
+<P>-- position and steps are always specified in half-steps,</P>
+<P>-- even when motor is running at full steps</P>
+<P>--</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- $00 not used</P>
+<P>-- $01 start running soft (with acceleration)</P>
+<P>-- $02 start running direct</P>
+<P>-- $03 stop soft (with deceleration)</P>
+<P>-- $04 stop direct</P>
+<P>-- $05 set direction forward&nbsp;</P>
+<P>-- $06 set direction backward&nbsp;</P>
+<P>-- $07 set full-step, leave forced windings unchanged&nbsp;</P>
+<P>-- $08 set half-step&nbsp;</P>
+<P>-- $09 set fullstep, force 1-winding</P>
+<P>-- $0A set fullstep, force 2-windings</P>
+<P>-- $0B set fullstep, no force windings</P>
+<P>-- $10 hello</P>
+<P>-- $11 disable button-control&nbsp;</P>
+<P>-- $12 enable button-control&nbsp;</P>
+<P>-- $20 power on&nbsp;</P>
+<P>-- $21 power off&nbsp;</P>
+<P>-- $22 set acceleration on&nbsp;</P>
+<P>-- $23 set acceleration off&nbsp;</P>
+<P>-- $24 define origin at current location</P>
+<P>-- commands $30 .. $3F all require an extra 1-byte integer to receive (LSByte first)</P>
+<P>-- $30 &lt;1 byte&gt; set speed by defining TMR0 preset value&nbsp;</P>
+<P>-- $31 &lt;1 byte&gt; set speed from table [ 0 .. _stepper_max_speed_index + 1 ]&nbsp;</P>
+<P>-- commands $40 .. $4F all require an extra 4-bytes integer to receive (LSByte first)</P>
+<P>-- $40 &lt;4 bytes&gt; goto half-step position N</P>
+<P>-- $41 &lt;4 bytes&gt; do N steps more</P>
+<P>-- commands $50 .. $5F all return a 4-bytes integer</P>
+<P>-- $50 get position</P>
+<P>-- $51 get target</P>
+<P>-- $52 get steps togo</P>
+<P>-- status of motors, if only 1 motor available only the status of 1 motor is returned,</P>
+<P>-- if 2 motors are available, then first the status of motor2 is given</P>
+<P>-- $60 get current speed of both motors(timer preset value)</P>
+<P>-- $61 get current status of both motors</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; bit-0 = stepper_forward</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; bit-1 = stepper_full_steps</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; bit-2 = stepper_full_force_1_winding</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; bit-3 = stepper_full_force_2_winding</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; bit-4 = stepper_accelerate_on</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; bit-5 = _stepper_not_decelerating</P>
+<P>-- $62 get accelaration table</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; _stepper_max_speed_index</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; _tmr0_preset</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; accelaration [0]</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; repeat[0]</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; accelaration [1]</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; repeat[1]</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; ...</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; accelaration [_stepper_max_speed_index]</P>
+<P>--&nbsp;&nbsp;&nbsp;&nbsp; repeat[_stepper_max_speed_index]</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="stepper_macros"></A>
+<SPAN class=RVTS2>Stepper Macros</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P>stepper_do_steps par1, par 2</P>
+<P>stepper_run_into par1, par2&nbsp;</P></TD>
+<TD valign=top>
+<P>These macro's will call procedures with multi-byte variables.</P>
+<P>par1 = motor number</P>
+<P>par2 = 4-byte integer (may be a variable or a numerical constant)</P>
+<P>examples</P>
+<P>stepper_do_steps 1, 30684</P>
+<P>stepper_run_into 1, position3</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=top>
+<P>stepper_acceleration stepper_acc1, 10, 450, 20</P></TD>
+<TD valign=top>
+<P>see below</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>From JALcc 0.15 there's a macro to generate acceleration tables for stepper motors.</P>
+<P>This macro will generate a table for a constant acceleration / deceleration.</P>
+<P>-- parameter 1 = function/table name, must be "stepper_acc1"</P>
+<P>-- parameter 2 = time resolution in 100us units</P>
+<P>-- parameter 3 = maximum speed in steps/sec</P>
+<P>-- parameter 4 = acceleration time in 100 msec units</P>
+<P>&lt;mac&gt; stepper_acceleration stepper_acc1, 10, 450, 20</P>
+<P>The above statement will generate a acceleration table, with following properties:</P>
+<UL style="text-indent: 0px; margin-left: 24px; list-style:outside;">
+<LI>Based on a time resolution of 10*100usec = 1 msec&nbsp;</LI>
+<LI>Maximum stepperspeed is 450 steps / sec&nbsp;</LI>
+<LI>Acceleration, from 0 to maximum speed will be achieved in 20*100msc = 2 sec&nbsp;</LI>
+</UL>
+<P>This table is generated with following algorithm:</P>
+<P>- TMR0 is used as the base interrupt timer, with a fixed pre-scaler (defining the time-resolution). Therefor the number of interrupts will determine the stepping speed.</P>
+<P>- on the basis of the maximum speed and the time-resolution, the minimum number of interrupts is determined</P>
+<P>Imin = 1 / ( MaxSpeed * TMR0period )</P>
+<P>- the previous highest speed will be achieved at a number of interrupts 1 higher</P>
+<P>Imin + 1</P>
+<P>- giving a speed of</P>
+<P>LessMaxSpeed = 1 / ( ( Imin + 1 ) * TMR0period )</P>
+<P>- now the difference between MaxSpeed and LessMaxSpeed is the smallest acceleration step achievable with the selected time-resolution</P>
+<P>MinAcceleration = MaxSpeed - LessMaxSpeed</P>
+<P>- with this acceleration the table is extrapolated downto zero speed</P>
+<P>In fact there are 2 tables generated, one for the interruptcount and 1 for how many times each speed should be repeated.</P>
+<P>Note, there's no check if table values exceed the 1-byte border.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=top>
+<P><A name="example_program"></A>
+<SPAN class=RVTS2>Example Program</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>This is a simplified version of the demo program "stepper_test.jal". This simplified version only contains 1 motor and doesn't support control by some hardware buttons.</P>
+<P>The listing is shown in the way it would appear in JALcc v0.15. If you would look at the file with a plain text editor, you will see that's it much larger due to the macro expansions.</P>
+<P>After the number of motors and their hardware connection is specified, the accelaration-table is declared, which will be expanded by JALcc into the correct tables and variables. If you need acceleration and don't use JALcc, you will have to derive the table values by hand.</P>
+<P>At the end all the interrupt routines from the different libraries are added together, to form the final interrupt routine. If you don't use JALcc, you have to create the final interrupt routine by hand.</P></TD>
+<TD width=370 valign=top>
+<P>include 16F628_DEFS</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- BEGIN OF copy of stepper_RS232_ins</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- BEGIN of copy of stepper_ins</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- defining only motor 1 decreases the amount of program code</P>
+<P>const stepper_Nmotors = 1</P>
+<P>-- define hardware position of motor 1</P>
+<P>var volatile byte _stepper1_port is port_b_high</P>
+<P>var volatile byte _stepper1_port_dir is port_b_high_direction</P>
+<P>-- generate the acceleration table</P>
+<P>-- parameter 1 = function/table name, must be "stepper_acc1"</P>
+<P>-- parameter 2 = time resolution in 100us units</P>
+<P>-- parameter 3 = maximum speed in steps/sec</P>
+<P>-- parameter 4 = acceleration time in 100 msec units</P>
+<P>&lt;mac&gt; stepper_acceleration stepper_acc1,10,450,10</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- copy of rs232_hw_ins</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>const usart_asynch = true ;true = RS232, false = SPI</P>
+<P>const baudrate = 115_200 ;Baudrate</P>
+<P>-- Here all the routines are made available</P>
+<P>-- and the initialization is called based upon the above parameters</P>
+<P>-- Because the hardware USART is used no pin declarations are needed</P>
+<P>include rs232_hw</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- END of copy of rs232_hw_ins</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>include stepper_RS232</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- END OF copy of stepper_RS232_ins</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- MAIN program loop</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>forever loop</P>
+<P>-- see if there's a RS232 command, and if so, also execute it</P>
+<P>stepper_rs232</P>
+<P>end loop</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P>-- end of main program loop</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>-- here the total interrupt procedure is generated with a macro</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>&lt;mac&gt; interrupt_main&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="procedures"></A>
+<SPAN class=RVTS2>Procedures</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A>procedure stepper_rs232 is</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P><A name="stepper_rs232"></A>
+-- Reads RS232 port to see if there are new commands</P>
+<P>-- If a valid command is detected, it will execute the command</P>
+<P>-- You can add a timeout detection for multiple bytes by adding</P>
+<P>-- a call to "_stepper_asynch_timeout" in the interrupt rountine.</P>
+<P>-- (This will be done automatic, if macro "interrupt_main" is used)</P>
+<P>-- this procedure should be called on a regular base (in the main loop)</P>
+<P>-- -----------------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A>procedure stepper_run_continuous (byte in motor_nr = 1) is</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P><A name="stepper_run_continuous"></A>
+-- sets motor to run continuously in the current speed and direction,</P>
+<P>-- without any acceleration</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A>procedure stepper_run_continuous_smooth (byte in motor_nr = 1) is</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P><A name="stepper_run_continuous_smooth"></A>
+-- sets motor to run continuously, with smooth start in the current direction</P>
+<P>-- motor is supposed to be initial not running</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A>procedure stepper_run_into (byte in motor_nr = 1,</P>
+<P>byte in target_pos1 = 0,</P>
+<P>byte in target_pos2 = 0,</P>
+<P>byte in target_pos3 = 0,</P>
+<P>byte in target_pos4 = 0) is</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P><A name="stepper_run_into"></A>
+-- Runs motor to the specified target position</P>
+<P>-- using the current direction, speed and accereration settings</P>
+<P>-- This routine can also be called as a macro,</P>
+<P>-- allowing to use large integer values</P>
+<P>-- stepper_run_into 1,23300</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A>procedure stepper_do_steps (byte in motor_nr = 1,</P>
+<P>byte in n_steps1 = 0,</P>
+<P>byte in n_steps2 = 0,</P>
+<P>byte in n_steps3 = 0,</P>
+<P>byte in n_steps4 = 0) is</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P><A name="stepper_do_steps"></A>
+-- Runs motor for the specified HALF-STEPS !!</P>
+<P>-- using the current direction, speed and accereration settings</P>
+<P>-- If motor is running, the specified steps will be added to the target position</P>
+<P>-- This routine can also be called as a macro,</P>
+<P>-- allowing to use large integer values</P>
+<P>-- stepper_do_steps 1,23300</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A>procedure stepper_stop (byte in motor_nr = 1) is</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P><A name="stepper_stop"></A>
+-- stops motor directly</P>
+<P>-- sets motor status to stopped</P>
+<P>-- sets position target=current</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A>procedure stepper_stop_smooth (byte in motor_nr = 1) is</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P><A name="stepper_stop_smooth"></A>
+-- stops motor smoothly</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="pic_stepper_motors.html#top"><IMG width=14 height=14 src="top_page.gif"></A>procedure stepper_set_null (byte in motor_nr = 1) is</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P><A name="stepper_set_null"></A>
+-- stops motor directly and nulls position</P>
+<P>-- sets motor status to stopped</P>
+<P>-- sets position current=0</P>
+<P>-- sets position target=current</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS4>&nbsp;</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A>procedure stepper_init is</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P><A name="stepper_init"></A>
+-- initializes all stepper motors</P>
+<P>-- this procedure is automatic called by the include of this library&nbsp;</P>
+<P>-- and should rarely be called be the user</P>
+<P>-- ---------------------------------------------------------------------</P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JALfs Devices Overview</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="49" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>september 2007</span></p>
+<p><span class=rvts1>JALsPy&nbsp;&nbsp;&nbsp; Devices Overview</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <a href="punthoofd.gif"><img width=16 height=17 alt="" src="punthoofd.gif"></a>&nbsp; <a class=rvts4 href="../jalcc/jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>7 Segment Display</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=144 valign=top style="background-color: #ffffe6;">
+<p class=rvps2><img width=200 height=100 alt="" src="jalfs_devices_img1.png"></p>
+<p class=rvps2><br></p>
+<p class=rvps2><img width=251 height=116 alt="" src="jalfs_devices_img2.png"></p>
+</td>
+<td width=530 valign=top style="background-color: #ffffe6;">
+<p>A 7-Segment LED display, with upto 8 digits and extra LEDs on top. The top LEDs can be divided into 2 groups as shown in the figure on the left.</p>
+<p>This is "Super Virtual" component and the component is created by including the JAL&nbsp; library Segment_7_Display.</p>
+<p><br></p>
+<p>In software the digits are controled by the array segment [ 0 .. 7 ].</p>
+<p>In hardware the digits are controled by Virt_Segment [0..7], where Virt_Segment [0]&nbsp; are the extra LEDs, Virt_Segment [1] is the left most digit and so on.</p>
+<p>Connections between the software and the hardware are defined in the properties of this device.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>HD44780 LCD Controler</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=226 valign=middle style="background-color: #ffffe6;">
+<p><img width=270 height=59 alt="" src="jalfs_devices_img14.png"></p>
+</td>
+<td width=514 valign=top style="background-color: #ffffe6;">
+<p>Implements the standard HD44780 and HD44780_animated libraries. Supports one line scrolling, user defined characters, full cursor and blink support and animated characters.</p>
+<p>The hardware LCD_shift_left and LCD_shift_right are not implemented, because they are considered useless.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Data EEprom</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=144 valign=top style="background-color: #ffffe6;">
+<p>datafile:</p>
+<p>&nbsp;&nbsp;&nbsp; <span class=rvts10>&lt;main_jal&gt;.eeprom</span></p>
+</td>
+<td width=530 valign=top style="background-color: #ffffe6;">
+<p>Implements the library "pic_data_eeprom.jal" (Version: 6&nbsp; / 05-02-2007) as a virtual library, and uses a file as a permanent data storage.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Signal File</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=305 valign=top style="background-color: #ffffe6;">
+<p><img width=66 height=90 alt="" hspace=1 vspace=1 src="jalfs_devices_img15.png"> <img width=212 height=101 alt="" hspace=1 vspace=1 src="jalfs_devices_img17.png"></p>
+</td>
+<td width=435 valign=top style="background-color: #ffffe6;">
+<p>Implements a (real) signal generator. You can specify the number of channels, the names of the channels and sample period, through a simple inifile. The sample period can either be clocked by the PIC-clock, the Virtual-Clock or Real-time. The graphical representation displays the signal values, the signal names and the duty cycle. So even without the Scope module you verify accurate timing.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>Graphical LCD</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=144 valign=top style="background-color: #ffffe6;">
+<p><img width=323 height=262 alt="" src="jalfs_devices_img9.png"></p>
+</td>
+<td width=530 valign=top style="background-color: #ffffe6;">
+<p>This is a virtual device that implements a Grapical LCD, with a T6963c controller.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>PushButton + (pwm) LED</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=223 valign=top style="background-color: #ffffe6;">
+<p><img width=139 height=158 alt="" src="jalfs_devices_img7.png">&nbsp; <img width=63 height=170 alt="" src="jalfs_devices_img8.png"></p>
+</td>
+<td width=520 valign=top style="background-color: #ffffe6;">
+<p>This is a virtual device, consisting of a LED, a Switch and 2 resistors. With the JAL - library you can control the intensity of the LED though a PWM-modulation, and still read the switch. The library can momentarily controls 9 of these LED-Switch combinations. The total length of the arc indicates the duty cycle of the PWM. If the button is pressed, it will get a thick border in the active color.</p>
+<p><br></p>
+<p>The disadvantage of this circuit is that if the LED is turned of by software, pressing the Switch will light the LED. And depending on the color of the LED, the intensity will vary, especially with high efficiency LEDs (Red will light quit a lot, Blue only dimmed, or is this a software error ?).</p>
+<p><br></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Robot1</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=64 valign=top style="background-color: #ffffe6;">
+<p><img width=48 height=62 alt="" src="jalfs_devices_img10.png"></p>
+</td>
+<td width=679 valign=top style="background-color: #ffffe6;">
+<p>This is simple robot, with two motors, one on the left wheel and one on the right wheel. Both motors are placed in the center, so running one motor forwards and the other motor backwards, will perform a perfect circle. The robot also has 2 whiskers, which act as sensors if they are touched by another shape or the environment borders. This robot can not exit the environment.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Shapes</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=138 valign=top style="background-color: #ffffe6;">
+<p><img width=129 height=43 alt="" src="jalfs_devices_img12.png"></p>
+</td>
+<td width=605 valign=top style="background-color: #ffffe6;">
+<p>Shapes is collection of shapes, to create environments for robots. If the shape is On, the shape is fixed and can't be moved by a robot, if the shape is Off, the shape can be moved by a robot.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>LED</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=144 valign=top style="background-color: #ffffe6;"><br>
+</td>
+<td width=530 valign=top style="background-color: #ffffe6;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Push Button</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=104 valign=top style="background-color: #ffffe6;"><br>
+</td>
+<td width=639 valign=top style="background-color: #ffffe6;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2>RS232 Terminal</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=144 valign=top style="background-color: #ffffe6;">
+<p><img width=252 height=132 alt="" src="jalfs_devices_img13.png"></p>
+</td>
+<td width=530 valign=top style="background-color: #ffffe6;">
+<p>This device is standard build in JALsPy.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Resistor</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=144 valign=top style="background-color: #ffffe6;">
+<p><img width=110 height=118 alt="" src="jalfs_devices_img3.png"></p>
+</td>
+<td width=530 valign=top style="background-color: #ffffe6;">
+<p>The resistor can be emulated in analog / digital and virtual mode.</p>
+<p>The value of the resistor is visualized in a 3-band color code.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp; </p>
+<p><br></p>
+<p><span class=rvts2><br></span></p>
+
+</body></html>

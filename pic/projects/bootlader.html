@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>JALcc-Bootloader</title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #efefef;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>September 2004</span></p>
+<p><span class=rvts1>Bootloader</span></p>
+<p>&nbsp; </p>
+<p>With a bootloader you get</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>very fast and easy downloading (especially with JALcc) </li>
+<li>serial debugging </li>
+</ul>
+<p>There's just one disadvantage, the PIC should be able to program itself (e.g. 16F87x), (also code-protection is limited).</p>
+<p>JALcc can fully communicate with Shane Tolmies bootloader.</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>JALcc + Bootloader</span></p>
+<p>Assuming the settings of JALcc and the bootloader are correctly set (see below), you're just a few steps away from running and debugging your JAL program:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>Connect the pic to the serial or USB port of your PC </li>
+<li>Start JALcc, edit the JAL-source files </li>
+<li>Press one of the buttons compile+program(+run), this will launch the bootloader, download the hex-file and starts running the PIC-program in serial debug mode </li>
+<li>Leave the bootloader open (you can see in JALcc that the bootloader is open if button C is down), switch back to JALcc to modify the JAL source and goto step 3 again. </li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <img width=372 height=27 alt="" src="bootlader_img1.gif"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +programmer active</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +programmer selected as output device</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>JALcc settings</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #000000;}">
+<tr valign=top>
+<td width=466 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>Through the menu Edit / General Settings, you can reach the programmer settings. </p>
+<p>&nbsp; </p>
+<p>Set path to the location of the bootloader. </p>
+<p>&nbsp; </p>
+<p>Check the box USB-programmer (it's called that way, because this setting was first (and still is) used for an USB-programmer) </p>
+<p>&nbsp; </p>
+<p>Select item 2,3 or 4 of the Actiosn after Compile. It really doesn't matter in this case, because always the fourth action will be executed. </p>
+<p>&nbsp; </p>
+<p>Select the baudrate, at which you want to debug. (The bootloader alwasy communicates at 19.2 kBaud)</p>
+</td>
+<td width=259 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p class=rvps3><img width=321 height=311 alt="" src="bootlader_img2.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Bootloader settings</span></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="{border-color: #000000;}">
+<tr valign=top>
+<td width=451 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p>You have to do these settings once, because they will be remembered by the bootloader program. </p>
+<p>&nbsp; </p>
+<p>Select the commport, only available (and free) commports will be shown. In case you use a USB device (e.g. FTDI chip), the commport will only be available after a valid USB communication is established (i.e. the USB device is connected to the PC). </p>
+<p>&nbsp; </p>
+<p>Select the reset pin used by the bootloader. </p>
+<p>&nbsp; </p>
+<p>Set EEPROM as desired. </p>
+<p>&nbsp; </p>
+<p>Filename and baudrate don't need to be set, because they are set correctly by JALcc. </p>
+<p>&nbsp; </p>
+<p>The other buttons are only needed, when the bootloader is used as standalone program. </p>
+<p>Buttons XYZ are just test buttons, for a databooter I'm developping.</p>
+</td>
+<td width=274 valign=top style="{border-color: #000000; border-style: solid; background-color: #ffffff;}">
+<p class=rvps3><img width=291 height=303 alt="" src="bootlader_img4.gif"></p>
+</td>
+</tr>
+</table>
+</div>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Bootloader Debug window</span></p>
+<p>The left window will display all the information received from the PIC. The information can be displayed in ASCII or in hex. </p>
+<p>In the right window, you can type ASCII or hex characters, that will be sent to the PIC, after entering a Return.</p>
+<p>There's a special repeat key, which will repeat sending the last line to the PIC, every 100 msec.</p>
+<p>With the DTR or RTS button you're able to reset the PIC.</p>
+<p><img width=598 height=357 alt="" src="bootlader_img5.gif"></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Commandline parameters</span></p>
+<p>These parameters are only of interest, if you use the bootloader as a standalone device (without JALcc).</p>
+<p>&nbsp; </p>
+<p><span class=rvts2>For version V2.0 and up</span></p>
+<p>Start parameters</p>
+<p>&nbsp;&nbsp; <span class=rvts3>bootloader.exe&nbsp; &lt;filename&gt;&nbsp; - prog_run - &lt;baudrate&gt;</span></p>
+<p>example</p>
+<p>&nbsp;&nbsp; <span class=rvts3>bootloader&nbsp;&nbsp; D:\JAL\test.hex&nbsp;&nbsp; -&nbsp;&nbsp; prog_run&nbsp; 115200</span></p>
+<p>Note that the second and fourth parameter are not used for this bootloader, and therefor must be a minus-sign.</p>
+<p>The third command parameter is fixed at "prog_run", maybe in the future other commands will be implemented.</p>
+<p>&nbsp; </p>
+<p><span class=rvts2>For version upto V1.09 and Dx2xx-USB programmer:</span></p>
+<p>Start parameters</p>
+<p>&nbsp;&nbsp; <span class=rvts3>bootloader.exe&nbsp; &lt;filename&gt;&nbsp; &lt;commport&gt;&nbsp; &lt;resetpin&gt;&nbsp; &lt;baudrate&gt;</span></p>
+<p>example<span class=rvts3> bootloader&nbsp;&nbsp; D:\JAL\test.hex&nbsp;&nbsp; COM3&nbsp; DTR&nbsp; 115200</span></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>History</span></p>
+<div><table width="100%" border=1 cellpadding=2 cellspacing=2 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td valign=top>
+<p class=rvps2>&nbsp; <span class=rvts2>V todo&nbsp; released .... </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p><img width=13 height=13 alt="" src="redarrow.gif"><span class=rvts3>&nbsp; new: </span>read data-EEprom </p>
+<p><img width=13 height=13 alt="" src="redarrow.gif"><span class=rvts3>&nbsp; new: </span>knop back to JALcc </p>
+<p><img width=13 height=13 alt="" src="redarrow.gif"><span class=rvts3>&nbsp; new: </span>Communication with JALcc has to be done for USB downloader </p>
+<p><img width=13 height=13 alt="" src="redarrow.gif"><span class=rvts3>&nbsp; new:</span></p>
+<p><img width=13 height=13 alt="" src="redarrow.gif"><span class=rvts3>&nbsp; new:</span>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=2 cellspacing=2 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td valign=top>
+<p class=rvps2>&nbsp; <span class=rvts2>V 2.0 released 25-09-2004 </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p><img width=13 height=13 alt="" src="redarrow.gif"><span class=rvts3>&nbsp; new:</span> RS232 version can now communicate with JALcc (USB-D2XX-version will folow)</p>
+<p><img width=13 height=13 alt="" src="redarrow.gif"><span class=rvts3>&nbsp; changed:</span> The commandline parameters for the RS232 version has changed</p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<div><table width="100%" border=1 cellpadding=2 cellspacing=2 style="{border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;}">
+<tr valign=top>
+<td valign=top>
+<p class=rvps2>&nbsp; <span class=rvts2>V 1.09&nbsp; orginal release </span><a href="#top"><img width=14 height=14 alt="" src="top_page.gif"></a></p>
+</td>
+</tr>
+</table>
+</div>
+<p>Changes compared to orginal Petr Kolomaznik</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>debug window added </li>
+<li>DTR or RTS selectable as reset pin (other pin is trigger pin) </li>
+<li>use of TCOMMPORT (Marco Cocco) </li>
+<li>display only available (free) commports </li>
+<li>fixed baudrate for downloading (19_200) </li>
+<li>flexible baudrate for debugging (1200 ... 115_200) </li>
+<li>start with commandline parameters for all settings </li>
+<li>save windows position </li>
+<li>debug window receive hex-ascii </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Downloads</span></p>
+<p>Download&nbsp; RS232_version&nbsp; <a class=rvts4 href="../download/pic_downloader.zip">PIC_downloader.zip&nbsp; (310 kB)</a></p>
+<p>Download&nbsp; USB_D2XX_version <a class=rvts4 href="../download/pic_usb_downloader.zip">PIC_USB_downloader.zip (380 kB)</a></p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Background</span></p>
+<p>Bootloader from Shane Tolmie</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class=rvts4 href="http://www.microchipc.com/">Program Microchip PIC micros with C - sample source code, FAQ and more</a></p>
+<p>Based on downloader from Petr Kolomaznik</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class=rvts4 href="http://www.ehl.cz/pic/pic_e.htm">EHL elektronika - PIC downloader</a></p>
+
+</body></html>

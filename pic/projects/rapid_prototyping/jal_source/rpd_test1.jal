@@ -1,0 +1,55 @@
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+-- define the 6-LED device on J3
+;;;;;<;mac> RPD_LED6       LED = J1
+var volatile bit LED1 is J1L1
+var volatile bit LED2 is J1L2
+var volatile bit LED3 is J1L3
+var volatile bit LED4 is J1R1
+var volatile bit LED5 is J1R2
+var volatile bit LED6 is J1R3
+J1L1_direction = output
+J1L2_direction = output
+J1L3_direction = output
+J1R1_direction = output
+J1R2_direction = output
+J1R3_direction = output
+;;;;;<;/mac>
+
+-- define 1 motor with feedback
+-- on the right half of J4
+;<mac> RPD_motor_L272    motorE = J4R
+
+
+
+
+-- main program loop: walking LEDs
+const byte delay = 1
+;LED1 = off
+LED2 = off
+LED3 = off
+;LED4 = off
+LED5 = off
+LED6 = off
+forever loop
+  LED6 = on
+  delay_100ms(delay)
+  LED6 = off
+  delay_100ms(delay)
+  LED5 = on
+  delay_100ms(delay)
+  LED5 = off
+  delay_100ms(delay)
+  LED3 = on
+  delay_100ms(delay)
+  LED3 = off
+  delay_100ms(delay)
+  LED2 = on
+  delay_100ms(delay)
+  LED2 = off
+  delay_100ms(delay)
+end loop
+

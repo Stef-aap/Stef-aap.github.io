@@ -1,0 +1,311 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 08/26/06, 14:35
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 05 0D 00 2B 05 <pp> <progname>  00 00 2B 05 29 05
+; program name: Voer2
+; file is NOT protected
+
+; unkown codes are inserted as "%%HH%%"
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+
+;************************************************************
+; Description CONNECT4
+;************************************************************
+; This is implementation of the game "Connect 4" or "4 On a Row"
+; We found this program called "VOER", written by Vincent van der Weele,
+; and were amazed by it's complexity.
+; So we used as an example, to show what a more structured programming
+; technic can bring us. To be able to program such a large program
+; in a structured way, we made use of the editor from the JALcc IDE.
+; So here's a comparison of both programs
+;
+; ------------------------------  VOER --- CONNECT4 -- improvement(%)
+; TI-CodeSize                   21,000        1,964        90%
+; execution time (8 moves)          50            9        82%
+; number of GOTOs                  602            0       100%
+; effective source code lines     1800          100        94%
+; 
+; Have fun !
+; September 2006, Stef & Robbert Mientki
+; Download 8xp-file:  <a href="connect4.8xp">Connect4.8xp</a>
+; Download 8xpR-file: <a href="connect4.8xpr">Connect4.8xpR</a>
+;************************************************************
+
+
+;************************************************************
+; Use of the Variables
+;************************************************************
+; A = temp var for Test_If_Won
+; B = Result of Test_If_Won
+; C = Column result of Get_User_Input
+; L = temp variable
+; N = Counter for Test_If_Won
+; P = Player (-1,1)
+; R = Row result of Get_User_Input
+; X = Column in history array
+; Y = Row in history array
+;************************************************************
+
+
+;************************************************************
+; Waits until a valid user input is received
+; Also checks if the column has free space
+; If all conditions are satisfied, this procedure will return
+; with a new coin positioned at (C,R) in the visible field
+;************************************************************
+Procedure Get_User_Input
+  ; Wait for a valid key 0..9 (C>0)
+  ; in a column that's not completely full
+  Repeat C
+    ; Try to read Key (will also return if no key pressed!)
+    Getkey->C
+
+    ; Translate key codes
+    ; 72  73  74
+    ; 82  83  84
+    ; 92  93  94
+    ; 102
+     (Ans=92)+2(Ans=93)+3(Ans=94)+|
+    4(Ans=82)+5(Ans=83)+6(Ans=84)+|
+    7(Ans=72)+8(Ans=73)+9(Ans=74)+|
+    10(Ans=102)->C
+    
+    ; If C<>0 then we have a visible column
+    ; so check if there's empty space in that column
+    if C:Then
+      ; Make K a valid array index (step over the 3-sized border)
+      C+3->C
+      
+      ; Search for a Zero in the specified column
+      ; We don't boundery check, because there are always 
+      ; zeroes around the visible part of the array
+      3->R
+      Repeat [A](C,R)=0
+        R+1->R
+      End
+
+      ; Now "I" holds the lowest row that's empty
+      ; So check if row position is in the visible part
+      ; otherwise clear C
+      C(1-(R>10))->C  
+    End
+  End
+End_Procedure
+;************************************************************
+
+
+
+;************************************************************
+; Draws a cross at position X,Y on the screen
+; The playing field, starts at left-bottom=4,4 !!
+;************************************************************
+Procedure Draw_Cross (Draw_Erase)
+  Line(X8-18,Y8-26,X8-14,Y8-30,Draw_Erase)
+  Line(X8-18,Y8-30,X8-14,Y8-26,Draw_Erase)
+
+  ;I'ld expect much faster, 
+  ;but in facts it's only 2 bytes longer
+  ;8X->X
+  ;8Y->Y
+  ;Line(X-18,Y-26,X-14,Y-30,1)
+  ;Line(X-18,Y-30,X-14,Y-26,1)
+End_Procedure
+;************************************************************
+
+
+;************************************************************
+; Draws a circle at position X,Y on the screen
+; The playing field, starts at left-bottom=4,4 !!
+;************************************************************
+Procedure Draw_circle (Draw_Erase)
+  ; Drawing a small "circle" with 4 lines
+  ; is much faster than "circle" of the TI
+  Line(X8-19,Y8-28,X8-17,Y8-26,Draw_Erase)
+  Line(X8-19,Y8-29,X8-17,Y8-31,Draw_Erase)
+  Line(X8-16,Y8-31,X8-14,Y8-29,Draw_Erase)
+  Line(X8-16,Y8-26,X8-14,Y8-28,Draw_Erase)
+End_Procedure
+;************************************************************
+
+
+; IF YOU WANT A DIFFERENT SYMBOL CIRCLE,
+; JUST EXCHANGE THE NAMES OF THE PROCEDURE BELOW AND ABOVE
+
+
+;************************************************************
+;************************************************************
+Procedure Draw_circle_other (Draw_Erase)
+  Line(X8-18,Y8-28,X8-17,Y8-27,Draw_Erase)
+  Line(X8-18,Y8-29,X8-17,Y8-30,Draw_Erase)
+  Line(X8-16,Y8-30,X8-15,Y8-29,Draw_Erase)
+  Line(X8-16,Y8-27,X8-15,Y8-28,Draw_Erase)
+End_Procedure
+;************************************************************
+
+
+;************************************************************
+; This procedure checks if a new inserted coin,
+; by player P, placed at (X,Y) in the history array
+; results in a winning situation
+;************************************************************
+Procedure Test_If_Won
+  ; We will look for 3 consecutive coins in all directions
+  ; So the sum of these 3 elements should be 3*P
+  3P->A
+  
+  ;clear the result
+  Delvar B
+  
+  ; scan the horizontal line 
+  [A](X-3,Y)+[A](X-2,Y)+[A](X-1,Y)=A or |
+  [A](X-2,Y)+[A](X-1,Y)+[A](X+1,Y)=A or |
+  [A](X-1,Y)+[A](X+1,Y)+[A](X+2,Y)=A or |
+  [A](X+1,Y)+[A](X+2,Y)+[A](X+3,Y)=A->N
+  B+(N=1)->B
+
+  ; scan the vertical line
+  [A](X,Y-3)+[A](X,Y-2)+[A](X,Y-1)=A or |
+  [A](X,Y-2)+[A](X,Y-1)+[A](X,Y+1)=A or |
+  [A](X,Y-1)+[A](X,Y+1)+[A](X,Y+2)=A or |
+  [A](X,Y+1)+[A](X,Y+2)+[A](X,Y+3)=A->N
+  B+2(N=1)->B
+
+  ; scan the diagonal from bottom-left to top-right
+  [A](X-3,Y-3)+[A](X-2,Y-2)+[A](X-1,Y-1)=A or |
+  [A](X-2,Y-2)+[A](X-1,Y-1)+[A](X+1,Y+1)=A or |
+  [A](X-1,Y-1)+[A](X+1,Y+1)+[A](X+2,Y+2)=A or |
+  [A](X+1,Y+1)+[A](X+2,Y+2)+[A](X+3,Y+3)=A->N
+  B+4(N=1)->B
+  
+  ; scan the diagonal from top-left to bottom-right
+  [A](X-3,Y+3)+[A](X-2,Y+2)+[A](X-1,Y+1)=A or |
+  [A](X-2,Y+2)+[A](X-1,Y+1)+[A](X+1,Y-1)=A or |
+  [A](X-1,Y+1)+[A](X+1,Y-1)+[A](X+2,Y-2)=A or |
+  [A](X+1,Y-1)+[A](X+2,Y-2)+[A](X+3,Y-3)=A->N
+  B+8(N=1)->B
+End_Procedure
+;************************************************************
+
+
+;************************************************************
+; Start of MAIN PROGRAM
+;************************************************************
+:"Connect Four
+; Repeat until the first game has finished
+; and the users don't want to play a new game
+Repeat L
+  ; Clear screen and graph
+  PlotsOff:FnOff:ClrDraw:AxesOff:ZStandard
+
+  ; Set the graph origin and scaling
+  0->Xmin
+  1->_delta_X
+  0->Ymin
+  1->_delta_y
+  
+  ; Draw the playing field
+  ;   draw the horizontal lines
+  For(L,0,62,8)
+    Line(12,L,92,L)
+  End
+  ;  draw the vertical lines and a number above each column
+  For(L,1,11)
+    Text(0,8L+6,L(L<10))
+    Line(8L+4,0,8L+4,55)
+  End
+  
+  ; Create an NEW array to hold the coin positions
+  ; although the visible coin area is only 10 width and 7 high,
+  ; we create a larger matrix, of 16 by 13,
+  ; so that on each side there are 3 positions extra
+  ; The advantage is that we don't need to calculate 
+  ; with special boundery conditions
+  ; A newly array will always be cleared.
+  Delvar [A]
+  {16,13}->dim([A])
+  
+  ; Set the first Player
+  1->P
+  
+  ; repeat until WON
+  Repeat B
+    ; Indicate the active player by a symbol at the bottom-left
+    3->X
+    4->Y
+    If P=1:Then
+      Call Draw_Cross(1)
+    Else
+      Call Draw_Circle(1)
+    End
+   
+    ; wait for a valid key 0..9
+    ; in a column that's not completely full
+    ; the resulting coördinates will be in (C,R)
+    Call Get_User_Input
+ 
+    ; Erase the current Player at the left-bottom
+    ; And place the coin in the playing fiels
+    If P=1:Then
+      Call Draw_Cross(0)
+      C->X
+      R->Y
+      Call Draw_Cross(1)
+    Else
+      Call Draw_Circle(0)
+      C->X
+      R->Y
+      Call Draw_Circle(1)
+    End
+  
+    ; Here we have a new valid coin position,
+    ; In the visible field indicated by coordinates (C,R)
+    ; In the history array indicated by coordinates (X,Y)
+    ; So store the result
+    P->[A](X,Y)
+  
+    ; test if this is a winning situation, result in B
+    Call Test_If_won
+  
+    ; Change to the other Player
+    (-)P->P
+  End
+  
+  ; Draw a crosshair at the winning coin
+  Vertical 8*(X-4)+16
+  Horizontal 8*(Y-4)+4
+
+  ; While waiting for any keypress,
+  ; fill the complete playing field at random
+  ; with the winning symbol
+  Text(0,14,"Press  A  Key  to  Continue"
+  Repeat Getkey
+    RandInt(4,10)->Y
+    RandInt(4,13)->X
+    If P=1:then
+      ; Because there might be different symbol at this location,
+      ; first try to remove it
+      Call Draw_Cross(0)
+      ; Then draw the winning symbol
+      Call Draw_Circle(1)
+    else
+      Call Draw_Circle(0)
+      Call Draw_Cross(1)
+    end
+  end
+
+  ; Let the users choose to play again  
+  Text(7,14,"1. New Game "
+  Text(15,14,"2. Exit     "
+
+  ; Wait for a keyboard input
+  Repeat Ans
+    Getkey->L
+  end
+  ; if "1" pressed we do a new game, else stop
+  (Ans!=92)->L
+end
+ClrHome
+

@@ -1,0 +1,40 @@
+; This file is translated from a TI-code file
+; You can delete these comment lines if you like
+; **TI83F* 1A 0A 00
+; Program file 11/19/05, 14:02
+;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 76 01 0D 00 65 01 <pp> <progname>  01 80 65 01 63 01
+; program name: SOLVER
+; file is NOT protected
+
+; unkown codes are inserted as "%%HH%%"
+; where "HH" is the hexadecimal value of the unknown code
+; if you find any, please contact the designer
+
+:"Equation Solver
+Clrhome
+Disp "Enter Equiton:"
+Input "",Str1
+Input "=",Str2
+String->Equ(Str1,Y_1)
+String->Equ(Str2,Y_2)
+0->A
+0->B
+Repeat A<B and A=int(A) and B=int(B)
+  Input "Lower Bound:",A
+  Input "Upper Bound:",B
+  If A>B:Then
+    Disp "Upper Bound must","be greater than"
+    Pause"Lower Bound"
+    ClrDraw
+  End
+End
+Disp "Answer(s):"
+solve(Y_1-Y_2,X,A,{A,B})->D
+PauseD->Frac
+For(C,A,B)
+  solve(Y_1-Y_2,X,C,{A,B})->E
+  If E!=D:Then
+    E->D
+    PauseD->Frac
+  End
+End

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Controls IDE</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="122" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p><span class=rvts1>Controls IDE </span><a href="pw_controls_manager_img1.ico"><img width=33 height=32 alt="" src="pw_controls_manager_img1.ico"></a><span class=rvts8>&nbsp;&nbsp; ( april 2009 )</span></p>
+<p>Application Designer / Domain Expert / <span class=rvts10>Control Designer</span> / Core Developer</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Control = GUI, consisting of 1 or more graphical components, that displays data in some way and / or collects data from the user.</p>
+<p>This program is very premature, but nevertheless quite useful.</p>
+<p>Instead of making 1 IDE for all tasks, we made a number of specific IDE's, which can be held quit simple, while they are optimized for their specific task. After we've made the different IDE's, we'll make a new decision if we'll combine the different IDE's.&nbsp; For instance, if we want to create / modify a control the following tasks are required:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>edit the source code </li>
+<li>compare the source code with the source code of other controls ( examples ) </li>
+<li>getting specific help information about controls </li>
+<li>debugging the control </li>
+<li>previewing the control </li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p>On the left you see a premature debug tab, and a tab to display another control code file ( in read-only mode ). Changing either the code file for the model or the code file under construction, right click on the tab and select from the popup-menu.</p>
+<p>Important keys are</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>F7 = Template Manager </li>
+<li>F9 = Preview the selected control </li>
+</ul>
+<p>At the moment only the first selected control is used in the preview.</p>
+<p>At the bottom we'll find the standaard Shell-Command window with doc-viewer.</p>
+<p>The module that contains the control doesn't have to have a main-section (but may have it) and doesn't need to have a test-form (but again may have it). The namespace is cleared before every new run. The namespace is available during and after a control has run in the tester.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=579 height=529 alt="" src="pw_controls_manager_img10.png"></p>
+<p><br></p>
+<p><span class=rvts10>Control Preview</span></p>
+<p>The preview is started, by pressing F9 from the code editor. The control is drawn in the left panel and is always drawn in the alternate color (blue), so you can see right away if the function SetForegroundColor works correctly. On the right panel, at the top, the control definitions, attributes with the initial values, and the control methods are listed. On the bottom right the important current values are shown.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=543 height=434 alt="" src="pw_controls_manager_img7.png"></p>
+<p><br></p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=141 valign=top style="background-color: #ffffd4;">
+<p><img width=211 height=231 alt="" src="pw_controls_manager_img9.png"></p>
+</td>
+<td width=787 valign=top style="background-color: #ffffd4;">
+<p>Each time the control is changed through the normal GUI, the actual parameters are listed, as shown on the left at the red arrow. If the values are changed by the SetValue key, the parameters are listed, preceded&nbsp; by "Control Decided:", as shown at the blue arrow on the left. It's up to the control to decide what he does with SetValue: only change the GUI or change GUI and the corresponding Par value.</p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts10>Technical Info</span></p>
+<p>Modules:</p>
+<p>- PyLab_Works_Control_Manager.py</p>
+<p>- controls_wrapper_dont_touch.py</p>
+<p><br></p>
+
+</body></html>

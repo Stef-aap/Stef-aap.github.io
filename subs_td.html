@@ -1,0 +1,69 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="generator" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+   <meta name="author" content="Stef Mientki">
+   <title>Subschalen</title>
+</head>
+<body text="#000000" bgcolor="#8FD6F3" link="#003399" vlink="#003399" alink="#CCCCCC">
+<a name="top"></a>
+<table BORDER WIDTH="100%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2" WIDTH="25%"><font face="Arial,Helvetica"><a href="indexd.html">Indexd</a></font></td>
+
+<td ALIGN=CENTER VALIGN=CENTER WIDTH="50%" HEIGHT="40" BGCOLOR="#3333FF">
+<center><b><font face="Arial,Helvetica"><font color="#FFFF00">Vragenlijst
+Design &amp; Test</font></font></b></center>
+</td>
+
+<td ALIGN=CENTER VALIGN=CENTER ROWSPAN="2"><b><font face="Arial,Helvetica"><font color="#000099">&nbsp;</font></font></b></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER HEIGHT="40" BGCOLOR="#FFFF00"><b><font face="Arial,Helvetica"><font color="#3333FF">Vragenlijst
+Instellingen</font></font></b></td>
+</tr>
+</table>
+
+<p><a name="titel & spss prefix"></a><b><font color="#000099">Titel &amp;
+SPSS prefix</font></b>
+<br><font color="#000000">Worden bewaard in de globale variabelen</font>
+<br><font color="#000000">&nbsp;&nbsp;&nbsp; <b>Form_vraaglist_settings.edit_question_title.text</b></font>
+<br><font color="#000000">&nbsp;&nbsp;&nbsp; <b>Form_vraaglist_settings.edit_question_spss_prefix.text</b></font><font color="#000000"></font>
+<p><font color="#000000">lezen en schrijven in vragenlijstbestand gebeurt
+in</font>
+<br><b>&nbsp;&nbsp;&nbsp; edit_vl.pas,&nbsp;</b> <b>Tform_edit.read_vragenlijst;</b>
+<br><b>&nbsp;&nbsp;&nbsp; edit_vl.pas,&nbsp;</b> <b>Tform_edit.write_vragenlijst;</b>
+<br><font color="#000000"></font>&nbsp;<font color="#000000"></font>
+<p><a name="subschalen"></a><b><font color="#000099">Subschalen</font></b>
+<br>Subschalen worden geidentificeerd door een naam en een afkorting.
+<br>Normaal gesproken wordt altijd de naam gebruikt, enkel in het export
+bestand (t.b.v. SPSS etc) wordt de afkorting gebruikt, omdat hier geen
+lange namen zijn toegestaan, bovendien moet hier nog een extensie aan toe
+gevoegd worden.
+<p>Subschalen worden opgeborgen in de volgende variabelen, gedefinieerd
+in
+<br>&nbsp;&nbsp;&nbsp; <b>spss_fullname</b> :tstringlist
+<br>&nbsp;&nbsp;&nbsp; <b>spss_name</b>&nbsp;&nbsp;&nbsp; :tstringlist
+<br>Deze 2 stringlijsten moeten altijd synchroon lopen !!!
+<p>Gedefini&euml;erd in&nbsp; <b>vrg_clas.pas</b>
+<br>Created in initialization part of&nbsp; <b>vrg_clas.pas</b>
+<p>Uit de vragenlijst gelezen in <b>edit_vl.pas,&nbsp;</b> <b>Tform_edit.read_vragenlijst;</b>
+<br>Weggeschreven naar file in&nbsp; <b>edit_vl.pas,&nbsp;</b> <b>Tform_edit.write_vragenlijst;</b>
+<br>Bij het wegschrijven worden leading en trailing spaces/tabs verwijderd,
+omdat deze in een samengestelde kolomheader niet goed geaccepteerd worden
+door SPSS.
+<p>Het bekijken/wijzigen van subschalen gebeurt in <b>vrg_set.pas</b>,
+op te roepen via het menu-item <b>vragenlijst instellingen</b>
+<br>Vanuit de variabelen geladen door <b>TForm_vraaglist_settings.formactivate</b>,
+pagina subschalen
+<br>Teruggeschreven naar variabelen door <b>TForm_vraaglist_settings.formclose</b>
+<p>Bij het vertalen van oude vragenlijsten behoeft geen speciale actie
+te worden ondernomen, omdat de oude vragenlijst dezelfde structuur gebruikte.
+<p>
+<hr WIDTH="100%">
+<br><font size=-2>&copy; Copyright Instrumentele Dienst 4-1-1999</font>
+<br><font size=-2>SM, last updated 4-1-1999</font>
+</body>
+</html>

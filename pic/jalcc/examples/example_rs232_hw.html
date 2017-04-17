@@ -1,0 +1,64 @@
+<HTML><HEAD><TITLE>RS232 in Hardware</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>januari 2005</SPAN></P>
+<P><SPAN class=RVTS1>RS232 hardware communication</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Introduction</SPAN></P>
+<P>If you used the same test setup as I used, i.e. Bootloader, in fact you already knows that serial communication is running ok at 19.2 kBaud. In this example we increase the speed to 115 kBaud, which should give no problems as long as the oscillator is running ok.</P>
+<P>This is a very important piece of code, because it creates a quiet adequat debugging tool. I find it even so important that it will be inserted in the general initialisation library "demo_settings" used in all the following examples.</P>
+<P>&nbsp;&nbsp;</P>
+<P>The demo program receives a character through the serial port, adds one to the value of that character and sends it back through the serial port.</P>
+<P>Now If the bootloader settings are like this:</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=416 height=161 src="example_rs232_hw_img4.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The bootloader - uploader will start like this</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=282 height=302 src="example_rs232_hw_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>and after uploading, it will popup the debug window:</P>
+<P>Now set the send format to "String" and type a few digits, followed by a Return.</P>
+<P>As you can see in the picture below, the characters are echoed with an incremented ASCII-value, on the left in the picture below.</P>
+<P>(character "1" has an hex value of 0x31)</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=379 height=252 src="example_rs232_hw_img2.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>JAL</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>JAL++</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=575 height=383 src="jal++_examples_img3.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>PICbsc</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>XCSB</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Basic87x</SPAN></P>
+<P>todo ...</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+</BODY></HTML>

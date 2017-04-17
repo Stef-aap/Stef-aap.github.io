@@ -1,0 +1,253 @@
+<HTML><HEAD><TITLE>RS232 hardware</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P><SPAN class=RVTS1>RS232, basic hardware</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>Contents</P></TD>
+<TD valign=middle>
+<P>Links</P></TD>
+<TD valign=middle>
+<P>-</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P><A class=RVTS4 href="#my%20favorit">My favorit</A></P>
+<P><A class=RVTS4 href="#the%20electrical%20specifications">Electrical Specifications</A></P>
+<P><A class=RVTS4 href="#the%20pinouts">Pinouts (D9 en D25)</A></P>
+<P><A class=RVTS4 href="#rj12">Pinout RJ12 (EIA561)</A></P>
+<P><A class=RVTS4 href="#basic%20receive%20circuits">Basic Receive circuits</A></P>
+<P><A class=RVTS4 href="#basic%20transmit%20circuits">Basic Transmit circuits</A></P>
+<P><A class=RVTS4 href="#not%20working%20receive%20circuits">NOT WORKING Receive circuits</A></P>
+<P><A class=RVTS4 href="#not%20working%20transmit%20circuits">NOT WORKING Transmit circuits</A></P></TD>
+<TD valign=top>
+<P><A class=RVTS4 href="http://www.beyondlogic.org/serial/serial.htm#1">BeyondLogic</A></P>
+<P><A class=RVTS4 href="http://www.arcelect.com/rs232.htm">ARC electronics</A></P>
+<P><A class=RVTS4 href="http://www.lvr.com/serport.htm#products">Jan Axelson</A></P>
+<P><A class=RVTS4 href="http://www.maxim-ic.com/">Maxim</A></P>
+<P><A class=RVTS4 href="http://dbserv.maxim-ic.com/appnotes.cfm?appnote_number=527">Maxim, app83.pdf</A></P>
+<P><A class=RVTS4 href="http://surducan.netfirms.com/rs232.html">Vasile's 6(7) ways to connect a PIC</A></P></TD>
+<TD valign=top>
+<P><A class=RVTS4 href="http://www.analogservices.com/rs232.htm">Power from RS232</A></P>
+<P><A class=RVTS4 href="pic_serial_spi.html">Serial JAL routines</A></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="my favorit"></A>
+<SPAN class=RVTS2>My Favorit</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=301 height=269 src="serial3.jpg"></P>
+<P>My favorit, minimal components and it can compete with the well known Maxim devices. Tested upto 115_200 Baud.&nbsp;</P>
+<P>With a few more components, you can even derive the power supply for your PIC and electronics from the RS232: circuit on the right.</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=405 height=367 src="serial2.jpg"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="the electrical specifications"></A>
+<SPAN class=RVTS2>The electrical specifications</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>of the serial port is contained in the EIA (Electronics Industry Association) RS232C standard.&nbsp;</P>
+<P>It states many parameters such as -&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. A "Space" (logic 0) will be between +3 and +25 Volts.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. A "Mark" (Logic 1) will be between -3 and -25 Volts.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. The region between +3 and -3 volts is undefined.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. The inputs are loaded to ground with a load of 3kOhm .. 7kOhm&nbsp;</P>
+<P>More can be found on&nbsp;<A class=RVTS4 href="http://www.beyondlogic.org/serial/serial.htm#1">beyondlogic</A>.&nbsp;</P>
+<P>&nbsp;<IMG width=640 height=400 src="rs232_signals.gif"></P>
+<P>from&nbsp;<A class=RVTS4 href="http://www.arcelect.com/rs232.htm">ARC Electronics</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="the pinouts"></A>
+<SPAN class=RVTS2>The Pinouts</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>(from&nbsp;<A class=RVTS4 href="http://www.beyondlogic.org/serial/serial.htm#1">beyondlogic</A>)&nbsp;</P>
+<P><TABLE width=80% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=25% valign=middle>
+<P>D-Type-25 Pin No.&nbsp;&nbsp;</P></TD>
+<TD width=25% valign=middle>
+<P>D-Type-9 Pin No.&nbsp;&nbsp;</P></TD>
+<TD width=20% valign=middle>
+<P>Abbreviation&nbsp;</P></TD>
+<TD width=30% valign=middle>
+<P>Full name&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Pin 2&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Pin 3&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>TD&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Transmit Data&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Pin 3&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Pin 2&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>RD&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Receive Data&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Pin 4&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Pin 7&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>RTS&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Request To Send&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Pin 5&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Pin 8&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>CTS&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Clear To Send&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Pin 6&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Pin 6&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>DSR&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Data Set Ready&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Pin 7&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Pin 5&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>SG&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Signal Ground&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Pin 8&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Pin 1&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>CD&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Carrier Detect&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Pin 20&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Pin 4&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>DTR&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Data Terminal Ready&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD valign=middle>
+<P>Pin 22&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Pin 9&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>RI&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>Ring Indicator&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="rj12"></A>
+<SPAN class=RVTS2>PinOut RJ12</SPAN></P>
+<P>&nbsp;<IMG width=497 height=343 src="eia-561.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="basic receive circuits"></A>
+<SPAN class=RVTS2>Basic Receive circuits</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=228 height=158 src="rs232_4.gif"></P>
+<P>for Baudrates uptill 19200, R3 can be increased to 100 kOhm</P></TD>
+<TD valign=middle>
+<P>&nbsp;<IMG width=223 height=157 src="rs232_3.gif"></P>
+<P>Equal to the circuit on the left, except the connection of the RS232 GND.</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="basic transmit circuits"></A>
+<SPAN class=RVTS2>Basic Transmit circuits</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=250 height=225 src="rs232_2.gif"></P>
+<P>for Baudrates uptill 19200, R4 can be increased to 10 kOhm.&nbsp;</P>
+<P>RTS should be set high by the PC.&nbsp;</P>
+<P>Instead of RTS, also DTR can be used.</P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=224 height=219 src="rs232_5.gif"></P>
+<P>The same as on the left but with a transistor (note the extra resistor R5).</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="not working receive circuits"></A>
+<SPAN class=RVTS2>NOT WORKING Receive circuits</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="not working transmit circuits"></A>
+<SPAN class=RVTS2>NOT WORKING Transmit circuits,&nbsp;</SPAN></P>
+<P><SPAN class=RVTS2>although some claim succes with one of these</SPAN><A href="#top"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% border=1 cellpadding=1 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD valign=middle>
+<P>&nbsp;<IMG width=186 height=159 src="rs232_101.gif"></P>
+<P>The voltage on the RxD pin varies only from +5Volt to what ?? to nothing !!</P></TD>
+<TD valign=top>
+<P>&nbsp;<IMG width=224 height=155 src="rs232_6.gif"></P>
+<P>The voltage on the RxD pin varies only from 0 to +5Volt.</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+<TD valign=middle>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+</BODY></HTML>

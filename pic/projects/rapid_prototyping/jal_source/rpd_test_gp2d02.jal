@@ -1,0 +1,24 @@
+-- -----------------------------------------------------------------------------
+-- select the Rapid Prototyping Board library,
+-- for the chozen PIC
+-- which will also include all standard libraries
+include rapid_prototyping_board_16F877
+
+-- define the Sharp GP2D02 on Left J1
+;;;;;<;mac> RPD_SHARP_GP2D02   GP = J1L
+var volatile bit GP_clock_pin is J1L2
+var volatile bit GP_data_pin is J1L3
+var volatile bit GP_clock_direction is J1L2_direction
+var volatile bit GP_data_direction is J1L3_direction
+include Sharp_GP_lib
+;;;;;<;/mac>
+
+-- main program loop
+forever loop
+  delay_1ms (50)
+  if read_GP_sharp then
+    asynch_send_hw(GP_data)
+  end if
+end loop
+
+

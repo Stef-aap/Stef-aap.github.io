@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--
+	***************************************************************************
+ 	*   Copyright (C) 2005-2006 by Erik van 't Wout, Eugene Evans             *
+ 	*   bugs@hofhom.nl                                                        *
+ 	*                                                                         *
+ 	*   This program is free software; you can redistribute it and/or modify  *
+ 	*   it under the terms of the GNU General Public License as published by  *
+	*   the Free Software Foundation; either version 2 of the License, or     *
+	*   (at your option) any later version.                                   *
+	*                                                                         *
+	*   This program is distributed in the hope that it will be useful,       *
+	*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ 	*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ 	*   GNU General Public License for more details.                          *
+ 	*                                                                         *
+ 	*   You should have received a copy of the GNU General Public License     *
+ 	*   along with this program; if not, write to the                         *
+	*   Free Software Foundation, Inc.,                                       *
+ 	*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+	***************************************************************************
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="format.css" rel="stylesheet" type="text/css" /><script type="text/JavaScript">
+<!--
+function MM_popupMsg(msg) { //v1.0
+  alert(msg);
+}
+//-->
+</script>
+</head>
+<body>
+<div class="text-f">
+<div align="center" class="text-ft">Functions</div>
+<hr />
+<div align="justify">
+<p>Now for possibly the most important part of the entire tutorial: how to use and make functions.</p>
+<p><span class="text-fsect">Using Functions</span><br />
+For most programmers, using functions should be almost second nature; I can't think of any programming language that doesn't use functions of some sort. Anytime you call a subroutine, you are using a function. Anyway, to use a function, simply type its name, followed by <a style="cursor: pointer" onclick="alert('Just a fancy phrase for \'separated by spaces\' :P')">space-delimited</a> arguments.  Note that if you call a function that expects arguments, but don't pass any arguments to it, <a style="cursor: pointer" onclick="alert('Most likely, BZC won\'t even compile your program.  However, in the unlikely event that the program does compile, watch out; the program will almost certainly cause your calculator to crash, because functions access their arguments via the system stack, and if the function accesses data that\'s not meant for it...CRASH!")>bad things</a> will happen...<br /></p>
+<p><span class="text-fsect">Making Functions</span><br />
+BASIC ASM makes it pretty easy to make functions; that's the whole point behind the language. So, right now, let's recall how to declare the function prototype and give the function code:<br /></p>
+<table width="*" cellspacing="0" class="ec">
+  <tr>
+    <td width="1100" class="ect">Function Prototype Syntax and Example </td>
+  </tr>
+  <tr>
+    <td class="ec"><p class="com">// Declaration</p>
+      <p><span class="kw">FUNCTION </span>&lt;function_name&gt; [ <span class="kw">ARG</span> &lt;number_of_arguments&gt; ]</p>
+      <p>&nbsp;</p>
+      <p class="com">// Code</p>
+      <p><span class="kw">FSTART</span> &lt;function_name&gt; [ arg1 [ arg2 ... ] ]</p>
+      <p>[ function code ]</p>
+      <p>[ <span class="kw">RETURN</span> &lt;variable_name&gt; ]</p>
+      <p><span class="kw">FEND</span></p>
+      <p>&nbsp;</p>
+      <p class="com">// Example</p>
+      <p><span class="func">FUNCTION</span> something <span class="arg">ARG</span> 3 <span class="com">// defines a function that takes 3 arguments</span></p>
+      <span class="cc">FSTART</span> something var1 var2 string1<br />
+     <span class="func">PRINTF</span> string1<br />
+      <span class="cc">RETURN</span> var1 * var2<br />
+      <span class="cc">FEND</span><br />
+    </td>
+  </tr>
+</table>
+<p>So, obviously, this particular function doesn't do much beyond displaying a string and calculating a product. However, it allows us to see exactly how a function is constructed. <span class="cc">FSTART</span> and <span class="cc">FEND</span> enclose the code that makes up the function, and the <span class="cc">RETURN</span> keyword causes the function to return a particular value (like in C). Note that the 3 variables through which the function takes its arguments were declared by their use in the function code, and are variables local to that function. As you can see, there are endless possibilities for custom functions.</p>
+<p>Now, I think it would be a good idea if I actually listed out the various built-in BASIC ASM functions. To get more information (especially syntax) on any of these, click the function to jump to each function's listing on the <a href="commands.html" target="mainframe">BASIC ASM Commands</a> page.</p>
+<table border="0" class="ec">
+  <tr>
+    <td width="250" class="kw"><a href="commands.html#function_asm" target="mainframe">ASM...ENDASM</a></td>
+    <td width="1000">Inserts native ASM into a program</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#function_do" target="mainframe">DO...WHILE</a></td>
+    <td >Constructs a <span class="kw">DO ... WHILE</span> loop</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#function_exit" target="mainframe">EXIT</a></td>
+    <td>Instantly terminates program execution, returning to the OS or calling program</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#function_for" target="mainframe">FOR...NEXT</a></td>
+    <td>Constructs a  <span class="kw">FOR ... NEXT</span> loop</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#function_fstart" target="mainframe">FSTART...FEND</a></td>
+    <td>Assigns code to a function</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#function_if" target="mainframe">IF...THEN...ELSE...ENDIF</a></td>
+    <td>Performs conditional processing</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#function_locate" target="mainframe">locate</a></td>
+    <td>Sets the cursor coordinates of the home screen</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#function_loop" target="mainframe">LOOP...ENDLOOP</a></td>
+    <td>Constructs a continuous loop</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#function_menu" target="mainframe">menu</a></td>
+    <td>Displays a menu of up to 255 choices</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#function_printf" target="mainframe">PRINTF</a></td>
+    <td>Displays a string or number on the home screen</td>
+  </tr>
+  <tr>
+    <td class="kw"><a href="commands.html#function_start" target="mainframe">START...END</a></td>
+    <td>Defines the main code of a BASIC ASM program</td>
+  </tr>
+</table>
+<p>The commands written in lowercase are not BASIC ASM commands, but prewritten functions from the <a href="headers.html">ASMLIB header files</a>, it's a good way to seperate those two to wiret the build-in commands in uppercase and the ASMLIB functions in lowercase, however the compiler is case-unsensitive, except for buildin functions, so it don't mind if you also use uppercase for those, as long as you always write the buildin-commands in uppercase.</p>
+<p>At this point, you have learned all the essentials of the BASIC ASM language and you're ready to go out there and create amazing programs of your own. If you need inspiration, check out the sample programs in the &quot;test&quot; folder.  So, what are you waiting for? :-)</p>
+</div>
+</div>
+</body>
+</html>

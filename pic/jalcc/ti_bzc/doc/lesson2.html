@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--
+	***************************************************************************
+ 	*   Copyright (C) 2005-2006 by Erik van 't Wout, Eugene Evans             *
+ 	*   bugs@hofhom.nl                                                        *
+ 	*                                                                         *
+ 	*   This program is free software; you can redistribute it and/or modify  *
+ 	*   it under the terms of the GNU General Public License as published by  *
+	*   the Free Software Foundation; either version 2 of the License, or     *
+	*   (at your option) any later version.                                   *
+	*                                                                         *
+	*   This program is distributed in the hope that it will be useful,       *
+	*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ 	*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ 	*   GNU General Public License for more details.                          *
+ 	*                                                                         *
+ 	*   You should have received a copy of the GNU General Public License     *
+ 	*   along with this program; if not, write to the                         *
+	*   Free Software Foundation, Inc.,                                       *
+ 	*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+	***************************************************************************
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="format.css" rel="stylesheet" type="text/css" />
+<script type="text/JavaScript">
+<!--
+function MM_popupMsg(msg) { //v1.0
+  alert(msg);
+}
+//-->
+</script>
+</head>
+<body>
+<div class="text-f">
+<div align="center" class="text-ft">Compiling</div>
+<hr />
+<div align="justify">
+<p><span class="bzc">BZC</span> is a command-line program, meaning it requires one or more parameters to be passed to it at run time (normally from a command line window).</p>
+<p>When installed under Windows, BZC setup automatically associates .bzc files with bzc.exe, allowing compilation of a source file simply by right-clicking on it and chosing "compile".</p>
+<p>Normaly typing <span class="asm">BZC &#060;filename&#062;</span> is enough, however there some extra options</p>
+<table width="*" border="0" cellpadding="0" cellspacing="0" class="ec">
+  <tr>
+    <td colspan="3" class="ect"><span class="bzc">BZC</span> Command Line Syntax:</td>
+  </tr>
+  <tr>
+    <td colspan="3" class="ec"><p>bzc [option] &lt;filename&gt;</p></td>
+  </tr>
+  <tr>
+    <td width="84" class="ec">options:</td>
+    <td width="195" class="ec">&nbsp;</td>
+    <td width="737" class="ec">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="ec">&nbsp;</td>
+    <td class="ec">-c</td>
+    <td class="ec">Stops after creating an ASM source file (.asm) </td>
+  </tr>
+  <tr>
+    <td class="ec">&nbsp;</td>
+    <td class="ec">-a</td>
+    <td class="ec">Stops after creating an object file (.bin) </td>
+  </tr>
+  <tr>
+    <td class="ec">&nbsp;</td>
+    <td class="ec">--tasm<br /><br></td>
+    <td class="ec">Compile a BZC source file to an ASM source file compatible with TASM. Note that once a file is compiled to this format, it is NOT compilable with BZC buildin assebler</td>
+  </tr>
+  <tr>
+    <td class="ec">&nbsp;</td>
+    <td class="ec">-v</td>
+    <td class="ec">Be verbose </td>
+  </tr>
+</table>
+<p>The compiler automaticaly detects what kind of source file it is dealing with. <span class="asm">.bzc</span> stands for BASIC ASM source, <span class="asm">.asm</span> is native assembly (the compiler will only assemble and squish the source) and <span class="asm">.bin</span> stands for native binary data. In this last case the compiler only generates an <span class="asm">.8xp</span> file which allows transfer to your calculator. If your source file extension is other than one of these, the compiler generates an error.<br />
+Is this all a bit too complicated? In that case just mind that <span class="asm">.bzc</span> is the extension you have to use for your BASIC ASM source files.</p>
+
+<p>Got that? Good! Now, let's compile a test program. The following program serves very nicely as a test of <span class="bzc">BZC</span> and a demonstration of BASIC ASM's power. To do this, open a text editor, copy the following program into a new file, and call it <span class="asm">hellowld.bzc</span>. Then, open a command window, switch to the directory containing your file and type: <span class="asm">bzc hellowld.bzc</span> (or, under Windows, just double-click the file if it has the <span class="asm">.bzc</span> extension).</p>
+<table width="*" cellspacing="0" class="ec">
+  <tr>
+    <td width="1100" class="ect">Sample Program:</td>
+  </tr>
+  <tr>
+    <td class="ec"><span class="cc">#include</span> &lt;asmlib.h&gt;
+      <p><span class="str">STRING</span> mes = &quot;Hello World !!&quot;</p>
+      <p><span class="cc">START</span><br />
+        <span class="func">cls</span><br />
+        <span class="func">PRINTF</span> 0 0 mes<br />
+        <span class="cc">END</span></p></td>
+  </tr>
+</table>
+<p>At the moment, <a style="cursor: pointer" onclick="alert('Don\'t panic; we\'ll be covering every byte of that program in the next section... :-)')">don't worry</a> about what all the code means, just concentrate on getting it to compile correctly. If you are successful, you ought to see something quite similar to this on your calculator or emulator:</p>
+<p><img src="hello_world_screenshot.gif" border="1" width="192" height="128"/></p>
+<p>If your calculator says hello, congratulations: you've just made your first program with <strong>BZC</strong>; move on to  <a href="lesson3.html" target="tutorialframe">Program Layout</a>. Otherwise, recheck your code and verify that <span class="bzc">BZC</span> was installed correctly.</p>
+</div>
+</div>
+</body>
+</html>

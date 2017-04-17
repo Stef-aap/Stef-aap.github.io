@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="13" />
+<meta name="spellcheck" content="3" /></head>
+<body>
+
+<p class=rvps3><span class=rvts7>september 2006</span></p>
+<p><span class=rvts1>RPD&nbsp; Ethernet</span></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; <img width=32 height=32 alt="" src="rbd.png"><a class=rvts4 href="rapid_prototyping_devices.html">MainIndex</a></p>
+<p><br></p>
+<p>This module is a 10 Mbit/s full duplex ethernet, based on the ENC28J60. For using this board on the RPD mother board, it's absolutely necessary, to get your hands on a silicon revision B5 or higher for the ENC-chip, otherwise you'll have troubles addressing the MAC registers reliable.</p>
+<p>The following protocols are realized in JAL v2 ARP / ICMP-ping / TCP-IP-http. Multiple connections are allowed.</p>
+<p>The module fits on a half RPD-module board.</p>
+<p><br></p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=297 height=195 alt="" src="rapid_prototyping_ethernet_img1.png"></p>
+<p><span class=rvts7><br></span></p>
+<p><span class=rvts7><br></span></p>
+<p><img width=877 height=688 alt="" src="rapid_prototyping_ethernet_img2.png"></p>
+<p><br></p>
+<p>The circuit is straight forward, according to DS39662A, page 7/8. In the meanwhile uChip has published DS39662B, where page 7 shows a different network connection.</p>
+<p>The resistors R9, R10 and R11 are not mentioned in the uChip docs, but are absolutely necessary when interfacing a 5V PIC to the 3V3 ENC-chip. Not mounting these resistors, results in reflections on the wires (ringing), and because the ENC-chip is very fast and has a low detection level, this will result in a unreliable SPI communication.</p>
+<p>The value of R1 depends on the silicon revision of the ENC-chip:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B1,B4:&nbsp; R1 = 2k7</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R1 = 2k32</p>
+<p>The SPI output of the ENC-chip should be fed through a fast level converter to the PIC, a single transistor will not function, due to the parasitic capacities. Of course it's better to use a single buffer, but I didn't have any lying around. Texas Instruments has also very nice level converters.</p>
+<p>For the connector, I used the LF1S022, with build-in transformers (available from <a class=rvts4 href="http://www.voti.nl">http://www.voti.nl</a>).</p>
+<p>Another point of attention are the decoupling capacitors C9..C15, they really need to be mounted close to the pins !!</p>
+<p>LED-B is connected to ground, so auto half-duplex is selected.</p>
+<p><br></p>
+<p><br></p>
+
+</body></html>

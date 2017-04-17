@@ -1,0 +1,420 @@
+<HTML><HEAD><TITLE>JALcc macros</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>December 2004</SPAN></P>
+<P><SPAN class=RVTS1>JALcc macros</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<IMG width=28 height=21 src="jalccring3.gif">&nbsp;&nbsp;<IMG width=16 height=16 src="punthoofd.gif">&nbsp;&nbsp;<A class=RVTS4 href="../jalcc_frame.html">MainIndex</A></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P><A class=RVTS4 href="#introduction">Introduction</A></P>
+<P><A class=RVTS4 href="#inline_macro_io_pin">Inline Macro</A></P>
+<P><A class=RVTS4 href="#block_macro">Block Macro</A></P>
+<P>&nbsp;&nbsp;</P>
+<P>User Macros</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P><A class=RVTS4 href="#inline_macro_io_pin">io_pin</A></P>
+<P><A class=RVTS4 href="#interrupt_macro">interrupt_sub</A></P>
+<P><A class=RVTS4 href="#interrupt_macro">interrupt_main</A></P>
+<P><A class=RVTS4 href="#interrupt_macro">interrupt_prio</A></P>
+<P><A class=RVTS4 href="#tmr0_macro">TMR0</A></P>
+<P>&nbsp;&nbsp;</P>
+<P><A class=RVTS4 href="#nextstate">NextState</A></P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P><A class=RVTS4 href="#string_macro">stringtable</A></P>
+<P><A class=RVTS4 href="#string_macro">stringtable_end</A></P>
+<P><A class=RVTS4 href="#string_macro">string0</A></P>
+<P><A class=RVTS4 href="#string_macro">string</A></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><A class=RVTS4 href="#lcd_macros">LCD_write_line</A></P>
+<P><A class=RVTS4 href="#lcd_macros">LCD_write_string</A></P>
+<P><A class=RVTS4 href="#lcd_macros">LCD_write_byte</A></P>
+<P>&nbsp;&nbsp;</P>
+<P><A class=RVTS4 href="#string_macro">file_ID</A></P>
+<P><A class=RVTS4 href="#stepper_motor_control_macro">stepper_motor</A></P>
+<P><A class=RVTS4 href="#sine_table">sine_table</A></P>
+<P>tones</P>
+<P>tones1</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P><A class=RVTS4 href="#multiple_byte_macros">byteN_declare</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byteN_assign</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byteN_ADD</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byteN_SUB</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byte3_MUL</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byteN_INC</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byte3_DEC</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byteN_CMP</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byte3_SHL</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byte3_ROL</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byte3_SHR</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byte3_ROR</A></P>
+<P><A class=RVTS4 href="#multiple_byte_macros">byte3_LOG</A></P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="introduction"></A>
+<SPAN class=RVTS2>Introduction&nbsp;</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>JALcc macro's extends the possibilities of JAL, while all files maintain (almost) fully compatible with JAL.</P>
+<P>For the moment only a number of predefinied macros are available.</P>
+<P>In JALcc, normally you'll only will see the macro layout.</P>
+<P>By clicking on the book button it's possible to view the full JAL expansion.</P>
+<P>If after compilation an error in a file is encountered, then the file will also be openend in the full JAL expansion.</P>
+<P>There are 2 macro statements, an&nbsp;<A class=RVTS4 href="#inline_macro_io_pin">inline macro</A>&nbsp;statement and a&nbsp;<A class=RVTS4 href="#block_macro">block macro</A>&nbsp;statement.</P>
+<P>The functional part a macro statement consists of one of the predefinied macronames followed by zero or more arguments.</P>
+<P>As separators between the macro-elements, spaces, commas and equal-sign may be used.</P>
+<P>A string is definied as a text between double quotes.</P>
+<P>Examples:</P>
+<P>string0 "this is a string definition" ;and here is some comment</P>
+<P>stringtable some_music_tables</P>
+<P>interrupt_main</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="sine_table"></A>
+<SPAN class=RVTS2>Sine_table</SPAN></P>
+<P>Generates a sine table for one quadrant, ..0..90 degrees onzin, Nbits, Nsteps</P>
+<P>&nbsp;<IMG width=326 height=39 src="jalcc_macro_img2.gif"></P>
+<P>calling</P>
+<P>&nbsp;<IMG width=224 height=114 src="jalcc_macro_img5.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="inline_macro_io_pin"></A>
+<SPAN class=RVTS2>Inline Macro, IO_PIN&nbsp;</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>If the book button is closed, the macro layout is showed.</P>
+<P>(in this example the inline macro command is used)</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>If the book is open, the JAL layout is showed.</P>
+<P>The macro statement is still visible, but is converted to JAL comment.</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=middle>
+<P>&nbsp;<IMG width=248 height=15 src="macro_line1.gif"></P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;<IMG width=415 height=105 src="macro_line2.gif"></P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 height=48 bgcolor=#BCCDF5 valign=top>
+<P>IO_pin argument1 argument2</P></TD>
+<TD width=100 height=48 bgcolor=#BCCDF5 valign=top>
+<P>Definies (without redundacy) all related parameters of an IO-pin</P>
+<P>argument1 = significant part of the name to be used for all related parameters</P>
+<P>argument2 = valid io-pin</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="block_macro"></A>
+<SPAN class=RVTS2>Block Macro&nbsp;</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>Here the block macro is showed in it's macro layout.</P>
+<P>&nbsp;<IMG width=518 height=122 src="macro_block1.gif"></P>
+<P>And the macro expansion (only the first 2 lines !!) in the JAL layout.</P>
+<P>&nbsp;<IMG width=552 height=303 src="macro_block2.gif"></P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="nextstate"></A>
+<SPAN class=RVTS2>NextState Macro&nbsp;</SPAN></P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>Designed for (almost) pure sequential statemachines. Using these macros, makes a program more readable and moving or inserting states is made a lot simpler.&nbsp;</P>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="tmr0_macro"></A>
+<SPAN class=RVTS2>TMR0 macro&nbsp;</SPAN></P>
+<P>13-8-2005: definition of the variable _tmr0_preset included in the macro</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>Calculates and sets the optimal TMR0 settings, given the Xtal-frequency and the pulse-period.&nbsp; Both parameters may be floating point. If the desired period can not be set, a pragma error&nbsp; is generated.</P>
+<P>&nbsp;&nbsp;&nbsp; &lt;mac&gt;&nbsp;&nbsp; TMR0&nbsp;&nbsp;&nbsp; Xtal-MHz ,&nbsp; Period_usec</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;<IMG width=285 height=18 src="macro_tmr0.gif"></P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;</P>
+<P><IMG width=654 height=138 src="jalcc_macro_img6.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="lcd_macros"></A>
+<SPAN class=RVTS2>LCD Macros&nbsp;</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>&nbsp;&nbsp;</P>
+<P>These macros require the use of a library hd44780_4.JAL to support the necessary procedures !!</P>
+<P><TABLE width=100% bgcolor=#D4D0C8 border=1 cellpadding=5 bordercolor=#000000 cellspacing=0>
+<TR valign=top>
+<TD width=226 bgcolor=#D7E2FD valign=top>
+<P>LCD_write_line&nbsp; &lt;linenr&gt;&nbsp; &lt;string&gt;</P></TD>
+<TD width=626 bgcolor=#D7E2FD valign=top>
+<P>Clears the selected line, then writes the string at the beginning of that line.&nbsp;</P>
+<P>&lt;linenr&gt; = linenumber [1..max] (totally normal human numbering!!)</P></TD>
+</TR>
+<TR valign=top>
+<TD width=226 bgcolor=#D7E2FD valign=top>
+<P>LCD_write_string&nbsp; &lt;position&gt;&nbsp; &lt;string&gt;</P></TD>
+<TD width=626 bgcolor=#D7E2FD valign=top>
+<P>Writes the string starting at the indicated position.&nbsp;</P>
+<P>&lt;position&gt; = start-position [1..max] (human notation!!)</P></TD>
+</TR>
+<TR valign=top>
+<TD width=226 bgcolor=#D7E2FD valign=top>
+<P>LCD_write_byte&nbsp; &lt;position&gt;&nbsp; &lt;byte&gt;</P></TD>
+<TD width=626 bgcolor=#D7E2FD valign=top>
+<P>Writes a decimal byte at the indicated position.</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>Example:</P>
+<P>In this example 2 down-arrows are added in the second line. These down-arrows are made through the character rom.</P>
+<P>&nbsp;<IMG width=388 height=62 src="jalcc_macro_img1.gif"></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><SPAN class=RVTS8>&nbsp;&nbsp;</SPAN></P>
+<P><A name="string_macro"></A>
+<SPAN class=RVTS2>String Macro&nbsp;</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>StringTable argument1</P></TD>
+<TD width=100 valign=top>
+<P>Generates the header of the subroutine defining a lookuptable</P>
+<P>argument1 = name of the procedure</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>String argument1</P></TD>
+<TD width=100 valign=top>
+<P>Definies a string in a lookup-table</P>
+<P>argument1 = de string (enclosed in double quotes)</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>String0 argument1</P></TD>
+<TD width=100 valign=top>
+<P>Definies a string in a lookup-table and terminates the string with a NULL byte</P>
+<P>argument1 = de string (enclosed in double quotes)</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>StringTable_End</P></TD>
+<TD width=100 valign=top>
+<P>Generates the end of a lookup-table procedure</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=middle>
+<P>&lt;mac&gt;&nbsp; FILE_ID</P></TD>
+<TD width=100 valign=middle>
+<P>Inserts filepath + filename + filedate into the codesegment of the PIC</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>For an example of using lookup-tables, see for instance play_music.jal.</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="multiple_byte_macros"></A>
+<SPAN class=RVTS2>Multiple byte macros</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>Byte2_ASSIGN arg1 = arg2</P>
+<P>Byte3_ASSIGN arg1 = arg2</P>
+<P>Byte4_ASSIGN arg1 = arg2</P>
+<P>arg1 = variable to be assigned</P>
+<P>arg2 = (another) variable or a numerical constant</P>
+<P>Note: here the equal sign "=" is used as a separator, but that could be any valid separator.</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>Assignes a multi-byte variable to another variable or to a numerical constant</P>
+<P>&nbsp;<IMG width=283 height=153 src="macro_bytes_assign.gif"></P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>Byte2_DECLARE&nbsp;&nbsp; TEST</P>
+<P>Byte3_DECLARE&nbsp;&nbsp; TEST</P>
+<P>Byte4_DECLARE&nbsp;&nbsp; TEST</P>
+<P>Byte2_ADD&nbsp;&nbsp; arg1 = arg2 , arg3</P>
+<P>Byte3_ADD&nbsp;&nbsp; arg1 = arg2 , arg3</P>
+<P>Byte4_ADD&nbsp;&nbsp; arg1 = arg2 , arg3</P>
+<P>Byte2_SUB&nbsp;&nbsp; arg1 = arg2 , arg3</P>
+<P>Byte3_SUB&nbsp;&nbsp; arg1 = arg2 , arg3</P>
+<P>Byte4_SUB&nbsp;&nbsp; arg1 = arg2 , arg3</P>
+<P>Byte3_MUL&nbsp;&nbsp; arg1 = arg2, arg3</P>
+<P>Byte2_INC&nbsp;&nbsp; arg1</P>
+<P>Byte3_INC&nbsp;&nbsp; arg1</P>
+<P>Byte4_INC&nbsp;&nbsp; arg1</P>
+<P>Byte3_DEC&nbsp;&nbsp; arg1</P>
+<P>Byte2_CMP&nbsp;&nbsp; arg1 = arg2 , arg3</P>
+<P>Byte3_CMP&nbsp;&nbsp; arg1 = arg2 , arg3</P>
+<P>Byte4_CMP&nbsp;&nbsp; arg1 = arg2 , arg3</P>
+<P>Byte3_SHL&nbsp;&nbsp;&nbsp; arg1 , arg2&nbsp;</P>
+<P>Byte3_ROL&nbsp;&nbsp; arg1 , arg2</P>
+<P>Byte3_SHR&nbsp;&nbsp; arg1 , arg2</P>
+<P>Byte3_ROR&nbsp;&nbsp; arg1 , arg2</P>
+<P>Byte3_LOG&nbsp;&nbsp;&nbsp; arg1</P>
+<P>arg1 = variable to be assigned</P>
+<P>arg2 = (another) variable or a numerical constant</P>
+<P>arg3 = (another) variable or a numerical constant</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>var byte&nbsp;&nbsp; TEST1, TEST2</P>
+<P>var byte&nbsp;&nbsp; TEST1, TEST2, TEST3</P>
+<P>var byte&nbsp;&nbsp; TEST1, TEST2, TEST3, TEST4</P>
+<P>arg1 = arg2 + arg3</P>
+<P>arg1 = arg2 - arg3</P>
+<P>arg1 = arg2 * arg3</P>
+<P>INC ( arg1 )</P>
+<P>DEC ( arg 1 )</P>
+<P>arg1&nbsp; =&nbsp; (&nbsp; arg2&nbsp; ==&nbsp; arg3&nbsp; )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;arg1 is of type bit !!</P>
+<P>arg1&nbsp; =&nbsp; arg1&nbsp;&nbsp; SHL&nbsp;&nbsp; arg2&nbsp;&nbsp;&nbsp;&nbsp; ; shift left and fill up with Zeroes</P>
+<P>arg1&nbsp; =&nbsp; arg1&nbsp;&nbsp; ROL&nbsp;&nbsp; arg2&nbsp;&nbsp;&nbsp;&nbsp; ; rotate left through carry</P>
+<P>arg1&nbsp; =&nbsp; arg1&nbsp;&nbsp; SHR&nbsp;&nbsp; arg2&nbsp;&nbsp;&nbsp;&nbsp; ; shift right</P>
+<P>arg1&nbsp; =&nbsp; arg1&nbsp;&nbsp; ROR&nbsp;&nbsp; arg2&nbsp;&nbsp;&nbsp;&nbsp; ; rotate right</P>
+<P>arg1&nbsp; =&nbsp; LOG (&nbsp; arg1 )</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>&nbsp;&nbsp;</P></TD>
+</TR>
+</TABLE>
+</P>
+<P><SPAN class=RVTS2>&nbsp;&nbsp;</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="stepper_motor_control_macro"></A>
+<SPAN class=RVTS2>Stepper Motor Control macro&nbsp;</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>stepper_acceleration stepper_acc1, par2 ,par3 ,par4</P></TD>
+<TD width=100 valign=top>
+<P>This macro will generate a table for a constant acceleration / deceleration.</P>
+<P>-- parameter 1 = function/table name, must be "stepper_acc1"</P>
+<P>-- parameter 2 = time resolution in 100us units</P>
+<P>-- parameter 3 = maximum speed in steps/sec</P>
+<P>-- parameter 4 = acceleration time in 100 msec units</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 valign=top>
+<P>stepper_do_steps par1, par 2</P>
+<P>stepper_run_into par1, par2&nbsp;</P></TD>
+<TD width=100 valign=top>
+<P>These macro's will call procedures with multi-byte variables.</P>
+<P>par1 = motor number</P>
+<P>par2 = 4-byte integer (may be a variable or a constant)</P>
+<P>examples</P>
+<P>stepper_do_steps 1, 3047</P>
+<P>stepper_run_into 1, position3</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><A name="interrupt_macro"></A>
+<SPAN class=RVTS2>Interrupt<A name="interrupt_macro"></A>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; macro&nbsp;</SPAN><A href="#stef_mientki"><IMG width=14 height=14 src="top_page.gif"></A></P>
+<P>These macros are not meant as a simplification, but as a generalization. They offer the possibillity to write universal libraries with interrupt routines enclosed in the library, where the coupling of these interrupt routines to the "pragma interrupt" is done in the main program.</P>
+<P>Some special constructions were added to work around some JAL errors (call to all interrupt subroutines after the main program loop, "asm nop" at the end of the interrupt routine).</P>
+<P>Defining a interrupt routine in a library is done in the following way:</P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>With macro statements</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>The orginal JAL style</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>procedure TMR0_interrupt is</P>
+<P>&lt;mac&gt; interrupt_sub TMR0_interrupt T0IF 5</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>procedure TMR0_interrupt is</P>
+<P>pragma interrupt</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>In the mainjal file (or somewhere else, after all separate interrupt routines are declared) all the interrupt routines can be linked together with the following macro-statement:</P>
+<P>&lt;mac&gt; interrupt_main</P>
+<P>If there's need to change the priority within the generated interrupt routine, the following statement can be used</P>
+<P>&lt;mac&gt; interrupt_prio TMR0_interrupt 20</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS2>Overview</SPAN></P>
+<P><TABLE width=100% bgcolor=#EFEFEF border=1 cellpadding=5 bordercolor=#808080 cellspacing=0>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>interrupt_sub argument1 argument2 argument3</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>identifies a subroutine (in a library) as part of the interrupt routine</P>
+<P>argument1 = name of the subroutine</P>
+<P>argument2 = the flag will launch this subroutine</P>
+<P>argument3 = the priority of this subroutine (0...2^31)</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>interrupt_prio argument1 argument2</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>to change the priority of some part of the interrupt routine</P>
+<P>argument1 = name of the subroutine</P>
+<P>argument2 = the new priority of this routine</P></TD>
+</TR>
+<TR valign=top>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>interrupt_main</P></TD>
+<TD width=100 bgcolor=#BCCDF5 valign=top>
+<P>to generate the total interrupt routine</P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>Example of the macro statements to generate the main interrupt routine</P>
+<P>&nbsp;<IMG width=540 height=32 src="macro_interrupt1.gif"></P>
+<P>&nbsp;&nbsp;</P>
+<P>The corresponding macro expansion</P>
+<P>&nbsp;<IMG width=543 height=228 src="macro_interrupt2.gif"></P>
+</BODY></HTML>

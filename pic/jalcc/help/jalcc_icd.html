@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title></title>
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>march 2006</span></p>
+<p><span class=rvts1>JAL In Circuit Debugger</span></p>
+<p>&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; <img width=28 height=21 alt="" src="jalccring3.gif">&nbsp; <img width=16 height=16 alt="" src="punthoofd.gif">&nbsp; <a class=rvts4 href="../jalcc_frame.html">MainIndex</a></p>
+<p>&nbsp;&nbsp; </p>
+<p>&nbsp; </p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Most common ways I debug programs are</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>for fast phenomena: toggle some free IO-pin and watch this pin with an oscilloscope</li>
+<li>for slow phenomena: writing data to the serial port (USB)</li>
+</ul>
+<p><br></p>
+<p>Here an experimental method is described to improve method 2, in the following ways:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>easier to use</li>
+<li>being able to watch more variables</li>
+</ul>
+<p><br></p>
+<p>The idea is to select the piece of code to investigate, by marking it's beginning and it's end. Next step is to let the IDE determine all the JAL-variables used in this selection. Then any breakpoint set in this selection, will write all the detected variables to some output device (in general the serial/USB port). The outputted variables are then catched by the uploader/programmer and can be viewed by the user.</p>
+<p><br></p>
+<p><span class=rvts2>Selected Code</span></p>
+<p>Here an example of the selected code is shown. At the moment selection is doen by JALcc macros, but in the future, this should be set to the special markers in the gutter (already shown in the picture below).</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=355 height=331 alt="" hspace=1 vspace=1 src="jalcc_icd_img3.png"></p>
+<p><br></p>
+<p><span class=rvts2>Uploader</span></p>
+<p>Here an example of the catched output by the uploader (PIC_USB_downloader). This uploader can detect the type of the variables and show the variables indifferent notations (Decimal, Hex, signed Hex).</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=507 height=232 alt="" hspace=1 vspace=1 src="jalcc_icd_img1.png"></p>
+<p><br></p>
+<p>The user can select the signals to be displayed.</p>
+<p>These settings are stored in the normal projectfile.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=201 height=340 alt="" hspace=1 vspace=1 src="jalcc_icd_img2.png"></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Syntax</span></p>
+<p><br></p>
+<p><span class=rvts9>Break_Begin&nbsp; [param1]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>If param1=1 then the global _Break_Debug is set, which blocks the normal output of the program throught the port used by the debugger.</li>
+</ul>
+<p><br></p>
+<p><span class=rvts9>Break [param2]</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>If param2=0 or omitted, just the variables are outputted, but the program continuous normally. Otherwise the program is halted and waits for input through the debug port.</li>
+</ul>
+<p><br></p>
+<p><span class=rvts9>Break_End</span></p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>End of the selection</li>
+</ul>
+
+</body></html>

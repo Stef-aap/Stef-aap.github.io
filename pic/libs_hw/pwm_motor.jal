@@ -1,0 +1,235 @@
+-- -----------------------------------------------------------------------------
+-- <title 8 PWM signals
+-- <License
+-- freeware, under the terms of the GNU GPL
+--  Copyright (C) 2002 Stef Mientki
+-- -----------------------------------------------------------------------------
+-- <Description
+-- Library that can control up to 8 pwm-signals (i.e. 8 motors).
+-- uses   : TMR0 as interrupt generator
+--
+--
+-- <Version: 1.0  14-09-2002   Stef Mientki
+--   - orginal release
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+
+
+-- -----------------------------------------------------------------------------
+-- <Example RS232
+; -- define settings
+; const usart_asynch = true      ;true = RS232, false = SPI
+; const baudrate     = 115_200   ;Baudrate
+;
+; var byte xx
+; forever loop
+;   -- if character received, echo inverted
+;   if asynch_read_hw (xx) then
+;     asynch_send_hw ( ! xx)
+;   end if
+;   ... do other things here
+; end loop
+-- -----------------------------------------------------------------------------
+
+
+-- <code
+
+
+-- -----------------------------------------------------------------------------
+-- definition of the global variables
+-- -----------------------------------------------------------------------------
+var volatile byte _tmr0_preset
+
+var volatile byte pwm1_period
+var volatile byte pwm1_period_preset
+var volatile byte pwm1_active
+var volatile byte pwm1_active_preset
+
+var volatile byte pwm2_period
+var volatile byte pwm2_period_preset
+var volatile byte pwm2_active
+var volatile byte pwm2_active_preset
+
+var volatile byte pwm3_period
+var volatile byte pwm3_period_preset
+var volatile byte pwm3_active
+var volatile byte pwm3_active_preset
+
+var volatile byte pwm4_period
+var volatile byte pwm4_period_preset
+var volatile byte pwm4_active
+var volatile byte pwm4_active_preset
+
+var volatile byte pwm5_period
+var volatile byte pwm5_period_preset
+var volatile byte pwm5_active
+var volatile byte pwm5_active_preset
+
+var volatile byte pwm6_period
+var volatile byte pwm6_period_preset
+var volatile byte pwm6_active
+var volatile byte pwm6_active_preset
+
+var volatile byte pwm7_period
+var volatile byte pwm7_period_preset
+var volatile byte pwm7_active
+var volatile byte pwm7_active_preset
+
+var volatile byte pwm8_period
+var volatile byte pwm8_period_preset
+var volatile byte pwm8_active
+var volatile byte pwm8_active_preset
+
+
+
+-- -----------------------------------------------------------------------------
+-- internal routine
+-- this is the procedure that should be called by the interrupt routine
+-- If you're using JALcc, it's most convenient done by a macro statement
+-- -----------------------------------------------------------------------------
+procedure _pwm_motor_TMR0_interrupt is
+;;;;;<;mac> interrupt_sub _pwm_motor_TMR0_interrupt T0IF 5
+;;;;;<;/mac>
+
+  -- must be (one of) the first statement for accurate timing
+  TMR0 = _tmr0_preset  -- preset counter again
+
+  -- motor 1
+  -- the following if-statement is a compiler directive
+  -- so it won't use any time- or code-space when this motor is present
+  if (pwm_motors & 0b_0000_0001 ) != 0 then  -- compiler directive !!
+    pwm1_period = pwm1_period + 1
+    
+;MOET DIT NIET >= WORDEN
+    if pwm1_period == pwm1_period_preset then
+      pwm1_period = 0
+      pwm1_active = 0
+    else
+      if pwm1_active != pwm1_active_preset then pwm1_active = pwm1_active + 1 end if
+    end if
+    pwm1_pin_pin = (pwm1_active != pwm1_active_preset)
+  end if
+
+  -- motor 2
+  if (pwm_motors & 0b_0000_0010 ) != 0 then  -- compiler directive !!
+    pwm2_period = pwm2_period + 1
+    if pwm2_period == pwm2_period_preset then
+      pwm2_period = 0
+      pwm2_active = 0
+    else
+      if pwm2_active != pwm2_active_preset then pwm2_active = pwm2_active + 1 end if
+    end if
+    pwm2_pin_pin = (pwm2_active != pwm2_active_preset)
+  end if
+
+  -- motor 3
+  if (pwm_motors & 0b_0000_0100 ) != 0 then  -- compiler directive !!
+    pwm3_period = pwm3_period + 1
+    if pwm3_period == pwm3_period_preset then
+      pwm3_period = 0
+      pwm3_active = 0
+    else
+      if pwm3_active != pwm3_active_preset then pwm3_active = pwm3_active + 1 end if
+    end if
+    pwm3_pin_pin = (pwm3_active != pwm3_active_preset)
+  end if
+
+  -- motor 4
+  if (pwm_motors & 0b_0000_1000 ) != 0 then  -- compiler directive !!
+    pwm4_period = pwm4_period + 1
+    if pwm4_period == pwm4_period_preset then
+      pwm4_period = 0
+      pwm4_active = 0
+    else
+      if pwm4_active != pwm4_active_preset then pwm4_active = pwm4_active + 1 end if
+    end if
+    pwm4_pin_pin = (pwm4_active != pwm4_active_preset)
+  end if
+
+  -- motor 5
+  if (pwm_motors & 0b_0001_0000 ) != 0 then  -- compiler directive !!
+    pwm5_period = pwm5_period + 1
+    if pwm5_period == pwm5_period_preset then
+      pwm5_period = 0
+      pwm5_active = 0
+    else
+      if pwm5_active != pwm5_active_preset then pwm5_active = pwm5_active + 1 end if
+    end if
+    pwm5_pin_pin = (pwm5_active != pwm5_active_preset)
+  end if
+
+  -- motor 6
+  if (pwm_motors & 0b_0010_0000 ) != 0 then  -- compiler directive !!
+    pwm6_period = pwm6_period + 1
+    if pwm6_period == pwm6_period_preset then
+      pwm6_period = 0
+      pwm6_active = 0
+    else
+      if pwm6_active != pwm6_active_preset then pwm6_active = pwm6_active + 1 end if
+    end if
+    pwm6_pin_pin = (pwm6_active != pwm6_active_preset)
+  end if
+
+  -- motor 7
+  if (pwm_motors & 0b_0100_0000 ) != 0 then  -- compiler directive !!
+    pwm7_period = pwm7_period + 1
+    if pwm7_period == pwm7_period_preset then
+      pwm7_period = 0
+      pwm7_active = 0
+    else
+      if pwm7_active != pwm7_active_preset then pwm7_active = pwm7_active + 1 end if
+    end if
+    pwm7_pin_pin = (pwm7_active != pwm7_active_preset)
+  end if
+
+  -- motor 8
+  if (pwm_motors & 0b_1000_0000 ) != 0 then  -- compiler directive !!
+    pwm8_period = pwm8_period + 1
+    if pwm8_period == pwm8_period_preset then
+      pwm8_period = 0
+      pwm8_active = 0
+    else
+      if pwm8_active != pwm8_active_preset then pwm8_active = pwm8_active + 1 end if
+    end if
+    pwm8_pin_pin = (pwm8_active != pwm8_active_preset)
+  end if
+
+  -- must be the last statement, to prevent reentrance
+  T0IF = false        -- clear TMR0 interrupt flag
+end procedure
+-- -----------------------------------------------------------------------------
+
+
+
+-- ---------------------------------------------------------------------
+-- initializes all output pins used for the motors
+-- this procedure is automatic called by the include of this library
+-- and should rarely be called be the user
+-- ---------------------------------------------------------------------
+procedure pwm_motor_init is
+  -- set all motor pins to output
+  if (pwm_motors & 0b_0000_0001 ) != 0 then pwm1_pin_direction = output end if
+  if (pwm_motors & 0b_0000_0010 ) != 0 then pwm2_pin_direction = output end if
+  if (pwm_motors & 0b_0000_0100 ) != 0 then pwm3_pin_direction = output end if
+  if (pwm_motors & 0b_0000_1000 ) != 0 then pwm4_pin_direction = output end if
+  if (pwm_motors & 0b_0001_0000 ) != 0 then pwm5_pin_direction = output end if
+  if (pwm_motors & 0b_0010_0000 ) != 0 then pwm6_pin_direction = output end if
+  if (pwm_motors & 0b_0100_0000 ) != 0 then pwm7_pin_direction = output end if
+  if (pwm_motors & 0b_1000_0000 ) != 0 then pwm8_pin_direction = output end if
+
+  -- enable interrupts
+  T0IE = true   -- enable TMR0 interrupt
+  GIE  = true   -- enable general interrupts
+  T0IF = false  -- clear TMR0 interrupt flag
+end procedure
+-- ---------------------------------------------------------------------
+
+
+-- ---------------------------------------------------------------------
+-- perform the stepper intialisation
+-- ---------------------------------------------------------------------
+pwm_motor_init
+
+
+
+

@@ -1,0 +1,77 @@
+<HTML><HEAD><TITLE>PhotoSpectroMetry</TITLE>
+<STYLE type="text/css"><!--
+BODY {
+  margin: 5px 5px 5px 5px;
+  background-color: #EFEFEF;
+}
+
+--></STYLE>
+<LINK type="text/css" href="rvf.css" rel=STYLESHEET>
+<link rel="icon" href="punthoofd.gif" type="image/gif"></HEAD>
+<BODY alink=#ff0000>
+
+<P class=RVPS3><SPAN class=RVTS8>November 2002</SPAN></P>
+<P><SPAN class=RVTS1>JALss, PhotoSpectroMetry</SPAN></P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><SPAN class=RVTS8>&nbsp;</SPAN></P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=526 valign=middle>
+<P><SPAN class=RVTS2>PhotoSpectroMeter</SPAN></P>
+<P>This device is used to simulate the amplitude behaviour of 3 channels of a photospectrometer. It does not implement the separation of chemicals and accompagning time-spread function.</P>
+<P>For each channel, the intensity of the outcoming ligth beam is calculated by the following formula</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I&nbsp; =&nbsp; offset&nbsp; +&nbsp; ( gain * I0&nbsp; *&nbsp; exp (&nbsp; -&nbsp; concentration&nbsp; *&nbsp; absorbtion ))</P>
+<P>The&nbsp; intensity of the incoming light beam is represented by I0 (note that the value may be given as a hexadecimal number by preceding the&nbsp; number by a dollar sign, so it's easy to mimic a certain number of bits).</P>
+<P>By checking "LIN" a normal linear step is generated&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I&nbsp; = offset&nbsp; +&nbsp; gain&nbsp; *&nbsp; I0&nbsp; *&nbsp; concentration&nbsp; /&nbsp; max_absorbtion</P></TD>
+<TD width=203 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=225 height=189 src="device_spectrophotometry_a.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=477 valign=middle>
+<P><SPAN class=RVTS2>The absorbtion</SPAN>&nbsp;is taken from the table and the concentration is dynamically generated form the list "Concentration Sequence", so it's equal for all channels.</P>
+<P>The Concentration Sequence consists of a number of lines, where each line must have 3 integer numbers. With each line a "for loop" is created, which steps through a number of concentrations.&nbsp;</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; first number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = the start concentration</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; second number&nbsp; = the end concentration</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; third number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = stepsize</P>
+<P>So "0,10,1"&nbsp; means "for&nbsp; concentration=0 step 1 until 10 do ..."</P>
+<P>Table values are activated, when the ENTER key is pressed while the value grid has focus.</P>
+<P>Stepping through the concentrations is done with an internal or external clock. The stepping clock is available on an output pin (just 1 cycle high), so it can be used for example to trigger a file storage. When all lines are processed, the sequence start again with the first line. There is an edit box where the actual concentration is displayed.</P>
+<P>Stepping can also be done manually by the up/down button.</P>
+<P>Gain and offset are used to introduce imperfections in the amplifiers (or other parts of the light-system).</P>
+<P>The column lambda (symbolizing the wavelength) is just for user readability.</P>
+<P>By taking the negative logaritme of an output, a perfect linear dependancy (if offset=0) of the concentration is achieved (as shown on the right).</P></TD>
+<TD width=274 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=298 height=436 src="device_spectrophotometry_b.gif"></P></TD>
+</TR>
+</TABLE>
+</P>
+<P>&nbsp;&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<P><TABLE border=1 cellpadding=2 bordercolorlight=#D4D0C8 bordercolordark=#808080 cellspacing=2>
+<TR valign=top>
+<TD width=559 valign=middle>
+<P><SPAN class=RVTS2>Some background</SPAN></P>
+<P>Absorbtion of light by molucules in a solution, is described by the Lambert-Beer law.</P>
+<P>&nbsp;&nbsp;&nbsp; I&nbsp; =&nbsp; I0&nbsp; *&nbsp; 10 ^&nbsp; ( a * b * C )</P>
+<P>where</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp; I&nbsp; = intensity of the outgoing (measured) light</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp; I0 = intensity of the incoming light (measured through a reference channel)</P>
+<P>&nbsp;&nbsp;&nbsp; a = molecular absorbtion&nbsp; (extinction coëfficiënt)</P>
+<P>&nbsp;&nbsp;&nbsp; b = path length</P>
+<P>&nbsp;&nbsp;&nbsp; C = concentration</P></TD>
+<TD width=216 valign=middle>
+<P class=RVPS3>&nbsp;<IMG width=228 height=127 src="device_spectrophotometry_d.gif"></P>
+<P>Some links:</P>
+<P><A class=RVTS4 href="http://www.gac.edu/cgi-bin/user/%7ecellab/phpl?appds/appd-g.html">link1</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="http://www.chm.davidson.edu/java/spec/spec.html">java simulation</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="http://www.bio.davidson.edu/courses/bio111/bio111labman/lab%201.html">link3</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="http://www.mikestanleyonline.com/outlines/spec/spec.htm">link4</A></P>
+<P><A class=RVTS4 href="http://www.biochem.usyd.edu.au/%7egareth/bchm2001/practest/tue_spectro.htm">link5</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="http://www.vscc.cc.tn.us/academic/math/che/121/labs/spectrophotometry.htm">link6</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A class=RVTS4 href="http://www.people.virginia.edu/%7eswasftp/docs/9509_sop/cations.html">link</A></P></TD>
+</TR>
+</TABLE>
+</P>
+</BODY></HTML>

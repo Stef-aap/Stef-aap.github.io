@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Bind - Skip Events</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+  margin: 5px 5px 5px 5px;
+  background-color: #ffffd4;
+}
+--></style>
+<link type="text/css" href="rvf.css" rel="stylesheet">
+
+<meta name="vscrollpos" content="0" />
+<meta name="spellcheck" content="132105" /></head>
+<body>
+
+<p class=rvps3><span class=rvts8>march 2008</span></p>
+<p><span class=rvts1>Bind - Skip Events </span><img width=32 height=32 alt="" src="vippi_bricks_323.png"></p>
+<p><br></p>
+<p><span class=rvts2>Introduction</span></p>
+<p>Despite all explanations in books, on the web and in newsgroups, I again bumped into a problem with event bindings. So after solving my problem, I decided to write another view on events. I'm not a programmer, just a user and therefor my notes on this page may not be exactly correct, nor may I use the right words. It's also not a complete overview of bindings, e.g. there seems to be two distinct event types: <span class=rvts10>Basic Events</span> and <span class=rvts10>Command Events</span>, which behave different (but I don't know what the difference is, moreover I don't even know when I deal with one or the other).</p>
+<p>There are numerous pages on the web, describing the event handling, and the best ones I found (although not solving my problem) are:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li><a class=rvts4 href="http://www.zetcode.com/wxpython/events/">http://www.zetcode.com/wxpython/events/</a>&nbsp; (contains also other good tutorials) </li>
+<li><a class=rvts4 href="http://wiki.wxpython.org/self.Bind_vs._self.button.Bind">http://wiki.wxpython.org/self.Bind_vs._self.button.Bind</a>&nbsp; </li>
+<li><a class=rvts4 href="http://www.wxwidgets.org/manuals/stable/wx_eventhandlingoverview.html#eventhandlingoverview">http://www.wxwidgets.org/manuals/stable/wx_eventhandlingoverview.html#eventhandlingoverview</a></li>
+</ul>
+<p><br></p>
+<p> This document handles the following issues and tries to give a cookbook for event binding:</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>should the <span class=rvts10>binding be done to</span> control or to the panel / frame / window containing that control </li>
+<li>should the <span class=rvts10>source of the event</span> be specified or not </li>
+<li>how to get hold of the <span class=rvts10>right control-ID</span> in the event handler </li>
+</ul>
+<p><br></p>
+<p>For the general binding method:</p>
+<p><br></p>
+<p><span class=rvts11>&nbsp;&nbsp; &lt;destination&gt;.Bind ( &lt;event-type&gt;, &lt;handler&gt;, [ &lt;event-source&gt; ] )</span></p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>The environment</span></p>
+<p>I needed a float / logarithmic slider, so (with the help of Robin Dunn, thanks !!), I created a new widget in a very simple way. I derived the new widget from a wx.Panel and created the slider in the __init__ of the derived panel. All functionality of the logarithmic slider was placed in the derived panel.</p>
+<p>For simplicity I'll use in this document a wx.Button (representing the logarithmic slider) and added no extra functionality to that button. To make small enough images, I used some shortcuts in this document, like "s = self", which is certainly not advised for real programs. So here's what the new widget looks like:</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=198 height=113 alt="" src="pw_bind_skip_img14.png"></p>
+<p><br></p>
+<p><br></p>
+<p>Now I create an application, which contains the new widget and some other widgets. And because that application is created dynamically by another application, I need a general way to handle events, so I just have one event handler in my main program for all events. The program distinguishes between the different sources by maintaining a table of object-ID's. The problem was that although all normal control events were triggered and handled well, the event of the new widget wasn't handled at all.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=435 height=178 alt="" src="pw_bind_skip_img15.png"></p>
+<p><br></p>
+<p><br></p>
+<p>Knowing the cause of my problem, I also know that the problem has nothing to do with the normal controls, so I leave button B2 out in the further discussion. Let's first look to the path along which the event is evaluated: on the left side you see the code of the upper hierarchical frame, on the right the code of the new widget.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=750 height=455 alt="" src="pw_bind_skip_img7.png">&nbsp; </p>
+<p><br></p>
+<p><br></p>
+<p>Leaving out one of the bindings, doesn't break the chain, but just makes it shorter, some examples:</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=121 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>All bindings</span></p>
+</td>
+<td width=150 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Commenting line 13</span></p>
+</td>
+<td width=148 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Commenting line 47</span></p>
+</td>
+<td width=532 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Commenting line 13, 47</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=121 valign=top style="background-color: #ffffd4;">
+<p><img width=91 height=88 alt="" src="pw_bind_skip_img11.png"></p>
+</td>
+<td width=150 valign=top style="background-color: #ffffd4;">
+<p><img width=92 height=73 alt="" src="pw_bind_skip_img8.png"></p>
+</td>
+<td width=148 valign=top style="background-color: #ffffd4;">
+<p><img width=96 height=72 alt="" src="pw_bind_skip_img9.png"></p>
+</td>
+<td width=532 valign=top style="background-color: #ffffd4;">
+<p><img width=89 height=55 alt="" src="pw_bind_skip_img10.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p>Leaving out one of the event.Skip() calls, does end the chain, some examples :</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=121 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>All bindings</span></p>
+</td>
+<td width=150 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Commenting line 26</span></p>
+</td>
+<td width=148 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Commenting line 52</span></p>
+</td>
+<td width=532 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10><br></span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=121 valign=top style="background-color: #ffffd4;">
+<p><img width=91 height=88 alt="" src="pw_bind_skip_img11.png"></p>
+</td>
+<td width=150 valign=top style="background-color: #ffffd4;">
+<p><img width=91 height=56 alt="" src="pw_bind_skip_img12.png"></p>
+</td>
+<td width=148 valign=top style="background-color: #ffffd4;">
+<p><img width=92 height=36 alt="" src="pw_bind_skip_img13.png"></p>
+</td>
+<td width=532 valign=top style="background-color: #ffffd4;"><br>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>The problem</span></p>
+<p>Now I always thought that specifying the event-source was a very good idea. So let's change line 47, and specify the event-source:</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=295 valign=top style="background-color: #ffffd4;">
+<p><img width=283 height=35 alt="" src="pw_bind_skip_img16.png"></p>
+</td>
+<td width=721 valign=top style="background-color: #ffffd4;">
+<p><img width=94 height=71 alt="" src="pw_bind_skip_img17.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p>We see that the event handler "On_1B" is never called !!&nbsp; Why ??</p>
+<p>After debugging the program, the answer is very simple and (after all very) obvious: the ID of the New_Widget is not the ID of the Button.</p>
+<p><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width=122 height=34 alt="" src="pw_bind_skip_img18.png"></p>
+<p><span class=rvts8><br></span></p>
+<p>Now you can probably say, that the New_Widget is a lousy solution for creating new widgets, but it's a very easy one (certainly for non-programmers). Because PyLab_Works should be as easy as possible and hide as many as possible details from the core, we accept this as perfect valid solution.</p>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>The Solution</span></p>
+<p>The solution (or work around) consists of two extensions, one in the core of PyLab_Works and the other into a small extension of the new widget:</p>
+<p><br></p>
+<div><table width="100%" border=1 cellpadding=5 cellspacing=0 style="border-color: #d4d0c8 #808080 #808080 #d4d0c8; border-style: solid;">
+<tr valign=top>
+<td width=379 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>Core Extension</span></p>
+</td>
+<td width=637 valign=top style="background-color: #ffffd4;">
+<p><span class=rvts10>New Widget Extension</span></p>
+</td>
+</tr>
+<tr valign=top>
+<td width=379 valign=top style="background-color: #ffffd4;">
+<p><img width=377 height=73 alt="" src="pw_bind_skip_img21.png"></p>
+</td>
+<td width=637 valign=top style="background-color: #ffffd4;">
+<p><img width=242 height=37 alt="" src="pw_bind_skip_img19.png"></p>
+</td>
+</tr>
+</table>
+</div>
+<p><br></p>
+<p><br></p>
+<p><span class=rvts2>Conclusion:</span></p>
+<p>These conclusions might be too simplistic in general cases, but they certainly are valid within the PyLab_Works framework.</p>
+<ul style="text-indent: 0px; margin-left: 24px; list-style-position: outside;">
+<li>By <span class=rvts10>choosing the right component binding</span>, you can determine which handler is invoked first, the object itself or his parent </li>
+<li><span class=rvts10>Always use event.Skip()</span>. By not using event.Skip() you can stop the propagation of the event, so in general you should always use event.Skip(), unless you explicitly want to prevent the higher layers to receive the event. </li>
+<li><span class=rvts10>Never specify the event-source</span>, unless you want to bind this specific event-handler only to be used by this source and we are absolutely sure we use the right source-ID. </li>
+</ul>
+
+</body></html>

@@ -1,0 +1,35 @@
+proc
+='==========================================
+='
+='==========================================
+=proc |
+=endproc
+
+
+bg
+=begin
+=  |
+=end;
+findfirst
+=err := FindFirst('*.*',0,S);
+=if err = 0 then begin
+=  repeat
+=    |
+=    err := FindNext(S);
+=  until err <> 0;
+=  FindClose(S);
+=end;
+ap
+=begin
+=  |
+=end;
+findfirst
+=err := FindFirst('*.*',0,S);
+=if err = 0 then begin
+=  repeat
+=    |
+=    err := FindNext(S);
+=  until err <> 0;
+=  FindClose(S);
+=end;
+
